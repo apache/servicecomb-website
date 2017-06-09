@@ -2,7 +2,7 @@
 The Web Site of ServiceComb which is based on [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/).  
 
 # How to run the site locally
-*  Install Ruby and Gem 
+*  Install [Ruby](https://www.ruby-lang.org/en/downloads/) and [Gem](https://rubygems.org/) 
 
 *  Install Jekyll and Bundler
 
@@ -14,16 +14,12 @@ The Web Site of ServiceComb which is based on [Minimal Mistakes Jekyll Theme](ht
 
 * cd ServiceComb.github.io.git
 
-*  Install the gems with bundle 
+*  Install the gems with bundle
 
    `bundle install`
 
-*  Start the jekyll server 
+*  Start the jekyll server
 
    `bundle exec jekyll server`
 
-# How to publish the site
- 1. Checkout branch hg-pages and merge the changes from master
- 2. Generate the _site files `bundle exec jekyll build`
- 3. Checked in the changes
- 4. Push the hg-pages to github
+*  Start web browser to access `http://localhost:4000`   
