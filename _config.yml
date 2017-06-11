@@ -11,7 +11,7 @@ title                    : "ServiceComb"
 title_separator          : "-"
 name                     : "ServiceComb" # &name is a YAML anchor which can be *referenced later
 description              : "The homepage of ServiceComb"
-url                      : 
+url                      :
 baseurl                  : # the subpath of your site, e.g. "/blog"
 repository               : "ServiceComb/servicesomb.github.io"
 teaser                   : # path of fallback teaser image, e.g. "/assets/images/500x300.png"
@@ -79,7 +79,7 @@ analytics:
 # Site Author
 author:
   name             : *name # *name is a YAML reference pointing to the &anchor earlier
-  avatar           : "/assets/images/ServiceComb-logo-2.png"
+  avatar           : "/assets/images/ServiceComb-logo-3.jpg"
   bio              : "ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架"
   location         : "China"
   email            :
@@ -90,7 +90,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           :
+  github           : ServiceComb
   google_plus      :
   keybase          :
   instagram        :
@@ -168,17 +168,7 @@ collections:
   docs:
     output: true
     permalink: /:collection/:path/
-  recipes:
-    output: true
-    permalink: /:collection/:path/
-  pets:
-    output: true
-    permalink: /:collection/:path/
-  portfolio:
-    output: true
-    permalink: /:collection/:path/
-
-
+  
 # Defaults
 defaults:
   # _posts
@@ -198,7 +188,16 @@ defaults:
       type: pages
     values:
       layout: single
-      author_profile: true
+      author_profile: false
+  # _about
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: false
+      sidebar:
+        nav: "about"
   # _docs
   - scope:
       path: ""
