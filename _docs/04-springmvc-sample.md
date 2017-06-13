@@ -1,7 +1,7 @@
 ---
-title: "快速入门"
-permalink: /docs/quick-start-guide/
-excerpt: "如何利用JavaChassis迅速创建微服务."
+title: "SpringMvc 例子"
+permalink: /docs/spring-mvc-sample/
+excerpt: "如何利用springmvc模式迅速创建微服务."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:
   - /theme-setup/
@@ -22,49 +22,7 @@ redirect_from:
 ## 简单示例
 ### 启动Service Center
 
-有两种方式运行Service Center:
-
-1.通过运行二进制文件：
-
-
-```bash
-> curl -o etcd.zip 'https://github-production-release-asset-2e65be.s3.amazonaws.com/11225014/28ead7c6-3c88-11e7-83a2-338ef5ea1ba9?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20170607%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20170607T150952Z&X-Amz-Expires=300&X-Amz-Signature=1f2be15362d98feb9306b7a19c1c713953db4b552ec58bf258d1927f725f2966&X-Amz-SignedHeaders=host&actor_id=20241845&response-content-disposition=attachment%3B%20filename%3Detcd-v3.1.8-darwin-amd64.zip&response-content-type=application%2Foctet-stream'
-> unzip -o etcd.zip
-> cd etcd/
-> ./etcd
-> go get github.com/ServiceComb/service-center
-> cd $GOPATH/src/github.com/ServiceComb/service-center/
-> go build
-```
-**Note:**首先下载3.X版本之上的ETCD的二进制版本并运行（当前例子实在MAC之下），然后下载Service-center源码并Build。
-{: .notice--warning}
-
-
-将配置文件etc/conf/app.conf移到文件夹conf下并修改相应的参数
-
-```
-manager_cluster = "127.0.0.1:2379"
-httpport = 9980
-```
-manager_cluster为ETCT地址
-
-httpport为Service Center绑定的端口
-
-运行Service Center二进制文件
-
-```bash
-> ./service-center
-```
-
-2.通过docker镜像运行Service Center
-
-```bash
-> docker pull seanyinx/sc
-> docker run -d -p 9980:9980 seanyinx/sc:latest
-```
-
-**Note:** Service Center运行后的绑定IP为http://127.0.0.1:9980。
-{: .notice--warning}
+首先需要启动Service Center，请查看[如何启动Service Center]({{ "/docs/start-sc/" | absolute_url }})
 
 ### 例子代码
 
@@ -141,9 +99,9 @@ paths:
 **服务端SDK配置**
 
 ```yaml
-APPLICATION_ID: hellotest   # app应用ID
+APPLICATION_ID: springmvctest   # app应用ID
 service_description:
-  name: hello   # 为服务名，确保app内部唯一
+  name: springmvc   # 为服务名，确保app内部唯一
   version: 0.0.1 # 微服务版本号
 cse:
   service:
@@ -172,10 +130,15 @@ public interface Hello {
 实现服务契约接口HelloImpl.java
 
 ```java
-public class HelloImpl implements Hello {
-    public String sayHi(String name) {
+@RestSchema(schemaId = "hello")
+@RequestMapping(path = "/hello", produces = MediaType.APPLICATION_JSON)
+public class HelloImpl {
+
+    @RequestMapping(path = "/sayhi", method = RequestMethod.POST)
+    public String sayHi(@RequestParam("name") String name) {
         return "Hello " + name;
     }
+
 }
 ```
 
@@ -183,7 +146,7 @@ public class HelloImpl implements Hello {
 
 
 ```java
-public class SimpleServer {
+public class SpringServer {
 
         public static void main(String[] args) throws Exception {
             Log4jUtils.init();
@@ -194,29 +157,12 @@ public class SimpleServer {
 ```
 
 
-**服务发布**
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:util="http://www.springframework.org/schema/util" xmlns:cse="http://www.huawei.com/schema/paas/cse/rpc"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="
-		http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc-1.0.xsd">
-	<cse:rpc-schema schema-id="hello"
-		implementation="io.servicecomb.demo.server.HelloImpl"></cse:rpc-schema>
-</beans>
-```
-
 **调用端SDK配置**
 
 ```yaml
-APPLICATION_ID: hellotest  # app应用ID与服务端一致
+APPLICATION_ID: springmvctest  # app应用ID与服务端一致
 service_description:
-  name: helloClient
+  name: springmvcClient
   version: 0.0.1
 cse:
   service:
@@ -227,7 +173,7 @@ cse:
       Consumer:
         default: loadbalance
   references:
-    hello:       # 微服务名称要与服务端一致
+    springmvc:       # 微服务名称要与服务端一致
       version-rule: 0.0.1  # 微服务版本要与服务端一致
 ```
 
@@ -248,7 +194,7 @@ cse:
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc-1.0.xsd">
     <cse:rpc-reference id="hello" schema-id="hello"
-        microservice-name="helloserver"></cse:rpc-reference>
+        microservice-name="springmvctest"></cse:rpc-reference>
 </beans>
 
 ```
@@ -259,14 +205,14 @@ cse:
 
 ```
 @Component
-public class SimpleClient {
+public class SpringClient {ß
 
-    @RpcReference(microserviceName = "hello", schemaId = "hello")
+    @RpcReference(microserviceName = "springmvc", schemaId = "hello")
     private static Hello hello;
-
     public static void main(String[] args) throws Exception {
         init();
-        System.out.println(hello.sayHi("Java Chassis"));
+
+        run();
     }
 
     public static void init() throws Exception {
@@ -274,5 +220,9 @@ public class SimpleClient {
         BeanUtils.init();
     }
 
+    private static void run() {
+
+        System.out.println("result is " + hello.sayHi("Java Chassis"));
+    }
 }
 ```
