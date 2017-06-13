@@ -7,7 +7,7 @@ redirect_from:
   - /theme-setup/
 ---
 
-这个快速入门指南会提供详细的指令，帮助您迅速创建微服务。
+如何使用CodeFirst开发模式进行业务开发。
 
 {% include toc %}
 

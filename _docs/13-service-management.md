@@ -22,10 +22,6 @@ redirect_from:
 **Note:**SDK开发指南里面描述的都是技术概念，最终用户并不会用到这里的概念。系统提供的治理功能请参考治理中心的文档说明。
 {: .notice--warning}
 
-1. JDK 1.8
-2. Maven 3.5.0 
-
-
 ## 配置项生效范围
 
 - 按照类型(type)：配置项能够针对Provider, Consumer进行配置。
@@ -53,7 +49,7 @@ cse.isolation.Provider.DemoService.hello.sayHello.enabled
 
 |类|配置项|默认配置值参考|说明|
 |:----:|:----:|:----:|:-----:|
-|隔离||cse.isolation.timeout.enabled|FALSE|是否启用超时检测。|
+|隔离|cse.isolation.timeout.enabled|FALSE|是否启用超时检测。|
 |隔离|cse.isolation.timeoutInMilliseconds|30000|超时时间，超过时间，记录一次错误。|
 |隔离|cse.isolation.maxConcurrentRequests|10|通过并发数检测错误。配置最大并发数。|
 |熔断|cse.circuitBreaker.enabled|TRUE|是否启用熔断措施。|

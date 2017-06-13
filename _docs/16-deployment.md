@@ -54,12 +54,12 @@ public class MainServer {
         </param-value>
     </context-param>
     <listener>
-        <listener-class>com.huawei.paas.cse.transport.rest.servlet.RestServletContextListener</listener-class>
+        <listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class>
     </listener>
 
     <servlet>
         <servlet-name>RestServlet</servlet-name>
-        <servlet-class>com.huawei.paas.cse.transport.rest.servlet.RestServlet</servlet-class>
+        <servlet-class>io.servicecomb.transport.rest.servlet.RestServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
     </servlet>
@@ -78,7 +78,7 @@ RestServletContextListener用于初始化微服务环境，包括日志、spring
 
 ### pom.xml文件配置
 
-当前只有Rest网络通道支持此种运行模式，使用web容器模式时需要将pom文件中的transport改为依赖cse-transport-rest-servlet包。
+当前只有Rest网络通道支持此种运行模式，使用web容器模式时需要将pom文件中的transport改为依赖transport-rest-servlet包。
 
 设置finalName，是方便部署，有这一项后，maven打出来的war包，部署到web容器中，webroot即是这个finalName。
 
@@ -86,8 +86,8 @@ RestServletContextListener用于初始化微服务环境，包括日志、spring
 ```xml
 <dependencies>
     <dependency>
-        <groupId>com.huawei.paas.cse</groupId>
-        <artifactId>cse-transport-rest-servlet</artifactId>
+        <groupId>io.servicecomb</groupId>
+        <artifactId>transport-rest-servlet</artifactId>
     </dependency>
 
     ...

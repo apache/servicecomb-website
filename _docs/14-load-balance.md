@@ -14,7 +14,6 @@ redirect_from:
 
 当应用访问一个集群部署的服务时，会涉及到路由负载均衡。 当前提供的基于Ribbon的方案，可以通过配置文件配置负载均衡策略，当前支持随机，顺序，基于响应时间的权值等多种负载均衡路由策略。这些策略可以根据用户的场景进行修改配置。
 
-
 ## 配置说明
 
 命名规范如下：
@@ -110,7 +109,7 @@ cse:
   loadbalance:
     microserviceName:             # 如果为跨app访问，则配置为appId:serviceName
       transactionControl:
-        policy: com.huawei.paas.cse.loadbalance.filter.SimpleTransactionControlFilter
+        policy: io.servicecomb.loadbalance.filter.SimpleTransactionControlFilter
         options:
           tag0: value0
 ```
@@ -121,7 +120,7 @@ cse:
 - 自定义分流策略
   业务可根据自己的需求实现自定义的分流策略，代码如下:
 ```java
-import com.huawei.paas.cse.loadbalance.filter.TransactionControlFilter;
+import io.servicecomb.loadbalance.filter.TransactionControlFilter;
 import com.netflix.loadbalancer.Server;
 
 public class MyFilter extends TransactionControlFilter {
@@ -149,5 +148,3 @@ cse:
       transactionControl:
         policy: com.path.to.class.MyFilter
 ```
-
-
