@@ -2,7 +2,7 @@
 title: "用户手册"
 permalink: /docs/user-guide/
 excerpt: "用户手册."
-last_modified_at: 2017-06-06T10:01:43-04:00
+last_modified_at: 2017-06-14T10:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
