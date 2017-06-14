@@ -40,4 +40,3 @@ Java Chassis微服务开发框架组件组成如表所示:
 |运行模型|handler-loadbalance|是| 负载均衡模块。提供各种路由策略和配置方法。一般客户端使用。|
 |运行模型|handler-bizkeeper|是| 服务治理相关的功能，比如隔离、熔断、容错。|
 |运行模型|handler-tracing|是| 调用链跟踪模块，对接监控系统，吐出打点数据。|
-|运行模型|handler-tcc|是| 提供TCC事务开发管理能力。|

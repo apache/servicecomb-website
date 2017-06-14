@@ -7,7 +7,7 @@ redirect_from:
   - /theme-setup/
 ---
 
-服务中心是用于服务的注册以及服务的被发现，Provider向服务中心注册服务，而Consumer则可以通过服务中心发现Provider。
+服务中心是用于服务的注册以及服务的被发现。Provider 可以向服务中心注册服务，而Consumer则可以通过服务中心发现Provider。
 
 {% include toc %}
 
