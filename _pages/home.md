@@ -2,12 +2,10 @@
 layout: splash
 permalink: /
 header:
-  overlay_color: "#5e616c"
+  overlay_color: "#dcdde2"
   overlay_image: /assets/images/servicecomb-banner.jpg
-  cta_label: "<i class='fa fa-download'></i>快速入门"
-  cta_url: "/docs/quick-start-guide/"
   caption:
-excerpt: 'ServiceComb提供了一套关于服务框架代码生成，服务发布，服务注册，服务发现，以及配置管理功能的微服务框架。<br /><br />
+excerpt: 'ServiceComb提供了一套关于服务代码框架生成，服务注册发现，熔断，负载均衡，配置以及调用链管理功能的微服务框架。<br /><br />
 <small>最新发布版本:<small><br />
 <a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.1.0-m1"> Java开发包 v0.1.0-m1 </a></small><br />
 <small><a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.0-m1">服务中心 v0.1.0-m1</a></small><br />'
