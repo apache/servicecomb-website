@@ -428,3 +428,220 @@ cse:
     address: 0.0.0.0:9090
 ```
 
+## 经理 (Manager)
+为了管理所有人员和设施，**经理**作为用户唯一接口人，主要功能有：
+* 联系**门卫**认证用户，保护**技工**和**养蜂人**，以免非法用户骗取服务并逃避服务费用
+* 联系能力相符的**技工**和**养蜂人**，平衡工作量，避免单个人员工作超载
+* 管理**项目归档**，避免重复工作，保证公司收益最大化
+
+由于**经理**责任重大，我们选取了业界有名的[Netflix Zuul](https://github.com/Netflix/zuul)作为候选人并加以培训，
+提升其能力，以保证其能胜任该职位。
+
+首先我们引入依赖：
+
+```xml
+  <dependency>
+    <groupId>io.servicecomb</groupId>
+    <artifactId>spring-boot-starter-discovery</artifactId>
+  </dependency>
+```
+
+### 用户认证服务
+当用户发送非登录请求时，我们首先需要验证用户合法，在如下服务中，我们通过 `LoadBalancerClient` 获取**门卫**联系方式，
+然后发送用户token给**门卫**进行认证。`ServiceComb` 的 `spring-boot-starter-discovery` 提供了相应 `LoadBalancerClient` 
+实现查询[Service Center](https://github.com/ServiceComb/service-center)中的服务注册信息。
+
+```java
+@Service
+public class AuthenticationService {
+
+  private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
+
+  private final RestTemplate restTemplate;
+  private final LoadBalancerClient loadBalancer;
+
+  @Autowired
+  AuthenticationService(LoadBalancerClient loadBalancer) {
+    this.loadBalancer = loadBalancer;
+    restTemplate = new RestTemplate();
+
+    restTemplate.setErrorHandler(new ResponseErrorHandler() {
+      @Override
+      public boolean hasError(ClientHttpResponse clientHttpResponse) throws IOException {
+        return false;
+      }
+
+      @Override
+      public void handleError(ClientHttpResponse clientHttpResponse) throws IOException {
+      }
+    });
+  }
+
+  @HystrixCommand(fallbackMethod = "timeout")
+  public ResponseEntity<String> validate(String token) {
+    ResponseEntity<String> responseEntity = restTemplate.postForEntity(
+        doormanAddress() + "/validate",
+        validationRequest(token),
+        String.class
+    );
+
+    if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+      logger.warn("No such user found with token {}", token);
+    }
+    logger.info("Validated request of token {} to be user {}", token, responseEntity.getBody());
+    return responseEntity;
+  }
+
+  private ResponseEntity<String> timeout(String token) {
+    logger.warn("Request to validate token {} timed out", token);
+    return new ResponseEntity<>(REQUEST_TIMEOUT);
+  }
+
+  private String doormanAddress() {
+    return loadBalancer.choose("doorman").getUri().toString();
+  }
+
+  private HttpEntity<MultiValueMap<String, String>> validationRequest(String token) {
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+    MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+    map.add("token", token);
+
+    return new HttpEntity<>(map, headers);
+  }
+}
+```
+
+### 请求过滤
+接下来我们提供 `ZuulFilter` 实现过滤用户请求，调用 `authenticationService.validate(token)` 认证用户token。
+若用户合法则路由用户请求到对应服务，否则返回 `403 forbidden`。
+
+```java
+@Component
+class AuthenticationAwareFilter extends ZuulFilter {
+
+  private static final Logger logger = LoggerFactory.getLogger(AuthenticationAwareFilter.class);
+
+  private static final String LOGIN_PATH = "/login";
+
+  private final AuthenticationService authenticationService;
+  private final PathExtractor pathExtractor;
+
+  @Autowired
+  AuthenticationAwareFilter(
+      AuthenticationService authenticationService,
+      PathExtractor pathExtractor) {
+
+    this.authenticationService = authenticationService;
+    this.pathExtractor = pathExtractor;
+  }
+
+  @Override
+  public String filterType() {
+    return "pre";
+  }
+
+  @Override
+  public int filterOrder() {
+    return 1;
+  }
+
+  @Override
+  public boolean shouldFilter() {
+    String path = pathExtractor.path(RequestContext.getCurrentContext());
+    logger.info("Received request with query path: {}", path);
+    return !path.endsWith(LOGIN_PATH);
+  }
+
+  @Override
+  public Object run() {
+    filter();
+    return null;
+  }
+
+  private void filter() {
+    RequestContext context = RequestContext.getCurrentContext();
+
+    if (doesNotContainToken(context)) {
+      logger.warn("No token found in request header");
+      rejectRequest(context);
+    } else {
+      String token = token(context);
+      ResponseEntity<String> responseEntity = authenticationService.validate(token);
+      if (!responseEntity.getStatusCode().is2xxSuccessful()) {
+        logger.warn("Unauthorized token {} and request rejected", token);
+        rejectRequest(context);
+      } else {
+        logger.info("Token {} validated", token);
+      }
+    }
+  }
+
+  private void rejectRequest(RequestContext context) {
+    context.setResponseStatusCode(SC_FORBIDDEN);
+    context.setSendZuulResponse(false);
+  }
+
+  private boolean doesNotContainToken(RequestContext context) {
+    return authorizationHeader(context) == null
+        || !authorizationHeader(context).startsWith(TOKEN_PREFIX);
+  }
+
+  private String token(RequestContext context) {
+    return authorizationHeader(context).replace(TOKEN_PREFIX, "");
+  }
+
+  private String authorizationHeader(RequestContext context) {
+    return context.getRequest().getHeader(AUTHORIZATION);
+  }
+}
+```
+
+最后提供服务应用入口：
+
+```java
+@SpringBootApplication
+@EnableCircuitBreaker
+@EnableZuulProxy
+@EnableDiscoveryClient
+@EnableServiceComb
+public class ManagerApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(ManagerApplication.class, args);
+  }
+}
+```
+
+`application.yaml` 中定义路由规则：
+
+```yaml
+zuul:
+  routes:
+    doorman:
+      serviceId: doorman
+      sensitiveHeaders:
+    worker:
+      serviceId: worker
+    beekeeper:
+      serviceId: beekeeper
+
+# disable netflix eurkea since it's not used for service discovery
+ribbon:
+  eureka:
+    enabled: false
+```
+
+`microservice.yaml` 中定义服务中心地址：
+
+```yaml
+APPLICATION_ID: company
+service_description:
+  name: manager
+  version: 0.0.1
+cse:
+  service:
+    registry:
+      address: http://sc.servicecomb.io:9980
+```
