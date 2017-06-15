@@ -8,7 +8,7 @@ redirect_from:
   - /theme-setup/
 ---
 
-为了读者能更容易了解ServiceComb的功能以及如何用其快速开发微服务，所以提供大家耳熟能详的例子，降低学习曲线的同时，增加趣味性，加深理解。
+为了读者能更容易了解ServiceComb微服务框架的功能以及如何用其快速开发微服务，所以提供大家耳熟能详的例子，降低学习曲线的同时，增加趣味性，加深理解。
 
 本文中假设我们成立了一家科研公司，处理复杂的数学运算，以及尖端生物科技研究，并为用户提供如下服务：
 * 黄金分割数列计算
@@ -110,7 +110,9 @@ public class FibonacciRestEndpoint implements FibonacciEndpoint {
     return fibonacciService.term(n);
   }
 }
+```
 
+```java
 @RpcSchema(schemaId = "fibonacciRpcEndpoint")
 public class FibonacciRpcEndpoint implements FibonacciEndpoint {
 
@@ -345,7 +347,7 @@ public class BeekeeperApplication {
 
 ### 门卫认证服务
 认证功能我们采用[JSON Web Token (JWT)](https://jwt.io/introduction/)的机制，具体实现超出了这篇文章的范围，
-细节大家可以查看github上[workshop](https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop)的代码。
+细节大家可以查看github上[workshop](https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop)的 `doorman` 模块代码。
 
 认证服务的接口如下，`authenticate` 方法根据用户名和密码查询确认用户存在，并返回对应JWT token。用户登录后的每次
 请求都需要带上返回的JWT token，而 `validate` 方法将验证token以确认其有效。
@@ -645,3 +647,26 @@ cse:
     registry:
       address: http://sc.servicecomb.io:9980
 ```
+
+## 项目归档 (Project Archive)
+**经理**在每次用户请求后将项目进行归档，如果将来有内容相同的请求到达，**经理**可以就近获取结果，不必再购买
+**技工**和**养蜂人**提供的计算服务，节省公司开支。
+
+对于归档功能的实现，我们采用了**Spring Cache Abstraction**，具体细节超出了这篇文章的范围，大家如果有兴趣可以
+查看github上[workshop](https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop)的 `manager` 模块代码。
+
+## 人力资源 (Human Resource)
+**人力资源**从运维层面保证服务的可靠性，主要功能有
+* 弹性伸缩，以保证用户请求量超过**技工**或**养蜂人**处理能力后，招聘更多**技工**或**养蜂人**加入项目；当请求量回落后，裁剪**技工**或**养蜂人**以节省公司开支
+* 健康检查，以保证**技工**或**养蜂人**告病时，能有替补接手任务
+* 滚动升级，以保证项目需要新技能时，能替换、培训**技工**或**养蜂人**，不中断接收用户请求
+
+**人力资源**的功能需要云平台提供支持，在后续的文章中会跟大家介绍，我们如何在华为云上轻松实现这些功能。
+
+## 总结
+在这篇文章中，我们用一个公司的组织结构作为例子，给大家介绍了微服务的完整架构，以及如何使用微服务框架 `ServiceComb`
+快速开发微服务，以及服务间互通、契约认证。
+
+[Workshop demo](https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop)项目也包含大量完整易懂的测试
+代码，以及使用docker集成微服务，模拟生存环境，同时应用[Travis](https://travis-ci.org/)搭建持续集成环境，体现
+DevOps在微服务开发中的实践。希望能对大家有所帮助。
