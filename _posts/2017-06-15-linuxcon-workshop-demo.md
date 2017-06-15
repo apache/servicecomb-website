@@ -340,3 +340,91 @@ public class BeekeeperApplication {
 }
 ```
 
+## 门卫 (Doorman)
+**门卫**为公司提供安全保障，屏蔽非合法用户，防止其骗取免费服务，甚至伤害**技工**和**养蜂人**。
+
+### 门卫认证服务
+认证功能我们采用[JSON Web Token (JWT)](https://jwt.io/introduction/)的机制，具体实现超出了这篇文章的范围，
+细节大家可以查看github上[workshop](https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop)的代码。
+
+认证服务的接口如下，`authenticate` 方法根据用户名和密码查询确认用户存在，并返回对应JWT token。用户登录后的每次
+请求都需要带上返回的JWT token，而 `validate` 方法将验证token以确认其有效。
+
+```java
+public interface AuthenticationService {
+  String authenticate(String username, String password);
+
+  String validate(String token);
+}
+```
+
+### 门卫认证服务端点
+
+与前两节的Rest服务端点相似，我们加上 `@RestSchema` 注释，以便 `ServiceComb` 自动配置端点、生成契约并注册服务。 
+
+```java
+@RestSchema(schemaId = "authenticationRestEndpoint")
+@Controller
+class AuthenticationController {
+
+  static final String TOKEN_PREFIX = "Bearer ";
+  static final String USERNAME = "username";
+  static final String PASSWORD = "password";
+  static final String TOKEN = "token";
+
+  private final AuthenticationService authenticationService;
+
+  @Autowired
+  AuthenticationController(AuthenticationService authenticationService) {
+    this.authenticationService = authenticationService;
+  }
+
+  @RequestMapping(value = "/login", method = POST)
+  ResponseEntity<String> login(
+      @RequestParam(USERNAME) String username,
+      @RequestParam(PASSWORD) String password) {
+
+    String token = authenticationService.authenticate(username, password);
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(AUTHORIZATION, TOKEN_PREFIX + token);
+
+    return new ResponseEntity<>("Welcome, " + username, headers, OK);
+  }
+
+  @RequestMapping(value = "/validate", method = POST)
+  @ResponseBody
+  String validate(@RequestParam(TOKEN) String token) {
+
+    return authenticationService.validate(token);
+  }
+}
+```
+
+同样，我们需要提供服务应用启动入口以及 `microservice.yaml`：
+
+```java
+@SpringBootApplication
+@EnableServiceComb
+public class DoormanApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(DoormanApplication.class, args);
+  }
+}
+```
+
+```yaml
+# all interconnected microservices must belong to an application wth the same ID
+APPLICATION_ID: company
+service_description:
+# name of the declaring microservice
+  name: doorman
+  version: 0.0.1
+cse:
+  service:
+    registry:
+      address: http://sc.servicecomb.io:9980
+  rest:
+    address: 0.0.0.0:9090
+```
+
