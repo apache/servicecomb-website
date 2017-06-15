@@ -10,7 +10,7 @@ redirect_from:
 
 为了读者能更容易了解ServiceComb的功能以及如何用其快速开发微服务，所以提供大家耳熟能详的例子，降低学习曲线的同时，增加趣味性，加深理解。
 
-假如我们成立了一家科研公司，处理复杂的数学运算，以及尖端生物科技研究，并为用户提供如下服务：
+本文中假设我们成立了一家科研公司，处理复杂的数学运算，以及尖端生物科技研究，并为用户提供如下服务：
 * 黄金分割数列计算
 * 蜜蜂繁殖规律 (计算每只雄蜂/雌蜂的祖先数量)
 
@@ -19,7 +19,7 @@ redirect_from:
 {% include toc %}
 
 ## 业务场景
-让我们先对业务场景进行总结
+让我们先对业务场景进行总结分析
 1. 为了公司持续发展，我们需要对用户消费的运算能力收费，所以我们聘用了**门卫**认证用户，避免不法分子混入
 1. 为了提供足够的黄金分割数量运算能力，我们需要雇佣相应的**技工**
 1. 为了持续研究蜜蜂繁殖规律，公司建立了自己的蜂场，需要相应的**养蜂人**进行管理研究
@@ -129,7 +129,7 @@ public class FibonacciRpcEndpoint implements FibonacciEndpoint {
 ```
 
 这里用 `@RestSchema` 和 `@RpcSchema` 注释两个端点后，`ServiceComb` 会自动生成对应的服务端点契约，根据如下 
-`microsevice.yaml` 配置端点端口，并将契约和服务一起注册到[服务中心](https://github.com/ServiceComb/service-center)：
+`microsevice.yaml` 配置端点端口，并将契约和服务一起注册到[Service Center](https://github.com/ServiceComb/service-center)：
 
 ```yaml
 # all interconnected microservices must belong to an application wth the same ID
@@ -138,12 +138,13 @@ service_description:
 # name of the declaring microservice
   name: worker
   version: 0.0.1
+# service center address
 cse:
   service:
     registry:
       address: http://sc.servicecomb.io:9980
-  grpc:
-    address: 0.0.0.0:9090
+  highway:
+    address: 0.0.0.0:7070
   rest:
     address: 0.0.0.0:8080
 ```
@@ -160,3 +161,182 @@ public class WorkerApplication {
   }
 }
 ```
+
+## 告示栏 (Bulletin Board)
+**告示栏**提供为**门卫**、**技工**和**养蜂人**注册联系方式的设施，同时**经理**和**养蜂人**可通过此设施查询注册方的联系方式，以方便匹配能力的提供和消费。
+
+`Service Center` 提供契约和服务注册、发现功能，而且校验服务提供方和消费方的契约是否匹配，我们可以[下载](https://github.com/ServiceComb/service-center/releases)编译好的版本直接运行。
+
+## 养蜂人 (Beekeeper)
+**养蜂人**研究蜜蜂繁殖规律，计算每只蜜蜂 (雄蜂/雌蜂) 的祖先数量。因为蜜蜂繁殖规律和黄金分割数列相关，所以**养蜂人**同时消费**技工**提供的计算服务。
+
+[研究](http://www.dave-cushman.net/bee/fibonacci.html)表明，雄蜂(Drone)由未受精卵孵化而生，只有母亲；而雌蜂(Queen)由受精卵孵化而生，既有母又有父。
+
+<figure class="align-center">
+  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/fibonaccitree.gif" alt="bee ancestors">
+  <figcaption>Credit: [Dave Cushman's website](http://www.dave-cushman.net)</figcaption>
+</figure> 
+
+参考上图，蜜蜂的某一代祖先数量符合黄金分割数列的模型，由此我们可以很快实现服务功能。
+
+### 蜜蜂繁殖规律研究服务
+首先我们定义黄金数列运算接口：
+
+```java
+public interface FibonacciCalculator {
+
+  long term(int n);
+}
+```
+
+接下来定义并实现蜜蜂繁殖规律研究服务:
+```java
+interface BeekeeperService {
+  long ancestorsOfDroneAt(int generation);
+
+  long ancestorsOfQueenAt(int generation);
+}
+
+class BeekeeperServiceImpl implements BeekeeperService {
+
+  private final FibonacciCalculator fibonacciCalculator;
+
+  BeekeeperServiceImpl(FibonacciCalculator fibonacciCalculator) {
+    this.fibonacciCalculator = fibonacciCalculator;
+  }
+
+  @Override
+  public long ancestorsOfDroneAt(int generation) {
+    if (generation <= 0) {
+      return 0;
+    }
+    return fibonacciCalculator.term(generation + 1);
+  }
+
+  @Override
+  public long ancestorsOfQueenAt(int generation) {
+    if (generation <= 0) {
+      return 0;
+    }
+    return fibonacciCalculator.term(generation + 2);
+  }
+}
+```
+
+这里我们用到之前定义的 `FibonacciCalculator` 接口，并希望通过这个接口远程调用**技工**服务端点。`@RpcReference` 
+注释能帮助我们自动从[Service Center](https://github.com/ServiceComb/service-center)中获取 
+`microserviceName = "worker", schemaId = "fibonacciRpcEndpoint"` ， 即服务名为 `worker` 已经schema ID为 
+`fibonacciRpcEndpoint`的端点：
+
+```java
+@Configuration
+class BeekeeperConfig {
+
+  @RpcReference(microserviceName = "worker", schemaId = "fibonacciRpcEndpoint")
+  private FibonacciCalculator fibonacciCalculator;
+
+  @Bean
+  BeekeeperService beekeeperService() {
+    return new BeekeeperServiceImpl(fibonacciCalculator);
+  }
+}
+```
+
+我们在**技工**一节已定义好对应的服务名和schema ID端点，通过上面的配置，`ServiceComb` 会自动将远程**技工**服务
+实例和 `FibonacciCalculator` 绑定在一起。
+
+### 养蜂人服务端点
+与上一节**技工**服务相似，我们在这里也需要提供养蜂人服务端点，让用户可以进行调用：
+
+```java
+@RestSchema(schemaId = "beekeeperRestEndpoint")
+@RequestMapping("/rest")
+@Controller
+public class BeekeeperController {
+
+  private static final Logger logger = LoggerFactory.getLogger(BeekeeperController.class);
+
+  private final BeekeeperService beekeeperService;
+
+  @Autowired
+  BeekeeperController(BeekeeperService beekeeperService) {
+    this.beekeeperService = beekeeperService;
+  }
+
+  @RequestMapping(value = "/drone/ancestors/{generation}", method = GET, produces = APPLICATION_JSON_UTF8_VALUE)
+  @ResponseBody
+  public Ancestor ancestorsOfDrone(@PathVariable int generation) {
+    logger.info(
+        "Received request to find the number of ancestors of drone at generation {}",
+        generation);
+
+    return new Ancestor(beekeeperService.ancestorsOfDroneAt(generation));
+  }
+
+  @RequestMapping(value = "/queen/ancestors/{generation}", method = GET, produces = APPLICATION_JSON_UTF8_VALUE)
+  @ResponseBody
+  public Ancestor ancestorsOfQueen(@PathVariable int generation) {
+    logger.info(
+        "Received request to find the number of ancestors of queen at generation {}",
+        generation);
+
+    return new Ancestor(beekeeperService.ancestorsOfQueenAt(generation));
+  }
+}
+
+class Ancestor {
+  private long ancestors;
+
+  Ancestor() {
+  }
+
+  Ancestor(long ancestors) {
+    this.ancestors = ancestors;
+  }
+
+  public long getAncestors() {
+    return ancestors;
+  }
+}
+```
+
+因为**养蜂人**需要消费**技工**提供的服务，所以其 `microservice.yaml` 配置稍有不同：
+
+```yaml
+# all interconnected microservices must belong to an application wth the same ID
+APPLICATION_ID: company
+service_description:
+# name of the declaring microservice
+  name: beekeeper
+  version: 0.0.1
+cse:
+  service:
+    registry:
+      address: http://sc.servicecomb.io:9980
+  rest:
+    address: 0.0.0.0:8090
+  handler:
+    chain:
+      Consumer:
+        default: bizkeeper-consumer,loadbalance
+  references:
+#  this one below must refer to the microservice name it communicates with
+    worker:
+      version-rule: 0.0.1
+```
+
+这里我们需要定义 `cse.references.worker.version-rule` ，让配置名称中指向**技工**服务名 `worker` ，并匹配其版本号。
+
+最后定义养蜂人服务应用入口：
+
+```java
+@SpringBootApplication
+@EnableServiceComb
+public class BeekeeperApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(BeekeeperApplication.class, args);
+  }
+}
+```
+
