@@ -451,9 +451,16 @@ cse:
 
 ### 用户认证服务
 当用户发送非登录请求时，我们首先需要验证用户合法，在如下服务中，我们通过**告示栏**获取**门卫**联系方式，
-然后发送用户token给**门卫**进行认证。`ServiceComb` 提供了相应 `RestTemplate` 
-实现查询[Service Center](https://github.com/ServiceComb/service-center)中的服务注册信息，只需在地址中以如下格式包含
-被调用的服务名 `cse://doorman/path/to/rest/endpoint`。
+然后发送用户token给**门卫**进行认证。
+
+`ServiceComb` 提供了相应 `RestTemplate` 实现查询[Service Center](https://github.com/ServiceComb/service-center)
+中的服务注册信息，只需在地址中以如下格式包含被调用的服务名 
+
+```html
+cse://doorman/path/to/rest/endpoint
+```
+
+`ServiceComb` 将自动查询对应服务并发送请求到地址中的服务端点。
 
 ```java
 @Service
