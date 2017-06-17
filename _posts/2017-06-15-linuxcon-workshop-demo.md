@@ -370,7 +370,8 @@ public interface AuthenticationService {
 @RequestMapping("/rest")
 public class AuthenticationController {
 
-  static final String TOKEN_PREFIX = "Bearer ";
+  private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
+
   static final String USERNAME = "username";
   static final String PASSWORD = "password";
   static final String TOKEN = "token";
@@ -382,23 +383,47 @@ public class AuthenticationController {
     this.authenticationService = authenticationService;
   }
 
-  @RequestMapping(value = "/login", method = POST)
+  @RequestMapping(value = "/login", method = POST, produces = TEXT_PLAIN_VALUE)
   public ResponseEntity<String> login(
       @RequestParam(USERNAME) String username,
       @RequestParam(PASSWORD) String password) {
 
+    logger.info("Received login request from user {}", username);
     String token = authenticationService.authenticate(username, password);
     HttpHeaders headers = new HttpHeaders();
     headers.add(AUTHORIZATION, TOKEN_PREFIX + token);
 
+    logger.info("Authenticated user {} successfully", username);
     return new ResponseEntity<>("Welcome, " + username, headers, OK);
   }
 
-  @RequestMapping(value = "/validate", method = POST)
+  @RequestMapping(value = "/validate", method = POST, consumes = APPLICATION_JSON_UTF8_VALUE, produces = TEXT_PLAIN_VALUE)
   @ResponseBody
-  public String validate(@RequestParam(TOKEN) String token) {
+  public String validate(@RequestBody Token token) {
+    logger.info("Received validation request of token {}", token);
+    return authenticationService.validate(token.getToken());
+  }
+}
 
-    return authenticationService.validate(token);
+class Token {
+  private String token;
+
+  Token() {
+  }
+
+  Token(String token) {
+    this.token = token;
+  }
+
+  public String getToken() {
+    return token;
+  }
+
+  @Override
+  public String toString() {
+    return "Token{" +
+        "token='" + token + '\'' +
+        '}';
   }
 }
 ```
@@ -488,8 +513,9 @@ public class AuthenticationService {
 
   @HystrixCommand(fallbackMethod = "timeout")
   public ResponseEntity<String> validate(String token) {
+    logger.info("Validating token {}", token);
     ResponseEntity<String> responseEntity = restTemplate.postForEntity(
-        DOORMAN_ADDRESS + "/validate",
+        DOORMAN_ADDRESS + "/rest/validate",
         validationRequest(token),
         String.class
     );
@@ -506,14 +532,11 @@ public class AuthenticationService {
     return new ResponseEntity<>(REQUEST_TIMEOUT);
   }
 
-  private HttpEntity<MultiValueMap<String, String>> validationRequest(String token) {
+  private HttpEntity<Token> validationRequest(String token) {
     HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+    headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
 
-    MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-    map.add("token", token);
-
-    return new HttpEntity<>(map, headers);
+    return new HttpEntity<>(new Token(token), headers);
   }
 }
 ```
