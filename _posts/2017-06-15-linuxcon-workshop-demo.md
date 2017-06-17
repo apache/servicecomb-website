@@ -144,7 +144,7 @@ service_description:
 cse:
   service:
     registry:
-      address: http://sc.servicecomb.io:9980
+      address: http://sc.servicecomb.io:30100
   highway:
     address: 0.0.0.0:7070
   rest:
@@ -314,7 +314,7 @@ service_description:
 cse:
   service:
     registry:
-      address: http://sc.servicecomb.io:9980
+      address: http://sc.servicecomb.io:30100
   rest:
     address: 0.0.0.0:8090
   handler:
@@ -367,7 +367,8 @@ public interface AuthenticationService {
 ```java
 @RestSchema(schemaId = "authenticationRestEndpoint")
 @Controller
-class AuthenticationController {
+@RequestMapping("/rest")
+public class AuthenticationController {
 
   static final String TOKEN_PREFIX = "Bearer ";
   static final String USERNAME = "username";
@@ -382,7 +383,7 @@ class AuthenticationController {
   }
 
   @RequestMapping(value = "/login", method = POST)
-  ResponseEntity<String> login(
+  public ResponseEntity<String> login(
       @RequestParam(USERNAME) String username,
       @RequestParam(PASSWORD) String password) {
 
@@ -395,7 +396,7 @@ class AuthenticationController {
 
   @RequestMapping(value = "/validate", method = POST)
   @ResponseBody
-  String validate(@RequestParam(TOKEN) String token) {
+  public String validate(@RequestParam(TOKEN) String token) {
 
     return authenticationService.validate(token);
   }
@@ -425,7 +426,7 @@ service_description:
 cse:
   service:
     registry:
-      address: http://sc.servicecomb.io:9980
+      address: http://sc.servicecomb.io:30100
   rest:
     address: 0.0.0.0:9090
 ```
@@ -449,25 +450,24 @@ cse:
 ```
 
 ### 用户认证服务
-当用户发送非登录请求时，我们首先需要验证用户合法，在如下服务中，我们通过 `LoadBalancerClient` 获取**门卫**联系方式，
-然后发送用户token给**门卫**进行认证。`ServiceComb` 的 `spring-boot-starter-discovery` 提供了相应 `LoadBalancerClient` 
-实现查询[Service Center](https://github.com/ServiceComb/service-center)中的服务注册信息。
+当用户发送非登录请求时，我们首先需要验证用户合法，在如下服务中，我们通过**告示栏*获取**门卫**联系方式，
+然后发送用户token给**门卫**进行认证。`ServiceComb` 提供了相应 `RestTemplate` 
+实现查询[Service Center](https://github.com/ServiceComb/service-center)中的服务注册信息，只需在地址中以如下格式包含
+被调用的服务名 `cse://doorman/path/to/rest/endpoint`。
 
 ```java
 @Service
 public class AuthenticationService {
 
   private static final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
+  private static final String DOORMAN_ADDRESS = "cse://doorman";
 
   private final RestTemplate restTemplate;
-  private final LoadBalancerClient loadBalancer;
 
-  @Autowired
-  AuthenticationService(LoadBalancerClient loadBalancer) {
-    this.loadBalancer = loadBalancer;
-    restTemplate = new RestTemplate();
+  AuthenticationService() {
+    this.restTemplate = RestTemplateBuilder.create();
 
-    restTemplate.setErrorHandler(new ResponseErrorHandler() {
+    this.restTemplate.setErrorHandler(new ResponseErrorHandler() {
       @Override
       public boolean hasError(ClientHttpResponse clientHttpResponse) throws IOException {
         return false;
@@ -482,7 +482,7 @@ public class AuthenticationService {
   @HystrixCommand(fallbackMethod = "timeout")
   public ResponseEntity<String> validate(String token) {
     ResponseEntity<String> responseEntity = restTemplate.postForEntity(
-        doormanAddress() + "/validate",
+        DOORMAN_ADDRESS + "/validate",
         validationRequest(token),
         String.class
     );
@@ -497,10 +497,6 @@ public class AuthenticationService {
   private ResponseEntity<String> timeout(String token) {
     logger.warn("Request to validate token {} timed out", token);
     return new ResponseEntity<>(REQUEST_TIMEOUT);
-  }
-
-  private String doormanAddress() {
-    return loadBalancer.choose("doorman").getUri().toString();
   }
 
   private HttpEntity<MultiValueMap<String, String>> validationRequest(String token) {
@@ -645,7 +641,7 @@ service_description:
 cse:
   service:
     registry:
-      address: http://sc.servicecomb.io:9980
+      address: http://sc.servicecomb.io:30100
 ```
 
 ## 项目归档 (Project Archive)
