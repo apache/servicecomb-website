@@ -14,20 +14,14 @@ feature_row:
     alt: "标准"
     title: "服务契约"
     excerpt: "基于OpenAPI的服务契约保障。"
-    url: "/docs/swagger/"
-    btn_label: "了解更多"
   - image_path: /assets/images/servicecomb-feature-quickstart.png
     alt: "高效"
     title: "快速开发"
     excerpt: "支持多种服务框架，快速构建云化应用。"
-    url: "/docs/performance/"
-    btn_label: "了解更多"
   - image_path: /assets/images/servicecomb-feature-multiLanguage.png
     alt: "多语言"
     title: "多语言"
     excerpt: "Java/Go框架级别支持。"
-    url: "/docs/language/"
-    btn_label: "了解更多"
 ---
 
 {% include feature_row id="intro" type="center" %}
