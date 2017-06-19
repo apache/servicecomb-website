@@ -35,7 +35,7 @@ redirect_from:
 将配置文件etc/conf/app.conf移到文件夹conf/下并修改相应的参数
 
 ```
-manager_cluster = "127.0.0.1:2379" #manager_cluster为ETCT地址
+manager_cluster = "127.0.0.1:2379" #manager_cluster为 ETCD 地址
 httpport = 9980 #httpport为Service Center绑定的端口
 ```
 
