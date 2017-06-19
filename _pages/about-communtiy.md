@@ -1,5 +1,5 @@
 ---
-permalink: /about/community
+permalink: /about/community/
 title: "社区介绍"
 excerpt: "社区介绍"
 last_modified_at: 2017-06-7T14:28:13+08:00
