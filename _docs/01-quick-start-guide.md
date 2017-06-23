@@ -7,55 +7,79 @@ redirect_from:
   - /theme-setup/
 ---
 
-这个快速入门指南会帮助您迅速进行微服务业务开发。
+这个快速入门指南会帮助您迅速进行微服务业务开发。JavaChassis支持三种开发模式，此处通过POJO开发模式进行示例讲解，关于支持的SpringMVC/Jaxrs两种开发模式，请参考详细的开发指导。
 
 {% include toc %}
 
 ## 前提
-以下软件需要被安装:
+环境准备:
 
+1. JDK 1.8 
 
-1. JDK 1.8
-2. Maven 3.5.0 
+2. maven 3.5 (https://maven.apache.org/download.cgi)
+
+3. Docker(https://www.docker.com/community-edition#/download)
+
+4. Docker Toolbox  https://www.docker.com/products/docker-toolbox (Win 10 Professional/Enterprise 64-bit 或 Apple Mac OS Yosemite 10.10.3以上无需安装) 
+
+5. 下载Docker镜像
+docker pull openjdk:8-jre-alpine
+docker pull servicecomb/service-center:xxx
+
+6. 下载示例代码库，运行mvn compile获取项目所需的依赖
+https://github.com/TankTian/servicecomb-helloword
+
 
 
 ## 简单示例
-### 启动Service Center
+
+第一步：运行Service Center进行服务的注册和发现
+第二步：运行Provider工程发布服务
+第三步：运行Consumer端服务消费
+
+### 运行Service Center
 
 有两种方式运行Service Center:
 
 1.通过运行二进制文件：
+可以直接下载从[release](https://github.com/servicecomb/service-center/releases/)页面下载Service Center运行包。
+解压直接运行启动脚本：
 
-下载最新的[ETCD的release版本](https://github.com/coreos/etcd/releases) 以及[Service Center的release版本](https://github.com/servicecomb/service-center/releases/)
-
-**Note:**首先下载3.X版本之上的ETCD的二进制版本并运行，然后下载Service-center的release版本的源码并Build。
-{: .notice--warning}
-
-
-将配置文件etc/conf/app.conf移到文件夹conf/下并修改相应的参数
-
+Windows
+软件包：service-center-xxx-windows-amd64.zip
+启动：
 ```
-manager_cluster = "127.0.0.1:2379" #manager_cluster为 ETCD 地址
-httpport = 9980 #httpport为Service Center绑定的端口
+start.bat
 ```
 
-运行Service Center二进制文件
-
-```bash
-> ./service-center
+Linux
+软件包： service-center-xxx-linux-amd64.zip
+启动：
+```
+./start.sh
 ```
 
 2.通过docker镜像运行Service Center
 
 ```bash
-> docker pull seanyinx/sc
-> docker run -d -p 9980:9980 seanyinx/sc:latest
+docker pull servicecomb/service-center:xxx
+docker run -d -p 30100:30100 servicecomb/service-center:xxx
 ```
 
-**Note:** Service Center运行后的绑定IP为http://127.0.0.1:9980。
+**Note:** Service Center运行后的绑定IP为http://127.0.0.1:30100。
 {: .notice--warning}
 
-### 例子代码
+### 运行Provider工程发布服务
+
+通过IDE直接运行Provider工程Main函数，启动成功完成服务发布。
+Main函数所在的类: servicecomb-helloword/servicecomb-helloword-provider/io/servicecomb/demo/HelloProviderMain
+
+### 运行Consumer端服务消费
+
+通过IDE直接运行Consumer工程Main函数，启动成功,打印“ServiceComb test success: Hello Java Chassis”信息完成服务消费。
+Main函数所在的类: servicecomb-helloword/servicecomb-helloword-consumer/io/servicecomb/demo/HelloConsumerMain
+
+## 示例详解
 
 **服务契约配置**
 
@@ -91,7 +115,7 @@ paths:
           schema:
             type: string
 ```
-**Note:** 推荐使用Swagger Editor工具来编写契约，工具链接：[http://swagger.io/swagger-editor/](swagger-editor)
+**Note:** 推荐使用Swagger Editor工具来编写契约，工具链接：[swagger-editor](http://swagger.io/swagger-editor/)
 {: .notice--warning}
 
 **依赖包配置**
@@ -125,9 +149,30 @@ paths:
     </plugin>
   </plugins>
 </build>
+
+<!--pojo开发模式provider-->
+<dependency>
+	<groupId>io.servicecomb</groupId>
+	<artifactId>provider-pojo</artifactId>
+</dependency>
+<!--transport：rest模式-->
+<dependency>
+	<groupId>io.servicecomb</groupId>
+	<artifactId>transport-rest-vertx</artifactId>
+</dependency>
+<!--transport：highway模式-->
+<dependency>
+	<groupId>io.servicecomb</groupId>
+	<artifactId>transport-highway</artifactId>
+</dependency>
+<!--自定义日志系统-->
+<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-log4j12</artifactId>
+</dependency>
 ```
 
-**服务端SDK配置**
+**Provider端微服务描述文件配置**
 
 ```yaml
 APPLICATION_ID: hellotest   # app应用ID
@@ -144,7 +189,7 @@ cse:
     address: 0.0.0.0:7070   # highway通道端口信息，确保该端口可监听
 ```
 
-**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml
+**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml （上面注释需要去掉）
 {: .notice--warning}
 
 
@@ -197,10 +242,11 @@ public class SimpleServer {
 		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc-1.0.xsd">
 	<cse:rpc-schema schema-id="hello"
 		implementation="io.servicecomb.demo.server.HelloImpl"></cse:rpc-schema>
+        <context:component-scan base-package="io.servicecomb.demo" />
 </beans>
 ```
 
-**调用端SDK配置**
+**Consumer端微服务描述文件配置**
 
 ```yaml
 APPLICATION_ID: hellotest  # app应用ID与服务端一致
@@ -220,7 +266,7 @@ cse:
       version-rule: 0.0.1  # 微服务版本要与服务端一致
 ```
 
-**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml
+**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml（上面注释需要去掉）
 {: .notice--warning}
 
 
@@ -238,6 +284,7 @@ cse:
         http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc-1.0.xsd">
     <cse:rpc-reference id="hello" schema-id="hello"
         microservice-name="helloserver"></cse:rpc-reference>
+    <context:component-scan base-package="io.servicecomb.demo" />
 </beans>
 
 ```
