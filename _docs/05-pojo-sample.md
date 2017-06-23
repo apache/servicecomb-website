@@ -16,7 +16,7 @@ redirect_from:
 
 
 1. JDK 1.8
-2. Maven 3.5.0 
+2. Maven 3.x
 
 
 
@@ -62,7 +62,7 @@ paths:
           schema:
             type: string
 ```
-**Note:** 推荐使用Swagger Editor工具来编写契约，工具链接：[http://swagger.io/swagger-editor/](swagger-editor)
+**Note:** 推荐使用Swagger Editor工具来编写契约，工具链接：[swagger-editor](http://swagger.io/swagger-editor/)
 {: .notice--warning}
 
 **依赖包配置**
@@ -73,7 +73,7 @@ paths:
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>java-chassis-dependencies</artifactId>
-      <version>0.1.0-m1</version>
+      <version>0.1.0-m2</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -96,9 +96,30 @@ paths:
     </plugin>
   </plugins>
 </build>
+
+<!--pojo开发模式provider-->
+<dependency>
+	<groupId>io.servicecomb</groupId>
+	<artifactId>provider-pojo</artifactId>
+</dependency>
+<!--transport：rest模式-->
+<dependency>
+	<groupId>io.servicecomb</groupId>
+	<artifactId>transport-rest-vertx</artifactId>
+</dependency>
+<!--transport：highway模式-->
+<dependency>
+	<groupId>io.servicecomb</groupId>
+	<artifactId>transport-highway</artifactId>
+</dependency>
+<!--自定义日志系统-->
+<dependency>
+	<groupId>org.slf4j</groupId>
+	<artifactId>slf4j-log4j12</artifactId>
+</dependency>
 ```
 
-**服务端SDK配置**
+**Provider端微服务描述文件配置**
 
 ```yaml
 APPLICATION_ID: hellotest   # app应用ID
@@ -108,14 +129,14 @@ service_description:
 cse:
   service:
     registry:
-      address: http://127.0.0.1:9980 # 服务中心地址
+      address: http://127.0.0.1:30100 # 服务中心地址
   rest:
     address: 0.0.0.0:8080   # rest通道端口信息，确保该端口可监听
   highway:
     address: 0.0.0.0:7070   # highway通道端口信息，确保该端口可监听
 ```
 
-**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml
+**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml （上面注释需要去掉）
 {: .notice--warning}
 
 
@@ -168,10 +189,11 @@ public class SimpleServer {
 		http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc-1.0.xsd">
 	<cse:rpc-schema schema-id="hello"
 		implementation="io.servicecomb.demo.server.HelloImpl"></cse:rpc-schema>
+        <context:component-scan base-package="io.servicecomb.demo" />
 </beans>
 ```
 
-**调用端SDK配置**
+**Consumer端微服务描述文件配置**
 
 ```yaml
 APPLICATION_ID: hellotest  # app应用ID与服务端一致
@@ -191,7 +213,7 @@ cse:
       version-rule: 0.0.1  # 微服务版本要与服务端一致
 ```
 
-**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml
+**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml（上面注释需要去掉）
 {: .notice--warning}
 
 
@@ -208,7 +230,8 @@ cse:
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
         http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc-1.0.xsd">
     <cse:rpc-reference id="hello" schema-id="hello"
-        microservice-name="helloserver"></cse:rpc-reference>
+        microservice-name="helloserver"></cse:rpc-reference>    
+    <context:component-scan base-package="io.servicecomb.demo" />
 </beans>
 
 ```
