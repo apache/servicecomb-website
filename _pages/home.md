@@ -7,7 +7,7 @@ header:
   caption:
 excerpt: 'ServiceComb提供了一套包含代码框架生成，服务注册发现，负载均衡，服务可靠性（容错熔断，限流降级，调用链追踪）等功能的微服务框架。<br /><br />
 <small>最新发布版本:<small><br />
-<a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.1.0-m1"> Java开发包 v0.1.0-m1 </a></small><br />
+<a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.1.0-m2"> Java开发包 v0.1.0-m2 </a></small><br />
 <small><a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.0-m1">服务中心 v0.1.0-m1</a></small><br />'
 feature_row:
   - image_path: /assets/images/servicecomb-feature-openapi.png

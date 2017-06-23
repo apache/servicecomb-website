@@ -47,7 +47,7 @@ docker run -d -p 30100:30100 servicecomb/service-center:xxx
 {: .notice--warning}
 
 2.直接运行编译好的二进制文件：
-可以直接下载从service-center [release](https://github.com/servicecomb/service-center/releases/)页面下载Service Center运行包。
+可以直接从service-center [release](https://github.com/servicecomb/service-center/releases/)页面下载Service Center运行包。
 解压直接运行启动脚本：
 
 Windows
