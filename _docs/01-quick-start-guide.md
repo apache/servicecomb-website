@@ -18,6 +18,8 @@ last_modified_at: 2017-06-06T10:01:43-04:00
 
 3. [Docker](https://www.docker.com/community-edition#/download)可选，推荐直接使用二进制版本
 
+4.下载示例[POJO开发模式工程代码](https://github.com/TankTian/servicecomb-helloword/archive/master.zip)
+
 
 ## 简单示例
 
