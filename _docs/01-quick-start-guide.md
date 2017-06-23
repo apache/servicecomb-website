@@ -67,7 +67,7 @@ Main函数所在的类: servicecomb-helloword-provider: HelloProviderMain
 
 ### 运行Consumer端服务消费
 
-导入示例工程，通过IDE直接运行Consumer工程Main函数，启动成功,打印<font color=#F4A460> ServiceComb test success: Hello Java Chassis </font>信息完成服务消费。  
+导入示例工程，通过IDE直接运行Consumer工程Main函数，启动成功,打印 “ServiceComb test success: Hello Java Chassis” 信息完成服务消费。  
 
 Main函数所在的类: servicecomb-helloword-consumer: HelloConsumerMain
 
