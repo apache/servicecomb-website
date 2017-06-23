@@ -14,15 +14,9 @@ last_modified_at: 2017-06-06T10:01:43-04:00
 
 1. JDK 1.8
 
-2. [maven 3.5](https://maven.apache.org/download.cgi)
+2. [maven 3.x](https://maven.apache.org/download.cgi)
 
-3. [Docker](https://www.docker.com/community-edition#/download)
-
-4. 如果使用不支持docker的操作系统如 Window7 ，请下载 [Docker Toolbox](https://www.docker.com/products/docker-toolbox)
-
-5. 下载Docker镜像
-docker pull openjdk:8-jre-alpine
-docker pull servicecomb/service-center
+3. [Docker](https://www.docker.com/community-edition#/download)可选，推荐直接使用二进制版本
 
 
 ## 简单示例
