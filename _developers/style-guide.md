@@ -1,6 +1,6 @@
 ---
 title: "代码风格"
-permalink: /docs/code-style/
+permalink: /developers/code-style/
 excerpt: "代码风格"
 last_modified_at: 2017-06-24T18:48:43+08:00
 ---
