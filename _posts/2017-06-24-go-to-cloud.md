@@ -20,10 +20,12 @@ redirect_from:
 * 应用运维：通过Service Stage对微服务或应用进行生命周期管理（部署-启动-上线-升级-扩容-停止-下线-删除）、告警、监控、调用链分析和治理等。
 
 ## 环境准备：创建集群、添加节点，完成节点自动纳管
-###	创建集群
+###	创建集群  
+请参考[创建集群详细指导](http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053496188.html)  
 ![create group]({{ site.url }}{{ site.baseurl }}/assets/images/create-group.png){: .align-center}
 
-###	添加节点
+###	添加节点  
+请参考[为集群添加节点详细指导](http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053443149.html)   
 ![add node]({{ site.url }}{{ site.baseurl }}/assets/images/add-node.png){: .align-center}
 
 ## 微服务开发
@@ -47,23 +49,29 @@ redirect_from:
 ![service consumer]({{ site.url }}{{ site.baseurl }}/assets/images/service-consumer.png){: .align-center}
 
 ### 制作镜像上传到云镜像中心
+请参考[上传镜像详细指导](http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0055101643.html)  
 ![image upload 1]({{ site.url }}{{ site.baseurl }}/assets/images/image-upload-1.png){: .align-center}  
 ![image upload 2]({{ site.url }}{{ site.baseurl }}/assets/images/image-upload-2.png){: .align-center}
 
 ## 应用上线：利用应用管理实现部署上线
+请参考[部署微服务详细指导](http://support.hwclouds.com/usermanual-servicestage/user_deployService.html)   
 ![service deploy]({{ site.url }}{{ site.baseurl }}/assets/images/service-deploy.png){: .align-center}
 
 ## 应用运维：保障应用平稳运行
 ### 微服务调用链分析
+请参考[应用调用分析详细指导](http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053555508.html)  
  ![service monitor 1]({{ site.url }}{{ site.baseurl }}/assets/images/service-monitor-1.png){: .align-center}
 
 ### 微服务状态监控
+请参考[应用监控详细指导](http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053555506.html)  
 ![service monitor 2]({{ site.url }}{{ site.baseurl }}/assets/images/service-monitor-2.png){: .align-center}
 
 ### 按需弹性伸缩
+请参考[弹性伸缩详细指导](http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0054051691.html)  
 ![scaling]({{ site.url }}{{ site.baseurl }}/assets/images/scaling.png){: .align-center}
 
 ### 微服务可视化治理
+请参考[微服务管理详细指导](http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053560172.html)  
 ![governance]({{ site.url }}{{ site.baseurl }}/assets/images/governance.png){: .align-center}
 
 # Acmeair本地运行
@@ -73,9 +81,10 @@ redirect_from:
 * JDK 1.8
 * maven 3.x
 * eclipse
-* service-center(https://github.com/ServiceComb/service-center/releases)   
-  下载service-center-0.1.0-m1-windows-amd64.zip解压到任意目录
+* service-center    
+  下载[service-center-x.x.x-x-windows-amd64.zip](https://github.com/ServiceComb/service-center/releases)解压到任意目录
 * mongodb（可选）
+* 下载[acmeair源码](https://github.com/TankTian/acmeair/archive/master.zip)
 
 ## 导入项目并构建
 ### 将acmeair项目导入eclipse
