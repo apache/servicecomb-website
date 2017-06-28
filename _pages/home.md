@@ -9,6 +9,10 @@ excerpt: 'ServiceComb提供了一套包含代码框架生成，服务注册发�
 <small>最新发布版本:<small><br />
 <a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.1.0-m2"> Java开发包 v0.1.0-m2 </a></small><br />
 <small><a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.0-m1">服务中心 v0.1.0-m1</a></small><br />'
+
+intro:
+  - excerpt: '在新近结束的LinuxCon Beijing 2017大会上，ServiceComb举办了一次<a href="http://servicecomb.io/slides/"> workshop</a>，向广大用户介绍了微服务架构相关原则，ServiceComb的前世今生，以及<a href="http://servicecomb.io/docs/linuxcon-workshop-demo/">如何使用ServiceComb构建一个云化应用</a>。'
+
 feature_row:
   - image_path: /assets/images/servicecomb-feature-openapi.png
     alt: "标准"
