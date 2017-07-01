@@ -16,6 +16,10 @@ redirect_from:
 
 但是我们如何将公司的这些强大运算能力提供给我们的消费者呢？
 
+首先我们通过认证服务保障公司的计算资源没有被滥用， 同时我们对外提供Rest服务让用户来进行访问。 下面的视频展示具体的服务验证调用的情况。
+
+{% include video id="XMjg1NzQ3NzUzNg" provider="youku" %}
+
 {% include toc %}
 
 ## 业务场景
@@ -33,11 +37,6 @@ redirect_from:
 ![company structure]({{ site.url }}{{ site.baseurl }}/assets/images/workshop-company-structure.png){: .align-center}
 
 现在公司组织结构已经完整，让我们着手搭建相应部门。
-
-## 前期准备
-在这个演示项目中，我们会用到 `Spring Boot` 框架搭建应用基础，请先到 `Spring Boot` [官方网页](http://start.spring.io/) 下载基础项目。
-
-![spring boot]({{ site.url }}{{ site.baseurl }}/assets/images/workshop-spring-starter.png){: .align-center}
 
 ## 技工 (Worker)
 因为技工最为简单，对其他部门人员依赖最少，我们首先搭建这个部门。
@@ -130,7 +129,7 @@ public class FibonacciRpcEndpoint implements FibonacciEndpoint {
 }
 ```
 
-这里用 `@RestSchema` 和 `@RpcSchema` 注释两个端点后，`ServiceComb` 会自动生成对应的服务端点契约，根据如下 
+这里用 `@RestSchema` 和 `@RpcSchema` 注释两个端点后，`ServiceComb` 会自动生成对应的服务端点契约，根据如下
 `microsevice.yaml` 配置端点端口，并将契约和服务一起注册到[Service Center](https://github.com/ServiceComb/service-center)：
 
 ```yaml
@@ -177,7 +176,7 @@ public class WorkerApplication {
 <figure class="align-center">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/fibonaccitree.gif" alt="bee ancestors">
   <figcaption>Credit: [Dave Cushman's website](http://www.dave-cushman.net)</figcaption>
-</figure> 
+</figure>
 
 参考上图，蜜蜂的某一代祖先数量符合黄金分割数列的模型，由此我们可以很快实现服务功能。
 
@@ -225,9 +224,9 @@ class BeekeeperServiceImpl implements BeekeeperService {
 }
 ```
 
-这里我们用到之前定义的 `FibonacciCalculator` 接口，并希望通过这个接口远程调用**技工**服务端点。`@RpcReference` 
-注释能帮助我们自动从[Service Center](https://github.com/ServiceComb/service-center)中获取 
-`microserviceName = "worker", schemaId = "fibonacciRpcEndpoint"` ， 即服务名为 `worker` 已经schema ID为 
+这里我们用到之前定义的 `FibonacciCalculator` 接口，并希望通过这个接口远程调用**技工**服务端点。`@RpcReference`
+注释能帮助我们自动从[Service Center](https://github.com/ServiceComb/service-center)中获取
+`microserviceName = "worker", schemaId = "fibonacciRpcEndpoint"` ， 即服务名为 `worker` 已经schema ID为
 `fibonacciRpcEndpoint`的端点：
 
 ```java
@@ -362,7 +361,7 @@ public interface AuthenticationService {
 
 ### 门卫认证服务端点
 
-与前两节的Rest服务端点相似，我们加上 `@RestSchema` 注释，以便 `ServiceComb` 自动配置端点、生成契约并注册服务。 
+与前两节的Rest服务端点相似，我们加上 `@RestSchema` 注释，以便 `ServiceComb` 自动配置端点、生成契约并注册服务。
 
 ```java
 @RestSchema(schemaId = "authenticationRestEndpoint")
@@ -479,7 +478,7 @@ cse:
 然后发送用户token给**门卫**进行认证。
 
 `ServiceComb` 提供了相应 `RestTemplate` 实现查询[Service Center](https://github.com/ServiceComb/service-center)
-中的服务注册信息，只需在地址中以如下格式包含被调用的服务名 
+中的服务注册信息，只需在地址中以如下格式包含被调用的服务名
 
 ```html
 cse://doorman/path/to/rest/endpoint
