@@ -1,4 +1,4 @@
-	---
+---
 title: "JAX RS例子"
 permalink: /docs/jaxrs-sample/
 excerpt: "用Jaxre模式创建微服务."
