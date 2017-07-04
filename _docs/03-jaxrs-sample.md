@@ -1,4 +1,4 @@
----
+	---
 title: "JAX RS例子"
 permalink: /docs/jaxrs-sample/
 excerpt: "用Jaxre模式创建微服务."
@@ -35,7 +35,7 @@ swagger: '2.0'
 info:
   title: hello
   version: 1.0.0
-  x-java-interface: io.servicecomb.demo.Hello
+  x-java-interface: io.servicecomb.samples.jaxrs.Hello
 basePath: /pojo/rest/hello
 produces:
   - application/json
@@ -52,18 +52,18 @@ paths:
             type: string
       responses:
         200:
-          description: 成功返回值
+          description: 正确返回
           schema:
             type: string
         default:
-          description: 默认返回值
+          description: 默认返回
           schema:
             type: string
 ```
 **Note:** 推荐使用Swagger Editor工具来编写契约，工具链接：[http://swagger.io/swagger-editor/](swagger-editor)
 {: .notice--warning}
 
-**依赖包配置**
+**依赖包配置** (xxx 为实际依赖的最新版本号)
 
 ```xml
 <dependencyManagement>
@@ -71,9 +71,14 @@ paths:
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>java-chassis-dependencies</artifactId>
-      <version>0.1.0-m1</version>
+      <version>xxx</version>
       <type>pom</type>
       <scope>import</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.servicecomb.samples</groupId>
+      <artifactId>commmon-schema</artifactId>
+      <version>xxx</version>
     </dependency>
   </dependencies>
 </dependencyManagement>
@@ -106,7 +111,7 @@ service_description:
 cse:
   service:
     registry:
-      address: http://127.0.0.1:9980 # 服务中心地址
+      address: http://127.0.0.1:30100 # 服务中心地址
   rest:
     address: 0.0.0.0:8080   # rest通道端口信息，确保该端口可监听
   highway:
@@ -121,24 +126,38 @@ cse:
 
 ```java
 public interface Hello {
+
     String sayHi(String name);
+	
+    String sayHello(Person person);
+	
 }
 ```
 
 **服务实现**
 
-使用JAX-RS标注进行业务代码的开发，实现服务契约接口HelloImpl.java
+使用JAX-RS标注进行业务代码的开发，实现服务契约接口JaxrsHelloImpl.java
 
 ```java
-@RestSchema(schemaId = "hello")
-@Path("/hello")
+@RestSchema(schemaId = "jaxrsHello")
+@Path("/jaxrshello")
 @Produces(MediaType.APPLICATION_JSON)
-public class HelloImpl implements Hello {
+public class JaxrsHelloImpl implements Hello {
+
     @Path("/sayhi")
     @POST
+    @Override
     public String sayHi(String name) {
         return "Hello " + name;
     }
+    
+    @Path("/sayhello")
+    @POST
+    @Override
+    public String sayHello(Person person) {
+        return "Hello person " + person.getName();
+    }
+
 }
 ```
 
@@ -146,13 +165,13 @@ public class HelloImpl implements Hello {
 
 
 ```java
-public class JaxrsServer {
+public class JaxrsProviderMain {
 
-        public static void main(String[] args) throws Exception {
-            Log4jUtils.init();
-            BeanUtils.init();
-        }
-
+    public static void main(String[] args) throws Exception {
+        Log4jUtils.init();
+        BeanUtils.init();
+    }
+	
 }
 ```
 
@@ -162,22 +181,25 @@ public class JaxrsServer {
 ```yaml
 APPLICATION_ID: jaxrstest  # app应用ID与服务端一致
 service_description:
-  name: jaxrsClient
+  name: helloClient
   version: 0.0.1
 cse:
   service:
     registry:
-      address: http://127.0.0.1:9980   # 服务中心IP
+      address: http://127.0.0.1:30100   # 服务中心IP
   handler:
     chain:
       Consumer:
-        default: loadbalance
+        default: bizkeeper-consumer,loadbalance     # 治理相关handler配置
+  isolation:
+    Consumer:
+      enabled: false  # 不开启故障隔离 
   references:
     jaxrs:       # 微服务名称要与服务端一致
       version-rule: 0.0.1  # 微服务版本要与服务端一致
 ```
 
-**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml
+**Note:** SDK配置文件路径为： \src\main\resources\microservice.yaml （上面注释需要去掉）
 {: .notice--warning}
 
 
@@ -185,29 +207,25 @@ cse:
 
 调用端在加载完日志配置、sdk配置后，就可以对服务进行远程调用了。
 
-```
-public class JaxrsClient {
-    private static RestTemplate templateNew = RestTemplateBuilder.create();
+```java
+@Component
+public class JaxrsConsumerMain {
 
+    @RpcReference(microserviceName = "jaxrs", schemaId = "jaxrsHello")
+    private static Hello hello;
+    
     public static void main(String[] args) throws Exception {
         init();
-
-        run();
+        System.out.println(hello.sayHi("Java Chassis"));
+        Person person = new Person();
+        person.setName("ServiceComb/Java Chassis");
+        System.out.println(hello.sayHello(person));
     }
-
+    
     public static void init() throws Exception {
         Log4jUtils.init();
         BeanUtils.init();
     }
-
-    private static void run(){
-        String microserviceName = "jaxrs";
-        String cseUrlPrefix = "cse://" + microserviceName;
-        Map<String, String> params = new HashMap<>();
-        params.put("name", "Java Chassis");
-        String result = templateNew.postForObject(cseUrlPrefix + "/hello/sayhi", params, String.class);
-        System.out.println("result is " + result);
-    }
+	
 }
-
 ```

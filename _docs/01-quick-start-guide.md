@@ -18,7 +18,8 @@ last_modified_at: 2017-06-06T10:01:43-04:00
 
 3. Docker可选，推荐直接使用二进制版本
 
-4. 下载示例[POJO开发模式工程代码](https://github.com/TankTian/servicecomb-helloword/archive/master.zip)
+4. 下载示例[POJO开发模式工程代码](https://github.com/ServiceComb/java-chassis/archive/master.zip)    
+   注：示例工程pojo-sample在java-chassis/samples下，所以下载整个java-chassis工程
 
 ## 简单示例
 
@@ -63,13 +64,21 @@ Linux
 
 导入示例工程，通过IDE直接运行Provider工程Main函数，启动成功完成服务发布。  
 
-Main函数所在的类: servicecomb-helloword-provider: HelloProviderMain
+Main函数所在的类：pojo-provider:PojoProviderMain
 
 ### 运行Consumer端服务消费
 
-导入示例工程，通过IDE直接运行Consumer工程Main函数，启动成功,打印 “ServiceComb test success: Hello Java Chassis” 信息完成服务消费。  
+导入示例工程，通过IDE直接运行Consumer工程Main函数   
 
-Main函数所在的类: servicecomb-helloword-consumer: HelloConsumerMain
+Main函数所在的类：pojo-consumer:PojoConsumerMain    
+
+启动成功，打印输出信息完成服务消费。
+
+```
+Hello Java Chassis 
+Hello person ServiceComb/Java Chassis 
+a: 1, b=2, result=3
+```  
 
 ## 示例详解
 
