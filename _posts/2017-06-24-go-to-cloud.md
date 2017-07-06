@@ -10,7 +10,7 @@ redirect_from:
 
 ## 背景
 1、Service Stage：微服务云应用平台，它是面向企业及开发者的一站式DevOps平台服务，支持基于微服务的应用开发、治理、部署及运维监控的全生命周期管理，并提供大规模容器集群管理及中间件服务等平台能力，帮助用户快速构建云分布式应用。  
-2、本指导以Acmeair demo的部署为例，演示如何使用ServiceComb (华为微服务框架开源版本)实现应用的微服务化，并利用Service Stage云平台上实现应用的云化。  
+2、本指导以Acmeair demo为例，演示如何使用ServiceComb (华为微服务框架开源版本)实现应用的微服务化，并利用Service Stage云平台上实现应用的云化。  
 
 
 ## 服务化和云化步骤
@@ -36,8 +36,13 @@ redirect_from:
 ![micro service structure]({{ site.url }}{{ site.baseurl }}/assets/images/micro-service-structure.PNG){: .align-center}
 
 ### 简单4步ServiceComb帮你完成微服务化改造
-#### Step 1: POM引入对ServiceComb的依赖
-![pom dependence]({{ site.url }}{{ site.baseurl }}/assets/images/pom-dependence.png){: .align-center}
+备注：改造完成的Acmeair Demo如何本地运行，如何本地查看运行效果？ 请参考下文“Acmeair本地运行”章节。
+#### Step 1: POM引入对ServiceComb和Service Stage的依赖
+对ServiceComb的依赖：
+![pom dependence]({{ site.url }}{{ site.baseurl }}/assets/images/pom-dependence.png){: .align-center}  
+
+对Service Stage的依赖：   
+![huaweicloud dependencies]({{ site.url }}{{ site.baseurl }}/assets/images/huaweicloud_dependencies.png){: .align-center}
 
 #### Step 2 增加微服务描述文件和spring配置文件
 ![config file]({{ site.url }}{{ site.baseurl }}/assets/images/config-file.png){: .align-center}
@@ -91,12 +96,6 @@ redirect_from:
 Import - - Maven:Existing Maven Projects，选择代码所在的目录，点击finish完成导入    
 ![import project]({{ site.url }}{{ site.baseurl }}/assets/images/import-project.png){: .align-center}
 
-### pom文件报错，Missing artifac com.huawei.paas.cse:xxx:xx
-该缺少的jar包为商业版本特性，请联系华为公有云 Service Stage 团队获取（此jar上云必选，否则无法使用Service Stage service centerc/config center/调用链等特性；本地调试时huawei商业版本的几个包依赖可以去掉，可以实现本地的服务发现和注册）。  
-如果需要将jar包复制到maven本地仓库中，具体包列表如下：  
-![jar-list]({{ site.url }}{{ site.baseurl }}/assets/images/jar-list.png){: .align-center}  
-eclispe中更新工程：Maven - - Update Project…
-
 ###	修改微服务描述文件
 1、acmeair-booking-service\src\main\resources\microservice.yaml  
 ![booking microservice yaml]({{ site.url }}{{ site.baseurl }}/assets/images/booking-microservice-yaml.png){: .align-center}  
@@ -107,7 +106,7 @@ eclispe中更新工程：Maven - - Update Project…
 3、acmeair-website\src\main\resources\microservice.yaml  
 ![website microservice yaml]({{ site.url }}{{ site.baseurl }}/assets/images/website-microservice-yaml.png){: .align-center} 
 
-###	执行 mvn install 结果 BUILD SUCCESS ，项目导入完成并成功构建
+###	执行 mvn install 结果 BUILD SUCCESS ，项目完成构建
 ![compile]({{ site.url }}{{ site.baseurl }}/assets/images/compile.png){: .align-center} 
 
 ## 启动服务
