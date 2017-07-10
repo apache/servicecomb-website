@@ -1,8 +1,8 @@
 ---
 title: "服务治理"
-lang: cn
+lang: en
 ref: service-management
-permalink: /cn/docs/service-management/
+permalink: /docs/service-management/
 excerpt: "服务治理."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

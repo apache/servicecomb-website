@@ -1,8 +1,8 @@
 ---
-title: "SpringMvc Demo"
-lang: en
+title: "SpringMvc 例子"
+lang: cn
 ref: springmvc-sample
-permalink: /docs/spring-mvc-sample/
+permalink: /cn/docs/spring-mvc-sample/
 excerpt: "如何利用springmvc模式迅速创建微服务."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

@@ -1,8 +1,8 @@
 ---
 title: "highway通信"
-lang: en
+lang: cn
 ref: highway-transport
-permalink: /docs/highway-transport/
+permalink: /cn/docs/highway-transport/
 excerpt: "highway通信."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

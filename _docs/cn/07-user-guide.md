@@ -1,8 +1,8 @@
 ---
 title: "用户手册"
-lang: en
+lang: cn
 ref: user-guide
-permalink: /docs/user-guide/
+permalink: /cn/docs/user-guide/
 excerpt: "用户手册."
 last_modified_at: 2017-06-14T10:01:43-04:00
 redirect_from:

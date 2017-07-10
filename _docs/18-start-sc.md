@@ -1,8 +1,8 @@
 ---
 title: "启动 Service Center"
-lang: cn
+lang: en
 ref: start-sc
-permalink: /cn/docs/start-sc/
+permalink: /docs/start-sc/
 excerpt: "如何启动Service Center."
 last_modified_at: 2017-06-06T10:01:43-04:00
 ---

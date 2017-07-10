@@ -1,8 +1,8 @@
 ---
 title: "负载均衡"
-lang: cn
+lang: en
 ref: load-balance
-permalink: /cn/docs/load-balance/
+permalink: /docs/load-balance/
 excerpt: "负载均衡"
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

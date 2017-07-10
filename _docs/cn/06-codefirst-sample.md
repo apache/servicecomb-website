@@ -1,8 +1,8 @@
 ---
 title: "CodeFirst 例子"
-lang: en
+lang: cn
 ref: codefirst-sample
-permalink: /docs/codefirst-sample/
+permalink: /cn/docs/codefirst-sample/
 excerpt: "如何利用CodeFirst模式迅速创建微服务."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

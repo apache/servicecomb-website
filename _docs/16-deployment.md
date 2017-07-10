@@ -1,8 +1,8 @@
 ---
 title: "部署运行"
-lang: cn
+lang: en
 ref: deployment
-permalink: /cn/docs/deployment/
+permalink: /docs/deployment/
 excerpt: "部署运行."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

@@ -1,8 +1,8 @@
 ---
 title: "依赖包配置"
-lang: en
+lang: cn
 ref: dependency-config
-permalink: /docs/dependency-config/
+permalink: /cn/docs/dependency-config/
 excerpt: "如何利用JavaChassis迅速创建微服务."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

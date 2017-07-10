@@ -1,8 +1,8 @@
 ---
 title: "处理链概述"
-lang: en
+lang: cn
 ref: handler-summary
-permalink: /docs/handler-summary/
+permalink: /cn/docs/handler-summary/
 excerpt: "处理链概述."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:
