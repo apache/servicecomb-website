@@ -20,7 +20,15 @@
     <h3 class="author__name" itemprop="name">{{ author.name }}</h3>
     {% if author.bio %}
       <p class="author__bio" itemprop="description">
+	    {% if page.lang == "cn" %}
+	      {% if author.biocn %}
+	        {{ author.biocn }}
+	      {% else %}
+	        {{ author.bio }}
+	      {% endif %}
+	    {% else %}
         {{ author.bio }}
+	    {% endif %}
       </p>
     {% endif %}
   </div>
@@ -30,7 +38,15 @@
     <ul class="author__urls social-icons">
       {% if author.location %}
         <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+        {% if page.lang == "cn" %}
+          {% if author.locationcn %}
+            <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">{{ author.locationcn }}</span>
+          {% else %}
+            <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">{{ author.location }}</span>
+          {% endif %}
+        {% else %}
           <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">{{ author.location }}</span>
+        {% endif %}
         </li>
       {% endif %}
 
