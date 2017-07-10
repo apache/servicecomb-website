@@ -1,7 +1,9 @@
 ---
-title: "JAX RS例子"
+title: "JAX RS Demo"
+lang: en
+ref: jaxrs-sample
 permalink: /docs/jaxrs-sample/
-excerpt: "用Jaxre模式创建微服务."
+excerpt: "用Jaxrs模式创建微服务."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:
   - /theme-setup/

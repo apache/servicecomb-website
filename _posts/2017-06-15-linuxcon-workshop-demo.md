@@ -1,5 +1,7 @@
 ---
 title: "Linux Con Workshop Demo"
+lang: en
+ref: linuxcon-workshop-demo
 permalink: /docs/linuxcon-workshop-demo/
 excerpt: "A step by step guide on how to use ServiceComb to develop a complete project"
 last_modified_at: 2017-06-15T09:38:43+08:00
@@ -25,7 +27,7 @@ redirect_from:
 ## 业务场景
 让我们先对业务场景进行总结分析
 1. 为了公司持续发展，我们需要对用户消费的运算能力收费，所以我们聘用了**门卫**认证用户，避免不法分子混入
-1. 为了提供足够的黄金分割数列运算能力，我们需要雇佣相应的**技工**
+1. 为了提供足够的黄金分割数量运算能力，我们需要雇佣相应的**技工**
 1. 为了持续研究蜜蜂繁殖规律，公司建立了自己的蜂场，需要相应的**养蜂人**进行管理研究
 1. 为了平衡**技工**、**养蜂人**、和**门卫**的工作量和时间，我们建立了**告示栏**机制，让当前有闲暇的人员发布自己的联系方式，以便我们能及时联系技能匹配的人员以服务到来的用户
 1. 因为运算能力成本高昂，我们将运算项目进行了**归档**，以便未来有相同请求时，我们能直接查询**项目归档**，节省公司运算成本
@@ -69,7 +71,7 @@ class FibonacciServiceImpl implements FibonacciService {
 ```
 
 ### 技工服务端点
-黄金分割数列运算已经实现，现在我们需要将服务提供给用户，首先我们定义端点接口：
+黄金分割数量运算已经实现，现在我们需要将服务提供给用户，首先我们定义端点接口：
 
 ```java
 public interface FibonacciEndpoint {
@@ -130,7 +132,7 @@ public class FibonacciRpcEndpoint implements FibonacciEndpoint {
 ```
 
 这里用 `@RestSchema` 和 `@RpcSchema` 注释两个端点后，`ServiceComb` 会自动生成对应的服务端点契约，根据如下
-`microservice.yaml` 配置端点端口，并将契约和服务一起注册到[Service Center](https://github.com/ServiceComb/service-center)：
+`microsevice.yaml` 配置端点端口，并将契约和服务一起注册到[Service Center](https://github.com/ServiceComb/service-center)：
 
 ```yaml
 # all interconnected microservices must belong to an application wth the same ID
@@ -226,7 +228,7 @@ class BeekeeperServiceImpl implements BeekeeperService {
 
 这里我们用到之前定义的 `FibonacciCalculator` 接口，并希望通过这个接口远程调用**技工**服务端点。`@RpcReference`
 注释能帮助我们自动从[Service Center](https://github.com/ServiceComb/service-center)中获取
-`microserviceName = "worker", schemaId = "fibonacciRpcEndpoint"` ， 即服务名为 `worker` 以及schema ID为
+`microserviceName = "worker", schemaId = "fibonacciRpcEndpoint"` ， 即服务名为 `worker` 已经schema ID为
 `fibonacciRpcEndpoint`的端点：
 
 ```java
@@ -342,7 +344,7 @@ public class BeekeeperApplication {
 ```
 
 ## 门卫 (Doorman)
-**门卫**为公司提供安全保障，屏蔽非法用户，防止其骗取免费服务，甚至伤害**技工**和**养蜂人**。
+**门卫**为公司提供安全保障，屏蔽非合法用户，防止其骗取免费服务，甚至伤害**技工**和**养蜂人**。
 
 ### 门卫认证服务
 认证功能我们采用[JSON Web Token (JWT)](https://jwt.io/introduction/)的机制，具体实现超出了这篇文章的范围，
@@ -373,7 +375,7 @@ public class AuthenticationController {
 
   static final String USERNAME = "username";
   static final String PASSWORD = "password";
-  static final String TOKEN_PREFIX = "token";
+  static final String TOKEN = "token";
 
   private final AuthenticationService authenticationService;
 
@@ -541,7 +543,7 @@ public class AuthenticationService {
 ```
 
 ### 请求过滤
-接下来我们提供 `ZuulFilter` 实现过滤用户请求的功能，调用 `authenticationService.validate(token)` 认证用户token。
+接下来我们提供 `ZuulFilter` 实现过滤用户请求，调用 `authenticationService.validate(token)` 认证用户token。
 若用户合法则路由用户请求到对应服务，否则返回 `403 forbidden`。
 
 ```java
@@ -681,8 +683,8 @@ cse:
 查看github上[workshop](https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop)的 `manager` 模块代码。
 
 ## 人力资源 (Human Resource)
-**人力资源**从运维层面保证服务的可靠性，主要功能有：
-* 弹性伸缩，以保证用户请求量超过**技工**或**养蜂人**处理能力后，招聘更多**技工**或**养蜂人**加入项目；当请求量回落后，裁减**技工**或**养蜂人**以节省公司开支
+**人力资源**从运维层面保证服务的可靠性，主要功能有
+* 弹性伸缩，以保证用户请求量超过**技工**或**养蜂人**处理能力后，招聘更多**技工**或**养蜂人**加入项目；当请求量回落后，裁剪**技工**或**养蜂人**以节省公司开支
 * 健康检查，以保证**技工**或**养蜂人**告病时，能有替补接手任务
 * 滚动升级，以保证项目需要新技能时，能替换、培训**技工**或**养蜂人**，不中断接收用户请求
 

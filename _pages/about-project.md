@@ -1,9 +1,11 @@
 ---
 permalink: /about/project
-title: "项目介绍"
-excerpt: "项目介绍"
+lang: en
+ref: about-project
+title: "Project Introduction"
+excerpt: "Project Introduction"
 last_modified_at: 2017-06-7T14:28:13+08:00
 ---
-ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架，其中包含了:
- * 服务注册中心[service-center](https://github.com/ServiceComb/service-center)
- * Java开发包[java-chassis](https://github.com/ServiceComb/java-chassis) 
+ServiceComb is a microservice framework including functionalities like service registration, service discovery, service configuration and service management. It includes the following components:
+ * Service Registration Center [service-center](https://github.com/ServiceComb/service-center)
+ * Java SDK(Software Development Kit) [java-chassis](https://github.com/ServiceComb/java-chassis) 

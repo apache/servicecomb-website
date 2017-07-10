@@ -1,7 +1,9 @@
 ---
-title: "快速入门"
+title: "Quck Start"
+lang: en
+ref: quick-start-guide
 permalink: /docs/quick-start-guide/
-excerpt: "如何利用JavaChassis迅速创建微服务."
+excerpt: "Build microservices quickly with JavaChassis"
 last_modified_at: 2017-06-06T10:01:43-04:00
 ---
 

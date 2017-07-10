@@ -1,5 +1,7 @@
 ---
 layout: archive
+lang: en
+ref: collection-archive
 title: "Posts by Collection"
 permalink: /collection-archive/
 author_profile: true
@@ -15,7 +17,8 @@ author_profile: true
       {% capture written_label %}{{ label }}{% endcapture %}
     {% endif %}
   {% endunless %}
-  {% for post in collection.docs %}
+  {% assign docs=collections.docs | where: "lang", page.lang %}
+  {% for post in docs %}
     {% unless collection.output == false or collection.label == "posts" %}
       {% include archive-single.html %}
     {% endunless %}

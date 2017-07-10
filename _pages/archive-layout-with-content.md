@@ -1,6 +1,8 @@
 ---
 title: "Archive Layout with Content"
 layout: archive
+lang: en
+ref: archive-layout-with-content
 permalink: /archive-layout-with-content/
 ---
 

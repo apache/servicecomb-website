@@ -1,7 +1,9 @@
 ---
-title: "开发者手册"
+title: "Developer Guide"
+lang: en
+ref: developer-guide
 permalink: /developers/developer-guide/
-excerpt: "开发者手册"
+excerpt: "Developer Guide"
 last_modified_at: 2017-06-24T19:18:43+08:00
 ---
 

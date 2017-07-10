@@ -1,5 +1,7 @@
 ---
 permalink: /terms/
+lang: en
+ref: terms
 title: "Terms and Privacy Policy"
 last_modified_at: 2016-11-03T11:57:46-04:00
 ---

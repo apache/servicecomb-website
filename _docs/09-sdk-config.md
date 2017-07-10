@@ -1,5 +1,7 @@
 ---
 title: "SDK 配置"
+lang: en
+ref: sdk-config
 permalink: /docs/sdk-config/
 excerpt: "SDK配置"
 last_modified_at: 2017-06-06T10:01:43-04:00

@@ -1,6 +1,8 @@
 ---
 title: "Rest通信"
-permalink: /docs/rest-transport/
+lang: cn
+ref: rest-transport
+permalink: /cn/docs/rest-transport/
 excerpt: "rest通信."
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

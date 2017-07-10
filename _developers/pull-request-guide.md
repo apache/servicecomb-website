@@ -1,5 +1,7 @@
 ---
-title: "如何提交Pull Request"
+title: "Pull Request Guide"
+lang: en
+ref: pull-request-guide
 permalink: /developers/pull-request-guide/
 date: 2017-06-28T03:02:20+00:00
 ---
