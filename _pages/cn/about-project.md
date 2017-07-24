@@ -1,5 +1,5 @@
 ---
-permalink: /cn/about/project
+permalink: /cn/about/project/
 lang: cn
 ref: about-project
 title: "项目介绍"

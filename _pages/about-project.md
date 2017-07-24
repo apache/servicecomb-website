@@ -1,5 +1,5 @@
 ---
-permalink: /about/project
+permalink: /about/project/
 lang: en
 ref: about-project
 title: "Project Introduction"
