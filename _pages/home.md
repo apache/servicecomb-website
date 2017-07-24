@@ -13,7 +13,9 @@ excerpt: 'ServiceComb is a microservice framework that provides an easy way to d
 <small><a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.0-m1">Service Center v0.1.0-m1</a></small><br />'
 
 intro:
-  - excerpt: "In the recent LinuxCon Beijing 2017 conference, ServiceComb organized a [workshop](/slides/) and introduced priciples of microservice architecture, ServiceComb's past and present and [the way to build a cloud application using ServiceComb](/docs/linuxcon-workshop-demo/)."
+  - excerpt: "In the recent LinuxCon Beijing 2017 conference, ServiceComb organized a workshop to show [the way to build a cloud application using ServiceComb](/docs/linuxcon-workshop-demo/).<br /><br />
+
+  ServiceComb now supports to do [the distributed tracing with Zipkin](/docs/tracing-with-servicecomb/)."
 
 feature_row:
   - image_path: /assets/images/servicecomb-feature-openapi.png
