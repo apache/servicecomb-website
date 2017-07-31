@@ -10,7 +10,7 @@ header:
 excerpt: 'ServiceComb is a microservice framework that provides an easy way to develop and deploy applications in the cloud. It provides functionalities of code framework generation, service registration, service discovery, load balance, service reliability(latency and fault tolerance, flow control and graceful degradation, handler chain tracing) et al.<br /><br />
 <small>Latest release:<small><br />
 <a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.1.0"> Java SDK v0.1.0 </a></small><br />
-<small><a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.0-m1">Service Center v0.1.0-m1</a></small><br />'
+<small><a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.0">Service Center v0.1.0</a></small><br />'
 
 intro:
   - excerpt: "In the recent LinuxCon Beijing 2017 conference, ServiceComb organized a workshop to show [the way to build a cloud application using ServiceComb](/docs/linuxcon-workshop-demo/).<br /><br />
