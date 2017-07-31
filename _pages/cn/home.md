@@ -14,7 +14,7 @@ excerpt: 'ServiceComb提供了一套包含代码框架生成，服务注册发�
 
 intro:
   - excerpt: "在新近结束的LinuxCon Beijing 2017大会上，ServiceComb举办了一次 [workshop](/cn/slides/)向大家展示[如何使用ServiceComb构建一个云化应用](/cn/docs/linuxcon-workshop-demo/)。<br /><br />
-  号外： 现在[ServiceComb支持使用Zipkin进行分布式事务追踪]了！(/cn/docs/tracing-with-servicecomb/)。 
+  号外： 现在[ServiceComb支持使用Zipkin进行分布式事务追踪](/cn/docs/tracing-with-servicecomb/)了！ 
   "
 
 feature_row:
