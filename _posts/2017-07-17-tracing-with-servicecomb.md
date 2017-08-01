@@ -70,6 +70,10 @@ servicecomb:
 That's all! After two configuration additions and no change to a single line of code, distributed tracing with Zipkin is 
 enabled for microservices written with Java chassis.
 
+**Note** If other dependencies in your project also include zipkin (e.g. Spring Cloud), it may cause runtime error due to
+conflict of incompatible zipkin versions. In such a case, you may need to explicitly declare the compatible zipkin version
+in your pom.
+
 ## A Quick Demo
 After enabled tracing in the workshop demo, we are able to showcase the tracing capability locally with docker.
 1. Build all docker images of services in the workshop demo with command `mvn package -DskipTests -Pdocker` or `mvn package -DskipTests -Pdocker -Pdocker-machine`
