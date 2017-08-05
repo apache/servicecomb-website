@@ -177,7 +177,7 @@ public class WorkerApplication {
 
 <figure class="align-center">
   <img src="{{ site.url }}{{ site.baseurl }}/assets/images/fibonaccitree.gif" alt="bee ancestors">
-  <figcaption>Credit: [Dave Cushman's website](http://www.dave-cushman.net)</figcaption>
+  <figcaption>Credit: <a href="http://www.dave-cushman.net">Dave Cushman's website</a></figcaption>
 </figure>
 
 参考上图，蜜蜂的某一代祖先数量符合黄金分割数列的模型，由此我们可以很快实现服务功能。
