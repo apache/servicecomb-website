@@ -64,6 +64,9 @@ Linux
 
 ### 运行Provider工程发布服务
 
+**Note:** 本示例使用到了samples中的pojo例子，需要先将samples文件夹作为module写入到项目的pom.xml中。
+{: .notice--warning}
+
 导入示例工程，通过IDE直接运行Provider工程Main函数，启动成功完成服务发布。  
 
 Main函数所在的类：pojo-provider:PojoProviderMain
@@ -79,7 +82,7 @@ Main函数所在的类：pojo-consumer:PojoConsumerMain
 ```
 Hello Java Chassis 
 Hello person ServiceComb/Java Chassis 
-a: 1, b=2, result=3
+a=1, b=2, result=3
 ```  
 
 ## 示例详解
