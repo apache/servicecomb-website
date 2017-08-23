@@ -11,7 +11,7 @@ redirect_from:
     
 Blog [Linux Con Workshop Demo]({{ site.url }}{{ site.baseurl }}/_posts/cn/2017-06-15-linuxcon-workshop-demo.md) describes how to use the ServiceComb rapid development company example, the typical enterprise application company example for fast micro-serviced.
      
-Now, [github] (https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git) already provides a one-click deployment on the kubernetes cluster. This article is going to focus on the corresponding yaml file and service communication, which will be useful for developers develop and deploy micro-serviced application to the cloud based on the Company model.    
+Now, [github](https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git) already provides a one-click deployment on the kubernetes cluster. This article is going to focus on the corresponding yaml file and service communication, which will be useful for developers develop and deploy micro-serviced application to the cloud based on the Company model.    
     
 
 ## One-click Deployment
@@ -109,7 +109,7 @@ spec:
   restartPolicy: Always
 status: {}
 ```
-The yaml defines a pod with one replica (replicas: 1), which can be modified to control the number of replicas of the pod(Anyway, the flexibility of the K8S scalability to achieve on-demand dynamic horizontal expansion to reach the purpose, material of K8S scalability will be provided later in the website). We mentioned that the company-bulletin-board is a DNS name, it is used as the value of cse.service.registry.address and passed to the service within the pod, such as: -Dcse.service. Registry.address = http: // company-bulletin-board: 30100, [kube-dns] (https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/README.md) Automatically resolve the servicename.
+The yaml defines a pod with one replica (replicas: 1), which can be modified to control the number of replicas of the pod(Anyway, the flexibility of the K8S scalability to achieve on-demand dynamic horizontal expansion to reach the purpose, material of K8S scalability will be provided later in the website). We mentioned that the company-bulletin-board is a DNS name, it is used as the value of cse.service.registry.address and passed to the service within the pod, such as: -Dcse.service. Registry.address = http: // company-bulletin-board: 30100, [kube-dns](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/README.md) Automatically resolve the servicename.
      
 Read [connect-applications-service](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/) to understanding the communication of services in K8S cluster.
 
