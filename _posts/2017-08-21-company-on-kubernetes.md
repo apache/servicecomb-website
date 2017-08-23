@@ -138,6 +138,6 @@ Now, you can use the External-IP and nodePort to visit company, Read [github.com
    
 You can sort out the following model by reading all the deployment.yaml and service.yaml in detail, 
 
-![kubernetes-company]({{ site.url }}{{ site.baseurl }}/assets/images/kubernetes-company.PNG){: .align-center}
+![kubernetes-company]({{ site.url }}{{ site.baseurl }}/assets/images/kubernetes-company.png){: .align-center}
     
 In addition, the classic air ticketing system 'Acmeair' has also been supported [one-click-deployment-at-kubernetes](https://github.com/WillemJiang/acmeair/tree/master/kubernetes) based on the version developed by the ServiceComb framework.
