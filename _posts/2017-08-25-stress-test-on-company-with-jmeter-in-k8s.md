@@ -10,7 +10,6 @@ redirect_from:
   - /theme-setup/
 ---
 
-# 
 ## Background
 
 Stress test is an effective way to evaluate the performance of web applications. Besides, more and more web applications are decomposed into several microservices and performance of each microservice may vary,  stress test on web application based on microservice architecture plays a more important role. This blog will evaluate the performance of our [company demo](https://github.com/ServiceComb/ServiceComb-Company-WorkShop) using [JMeter 3.2](https://www.google.com.hk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiv9rjg7u_VAhUkxoMKHfoYDaYQFggvMAA&url=http%3A%2F%2Fjmeter.apache.org%2F&usg=AFQjCNHIHCOA-F9LnhaAn_STCWyPPgOpdw)(a powerful stress test tool) in our [Kubernetes](https://kubernetes.io/) cluster(a three nodes cluster, one master, two slaves).
@@ -20,6 +19,7 @@ Stress test is an effective way to evaluate the performance of web applications.
 Our JMeter test plan is shown in fig-1.  In this plan, we want to find out the maximum performance of our manager service.
 
 ![fig-1 JMeter test plan]({{ site.url }}{{ site.baseurl }}/assets/images/company_test_plan.png){: .align-center}
+fig-1 JMeter test plan  
 
 At the very first of our test plan, we set up some global configurations that shared among all thread groups. The *CSV Data Set Config* loads our target server information from a local csv file. The *HTTP Request Defaults* sets up the default host and port in every request. The *User Defined Variables* defines variable that shared globally. The *HTTP Header Manager*  adds headers define inside it to every request.
 
@@ -49,19 +49,22 @@ jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=100 -Jdurati
 We test for a duration of 600 seconds to get a more stable result.  The number of threads we test vary from 1, 5, 8, 10, 15, 20, 100, 200 as fig-2 shows. 
 
 ![fig-2 Performance among various concurrency]({{ site.url }}{{ site.baseurl }}/assets/images/company_concurrency_performance.png){: .align-center}
+fig-2 Performance among various concurrency  
 
 fig-2 shows that performance kept increasing until it reached the bottleneck(at concurrency of 15). Later on, its throughput remained nearly the same(about 1000 requests per second). Besides, as the concurrency increased, the average response time increased too. The response time statistics can be helpful when evaluating the circuit-break timeout settings. 
 
 ![fig-3 Average response time among different services]({{ site.url }}{{ site.baseurl }}/assets/images/company_response_time.png){: .align-center}
+fig-3 Average response time among different services  
 
 fig-3 shows the average response time of different services. As the beekeeper service relies on the worker service, it had a longer response time than the worker service.
 
 ![fig-4 CPU Load on various concurrency]({{ site.url }}{{ site.baseurl }}/assets/images/company_cpu_load.png){: .align-center}
-
+fig-4 CPU Load on various concurrency  
 
 To find out why the performance stuck at the concurrency of 15, we checked the monitor data from [heapster](https://github.com/kubernetes/heapster) as fig-4 shows. Apparently, although we set no resource limit to the pod in Kubernetes, it still constraints from the node(2000 milli-cores per pod max, the node has 4000 milli-cores in total). Manager service became the bottleneck of the whole system. It reached the maximum cpu load when the throughput was around 1000 req/s. Other services increased much slower than manager service and required less resources. 
 
-![fig-5]({{ site.url }}{{ site.baseurl }}/assets/images/company_memory_used.png){: .align-center}
+![fig-5 Memory Usage of different services]({{ site.url }}{{ site.baseurl }}/assets/images/company_memory_used.png){: .align-center}
+fig-5 Memory Usage of different services  
 
 fig-5 shows the memory usage of different services during tests. As company demo is a simple use case, the memory usage remained quite stable during tests. Comparing to memory usage of the *bulletin board* service(written in go), other services written in Java take a great deal of memory. 
 
