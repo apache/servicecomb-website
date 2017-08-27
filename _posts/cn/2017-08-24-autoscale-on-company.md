@@ -46,7 +46,7 @@ spec:
          - --sink=influxdb:http://monitoring-influxdb:8086
 ```
 
-##### Company代码准备：
+##### 启动Company：
    
 　　下载Comany支持弹性伸缩的代码：
 
@@ -83,7 +83,7 @@ kubectl autoscale deployment company-beekeeper --cpu-percent=50 --min=1 --max=10
  kubectl get hpa
 ```
 
-##### 压测脚本准备：
+##### 启动压测：
 
 ```shell
 export $HOST=<heapster-ip>:<heapster-port>
@@ -102,21 +102,20 @@ FIBONA_NUM=`curl -s -H "Authorization: $Authorization" -XGET "http://$HOST/worke
 
 　　分别查看HPA状态以及Grafana，如下：    
 
-**启动阶段**
-![图1]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-1.png){: .align-center} 
-图1     
-![图2]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-2.png){: .align-center}
-图2    
+![图1]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-1.png){: .align-center}图1 *启动阶段*  
    
-**过程** 
+![图2]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-2.png){: .align-center}
+图2 *启动阶段*    
+   
 ![图3]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-3.png){: .align-center}
-图3    
+图3 *过程*         
      
-**结果** 
 ![图4]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-4.png){: .align-center}
-图4     
+图4 *结果*     
+         
 ![图5]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-5.png){: .align-center}
-图5    
+图5 *结果*    
+       
 
 　　从以上过程可以分析出，以下几点：
 
@@ -128,9 +127,9 @@ FIBONA_NUM=`curl -s -H "Authorization: $Authorization" -XGET "http://$HOST/worke
     
 　　4. 在HPA以及Grafana可以看到缩放和报告数据都会有延迟，按照官方文档说法，只有在最近3分钟内没有重新缩放的情况下，才会进行放大。 从最后一次重新缩放，缩小比例将等待5分钟。 而且，只有在avg/ Target降低到0.9以下或者增加到1.1以上（10％容差）的情况下，才可能会进行缩放。    
 
-　　**以上，就是本次对Compan示例弹性伸缩的全过程，Martin Fowler 在2014年3月的[文章](http://martinfowler.com/articles/microservices.html)中提到:**       
+　　以上，就是本次对Compan示例弹性伸缩的全过程，**Martin Fowler 在2014年3月的[文章](http://martinfowler.com/articles/microservices.html)中提到:**       
      
-　　**微服务是一种架构风格，一个大型复杂软件应用由一个或多个微服务组成。系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅关注于完成一件任务并很好地完成该任务。在所有情况下，每个任务代表着一个小的业务能力。**     
+> 　　**微服务是一种架构风格，一个大型复杂软件应用由一个或多个微服务组成。系统中的各个微服务可被独立部署，各个微服务之间是松耦合的。每个微服务仅关注于完成一件任务并很好地完成该任务。在所有情况下，每个任务代表着一个小的业务能力。**     
     
 　　**国内实践微服务的先行者王磊先生也在《微服务架构与实践》一书中进行了全面论述。**
 

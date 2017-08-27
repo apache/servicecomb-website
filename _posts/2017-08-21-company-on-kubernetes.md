@@ -9,7 +9,7 @@ redirect_from:
   - /theme-setup/   
 ---
     
-Blog [Linux Con Workshop Demo]({{ site.url }}{{ site.baseurl }}/_posts/cn/2017-06-15-linuxcon-workshop-demo.md) describes how to use the ServiceComb rapid development company example, the typical enterprise application company example for fast micro-serviced.
+Blog [Linux Con Workshop Demo]({{ site.url }}{{ site.baseurl }}/docs/linuxcon-workshop-demo/) describes how to use the ServiceComb rapid development company example, the typical enterprise application company example for fast micro-serviced.
      
 Now, [github](https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git) already provides a one-click deployment on the kubernetes cluster. This article is going to focus on the corresponding yaml file and service communication, which will be useful for developers develop and deploy micro-serviced application to the cloud based on the Company model.    
     

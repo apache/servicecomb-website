@@ -9,7 +9,7 @@ redirect_from:
   - /theme-setup/   
 ---
 
-　　[Linux Con Workshop Demo]({{ site.url }}{{ site.baseurl }}/_posts/cn/2017-06-15-linuxcon-workshop-demo.md) 博文介绍了如何使用微服务开源开发框架ServiceComb快速开发company示例，将典型的企业级应用company示例进行快速微服务化。
+　　[Linux Con Workshop Demo]({{ site.url }}{{ site.baseurl }}/cn/docs/linuxcon-workshop-demo/) 博文介绍了如何使用微服务开源开发框架ServiceComb快速开发company示例，将典型的企业级应用company示例进行快速微服务化。
 
 　　现在，[github](https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git)上已经提供了在kubernetes集群上一键式部署的功能。本文将着重讲解相应的yaml文件和服务间通信，这对于开发者基于Company 模型进行微服务开发并且部署到云上将会有所帮助。
 
