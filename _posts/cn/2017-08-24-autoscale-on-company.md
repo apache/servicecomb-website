@@ -102,19 +102,25 @@ FIBONA_NUM=`curl -s -H "Authorization: $Authorization" -XGET "http://$HOST/worke
 
 　　分别查看HPA状态以及Grafana，如下：    
 
-![图1]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-1.png){: .align-center}图1 *启动阶段*  
+![图1]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-1.png){: .align-center}
+图1 启动阶段
+{: .figure-caption}
    
 ![图2]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-2.png){: .align-center}
-图2 *启动阶段*    
+图2 启动阶段
+{: .figure-caption}
    
 ![图3]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-3.png){: .align-center}
-图3 *过程*         
+图3 过程
+{: .figure-caption}
      
 ![图4]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-4.png){: .align-center}
-图4 *结果*     
+图4 结果
+{: .figure-caption}
          
 ![图5]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-5.png){: .align-center}
-图5 *结果*    
+图5 结果
+{: .figure-caption}
        
 
 　　从以上过程可以分析出，以下几点：

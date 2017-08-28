@@ -19,7 +19,8 @@ Stress test is an effective way to evaluate the performance of web applications.
 Our JMeter test plan is shown in fig-1.  In this plan, we want to find out the maximum performance of our manager service.
 
 ![fig-1 JMeter test plan]({{ site.url }}{{ site.baseurl }}/assets/images/company_test_plan.png){: .align-center}
-fig-1 JMeter test plan  
+fig-1 JMeter test plan
+{: .figure-caption}
 
 At the very first of our test plan, we set up some global configurations that shared among all thread groups. The *CSV Data Set Config* loads our target server information from a local csv file. The *HTTP Request Defaults* sets up the default host and port in every request. The *User Defined Variables* defines variable that shared globally. The *HTTP Header Manager*  adds headers define inside it to every request.
 
@@ -49,17 +50,20 @@ jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=100 -Jdurati
 We test for a duration of 600 seconds to get a more stable result.  The number of threads we test vary from 1, 5, 8, 10, 15, 20, 100, 200 as fig-2 shows. 
 
 ![fig-2 Performance among various concurrency]({{ site.url }}{{ site.baseurl }}/assets/images/company_concurrency_performance.png){: .align-center}
-fig-2 Performance among various concurrency  
+fig-2 Performance among various concurrency
+{: .figure-caption}
 
 fig-2 shows that performance kept increasing until it reached the bottleneck(at concurrency of 15). Later on, its throughput remained nearly the same(about 1000 requests per second). Besides, as the concurrency increased, the average response time increased too. The response time statistics can be helpful when evaluating the circuit-break timeout settings. 
 
 ![fig-3 Average response time among different services]({{ site.url }}{{ site.baseurl }}/assets/images/company_response_time.png){: .align-center}
-fig-3 Average response time among different services  
+fig-3 Average response time among different services
+{: .figure-caption}
 
 fig-3 shows the average response time of different services. As the beekeeper service relies on the worker service, it had a longer response time than the worker service.
 
 ![fig-4 CPU Load on various concurrency]({{ site.url }}{{ site.baseurl }}/assets/images/company_cpu_load.png){: .align-center}
-fig-4 CPU Load on various concurrency  
+fig-4 CPU Load on various concurrency
+{: .figure-caption}
 
 To find out why the performance stuck at the concurrency of 15, we checked the monitor data from [heapster](https://github.com/kubernetes/heapster) as fig-4 shows. Apparently, manager service became the bottleneck of the whole system. It reached the maximum cpu load when the throughput was around 1000 req/s. Other services increased much slower than manager service and required less resources. 
 
@@ -103,11 +107,14 @@ The results are as follows:
 From the above figure, the performance in JMeter distributed mode and single mode are so close, it seems that a single JMeter test client is able to simulate enough concurrency for the current test. Besides, the log takes up too many computing resources when directly output to stdout and the asynchronous way has improved nearly 100% performance of the original. Seems like using the synchronous log settings may not be wise in production environment.
 
 ![fig-5 memory usage of different log settings](/assets/images/company_different_log_memory_usage.png){: .align-center}
-fig-5 memory usage of different log settings  
+fig-5 memory usage of different log settings
+{: .figure-caption}
+
 Although the asynchronous way save us much computing resources, it takes up a great deal of memory in the meanwhile as fig-5 shows.
 
 ![fig-6 Memory Usage of different services]({{ site.url }}{{ site.baseurl }}/assets/images/company_memory_used.png){: .align-center}
-fig-6 Memory Usage of different services  
+fig-6 Memory Usage of different services
+{: .figure-caption}
 
 fig-6 shows the memory usage of different services during tests. As company demo is a simple use case, the memory usage remained quite stable during tests. Comparing to memory usage of the *bulletin board* service(written in go), other services written in Java take a great deal of memory. 
 

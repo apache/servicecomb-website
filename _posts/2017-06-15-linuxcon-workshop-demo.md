@@ -175,10 +175,9 @@ public class WorkerApplication {
 
 [研究](http://www.dave-cushman.net/bee/fibonacci.html)表明，雄蜂(Drone)由未受精卵孵化而生，只有母亲；而雌蜂(Queen)由受精卵孵化而生，既有母又有父。
 
-<figure class="align-center">
-  <img src="{{ site.url }}{{ site.baseurl }}/assets/images/fibonaccitree.gif" alt="bee ancestors">
-  <figcaption>Credit: <a href="http://www.dave-cushman.net">Dave Cushman's website</a></figcaption>
-</figure>
+![fibonacci tree](/assets/images/fibonaccitree.gif)
+Credit: [Dave Cushman's website](http://www.dave-cushman.net")
+{: .figure-caption}
 
 参考上图，蜜蜂的某一代祖先数量符合黄金分割数列的模型，由此我们可以很快实现服务功能。
 

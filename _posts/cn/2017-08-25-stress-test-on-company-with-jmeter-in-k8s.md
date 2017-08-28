@@ -19,7 +19,8 @@ redirect_from:
 　　我们使用的测试计划如图1所示。在这个计划中，我们想要找出经理服务的最大性能点。
 
 ![图1 测试计划]({{ site.url }}{{ site.baseurl }}/assets/images/company_test_plan.png)  
-图1 测试计划  
+图1 测试计划
+{: .figure-caption}
 
 　　在我们测试计划的开始，我们设置了一些在所有线程组都能共享的全局配置。其中，*CSV Data Set Config*组件从本地csv文件中加载测试服务器的信息。*HTTP Request Defaults*组件则为每个请求预设了默认的请求服务器信息，如IP和端口。*User Defined Variables*组件定义了全局共享的变量。*HTTP Header Manager*组件自动为每个请求添加HTTP的请求头部。
 

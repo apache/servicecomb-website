@@ -105,19 +105,24 @@ FIBONA_NUM=`curl -s -H "Authorization: $Authorization" -XGET "http://$HOST/worke
 Following datas gets from  HPA and Grafana,                 
 
 ![Fig 1]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-1.png){: .align-center} 
-*Fig 1    HPA Data of Start-up Period*         
+Fig 1    HPA Data of Start-up Period
+{: .figure-caption}
      
 ![Fig 2]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-2.png){: .align-center}
-*Fig 2    Granfana Data of Start-up Period*                    
+Fig 2    Granfana Data of Start-up Period
+{: .figure-caption}
       
 ![Fig 3]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-3.png){: .align-center}
-*Fig 3    HPA  Data of middle Period*     
+Fig 3    HPA  Data of middle Period
+{: .figure-caption}
 
 ![Fig 4]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-4.png){: .align-center}
-*Fig 4    Granfana Data of The End*      
+Fig 4    Granfana Data of The End
+{: .figure-caption}
      
 ![Fig 5]({{ site.url }}{{ site.baseurl }}/assets/images/company-autoscale-5.png){: .align-center}
-*Fig 5    HPA Data of The End*          
+Fig 5    HPA Data of The End
+{: .figure-caption}
 
 **Analyze the data to get the results,**       
 
