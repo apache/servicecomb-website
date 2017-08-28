@@ -51,3 +51,11 @@ There are two language labels: *en* and *cn*.
 2. When you add items in *_data/navigation.yml* file, remember to add both English and Chinese version of that links.
 3. If you want to provide both English and Chinese versions of your *bio* in your blogs, add *biocn* property in *_data/authors.yml*.
 4. Posts of Chinese Language please put under the *cn* folder. It is just a good convention and won't affect what your posts suppose to be whether or not you obey this rule.
+
+# Add caption to image
+Add the annotation `{: .figure-caption}` below the *Image Caption* line as follows:
+```markdown
+![image alt text](image_path)
+Image Caption
+{: .figure-caption}
+```
