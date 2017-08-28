@@ -12,11 +12,11 @@ redirect_from:
 
 ## 背景
 
-　　压力测试是评估网络应用性能的一种有效手段。此外，越来越多的网络应用被拆分为多个微服务而每个微服务的性能不一。因此，压力测试在基于微服务架构的网络应用中扮演着越来越重要的角色。本文将在我们搭建的一个[Kubernetes](https://kubernetes.io/)集群（共三个节点组成，其中一个主节点，两个从节点）中借助[JMeter 3.2](https://www.google.com.hk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiv9rjg7u_VAhUkxoMKHfoYDaYQFggvMAA&url=http%3A%2F%2Fjmeter.apache.org%2F&usg=AFQjCNHIHCOA-F9LnhaAn_STCWyPPgOpdw)来对[Company示例](https://github.com/ServiceComb/ServiceComb-Company-WorkShop)进行性能评估。
+　　压力测试是评估网络应用性能的一种有效手段。此外，越来越多的网络应用被拆分为多个微服务而每个微服务的性能不一；有的微服务是计算密集型，有的是IO密集型。因此，压力测试在基于微服务架构的网络应用中扮演着越来越重要的角色。本文将在我们搭建的一个[Kubernetes](https://kubernetes.io/)集群（共三个节点组成，其中一个主节点，两个从节点）中借助[JMeter 3.2](https://www.google.com.hk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiv9rjg7u_VAhUkxoMKHfoYDaYQFggvMAA&url=http%3A%2F%2Fjmeter.apache.org%2F&usg=AFQjCNHIHCOA-F9LnhaAn_STCWyPPgOpdw)来对[Company示例](https://github.com/ServiceComb/ServiceComb-Company-WorkShop)进行性能评估。
 
 ## 测试计划
 
-　　我们使用的测试计划如图1所示。在这个计划中，我们想要找出经理服务的最大性能点。
+　　在[《微服务化后的按需精细化资源控制》](http://servicecomb.io/cn/docs/autoscale-on-company/)一文中已经知道经理服务的资源需求最大，因此本次压力测试主要用于找出Company应用中的经理服务的最大性能点，并根据这最大性能点找出系统当前的瓶颈。制定的测试计划如下所示：
 
 ![图1 测试计划]({{ site.url }}{{ site.baseurl }}/assets/images/company_test_plan.png)  
 图1 测试计划
@@ -41,16 +41,19 @@ ${__setProperty(Authorization,${Authorization},)}
 jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=100 -Jduration=600
 ```
 　　其中，通过设置测试时长为600秒来获取稳定的结果。测试的线程数包括1，5，8，10，15，20，100，200，如图2所示。
+
 ![图2 并发不同时的性能比较](/assets/images/company_concurrency_performance.png){: .align-center}
 图2 并发不同时的性能比较
 {: .figure-caption}
 
-　　从图2可以看出，经理服务的性能在到达瓶颈（15并发度）前一直处于上升状态。 此后，其吞吐量基本保持一样（大约1000请求每秒）。此外，随着并发度的增加，平均响应时间也在增加。响应时间的统计数据在评估熔断超时设置时能起到一个很好的参考价值。
+　　从图2可以看出，经理服务的性能在到达瓶颈（15并发度）前非常稳定，保持平均响应时间极低的情况下吞吐量快速上升到最大约1000请求每秒的水平。 但随着并发度的进一步提升，平均响应时间开始快速增加。因此，将响应时间统计数据作为评估熔断超时的设置非常合适。
+
 ![图3 不同服务的平均响应时间](/assets/images/company_response_time.png){: .align-center}
 图3 不同服务的平均响应时间
 {: .figure-caption}
 
 　　图3显示了不同服务的平均响应时间。由于养蜂人服务需要调用技工服务，因此其响应时间相对于技工服务的响应时间要稍微久一点。
+
 ![图4 不同并发度下CPU的负载](/assets/images/company_cpu_load.png){: .align-center}
 图4 不同并发度下CPU的负载
 {: .figure-caption}
@@ -115,6 +118,6 @@ jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin=1
 
 ## 总结
 
-　　对应用进行压力测试往往能在应用投入生产环境前帮助我们找出服务中潜在的问题。此外，压力测试也能模拟生产环境，从而来验证服务是否已达到规定的指标性能。而根据压力测试的结果，我们可以权衡Pod部署时的设置来保证SLA的同时获得最大的性能。
+　　对应用进行压力测试往往能在应用投入生产环境前帮助我们找出服务中潜在的问题。此外，压力测试也能模拟生产环境，从而来验证服务是否已达到规定的指标性能。而根据压力测试的结果，我们可以权衡Pod部署时的设置来保证SLA的同时获得最大的系统吞吐能力。
 
-　　基于微服务架构的应用不仅在设计、编码及测试方面变得更加灵活，同时也使得部署更加方便和灵活。如今也已迈入云的时代，部署在云上的应用都采取了按需收费的策略。因此，我们可以不同规格的集群和针对服务的需求和压力设置不同的备份数来成就商业成功的同时也节省了一大笔的费用。此外，在云上也能借助其弹性伸缩能力使得服务能够满足突发访问的场景。
+　　基于微服务架构的应用不仅在设计、编码及测试方面变得更加灵活，同时也使得部署更加方便和灵活。如今也已迈入云的时代，部署在云上的应用都采取了按需收费的策略。基于微服务架构能够保证资源的弹性伸缩极其迅捷，远非传统Iaas能比。因此，我们可以不同规格的集群和针对服务的需求和压力设置不同的备份数来成就商业成功的同时也节省了一大笔的费用。此外，在云上也能借助其弹性伸缩能力使得服务能够满足突发访问的场景。

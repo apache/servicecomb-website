@@ -12,11 +12,11 @@ redirect_from:
 
 ## Background
 
-Stress test is an effective way to evaluate the performance of web applications. Besides, more and more web applications are decomposed into several microservices and performance of each microservice may vary,  stress test on web application based on microservice architecture plays a more important role. This blog will evaluate the performance of our [company demo](https://github.com/ServiceComb/ServiceComb-Company-WorkShop) using [JMeter 3.2](https://www.google.com.hk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiv9rjg7u_VAhUkxoMKHfoYDaYQFggvMAA&url=http%3A%2F%2Fjmeter.apache.org%2F&usg=AFQjCNHIHCOA-F9LnhaAn_STCWyPPgOpdw)(a powerful stress test tool) in our [Kubernetes](https://kubernetes.io/) cluster(a three nodes cluster, one master, two slaves).
+Stress test is an effective way to evaluate the performance of web applications. Besides, more and more web applications are decomposed into several microservices and performance of each microservice may vary as some are compute intensive while some are IO intensive. Stress test on web application based on microservice architecture plays a more important role. This blog will evaluate the performance of our [company demo](https://github.com/ServiceComb/ServiceComb-Company-WorkShop) using [JMeter 3.2](https://www.google.com.hk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiv9rjg7u_VAhUkxoMKHfoYDaYQFggvMAA&url=http%3A%2F%2Fjmeter.apache.org%2F&usg=AFQjCNHIHCOA-F9LnhaAn_STCWyPPgOpdw)(a powerful stress test tool) in our [Kubernetes](https://kubernetes.io/) cluster(a three nodes cluster, one master, two slaves).
 
 ## Test Plan
 
-Our JMeter test plan is shown in fig-1.  In this plan, we want to find out the maximum performance of our manager service.
+From the [last post](http://servicecomb.io/docs/autoscale-on-company/), we figured out the manager service demands the most of the resources. Hence, in this plan, we want to find out the maximum performance of our manager service and find out the bottleneck of our system according to the maximum performance. Our JMeter test plan is shown in fig-1.  
 
 ![fig-1 JMeter test plan]({{ site.url }}{{ site.baseurl }}/assets/images/company_test_plan.png){: .align-center}
 fig-1 JMeter test plan
@@ -53,7 +53,7 @@ We test for a duration of 600 seconds to get a more stable result.  The number o
 fig-2 Performance among various concurrency
 {: .figure-caption}
 
-fig-2 shows that performance kept increasing until it reached the bottleneck(at concurrency of 15). Later on, its throughput remained nearly the same(about 1000 requests per second). Besides, as the concurrency increased, the average response time increased too. The response time statistics can be helpful when evaluating the circuit-break timeout settings. 
+fig-2 shows that performance of manager service were stable until it reached the bottleneck(at concurrency of 15), it speeds up to 1000 requests per seconds while keeping the average response time low. Later on, as the concurrency increased, the average response time increased dramatically. The response time statistics can be helpful when evaluating the circuit-break timeout settings. 
 
 ![fig-3 Average response time among different services]({{ site.url }}{{ site.baseurl }}/assets/images/company_response_time.png){: .align-center}
 fig-3 Average response time among different services
@@ -120,6 +120,6 @@ fig-6 shows the memory usage of different services during tests. As company demo
 
 ## Conclusions
 
-Stress test on applications can help us find out the potential problems in our services before our services run in production environment. It simulates the production environment and validates whether our services meet the specification requirements. We can tune our pod deployment settings based on the stress test result to the maximum performance while keeping SLA.
+Stress test on applications can help us find out the potential problems in our services before our services run in production environment. It simulates the production environment and validates whether our services meet the specification requirements. We can tune our pod deployment settings based on the stress test result to system's maximum throughput while keeping SLA.
 
-Applications based on microservice architecture become much more flexible not only on design, programming and tests, but also on deployment. As it's a cloud-era now, applications on the cloud is charged on demand. We can choose different specifications of machine and different replicas for different services to meet our business requirements and save a great deal of fee.
+Applications based on microservice architecture become much more flexible not only on design, programming and tests, but also on deployment. As it's a cloud-era now, applications on the cloud is charged on demand. Services based on microservice architecture make resources scale up and down extremely faster than the traditional Iaas architecture. We can choose different specifications of machine and different replicas for different services to meet our business requirements and save a great deal of fee.
