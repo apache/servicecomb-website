@@ -41,18 +41,77 @@ ${__setProperty(Authorization,${Authorization},)}
 jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=100 -Jduration=600
 ```
 　　其中，通过设置测试时长为600秒来获取稳定的结果。测试的线程数包括1，5，8，10，15，20，100，200，如图2所示。
-![图2 并发不同时的性能比较]({{ site.url }}{{ site.baseurl }}/assets/images/company_concurrency_performance.png){: .align-center}
-图2 并发不同时的性能比较  
+![图2 并发不同时的性能比较](/assets/images/company_concurrency_performance.png){: .align-center}
+图2 并发不同时的性能比较
+{: .figure-caption}
+
 　　从图2可以看出，经理服务的性能在到达瓶颈（15并发度）前一直处于上升状态。 此后，其吞吐量基本保持一样（大约1000请求每秒）。此外，随着并发度的增加，平均响应时间也在增加。响应时间的统计数据在评估熔断超时设置时能起到一个很好的参考价值。
-![图3 不同服务的平均响应时间]({{ site.url }}{{ site.baseurl }}/assets/images/company_response_time.png){: .align-center}
-图3 不同服务的平均响应时间  
+![图3 不同服务的平均响应时间](/assets/images/company_response_time.png){: .align-center}
+图3 不同服务的平均响应时间
+{: .figure-caption}
+
 　　图3显示了不同服务的平均响应时间。由于养蜂人服务需要调用技工服务，因此其响应时间相对于技工服务的响应时间要稍微久一点。
-![图4 不同并发度下CPU的负载]({{ site.url }}{{ site.baseurl }}/assets/images/company_cpu_load.png){: .align-center}
-图4 不同并发度下CPU的负载  
-　　为了找出性能卡在了15并发度时的原因，我们回看了[heapster](https://github.com/kubernetes/heapster)上的监控数据。如图4所示，尽管我们没有限制Kubernetes集群中Pod的资源，但它还是受到了节点上的资源的限制（每个Pod最多使用2000 milli-cores，而每个节点一共只有4000 milli-cores资源）。由此可见，经理服务是当前系统的瓶颈所在。它在吞吐量为1000 req/s时达到了最大的CPU负载。 相对而言，其它服务对资源的需求的增长速度要慢得多。
-![图5 测试过程的内存使用量]({{ site.url }}{{ site.baseurl }}/assets/images/company_memory_used.png){: .align-center}
-图5 测试过程的内存使用量  
-　　图5显示了在测试过程中不同服务的内存使用量。由于Company示例只是一个简单的用例，在测试过程中各个服务的内存使用率都相对稳定。然而，相对*告示栏*服务（使用go语言编写）的内存使用量而言，其它以Java来编写的服务则占用了较多的内存。
+![图4 不同并发度下CPU的负载](/assets/images/company_cpu_load.png){: .align-center}
+图4 不同并发度下CPU的负载
+{: .figure-caption}
+
+　　为了找出性能卡在了15并发度时的原因，我们回看了[heapster](https://github.com/kubernetes/heapster)上的监控数据。如图4所示，显然，经理服务是当前系统的瓶颈所在。它在吞吐量为1000 req/s时达到了最大的CPU负载。 相对而言，其它服务对资源的需求的增长速度要慢得多。
+
+　　经理服务的性能表现得不尽人意。很大一部分原因可能是由于经理服务的日志是直接输出到stdout上的，而这在并发量较大的情况下就会成为负担。此外，JMeter的测试端以单机模式运行时可能并不能同时模拟出足够的并发量。为了验证这些原因，我们对在同一并发度（200）下不同log的设置（stdout,， 异步，无）进行测试。其中，异步log在*log4j2.xml*文件中的设置如下所示：
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="INFO">
+  <Appenders>
+    <RandomAccessFile name="RandomAccessFile" fileName="manager.log" immediateFlush="false" append="false">
+      <PatternLayout pattern="%d [%p] %m %l%n"/>
+    </RandomAccessFile>
+  </Appenders>
+  <Loggers>
+    <asyncRoot level="info">
+      <AppenderRef ref="RandomAccessFile"/>
+    </asyncRoot>
+  </Loggers>
+</Configuration>
+```
+此外，还需要添加如下*disruptor*的依赖项使异步的设置生效：
+
+```xml
+<dependency>
+  <groupId>com.lmax</groupId>
+  <artifactId>disruptor</artifactId>
+  <version>3.3.6</version>
+</dependency>
+```
+没有日志输出的设置仅仅是将上述*log4j2.xml*文件中的日志输出级别从*info*改为*off*即可。此外，我们还使用JMeter分布式的模式进行了相关的测试。JMeter中使用分布式的模式来运行主要分两步：
+
+1. 在每个测试从节点上运行*jmeter-server*，其运行指令如下：
+```bash
+jmeter-server -Djava.rmi.server.hostname=$(ifconfig eth0 | grep "inet addr" | awk '{print $2}' | cut -d ":" -f2)
+```
+2. 在测试主节点上运行*jmeter*，指令如下：
+```bash
+jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin=1 -Gmax=2 -Gthreads=200 -Gduration=600
+```
+*注意事项*：JMeter属性在分布式模式下并不能生效，需要将其声明为全局的属性。因此，此处我们用的是*-G*的选项而不是之前的*-J*的选项。  
+
+运行结果如下所示：
+
+![不同日志设置不同模式下的性能](/assets/images/company_log_and_jmeter.png){: .align-center}
+
+　　从上图可以看出，JMeter单机测试和分布式测试的性能都非常接近，说明单机模式的JMeter测试暂时来说是足以模拟出足够的并发数来处理当前的测试场景的。此外，日志的输出的确对系统的性能造成了较大的影响，可以看到，异步输出日志的方式能比同步输出的方式提升接近100%的性能。因此，在生产环境下使用完全同步输出日志的方式可能并不会有较理想的性能。
+
+![图5 不同日志设置下的内存使用量](/assets/images/company_different_log_memory_usage.png){: .align-center}
+图5 不同日志设置下的内存使用量
+{: .figure-caption}
+
+　　尽管异步日志的方式能极大地提高系统的吞吐量，但它同时也占用了较多的内存，如图5所示。
+
+![图6 测试过程的内存使用量](/assets/images/company_memory_used.png){: .align-center}
+图6 测试过程的内存使用量
+{: .figure-caption}
+
+　　图6显示了在测试过程中不同服务的内存使用量。由于Company示例只是一个简单的用例，在测试过程中各个服务的内存使用率都相对稳定。然而，相对*告示栏*服务（使用go语言编写）的内存使用量而言，其它以Java来编写的服务则占用了较多的内存。
 
 ## 总结
 
