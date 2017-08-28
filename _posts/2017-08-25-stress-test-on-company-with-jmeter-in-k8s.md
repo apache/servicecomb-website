@@ -61,12 +61,55 @@ fig-3 shows the average response time of different services. As the beekeeper se
 ![fig-4 CPU Load on various concurrency]({{ site.url }}{{ site.baseurl }}/assets/images/company_cpu_load.png){: .align-center}
 fig-4 CPU Load on various concurrency  
 
-To find out why the performance stuck at the concurrency of 15, we checked the monitor data from [heapster](https://github.com/kubernetes/heapster) as fig-4 shows. Apparently, although we set no resource limit to the pod in Kubernetes, it still constraints from the node(2000 milli-cores per pod max, the node has 4000 milli-cores in total). Manager service became the bottleneck of the whole system. It reached the maximum cpu load when the throughput was around 1000 req/s. Other services increased much slower than manager service and required less resources. 
+To find out why the performance stuck at the concurrency of 15, we checked the monitor data from [heapster](https://github.com/kubernetes/heapster) as fig-4 shows. Apparently, manager service became the bottleneck of the whole system. It reached the maximum cpu load when the throughput was around 1000 req/s. Other services increased much slower than manager service and required less resources. 
 
-![fig-5 Memory Usage of different services]({{ site.url }}{{ site.baseurl }}/assets/images/company_memory_used.png){: .align-center}
-fig-5 Memory Usage of different services  
+The performance of manager service seems to be quite poor. As manager service logs directly to the stdout, which may become a burden when too many concurrent requests. Besides, the JMeter test client running on a single host may not simulate enough concurrency simultaneously. To verify these causes, we tested on different scenes of log settings(stdout, asynchronous, none) at the concurrency of 200. The *asynchronous* log settings in *log4j2.xml* file is as follows:
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<Configuration status="INFO">
+  <Appenders>
+    <RandomAccessFile name="RandomAccessFile" fileName="manager.log" immediateFlush="false" append="false">
+      <PatternLayout pattern="%d [%p] %m %l%n"/>
+    </RandomAccessFile>
+  </Appenders>
+  <Loggers>
+    <asyncRoot level="info">
+      <AppenderRef ref="RandomAccessFile"/>
+    </asyncRoot>
+  </Loggers>
+</Configuration>
+```
+Besides, we also need to add the *disruptor* dependency to enable the asynchronous log settings.
+```xml
+<dependency>
+  <groupId>com.lmax</groupId>
+  <artifactId>disruptor</artifactId>
+  <version>3.3.6</version>
+</dependency>
+```
+The *none* log settings just replace the *info* logging level to *off* in the above setting. We also tested on distributed JMeter test client environment. Running Jmeter in distributed mode takes two steps:
+1. run JMeter slave on each test node, the command is as follows:
+```bash
+jmeter-server -Djava.rmi.server.hostname=$(ifconfig eth0 | grep "inet addr" | awk '{print $2}' | cut -d ":" -f2)
+```
+2. run JMeter master, the command is as follows:
+```bash
+jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin=1 -Gmax=2 -Gthreads=200 -Gduration=600
+```
+*Note:* JMeter property does not work in distributed mode. It needs to be declared as a global property. That's why We use *-G* option  here instead of *-J* option.
 
-fig-5 shows the memory usage of different services during tests. As company demo is a simple use case, the memory usage remained quite stable during tests. Comparing to memory usage of the *bulletin board* service(written in go), other services written in Java take a great deal of memory. 
+The results are as follows:
+![different log and different JMeter settings](/assets/images/company_log_and_jmeter.png){: .align-center}
+From the above figure, the performance in JMeter distributed mode and single mode are so close, it seems that a single JMeter test client is able to simulate enough concurrency for the current test. Besides, the log takes up too many computing resources when directly output to stdout and the asynchronous way has improved nearly 100% performance of the original. Seems like using the synchronous log settings may not be wise in production environment.
+
+![fig-5 memory usage of different log settings](/assets/images/company_different_log_memory_usage.png){: .align-center}
+fig-5 memory usage of different log settings  
+Although the asynchronous way save us much computing resources, it takes up a great deal of memory in the meanwhile as fig-5 shows.
+
+![fig-6 Memory Usage of different services]({{ site.url }}{{ site.baseurl }}/assets/images/company_memory_used.png){: .align-center}
+fig-6 Memory Usage of different services  
+
+fig-6 shows the memory usage of different services during tests. As company demo is a simple use case, the memory usage remained quite stable during tests. Comparing to memory usage of the *bulletin board* service(written in go), other services written in Java take a great deal of memory. 
 
 ## Conclusions
 
