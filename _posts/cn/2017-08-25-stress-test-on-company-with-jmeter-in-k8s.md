@@ -18,7 +18,7 @@ redirect_from:
 
 　　在[《微服务化后的按需精细化资源控制》](http://servicecomb.io/cn/docs/autoscale-on-company/)一文中已经知道经理服务的资源需求最大，因此本次压力测试主要用于找出Company应用中的经理服务的最大性能点，并根据这最大性能点找出系统当前的瓶颈。制定的测试计划如下所示：
 
-![图1 测试计划]({{ site.url }}{{ site.baseurl }}/assets/images/company_test_plan.png)  
+![图1 测试计划](/assets/images/company_test_plan.png)  
 图1 测试计划
 {: .figure-caption}
 
@@ -60,7 +60,7 @@ jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=100 -Jdurati
 
 　　为了找出性能卡在了15并发度时的原因，我们回看了[heapster](https://github.com/kubernetes/heapster)上的监控数据。如图4所示，显然，经理服务是当前系统的瓶颈所在。它在吞吐量为1000 req/s时达到了最大的CPU负载。 相对而言，其它服务对资源的需求的增长速度要慢得多。
 
-　　经理服务的性能表现得不尽人意。很大一部分原因可能是由于经理服务的日志是直接输出到stdout上的，而这在并发量较大的情况下就会成为负担。此外，JMeter的测试端以单机模式运行时可能并不能同时模拟出足够的并发量。为了验证这些原因，我们对在同一并发度（200）下不同log的设置（stdout,， 异步，无）进行测试。其中，异步log在*log4j2.xml*文件中的设置如下所示：
+　　经理服务的性能表现得不尽人意。很大一部分原因可能是由于经理服务的日志是直接输出到stdout上的，而这在并发量较大的情况下就会成为负担。此外，JMeter的测试端以单机模式运行时可能并不能同时模拟出足够的并发量。为了验证这些原因，我们对在同一并发度（200）下不同log的设置（log4j1, log4j2 stdout，log4j2 异步，无）进行测试。其中，异步log在*log4j2.xml*文件中的设置如下所示：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -102,7 +102,7 @@ jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin=1
 
 ![不同日志设置不同模式下的性能](/assets/images/company_log_and_jmeter.png){: .align-center}
 
-　　从上图可以看出，JMeter单机测试和分布式测试的性能都非常接近，说明单机模式的JMeter测试暂时来说是足以模拟出足够的并发数来处理当前的测试场景的。此外，日志的输出的确对系统的性能造成了较大的影响，可以看到，异步输出日志的方式能比同步输出的方式提升接近100%的性能。因此，在生产环境下使用完全同步输出日志的方式可能并不会有较理想的性能。
+　　从上图可以看出，JMeter单机测试和分布式测试的性能都非常接近，说明单机模式的JMeter测试暂时来说是足以模拟出足够的并发数来处理当前的测试场景的。此外，日志的输出的确对系统的性能造成了较大的影响，可以看到，异步输出日志的方式能比同步输出的方式提升接近100%的吞吐量。因此，在生产环境下使用完全同步输出日志的方式可能并不会有较理想的性能。此外，log4j2的吞吐量相对于log4j1而言大幅提高了约40%，内存使用量也更少了，因此，推荐使用性能更佳的log4j2替换掉陈旧的log4j1。
 
 ![图5 不同日志设置下的内存使用量](/assets/images/company_different_log_memory_usage.png){: .align-center}
 图5 不同日志设置下的内存使用量

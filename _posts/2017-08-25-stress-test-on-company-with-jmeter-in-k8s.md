@@ -18,7 +18,7 @@ Stress test is an effective way to evaluate the performance of web applications.
 
 From the [last post](http://servicecomb.io/docs/autoscale-on-company/), we figured out the manager service demands the most of the resources. Hence, in this plan, we want to find out the maximum performance of our manager service and find out the bottleneck of our system according to the maximum performance. Our JMeter test plan is shown in fig-1.  
 
-![fig-1 JMeter test plan]({{ site.url }}{{ site.baseurl }}/assets/images/company_test_plan.png){: .align-center}
+![fig-1 JMeter test plan](/assets/images/company_test_plan.png){: .align-center}
 fig-1 JMeter test plan
 {: .figure-caption}
 
@@ -49,25 +49,25 @@ jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=100 -Jdurati
 
 We test for a duration of 600 seconds to get a more stable result.  The number of threads we test vary from 1, 5, 8, 10, 15, 20, 100, 200 as fig-2 shows. 
 
-![fig-2 Performance among various concurrency]({{ site.url }}{{ site.baseurl }}/assets/images/company_concurrency_performance.png){: .align-center}
+![fig-2 Performance among various concurrency](/assets/images/company_concurrency_performance.png){: .align-center}
 fig-2 Performance among various concurrency
 {: .figure-caption}
 
 fig-2 shows that performance of manager service were stable until it reached the bottleneck(at concurrency of 15), it speeds up to 1000 requests per seconds while keeping the average response time low. Later on, as the concurrency increased, the average response time increased dramatically. The response time statistics can be helpful when evaluating the circuit-break timeout settings. 
 
-![fig-3 Average response time among different services]({{ site.url }}{{ site.baseurl }}/assets/images/company_response_time.png){: .align-center}
+![fig-3 Average response time among different services](/assets/images/company_response_time.png){: .align-center}
 fig-3 Average response time among different services
 {: .figure-caption}
 
 fig-3 shows the average response time of different services. As the beekeeper service relies on the worker service, it had a longer response time than the worker service.
 
-![fig-4 CPU Load on various concurrency]({{ site.url }}{{ site.baseurl }}/assets/images/company_cpu_load.png){: .align-center}
+![fig-4 CPU Load on various concurrency](/assets/images/company_cpu_load.png){: .align-center}
 fig-4 CPU Load on various concurrency
 {: .figure-caption}
 
 To find out why the performance stuck at the concurrency of 15, we checked the monitor data from [heapster](https://github.com/kubernetes/heapster) as fig-4 shows. Apparently, manager service became the bottleneck of the whole system. It reached the maximum cpu load when the throughput was around 1000 req/s. Other services increased much slower than manager service and required less resources. 
 
-The performance of manager service seems to be quite poor. As manager service logs directly to the stdout, which may become a burden when too many concurrent requests. Besides, the JMeter test client running on a single host may not simulate enough concurrency simultaneously. To verify these causes, we tested on different scenes of log settings(stdout, asynchronous, none) at the concurrency of 200. The *asynchronous* log settings in *log4j2.xml* file is as follows:
+The performance of manager service seems to be quite poor. As manager service logs directly to the stdout, which may become a burden when too many concurrent requests. Besides, the JMeter test client running on a single host may not simulate enough concurrency simultaneously. To verify these causes, we tested on different scenes of log settings(log4j1 stdout, log4j2 stdout, log4j2 asynchronous, none) at the concurrency of 200. The *asynchronous* log settings in *log4j2.xml* file is as follows:
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <Configuration status="INFO">
@@ -104,7 +104,7 @@ jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin=1
 
 The results are as follows:
 ![different log and different JMeter settings](/assets/images/company_log_and_jmeter.png){: .align-center}
-From the above figure, the performance in JMeter distributed mode and single mode are so close, it seems that a single JMeter test client is able to simulate enough concurrency for the current test. Besides, the log takes up too many computing resources when directly output to stdout and the asynchronous way has improved nearly 100% performance of the original. Seems like using the synchronous log settings may not be wise in production environment.
+From the above figure, the performance in JMeter distributed mode and single mode are so close, it seems that a single JMeter test client is able to simulate enough concurrency for the current test. Besides, the log takes up too many computing resources when directly output to stdout and the asynchronous way has improved nearly 100% throughput of the original. Seems like using the synchronous log settings may not be wise in production environment. Besides, the log4j2 has improved about 40% throughput of the log4j1 and reduced a small amount of memory. Hence, it's recommended to replace the log4j1 with log4j2 for the sake of performance.
 
 ![fig-5 memory usage of different log settings](/assets/images/company_different_log_memory_usage.png){: .align-center}
 fig-5 memory usage of different log settings
@@ -112,7 +112,7 @@ fig-5 memory usage of different log settings
 
 Although the asynchronous way save us much computing resources, it takes up a great deal of memory in the meanwhile as fig-5 shows.
 
-![fig-6 Memory Usage of different services]({{ site.url }}{{ site.baseurl }}/assets/images/company_memory_used.png){: .align-center}
+![fig-6 Memory Usage of different services](/assets/images/company_memory_used.png){: .align-center}
 fig-6 Memory Usage of different services
 {: .figure-caption}
 
