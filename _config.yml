@@ -115,6 +115,7 @@ include:
   - .htaccess
   - _pages
   - _developers
+  - _docs
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
@@ -168,7 +169,7 @@ kramdown:
 
 # Collections
 collections:
-  docs:
+  users:
     output: true
     permalink: /:collection/:path/
 
@@ -211,10 +212,10 @@ defaults:
       author_profile: false
       sidebar:
         nav: "developers"
-  # _docs
+  # _users
   - scope:
       path: ""
-      type: docs
+      type: users
     values:
       layout: single
       read_time: false
@@ -222,7 +223,17 @@ defaults:
       share: false
       comments: true
       sidebar:
-        nav: "docs"
+        nav: "users"
+  # _docs
+  - scope:
+      path: "_docs"
+      type: pages
+    values:
+      layout: single_without_sidebar
+      read_time: false
+      author_profile: false
+      share: false
+      comments: false
 
 # Sass/SCSS
 sass:

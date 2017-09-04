@@ -1,15 +1,14 @@
 ---
 title: "Quck Start"
 lang: en
-ref: quick-start-guide
-permalink: /docs/quick-start-guide/
+ref: quick-start
+permalink: /docs/quick-start/
 excerpt: "Build microservices quickly with JavaChassis"
 last_modified_at: 2017-06-06T10:01:43-04:00
 ---
 
-这个快速入门指南会帮助您迅速进行微服务业务开发。JavaChassis支持三种开发模式，此处通过POJO开发模式进行示例讲解，关于支持的Spring MVC/JAX RS两种开发模式，请参考详细的[用户手册]({{ site.url }}{{ site.baseurl }}/docs/user-guide/)。
-
 {% include toc %}
+这个快速入门指南会帮助您迅速进行微服务业务开发。JavaChassis支持三种开发模式，此处通过POJO开发模式进行示例讲解，关于支持的Spring MVC/JAX RS两种开发模式，请参考详细的[用户手册]({{ site.url }}{{ site.baseurl }}/docs/user-guide/)。
 
 ## 前提
 环境准备:
