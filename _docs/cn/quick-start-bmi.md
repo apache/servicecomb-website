@@ -7,11 +7,12 @@ excerpt: "以体质指数应用为例介绍如何基于Java Chassis快速开发�
 last_modified_at: 2017-09-04T10:01:43-04:00
 ---
 
+{% include toc %}
 ## 前言
-在您进一步阅读之前，请确保您已阅读了[快速入门指南](/cn/docs/quick-start-guide/)，并已成功运行**体质指数**微服务。接下来将进入**体质指数**微服务应用的开发之旅。
+在您进一步阅读之前，请确保您已阅读了[快速入门指南](/cn/docs/quick-start/)，并已成功运行**体质指数**微服务。接下来将进入**体质指数**微服务应用的开发之旅。
 
 ## 快速开发微服务应用
-在[快速入门指南](/cn/docs/quick-start-guide/)中已对**体质指数**微服务的架构进行了说明，其主要由两个微服务组成：
+在[快速入门指南](/cn/docs/quick-start/)中已对**体质指数**微服务的架构进行了说明，其主要由两个微服务组成：
 * **体质指数计算器**：负责处理运算事务。
 * **体质指数界面**：提供用户界面及网关服务。
 
@@ -46,14 +47,14 @@ public interface CalculatorEndpoint {
   double calculate(double height, double weight);
 }
 ```
-然后引入 **ServiceComb** 依赖：
+引入 **ServiceComb** 依赖：
 ```xml
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>spring-boot-starter-provider</artifactId>
     </dependency>
 ```
-接下来暴露运算服务的Restful端点：
+暴露运算服务的Restful端点：
 ```java
 @RestSchema(schemaId = "calculatorRestEndpoint")
 @RequestMapping("/")
@@ -76,7 +77,7 @@ public class CalculatorRestEndpoint implements CalculatorEndpoint {
 }
 ```
 这里用`@RestSchema`注释端点后， **ServiceComb** 微服务框架会自动生成对应的服务端点契约，并根据
-如下的 `microservice.yaml` 文件中的定义来配置端点端口，然后将契约和服务一起注册到服务注册中心。
+如下的 `microservice.yaml` 文件中的定义来配置端点端口，将契约和服务一起注册到服务注册中心。
 ```yaml
 APPLICATION_ID: bmi
 service_description:
@@ -113,14 +114,14 @@ public class CalculatorApplication {
 #### 网关及路由规则
 网关服务主要用到了业界有名的[Netflix Zuul](https://github.com/Netflix/zuul/wiki)来实现。
 
-首先需要引入依赖：
+引入依赖：
 ```xml
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>spring-boot-starter-discovery</artifactId>
     </dependency>
 ```
-然后在 `application.yaml` 文件中配置路由规则及服务端口信息：
+在 `application.yaml` 文件中配置路由规则及服务端口信息：
 ```yaml
 zuul:
   routes:
@@ -135,7 +136,7 @@ ribbon:
 server:
   port: 8888
 ```
-并在 `microservice.yaml` 文件中配置网关服务的信息和服务注册中心的地址。
+在 `microservice.yaml` 文件中配置网关服务的信息和服务注册中心的地址。
 ```yaml
 APPLICATION_ID: bmi
 service_description:
@@ -161,7 +162,7 @@ public class GatewayApplication {
 }
 ```
 
-至此，**体质指数**应用已开发完毕，您可以通过[快速入门指南](/cn/docs/quick-start/#运行微服务)中的步骤对其进行验证。
+至此，**体质指数**应用已开发完毕，您可以通过[快速入门指南](/cn/docs/quick-start/#运行微服务应用)中的步骤对其进行验证。
 
 ## 下一步
 * 认识 [**ServiceComb** 微服务开发框架](/cn/users/user-guide/)

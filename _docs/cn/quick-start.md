@@ -7,11 +7,13 @@ excerpt: "介绍如何使用Java Chassis框架快速运行微服务应用"
 last_modified_at: 2017-09-03T10:01:43-04:00
 ---
 
+{% include toc %}
 ## 安装Java开发环境
 * 安装JDK 1.8+，详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)。
 * 安装Maven 3.x，详情可参考[Maven安装教程](https://maven.apache.org/install.html)。
 
-## 使用Docker运行服务注册中心*Service Center*
+## 运行 *Service Center* 
+在 **ServiceComb** 微服务框架中，**Service Center** 提供服务注册及服务发现功能，可直接使用 Docker 运行。 
 ```bash
 docker pull servicecomb/service-center
 docker run -d -p 30100:30100 servicecomb/service-center:latest
@@ -24,12 +26,12 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 
 其运行流程为：  
 ![体质指数应用运行流程](/assets/images/quick-start-sample-workflow.png){: .align-center}
-其中，服务注册中心提供了服务注册及发现服务。  
 
-## 运行微服务
-1. 获取 **体质指数** 应用代码，并进入 *samples -> bmi* 目录。
+## 运行微服务应用
+1. 获取 **体质指数** 应用代码。
 ```bash
 git clone https://github.com/ServiceComb/ServiceComb-Java-Chassis.git
+cd ServiceComb-Java-Chassis/samples/bmi
 ```
 2. 启动 **体质指数计算器** 和 **体质指数界面** 微服务，分别进入 *calculator* 目录和 *webapp* 目录，并执行以下指令：
 ```bash
