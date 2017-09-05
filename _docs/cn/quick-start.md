@@ -9,8 +9,8 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 
 {% include toc %}
 ## 安装 Java 开发环境
-* 安装JDK 1.8+，详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)。
-* 安装Maven 3.x，详情可参考[Maven安装教程](https://maven.apache.org/install.html)。
+* 安装JDK 1.8+，详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html){:target="_blank"}。
+* 安装Maven 3.x，详情可参考[Maven安装教程](https://maven.apache.org/install.html){:target="_blank"}。
 
 ## 运行 Service Center
 在 **ServiceComb** 微服务框架中，**Service Center** 提供服务注册及服务发现功能，可直接使用 Docker 运行。 
@@ -26,6 +26,8 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 
 其运行流程为：  
 ![体质指数应用运行流程](/assets/images/quick-start-sample-workflow.png){: .align-center}
+
+其中，虚线表示服务注册及服务发现的过程。
 
 ## 运行微服务应用
 1. 获取 **体质指数** 应用代码。

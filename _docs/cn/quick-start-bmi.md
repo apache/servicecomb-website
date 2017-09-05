@@ -24,7 +24,7 @@ last_modified_at: 2017-09-04T10:01:43-04:00
 * 服务启动入口
 
 #### 具体运算实现
-本模块负责计算体质指数，根据公式 $$BMI=\frac{weight}{(height/100)^2}$$ 进行实现，代码如下：
+本模块负责计算体质指数，根据公式 \\(体质指数=\frac{体重}{身高^2}\\) 进行实现，代码如下：
 ```java
 public interface CalculatorService {
   double calculate(double height, double weight);
