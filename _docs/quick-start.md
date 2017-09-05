@@ -1,8 +1,8 @@
 ---
-title: "快速入门"
-lang: cn
+title: "Quick Start"
+lang: en
 ref: quick-start
-permalink: /cn/docs/quick-start/
+permalink: /docs/quick-start/
 excerpt: "介绍如何使用Java Chassis框架快速运行微服务应用"
 last_modified_at: 2017-09-03T10:01:43-04:00
 ---
