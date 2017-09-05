@@ -13,7 +13,9 @@ redirect_from:
 ## 背景
 
 　　压力测试是评估应用性能的一种有效手段。此外，越来越多的应用被拆分为多个微服务而每个微服务的性能不一,有的微服务是计算密集型，有的是IO密集型。
+
 　　因此，压力测试在基于微服务架构的网络应用中扮演着越来越重要的角色。本文将在[Kubernetes](https://kubernetes.io/)集群中使用[JMeter 3.2](https://www.google.com.hk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiv9rjg7u_VAhUkxoMKHfoYDaYQFggvMAA&url=http%3A%2F%2Fjmeter.apache.org%2F&usg=AFQjCNHIHCOA-F9LnhaAn_STCWyPPgOpdw)来对[Company应用](https://github.com/ServiceComb/ServiceComb-Company-WorkShop)进行性能评估。
+
 　　在上文[《微服务化后的按需精细化资源控制》](http://servicecomb.io/cn/docs/autoscale-on-company/)中已了解到Manager服务的资源需求最大，本次使用JMeter对Company应用进行精细的性能测试。
 
 ## 制定JMeter测试方案
