@@ -48,7 +48,6 @@ cd webapp; mvn spring-boot:run
 ```
 3. Verify the application. Visit <a>http://localhost:8888</a> in browser. Then input your height and weight to verify.
 ![BMI user interface](/assets/images/bmi-interface.png){: .align-center}
-![website of BMI](/assets/images/bmi-interface.png){: .align-center}
 
 ## What's next
 Learn how to [develop microservice application in minutes](/docs/quick-start-bmi/).
