@@ -25,7 +25,7 @@ last_modified_at: 2017-06-06T10:01:43-04:00
 > docker run -d -p 30100:30100 servicecomb/service-center:latest
 ```
 
-**Note:** Service Center运行后的绑定IP为http://127.0.0.1:30100:30100。如使用docker toolbox，可以通过 ```docker-machine ip``` 获取服务绑定IP地址。
+**Note:** Service Center运行后的绑定IP为http://127.0.0.1:30100。如使用docker toolbox，可以通过 ```docker-machine ip``` 获取服务绑定IP地址。
 {: .notice--warning}
 
 2.通过二进制文件方式运行Service Center：
