@@ -9,17 +9,11 @@ redirect_from:
   - /theme-setup/
 ---
 
-什么是ServiceComb微服务框架
-
 {% include toc %}
-
 ## 框架概述
-微服务开发框架包括编程模型、运行模型、通信模型和服务契约。编程模型支持透明RPC（POJO）、Spring MVC和JAX-RS三种编程模型。运行模型包括服务发现、熔断、负载均衡、配置及跟踪。通信模型支持序列化传输，包括Rest和Highway两个通道。通过服务契约的定义实现编程模型、运行模型、通信模型的灵活组合。如图1所示。
+![ServiceComb Model](/assets/images/servicecomb-models.png){: .align-center}
 
-<figure>
-  <img src="{{ '/assets/images/servicecomb-models.png' | absolute_url }}" alt="copy GitHub repo URL">
-  <figcaption></figcaption>
-</figure>
+微服务开发框架包括编程模型、运行模型、通信模型和服务契约。编程模型支持透明RPC（POJO）、Spring MVC和JAX-RS三种编程模型。运行模型包括服务发现、熔断、负载均衡、配置及跟踪。通信模型支持序列化传输，包括Rest和Highway两个通道。通过服务契约的定义实现编程模型、运行模型、通信模型的灵活组合。如图1所示。
 
 微服务开发框架具有如下特点。
 

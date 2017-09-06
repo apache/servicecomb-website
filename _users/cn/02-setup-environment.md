@@ -10,8 +10,9 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 {% include toc %}
 
 ## 安装Java开发环境
-* 安装JDK 1.8+，详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html)。
-* 安装Maven 3.x，详情可参考[Maven安装教程](https://maven.apache.org/install.html)。
+* 安装JDK 1.8+，详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html){:target="_blank"}。
+* 安装Maven 3.x，详情可参考[Maven安装教程](https://maven.apache.org/install.html){:target="_blank"}。
+* 安装IntelliJ Idea IDE，详情可参考[IntelliJ安装教程](https://www.jetbrains.com/help/idea/installing-and-launching.html){:target="_blank"}。
 
 ## 运行服务注册中心*Service Center*
 运行服务注册中心有以下两种方式:
@@ -31,12 +32,12 @@ last_modified_at: 2017-09-03T10:01:43-04:00
       <div markdown="1">
       1. 下载服务注册中心可执行文件压缩包并解压缩
       ```bash
-      wget https://github.com/ServiceComb/service-center/releases/download/0.1.1/service-center-0.1.1-linux-amd64.tar.gz
-      tar xvf service-center-0.1.1-linux-amd64.tar.gz
+   wget https://github.com/ServiceComb/service-center/releases/download/0.1.1/service-center-0.1.1-linux-amd64.tar.gz
+   tar xvf service-center-0.1.1-linux-amd64.tar.gz
       ```
       2. 运行服务注册中心
       ```bash
-      bash service-center-0.1.1-linux-amd64/start.sh
+   bash service-center-0.1.1-linux-amd64/start.sh
       ```
       </div>
     </details>
