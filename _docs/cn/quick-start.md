@@ -36,10 +36,9 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 其中，虚线表示服务注册及服务发现的过程。
 
 ## 运行微服务应用
-1. 获取 **体质指数** 应用代码。
+1. 进入 **体质指数** 应用代码目录。
 ```bash
-git clone https://github.com/ServiceComb/ServiceComb-Java-Chassis.git
-cd ServiceComb-Java-Chassis/samples/bmi
+cd samples/bmi
 ```
 2. 启动 **体质指数计算器** 和 **体质指数界面** 微服务，分别执行以下指令：
 ```bash
