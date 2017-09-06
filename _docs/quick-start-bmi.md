@@ -3,28 +3,30 @@ title: "Develop BMI Microservice Application"
 lang: en
 ref: quick-start-bmi
 permalink: /docs/quick-start-bmi/
-excerpt: "以体质指数应用为例介绍如何基于Java Chassis快速开发微服务应用"
-last_modified_at: 2017-09-04T10:01:43-04:00
+excerpt: "Introduce how to speedy develop a micro-service application with ServiceComb by the BMI sample"
+last_modified_at: 2017-09-06T00:50:00-55:00
 ---
 
 {% include toc %}
-## 前言
-在您进一步阅读之前，请确保您已阅读了[快速入门指南](/cn/docs/quick-start/)，并已成功运行**体质指数**微服务。接下来将进入**体质指数**微服务应用的开发之旅。
+## Before you begin
+Read the instructions in the [Quick start](/docs/quick-start/).
 
-## 快速开发微服务应用
-在[快速入门指南](/cn/docs/quick-start/)中已对**体质指数**微服务的架构进行了说明，其主要由两个微服务组成：
-* **体质指数计算器**：负责处理运算事务。
-* **体质指数界面**：提供用户界面及网关服务。
+## Speedy develop microservices
+The architecture of BMI have been introduced in [Quick start](/docs/quick-start/), it is composed by two separate microservices. 
 
-下面将对这两个微服务的实现进行介绍，其代码已托管于[github](https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi)上。
-### 体质指数计算器实现
-体质指数计算器提供运算服务，其实现分为三部分：
-* 具体运算实现
-* 服务端点定义
-* 服务启动入口
+- **BMI calculator service**：A microservice to calculate BMI.
+- **webapp service**：A microservice to provide front-end page and gateway service.
 
-#### 具体运算实现
-本模块负责计算体质指数，根据公式 \\(体质指数=\frac{体重}{身高^2}\\) 进行实现，代码如下：
+The process of develop these two microservices whose code is on [github](https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi) is showed as following.
+### Implementation of calculator
+The calculator service which concludes three parts as following provides capability of calculating BMI.
+* Calculating implementation
+* Service endpoint definition
+* Entry of service startup
+
+#### Calculating implementation
+Implement calculating according to the formula of \\(BMI=\frac{mass}{height^2}\\).
+
 ```java
 public interface CalculatorService {
   double calculate(double height, double weight);
@@ -38,23 +40,24 @@ public class CalculatorServiceImpl implements CalculatorService {
     return weight / (heightInMeter * heightInMeter);
   }
 }
-``` 
+```
 
-#### 服务端点定义
-服务端点用于生成服务契约，使得服务间能无缝进行通信。首先定义端点接口：
+#### Service endpoint definition
+Service endpoint is defined as following to create service contact, thus to realize communication between services.       
+
 ```java
 public interface CalculatorEndpoint {
   double calculate(double height, double weight);
 }
 ```
-引入 **ServiceComb** 依赖：
+Introduce dependence of ServiceComb:
 ```xml
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>spring-boot-starter-provider</artifactId>
     </dependency>
 ```
-暴露运算服务的Restful端点：
+Expose restful endpoint of calculator service:
 ```java
 @RestSchema(schemaId = "calculatorRestEndpoint")
 @RequestMapping("/")
@@ -76,8 +79,7 @@ public class CalculatorRestEndpoint implements CalculatorEndpoint {
   }
 }
 ```
-这里用`@RestSchema`注释端点后， **ServiceComb** 微服务框架会自动生成对应的服务端点契约，并根据
-如下的 `microservice.yaml` 文件中的定义来配置端点端口，将契约和服务一起注册到服务注册中心。
+Note that ServiceComb can create service contract automatically by using  `@RestSchema` to annotate endpoint. Thus we can config the endpoint in  `microservice.yaml` as following to registry the contact and service to service center.
 ```yaml
 APPLICATION_ID: bmi
 service_description:
@@ -91,8 +93,8 @@ cse:
     address: 0.0.0.0:7777
 ```
 
-#### 服务启动入口
-服务启动入口中只需添加 `@EnableServiceComb` 的注解即可启用 *ServiceComb* 微服务框架，代码如下：
+#### Entry of service startup
+Add annotation of `@EnableServiceComb` to enable *ServiceComb* framework:
 ```java
 @SpringBootApplication
 @EnableServiceComb
@@ -103,25 +105,25 @@ public class CalculatorApplication {
 }
 ```
 
-### 体质指数界面实现
-本模块负责提供用户界面及网关服务。其实现主要分为三部分：
-* 前端界面
-* 网关及路由规则
-* 服务启动入口
+### Implementation of webapp service
+The webapp service which conclude three parts as following provides capability of frond-end page and gateway service.
+* Front-end page
+* Gateway and routing rules
+* Entry of startup service
 
-其中，前端界面的组件使用了[Bootstrap](http://getbootstrap.com/)来开发。
+Note that we using [Bootstrap](http://getbootstrap.com/) to develop front-end page here.
 
-#### 网关及路由规则
-网关服务主要用到了业界有名的[Netflix Zuul](https://github.com/Netflix/zuul/wiki)来实现。
+#### Gateway and routing rules
+[Netflix Zuul](https://github.com/Netflix/zuul/wiki) is used to realize gateway service here.
 
-引入依赖：
+Introduce the dependence:
 ```xml
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>spring-boot-starter-discovery</artifactId>
     </dependency>
 ```
-在 `application.yaml` 文件中配置路由规则及服务端口信息：
+Config routing rules and service endpoint in `application.yaml` :
 ```yaml
 zuul:
   routes:
@@ -136,7 +138,7 @@ ribbon:
 server:
   port: 8888
 ```
-在 `microservice.yaml` 文件中配置网关服务的信息和服务注册中心的地址。
+Add configuration of gateway and address of service center to enable service discovery in  `microservice.yaml` :
 ```yaml
 APPLICATION_ID: bmi
 service_description:
@@ -147,10 +149,8 @@ cse:
     registry:
       address: http://127.0.0.1:30100
 ```
-此处将服务注册中心和Zuul相结合使能服务发现。
-
-#### 服务启动入口
-服务启动入口也只需要声明启用 `ServiceComb` 和 `Zuul` 即可。
+#### Entry of service startup
+Add annotations to enable `ServiceComb` and `Zuul` :
 ```java
 @SpringBootApplication
 @EnableZuulProxy
@@ -162,8 +162,8 @@ public class GatewayApplication {
 }
 ```
 
-至此，**体质指数**应用已开发完毕，您可以通过[快速入门指南](/cn/docs/quick-start/#运行微服务应用)中的步骤对其进行验证。
+Now, everything is done, reference to [quick start](/docs/quick-start/#Start Micro-service Application) to verify services.
 
-## 下一步
-* 认识 [**ServiceComb** 微服务开发框架](/cn/users/user-guide/)
-* 通过[Company应用](/cn/docs/linuxcon-workshop-demo/)更深入地了解微服务开发
+## What's next
+* Get more from [**Introduction of ServiceComb** ](/users/user-guide/)
+* Lean more about how to develop microservices by [Company application](/docs/linuxcon-workshop-demo/)

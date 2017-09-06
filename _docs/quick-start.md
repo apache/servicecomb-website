@@ -3,52 +3,53 @@ title: "Quick Start"
 lang: en
 ref: quick-start
 permalink: /docs/quick-start/
-excerpt: "Introduce how to develop microservice applications using Java Chassis"
-last_modified_at: 2017-09-03T10:01:43-04:00
+excerpt: "Introduce how to speedy start micro-service application on ServiceComb"
+last_modified_at: 2017-09-06T00:50:43-55:00
 ---
 
 {% include toc %}
-## 安装 Java 开发环境
-* 安装JDK 1.8+，详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html){:target="_blank"}。
-* 安装Maven 3.x，详情可参考[Maven安装教程](https://maven.apache.org/install.html){:target="_blank"}。
-* 安装 ServiceComb Java Chassis(SDK)，执行以下指令：
-```bash
-git clone https://github.com/ServiceComb/ServiceComb-Java-Chassis.git
-cd ServiceComb-Java-Chassis
-mvn clean install -DskipTests -DskipITs
-```
+## Install java development environment
+* Install JDK 1.8+, Reference to [JDK Installing Guide](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html) to get details.
+* Install Maven 3.x, Reference to [Maven Installing Guide](https://maven.apache.org/install.html) to get details.
 
-## 运行 Service Center
-在 **ServiceComb** 微服务框架中，**Service Center** 提供服务注册及服务发现功能，可直接使用 Docker 运行。 
+## Start Service Center
+Service Center which provides capability of service registry and discovery in ServiceComb can be started within docker container directly.
+
 ```bash
 docker pull servicecomb/service-center
 docker run -d -p 30100:30100 servicecomb/service-center:latest
 ```
 
-## 创建第一个微服务
-本指南将以一个简单的 **体质指数(BMI)** 应用开展微服务之旅。[体质指数](https://baike.baidu.com/item/BMI%E6%8C%87%E6%95%B0){:target="_blank"}主要用于衡量人体胖瘦程度。该应用主要包含两个微服务：
-* **体质指数计算器**：负责处理运算事务。
-* **体质指数界面**：提供用户界面及网关服务。
+## Create first micro-service application
+The sample named BMI(Body Mass Index) deploys a simple application which will be used to demonstrate how to speedy start a micro-service application with ServiceComb. The [BMI](https://en.wikipedia.org/wiki/Body_mass_index) application conclude two separate microservices:
 
-其运行流程为：  
-![体质指数应用运行流程](/assets/images/quick-start-sample-workflow.png){: .align-center}
+* **BMI calculator service**：A microservice to calculate BMI.
+* **webapp service**：A microservice to provide front-end page and gateway service.
 
-其中，虚线表示服务注册及服务发现的过程。
+The end-to-end architecture of the application is showed as following:  
+![E2E architecture](/assets/images/quick-start-sample-workflow.png){: .align-center}
 
-## 运行微服务应用
-1. 获取 **体质指数** 应用代码。
+Note that the dotted lines indicate the process of service registry and discovery.
+
+## Start micro-service application
+1.  Get codes of BMI.
 ```bash
 git clone https://github.com/ServiceComb/ServiceComb-Java-Chassis.git
 cd ServiceComb-Java-Chassis/samples/bmi
 ```
-2. 启动 **体质指数计算器** 和 **体质指数界面** 微服务，分别执行以下指令：
+2.  Start microservices.
 ```bash
 cd calculator; mvn spring-boot:run
 cd webapp; mvn spring-boot:run
 ```
-3. 验证服务。微服务启动完毕后，即可通过 <a>http://localhost:8888</a> 访问 **体质指数** 应用，届时将能看到如下界面，并可输入您的身高和体重信息验证服务是否正常运行。
+3.  Verify the application.
 
-![体质指数应用运行界面](/assets/images/bmi-interface.png){: .align-center}
+    Visit <a>http://localhost:8888</a> in browser, get web page as following, then input your information of Height and weight to get your BMI.
 
-## 下一步
-接下来推荐您阅读[**体质指数**微服务应用快速开发](/cn/docs/quick-start-bmi/)。
+![website of BMI](/assets/images/bmi-interface.png){: .align-center}
+
+
+
+## What's next
+
+Start speedy coding with ServiceComb by [Develop BMI](/docs/quick-start-bmi/).
