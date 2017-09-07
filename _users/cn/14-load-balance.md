@@ -38,7 +38,7 @@ cse.loadbalance.DemoService.NFLoadBalancerRuleClassName
 |cse.loadbalance.NFLoadBalancerRuleClassName|com.netflix.loadbalancer.RoundRobinRule|基于轮询的路由选择策略。|
 |cse.loadbalance.NFLoadBalancerRuleClassName|com.netflix.loadbalancer.RandomRule|基于随机的路由选择策略。|
 |cse.loadbalance.NFLoadBalancerRuleClassName|com.netflix.loadbalancer.WeightedResponseTimeRule|基于服务器响应时间的路由选择策略。|
-|cse.loadbalance.NFLoadBalancerRuleClassName|com.huawei.paas.cse.loadbalance.SessionStickinessRule|会话保持路由选择策略。|
+|cse.loadbalance.NFLoadBalancerRuleClassName|io.servicecomb.loadbalance.SessionStickinessRule|会话保持路由选择策略。|
 |cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds|30|客户端闲置时间，超过限制后选择后面的服务器。（说明：暂不支持微服务配置。e.g. cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds）。|
 |cse.loadbalance.SessionStickinessRule.successiveFailedTimes|5|客户端失败次数，超过后会切换服务器（暂不支持微服务配置）。|
 |cse.loadbalance.retryEnabled|FALSE|负载均衡捕获到服务调用异常，是否进行重试。|
