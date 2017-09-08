@@ -63,4 +63,4 @@ redirect_from:
 
 8. **Q: 在eclipse下修改了microservice.yaml配置文件下的端口号，启动程序后，端口号没生效？**
 
-   A: 单独导入sample项目
+   A: 需要单独导入sample项目，如果导入整个ServiceComb-Java-Chassis项目，由于sample目录不在ServiceComb-Java-Chassis模块中，IDE不会对sample进行编译,eclipse下并没有提示错误信息，IDEA下会有提示信息。因此eclipse启动sample的demo会发现修改了端口没有生效。
