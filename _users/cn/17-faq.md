@@ -60,3 +60,7 @@ redirect_from:
 7. **Q: 如果没有指定RequestMapping这个标注的value时，默认的基本路径是什么？**
 
    A: 假设你的Controller类名为*HelloController*，那么基本路径就是/HelloController。
+
+8. **Q: 在eclipse下修改了microservice.yaml配置文件下的端口号，启动程序后，端口号没生效？**
+
+   A: 单独导入sample项目
