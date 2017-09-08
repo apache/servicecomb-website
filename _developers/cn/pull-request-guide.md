@@ -1,72 +1,87 @@
 ---
 title: "如何提交Pull Request"
-lang: cn
+lang: cn 
 ref: pull-request-guide
-permalink: /cn/developers/pull-request-guide/
-date: 2017-06-28T03:02:20+00:00
+permalink: /cn/developers/pull-request-guide/   
+excerpt: "本文向开发者介绍如何向 ServiceComb 代码库提交 PR "   
+last_modified_at: 2017-09-08T20:26:43-20:46
 ---
 
-在Github上面可以很方便地提交Pull Request (PR),  下面将以ServiceComb/java-chassis 项目为例（如果是其他项目，请替换项目名），向大家介绍如果提交PR。
+{% include toc %}
 
-## 配置git仓库
+　　在 [Github](https://github.com/ServiceComb) 上面可以很方便地提交 [Pull Request (PR)](https://help.github.com/articles/about-pull-requests/)，下面将以本网站项目[ServiceComb/ServiceComb.github.io](https://github.com/ServiceComb/ServiceComb.github.io) 为例（如果是其他项目，请替换项目名ServiceComb.github.io）。
 
-首先，使用Github提供的fork功能将ServiceComb/java-chassis代码库到自己的github账号，然后将代码克隆到本地：
+## Fork仓库
 
-```git clone https://github.com/<your_github_name>/java-chassis.git```
+　　进入 ServiceComb/ServiceComb.github.io 的 [github 页面](https://github.com/ServiceComb/ServiceComb.github.io) ，点击右上角按钮 `Fork` 进行 Fork。
 
-克隆到本地origin会默认指向github上的远程fork地址。
-有时我们需要将ServiceComb java-chassis 本地的master。为此，必须向下面示例一样为ServiceComb Java Chassis镜像添加远程关联：
+![体质指数应用运行界面](/assets/images/fork-repo.jpg){: .align-center}
 
-```git remote add upstream https://github.com/ServiceComb/java-chassis.git```
+## 配置git和提交修改
 
-检查远程设置：
+- 将代码克隆到本地：
 
-```git remote –v```
+  ```shell
+  git clone https://github.com/<your_github_name>/ServiceComb.github.io.git
+  ```
 
-你会看到如下信息：
-
-    origin https://github.com/<your_github_name>/java-chassis.git (fetch)
-    origin    https://github.com/<your_github_name>/java-chassis.git (push)
-    upstream  https://github.com/ServiceComb/java-chassis.git (fetch)
-    upstream  https://github.com/ServiceComb/java-chassis.git (push)
-
-你可以通过git fetch和git rebase来更新本地的master，操作如下：
-
-	git fetch upstream master
-	git rebase upstream/master
-
-当前分支的所有操作默认情况下都会指向你的github帐户对应fork项目，因为“origin”是默认的。在你准备把代码合入到远程ServiceComb Java Chassis之前，都可以在当前分支操作。进行代码合入时，一般你需要拉出一个分支（java-chassis-xxxx，xxxx通常是一个JIRA单号）来做合并的操作，示例如下：
-
-	git checkout -b jav-xxxx
+  注意：请将 \<your\_github\_name\> 替换为您的github名字。
 
 
-## 如何创建一个PR
+　　clone完成后，origin会默认指向github上的远程fork地址。
 
-在创建PR之前，请确认：
+- 将 ServiceComb/ServiceComb.github.io 添加为本地仓库的远程分支 upstream：
 
-*  创建了一个相应的JIRA问题，并给出了清晰的问题描述。
+  ```shell
+  cd ServiceComb.github.io
+  git remote add upstream https://github.com/ServiceComb/ServiceComb.github.io.git
+  ```
 
-*  是否遵守编码规则。
 
-*  有单元测试，随时可用。
+- 检查远程仓库设置：
 
-针对Github中ServiceComb/java-chassis创建Pull Request。
+  ```shell
+  git remote –v
+  origin https://github.com/<your_github_name>/ServiceComb.github.io.git (fetch)
+  origin    https://github.com/<your_github_name>/ServiceComb.github.io.git (push)
+  upstream  https://github.com/ServiceComb/ServiceComb.github.io.git (fetch)
+  upstream  https://github.com/ServiceComb/ServiceComb.github.io.git (push)
+  ```
 
-1. push你的分支到github：
 
-		git checkout java-chassis-xxxx
-		git commit -a -m "xxxx doing some work"
-		git push origin java-chassis-xxxx
+- 新建分支以便在分支上做修改：
 
-2. 然后到github界面切换到你的java-chassis-xxxx分支。
-3. 点击“New pull request”按钮，“base fork”默认是ServiceComb/java-chassis，“head fork”是你fork的仓库，“compare”是你的java-chassis-xxxx分支。
-4. 点击“Create pull request”，然后填上Title/Write备注你此次提交PR的JIRA单号和目的，然后再次点击“Create pull request”就创建好了PR。
-5. 现在PR呈现在github上的ServiceComb/java-chassis上。
-6. 你的pull request会被committers检视和评论。当所有的检视者都认可后，pull request就会被接受合入了。
+  ```shell
+  git checkout -b <your_branch_name>
+  ```
 
-**Note:**创建pull requests详细信息，请参考[GitHub PR docs](https://help.github.com/articles/creating-a-pull-request/)合并一个PR。
-{: .notice--warning}
 
-## 关闭PR
+　　注意： \<your\_branch\_name\> 为您自定义的分支名字。
 
-   当我们想撤销一个PR（关闭不提交），我们可以打开对应PR然后点击关闭当前PR的按钮即可撤销该PR。
+　　创建完成后可进行代码更改。
+
+- 提交代码到远程分支：
+
+  ```shell
+  git commit -a -m "<you_commit_message>"
+  git push origin <your_branch_name>
+  ```
+
+　　更多 git 使用方法请访问：[git 使用](https://www.atlassian.com/git/tutorials/setting-up-a-repository)，这里不赘述。
+
+## 创建PR
+
+　　在浏览器切换到自己的 github 页面，切换分支到提交的分支 \<your\_branch\_name\> ，依次点击 `New pull request` 和 `Create pull request` 按钮进行创建，如下图所示：
+
+![体质指数应用运行界面](/assets/images/new-pr.jpg){: .align-center}
+fig-1 New pull request 
+{: .figure-caption}
+
+![体质指数应用运行界面](/assets/images/create-pr.jpg){: .align-center}
+fig-2 Create pull request 
+{: .figure-caption}
+
+　　至此，您的PR创建完成，更多关于 PR 请阅读 [collaborating-with-issues-and-pull-requests](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/) 。
+## 下一步
+
+　　请阅读[社区页面](http://servicecomb.io/cn/about/community/)加入开发者邮件列表。
