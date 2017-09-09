@@ -66,4 +66,4 @@ cse.isolation.Provider.DemoService.hello.sayHello.enabled
 **Note:**在表格里，全部省略type和MicroServiceName。未特殊说明，配置项都支持Provider和Consumer。例如：对于服务消费者，需要配置为：cse.isolation.Consumer.enabled，对于服务提供者，需要配置为：cse.isolation.Provider.enabled。
 {: .notice--warning}
 
- 谨慎使用cse.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将cse.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间cse.request.timeout=30000。
+**注意事项：**  谨慎使用cse.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将cse.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间cse.request.timeout=30000。
