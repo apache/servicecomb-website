@@ -24,6 +24,7 @@ mvn clean install -DskipTests -DskipITs
 docker pull servicecomb/service-center
 docker run -d -p 30100:30100 servicecomb/service-center:latest
 ```
+*您可以通过阅读[环境配置](/cn/users/setup-environment/)获取在本地以二进制方式运行Service Center的方法。*
 
 ## 创建第一个微服务
 本指南将以一个简单的 **体质指数(BMI)** 应用开展微服务之旅。[体质指数](https://baike.baidu.com/item/BMI%E6%8C%87%E6%95%B0){:target="_blank"}主要用于衡量人体胖瘦程度。该应用主要包含两个微服务：

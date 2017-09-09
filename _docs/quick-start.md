@@ -24,6 +24,7 @@ mvn clean install -DskipTests -DskipITs
 docker pull servicecomb/service-center
 docker run -d -p 30100:30100 servicecomb/service-center:latest
 ```
+*Reference to [service center deployment](/users/start-sc/) to learn deploying Service Center as a local binary.*   
 
 ## Create your first microservice application
 Let\'s start the journey of microservice with a simple **Body Mass Index(BMI)** application. The [BMI](https://en.wikipedia.org/wiki/Body_mass_index){:target="_blank"} is an attempt to quantify the amount of tissue mass in an individual. This application contains two separate microservices:
