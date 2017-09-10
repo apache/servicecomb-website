@@ -163,5 +163,4 @@ public class GatewayApplication {
 Now you can refer to [quick start](/docs/quick-start/#Run microservice application) to verify the services.
 
 ## What's next
-* Review [**ServiceComb User Guide**](/users/user-guide/)
-* See the [Company application](/docs/linuxcon-workshop-demo/) for a more complete example of microservice applications integrated with ServiceComb.
+* Learn [advance microservice development](/docs/quick-start-advance/)

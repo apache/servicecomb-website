@@ -165,5 +165,4 @@ public class GatewayApplication {
 至此，**体质指数**应用已开发完毕，您可以通过[快速入门指南](/cn/docs/quick-start/#运行微服务应用)中的步骤对其进行验证。
 
 ## 下一步
-* 认识 [**ServiceComb** 微服务开发框架](/cn/users/user-guide/)
-* 通过[Company应用](/cn/docs/linuxcon-workshop-demo/)更深入地了解微服务开发
+* 阅读 [微服务开发进阶](/cn/docs/quick-start-advance/)

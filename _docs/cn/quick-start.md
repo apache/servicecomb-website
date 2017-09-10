@@ -51,4 +51,4 @@ cd webapp; mvn spring-boot:run
 ![体质指数应用运行界面](/assets/images/bmi-interface.png){: .align-center}
 
 ## 下一步
-接下来推荐您阅读[**体质指数**微服务应用快速开发](/cn/docs/quick-start-bmi/)。
+阅读[**体质指数**微服务应用快速开发](/cn/docs/quick-start-bmi/)。
