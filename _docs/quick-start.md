@@ -42,6 +42,7 @@ Note that the dotted lines indicate the process of service registration and disc
 ```bash
 cd samples/bmi
 ```
+In the windows development environment, the docker is started in the virtual machine, so the **Service Center** IP address of the micro service needs to be modified as the virtual machine IP address. Modify the 2 configuration file [calculator|webapp]/src/main/resources/microservice.yaml, changed <a>http://127.0.0.1:30100</a> to <a>http://192.168.99.100:30100</a> , where 192.168.99.100 is the virtual machine IP address.
 2. Run microservices.
 ```bash
 cd calculator; mvn spring-boot:run

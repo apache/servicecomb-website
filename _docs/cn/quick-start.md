@@ -41,6 +41,7 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 ```bash
 cd samples/bmi
 ```
+在windows开发环境下，docker是在虚拟机中启动，因此需要修改微服务的 **Service Center** IP地址为虚拟机IP地址。修改2个配置文件[calculator|webapp]/src/main/resources/microservice.yaml，将其中<a>http://127.0.0.1:30100</a>修改为<a>http://192.168.99.100:30100</a>，其中192.168.99.100是虚拟机IP，需要与开发环境中的虚拟机IP保持一致。
 2. 启动 **体质指数计算器** 和 **体质指数界面** 微服务，分别执行以下指令：
 ```bash
 cd calculator; mvn spring-boot:run
