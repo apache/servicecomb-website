@@ -77,10 +77,10 @@ public class MyHandler extends AbstractHandler {
 
 ```yaml
 cse:
-handler:
-chain:
-  Provider:
-    default: bizkeeper-provider,myhandler
+  handler:
+    chain:
+      Provider:
+      default: bizkeeper-provider,myhandler
 ```
 
 处理链的顺序和上面定义的顺序有关，注意加到一个合适的位置。
