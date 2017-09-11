@@ -48,5 +48,5 @@ Run the new *BMI calculator service* . Now you can see the following figures sho
 
 ## What's next
 
-* See quick start for [Servie Management](/docs/quick-start-advance/service-management/)
+* See quick start for [Flow Control](/docs/quick-start-advance/flow-control/)
 * Learn more about [Load Balance](/users/load-balance/)

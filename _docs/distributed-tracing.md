@@ -30,8 +30,8 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
    ```yaml
    handler:
        chain:
-         Consumer:
-           default: tracing-consumer
+         Provider:
+           default: tracing-provider
    ```
 
 3. Add distributed tracing dependency in `pom.xml` of *BMI web service*:
@@ -69,7 +69,7 @@ Restart *BMI calculator service* and *BMI web service*.
 
 ## Verification
 
-1. Visit <a>http://localhost:8888</a> . Input positive integers in height and weight columns and then click *Submit* button.
+1. Visit <a>http://localhost:8888</a> . Input a positive height and weight and then click *Submit* button.
 2. Visit <a>http://localhost:9411</a> to checkout the status of distributed tracing and get the following figure.
 
 ![Distributed tracing result](/assets/images/distributed-tracing-result.png){: .align-center}

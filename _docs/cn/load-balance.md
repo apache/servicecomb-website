@@ -49,5 +49,5 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 
 ## 下一步
 
-* 阅读[服务治理快速入门](/cn/docs/quick-start-advance/service-management/)
+* 阅读[流量控制快速入门](/cn/docs/quick-start-advance/flow-control/)
 * 了解更多[负载均衡](/cn/users/load-balance/)的使用方式
