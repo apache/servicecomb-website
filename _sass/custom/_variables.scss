@@ -2,10 +2,26 @@
    VARIABLES
    ========================================================================== */
 
-$font-chs           : "Microsoft Yahei", "Hiragino Sans GB", "WenQuanYi Micro Hei", "Open Sans";
-$serif              : $font-chs, "Noto Sans SC", "Noto Serif", Times, Georgia, serif;
-$sans-serif-narrow  : Roboto, $font-chs, "Helvetica Neue", Helvetica, Arial, sans-serif;
-$monospace          : Monaco, "Source Code Pro", "Open Sans", "Droid Sans Mono", monospace !default;
+@font-face {
+  font-family: CustomSerifFont;
+  src: local("Microsoft Yahei"),
+       local("Hiragino Sans GB"),
+       local("WenQuanYi Micro Hei"),
+       local(Helvetica),
+       local(Arial);
+}
+
+@font-face {
+  font-family: CustomSerifFont;
+  unicode-range: U+00-024F;
+  src: local("Roboto"),
+       local(Helvetica),
+       local(Arial);
+}
+
+$serif              : CustomSerifFont, Times, Georgia, serif;
+$sans-serif-narrow  : Monaco, Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$monospace          : Monaco, "Source Code Pro", Roboto, monospace !default;
 
 $global-font-family : $serif;
 $header-font-family : $sans-serif-narrow;
