@@ -16,34 +16,42 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 
 ## 开启
 
-在 *体质指数界面* 的 `microservice.yaml` 文件中添加以下内容即可开启负载均衡的能力：
+1. 在 *体质指数界面* 的 `pom.xml` 文件中添加依赖项：
 
-```yaml
-  handler:
-    chain:
-      Consumer:
-        default: loadbalance
+   ```xml
+   <dependency>
+      <groupId>io.servicecomb</groupId>
+      <artifactId>handler-loadbalance</artifactId>
+    </dependency>
+   ```
+
+2. 在 *体质指数界面* 的 `microservice.yaml` 文件中开启负载均衡的能力：
+
+   ```yaml
+   cse:
+     handler:
+       chain:
+         Consumer:
+           default: loadbalance
+   ```
+
+体质指数应用中已配置好了上述配置项，您只需通过以下指令重启体质指数界面微服务即可：
+
+```bash
+mvn spring-boot:run -Pflowcontrol -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=loadbalance"
 ```
-
-修改后需要重启体质指数界面微服务。
 
 ## 验证
 
-对 *体质指数计算器* 微服务进行水平扩展，使其运行实例数为2，即新增一个运行实例。在体质指数计算器的源代码作出如下修改：
+对 *体质指数计算器* 微服务进行水平扩展，使其运行实例数为2，即新增一个运行实例：
 
-1. 修改服务运行端口，避免端口冲突
+```bash
+mvn spring-boot:run -Drun.profiles=v2 -Drun.jvmArguments="-Dcse.rest.address=0.0.0.0:7778"
+```
 
-   修改 `microservice.yaml` 文件，将 `cse.rest.address` 由原来的 `0.0.0.0:7777` 修改为 `0.0.0.0:7778` 。
+为了使效果更明显，在此使用了v2版本的 *体质指数计算器* ，即仅计算体质指数的一半。而为了避免端口冲突，新的实例在另一个端口上运行。
 
-2. 修改 `CalculatorServiceImpl.java` 文件，使体质指数计算结果减半（方便观察效果）
-
-   在 `calculate` 方法中，将返回的体质指数值减半：
-
-   ```java
-       double bmi = weight / (heightInMeter * heightInMeter) / 2;
-   ```
-
-启动服务，此时点击 *Submit* 按钮就可以看到如下两个界面交替出现。
+此时点击 *Submit* 按钮就可以看到如下两个界面交替出现。
 
 ![负载均衡效果](/assets/images/load-balance-result.png){: .align-center}
 

@@ -28,6 +28,7 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
 2. Configure handler chain of service management and fallback strategy:
 
    ```yaml
+   cse:
      handler:
        chain:
          Provider:
@@ -35,13 +36,17 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
      circuitBreaker:
        Provider:
          calculator:
-           requestVolumeThreshold: 3        
+           requestVolumeThreshold: 3
      fallbackpolicy:
        Provider:
          policy: returnnull
    ```
 
-Shut down all *BMI calculator services* and run a new one.
+The above configurations have already set up in the code. All you need to do is to restart the *BMI calculator services* with the following command:
+
+```bash
+mvn spring-boot:run -Pbizkeeper -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"
+```
 
 ## Verification
 

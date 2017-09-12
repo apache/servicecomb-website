@@ -16,33 +16,41 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
 
 ## Enable
 
-To enable load balance, add the following configurtations in *BMI web service*\'s `microservice.yaml` file:
+1. Add load balance dependency in `pom.xml` of *BMI web service*:
 
-```yaml
-  handler:
-    chain:
-      Consumer:
-        default: loadbalance
+   ```xml
+   <dependency>
+      <groupId>io.servicecomb</groupId>
+      <artifactId>handler-loadbalance</artifactId>
+    </dependency>
+   ```
+   
+2. Add handler chain of load balance in `microservice.yaml` of *BMI web service*:
+
+   ```yaml
+   cse:
+     handler:
+       chain:
+         Consumer:
+           default: loadbalance
+   ```
+
+The above configurations have already set up in the code. All you need to do is restart the **BMI web services** with the following command:
+
+```bash
+mvn spring-boot:run -Pflowcontrol -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=loadbalance"
 ```
-
-Restart *BMI web service* .
 
 ## Verification
 
-Run one more *BMI calculator service*. Before that, do some changes in *BMI calculator service*\'s source code.
+Run one more *BMI calculator service* with the following command: 
+```bash
+mvn spring-boot:run -Drun.profiles=v2 -Drun.jvmArguments="-Dcse.rest.address=0.0.0.0:7778"
+```
 
-1. Change the service port to avoid port conflict.
+To better visualize the result, we use another version of *BMI calculator service* which calculates half of the BMI, namely v2. Besides, a different service port is needed to avoid port conflict.
 
-   Change `cse.rest.address` from `0.0.0.0:7777` to `0.0.0.0:7778` in `microservice.yaml`.
-
-2. Divide the result of BMI calculation by 2 in `CalculatorServiceImpl.java` for a more obvious result.
-
-   ```java
-       double bmi = weight / (heightInMeter * heightInMeter) / 2;
-   ```
-
-
-Run the new *BMI calculator service* . Now you can see the following figures shows up alternately by clicking the *Submit* button.
+Now you can see the following figures shows up alternately by clicking the *Submit* button.
 
 ![Load balance result](/assets/images/load-balance-result.png){: .align-center}
 

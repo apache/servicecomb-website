@@ -28,7 +28,8 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
 2. Add handler chain of distributed tracing in `microservice.yaml` of *BMI calculator service*:
 
    ```yaml
-   handler:
+   cse:
+     handler:
        chain:
          Provider:
            default: tracing-provider
@@ -47,25 +48,23 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
        </dependency>
    ```
 
+The above configurations have already set up in the code. All you need to do is as follows:
 
-4. Add handler chain of distributed tracing in `microservice.yaml` of *BMI web service*:
-
-   ```yaml
-     handler:
-       chain:
-         Consumer:
-           default: tracing-consumer
-         Provider:
-           default: tracing-provider
-   ```
-
-5. Run *Zipkin* distributed service inside Docker.
+1. Run *Zipkin* distributed service inside Docker.
 
    ```bash
    docker run -d -p 9411:9411 openzipkin:zipkin
    ```
 
-Restart *BMI calculator service* and *BMI web service*.
+2. Restart *BMI calculator service* with the following command:
+   ```bash
+   mvn spring-boot:run -Ptracing -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
+   ```
+   
+3. Restart *BMI web service* with the following command:
+   ```bash
+   mvn spring-boot:run -Ptracing
+   ```
 
 ## Verification
 

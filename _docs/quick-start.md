@@ -42,7 +42,8 @@ Note that the dotted lines indicate the process of service registration and disc
 ```bash
 cd samples/bmi
 ```
-In the windows development environment, the docker is started in the virtual machine, so the **Service Center** IP address of the micro service needs to be modified as the virtual machine IP address. Modify the 2 configuration file [calculator|webapp]/src/main/resources/microservice.yaml, changed <a>http://127.0.0.1:30100</a> to <a>http://192.168.99.100:30100</a> , where 192.168.99.100 is the virtual machine IP address.
+**Note**: In windows development environment, the docker runs inside the virtual machine. The IP address of **Service Center** needs to be modified as the virtual machine\'s IP address. Modify the 2 configuration files [calculator\|webapp]/src/main/resources/microservice.yaml, changed <a>http://127.0.0.1:30100</a> to <a>http://192.168.99.100:30100</a> , where 192.168.99.100 is the virtual machine\'s IP address.
+
 2. Run microservices.
 ```bash
 cd calculator; mvn spring-boot:run
@@ -50,7 +51,6 @@ cd webapp; mvn spring-boot:run
 ```
 3. Verify the application. Visit <a>http://localhost:8888</a> in browser. Then input your height and weight to verify.
 ![BMI user interface](/assets/images/bmi-interface.png){: .align-center}
-![website of BMI](/assets/images/bmi-interface.png){: .align-center}
 
 ## What's next
 Learn how to [develop microservice application in minutes](/docs/quick-start-bmi/).

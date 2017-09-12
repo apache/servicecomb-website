@@ -28,10 +28,11 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 2. 在 *体质指数计算器* 的 `microservice.yaml` 文件中添加分布式追踪的处理链：
 
    ```yaml
-   handler:
+   cse:
+     handler:
        chain:
-         Consumer:
-           default: tracing-consumer
+         Provider:
+           default: tracing-provider
    ```
 
 3. 在 *体质指数界面* 的 `pom.xml` 文件中添加依赖项：
@@ -47,24 +48,23 @@ last_modified_at: 2017-09-03T10:01:43-04:00
        </dependency>
    ```
 
-4. 在 *体质指数界面* 的`microservice.yaml` 文件中添加分布式追踪的处理链：
+体质指数应用中已配置好了上述配置项，您只需执行以下几步即可：
 
-   ```yaml
-     handler:
-       chain:
-         Consumer:
-           default: tracing-consumer
-         Provider:
-           default: tracing-provider
-   ```
-
-5. 使用 Docker 运行 *Zipkin* 分布式追踪服务：
+1. 使用 Docker 运行 *Zipkin* 分布式追踪服务：
 
    ```bash
    docker run -d -p 9411:9411 openzipkin:zipkin
    ```
 
-修改后需要重启 *体质指数计算器* 和 *体质指数界面* 。
+2. 重启 *体质指数计算器* 微服务：
+   ```bash
+   mvn spring-boot:run -Ptracing -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
+   ```
+   
+3. 重启 *体质指数界面* 微服务：
+   ```bash
+   mvn spring-boot:run -Ptracing
+   ```
 
 ## 验证
 

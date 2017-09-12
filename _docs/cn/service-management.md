@@ -28,6 +28,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 2. 在 *体质指数计算器* 的 `microservice.yaml` 文件中指明使用服务治理的处理链及指定熔断和容错策略：
 
    ```yaml
+   cse:
      handler:
        chain:
          Provider:
@@ -35,20 +36,23 @@ last_modified_at: 2017-09-03T10:01:43-04:00
      circuitBreaker:
        Provider:
          calculator:
-           requestVolumeThreshold: 3        
+           requestVolumeThreshold: 3
      fallbackpolicy:
        Provider:
          policy: returnnull
    ```
 
-修改后需要先关闭之前运行的 *体质指数计算器* 微服务，并再次启动一个 *体质指数计算器* 微服务。
+体质指数应用中已配置好了上述配置项，您只需重新运行 **体质指数计算器**：
+
+```bash
+mvn spring-boot:run -Pbizkeeper -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"
+```
 
 ## 验证
 
 1. 使服务进入熔断状态。访问 <a>http://localhost:8888</a>，在身高或体重的输入框中输入一个负数，连续点击三次或以上 *Submit* 按钮，此时在网页下方能看到类似左图的界面。
 2. 验证服务处于熔断状态。在身高和体重的输入框中输入正数，再次点击 *Submit* 按钮，此时看到的界面依然是类似左图的界面。同时在 *体质指数计算器* 运行日志也能看到调用不再抛出异常，而是出现类似 `fallback called` 的日志。
 3. 验证服务恢复正常。约15秒后，在身高和体重的输入框中输入正数，点击 *Submit* 按钮，此时界面显示正常。
-
 
 ![服务治理效果](/assets/images/service-management-result.png){: .align-center}
 
