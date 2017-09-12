@@ -21,7 +21,9 @@ From the [last post](http://servicecomb.io/docs/autoscale-on-company/), we figur
 ## Test Plan
 
 Our JMeter test plan is:
+
 * Handle the authentication before stress tests as the authentication may introduce serious delay.
+
 * Keep visiting services in Company demo concurrently, push stress on the Manager services by QueryWorker, QueryBeekeeperDrone, QueryBeekeeperQueen HTTP request generator.
 
 You can get the test plan from github.
@@ -51,15 +53,20 @@ ${__setProperty(Authorization,${Authorization},)}
 The last part of our test plan is the stress tests perform on our services.  We test three endpoints as they all pass from the manager service to the other two microservices, namely worker and beekeeper. Before we test, we disable the caching capability by enabling *StressTest* profile in manager so that the worker service and beekeeper service can serve the incoming computing task all the time.  Besides, we simplify the computing task by setting the request argument to be just 1. 
 
 ## Test Steps
+
 * Start the *Company demo* in the Kubernetes cluster without resource limits. 
+
 * Replace the content of *hosts.csv* file with the IP address and port of the Company demo running in the Kubernetes cluster. The content in *hosts.csv* is:
-```csv
-127.0.0.1,8083
-```
+
+   ```csv
+   127.0.0.1,8083
+   ```
+
 * Run the tests. Using 200 threads to generate requests concurrently, and set the duration to be 600 seconds.
-```bash
-jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=200 -Jduration=600
-```
+
+   ```bash
+   jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=200 -Jduration=600
+   ```
 
 ## Test Results
 The performance among various concurrency is as follows:
@@ -107,23 +114,30 @@ Besides, we also need to add the *disruptor* dependency to enable the asynchrono
 </dependency>
 ```
 The *none* log settings just replace the *info* logging level to *off* in the above setting. We also tested on distributed JMeter test client environment. Running Jmeter in distributed mode takes two steps:
-1. run JMeter slave on each test node, the command is as follows:
-```bash
-jmeter-server -Djava.rmi.server.hostname=$(ifconfig eth0 | grep "inet addr" | awk '{print $2}' | cut -d ":" -f2)
-```
-2. run JMeter master, the command is as follows:
-```bash
-jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin=1 -Gmax=2 -Gthreads=200 -Gduration=600
-```
 
-*Note:* JMeter property does not work in distributed mode. It needs to be declared as a global property. That's why We use *-G* option  here instead of *-J* option.
-{: .notice--warning}
+1. run JMeter slave on each test node, the command is as follows:
+
+   ```bash
+   jmeter-server -Djava.rmi.server.hostname=$(ifconfig eth0 | grep "inet addr" | awk '{print $2}' | cut -d ":" -f2)
+   ```
+
+2. run JMeter master, the command is as follows:
+
+   ```bash
+   jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin=1 -Gmax=2 -Gthreads=200 -Gduration=600
+   ```
+
+   *Note:* JMeter property does not work in distributed mode. It needs to be declared as a global property. That's why We use *-G* option  here instead of *-J* option.
+   {: .notice--warning}
 
 The results are as follows:
 ![different log and different JMeter settings](/assets/images/company_log_and_jmeter.png){: .align-center}
 From the above figure, we can conclude that:
+
 * The performance in JMeter distributed mode and single mode are so close, it seems that a single JMeter test client is able to simulate enough concurrency for the current test. 
+
 * The log takes up too many computing resources when directly output to stdout and the asynchronous way has improved nearly 100% throughput of the original. **Seems like using the synchronous log settings may not be wise in production environment.**
+
 * The log4j2 has improved about 40% throughput of the log4j1 and reduced a small amount of memory. Hence, **it's recommended to replace the log4j1 with log4j2 for the sake of performance.**
 
 ![fig-5 memory usage of different log settings](/assets/images/company_different_log_memory_usage.png){: .align-center}

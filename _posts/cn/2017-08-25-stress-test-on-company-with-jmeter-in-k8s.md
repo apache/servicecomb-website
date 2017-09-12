@@ -20,7 +20,9 @@ redirect_from:
 
 ## 制定JMeter测试方案
 　　制定的测试方案为：
+
   * 由于登录认证会造成较大时延，故在压力测试主体运行前完成用户认证事宜；
+
   * 对Company应用多个接口持续并发访问，QueryWorker, QueryBeekeeperDrone, QueryBeekeeperQueen分别对Company中的服务发起请求压力。
 
 　　测试方案文件笔者已托管于github上，可直接获取：
@@ -48,15 +50,20 @@ ${__setProperty(Authorization,${Authorization},)}
 　　在测试计划的最后部分就是我们要在Company示例上进行的压力测试。测试所选取的三个接口都是通过经理服务路由至其他两个服务的，即技工服务和养蜂人服务。在我们测试开始之前，我们通过打开*StressTest*的开关来禁用经理服务提供的缓存能力，从而使得技工服务和养蜂人服务能够处理到用户请求的计算任务。此外，我们通过将请求参数设置为1来简化技工服务和养蜂人服务的计算任务。
 
 ## 启动测试
+
 * 在Kubernetes集群中以无资源限制的方式来运行*Company应用*。
+
 * 修改hosts.csv文件，使其匹配正在Kubernetes集群中运行的Company应用的服务地址。其中，默认的hosts.csv文件内容为：
-```csv
-127.0.0.1,8083
-```
+
+   ```csv
+   127.0.0.1,8083
+   ```
+
 * 运行测试，启动200个并发线程发起请求压力，并设置测试时常为600秒。
-```bash
-jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=200 -Jduration=600
-```
+
+   ```bash
+   jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=200 -Jduration=600
+   ```
 
 ## 测试结果
 　　在不同并发度下的测试结果如下图所示：
@@ -108,24 +115,30 @@ jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads=200 -Jdurati
 没有日志输出的设置仅仅是将上述*log4j2.xml*文件中的日志输出级别从*info*改为*off*即可。此外，我们还使用JMeter分布式的模式进行了相关的测试。JMeter中使用分布式的模式来运行主要分两步：
 
 1. 在每个测试从节点上运行*jmeter-server*，其运行指令如下：
-```bash
-jmeter-server -Djava.rmi.server.hostname=$(ifconfig eth0 | grep "inet addr" | awk '{print $2}' | cut -d ":" -f2)
-```
-2. 在测试主节点上运行*jmeter*，指令如下：
-```bash
-jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin=1 -Gmax=2 -Gthreads=200 -Gduration=600
-```
 
-*注意事项*：JMeter属性在分布式模式下并不能生效，需要将其声明为全局的属性。因此，此处我们用的是*-G*的选项而不是之前的*-J*的选项。  
-{: .notice--warning}
+   ```bash
+   jmeter-server -Djava.rmi.server.hostname=$(ifconfig eth0 | grep "inet addr" | awk '{print $2}' | cut -d ":" -f2)
+   ```
+
+2. 在测试主节点上运行*jmeter*，指令如下：
+
+   ```bash
+   jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin=1 -Gmax=2 -Gthreads=200 -Gduration=600
+   ```
+
+   *注意事项*：JMeter属性在分布式模式下并不能生效，需要将其声明为全局的属性。因此，此处我们用的是*-G*的选项而不是之前的*-J*的选项。
+   {: .notice--warning}
 
 运行结果如下所示：
 
 ![不同日志设置不同模式下的性能](/assets/images/company_log_and_jmeter.png){: .align-center}
 
 　　从上图可以看出：
+
    * JMeter单机测试和分布式测试的性能都非常接近，说明单机模式的JMeter测试暂时来说是足以模拟出足够的并发数来处理当前的测试场景的。
+
    * 日志的输出的确对系统的性能造成了较大的影响，可以看到，异步输出日志的方式能比同步输出的方式提升接近100%的吞吐量。因此，**在生产环境下使用完全同步输出日志的方式可能并不会有较理想的性能。**
+
    * log4j2的吞吐量相对于log4j1而言大幅提高了约40%，内存使用量也更少了。因此，**推荐使用性能更佳的log4j2替换掉陈旧的log4j1**。
 
 ![图5 不同日志设置下的内存使用量](/assets/images/company_different_log_memory_usage.png){: .align-center}

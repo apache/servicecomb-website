@@ -51,7 +51,9 @@ mvn spring-boot:run -Pbizkeeper -Drun.jvmArguments="-Dcse.handler.chain.Provider
 ## Verification
 
 1. Circuit-break microservices. Visit <a>http://localhost:8888</a>, enter a negative height or weight and click the *Submit* button three times or more continuously. Then the web page should look like the left one in fig-1.
+
 2. Verify serivces are in circuit-break status. Enter a positive height and weight, then click *Submit* button. The web page still looks like the left one in fig-1. In the meanwhile, no exceptions show in the log of *BMI calculator service*. Instead it shows lines contain "fallback called". 
+
 3. Verify the service back online again. Wait for about 15 seconds, enter a positive height and weight, then click *Submit* button. You will see the service works fine again like the right one in fig-1.
 
 ![Service management result](/assets/images/service-management-result.png){: .align-center}
@@ -61,4 +63,5 @@ fig-1 Service management result
 ## What's next
 
 * See quick start for [Distributed Tracing](/docs/quick-start-advance/distributed-tracing/)
+
 * Learn more about [Service Management](/users/service-management/)

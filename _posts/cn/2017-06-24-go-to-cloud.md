@@ -11,14 +11,26 @@ redirect_from:
 ---
 
 ## 背景
-1、Service Stage：微服务云应用平台，它是面向企业及开发者的一站式DevOps平台服务，支持基于微服务的应用开发、治理、部署及运维监控的全生命周期管理，并提供大规模容器集群管理及中间件服务等平台能力，帮助用户快速构建云分布式应用。  
-2、本指导以Acmeair demo的部署为例，演示如何使用ServiceComb (华为微服务框架开源版本)实现应用的微服务化，并利用Service Stage云平台上实现应用的云化。  
+
+1. Service Stage：微服务云应用平台，它是面向企业及开发者的一站式DevOps平台服务，支持基于微服务的应用开发、治理、部署及运维监控的全生命周期管理，并提供大规模容器集群管理及中间件服务等平台能力，帮助用户快速构建云分布式应用。  
+
+2. 本指导以Acmeair demo的部署为例，演示如何使用ServiceComb (华为微服务框架开源版本)实现应用的微服务化，并利用Service Stage云平台上实现应用的云化。  
 
 
 ## 服务化和云化步骤
-*	环境准备：基于Service Stage完成创建集群、添加节点等资源准备工作 
-* 微服务开发：1）微服务的拆分设计； 2）基于ServiceComb框架快速微服务化； 3）制作镜像上传Service Stage软件仓库；
+
+* 环境准备：基于Service Stage完成创建集群、添加节点等资源准备工作 
+
+* 微服务开发
+
+   1. 微服务的拆分设计
+
+   2. 基于ServiceComb框架快速微服务化
+
+   3. 制作镜像上传Service Stage软件仓库；
+
 * 应用上线：通过Service Stage从软件仓库获取版本实现部署上线；
+
 * 应用运维：通过Service Stage对微服务或应用进行生命周期管理（部署-启动-上线-升级-扩容-停止-下线-删除）、告警、监控、调用链分析和治理等。
 
 ## 环境准备：创建集群、添加节点，完成节点自动纳管
@@ -80,12 +92,19 @@ redirect_from:
 本章节介绍在windows 64位环境下如何本地运行Acmeair
 
 ## 环境准备
+
 * JDK 1.8
+
 * maven 3.x
+
 * eclipse
+
 * service-center    
-  下载[service-center-x.x.x-x-windows-amd64.zip](https://github.com/ServiceComb/service-center/releases)解压到任意目录
+
+   下载[service-center-x.x.x-x-windows-amd64.zip](https://github.com/ServiceComb/service-center/releases)解压到任意目录
+
 * mongodb（可选）
+
 * 下载[acmeair源码](https://github.com/TankTian/acmeair/archive/master.zip)
 
 ## 导入项目并构建
@@ -100,14 +119,15 @@ Import - - Maven:Existing Maven Projects，选择代码所在的目录，点击f
 eclispe中更新工程：Maven - - Update Project…
 
 ###	修改微服务描述文件
-1、acmeair-booking-service\src\main\resources\microservice.yaml  
-![booking microservice yaml]({{ site.url }}{{ site.baseurl }}/assets/images/booking-microservice-yaml.png){: .align-center}  
 
-2、acmeair-customer-service\src\main\resources\microservice.yaml   
-![customer microservice yaml]({{ site.url }}{{ site.baseurl }}/assets/images/customer-microservice-yaml.png){: .align-center}  
+1. acmeair-booking-service\src\main\resources\microservice.yaml  
+   ![booking microservice yaml]({{ site.url }}{{ site.baseurl }}/assets/images/booking-microservice-yaml.png){: .align-center}  
 
-3、acmeair-website\src\main\resources\microservice.yaml  
-![website microservice yaml]({{ site.url }}{{ site.baseurl }}/assets/images/website-microservice-yaml.png){: .align-center} 
+2. acmeair-customer-service\src\main\resources\microservice.yaml   
+   ![customer microservice yaml]({{ site.url }}{{ site.baseurl }}/assets/images/customer-microservice-yaml.png){: .align-center}  
+
+3. acmeair-website\src\main\resources\microservice.yaml  
+   ![website microservice yaml]({{ site.url }}{{ site.baseurl }}/assets/images/website-microservice-yaml.png){: .align-center} 
 
 ###	执行 mvn install 结果 BUILD SUCCESS ，项目导入完成并成功构建
 ![compile]({{ site.url }}{{ site.baseurl }}/assets/images/compile.png){: .align-center} 

@@ -10,8 +10,11 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 {% include toc %}
 
 ## 安装Java开发环境
+
 * 安装JDK 1.8+，详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html){:target="_blank"}。
+
 * 安装Maven 3.x，详情可参考[Maven安装教程](https://maven.apache.org/install.html){:target="_blank"}。
+
 * 安装IntelliJ Idea IDE，详情可参考[IntelliJ安装教程](https://www.jetbrains.com/help/idea/installing-and-launching.html){:target="_blank"}。
 
 ## 运行服务注册中心*Service Center*

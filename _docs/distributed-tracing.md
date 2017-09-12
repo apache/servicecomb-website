@@ -57,11 +57,13 @@ The above configurations have already set up in the code. All you need to do is 
    ```
 
 2. Restart *BMI calculator service* with the following command:
+
    ```bash
    mvn spring-boot:run -Ptracing -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
    ```
    
 3. Restart *BMI web service* with the following command:
+
    ```bash
    mvn spring-boot:run -Ptracing
    ```
@@ -69,6 +71,7 @@ The above configurations have already set up in the code. All you need to do is 
 ## Verification
 
 1. Visit <a>http://localhost:8888</a> . Input a positive height and weight and then click *Submit* button.
+
 2. Visit <a>http://localhost:9411</a> to checkout the status of distributed tracing and get the following figure.
 
 ![Distributed tracing result](/assets/images/distributed-tracing-result.png){: .align-center}
@@ -76,5 +79,7 @@ The above configurations have already set up in the code. All you need to do is 
 ## What's next
 
 * Read [Distributed Tracing with ServiceComb and Zipkin](/docs/tracing-with-servicecomb/)
+
 * See [ServiceComb User Guide](/users/user-guide/)
+
 * Learn more from [the Company application](/docs/linuxcon-workshop-demo/) for a more complete example of microservice applications integrated with ServiceComb

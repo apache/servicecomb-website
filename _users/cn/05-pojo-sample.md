@@ -16,11 +16,9 @@ redirect_from:
 ## 前提
 以下软件需要被安装:
 
-
 1. JDK 1.8
+
 2. Maven 3.x
-
-
 
 ## 简单示例
 ### 启动Service Center

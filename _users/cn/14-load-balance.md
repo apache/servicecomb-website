@@ -23,7 +23,9 @@ redirect_from:
 cse.loadbalance.[MicroServiceName].[property name]
 
 - 只能配置客户端。
+
 - 对于全局配置，不需要指定MicroServiceName。针对特定的微服务的配置，需要增加MicroServiceName。
+
 负载均衡示例如下：
 
 cse.loadbalance.NFLoadBalancerRuleClassName
@@ -60,23 +62,24 @@ cse.loadbalance.DemoService.NFLoadBalancerRuleClassName
 实施负载均衡的步骤如下。
 
 - 在处理链配置项当中增加负载均衡一项，代码如下。
-```yaml
-cse:
-  ......
-  handler:
-    chain:
-      Consumer:
-       default: loadbalance
-  ......
-```
+
+   ```yaml
+   cse:
+     ......
+     handler:
+       chain:
+         Consumer:
+          default: loadbalance
+     ......
+   ```
 - 增加路由策略，代码如下。
-```yaml
-cse：
-  ......
-  loadbalance:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
-  ......   
-``` 
+   ```yaml
+   cse：
+     ......
+     loadbalance:
+       NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
+     ......   
+   ``` 
 
 **Note:**路由策略默认配置为com.netflix.loadbalancer.RoundRobinRule。
 其中 NFLoadBalancerRuleClassName为具体的路由策略，通过配置不同的实现类的路径来实现不同的路由策略，通常的路由策略配置如下：
@@ -102,52 +105,52 @@ cse:
 
 ## 通过实例properties路由分流
 
-
 - 配置分流策略
-  可为每个微服务配置路由分流策略，通过配置中心动态更新，如下:
 
-```yaml
-cse:
-  loadbalance:
-    microserviceName:             # 如果为跨app访问，则配置为appId:serviceName
-      transactionControl:
-        policy: io.servicecomb.loadbalance.filter.SimpleTransactionControlFilter
-        options:
-          tag0: value0
-```
+   可为每个微服务配置路由分流策略，通过配置中心动态更新，如下:
 
-**Note:** 这里的SimpleTransactionControlFilter是由框架提供的简单路由分流策略，选中的实例的properties必须包含options中的所有tags。
-{: .notice--warning}
+   ```yaml
+   cse:
+     loadbalance:
+       microserviceName:             # 如果为跨app访问，则配置为appId:serviceName
+         transactionControl:
+           policy: io.servicecomb.loadbalance.filter.SimpleTransactionControlFilter
+           options:
+             tag0: value0
+   ```
+
+   **Note:** 这里的SimpleTransactionControlFilter是由框架提供的简单路由分流策略，选中的实例的properties必须包含options中的所有tags。{: .notice--warning}
 
 - 自定义分流策略
-  业务可根据自己的需求实现自定义的分流策略，代码如下:
 
-```java
-import io.servicecomb.loadbalance.filter.TransactionControlFilter;
-import com.netflix.loadbalancer.Server;
+   业务可根据自己的需求实现自定义的分流策略，代码如下:
 
-public class MyFilter extends TransactionControlFilter {
+   ```java
+   import io.servicecomb.loadbalance.filter.TransactionControlFilter;
+   import com.netflix.loadbalancer.Server;
+   
+   public class MyFilter extends TransactionControlFilter {
+   
+       @Override
+       public List<Server> getFilteredListOfServers(List<Server> servers) {
+           ......
+           for (Server server : servers) {
+             CseServer cseServer = (CseServer) server;
+             Map<String, String> propertiesMap = cseServer.getInstance().getProperties();
+             ......
+           }
+           ......
+           return null;
+       }
+   }
+   ```
 
-    @Override
-    public List<Server> getFilteredListOfServers(List<Server> servers) {
-        ......
-        for (Server server : servers) {
-          CseServer cseServer = (CseServer) server;
-          Map<String, String> propertiesMap = cseServer.getInstance().getProperties();
-          ......
-        }
-        ......
-        return null;
-    }
-}
-```
+   自定义的分流策略必须继承自框架提供的io.servicecomb.loadbalance.filter.TransactionControlFilter抽象类，配置到特定的微服务。
 
-自定义的分流策略必须继承自框架提供的io.servicecomb.loadbalance.filter.TransactionControlFilter抽象类，配置到特定的微服务。
-
-```yaml
-cse:
-  loadbalance:
-    microserviceName:
-      transactionControl:
-        policy: com.path.to.class.MyFilter
-```
+   ```yaml
+   cse:
+     loadbalance:
+       microserviceName:
+         transactionControl:
+           policy: com.path.to.class.MyFilter
+   ```

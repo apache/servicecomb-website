@@ -30,6 +30,7 @@ redirect_from:
 可以通过如下配置控制Provider和Consumer使用的处理链。
 
 - Provider: cse.handler.chain.Provider.default= bizkeeper-provider
+
 - Consumer: cse.handler.chain.Consumer.default=loadbalance,bizkeeper-consumer
 给不同的微服务指定不一样的处理链。
 
@@ -39,6 +40,7 @@ redirect_from:
 处理链的顺序不同，系统工作行为也不同。 下面列举一下常见问题。
 
 - loadbalance和bizkeeper-consumer 这两个顺序可以随机组合。但是行为是不一样的。 当loadbalance在前面的时候，那么loadbalance提供的重试功能会在bizkeeper-consumer抛出异常时发生，比如超时等。如果已经做了fallbackpolicy配置，比如returnnull，那么loadbalance则不会重试。 如果loadbalance在后面，那么loadbalance的重试会延长超时时间，即使重试成功，如果bizkeeper-consumer设置的超时时间不够，那么最终的调用结果也是失败。
+
 - 建议的顺序
 
   Consumer: loadbalance,bizkeeper-consumer
@@ -51,37 +53,39 @@ redirect_from:
 ## 处理链扩展
 
 可以通过实现AbstractHandler来扩展处理链。 具体包含如下几个步骤：
-- 实现AbstractHandler
-```java
-public class MyHandler extends AbstractHandler {
-    @Override
-    public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
-        // code before
 
-        invocation.next(response -> {
-            // code after
-            asyncResp.handle(response);
-        });
-    }
-}
-```
+- 实现AbstractHandler
+
+   ```java
+   public class MyHandler extends AbstractHandler {
+       @Override
+       public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
+           // code before
+   
+           invocation.next(response -> {
+               // code after
+               asyncResp.handle(response);
+           });
+       }
+   }
+   ```
 
 - 给处理链增加一个名字 增加config/cse.handler.xml文件，内容如下。
 
-```xml
-<config>
-  <handler id="myhandler" class="xxx.xxx.xxx.MyHandler" />
-</config>
-```
+   ```xml
+   <config>
+     <handler id="myhandler" class="xxx.xxx.xxx.MyHandler" />
+   </config>
+   ```
 
 - 在microservices.ymal文件指定需要使用该处理链。
 
-```yaml
-cse:
-handler:
-chain:
-  Provider:
-    default: bizkeeper-provider,myhandler
-```
+   ```yaml
+   cse:
+     handler:
+       chain:
+         Provider:
+           default: bizkeeper-provider,myhandler
+   ```
 
 处理链的顺序和上面定义的顺序有关，注意加到一个合适的位置。

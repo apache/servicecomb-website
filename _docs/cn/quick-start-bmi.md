@@ -13,14 +13,19 @@ last_modified_at: 2017-09-04T10:01:43-04:00
 
 ## 快速开发微服务应用
 在[快速入门指南](/cn/docs/quick-start/)中已对**体质指数**微服务的架构进行了说明，其主要由两个微服务组成：
+
 * **体质指数计算器**：负责处理运算事务。
+
 * **体质指数界面**：提供用户界面及网关服务。
 
 下面将对这两个微服务的实现进行介绍，其代码已托管于[github](https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi)上。
 ### 体质指数计算器实现
 体质指数计算器提供运算服务，其实现分为三部分：
+
 * 具体运算实现
+
 * 服务端点定义
+
 * 服务启动入口
 
 #### 具体运算实现
@@ -105,8 +110,11 @@ public class CalculatorApplication {
 
 ### 体质指数界面实现
 本模块负责提供用户界面及网关服务。其实现主要分为三部分：
+
 * 前端界面
+
 * 网关及路由规则
+
 * 服务启动入口
 
 其中，前端界面的组件使用了[Bootstrap](http://getbootstrap.com/)来开发。
@@ -165,4 +173,5 @@ public class GatewayApplication {
 至此，**体质指数**应用已开发完毕，您可以通过[快速入门指南](/cn/docs/quick-start/#运行微服务应用)中的步骤对其进行验证。
 
 ## 下一步
-* 阅读 [微服务开发进阶](/cn/docs/quick-start-advance/)
+
+阅读 [微服务开发进阶](/cn/docs/quick-start-advance/)

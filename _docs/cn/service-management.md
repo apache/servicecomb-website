@@ -51,12 +51,15 @@ mvn spring-boot:run -Pbizkeeper -Drun.jvmArguments="-Dcse.handler.chain.Provider
 ## 验证
 
 1. 使服务进入熔断状态。访问 <a>http://localhost:8888</a>，在身高或体重的输入框中输入一个负数，连续点击三次或以上 *Submit* 按钮，此时在网页下方能看到类似左图的界面。
+
 2. 验证服务处于熔断状态。在身高和体重的输入框中输入正数，再次点击 *Submit* 按钮，此时看到的界面依然是类似左图的界面。同时在 *体质指数计算器* 运行日志也能看到调用不再抛出异常，而是出现类似 `fallback called` 的日志。
+
 3. 验证服务恢复正常。约15秒后，在身高和体重的输入框中输入正数，点击 *Submit* 按钮，此时界面显示正常。
 
-![服务治理效果](/assets/images/service-management-result.png){: .align-center}
+   ![服务治理效果](/assets/images/service-management-result.png){: .align-center}
 
 ## 下一步
 
 * 阅读[分布式追踪快速入门指南](/cn/docs/quick-start-advance/distributed-tracing/)
+
 * 了解更多[服务治理](/cn/users/service-management/)的使用方式

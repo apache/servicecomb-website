@@ -13,7 +13,7 @@ redirect_from:
 
 ## Prepare  
 
-- ### Prepare K8S Environment   
+### Prepare K8S Environment   
 
 
 Install monitor Heapster and Grafana in K8S to enable auto-scale ability in K8S:   
@@ -47,7 +47,7 @@ spec:
          - --sink=influxdb:http://monitoring-influxdb:8086
 ```
 
-- ### Start Company Demo        
+### Start Company Demo        
 
 Download Company source code, restricted resources, creating auto-scaller,    
 
@@ -84,7 +84,7 @@ HPA can be created after running start-autoscale.sh, get HPA status by the follo
  kubectl get hpa
 ```
 
-- ### Start Pressure Testing
+### Start Pressure Testing
 
 
 ```shell

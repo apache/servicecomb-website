@@ -13,14 +13,19 @@ Walk through the instructions in the [Quick Start](/docs/quick-start/).
 
 ## Develop BMI microservice application in minutes
 The workflow of BMI application have been introduced in [Quick start](/docs/quick-start/). It contains two separate microservices:
+
 - **BMI calculator service**：provides computing services.
+
 - **Web service**：provides both user interface and gateway service.
 
 Now we will introduce the detailed implementation of these two microservices. The full code is on [github](https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi).
 ### Implementation of calculator
 The calculator service provides capability of calculating BMI. It contains three parts:
+
 * Detailed calculation implementation
+
 * Service endpoint definition
+
 * Service startup entry
 
 #### Detailed calculation implementation
@@ -105,8 +110,11 @@ public class CalculatorApplication {
 
 ### Implementation of webapp service
 The web service provides both the user interface and gateway service. It contains three parts:
+
 * User interface
+
 * Gateway and routing rules
+
 * Service startup entry
 
 The user interface was developed using [Bootstrap](http://getbootstrap.com/).
@@ -163,4 +171,5 @@ public class GatewayApplication {
 Now you can refer to [quick start](/docs/quick-start/#Run microservice application) to verify the services.
 
 ## What's next
-* Learn [advance microservice development](/docs/quick-start-advance/)
+
+Learn [advance microservice development](/docs/quick-start-advance/)

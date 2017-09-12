@@ -57,11 +57,13 @@ last_modified_at: 2017-09-03T10:01:43-04:00
    ```
 
 2. 重启 *体质指数计算器* 微服务：
+
    ```bash
    mvn spring-boot:run -Ptracing -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
    ```
    
 3. 重启 *体质指数界面* 微服务：
+
    ```bash
    mvn spring-boot:run -Ptracing
    ```
@@ -69,6 +71,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 ## 验证
 
 1. 访问 <a>http://localhost:8888</a> ，在身高和体重栏处输入正数，并点击 *Submit* 按钮。
+
 2. 访问 <a>http://localhost:9411</a> ，查看分布式调用追踪情况，可得下方界面。
 
 ![分布式追踪效果](/assets/images/distributed-tracing-result.png){: .align-center}
@@ -76,5 +79,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 ## 下一步
 
 * 阅读[基于 ServiceComb 和 Zipkin 的分布式调用链追踪](/cn/docs/tracing-with-servicecomb/)来进一步了解分布式追踪 
+
 * 认识 [**ServiceComb** 微服务开发框架](http://servicecomb.io/cn/users/user-guide/)
+
 * 通过 [Company应用](http://servicecomb.io/cn/docs/linuxcon-workshop-demo/) 更深入地了解微服务开发

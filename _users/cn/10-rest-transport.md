@@ -61,7 +61,9 @@ Rest on Servlet网络通道对应的依赖包如下：
 ## 序列化
 
 - **参数**
-当前Rest通道的body参数只支持application/json序列化方式。 如果需要向服务端发送form类型参数，那么需要在调用端构造好application/json格式的body数据，如{"a": 3, "b": 4}，不能直接通过multipart/form-data格式传递form类型参数，服务端无法解析。
+
+   当前Rest通道的body参数只支持application/json序列化方式。 如果需要向服务端发送form类型参数，那么需要在调用端构造好application/json格式的body数据，如{"a": 3, "b": 4}，不能直接通过multipart/form-data格式传递form类型参数，服务端无法解析。
 
 - **返回值**
-当前Rest通道的返回值支持application/json和text/plain两种序列化方式。服务供给端通过produces声明可提供的序列化能力，调用端通过请求的Accept头指明返回值序列化方式，默认返回application/json格式数据。
+
+   当前Rest通道的返回值支持application/json和text/plain两种序列化方式。服务供给端通过produces声明可提供的序列化能力，调用端通过请求的Accept头指明返回值序列化方式，默认返回application/json格式数据。
