@@ -65,4 +65,4 @@ Note that the dotted lines indicate the process of service registration and disc
 
 ## What's next
 
-Learn how to [develop microservice application in minutes](/docs/quick-start-bmi/).
+* Learn how to [develop microservice application in minutes](/docs/quick-start-bmi/).

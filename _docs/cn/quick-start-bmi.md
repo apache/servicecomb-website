@@ -174,4 +174,4 @@ public class GatewayApplication {
 
 ## 下一步
 
-阅读 [微服务开发进阶](/cn/docs/quick-start-advance/)
+* 阅读 [微服务开发进阶](/cn/docs/quick-start-advance/)

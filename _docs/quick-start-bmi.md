@@ -172,4 +172,4 @@ Now you can refer to [quick start](/docs/quick-start/#Run microservice applicati
 
 ## What's next
 
-Learn [advance microservice development](/docs/quick-start-advance/)
+* Learn [advance microservice development](/docs/quick-start-advance/)

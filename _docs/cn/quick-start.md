@@ -64,4 +64,4 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 
 ## 下一步
 
-阅读[**体质指数**微服务应用快速开发](/cn/docs/quick-start-bmi/)。
+* 阅读[**体质指数**微服务应用快速开发](/cn/docs/quick-start-bmi/)。
