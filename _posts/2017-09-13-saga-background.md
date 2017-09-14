@@ -99,7 +99,7 @@ example, a transaction sending an email can be compensated by sending another em
 
 ## Summary
 Now we have a solution to tackle our data consistency issue with saga. It allows us to either successfully perform all
-transactions or compensate succeeded ones in case any fails. Although saga does not provide ACID guarantee, it still suits
+transactions or compensate succeeded ones in case any fails. Although saga does not provide [ACID](https://en.wikipedia.org/wiki/ACID) guarantee, it still suits
 many scenarios where eventual data consistency is enough. How do we design a saga system? Let\'s address the question in our
 next blog post.
 
