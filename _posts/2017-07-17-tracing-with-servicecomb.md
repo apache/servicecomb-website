@@ -13,7 +13,7 @@ redirect_from:
 Microservice architecture solves many problems of monolithic applications, but it also comes with costs. Request latencies
 due to network instability is one of the prices we have to pay.
 
-In monolithic applications, modules are all running in one process and there's no such thing as communication issues among 
+In monolithic applications, modules are all running in one process and there\'s no such thing as communication issues among 
 modules. However, with microservice architecture, services are communicating through a network and we have to deal with all 
 network related issues, such as delays, timeouts, and partition. 
 
@@ -67,7 +67,7 @@ servicecomb:
       address: http://zipkin.servicecomb.io:9411
 ```
 
-That's all! After two configuration additions and no change to a single line of code, distributed tracing with Zipkin is 
+That\'s all! After two configuration additions and no change to a single line of code, distributed tracing with Zipkin is 
 enabled for microservices written with Java chassis.
 
 **Note** If other dependencies in your project also include zipkin (e.g. Spring Cloud), it may cause runtime error due to
@@ -90,7 +90,7 @@ if you are using [Docker Toolbox](https://www.docker.com/products/docker-toolbox
 Now we should be able to see Zipkin homepage with a few traced services.
 ![zipkin homepage]({{ site.url }}{{ site.baseurl }}/assets/images/tracing.1.png){: .align-center}
 
-If we choose manager and click Find Traces button, some traces will be displayed. Please don't mind the system performance
+If we choose manager and click Find Traces button, some traces will be displayed. Please don\'t mind the system performance
 being not very good, since we are running so many services in docker on a laptop manufactured in 2012.
 ![traces of manager service]({{ site.url }}{{ site.baseurl }}/assets/images/tracing.2.png){: .align-center}
 

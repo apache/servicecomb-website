@@ -27,14 +27,14 @@ When this feature released, our business was happy, and our customer was happy.
 ## Data Consistency in the Microservice Scenario
 In a few years, our corporation is doing so well on this trip planning business and our customers grow over tenfold. As 
 more services provided by our airline, car rental company, and hotel chain, our application and development teams also 
-grow. Now our monolith is so big and complex that not a single person understands how everything works together. What's
+grow. Now our monolith is so big and complex that not a single person understands how everything works together. What\'s
 even worse is that it takes weeks for all the development teams to put together their changes for a new release. Our business
 is not happy, since our market share is dropping due to the delay of our new features.
 
 We decide to split our monolith into four microservices, flight booking, car rental, hotel reservation, and payment, after 
 several rounds of discussions. Services use their own database and communicate through HTTP requests. They are released
 according to their own schedule to meet the market needs. But we face a new problem: how do we ensure the original business 
-rule of bookings with all three services must be successful to make a trip plan? A service cannot just access another's
+rule of bookings with all three services must be successful to make a trip plan? A service cannot just access another\'s
 database, because it violates the service boundary and services may not use the same database technology.
 
 ![Service Boundary]({{ site.url }}{{ site.baseurl }}/assets/images/saga.service.boundary.png){: .align-center}
@@ -84,7 +84,7 @@ That looks promising. Are all long live transactions can be done this way? There
 In our case, flight booking, car rental, hotel reservation, and payment are naturally independent actions and transaction
 of each can be performed atomically with their corresponding databases. 
 
-We don't need atomicity at the trip transaction level either. One user may book the last seat on a flight which gets 
+We don\'t need atomicity at the trip transaction level either. One user may book the last seat on a flight which gets 
 cancelled later due to insufficient balance in credit card. Another user may see the flight fully booked and one seat freed
 up for booking due to the cancellation. He/she can grab the last flight seat and complete the trip plan. It does not really
 matter to our business.
@@ -100,7 +100,7 @@ example, a transaction sending an email can be compensated by sending another em
 ## Summary
 Now we have a solution to tackle our data consistency issue with saga. It allows us to either successfully perform all
 transactions or compensate succeeded ones in case any fails. Although saga does not provide ACID guarantee, it still suits
-many scenarios where eventual data consistency is enough. How do we design a saga system? Let's address the question in our
+many scenarios where eventual data consistency is enough. How do we design a saga system? Let\'s address the question in our
 next blog post.
 
 ## References
