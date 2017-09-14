@@ -13,7 +13,7 @@ redirect_from:
 　　[上文]({{ site.url }}{{ site.baseurl }}/cn/docs/seckill-develop-course-part-II/) 中我们已经构建了一个完整功能的秒杀系统，版本定为0.1.0-RELEASE；您应该发现，数据的持久化集中在单一的数据库上，秒杀作为一个高并发压力的场景，这种架构很难适应可扩展的要求，并且正如我们一开始就提到的，微服务推荐拥有独立的存储，所以本篇开始我们将配合Event Sourcing实现CQRS模式，以增强应对大规模并发压力的能力。
 
 ## CQRS
-　　[CQRS](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs) 的含义是命令查询职责分离（Command Query Responsibility Segregation），是一种常用的程序设计模式，常常与Event Sourcing一起使用，关于Event Sourcing有一张科普的图，来源于Microsoft MSDN：
+　　[CQRS](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs) 的含义是命令查询职责分离（Command Query Responsibility Segregation），是一种常用的程序设计模式，常常与Event Sourcing一起使用，关于CQRS有一张科普的图，来源于Microsoft MSDN：
 
 ![图1 CQRS](/assets/images/seckill-develop-course-part-III-cqrs.png) {: .align-center}
 
