@@ -75,6 +75,18 @@ In another word, with the above defined transaction/compensation pairs, saga gua
 * all the bookings are either executed successfully, or cancelled if any of them fails
 * if the payment fails in the last step, all bookings are cancelled too
 
+### Saga Recovery
+Two types of saga recovery were described in the [original paper][1]:
+* **backward recovery** *compensates* all completed transactions if one failed  
+* **forward recovery** *retries* failed transactions, assuming every sub-transaction will eventually succeed
+
+Apparently there is no need for compensating transactions in forward recovery, which is useful if sub-transactions will
+always succeed (eventually) or compensations are very hard or impossible for your business.
+
+Theoretically compensating transactions shall never fail. However, in the distributed world, servers may go down, network 
+can fail, and even data centers may go dark. What can we do in such situations? The last resort is to have fallbacks which
+may involve manual intervention.
+
 ### The Restrictions of Saga
 That looks promising. Are all long live transactions can be done this way? There are a few restrictions:
 * A saga only permits two levels of nesting, the top level saga and simple transactions [[1]]
