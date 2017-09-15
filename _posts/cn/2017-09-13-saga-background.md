@@ -1,5 +1,5 @@
 ---
-title: "基于Saga的数据最终一致性方案 - part 1"
+title: "ServiceComb中的数据最终一致性方案 - part 1"
 lang: cn
 ref: distributed_saga_1
 permalink: /cn/docs/distributed_saga_1/
@@ -10,6 +10,8 @@ redirect_from:
   - /theme-setup/
 ---
 
+数据一致性是许多系统的关键方面，特别是在微服务和云的环境下。我们最近在ServiceComb下发布了[Saga](https://github.com/ServiceComb/saga)项目，
+以解决数据一致性问题。但为什么数据一致性如此重要？什么又是Saga？
 
 ## 单体应用的数据一致性
 想象一下如果我们经营着一家大型企业，下属有航空公司、租车公司、和连锁酒店。我们为客户提供一站式的旅游行程规划服务，这样客户只需要提供出行
