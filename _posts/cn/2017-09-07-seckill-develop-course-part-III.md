@@ -69,7 +69,7 @@ public interface SecKillMessageSubscriber {
 
 ![图3 SecKill All-in-One](/assets/images/seckill-develop-course-part-III-seckill-all-in-one.png){: .align-center}
 
-##参考资料
+## 参考资料
 https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs  
 https://msdn.microsoft.com/en-us/library/jj591559.aspx  
 https://martinfowler.com/eaaDev/EventSourcing.html  
