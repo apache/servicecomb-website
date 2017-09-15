@@ -11,8 +11,8 @@ redirect_from:
 ---
 
 Data consistency is a critical aspect of many systems, especially in cloud and microservice environment. We recently
-released [Saga](https://github.com/ServiceComb/saga) project under ServiceComb to address data consistency issue. But 
-why is data consistency so important and what is Saga?
+released [Saga](https://github.com/ServiceComb/saga) project (the 1<sup>st</sup> open source implementation of [Sagas][1])
+under ServiceComb to address data consistency issue. But why is data consistency so important and what is Saga?
 
 ## Data Consistency of Monolithic Applications
 Imagine we are a giant corporation who runs an airline, a car rental company, and a hotel chain. We provide one-stop trip 
@@ -54,6 +54,11 @@ In case of our business, a trip transaction is a saga which consists of four sub
 hotel reservation, and payment.
 
 ![Transactions]({{ site.url }}{{ site.baseurl }}/assets/images/saga.transactions.png){: .align-center}
+
+Saga is also described in [Chris Richardson](http://www.chrisrichardson.net/)\'s article: [Pattern: Saga](http://microservices.io/patterns/data/saga.html).
+>Chris Richardson is an experienced software architect, author of POJOs in Action and the creator of the original CloudFoundry.com. [3]
+
+Caitie McCaffrey also showed how she applied saga pattern in [Halo 4](https://en.wikipedia.org/wiki/Halo_4) by Microsoft in [her talk](https://www.youtube.com/watch?v=xDuwrtwYHu8). 
 
 ### How Saga Works
 >The transactions in a saga are related to each other and should be executed as a (non-atomic) unit. Any partial executions 
@@ -121,5 +126,7 @@ next blog post.
 ## References
 1. [Original Paper on Sagas][1] by By Hector Garcia-Molina & Kenneth Salem
 2. Gifford, David K and James E Donahue, “Coordinating Independent Atomic Actions”, Proceedings of IEEE COMPCON, San Francisco, CA, February, 1985
+3. Chris Richardson: http://www.chrisrichardson.net/
+4. ServiceComb Saga Project: https://github.com/ServiceComb/saga
 
 [1]:https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf

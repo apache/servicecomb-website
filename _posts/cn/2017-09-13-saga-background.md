@@ -10,8 +10,8 @@ redirect_from:
   - /theme-setup/
 ---
 
-数据一致性是许多系统的关键方面，特别是在微服务和云的环境下。我们最近在ServiceComb下发布了[Saga](https://github.com/ServiceComb/saga)项目，
-以解决数据一致性问题。但为什么数据一致性如此重要？什么又是Saga？
+数据一致性是许多系统的关键方面，特别是在微服务和云的环境下。我们最近在ServiceComb下发布了[Saga](https://github.com/ServiceComb/saga)项目
+（首个基于[论文Sagas][1]的开源项目），以解决数据一致性问题。但为什么数据一致性如此重要？什么又是Saga？
 
 ## 单体应用的数据一致性
 想象一下如果我们经营着一家大型企业，下属有航空公司、租车公司、和连锁酒店。我们为客户提供一站式的旅游行程规划服务，这样客户只需要提供出行目的地，
@@ -42,6 +42,9 @@ redirect_from:
 在我们的业务场景下，一个行程规划的事务就是一个Saga，其中包含四个子事务：机票预订、租车、酒店预订、和支付。
 
 ![事务]({{ site.url }}{{ site.baseurl }}/assets/images/saga.transactions.png){: .align-center}
+
+[Chris Richardson](http://www.chrisrichardson.net/)在他的文章[Pattern: Saga](http://microservices.io/patterns/data/saga.html)中对Saga有所描述。
+Caitie McCaffrey也在她的[演讲](https://www.youtube.com/watch?v=xDuwrtwYHu8)中提到如何在微软的[光晕 4](https://en.wikipedia.org/wiki/Halo_4)游戏中如何应用saga解决数据一致性问题。
 
 ### Saga的运行原理
 >Saga中的事务相互关联，应作为（非原子）单位执行。任何未完全执行的Saga是不满足要求的，如果发生，必须得到补偿。要修正未完全执行的部分，
@@ -100,5 +103,7 @@ Saga看起来很有希望满足我们的需求。所有长活事务都可以这�
 ## 参考
 1. [Original Paper on Sagas][1] by By Hector Garcia-Molina & Kenneth Salem
 2. Gifford, David K and James E Donahue, “Coordinating Independent Atomic Actions”, Proceedings of IEEE COMPCON, San Francisco, CA, February, 1985
+3. Chris Richardson: http://www.chrisrichardson.net/
+4. ServiceComb Saga Project: https://github.com/ServiceComb/saga
 
 [1]:https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf
