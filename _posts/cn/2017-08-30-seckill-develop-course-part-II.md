@@ -20,12 +20,12 @@ redirect_from:
  * 同时可以有多个Promotion进行（折扣不同，数量也不同）  
 3. 如果Command微服务故障，再次恢复后，需要恢复未完成正在进行中的秒杀活动。  
 
-　　也许您会说，客户管理和客户登录为什么没有罗列出来？的确，客户在我们的场景中是不可或缺的，但是，我们认为目前将这个实体（是的，User是一个实体）直接使用值对象ID代替就可以了；这方面的设计和实现，包括模型、安全策略、认证方式都有很多可以参考的资料，例如您可以移步到ServiceComb的WorkShop示例应用中找到完整的内容，地址在[WorkShop](https://github.com/ServiceComb/ServiceComb-Company-WorkShop)。
+　　也许您会说，客户管理和客户登录为什么没有罗列出来？的确，客户在我们的场景中是不可或缺的，但是我们为了简化设计，没有包含登录以及请求认证的内容，如果对这方面感兴趣您可以移步到ServiceComb的Company示例实现了一个简单基于token的认证方式，地址在[Company](https://github.com/ServiceComb/ServiceComb-Company-WorkShop)。
 
 ## 再次设计
 　　对于实体，领域驱动设计（[DDD](https://en.wikipedia.org/wiki/Domain-driven_design)）推荐使用独立接口，因此我们设计一个新的Admin微服务来提供服务：
 
-![图1 增加了Admin微服务后的架构](/assets/images/seckill-develop-course-part-II-arth.png) {: .align-center}
+![图1 增加了Admin微服务后的架构](/assets/images/seckill-develop-course-part-II-arth.png){: .align-center}
 
 ## 功能实现
 ### Admin微服务的实现
@@ -48,12 +48,12 @@ redirect_from:
 　　最后，我们使用PostMan体验完成的功能，请注意Body的填写使用JSON格式，并且类型选择JSON(application/json)：
 ### 创建秒杀活动
 
-![图2 创建秒杀活动](/assets/images/seckill-develop-course-part-II-create-promotion.png) {: .align-center}
+![图2 创建秒杀活动](/assets/images/seckill-develop-course-part-II-create-promotion.png){: .align-center}
 
 ### 查询正在进行的秒杀活动
 
-![图3 查询正在进行的秒杀活动](/assets/images/seckill-develop-course-part-II-query-active-promotion.png) {: .align-center}
+![图3 查询正在进行的秒杀活动](/assets/images/seckill-develop-course-part-II-query-active-promotion.png){: .align-center}
 
 ### 拒绝重复秒杀
 
-![图4 拒绝重复秒杀](/assets/images/seckill-develop-course-part-II-reject-duplicate-grab.png) {: .align-center}
+![图4 拒绝重复秒杀](/assets/images/seckill-develop-course-part-II-reject-duplicate-grab.png){: .align-center}
