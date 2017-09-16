@@ -1,9 +1,9 @@
 ---
-title: "SecKill Develop Course (I)"
+title: "SecKill Development Journey (I)"
 lang: en
-ref: seckill-develop-course-part-I
-permalink: /docs/seckill-develop-course-part-I/
-excerpt: "an introduction how build seckill demo project using agile development mode step by step"
+ref: seckill-development-journey-part-I
+permalink: /docs/seckill-development-journey-part-I/
+excerpt: "an introduction of how to build seckill demo project step by step"
 last_modified_at: 2017-09-13T09:00:00+08:00
 author: Yangyong Zheng
 redirect_from:
@@ -11,34 +11,36 @@ redirect_from:
 ---
 
 ## Overview
-  SecKill is our ServiceComb open source team how builds a micro-service architecture from the perspective of domain-driven design ([DDD](https://en.wikipedia.org/wiki/Domain-driven_design)). In this process, you can learn from the micro-service architecture is different from the traditional single program architecture features; In addition, we will use the agile development model to quickly build it.
+  SecKill is a demo project that our ServiceComb team try to build a micro-service architecture from the perspective of domain-driven design ([DDD](https://en.wikipedia.org/wiki/Domain-driven_design)).
 
 ## Background
 
-  SecKill's demand originated from the Internet's popular promotions, support use coupons to obtain some discounts; because the number of coupons is very limited, so we must provide a platform for everyone who wants to get it fair competition. 
+  SecKill idea comments from the Internet popular promotions, using coupons to obtain some discounts; because the number of coupons is limited, so we must provide a platform for everyone who wants to get it fair competition.
 
-  Because SecKill is a demo project, so we don't want make it too complicated, the real seckill scenario has too many details that go far beyond our imagination; we also don't want make it too specific, and we use the most primitive strategy - first come first get, if you want to try other strategies, you can download the source code and modify it, I believe that will not difficult.
+  As a demo project, so we don't want make the SecKill too complicated; we just use the most primitive strategy - first come first get. It is quite simple if you want to implements other strategies by yourself.
 
 ## First Design
-  Now let's us analyze requirement in customer bounded context:  
-1. Customer can request grab a coupon,system will return whether successed;  
-2. Customer can query how many coupons owned.  
+   Now let's analyze requirement in customer bounded context:  
+1. Customer try to grab a coupon, SecKill return the coupon according to the coupon in inventory;
+2. Customer cannot get the coupon anymore if he already send the request to the system.
+3. Customer can query how many coupons he owned.  
 
   Let's go! what? you say this description is to simple? because they are no registration system, and promotion is how come, how to start? which coupon the customer request for? Is the discount all same? etc.
 
-  Actually, we are accustomed to thinking a lot at the beginning, so some larger system, the design stage may be a few months, but this time you can't consider too much, because we believe:  
-3. Over-design can't guarantee fully meetting the demand after construction completed, the only constant is the demand is always changing, so don't over-design;  
-4. The principle of the micro-service architecture is that service provides single function, so each component(micro-service) only need to provide small service, without having to design all the services in system one-time;  
-5. Should be solve the problem of the core domain as soon as possible.
+  Actually, we are accustomed to thinking a lot at the beginning, so some larger system, the design stage may be a few months, but this time you can't consider too much, because we believe:
 
-  Then, we need to use correct method to complete the design process - follow the many principles of domain-driven design ([DDD](https://en.wikipedia.org/wiki/Domain-driven_design)). The core task of the design process is identify entities, value objects, services and other elements, and further search aggregation; because our requirements are very simple, so it's easy find them out:  
+1. Over-design can't guarantee fully meeting the demand after construction completed, the only constant is the demand is always changing, so don't over-design;  
+2. The principle of the microservice architecture is that service provides single function, so each components(microservices) only need to provide small service, without having to design all the services in system one-time;  
+3. Should be solve the problem of the core domain as soon as possible.
+
+  Then, we can follow the many principles of domain-driven design ([DDD](https://en.wikipedia.org/wiki/Domain-driven_design)). The core task of the design process is identify entities, value objects, services and other elements, and further search aggregation; because our requirements are very simple, so it's easy find them out:  
 *  Entities:Promotion  
 *  Value-Object:Coupon,PromotionEvent  
 *  Domain Service:SecKill  
 
-  Now we can found the aggregation between them, separated two micro-services, in order to quickly complete we direct use MySQL database for shared data (although micro-service recommend use independent storage for each, we will improve this point future)  
-1. Command micro-service:for SecKill domian service  
-2. Query micro-service:for query Coupon Value-Object
+  Now we can find the aggregation between them, separated two microservice, now we direct use MySQL database for shared data (although microservice recommend use independent storage for each, we can revisit it in the next iteration)  
+1. Command : for SecKill domain service  
+2. Query : for query Coupon Value-Object
 
 ![Fig-1 Architecture](/assets/images/seckill-develop-course-part-I-arth-en.png){: .align-center}
 
@@ -49,7 +51,7 @@ redirect_from:
 
 ![Fig-2 Command micro-service components](/assets/images/seckill-develop-course-part-I-command-en.png){: .align-center}
 
-### Implement of Query micro-service
+### Implement of Query microService
   Query logic is relatively simple, because PromotionEvent is Value-Object, we use PromotionEvent records to get Coupon Value-Object, you can read the source code and understand this process.
 
 ## Support Domain Implement

@@ -1,16 +1,16 @@
 ---
-title: "SecKill Develop Course (II)"
+title: "SecKill Develop Journey  (II)"
 lang: en
-ref: seckill-develop-course-part-II
-permalink: /docs/seckill-develop-course-part-II/
-excerpt: "an introduction how build seckill demo project using agile development mode step by step"
+ref: seckill-development-journey-part-II
+permalink: /docs/seckill-development-journey-part-II/
+excerpt: "an introduction how to build seckill demo project step by step"
 last_modified_at: 2017-09-13T09:00:00+08:00
 author: Yangyong Zheng
 redirect_from:
   - /theme-setup/
 ---
 
-  [Previous article]({{ site.url }}{{ site.baseurl }}/docs/seckill-develop-course-part-I/) We only built a core function seckill demo, this article we will gradually improve more features in order to let it had complete function.
+  [Previous article]({{ site.url }}{{ site.baseurl }}/docs/seckill-development-journey-part/) We only built a core function seckill demo, this article we will gradually improve more features in order to let it had complete function.
 
 ## Problems
   Review what we has been done, we can find that:   

@@ -1,16 +1,16 @@
 ---
-title: "SecKill Develop Course (III)"
+title: "SecKill Develop Journey (III)"
 lang: en
-ref: seckill-develop-course-part-III
-permalink: /docs/seckill-develop-course-part-III/
-excerpt: "an introduction how build seckill demo project using agile development mode step by step"
+ref: seckill-development-journey-part-III
+permalink: /docs/seckill-development-journey-part-III/
+excerpt: "an introduction how build seckill demo project step by step"
 last_modified_at: 2017-09-13T09:00:00+08:00
 author: Yangyong Zheng
 redirect_from:
   - /theme-setup/
 ---
 
-  [Previous article]({{ site.url }}{{ site.baseurl }}/docs/seckill-develop-course-part-II/) we had built a full-featured seckill demo, release it version 0.1.0-RELEASE; now you should find that data persistence is centered on a single database, seckill is high-stress scenario, it's difficult to meet high-scalable requirement, and as we mentioned at the beginning, micro-service is recommended to have independent storage, so we will start using Event Sourcing implement CQRS pattern to enhance the ability to endure huge requests.
+  [Previous article]({{ site.url }}{{ site.baseurl }}/docs/seckill-development-journey-part-II/) we had built a full-featured seckill demo, release it version 0.1.0-RELEASE; now you should find that data persistence is centered on a single database, seckill is high-stress scenario, it's difficult to meet high-scalable requirement, and as we mentioned at the beginning, micro-service is recommended to have independent storage, so we will start using Event Sourcing implement CQRS pattern to enhance the ability to endure huge requests.
 
 ## CQRS
   CQRS means Command Query Responsibility Segregation, it's a powerful design pattern, often implement with Event Sourcing, there has a figure describe it from Microsoft MSDN:
@@ -30,9 +30,9 @@ redirect_from:
 ## Improvement Implement
 ### Database Separation
 #### WriteDB
-  Admin micro-serivce maintain Promotion entity; 
+  Admin micro-serivce maintain Promotion entity;
 
-  Command micro-serivce wirte PromotionEvent Value-Object,when recovery Promotion,Relapy PromotionEvent. 
+  Command micro-serivce wirte PromotionEvent Value-Object,when recovery Promotion,Relapy PromotionEvent.
 #### ReadDB
   Event micro-service write ActivePromotion Value-Object and Coupon Value-Object;
 
@@ -47,7 +47,7 @@ public interface SecKillMessagePublisher {
 ```
 
 #### Event micro-service implement
-  Event micro-service subscribe Message Broker in order to get PromotionEvent Message,then depending on the message type convert to ActivePromotion Value-Object operation or Coupon Value-Object operation in ReadDB.   
+  Event micro-service subscribe Message Broker in order to get PromotionEvent Message, then depending on the message type convert to ActivePromotion Value-Object operation or Coupon Value-Object operation in ReadDB.   
 * Promotion Start Message: create ActivePromotion Value-Object;   
 * Promotion Finish Message: delete ActivePromotion Value-Object var Id;  
 * Coupon Grabbed Message: create Coupon Value-Object;

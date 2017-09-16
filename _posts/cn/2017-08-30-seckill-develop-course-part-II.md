@@ -1,16 +1,16 @@
 ---
 title: "秒杀开发历程（二）"
 lang: cn
-ref: seckill-develop-course-part-II
-permalink: /cn/docs/seckill-develop-course-part-II/
-excerpt: "介绍如何使用敏捷开发模式一步一步构建秒杀项目的过程"
+ref: seckill-development-journey-part-II
+permalink: /cn/docs/seckill-development-journey-part-II/
+excerpt: "介绍如何一步一步构建秒杀项目的过程"
 last_modified_at: 2017-09-13T09:00:00+08:00
 author: Yangyong Zheng
 redirect_from:
   - /theme-setup/
 ---
 
-　　[上文]({{ site.url }}{{ site.baseurl }}/cn/docs/seckill-develop-course-part-I/) 中我们构建了一个仅具有核心功能的秒杀框架，本篇中我们会逐步完善一些功能，使得它具备完整的基础功能。
+　　[上文]({{ site.url }}{{ site.baseurl }}/cn/docs/seckill-development-journey-part-I/) 中我们构建了一个仅具有核心功能的秒杀框架，本篇中我们会逐步完善一些功能，使得它具备完整的基础功能。
 
 ## 问题点（完善范围）
 　　回顾设计和参照已完成的部分，我们可以发现：  

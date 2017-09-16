@@ -1,9 +1,9 @@
 ---
 title: "秒杀开发历程（一）"
 lang: cn
-ref: seckill-develop-course-part-I
-permalink: /cn/docs/seckill-develop-course-part-I/
-excerpt: "介绍如何使用敏捷开发模式一步一步构建秒杀项目的过程"
+ref: seckill-development-journey-part-I
+permalink: /cn/docs/seckill-development-journey-part-I/
+excerpt: "介绍如何一步一步构建秒杀项目的过程"
 last_modified_at: 2017-09-13T09:00:00+08:00
 author: Yangyong Zheng
 redirect_from:
@@ -24,7 +24,7 @@ redirect_from:
 1. 客户可以请求秒杀一张优惠券，系统返回获取优惠券成功或失败（已经被秒光了）；  
 2. 客户可以查询自己目前有多少张优惠券；  
 
-　　那么我们开始吧，等等，您说这个描述也太简单了？客户还没有登录系统呢，秒杀活动又是怎么来的，怎么开始的？客户是请求哪个活动的优惠券呀？折扣是不是不一样？还有…… 
+　　那么我们开始吧，等等，您说这个描述也太简单了？客户还没有登录系统呢，秒杀活动又是怎么来的，怎么开始的？客户是请求哪个活动的优惠券呀？折扣是不是不一样？还有……
 
 　　确实，我们习惯于在一开始就思考很多，一些较大的系统，可能设计阶段就要几个月，但是这次可以不用考虑太多，因为我认为：  
 1. 设计太多并不能保证构建完毕后就一定能完全符合需求，唯一不变的就是需求总是变化，所以不要过度设计；  
