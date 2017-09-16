@@ -4,14 +4,14 @@ lang: en
 ref: distributed_saga_2
 permalink: /docs/distributed_saga_2/
 excerpt: "The design of distributed saga in ServiceComb"
-last_modified_at: 2017-09-14T19:05:00+08:00
+last_modified_at: 2017-09-16T16:05:00+08:00
 author: Sean Yin
 redirect_from:
   - /theme-setup/
 ---
 
-In my previous post {{ site.baseurl }}{% link _posts/2017-09-13-saga-background.md %}, I talked about how [Saga][1] can 
-be used to solve the data consistency issue of our trip planning application. Now let's gather the requirements to design
+In my [previous post]({{ site.baseurl }}{% link _posts/2017-09-13-saga-background.md %}), I talked about how [Saga][1] can 
+be used to solve the data consistency issue of our trip planning application. Now let\'s gather the requirements to design
 a saga.
 
 ## Saga Log
@@ -29,7 +29,7 @@ transaction on restart.
 compensating transactions have to idempotent too.
 * All sub-transactions or compensating transactions were done, which is the same as the first case.
 
-In order for saga to recover from the states mentioned above, we have to keep track of each step of sub-transactions and
+In order for saga to recover to the states mentioned above, we have to keep track of each step of sub-transactions and
 compensating transactions. We decided to achieve that by saving the following events in a persistent store called saga log:
 * **Saga started event** stores the entire saga request, which includes multiple transaction/compensation requests 
 * **Transaction started event** stores individual transaction request
@@ -38,7 +38,7 @@ compensating transactions. We decided to achieve that by saving the following ev
 * **Transaction compensated event** stores individual compensation request and its response
 * **Saga ended event** marks the end of a saga request and stores nothing
 
-By persisting these events in saga log, a crashed saga can be recovered from any states above. 
+By persisting these events in saga log, a crashed saga can be recovered to any states above. 
 
 Since saga only needs persistence of events and the event contents are stored as JSON, the implementation of the saga log 
 is very flexible. Databases (SQL or NoSQL), durable message queues, or even plain files can be used as event storage, but
@@ -46,7 +46,7 @@ some are faster for saga to recover.
 
 ## Request Data Structure of Saga
 In our case, flight booking, car rental, and hotel reservation have no dependency among each other at all and they can be
-processed in parallel. However, it's more user friendly for our customers to only charge their credit cards once, when all 
+processed in parallel. However, it\'s more user friendly for our customers to only charge their credit cards once, when all 
 the bookings are done successfully. That means the transactions of the four services look like the graph below.
 
 ![Transactions]({{ site.url }}{{ site.baseurl }}/assets/images/saga.transactions.png){: .align-center}
@@ -58,7 +58,7 @@ The root of the graph is saga start task and the leaf is saga end task.
 
 ## Parallel Saga
 As mentioned above, flight booking, car rental, and hotel reservation can be processed in parallel. But doing so creates
-another problem: what if flight booking failed while car rental is being processed? We can't keep waiting for the response
+another problem: what if flight booking failed while car rental is being processed? We can\'t keep waiting for the response
 from car rental service, because we have no idea how long it will take. 
 
 THe best thing we can do is to send the car rental request again and hope we get a response so that we can continue our 
@@ -67,10 +67,10 @@ backward recovery. If car rental service never responds, we may have to fallback
 The delayed booking request may still be received by the remote car rental service. When it does, the service has already
 processed the same booking and its cancellation request.
 
-![Network Latency]({{ site.url }}{{ site.baseurl }}/assets/images/saga.communicative.png){: .align-center}
+![Network Latency]({{ site.url }}{{ site.baseurl }}/assets/images/saga.commutative.png){: .align-center}
 
 Therefore, services have to implement transactions and compensations in such a way that transaction request received after
-its compensation request takes no effect. Caitie McCaffrey called this **communicative compensating request** in her talk 
+its compensation request takes no effect. Caitie McCaffrey called this **commutative compensating request** in her talk 
 on [Distributed Sagas: A Protocol for Coordinating Microservices](https://www.youtube.com/watch?v=1H6tounpnG8). 
 
 ## ACID and Saga
@@ -99,7 +99,7 @@ In this article, we talked about how saga can be implemented with a saga log to 
 and request graph. A crashed saga can also be recovered from all the persisted events in saga log on restart. However,
 there are a few requirements on design of microservices to ensure saga consistency guarantee:
 * transaction and compensation requests must be idempotent
-* compensation requests must be communicative
+* compensation requests must be commutative
 
 ## References
 1. [Original Paper on Sagas][1] by By Hector Garcia-Molina & Kenneth Salem
