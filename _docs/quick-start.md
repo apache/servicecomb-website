@@ -10,9 +10,11 @@ last_modified_at: 2017-09-06T00:50:43-55:00
 {% include toc %}
 ## Install Java development environment
 
-* Install JDK 1.8+, details can refer to [JDK Installing Guide](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html).
+* Install Git, details can refer to [Git Installing Guide](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git){:target="_blank"}.
 
-* Install Maven 3.x, details can refer to [Maven Installing Guide](https://maven.apache.org/install.html).
+* Install JDK 1.8+, details can refer to [JDK Installing Guide](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html){:target="_blank"}.
+
+* Install Maven 3.x, details can refer to [Maven Installing Guide](https://maven.apache.org/install.html){:target="_blank"}.
 
 * Install ServiceComb Java Chassis(SDK) by executing the following commands.
 

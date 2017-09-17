@@ -10,6 +10,8 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 {% include toc %}
 ## 安装 Java 开发环境
 
+* 安装**git**，详情可参考[git安装教程](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git){:target="_blank"}。
+
 * 安装JDK 1.8+，详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html){:target="_blank"}。
 
 * 安装Maven 3.x，详情可参考[Maven安装教程](https://maven.apache.org/install.html){:target="_blank"}。
@@ -28,7 +30,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 docker pull servicecomb/service-center
 docker run -d -p 30100:30100 servicecomb/service-center:latest
 ```
-*您可以通过阅读[环境配置](/cn/users/setup-environment/)获取在本地以二进制方式运行Service Center的方法。*
+*您可以通过阅读[环境配置](/cn/users/setup-environment/#运行service-center)获取在本地以二进制方式运行Service Center的方法。*
 
 ## 创建第一个微服务
 本指南将以一个简单的 **体质指数(BMI)** 应用开展微服务之旅。[体质指数](https://baike.baidu.com/item/BMI%E6%8C%87%E6%95%B0){:target="_blank"}主要用于衡量人体胖瘦程度。该应用主要包含两个微服务：
