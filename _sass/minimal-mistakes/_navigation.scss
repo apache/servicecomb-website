@@ -179,22 +179,31 @@
   display: flex;
   -webkit-box-align: center;
         align-items: center;
-  background: $background-color;
+  background: $masthead-background-color;
 
   a {
     display: block;
+    font-size: 0.875rem;
     margin: 0 1rem;
     padding: 0.5rem 0;
-    color: $masthead-link-color;
+    color: white;
+    opacity: 0.6;
     text-decoration: none;
 
     &:hover {
-      color: $masthead-link-color-hover;
+      color: white;
+      opacity: 1.0;
     }
 
     &.site-title {
       margin-left: 0;
     }
+
+  }
+
+  a.active {
+    color: white;
+    opacity: 1.0;
   }
 
   button {
@@ -312,6 +321,9 @@
       &:last-child {
         border-bottom: none;
       }
+    }
+    .nav-lang {
+      margin-left: auto;
     }
   }
 }
@@ -435,7 +447,7 @@
     padding-right: 0.5em;
     color: #fff;
     font-weight: bold;
-    background: $primary-color;
+    background: mix(#fff, $info-color, 50%);
     border-radius: $border-radius;
 
     &:hover {
@@ -485,6 +497,7 @@
   padding: 0.5rem 0;
   font-family: $sans-serif-narrow;
   font-size: $type-size-6;
+  color: #0063fc;
   font-weight: bold;
   /*text-transform: uppercase;*/
   border-bottom: 1px solid $border-color;

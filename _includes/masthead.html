@@ -3,9 +3,9 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
 	      {% if page.lang == "cn" %}
-          <a class="site-title" href="{{ '/cn' | absolute_url }}"><img src="{{ '/' | absolute_url }}/assets/images/ServiceComb-logo-1.png"></a>
+          <a class="site-title active" href="{{ '/cn' | absolute_url }}"><img src="{{ '/' | absolute_url }}/assets/images/ServiceComb-logo-1.png"></a>
 	      {% else %}
-          <a class="site-title" href="{{ '/' | absolute_url }}"><img src="{{ '/' | absolute_url }}/assets/images/ServiceComb-logo-1.png"></a>
+          <a class="site-title active" href="{{ '/' | absolute_url }}"><img src="{{ '/' | absolute_url }}/assets/images/ServiceComb-logo-1.png"></a>
 	      {% endif %}
         <ul class="visible-links">
           {% for link in site.data.navigation.t[page.lang].main %}
@@ -14,11 +14,27 @@
             {% else %}
               {% assign domain = site.url | append: site.baseurl %}
             {% endif %}
-            <li class="masthead__menu-item"><a href="{{ domain }}{{ link.url }}">{{ link.title }}</a></li>
+            <li class="masthead__menu-item">
+              {% if link.url == page.url %}
+                <a class="active" href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+              {% else %}
+                <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+              {% endif %}
+            </li>
           {% endfor %}
         </ul>
         <button><div class="navicon"></div></button>
         <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          {% if page.lang == "cn" %}
+            {% assign raw = page.url | split: '/cn' %}
+            {% assign ensite = raw[1] %}
+            <a href={{ ensite }} class="language">English</a>
+          {% else %}
+            {% assign cnsite = "/cn" | append: page.url %}
+            <a href={{ cnsite }} class="language">中文</a>
+          {% endif %}
+        </div>
       </nav>
     </div>
   </div>

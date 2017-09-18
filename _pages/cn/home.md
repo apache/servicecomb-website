@@ -4,13 +4,12 @@ lang: cn
 ref: home
 permalink: /cn/
 header:
-  overlay_color: "#dcdde2"
-  overlay_image: /assets/images/servicecomb-banner-s.jpg
+  overlay_image: /assets/images/servicecomb-banner-s.png
   caption:
 excerpt: 'ServiceComb提供了一套包含代码框架生成，服务注册发现，负载均衡，服务可靠性（容错熔断，限流降级，调用链追踪）等功能的微服务框架。<br /><br />
-<small>最新发布版本:<small><br />
-<a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.2.0"> Java开发包 v0.2.0 </a></small><br />
-<small><a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.1">服务中心 v0.1.1</a></small><br />'
+<small>最新发布版本：</small><br /><br />
+<a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.2.0" class="home-button btn--info">Java开发包 v0.2.0</a>
+<a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.1" class="home-button btn--info">服务中心 v0.1.1</a><br />'
 
 intro:
   - excerpt: "在新近结束的LinuxCon Beijing 2017大会上，ServiceComb举办了一次 [workshop](/cn/slides/)向大家展示[如何使用ServiceComb构建一个云化应用](/cn/docs/linuxcon-workshop-demo/)。<br /><br />

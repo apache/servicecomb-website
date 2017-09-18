@@ -19,7 +19,7 @@
 }
 
 .page {
-  border-left: 1px solid $border-color;
+  border-left: 1px solid $lighter-gray;
   @include breakpoint($large) {
     @include span(10 of 12 last);
     @include prefix(0.2 of 12);
@@ -49,14 +49,16 @@
 
 .page__lead {
   font-family: $global-font-family;
-  font-size: $type-size-4;
+  font-size: $type-size-6;
+  color: white;
 }
 
 .page__content {
   h2 {
     padding-bottom: 0.5em;
 /*    border-bottom: 1px solid $border-color;*/
-    border-bottom: 1.5px solid #d1d1d1;
+    border-bottom: 1px solid #d1d1d1;
+    color: white;
   }
 
   p, li, dl {
@@ -122,7 +124,7 @@
 
   &--overlay {
     position: relative;
-    margin-bottom: 2em;
+    margin-bottom: 1em;
     padding: 3em 0;
     @include clearfix;
     background-size: cover;
@@ -134,7 +136,7 @@
             animation-delay: 0.25s;
 
     a {
-      color: #525252;
+      color: white;
     }
 
     .wrapper {
@@ -150,8 +152,14 @@
     .page__meta,
     .page__lead,
     .btn {
-      color: #525252;
-      text-shadow: 1px 1px 4px rgba(#000, 0.5);
+      color: white;
+      opacity: 1.0;
+
+      small {
+        font-size: 0.9em;
+        color: white;
+        opacity: 0.8;
+      }
     }
 
     .page__lead {
@@ -159,10 +167,10 @@
     }
 
     .page__title {
-      font-size: $type-size-2;
+      font-size: $type-size-4;
 
       @include breakpoint($small) {
-        font-size: $type-size-1;
+        font-size: $type-size-3;
       }
     }
   }
