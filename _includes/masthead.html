@@ -15,7 +15,9 @@
               {% assign domain = site.url | append: site.baseurl %}
             {% endif %}
             <li class="masthead__menu-item">
-              {% if link.url == page.url %}
+              {% assign prefixSize = link.url.size | minus:1 %}
+              {% assign prefix = link.url | slice: 0, prefixSize  %}
+              {% if page.url contains prefix %}
                 <a class="active" href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
               {% else %}
                 <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>

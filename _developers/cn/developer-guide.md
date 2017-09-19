@@ -2,7 +2,7 @@
 title: "开发者指南"
 lang: cn
 ref: developer-guide
-permalink: /cn/developers/developer-guide/
+permalink: /cn/developers/
 excerpt: "开发者指南"
 last_modified_at: 2017-06-24T19:18:43+08:00
 ---
