@@ -30,6 +30,8 @@ Saga保证所有的子事务都得以完成或补偿，但Saga系统本身也可
 * **Transaction compensated event** 保存对应补偿请求及其回复
 * **Saga ended event** 标志着saga事务请求的结束，不需要保存任何内容
 
+![Events]({{ site.url }}{{ site.baseurl }}/assets/images/saga.events.png){: .align-center}
+
 通过将这些事件持久化在saga log中，我们可以将saga恢复到上述任何状态。
 
 由于Saga只需要做事件的持久化，而事件内容以JSON的形式存储，Saga log的实现非常灵活，数据库（SQL或NoSQL），持久消息队列，甚至普通文件可以用作事件存储，

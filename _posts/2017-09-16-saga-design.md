@@ -38,6 +38,8 @@ compensating transactions. We decided to achieve that by saving the following ev
 * **Transaction compensated event** stores individual compensation request and its response
 * **Saga ended event** marks the end of a saga request and stores nothing
 
+![Events]({{ site.url }}{{ site.baseurl }}/assets/images/saga.events.png){: .align-center}
+
 By persisting these events in saga log, a crashed saga can be recovered to any states above. 
 
 Since saga only needs persistence of events and the event contents are stored as JSON, the implementation of the saga log 
