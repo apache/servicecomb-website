@@ -11,8 +11,8 @@ redirect_from:
 ---
 
 Data consistency is a critical aspect of many systems, especially in cloud and microservice environment. We recently
-released [Saga](https://github.com/ServiceComb/saga) project (the 1<sup>st</sup> open source implementation of [Sagas][1])
-under ServiceComb to address data consistency issue. But why is data consistency so important and what is Saga?
+released [Saga](https://github.com/ServiceComb/saga) project under ServiceComb to address data consistency issue. 
+But why is data consistency so important and what is Saga?
 
 ## Data Consistency of Monolithic Applications
 Imagine we are a giant corporation who runs an airline, a car rental company, and a hotel chain. We provide one-stop trip 
