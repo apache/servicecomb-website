@@ -6,8 +6,9 @@
   @include container;
   @include clearfix;
   /*margin-top: 2em;*/
-  padding-left: 1em;
-  padding-right: 1em;
+  margin-top: 80px;
+  margin-left: 10%;
+  margin-right: 10%;
   -webkit-animation: intro 0.3s both;
           animation: intro 0.3s both;
   -webkit-animation-delay: 0.35s;
@@ -49,7 +50,7 @@
 
 .page__lead {
   font-family: $global-font-family;
-  font-size: $type-size-6;
+  font-size: $base-font-size;
   color: white;
 }
 
@@ -57,17 +58,17 @@
   h2 {
     padding-bottom: 0.5em;
 /*    border-bottom: 1px solid $border-color;*/
-    border-bottom: 1px solid #d1d1d1;
+    // border-bottom: 1px solid #d1d1d1;
     color: white;
   }
 
   p, li, dl {
-    font-size: 1em;
+    font-size: 14px;
   }
 
   /* paragraph indents */
   p {
-    margin: 0 0 0.875em;
+    margin: 0 0 10px;
 
     /* sibling indentation*/
     @if $paragraph-indent == true {
@@ -124,10 +125,10 @@
 
   &--overlay {
     position: relative;
-    margin-bottom: 1em;
-    padding: 3em 0;
+    padding-top: 90px;
     @include clearfix;
-    background-size: cover;
+    height: 500px;
+    background-size: 1920px 500px;
     background-repeat: no-repeat;
     background-position: center;
     -webkit-animation: intro 0.3s both;
@@ -140,12 +141,15 @@
     }
 
     .wrapper {
-      padding-left: 1em;
-      padding-right: 1em;
-
-      @include breakpoint($x-large) {
-        max-width: $x-large;
-      }
+        margin-left: 10%;
+        @media (max-width: 400px) {
+            .button-group {
+                a {
+                    display: block;
+                    width: 200px;
+                }
+            }
+        }
     }
 
     .page__title,
@@ -154,24 +158,29 @@
     .btn {
       color: white;
       opacity: 1.0;
+    }
 
-      small {
-        font-size: 0.9em;
+    .excerpt-label {
+        font-size: 14px;
         color: white;
         opacity: 0.8;
-      }
+        margin-bottom: 10px;
     }
 
     .page__lead {
-      max-width: $small;
+      max-width: 580px;
+      height: 110px;
+      margin-bottom: 40px;
+
+      @include breakpoint(600px) {
+          height: auto;
+      }
     }
 
     .page__title {
-      font-size: $type-size-4;
-
-      @include breakpoint($small) {
-        font-size: $type-size-3;
-      }
+        font-size: 44px;
+        font-weight: 500;
+        margin-bottom: 20px;
     }
   }
 }
