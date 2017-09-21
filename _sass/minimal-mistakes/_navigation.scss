@@ -192,7 +192,7 @@
           font-weight: 400;
           font-size: 16px;
           color: white;
-          opacity: 0.8;
+          opacity: 1.0;
           padding: 2px 10px;
           border: 1px solid #ffffff;
           border-radius: 38px;
@@ -200,8 +200,6 @@
       }
 
       &:hover {
-          color: white;
-          opacity: 1.0;
           font-weight: 500;
       }
   }
@@ -375,7 +373,7 @@
   }
 
   @include breakpoint(max-width ($large - 1px)) {
-      margin-top: 100px;
+      background-color: #ffffff;
 
     label {
       position: relative;
@@ -470,6 +468,9 @@
 .nav__list .nav__items {
   margin: 0;
   padding: 0 20px 20px 20px;
+  @include breakpoint(max-width ($large - 1px)) {
+      padding-bottom: 0;
+  }
 
   a {
     color: inherit;
@@ -480,7 +481,6 @@
     padding-left: 0.5em;
     padding-right: 0.5em;
     color: #fff;
-    font-weight: bold;
     background: mix(#fff, #11a4ff, 50%);
     border-radius: $border-radius;
 
@@ -491,6 +491,17 @@
 
   li a {
       font-size: 14px;
+      line-height: 30px;
+      display: block;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+
+      &:hover {
+          overflow: visible;
+          white-space: normal;
+          height: auto;
+      }
   }
 
   @include breakpoint(max-width ($large - 1px)) {
@@ -505,13 +516,11 @@
             -ms-transform: translate(0, 10%);
         transform: translate(0, 10%);
   }
-}
 
-.nav__items {
-    li ul {
-        padding-bottom: 20px;
-        border-bottom: 1px solid #e6e6e6;
-    }
+  li ul {
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e6e6e6;
+  }
 }
 
 @include breakpoint(max-width ($large - 1px)) {
@@ -537,7 +546,11 @@
 }
 
 .nav__sub-title {
-  display: block;
+    display: block;
+    overflow: hidden;
+    line-height: 19px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   margin: 0;
   padding: 20px 0 9px;
   font-family: $sans-serif-narrow;
@@ -546,12 +559,13 @@
   font-weight: 500;
   border-bottom: 1px solid $border-color;
   text-decoration: none;
-}
 
-a.nav__sub-title {
-    &:hover {
-        text-decoration: underline;
-    }
+  &:hover {
+    text-decoration: underline;
+    height: auto;
+    overflow: visible;
+    white-space: normal;
+  }
 }
 
 
