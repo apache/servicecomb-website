@@ -53,7 +53,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 1. 使用 Docker 运行 *Zipkin* 分布式追踪服务：
 
    ```bash
-   docker run -d -p 9411:9411 openzipkin:zipkin
+   docker run -d -p 9411:9411 openzipkin/zipkin
    ```
 
 2. 重启 *体质指数计算器* 微服务：
