@@ -19,31 +19,23 @@
         <p class="header">{{ site.data.ui-text[page.lang].contribute | default: "Contribute" }}</p>
         <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/issues/new?title=Issue with {{page.path}}">{{ site.data.ui-text[page.lang].report_issue | default: "Report a Doc Issue" }}</a></li>
         <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/edit/master/{{page.path}}">{{ site.data.ui-text[page.lang].edit_page | default: "Edit This Page on Github" }}</a></li>
-        <li><a href="{{ prefix }}/developers/pull-request-guide/">{{ site.data.ui-text[page.lang].pr_guide | default: "Pull Request Guide" }}</a></li>
+        <li><a href="{{ prefix }}/developers/submit-codes/">{{ site.data.ui-text[page.lang].code_submit_guide | default: "Code Submit Guide" }}</a></li>
       </ul>
     </div>
     <div class="col">
       <ul class="social-icons">
         <p class="header">{{ site.data.ui-text[page.lang].community | default: "Community" }}</p>
         <li>
-          <i class="fa fa-users fa-group" aria-hidden="true"></i>
-          <a href="https://groups.google.com/forum/#!forum/servicecomb-users"><span class="group">{{ site.data.ui-text[page.lang].user | default: "User" }}</span></a> |
-          <a href="https://groups.google.com/forum/#!forum/servicecomb-developers"><span class="group">{{ site.data.ui-text[page.lang].dev | default: "Dev" }}</span></a>
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank"><span class="group">{{ site.data.ui-text[page.lang].user | default: "User" }}</span></a> | <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank">{{ site.data.ui-text[page.lang].dev | default: "Dev" }}</span></a>
         </li>
         <li>
-          <a href="http://github.com/{{ site.author.github }}">
-            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
-          </a>
+            <a href="http://github.com/{{ site.author.github }}" target="_blank"><span class="github">Github</span></a>
         </li>
         <li>
-          <a href="https://twitter.com/{{ site.twitter.username }}">
-            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
-          </a>
+            <a href="https://twitter.com/{{ site.twitter.username }}" target="_blank"><span class="twitter">Twitter</span></a>
         </li>
         <li>
-          <a href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ '/feed.xml' | absolute_url }}{% endif %}">
-            <i class="fa fa-fw fa-rss-square" aria-hidden="true"></i> {{ site.data.ui-text[page.lang].feed_label | default: "Feed" }}
-          </a>
+            <a href="{% if site.atom_feed.path %}{{ site.atom_feed.path }}{% else %}{{ '/feed.xml' | absolute_url }}{% endif %}" target="_blank"><span class="rss">{{ site.data.ui-text[page.lang].feed_label | default: "Feed" }}</span></a>
         </li>
       </ul>
     </div>

@@ -53,6 +53,34 @@
   .fa {
     color: mix(#fff, $gray, 25%);
   }
+
+  @mixin social-icon($image-url) {
+      &::before {
+          content: '';
+          display: inline-block;
+          background: url($image-url) no-repeat center/cover;
+          width: 16px;
+          height: 16px;
+          vertical-align: middle;
+          margin: 0 8px 0 0;
+      }
+  }
+
+  .group {
+      @include social-icon('/assets/images/Users.png')
+  }
+
+  .github {
+      @include social-icon('/assets/images/github.png')
+  }
+
+  .twitter {
+      @include social-icon('/assets/images/Twitter.png')
+  }
+
+  .rss {
+      @include social-icon('/assets/images/Rss.png')
+  }
 }
 
 .page__footer-copyright {
