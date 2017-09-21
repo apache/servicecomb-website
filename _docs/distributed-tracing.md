@@ -53,7 +53,7 @@ The above configurations have already set up in the code. All you need to do is 
 1. Run *Zipkin* distributed service inside Docker.
 
    ```bash
-   docker run -d -p 9411:9411 openzipkin:zipkin
+   docker run -d -p 9411:9411 openzipkin/zipkin
    ```
 
 2. Restart *BMI calculator service* with the following command:
