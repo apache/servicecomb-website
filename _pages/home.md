@@ -10,8 +10,10 @@ excerpt: 'ServiceComb is a microservice framework that provides functionalities 
 
 
 <div class="excerpt-label">Latest release:</div>
-<div class="button-group"><a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.2.0" class="home-button btn--info">Java SDK v0.2.0</a>
+<div class="button-group">
+<a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.2.0" class="home-button btn--info">Java SDK v0.2.0</a>
 <a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.1" class="home-button btn--info">Service Center v0.1.1</a>
+<a href="https://github.com/ServiceComb/ServiceComb-Saga/releases/tag/saga-0.0.1" class="home-button btn--info">Saga v0.0.1</a>
 </div>'
 
 intro:
@@ -20,12 +22,12 @@ intro:
 
 <ul>
   <li>
-    <p>In the recent LinuxCon Beijing 2017 conference, ServiceComb organized a workshop to show the way to build a cloud application using ServiceComb.</p>
-    <a href='/docs/linuxcon-workshop-demo/'>Details</a>
+    <p>ServiceComb now provides data consistency solutions(Saga) in microservice application.</p>
+    <a href='/docs/quick-start-dataconsistency/'>Details</a>
   </li>
   <li class='line-end'>
-    <p>ServiceComb now supports to do the distributed tracing with Zipkin.</p>
-    <a href='/docs/tracing-with-servicecomb/'>Details</a>
+    <p>In the recent LinuxCon Beijing 2017 conference, ServiceComb organized a workshop to show the way to build a cloud application using ServiceComb.</p>
+    <a href='/docs/linuxcon-workshop-demo/'>Details</a>
   </li>
 </ul>"
 

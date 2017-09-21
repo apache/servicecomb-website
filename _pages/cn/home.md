@@ -10,8 +10,10 @@ excerpt: 'ServiceComb提供了一套包含代码框架生成，服务注册发�
 
 
 <div class="excerpt-label">最新发布版本：</div>
-<div class="button-group"><a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.2.0" class="home-button btn--info">Java开发包 v0.2.0</a>
+<div class="button-group">
+<a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.2.0" class="home-button btn--info">Java开发包 v0.2.0</a>
 <a href="https://github.com/ServiceComb/service-center/releases/tag/0.1.1" class="home-button btn--info">服务中心 v0.1.1</a>
+<a href="https://github.com/ServiceComb/ServiceComb-Saga/releases/tag/saga-0.0.1" class="home-button btn--info">Saga v0.0.1</a>
 </div>'
 
 intro:
@@ -20,12 +22,12 @@ intro:
 
 <ul>
   <li>
-    <p>在新近结束的LinuxCon Beijing 2017大会上，ServiceComb举办了一次 [workshop](/cn/slides/)向大家展示如何使用ServiceComb构建一个云化应用。</p>
-    <a href='/cn/docs/linuxcon-workshop-demo/'>详情</a>
+    <p>号外： 现在ServiceComb提供了微服务场景下的数据一致性解决方案Saga！</p>
+    <a href='/cn/docs/quick-start-dataconsistency/'>详情</a>
   </li>
   <li class='line-end'>
-    <p>号外： 现在ServiceComb支持使用Zipkin进行分布式事务追踪了！</p>
-    <a href='/cn/docs/tracing-with-servicecomb/'>详情</a>
+    <p>在新近结束的LinuxCon Beijing 2017大会上，ServiceComb举办了一次 [workshop](/cn/slides/)向大家展示如何使用ServiceComb构建一个云化应用。</p>
+    <a href='/cn/docs/linuxcon-workshop-demo/'>详情</a>
   </li>
 </ul>"
 
