@@ -129,11 +129,11 @@ required. Centralized saga decouples services from data consistency logic and it
 and allows easier troubleshooting of any problem occurred in transactions.
 
 ## References
-1. [Original Paper on Sagas][1] by By Hector Garcia-Molina & Kenneth Salem
 1. [https://en.wikipedia.org/wiki/Two-phase_commit_protocol](https://en.wikipedia.org/wiki/Two-phase_commit_protocol)
 1. [https://cs.nyu.edu/courses/spring03/G22.2631-001/lecture8.pdf](https://cs.nyu.edu/courses/spring03/G22.2631-001/lecture8.pdf)
 1. [http://courses.cs.vt.edu/~cs5204/fall00/distributedDBMS/duckett/tpcp.html](http://courses.cs.vt.edu/~cs5204/fall00/distributedDBMS/duckett/tpcp.html)
 1. [https://www.infoq.com/presentations/Transactions-HTTP-REST](https://www.infoq.com/presentations/Transactions-HTTP-REST)
+1. [https://www.nginx.com/blog/event-driven-data-management-microservices/](https://www.nginx.com/blog/event-driven-data-management-microservices/)
 
 [1]:https://en.wikipedia.org/wiki/Two-phase_commit_protocol
 [2]:https://cs.nyu.edu/courses/spring03/G22.2631-001/lecture8.pdf
