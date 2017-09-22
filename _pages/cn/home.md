@@ -26,7 +26,7 @@ intro:
     <a href='/cn/docs/quick-start-dataconsistency/'>详情 ></a>
   </li>
   <li class='line-end'>
-    <p>在新近结束的LinuxCon Beijing 2017大会上，ServiceComb举办了一次 [workshop](/cn/slides/)向大家展示如何使用ServiceComb构建一个云化应用。</p>
+    <p>在新近结束的LinuxCon Beijing 2017大会上，ServiceComb举办了一次 workshop向大家展示如何使用ServiceComb构建一个云化应用。</p>
     <a href='/cn/docs/linuxcon-workshop-demo/'>详情 ></a>
   </li>
 </ul>"
