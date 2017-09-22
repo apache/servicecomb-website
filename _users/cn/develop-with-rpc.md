@@ -1,0 +1,53 @@
+---
+title: "使用RPC方式开发"
+lang: cn
+ref: develop-with-rpc
+permalink: /cn/users/develop-with-rpc/
+excerpt: "使用RPC方式开发"
+last_modified_at: 2017-08-15T15:01:43-04:00
+redirect_from:
+  - /theme-setup/
+---
+
+{% include toc %}
+## 概念阐述
+
+RPC开发方式允许用户通过在服务接口上标注注解来生成服务提供者代理，从而进行服务的调用。
+
+## 示例代码
+
+只需要声明一个服务接口类型的成员，并且使用`@RpcReference`标注该成员，声明依赖的微服务及schemaId，即可进行服务调用，示例代码如下：
+
+```java
+import org.springframework.stereotype.Component;
+
+import io.servicecomb.foundation.common.utils.BeanUtils;
+import io.servicecomb.foundation.common.utils.Log4jUtils;
+import io.servicecomb.provider.pojo.RpcReference;
+import io.servicecomb.samples.common.schema.Hello;
+import io.servicecomb.samples.common.schema.models.Person;
+
+@Component
+public class CodeFirstConsumerMain {
+    @RpcReference(microserviceName = "codefirst", schemaId = "codeFirstHello")
+    private static Hello hello;
+
+    public static void main(String[] args) throws Exception {
+        init();
+        System.out.println(hello.sayHi("Java Chassis"));
+        Person person = new Person();
+        person.setName("ServiceComb/Java Chassis");
+        System.out.println(hello.sayHello(person));
+    }
+
+    public static void init() throws Exception {
+        Log4jUtils.init();
+        BeanUtils.init();
+    }
+}
+```
+
+在以上代码中，服务消费者已经取得了服务提供者的服务接口`Hello`，并在代码中声明一个`Hello`类型的成员。通过在`hello`上使用`@RPCReference`注解指明微服务名称和schemaId，ServiceComb框架可以在程序启动时从服务中心获取到对应的服务提供者实例信息，并且生成一个代理注入到hello中，用户可以像调用本地类一样调用远程服务。
+
+> 注意：
+- 使用RPC开发方式开发服务消费者仍然需要在microservice.yaml文件中添加对于被依赖服务的说明，参见[使用Rest Template开发服务消费者](/cn/users/develop-with-rest-template/)中对于microservice.yaml的配置。

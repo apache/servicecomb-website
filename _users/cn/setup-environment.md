@@ -47,7 +47,9 @@ last_modified_at: 2017-09-03T10:01:43-04:00
       </div>
     </details>
 
-<br/>
+   注意：Window和Linux版本均只支持64位系统。
+   {: .notice--warning}
+
 2.以Docker的方式运行
 
 ```bash
