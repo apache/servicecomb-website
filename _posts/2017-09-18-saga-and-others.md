@@ -84,8 +84,9 @@ Services receiving completion event set its record status to done in its databas
 
 ![event driven architecture - response]({{ site.url }}{{ site.baseurl }}/assets/images/saga.event.driven.response.png){: .align-center}
 
-If you look closer, event driven architecture is just like a decentralized implementation of event driven TCC. Being decentralized
-is good, but it creates much tighter coupling between services. Let\'s assume a new business requirement adds a new
+If you look closer, event driven architecture is just like a decentralized implementation of event driven TCC. If we remove
+the pending state for each service, this architecture looks like a decentralized and event driven saga.
+Being decentralized is good, but it creates much tighter coupling between services. Let\'s assume a new business requirement adds a new
 process D between B and C. With event driven architecture, service B and C have to change their code to accommodate the new 
 process D.
 
@@ -111,6 +112,10 @@ in the transaction becomes the current coordinator instead. For example,
 
 Comparing with centralized one, the decentralized version has the advantage of service autonomy. But each service is
 coupled with data consistency protocol, which may require additional persistence infrastructure.
+
+We love services implementing business rules to be autonomous, but there are many application related complexity such as
+data consistency, service monitoring, and message passing, that are better to be centralized, so that business services
+are able to focus on dealing with business complexity instead of application complexity. That\'s why we designed centralized saga.
 
 In addition, the relationship among services in a long live transaction becomes harder and harder to understand, as the 
 number of services grows. It may quickly grow into a death star like the image below. 
