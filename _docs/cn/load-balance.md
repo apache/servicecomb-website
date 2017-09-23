@@ -25,20 +25,10 @@ last_modified_at: 2017-09-03T10:01:43-04:00
     </dependency>
    ```
 
-2. 在 *体质指数界面* 的 `microservice.yaml` 文件中开启负载均衡的能力：
-
-   ```yaml
-   cse:
-     handler:
-       chain:
-         Consumer:
-           default: loadbalance
-   ```
-
 体质指数应用中已配置好了上述配置项，您只需通过以下指令重启体质指数界面微服务即可：
 
 ```bash
-mvn spring-boot:run -Ploadbalance -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=loadbalance"
+mvn spring-boot:run -Ploadbalance 
 ```
 
 ## 验证
