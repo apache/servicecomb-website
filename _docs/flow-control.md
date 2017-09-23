@@ -56,4 +56,4 @@ Visit <a>http://localhost:8888</a>. Input a positive height and weight and then 
 
 * See quick start for [Service Management](/docs/quick-start-advance/service-management/)
 
-* Learn more about [Flow Control](/users/qps/)
+* Learn more about [Flow Control](/users/service-configurations/#限流策略)

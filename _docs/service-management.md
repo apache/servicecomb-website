@@ -64,4 +64,4 @@ fig-1 Service management result
 
 * See quick start for [Distributed Tracing](/docs/quick-start-advance/distributed-tracing/)
 
-* Learn more about [Service Management](/users/service-management/)
+* Learn more about [Service Management](/users/service-configurations/)

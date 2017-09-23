@@ -19,6 +19,6 @@ This guide shows how to reinforce microservices with **ServiceComb**\'s handler 
 
 ## What's next
 
-* See [ServiceComb User Guide](/users/user-guide/)
+* See [ServiceComb User Guide](/users/)
 
 * Learn more from [the Company application](/docs/linuxcon-workshop-demo/) for a more complete example of microservice applications integrated with ServiceComb

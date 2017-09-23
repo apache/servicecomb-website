@@ -56,4 +56,4 @@ mvn spring-boot:run -Pflowcontrol -Drun.jvmArguments="-Dcse.handler.chain.Provid
 
 * 阅读[服务治理快速入门](/cn/docs/quick-start-advance/service-management/)
 
-* 了解更多[流量控制](/cn/users/qps/)的使用方式
+* 了解更多[流量控制](/cn/users/service-configurations/#限流策略)的使用方式

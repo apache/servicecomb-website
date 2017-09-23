@@ -78,8 +78,10 @@ The above configurations have already set up in the code. All you need to do is 
 
 ## What's next
 
+* Learn more about [Distributed Tracing](/users/distributed-tracing/)
+
 * Read [Distributed Tracing with ServiceComb and Zipkin](/docs/tracing-with-servicecomb/)
 
-* See [ServiceComb User Guide](/users/user-guide/)
+* See [ServiceComb User Guide](/users/)
 
 * Learn more from [the Company application](/docs/linuxcon-workshop-demo/) for a more complete example of microservice applications integrated with ServiceComb

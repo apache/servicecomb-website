@@ -20,6 +20,6 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 
 ## 下一步
 
-* 认识 [**ServiceComb** 微服务开发框架](http://servicecomb.io/cn/users/user-guide/)
+* 认识 [**ServiceComb** 微服务开发框架](/cn/users/)
 
-* 通过 [Company应用](http://servicecomb.io/cn/docs/linuxcon-workshop-demo/) 更深入地了解微服务开发
+* 通过 [Company应用](/cn/docs/linuxcon-workshop-demo/) 更深入地了解微服务开发

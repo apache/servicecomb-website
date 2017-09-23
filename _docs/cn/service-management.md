@@ -62,4 +62,4 @@ mvn spring-boot:run -Pbizkeeper -Drun.jvmArguments="-Dcse.handler.chain.Provider
 
 * 阅读[分布式追踪快速入门指南](/cn/docs/quick-start-advance/distributed-tracing/)
 
-* 了解更多[服务治理](/cn/users/service-management/)的使用方式
+* 了解更多[服务治理](/cn/users/service-configurations/)的使用方式

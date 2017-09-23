@@ -49,4 +49,4 @@ mvn spring-boot:run -Drun.profiles=v2 -Drun.jvmArguments="-Dcse.rest.address=0.0
 
 * 阅读[流量控制快速入门](/cn/docs/quick-start-advance/flow-control/)
 
-* 了解更多[负载均衡](/cn/users/load-balance/)的使用方式
+* 了解更多[负载均衡](/cn/users/service-configurations/#负载均衡策略)的使用方式

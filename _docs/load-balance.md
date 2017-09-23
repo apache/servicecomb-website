@@ -49,4 +49,4 @@ Now you can see the following figures shows up alternately by clicking the *Subm
 
 * See quick start for [Flow Control](/docs/quick-start-advance/flow-control/)
 
-* Learn more about [Load Balance](/users/load-balance/)
+* Learn more about [Load Balance](/users/service-configurations/#负载均衡策略)
