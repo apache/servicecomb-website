@@ -121,7 +121,3 @@ fig-2 Create pull request
    ```bash
    git push -f origin fix
    ```
-
-## 下一步
-
-* 请阅读[社区页面](http://servicecomb.io/cn/about/community/)加入开发者邮件列表。
