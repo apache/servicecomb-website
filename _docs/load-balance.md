@@ -25,20 +25,11 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
     </dependency>
    ```
    
-2. Add handler chain of load balance in `microservice.yaml` of *BMI web service*:
-
-   ```yaml
-   cse:
-     handler:
-       chain:
-         Consumer:
-           default: loadbalance
-   ```
 
 The above configurations have already set up in the code. All you need to do is restart the **BMI web services** with the following command:
 
 ```bash
-mvn spring-boot:run -Ploadbalance -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=loadbalance"
+mvn spring-boot:run -Ploadbalance 
 ```
 
 ## Verification
