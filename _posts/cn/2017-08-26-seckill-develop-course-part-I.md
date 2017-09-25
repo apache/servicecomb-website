@@ -6,6 +6,7 @@ permalink: /cn/docs/seckill-development-journey-part-I/
 excerpt: "介绍如何一步一步构建秒杀项目的过程"
 last_modified_at: 2017-09-13T09:00:00+08:00
 author: Yangyong Zheng
+tags: [秒杀]
 redirect_from:
   - /theme-setup/
 ---

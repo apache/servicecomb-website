@@ -6,6 +6,7 @@ permalink: /docs/tracing-with-servicecomb/
 excerpt: "A introduction of how to set up distributed tracing with ServiceComb and Zipkin"
 last_modified_at: 2017-07-17T09:18:43+08:00
 author: Sean Yin
+tags: [distributed tracing, zipkin]
 redirect_from:
   - /theme-setup/
 ---

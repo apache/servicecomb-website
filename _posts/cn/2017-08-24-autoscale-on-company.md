@@ -5,6 +5,7 @@ ref: company-on-kubernetes
 permalink: /cn/docs/autoscale-on-company/   
 excerpt: "本篇将介绍使用kubernetes的弹性伸缩能力在微服务化的Company中实现按需精细化资源控制的实践"   
 author: Zen Lin   
+tags: [kubernetes, 弹性伸缩]
 redirect_from:   
   - /theme-setup/   
 ---

@@ -6,6 +6,7 @@ permalink: /cn/docs/distributed_saga_3/
 excerpt: "Saga和其他数据一致性解决方案相比有什么不同之处？"
 last_modified_at: 2017-09-18T15:22:00+08:00
 author: Sean Yin
+tags: [事务一致性]
 redirect_from:
   - /theme-setup/
 ---

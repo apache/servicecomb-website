@@ -6,6 +6,7 @@ permalink: /cn/docs/performance-test-on-seckill-with-jmeter/
 excerpt: "介绍如何使用JMeter进行性能测试以及获取秒杀示例的性能基线"
 last_modified_at: 2017-09-15T09:00:00+08:00
 author: Yangyong Zheng
+tags: [seckill, 压力测试]
 redirect_from:
   - /theme-setup/
 ---

@@ -5,6 +5,7 @@ ref: company-on-kubernetes
 permalink: /cn/docs/company-on-kubernetes/   
 excerpt: "本篇将介绍在kubernetes集群中一键式部署基于ServiceComb开发的company示例"   
 author: Zen Lin   
+tags: [kubernetes, 部署]
 redirect_from:   
   - /theme-setup/   
 ---

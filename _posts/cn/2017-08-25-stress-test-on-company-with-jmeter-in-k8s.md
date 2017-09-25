@@ -6,6 +6,7 @@ permalink: /cn/docs/stress-test-on-company-with-jmeter-in-k8s/
 excerpt: "介绍如何在Kubernetes集群上使用JMeter进行压力测试"
 last_modified_at: 2017-08-26T09:18:43+08:00
 author: Eric Lee
+tags: [jmeter, 压力测试]
 redirect_from:
   - /theme-setup/
 ---

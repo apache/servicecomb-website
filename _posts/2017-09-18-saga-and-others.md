@@ -6,6 +6,7 @@ permalink: /docs/distributed_saga_3/
 excerpt: "How is distributed saga in ServiceComb comparing with other consistency solutions?"
 last_modified_at: 2017-09-18T15:22:00+08:00
 author: Sean Yin
+tags: [saga]
 redirect_from:
   - /theme-setup/
 ---

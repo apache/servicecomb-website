@@ -6,6 +6,7 @@ permalink: /cn/docs/tracing-with-servicecomb/
 excerpt: "本篇将介绍如何使用 ServiceComb 和 Zipkin 实现分布式调用链追踪"
 last_modified_at: 2017-07-17T09:18:43+08:00
 author: Sean Yin
+tags: [zipkin,分布式追踪]
 redirect_from:
   - /theme-setup/
 ---

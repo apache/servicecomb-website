@@ -5,6 +5,7 @@ ref: company-on-kubernetes
 permalink: /docs/autoscale-on-company/   
 excerpt: "This article introduces practice of using kubernetes autoscale in the micro-serviced Company demo to achieve on-demand resource control"   
 author: Zen Lin   
+tags: [kubernetes, autoscale]
 redirect_from:   
   - /theme-setup/   
 ---

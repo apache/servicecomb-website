@@ -6,6 +6,7 @@ permalink: /cn/docs/distributed_saga_2/
 excerpt: "ServiceComb中的分布式Saga设计"
 last_modified_at: 2017-09-16T19:05:00+08:00
 author: Sean Yin
+tags: [事务一致性]
 redirect_from:
   - /theme-setup/
 ---

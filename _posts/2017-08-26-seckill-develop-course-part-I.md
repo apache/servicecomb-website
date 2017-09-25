@@ -6,6 +6,7 @@ permalink: /docs/seckill-development-journey-part-I/
 excerpt: "an introduction of how to build seckill demo project step by step"
 last_modified_at: 2017-09-13T09:00:00+08:00
 author: Yangyong Zheng
+tags: [seckill]
 redirect_from:
   - /theme-setup/
 ---

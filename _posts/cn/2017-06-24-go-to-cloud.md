@@ -6,6 +6,7 @@ permalink: /cn/docs/go-to-cloud/
 excerpt: "该文档演示：从已有基于spring boot的单体应用利用ServiceComb实现微服务化和云化之路"
 last_modified_at: 2017-06-24T11:40:00+08:00
 author: Tank Tian
+tags: [华为云]
 redirect_from:
   - /theme-setup/
 ---

@@ -24,33 +24,34 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 
 1. 以可执行文件的方式运行
 
-    <details open>
-      <summary>Windows运行步骤</summary>
-      <div markdown="1">
-      1. 下载[服务注册中心可执行文件压缩包](https://github.com/ServiceComb/service-center/releases/download/0.1.1/service-center-0.1.1-windows-amd64.zip)
-      2. 解压缩到当前文件夹
-      3. 进入解压缩后的目录，然后双击运行**start**文件
-      </div>
-    </details>
-    <details open>
-      <summary>Linux运行步骤</summary>
-      <div markdown="1">
-      1. 下载服务注册中心可执行文件压缩包并解压缩
-      ```bash
+   <ul class="nav nav-tabs">
+     <li data-toggle="tab" class="active"><a data-toggle="tab" href="#windows">Windows</a></li>
+     <li data-toggle="tab"><a data-toggle="tab" href="#linux">Linux</a></li>
+   </ul>
+   
+   <div class="tab-content">
+     <div id="windows" class="tab-pane active" markdown="1">
+   1. 下载[服务注册中心可执行文件压缩包](https://github.com/ServiceComb/service-center/releases/download/0.1.1/service-center-0.1.1-windows-amd64.zip)
+   2. 解压缩到当前文件夹
+   3. 进入解压缩后的目录，然后双击运行**start**文件
+     </div>
+     <div id="linux" class="tab-pane fade" markdown="1">
+   1. 下载服务注册中心可执行文件压缩包并解压缩
+   ```bash
    wget https://github.com/ServiceComb/service-center/releases/download/0.1.1/service-center-0.1.1-linux-amd64.tar.gz
    tar xvf service-center-0.1.1-linux-amd64.tar.gz
-      ```
-      2. 运行服务注册中心
-      ```bash
+   ```
+   2. 运行服务注册中心
+   ```bash
    bash service-center-0.1.1-linux-amd64/start.sh
-      ```
-      </div>
-    </details>
+   ```
+    </div>
+   </div>
 
    注意：Window和Linux版本均只支持64位系统。
    {: .notice--warning}
 
-2.以Docker的方式运行
+2. 以Docker的方式运行
 
 ```bash
 docker pull servicecomb/service-center

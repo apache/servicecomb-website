@@ -6,6 +6,7 @@ permalink: /docs/distributed_saga_2/
 excerpt: "The design of distributed saga in ServiceComb"
 last_modified_at: 2017-09-16T16:05:00+08:00
 author: Sean Yin
+tags: [saga]
 redirect_from:
   - /theme-setup/
 ---

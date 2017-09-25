@@ -6,6 +6,7 @@ permalink: /cn/docs/maven_dependency_management/
 excerpt: "maven dependency management"
 last_modified_at: 2017-09-14T20:33:43+08:00
 author: liubao
+tags: [maven]
 redirect_from:
   - /theme-setup/
 ---

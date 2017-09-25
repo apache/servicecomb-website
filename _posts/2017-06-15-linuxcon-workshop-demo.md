@@ -6,6 +6,7 @@ permalink: /docs/linuxcon-workshop-demo/
 excerpt: "A step by step guide on how to use ServiceComb to develop a complete project"
 last_modified_at: 2017-06-15T09:38:43+08:00
 author: Sean Yin
+tags: [demo]
 redirect_from:
   - /theme-setup/
 ---

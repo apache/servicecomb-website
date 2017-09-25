@@ -6,6 +6,7 @@ permalink: /docs/stress-test-on-company-with-jmeter-in-k8s/
 excerpt: "An introduction of how to do stress test on company demo with jmeter in kubernetes cluster"
 last_modified_at: 2017-08-25T09:18:43+08:00
 author: Eric Lee
+tags: [jmeter, performance test]
 redirect_from:
   - /theme-setup/
 ---

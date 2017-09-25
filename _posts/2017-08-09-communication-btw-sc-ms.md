@@ -6,6 +6,7 @@ permalink: /docs/communication-btw-sc-ms/
 excerpt: "An introduction of how service-center and microservices work together"
 last_modified_at: 2017-08-09T09:18:43+08:00
 author: Asif Siddiqui
+tags: [service center]
 redirect_from:
   - /theme-setup/
 ---

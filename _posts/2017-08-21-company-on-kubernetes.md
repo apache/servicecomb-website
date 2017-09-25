@@ -5,6 +5,7 @@ ref: company-on-kubernetes
 permalink: /docs/company-on-kubernetes/   
 excerpt: "This blog will introduce how to deploy company based on ServiceComb in the kubernetes cluster, and intercom communication of company"   
 author: Zen Lin   
+tags: [kubernetes, deployment]
 redirect_from:   
   - /theme-setup/   
 ---

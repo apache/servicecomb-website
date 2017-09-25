@@ -6,6 +6,7 @@ permalink: /docs/distributed_saga_1/
 excerpt: "The background of data consistency problem in the scenario of microservice architecture"
 last_modified_at: 2017-09-13T18:33:43+08:00
 author: Sean Yin
+tags: [saga]
 redirect_from:
   - /theme-setup/
 ---
