@@ -350,7 +350,7 @@ Note, demo is in the [ServiceComb-Saga](https://github.com/ServiceComb/ServiceCo
 	```
 
 4. Sending the request more than once will trigger compensation due to insufficient account balance in payment-service.Do this implement and get Saga events, you can find compensation events in Saga log.
-	
+
 	```bash
 	{
 	    "bcd27f0d-6b82-49b3-8067-b16eba970e55": [
@@ -458,3 +458,5 @@ Note, demo is in the [ServiceComb-Saga](https://github.com/ServiceComb/ServiceCo
 * Learn more from [Eventual Data Consistency Solution in ServiceComb - part 1](/docs/distributed_saga_1/)
 
 * Learn more from [Eventual Data Consistency Solution in ServiceComb - part 2](/docs/distributed_saga_2/)
+
+* Learn more from [Eventual Data Consistency Solution in ServiceComb - part 3](/docs/distributed_saga_3/)
