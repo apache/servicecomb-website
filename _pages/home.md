@@ -6,7 +6,7 @@ permalink: /
 header:
   overlay_image: /assets/images/servicecomb-banner-s.png
   caption:
-excerpt: 'ServiceComb is a microservice framework that provides functionalities of service registry and discovery, load balance, service reliability(latency and fault tolerance, flow control and graceful degradation, distributed tracing) et al.
+excerpt: 'ServiceComb is a microservice framework that provides functionalities of service registry and discovery, load balance, service reliability (latency and fault tolerance, flow control and graceful degradation, distributed tracing) and many others.
 
 
 <div class="excerpt-label">Latest release:</div>
