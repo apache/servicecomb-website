@@ -22,11 +22,11 @@ intro:
 
 <ul>
   <li>
-    <p>ServiceComb now provides data consistency solutions(Saga) in microservice application.</p>
+    <p>ServiceComb now provides data consistency solutions (Saga) in microservice application.</p>
     <a href='/docs/quick-start-dataconsistency/'>Details</a>
   </li>
   <li class='line-end'>
-    <p>In the recent LinuxCon Beijing 2017 conference, ServiceComb organized a workshop to show the way to build a cloud application using ServiceComb.</p>
+    <p>In the recent LinuxCon Beijing 2017 conference, ServiceComb organized a workshop to demonstrate how to build a cloud application using ServiceComb.</p>
     <a href='/docs/linuxcon-workshop-demo/'>Details</a>
   </li>
 </ul>"
