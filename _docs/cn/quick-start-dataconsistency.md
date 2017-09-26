@@ -456,3 +456,5 @@ last_modified_at: 2017-09-19T11:50:10-04:00
 * 了解更多[ServiceComb中的数据最终一致性方案 - part 1](/cn/docs/distributed_saga_1/)
 
 * 了解更多[ServiceComb中的数据最终一致性方案 - part 2](/cn/docs/distributed_saga_2/)
+
+* 了解更多[ServiceComb中的数据最终一致性方案 - part 3](/cn/docs/distributed_saga_3/)
