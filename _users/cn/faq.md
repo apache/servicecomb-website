@@ -12,7 +12,7 @@ redirect_from:
 1. **Q: 使用Java-Chassis这个框架时有什么需要注意的地方？**
 
    A: 使用Java-Chassis有以下这些限制：
-   (1) 不支持类似`@GetMapping`这样的标注。因为Spring现有太多标注了，要支持全部的标注显得也不太实际。
+   (1) 0.3.0-SNAPSHOT之前的版本不支持类似`@GetMapping`这样的标注。
    (2) 所用到的HTTP请求方法一样时，如GET，则方法名不能重载。这是由于生成契约时方法名会作为其Operation ID，所以要保证其唯一性。
    (3) 方法和类必须是public的。
 

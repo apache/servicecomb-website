@@ -12,7 +12,7 @@ redirect_from:
 1. **Q: What need to be cautious when using Java-Chassis?**
 
    A: There are a few restrictions when using Java-Chassis:
-   * It does not support annotations like `@GetMapping`. As there are too many annotations in the spring framework, it\'s not realistic to support all of them.
+   * Before version 0.3.0-SNAPSHOT, it does not support annotations like `@GetMapping`.
    * When using the same HTTP request method, e.g. GET, the method name need to be unique as it will become operation ID when swagger generates contracts.
    * Class and method name need to be public.
 
