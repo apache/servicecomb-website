@@ -28,8 +28,6 @@ ServiceComb 集成了 Zipkin 提供自动调用链追踪能力，如此一来用
 
 ## 使用步骤:
 
-我们将以 [workshop demo](https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop) 为例演示如何用 Zipkin 实施调用链追踪。
-
 ### 添加依赖
 
 基于 ServiceComb Java Chassis 的微服务只需要添加如下依赖到 pom.xml：
@@ -72,15 +70,3 @@ servicecomb:
 
 **注意：** 如果项目中的其他依赖也引入了 zipkin （例如 Spring Cloud），可能导致 zipkin 版本不一致而运行出错，这时需要在项目 pom 中声明 zipkin 版本。
 {: .notice--warning}
-
-## 快速演示
-
-在 workshop demo 中启动追踪后，我们接下来在 docker 环境中演示一下调用链追踪功能。
-
-1. 在 workshop demo 目录下，使用命令`mvn package -DskipTests -Pdocker`或`mvn package -DskipTests -Pdocker -Pdocker-machine`（如果你使用[Docker Toolbox](https://www.docker.com/products/docker-toolbox)），创建所有服务的 docker 镜像
-
-2. 运行`docker-compose up`
-
-3. 发送请求。请参考链接视频进行操作：[http://v.youku.com/v\_show/id\_XMjg1NzQ3NzUzNg==.html](http://v.youku.com/v_show/id_XMjg1NzQ3NzUzNg==.html)
-
-4. 用浏览器打开运行在 docker 容器中的 Zipkin 网站，地址应为 docker 容器IP，例如：`http://192.168.99.100:9411/zipkin/`在这界面上就可以看到所有请求的调用性能数据。

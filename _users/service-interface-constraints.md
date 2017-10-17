@@ -44,17 +44,17 @@ public Person query(@RequestBody String id);
    ```java
    public class PersonHolder<T> {...}
    ```
-* 上述类型的集合类型或者没指定类型的集合，比如：List\<IPerson\>, Map\<String, PersonHolder\<?\>\>, List, Map等。 List\<String\>, List\<Person\>这些具体类型是支持的。
+* 上述类型的集合类型或者没指定类型的集合，比如：`List<IPerson>, Map<String, PersonHolder<?>>, List, Map`等。 `List<String>, List<Person>`这些具体类型是支持的。
 
 * 包含上述类型作为属性的类型
    ```java
    public class GroupOfPerson {IPerson master ...}
    ```
 
-开发者不用担心记不住这些约束，程序启动的时候会检查，并给于错误提示。
+开发者不用担心记不住这些约束，程序会在启动的时候检查不支持的类型，并给与错误提示。
 
 ## 协议上的差异 
-尽管Java Chassis实现了不同协议之间开发方式的透明，受限于底层协议的限制，不同的协议还是有少量差异。
+尽管ServiceComb-Java-Chassis实现了不同协议之间开发方式的透明，受限于底层协议的限制，不同的协议存在少量差异。
 
 * map，key只支持string
 

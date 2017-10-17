@@ -29,7 +29,8 @@ redirect_from:
    }
    ```
 
-   该接口的位置需要与契约中x-java-interface所指定的路径一致。
+   > **说明**：
+   > 该接口的位置需要与契约中x-java-interface所指定的路径一致。
 
 * **步骤 2** 实现服务
 
@@ -58,12 +59,18 @@ redirect_from:
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
-   <beans xmlns=" http://www.springframework.org/schema/beans " xmlns:xsi=" http://www.w3.org/2001/XMLSchema-instance " xmlns:p=" http://www.springframework.org/schema/p " xmlns:util=" http://www.springframework.org/schema/util " xmlns:cse=" http://www.huawei.com/schema/paas/cse/rpc " xmlns:context=" http://www.springframework.org/schema/context " xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">  
-     <cse:rpc-schema schema-id="pojoHello" implementation="io.servicecomb.samples.pojo.provider.PojoHelloImpl"/> 
+   <beans xmlns=" http://www.springframework.org/schema/beans " xmlns:xsi=" http://www.w3.org/2001/XMLSchema-instance "
+          xmlns:p=" http://www.springframework.org/schema/p " xmlns:util=" http://www.springframework.org/schema/util "
+          xmlns:cse=" http://www.huawei.com/schema/paas/cse/rpc "
+          xmlns:context=" http://www.springframework.org/schema/context "
+          xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+   
+       <cse:rpc-schema schema-id="pojoHello" implementation="io.servicecomb.samples.pojo.provider.PojoHelloImpl"/>
    </beans>
    ```
 
-   每一个服务接口都需要定义一个schema声明。
+   > **说明**：
+   > 每一个服务接口都需要定义一个schema声明。
 
 ## 通过注解配置的开发方式
 
@@ -84,9 +91,15 @@ redirect_from:
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
-   <beans xmlns=" http://www.springframework.org/schema/beans " xmlns:xsi=" http://www.w3.org/2001/XMLSchema-instance " xmlns:p=" http://www.springframework.org/schema/p " xmlns:util=" http://www.springframework.org/schema/util " xmlns:cse=" http://www.huawei.com/schema/paas/cse/rpc " xmlns:context=" http://www.springframework.org/schema/context " xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">  
-     <context:component-scan base-package="io.servicecomb.samples.pojo.provider"/> 
+   <beans xmlns=" http://www.springframework.org/schema/beans " xmlns:xsi=" http://www.w3.org/2001/XMLSchema-instance "
+          xmlns:p=" http://www.springframework.org/schema/p " xmlns:util=" http://www.springframework.org/schema/util "
+          xmlns:cse=" http://www.huawei.com/schema/paas/cse/rpc "
+          xmlns:context=" http://www.springframework.org/schema/context "
+          xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+   
+       <context:component-scan base-package="io.servicecomb.samples.pojo.provider"/>
    </beans>
    ```
 
-与Spring MVC开发模式和JAX-RS开发模式不同的是，透明RPC开发模式使用的注解是`@RpcSchema`而非`@RestSchema`。
+> **说明**：
+> 与Spring MVC开发模式和JAX-RS开发模式不同的是，透明RPC开发模式使用的注解是`@RpcSchema`而非`@RestSchema`。

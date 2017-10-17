@@ -14,11 +14,11 @@ redirect_from:
 
 ### API Gateway：
 
-　　API Gateway是一个服务器，也可以说是进入系统的唯一节点。API Gateway封装内部系统的架构，并且提供API给各个客户端。
+API Gateway是一个服务器，也可以说是进入系统的唯一节点。API Gateway封装内部系统的架构，并且提供API给各个客户端。
 
 ### Zuul
 
-　　Zuul是Netflix的基于JVM的路由器和服务器端负载均衡器，可以使用Zuul进行以下操作：
+Zuul是Netflix的基于JVM的路由器和服务器端负载均衡器，可以使用Zuul进行以下操作：
 
 * 认证
 * 洞察
@@ -31,19 +31,19 @@ redirect_from:
 * 静态相响应处理
 * 主动/被动流量管理
 
-　　本小节主要介绍在SpringBoot应用中使用Zuul做API Gateway。关于Zuul的详细功能介绍请参考文档[路由器和过滤器：Zuul](https://springcloud.cc/spring-cloud-dalston.html#_router_and_filter_zuul)。
+本小节主要介绍在SpringBoot应用中使用Zuul做API Gateway。关于Zuul的详细功能介绍请参考文档[路由器和过滤器：Zuul](https://springcloud.cc/spring-cloud-dalston.html#_router_and_filter_zuul)。
 
 ## 场景描述
 
-　　Zuul做API Gateway，即建立一个Zuul Proxy应用，在该Proxy应用中统一定义所有的微服务访问入口，通过使用不同的前缀\(stripped\)来区分各个微服务。本小节通过建立一个ZuulProxy SpringBoot应用来演示Zuul的API Gateway功能。
+Zuul做API Gateway，即建立一个Zuul Proxy应用，在该Proxy应用中统一定义所有的微服务访问入口，通过使用不同的前缀\(stripped\)来区分各个微服务。本小节通过建立一个ZuulProxy SpringBoot应用来演示Zuul的API Gateway功能。
 
 ## 注意事项
 
-　　本小节介绍的ZuulProxy和ZuulServer等demo都是基于SpringBoot和ServiceComb框架的应用，具体请参考[在ServiceComb框架中集成SpringBoot框架](/cn/users/use-servicecomb-in-spring-boot/)。
+本小节介绍的ZuulProxy和ZuulServer等demo都是基于SpringBoot和ServiceComb框架的应用，具体请参考[在ServiceComb框架中集成SpringBoot框架](/cn/users/use-servicecomb-in-spring-boot/)。
 
 ## 启动Zuul Proxy
 
-　　本节介绍如何启动一个zuul proxy应用作为API Gateway。步骤如下：
+本节介绍如何启动一个zuul proxy应用作为API Gateway。步骤如下：
 
 * **步骤 1**在pom文件中添加依赖：
 
@@ -105,21 +105,21 @@ redirect_from:
        address: 0.0.0.0:8082 #微服务端口，可不写
    ```
 
-　　本小节所有服务使用的都是本地的服务中心，具体的服务中心启动流程请参考[启动本地服务中心](/cn/users/setup-environment/#运行service-center)。
+本小节所有服务使用的都是本地的服务中心，具体的服务中心启动流程请参考[启动本地服务中心](/cn/users/setup-environment/#运行service-center)。
 
 * **步骤 5　**运行ZuulMain 应用
 
 ## 使用Zuul Proxy
 
-　　在使用zuul做的API Gateway前，首先要启动在zuul.routers中定义的微服务提供者。
+在使用zuul做的API Gateway前，首先要启动在zuul.routers中定义的微服务提供者。
 
-　　开发服务提供者，开发流程请参考[开发服务提供者](/cn/users/service-definition/)。在微服务microservice.yaml文件中需注意以下两点：
+开发服务提供者，开发流程请参考[开发服务提供者](/cn/users/service-definition/)。在微服务microservice.yaml文件中需注意以下两点：
 
 * APPLICATION\_ID需要于zuul proxy中定义的保持一致。
 
 * service\_description.name需要于zuul.routers中相对应。
 
-　　示例如下：
+示例如下：
 
 ```yaml
 APPLICATION_ID: discoverytest #与zuul proxy一致
@@ -134,10 +134,10 @@ cse:
     address: 0.0.0.0:8080
 ```
 
-　　API Gateway的访问入口为：[http://127.0.0.1:8754](http://127.0.0.1:8754)，所有在zuul.routers中定义的服务都可通过这个访问入口进行代理访问，访问规则如下：
+API Gateway的访问入口为：[http://127.0.0.1:8754](http://127.0.0.1:8754)，所有在zuul.routers中定义的服务都可通过这个访问入口进行代理访问，访问规则如下：
 
-　　[http://127.0.0.1:8754/myServer/\*\*\*](http://127.0.0.1:8754/myServer/***)
+http://127.0.0.1:8754/myServer/\*\*\*](http://127.0.0.1:8754/myServer/***)
 
-　　这表示，Http调用[http://127.0.0.1:8754/myServer/\*\*\*](http://127.0.0.1:8754/myServer/***)，会转到discoveryServer服务（例如："/myServer/101"跳转到discoveryServer 服务下的"/101"）
+这表示，Http调用[http://127.0.0.1:8754/myServer/\*\*\*](http://127.0.0.1:8754/myServer/***)，会转到discoveryServer服务（例如："/myServer/101"跳转到discoveryServer 服务下的"/101"）
 
 > 如果在服务中心同时存在多个discoveryServer服务\(版本不同\),zuul默认采用Ribbon策略对请求进行转发。

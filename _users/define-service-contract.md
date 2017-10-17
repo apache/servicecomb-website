@@ -44,8 +44,8 @@ swagger: '2.0'
 info:
   title: hello
   version: 1.0.0
-  x-java-interface: io.servicecomb.samples.springmvc.Hello
-basePath: /springmvc/rest/hello
+  x-java-interface: io.servicecomb.samples.common.schema.Hello
+basePath: /springmvchello
 produces:
   - application/json
 
@@ -55,10 +55,9 @@ paths:
       operationId: sayHi
       parameters:
         - name: name
-          in: body
+          in: query
           required: true
-          schema:
-            type: string
+          type: string
       responses:
         200:
           description: 正确返回
@@ -69,23 +68,23 @@ paths:
           schema:
             type: string
   /sayhello:
-     post:
-          operationId: sayHello
-          parameters:
-            - name: person
-              in: body
-              required: true
-              schema:
-                $ref: "#/definitions/Person"
-          responses:
-            200:
-              description: 正确返回
-              schema:
-                type: string
-            default:
-              description: 默认返回
-              schema:
-                type: string
+    post:
+      operationId: sayHello
+      parameters:
+        - name: person
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Person"
+      responses:
+        200:
+          description: 正确返回
+          schema:
+            type: string
+        default:
+          description: 默认返回
+          schema:
+            type: string
 definitions:
   Person:
     type: "object"
@@ -97,9 +96,9 @@ definitions:
       name: "Person"
 ```
 
-根据swagger标准，basePath配置的路径需要包括web server的webroot。
-
-info.x-java-interface需要标明具体的接口路径，根据项目实际情况而定。
+> **注意**：  
+- 根据swagger标准，basePath配置的路径需要包括web server的webroot。
+- info.x-java-interface需要标明具体的接口路径，根据项目实际情况而定。
 
 ## 隐式契约
 ### 概念阐述

@@ -48,6 +48,3 @@ public class CodeFirstConsumerMain {
 ```
 
 在以上代码中，服务消费者已经取得了服务提供者的服务接口`Hello`，并在代码中声明一个`Hello`类型的成员。通过在`hello`上使用`@RPCReference`注解指明微服务名称和schemaId，ServiceComb框架可以在程序启动时从服务中心获取到对应的服务提供者实例信息，并且生成一个代理注入到hello中，用户可以像调用本地类一样调用远程服务。
-
-> 注意：
-- 使用RPC开发方式开发服务消费者仍然需要在microservice.yaml文件中添加对于被依赖服务的说明，参见[使用Rest Template开发服务消费者](/users/develop-with-rest-template/)中对于microservice.yaml的配置。

@@ -28,6 +28,7 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
    }
    ```
 
+   > **说明**：
    该接口的位置需要与契约中x-java-interface所指定的路径一致。
 
 * **步骤 2** 实现服务。
@@ -78,10 +79,15 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
-   <beans xmlns=" http://www.springframework.org/schema/beans " xmlns:xsi=" http://www.w3.org/2001/XMLSchema-instance " xmlns:p=" http://www.springframework.org/schema/p " xmlns:util=" http://www.springframework.org/schema/util " xmlns:cse=" http://www.huawei.com/schema/paas/cse/rpc " xmlns:context=" http://www.springframework.org/schema/context " xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">  
-     <context:component-scan base-package="io.servicecomb.samples.jaxrs.provider"/> 
+   <beans xmlns=" http://www.springframework.org/schema/beans " xmlns:xsi=" http://www.w3.org/2001/XMLSchema-instance "
+          xmlns:p=" http://www.springframework.org/schema/p " xmlns:util=" http://www.springframework.org/schema/util "
+          xmlns:cse=" http://www.huawei.com/schema/paas/cse/rpc "
+          xmlns:context=" http://www.springframework.org/schema/context "
+          xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
+   
+       <context:component-scan base-package="io.servicecomb.samples.jaxrs.provider"/>
    </beans>
-```
+   ```
 
 ## 涉及API
 
@@ -100,6 +106,6 @@ JAX-RS开发模式当前支持如下注解，所有注解的使用方法参考[J
 | javax.ws.rs.HeaderParam | parameter | 从header中获取参数 |
 | javax.ws.rs.CookieParam | parameter | 从cookie中获取参数 |
 
-当方法参数没有注解，且不为HttpServletRequest类型参数时，默认为body类型参数，一个方法只支持最多一个body类型参数。
-
-打在参数上面的注解建议显式定义出value值，否则将直接使用契约中的参数名，例如应该使用@QueryParam\("name"\) String name，而不是@QueryParam String name。
+> **说明**：
+- 当方法参数没有注解，且不为HttpServletRequest类型参数时，默认为body类型参数，一个方法只支持最多一个body类型参数。
+- 打在参数上面的注解建议显式定义出value值，否则将直接使用契约中的参数名，例如应该使用`@QueryParam\("name"\) String name`，而不是`@QueryParam String name`。

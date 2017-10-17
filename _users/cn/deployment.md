@@ -12,7 +12,7 @@ redirect_from:
 {% include toc %}
 微服务框架当前提供了两种部署运行模式：standalone模式和web容器模式。推荐使用**standalone模式**拉起服务进程。
 ## standalone模式
-　　框架提供了standalone部署运行模式，可直接在本地通过Main函数启动。
+一个Standalone的容器，以简单的Main加载Spring启动，因为服务通常不需要Tomcat/JBoss等Web容器的特性，没必要用Web容器去加载服务。微框架提供了standalone部署运行模式，服务容器只是一个简单的Main方法，并加载一个简单的Spring容器，用于暴露服务。
 
 ### 操作步骤
 
@@ -32,12 +32,12 @@ redirect_from:
 
 * **步骤2** 运行MainServer即可启动该微服务进程，向外暴露服务。
 
-   如果使用的是rest网络通道，需要将pom中的transport改为使用cse-transport-rest-vertx包。
+   注意：如果使用的是rest网络通道，需要将pom中的transport改为使用cse-transport-rest-vertx包。
 
 ## WEB容器模式
-如果需要将该微服务加载到web容器中启动运行时，需要新建一个servlet工程包装一下。
+如果需要将该微服务加载到web容器中启动运行时，需要新建一个servlet工程包装一下，该servlet工程，根据需要，可以不写或写少量的引导代码即可。
 
-### web.xml文件配置
+### 开发示例
 
 ```xml
 <web-app>
@@ -49,12 +49,12 @@ redirect_from:
         </param-value>
     </context-param>
     <listener>
-        <listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class>
+        <listener-class>com.huawei.paas.cse.transport.rest.servlet.RestServletContextListener</listener-class>
     </listener>
 
     <servlet>
         <servlet-name>RestServlet</servlet-name>
-        <servlet-class>io.servicecomb.transport.rest.servlet.RestServlet</servlet-class>
+        <servlet-class>com.huawei.paas.cse.transport.rest.servlet.RestServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
     </servlet>
@@ -65,28 +65,21 @@ redirect_from:
 </web-app>
 ```
 
-　　RestServletContextListener用于初始化cse环境，包括日志、spring等等。需要指定spring配置文件加载路径，通过context-param来配置。上例中，classpath\*:META-INF/spring/\*.bean.xml是cse的内置规则，如果配置中未包含这个路径，则RestServletContextListener内部会将它追加在最后。
-
-　　另外可以配置servlet-mapping中的url-pattern规则将满足指定规则的URL路由到该servlet中来。
-
-### pom文件配置
-　　当前只有Rest网络通道支持此种运行模式，使用web容器模式时需要将pom文件中的transport改为依赖transport-rest-servlet包。
-
-　　设置finalName，是方便部署，有这一项后，maven打出来的war包，部署到web容器中，webroot即是这个finalName。
+* **步骤2 修改pom文件**
 
 ```xml
-<dependencies> 
-  <dependency> 
-    <groupId>io.servicecomb</groupId>  
-    <artifactId>transport-rest-servlet</artifactId> 
-  </dependency>
+<dependencies>
+    <dependency>
+        <groupId>com.huawei.paas.cse</groupId>
+        <artifactId>cse-transport-rest-servlet</artifactId>
+    </dependency>
 </dependencies>
-<build> 
-  <finalName>test</finalName> 
+<build>
+    <finalName>test</finalName>
 </build>
 ```
 
-**注意:**
+**注意事项:**
 1. RESTful调用应该与web容器中其他静态资源调用（比如html、js等等）隔离开来，所以webroot后一段应该还有一层关键字，比如上面web.xml中举的例子（/test/rest）中的rest。
 2. 以tomcat为例，默认每个war包都有不同的webroot，这个webroot需要是basePath的前缀，比如webroot为test，则该微服务所有的契约都必须以/test打头。
 3. 当微服务加载在web容器中，并直接使用web容器开的http、https端口时，因为是使用的web容器的通信通道，所以需要满足web容器的规则。

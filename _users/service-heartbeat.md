@@ -16,7 +16,7 @@ redirect_from:
 
 ## 涉及API
 
-* io.servicecomb.serviceregistry.client.ServiceRegistryClient：服务中心客户端
+* `io.servicecomb.serviceregistry.client.ServiceRegistryClient`：服务中心客户端
 
 ## 配置说明
 

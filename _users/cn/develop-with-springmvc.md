@@ -12,7 +12,7 @@ redirect_from:
 {% include toc %}
 ## 概念阐述
 
-　　ServiceComb支持SpringMVC注解，允许使用SpringMVC风格开发微服务。
+ServiceComb支持SpringMVC注解，允许使用SpringMVC风格开发微服务。
 
 ## 开发示例
 
@@ -71,22 +71,33 @@ redirect_from:
    }
    ```
 
-   然后在resources/META-INF/spring目录下创建springmvcHello.bean.xml文件，命名规则为\*.bean.xml，配置spring进行服务扫描的base-package，文件内容如下：
+   然后在`resources/META-INF/spring`目录下创建`springmvcHello.bean.xml`文件，命名规则为`\*.bean.xml`，配置spring进行服务扫描的base-package，文件内容如下：
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
-   <beans xmlns=" http://www.springframework.org/schema/beans " xmlns:xsi=" http://www.w3.org/2001/XMLSchema-instance " xmlns:p=" http://www.springframework.org/schema/p " xmlns:util=" http://www.springframework.org/schema/util " xmlns:cse=" http://www.huawei.com/schema/paas/cse/rpc " xmlns:context=" http://www.springframework.org/schema/context " xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd  http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">  
-     <context:component-scan base-package="io.servicecomb.samples.springmvc.povider"/> 
+   
+   <beans xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns:context="http://www.springframework.org/schema/context"
+          xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   
+       <context:component-scan base-package="io.servicecomb.samples.springmvc.povider"/>
    </beans>
    ```
 
 ## 涉及API
 
-　　Spring MVC开发模式当前支持org.springframework.web.bind.annotation包下的如下注解，所有注解的使用方法参考[Spring MVC官方文档](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)。
+Spring MVC开发模式当前支持org.springframework.web.bind.annotation包下的如下注解，所有注解的使用方法参考[Spring MVC官方文档](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)。
 
 | 注解 | 位置 | 描述 |
 | :--- | :--- | :--- |
 | RequestMapping | schema/operation | 支持标注path/method/produces三种数据，operation默认继承schema上的produces |
+| GetMapping | schema/operation | 支持标注path/produces两种数据，operation默认继承schema上的produces |
+| PutMapping | schema/operation | 支持标注path/produces两种数据，operation默认继承schema上的produces |
+| PostMapping | schema/operation | 支持标注path/produces两种数据，operation默认继承schema上的produces |
+| DeleteMapping | schema/operation | 支持标注path/produces两种数据，operation默认继承schema上的produces |
+| PatchMapping | schema/operation | 支持标注path/produces两种数据，operation默认继承schema上的produces |
 | PathVariable | parameter | 从path中获取参数 |
 | RequestParam | parameter | 从query中获取参数 |
 | RequestHeader | parameter | 从header中获取参数 |

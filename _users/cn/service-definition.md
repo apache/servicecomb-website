@@ -32,9 +32,9 @@ redirect_from:
 | instance\_description.properties | - | - | 否 | 服务实例元数据配置（通过microservice.yaml文件进行配置） |  |
 | instance\_description.propertyExtendedClass | - | - | 否 | 微服务元数据配置（通过实现接口PropertyExtended进行配置） | 同service\_description.propertyExtendedClass |
 
-服务的元数据会随服务一同注册到服务中心，如需修改，则要连同服务version一起变更。若想保持服务version不变，则需要通过服务管理中心统一变更元数据。
-
-默认情况下，微服务只支持同一个app内部的服务调用。可在微服务的properties中配置allowCrossApp=true属性，开启可被跨app访问权限。
+> 说明：
+- 服务的元数据会随服务一同注册到服务中心，如需修改，则要连同服务version一起变更。若想保持服务version不变，则需要通过服务管理中心统一变更元数据。
+- 默认情况下，微服务只支持同一个app内部的服务调用。可在微服务的properties中配置allowCrossApp=true属性，开启可被跨app访问权限。
 
 ## 示例代码
 

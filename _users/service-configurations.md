@@ -17,7 +17,7 @@ redirect_from:
 
 ### 配置说明
 
-　　负载均衡策略在mocroservice.yaml文件中配置，配置项为cse.loadbalance.\[MicroServiceName\].\[property name\]，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。
+　　负载均衡策略在mocroservice.yaml文件中配置，配置项为`cse.loadbalance.[MicroServiceName].[property name]`，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。
 
 　　**表1 配置项说明**
 
@@ -66,20 +66,17 @@ cse：
 
 　　用户可以在ServiceComb提供的路由策略框架下根据业务需要，通过编程的方式来开发路由策略。实施步骤如下：
 
-* 实现接口com.netflix.loadbalancer.IRule中定义的接口方法。
-
-   路由选择逻辑在public Server choose\(Object key\)方法中实现。LoadBalancerStats是一个封装了负载均衡器当前运行状态的一个结构。通过获取stats中各个实例的运行指标，在choose方法中，判定将当前请求路由到哪个实例上进行处理。处理风格可以参照io.servicecomb.loadbalance.SessionStickinessRule。
+* 实现接口`com.netflix.loadbalancer.IRule`中定义的接口方法。
+路由选择逻辑在public Server choose\(Object key\)方法中实现。LoadBalancerStats是一个封装了负载均衡器当前运行状态的一个结构。通过获取stats中各个实例的运行指标，在choose方法中，判定将当前请求路由到哪个实例上进行处理。处理风格可以参照`io.servicecomb.loadbalance.SessionStickinessRule`。
 
 * 编译开发的策略，保证生成的class在classpath下。
 
-* 通过SDK配置该路由策略，假如是AbcRule。则配置如下：
-
-   `cse.loadbalance.NFLoadBalancerRuleClassName=com.huawei.cse.ribbon.rule.AbcRule`
+* 通过SDK配置该路由策略，假如是`AbcRule`。则配置如下：       `cse.loadbalance.NFLoadBalancerRuleClassName=io.servicecomb.ribbon.rule.AbcRule`
    
 ## 限流策略
 ### 场景描述
 
-　　用户在provider端使用限流策略，可以限制指定微服务向其发送请求的频率，达到限制每秒钟最大请求数量的效果。
+用户在provider端使用限流策略，可以限制指定微服务向其发送请求的频率，达到限制每秒钟最大请求数量的效果。
 
 ### 注意事项
 
@@ -105,17 +102,17 @@ cse:
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | cse.flowcontrol.Provider.qps.enabled | true | true/false | 否 | 是否启用Provider流控 | - |
 | cse.flowcontrol.Provider.qps.limit.\[ServiceName\] | 2147483647（max int） | \(0,2147483647\]，整形 | 否 | 每秒钟允许的请求数 | 仅支持microservice一个级别的配置 |
+| cse.flowcontrol.Provider.qps.global.limit | 2147483647（max int） | (0,2147483647\]，整形 | 否 | provider接受请求流量的全局配置 | 没有具体到微服务的配置时，此配置生效 |
 
 ## 降级策略
 ### 概念阐述
 
 降级策略是当服务请求异常时，微服务所采用的异常处理策略。降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：
 
-> * “隔离”是一种异常检测机制，常用的检测方法是请求超时、流量过大等。一般的设置参数包括超时时间、同时并发请求个数等。
->
-> * “熔断”是一种异常反应机制，“熔断”依赖于“隔离”。熔断通常基于错误率来实现。一般的设置参数包括统计请求的个数、错误率等。
->
-> * “容错”是一种异常处理机制，“容错”依赖于“熔断”。熔断以后，会调用“容错”的方法。一般的设置参数包括调用容错方法的次数等。
+降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：
+* “隔离”是一种异常检测机制，常用的检测方法是请求超时、流量过大等。一般的设置参数包括超时时间、同时并发请求个数等。
+* “熔断”是一种异常反应机制，“熔断”依赖于“隔离”。熔断通常基于错误率来实现。一般的设置参数包括统计请求的个数、错误率等。
+* “容错”是一种异常处理机制，“容错”依赖于“熔断”。熔断以后，会调用“容错”的方法。一般的设置参数包括调用容错方法的次数等。
 
 把这些概念联系起来：当"隔离"措施检测到N次请求中共有M次错误的时候，"熔断"不再发送后续请求，调用"容错"处理函数。这个技术上的定义，是和Netflix Hystrix一致的，通过这个定义，非常容易理解它提供的配置项，参考：[https://github.com/Netflix/Hystrix/wiki/Configuration](https://github.com/Netflix/Hystrix/wiki/Configuration)。当前ServiceComb提供两种容错方式，分别为返回null值和抛出异常。
 
@@ -168,4 +165,5 @@ cse:
     policy: throwexception
 ```
 
-　　降级策略需要启用服务治理能力，对应的服务提供者的handler是bizkeeper-provider，服务消费者的handler是bizkeeper-consumer。
+> **说明：**
+> 降级策略需要启用服务治理能力，对应的服务提供者的handler是`bizkeeper-provider`，服务消费者的handler是`bizkeeper-consumer`。

@@ -17,7 +17,9 @@ redirect_from:
 
 ### 场景描述
 
-* SpringCloud应用默认情况下由Spring Cloud Eureka提供在分布式环境下的服务发现和服务注册的功能。![](file:///C:\Users\L00356~1\AppData\Local\Temp\msohtmlclip1\01\clip_image002.gif)![](/start/使用SC和GS管理SpringCloud应用.png)
+* SpringCloud应用默认情况下由Spring Cloud Eureka提供在分布式环境下的服务发现和服务注册的功能。
+
+   ![](/assets/images/manage_springcloud_application_using_sc_and_gs.png)
 
 * ServiceComb微服务框架中的Service Center用于服务元数据以及服务实例元数据的管理和处理注册、发现，同时还支持以下功能：
 
@@ -143,7 +145,7 @@ redirect_from:
 ## 在ServiceComb框架中集成Spring Boot框架
 ### 概念阐述
 
-　　本小节介绍了在ServiceComb框架中集成SpringBoot框架的好处和操作步骤。
+本小节介绍了在ServiceComb框架中集成SpringBoot框架的好处和操作步骤。
 
 ### 场景描述
 
@@ -183,7 +185,7 @@ redirect_from:
 
    ```xml
    <dependency> 
-     <groupId>io.servicecomb</groupId>  
+     <groupId>io.servicecomb</groupId>
      <artifactId>spring-boot-starter-provider</artifactId> 
    </dependency>
    ```
@@ -192,11 +194,11 @@ redirect_from:
 
    ```xml
    <dependency> 
-     <groupId>org.springframework.boot</groupId>  
+     <groupId>org.springframework.boot</groupId>
      <artifactId>spring-boot-starter-web</artifactId> 
    </dependency>
    <dependency> 
-     <groupId>org.springframework.boot</groupId>  
+     <groupId>org.springframework.boot</groupId>
      <artifactId>spring-boot-starter-actuator</artifactId> 
    </dependency>
    ```
@@ -219,7 +221,7 @@ redirect_from:
      public static void main(final String[] args) {
      　 Log4jUtils.init();
      　//BeanUtils.init();
-     　SpringApplication.run(xxxServer/Client.class, args)
+     　SpringApplication.run(xxxServerOrClient.class, args)
      }
    }
    ```
