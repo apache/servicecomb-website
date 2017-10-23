@@ -16,20 +16,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 
 ## 开启
 
-1. 在 *体质指数界面* 的 `pom.xml` 文件中添加依赖项：
-
-   ```xml
-   <dependency>
-      <groupId>io.servicecomb</groupId>
-      <artifactId>handler-loadbalance</artifactId>
-    </dependency>
-   ```
-
-体质指数应用中已配置好了上述配置项，您只需通过以下指令重启体质指数界面微服务即可：
-
-```bash
-mvn spring-boot:run -Ploadbalance 
-```
+默认情况下会使用内置的一个简单的负载均衡的实现，不需要额外的配置。
 
 ## 验证
 

@@ -40,10 +40,6 @@ last_modified_at: 2017-09-03T10:01:43-04:00
    ```xml
        <dependency>
          <groupId>io.servicecomb</groupId>
-         <artifactId>handler-tracing-zipkin</artifactId>
-       </dependency>
-       <dependency>
-         <groupId>io.servicecomb</groupId>
          <artifactId>spring-cloud-zuul-zipkin</artifactId>
        </dependency>
    ```
@@ -59,13 +55,13 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 2. 重启 *体质指数计算器* 微服务：
 
    ```bash
-   mvn spring-boot:run -Ptracing -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
+   mvn spring-boot:run -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
    ```
    
 3. 重启 *体质指数界面* 微服务：
 
    ```bash
-   mvn spring-boot:run -Ptracing
+   mvn spring-boot:run -Drun.jvmArguments="-Dservicecomb.tracing.enabled=true"
    ```
 
 ## 验证

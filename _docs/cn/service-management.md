@@ -45,7 +45,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 体质指数应用中已配置好了上述配置项，您只需重新运行 **体质指数计算器**：
 
 ```bash
-mvn spring-boot:run -Pbizkeeper -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"
+mvn spring-boot:run -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"
 ```
 
 ## 验证

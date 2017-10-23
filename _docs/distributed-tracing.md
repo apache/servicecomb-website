@@ -40,10 +40,6 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
    ```xml
        <dependency>
          <groupId>io.servicecomb</groupId>
-         <artifactId>handler-tracing-zipkin</artifactId>
-       </dependency>
-       <dependency>
-         <groupId>io.servicecomb</groupId>
          <artifactId>spring-cloud-zuul-zipkin</artifactId>
        </dependency>
    ```
@@ -59,13 +55,13 @@ The above configurations have already set up in the code. All you need to do is 
 2. Restart *BMI calculator service* with the following command:
 
    ```bash
-   mvn spring-boot:run -Ptracing -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
+   mvn spring-boot:run -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
    ```
    
 3. Restart *BMI web service* with the following command:
 
    ```bash
-   mvn spring-boot:run -Ptracing
+   mvn spring-boot:run -Drun.jvmArguments="-Dservicecomb.tracing.enabled=true"
    ```
 
 ## Verification

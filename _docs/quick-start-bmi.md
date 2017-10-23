@@ -40,6 +40,9 @@ public interface CalculatorService {
 public class CalculatorServiceImpl implements CalculatorService {
   @Override
   public double calculate(double height, double weight) {
+    if (height <= 0 || weight <= 0) {
+      throw new IllegalArgumentException("Arguments must be above 0");
+    }
     double heightInMeter = height / 100;
     return weight / (heightInMeter * heightInMeter);
   }
@@ -64,7 +67,6 @@ Expose calculator service's restful endpoint:
 ```java
 @RestSchema(schemaId = "calculatorRestEndpoint")
 @RequestMapping("/")
-@Controller
 public class CalculatorRestEndpoint implements CalculatorEndpoint {
 
   private final CalculatorService calculatorService;
@@ -75,8 +77,7 @@ public class CalculatorRestEndpoint implements CalculatorEndpoint {
   }
 
   @Override
-  @RequestMapping(value = "/bmi", method = RequestMethod.GET)
-  @ResponseBody
+  @GetMapping("/bmi")
   public double calculate(double height, double weight) {
     return calculatorService.calculate(height, weight);
   }
@@ -127,6 +128,14 @@ Introduce ServiceComb dependency:
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>spring-boot-starter-discovery</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.servicecomb</groupId>
+      <artifactId>spring-boot-starter-servicecomb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.servicecomb</groupId>
+      <artifactId>spring-cloud-zuul</artifactId>
     </dependency>
 ```
 Configure routing rules and service endpoint in `application.yaml`.
