@@ -83,6 +83,10 @@ public class CalculatorRestEndpoint implements CalculatorEndpoint {
   }
 }
 ```
+
+ServiceComb supports SpringMvc simplified annotations, e.g. `GetMapping`, since version 0.3.0.
+{: .notice--info}
+
 Note that ServiceComb can auto-generate service contract when annotating endpoints with `@RestSchema`. Then configure the endpoint in  `microservice.yaml` as follows to register the contact and microservice to service center.
 ```yaml
 APPLICATION_ID: bmi
@@ -138,6 +142,10 @@ Introduce ServiceComb dependency:
       <artifactId>spring-cloud-zuul</artifactId>
     </dependency>
 ```
+
+ServiceComb added `spring-cloud-zuul` module to provide better compatibility with zuul since version 0.4.0-SNAPSHOT.
+{: .notice--info}
+
 Configure routing rules and service endpoint in `application.yaml`.
 ```yaml
 zuul:
