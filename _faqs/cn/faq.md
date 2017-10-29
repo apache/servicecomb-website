@@ -2,13 +2,22 @@
 title: "常见问题"
 lang: cn
 ref: faq
-permalink: /cn/users/faq/
+permalink: /cn/faqs/
 excerpt: "常见问题"
-last_modified_at: 2017-08-15T15:01:43-04:00
+last_modified_at: 2017-10-29T15:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
 
+* **Q: ServiceComb和SpringCloud是什么关系，具体的应用场景是什么？**
+   
+   A: ServiceComb是华为基于内部多个大型IT系统实践提炼出来的一套微服务开发框架，在开发态基于最佳实践封装了一套微服务运行模型，这些能力对用户完全透明，可以通过配置引入功能和对其进行调整。在运维阶段充分考虑了微服务运维，提供了丰富的监控指标和动态治理能力。      
+   B: ServiceComb的这套能力可以作为一个单独的开发框架，在需要轻量级微服务解决方案的的场景中单独使用，也可以建立在SpringCloud上，与SpringCloud提供的其他组件一起工作，在重量级场景中和SpringCloud一起产生 “1+1大于2”的效果。
+
+* **Q: 用IntelliJ的免费版开发，有什么问题？**   
+    
+   A: 没有问题，使用IntelliJ 开发，可参考 [Setup Developer Environment](/cn/developers/setup-develop-environment/) 进行相应的环境配置。    
+   
 * **Q: 使用Java-Chassis这个框架时有什么需要注意的地方？**
 
    A: 使用Java-Chassis有以下这些限制：

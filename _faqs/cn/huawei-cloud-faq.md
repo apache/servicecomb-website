@@ -2,9 +2,9 @@
 title: "华为公有云常见问题"
 lang: cn
 ref: huawei-cloud-faq
-permalink: /cn/users/huawei-cloud-faq/
+permalink: /cn/faqs/faqs-huawei-cloud/
 excerpt: "华为公有云常见问题"
-last_modified_at: 2017-08-15T15:01:43-04:00
+last_modified_at: 2017-10-29T15:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
