@@ -10,9 +10,9 @@ excerpt: 'ServiceComb is a microservice framework with full functionality of ser
 
 <div class="excerpt-label">Latest release:</div>
 <div class="button-group">
-<a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.3.0" class="home-button btn--info">Java SDK v0.3.0</a>
-<a href="https://github.com/ServiceComb/service-center/releases/tag/0.2.0" class="home-button btn--info">Service Center v0.2.0</a>
-<a href="https://github.com/ServiceComb/ServiceComb-Saga/releases/tag/saga-0.0.1" class="home-button btn--info">Saga v0.0.1</a>
+<a href="https://github.com/ServiceComb/java-chassis/releases/tag/0.4.0" class="home-button btn--info">Java SDK v0.4.0</a>
+<a href="https://github.com/ServiceComb/service-center/releases/tag/0.3.0" class="home-button btn--info">Service Center v0.3.0</a>
+<a href="https://github.com/ServiceComb/ServiceComb-Saga/releases/tag/saga-0.0.2" class="home-button btn--info">Saga v0.0.2</a>
 </div>'
 
 intro:
