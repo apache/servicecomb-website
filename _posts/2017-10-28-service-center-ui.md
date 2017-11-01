@@ -2,7 +2,7 @@
 title: "Service-Center Management UI Console"
 lang: en
 ref: service-center-ui
-permalink: /docs/service-center-ui/
+permalink: /docs/service-centre-ui/
 excerpt: "An introduction Service-Center Management Console"
 last_modified_at: 2017-10-30T09:18:43+08:00
 author: Asif Siddiqui
@@ -29,30 +29,30 @@ This is the place where you can get the overall information about the services w
 
 
 ### Micro-Service List
-This is the place where you can see the basic details of all the services which are registered in Service-Centre. You can see the details like MicroService Name, Application Name, Status, Version, Creation time and Instance count. You can also un-register the microservice from Operations Tab if there is no running instances for the microservice.  
+This is the place where you can see the basic details of all the services which are registered in Service-Center. You can see the details like MicroService Name, Application Name, Status, Version, Creation time and Instance count. You can also un-register the microservice from Operations Tab if there is no running instances for the microservice.  
 ![ServiceList]({{ site.url }}{{ site.baseurl }}/assets/images/ServiceList.PNG){: .align-center}  
 
 
 ### Instance Details
-This is the place where you can see all the current running instances for the MicroService, you can get the list of endpoints and theri protocols.  
+This is the place where you can see all the current running instances for the MicroService, you can get the list of endpoints and their protocols.  
 ![InstanceList]({{ site.url }}{{ site.baseurl }}/assets/images/InstanceList.PNG){: .align-center}  
 
 
 ### Provider List
-This is the place where you can get the list of all the providers for this MicroService.  
+This is the place where you can get the list of all the providers for the MicroService.  
 ![Provider List]({{ site.url }}{{ site.baseurl }}/assets/images/ProviderList.PNG){: .align-center}  
 
 
 ### Consumer List
-This is the place where you can get the list of all the consumers for this MicroService  
+This is the place where you can get the list of all the consumers for the MicroService  
 ![Consumer List]({{ site.url }}{{ site.baseurl }}/assets/images/ConsumerList.PNG){: .align-center}  
 
 
 ### Schema List
-This is the place where we can get the list of all the Schema's for your MicroService, here you get options of viewing the Schema in Swagger form or Test the Schema on some particular instance. Here you also get an option to Download the Schema file in Html Client form.  
+This is the place where we can get the list of all the Schema\'s for your MicroService, here you get options of viewing the Schema in Swagger form or Test the Schema on some particular instance. Here you also get an option to Download the Schema file in Html Client form.  
 ![Schema List]({{ site.url }}{{ site.baseurl }}/assets/images/SchemaList.PNG){: .align-center}  
 
-For Viewing the Schema in Swagger from you can click on Test Schema button and you can view the completet details of Schema in Swagger form.  
+For Viewing the Schema in Swagger form you can click on Test Schema button and you can view the complete details of Schema in Swagger form.  
 
 ![View Swagger]({{ site.url }}{{ site.baseurl }}/assets/images/SchemaView.PNG){: .align-center}
 
