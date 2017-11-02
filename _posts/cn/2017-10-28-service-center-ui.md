@@ -2,7 +2,7 @@
 title: "Service-Center Management UI Console"
 lang: cn
 ref: service-center-ui
-permalink: /docs/service-centre-ui/
+permalink: /docs/service-center-ui/
 excerpt: "An introduction Service-Center Management Console"
 last_modified_at: 2017-10-30T09:18:43+08:00
 author: Asif Siddiqui
