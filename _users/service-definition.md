@@ -44,8 +44,8 @@ service_description: #服务描述
   name: helloServer #微服务名称
   version: 0.0.1 #服务版本号
   properties: #元数据
-    allowCrossApp: true
-    key1: value1
+    allowCrossApp: false
+    key1: value1
     key2: value2
   propertyExtentedClass: io.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
 instance_description: #实例描述
