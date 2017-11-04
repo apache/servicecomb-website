@@ -6,8 +6,13 @@ permalink: /slides/
 date: 2017-06-20T11:02:20+08:00
 ---
 
-LinuxCon Beijing 2017 Workshop
+## LinuxCon Beijing 2017 Workshop
  * [design principles and ecosystem of microservice]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/MSAPrinciple&EcoSystem.pdf)
- * [ServiceComb: past and present]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/ServiceCombIntroduction.pdf)
  * [ServiceComb RoadMap]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/ServiceCombRoadMap.pdf)
  * [ServiceComb Workshop]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/LinuxCon-Workshop-company.pdf)
+
+## [ServiceComb live streaming phase I](http://www.itdks.com/liveevent/detail/6618), 20171026
+* [ServiceComb Introduction]({{ site.url }}{{ site.baseurl }}/assets/slides/20171026/ServiceCombIntroduce1026.pdf)
+
+## [ServiceComb live streaming phase II](http://www.itdks.com/liveevent/detail/6620), 20171102
+ * [ServiceComb: past and present]({{ site.url }}{{ site.baseurl }}/assets/slides/20171102/ServiceComb_PastAndPresent.pdf)
