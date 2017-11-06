@@ -422,3 +422,53 @@ redirect_from:
      request:
        timeout: 30000
    ```
+
+* **Q: URL 地址就可以唯一定位，为什么要加上一个schema？**
+
+   A:
+   1. schema 是用来匹配服务契约的，用来保证服务端和消费端契约兼容，每个契约需要一个唯一ID，在服务中心存储。
+   2. schema映射到java的interface概念，在consumer使用透明rpc模式开发时，可以找到是微服务里的哪个operation。schema之间的方法名是没有唯一性要求的。
+   3. operation qualified name是治理的key，而URL 因为path参数的存在，没办法直接查找，而qualified name是不会变的。治理是不区分传输的，如果治理按URL 走，那么highway调进来时，还得根据参数反向构造出url，再来正则表达式匹配，太折腾了。
+   4. http只是一种传输通道，还有别的传输通道不需要映射到URL的。
+
+* **Q: rest客户端调用的时候，实际上只带上了服务名和URL，并不需要指定schema id的， 而实际上根据这个URL也能找到具体契约的，所以指定schema id作用何在？**
+
+   A: 由于透明rpc是接口式调用，并没有URL，内部实际都归一化到operation来描述的，这样就可以结合schema id唯一定位到具体的请求处理中。
+
+* **Q: Transport是个什么概念？用来干什么的？**
+
+   A: transport负责编解码，以及传输。通信模型有rest和highway两种，highway对应的是私有协议，使用protobuf编码，rest用的是json。hightway和rest都是基于vertx做的，vertx是基于netty的。
+
+* **Q: 框架中引入了vertx会有什么好处？**
+
+   A: 启用vertx的标准工作模式更强大，不过对业务人员要求就有些高了，目前还没开放业务接口出来。vertx标准的reactive工作模式，要求业务代码中不能有任何的block wait,sleep，大循环，总之，不能停下来。做到这一点，可以用少很多的CPU，提供更多的服务。
+
+* **Q: 一个服务提供者里面会有多个 appid 和微服务吗？什么场景会出现这种情况？**
+
+   A: 会，这里表达的是一个merge的概念。microservice.yaml文件，可能同时存在于jar，磁盘，命令行参数指定这几个地方，此时他们按优先级合并，是用于增加灵活性的。在jar里的是默认值，在此之外，还有环境变量，命令行参数，配置中心覆盖，提供多层定制。
+
+* **Q: ServiceComb和服务中心是怎么交互的?**
+
+   A: 走rest，主要负责注册，取数据和心跳等；watch事件走websocket，watch事件是观察服务中心实例信息有没有变更。
+
+* **Q: 有类似dubbo那种治理中心吗？**
+
+   A: bizkeeper是一个handler，是治理的其中一个内容。治理可以通过handler扩展。
+
+* **Q: service path怎么理解？**
+
+   A: 每个微服务有一个servicePathManager，每一个schema将自己的path注册进去。
+
+   **Q: 这样浏览器能访问到吗？**
+
+   A: 可以，restful的URL路由，都是由service path搞定。
+
+* **Q: 契约生成时，需要强制带上版本号和语言吗？**
+
+   A: 契约是属于微服务的，微服务本来就有版本，但语言是不应该带上版本号的。应该契约要求与语言无关。契约“没有版本”，契约的版本体现在微服务上，实例能找到所属的微服务的版本，就能找到一个确定的契约。
+
+* **Q: ServiceRegistry里的设计代码和Eureka很类似？**
+   A: 我们第一个版本就是在Spring Cloud的基础上做的 后来随着发展发现不够用了才逐渐自己做的一套，所以的确是在充分参考Eureka后设计的。
+
+* **Q: 有些rpc是netty调用redis实现，比直接netty转发优势在哪里？**
+   A: 可能是想用redis解决订阅发布吧。但这样意义也不大，之前也尝试过这么用，但后来都改成ServiceComb了。
