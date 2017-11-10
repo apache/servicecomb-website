@@ -16,3 +16,7 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb live streaming phase II](http://www.itdks.com/liveevent/detail/6620), 20171102
  * [ServiceComb: past and present]({{ site.url }}{{ site.baseurl }}/assets/slides/20171102/ServiceComb_PastAndPresent.pdf)
+
+## [ServiceComb live streaming phase III](http://www.itdks.com/liveevent/detail/6621), 20171109
+ * [Micrservice practice of Huawei consumer cloud based on ServiceComb]({{ site.url }}{{ site.baseurl }}/assets/slides/20171109/MicroservicePracticeOfHuaweiConsumerCloudBasedOnServiceComb.pdf)
+

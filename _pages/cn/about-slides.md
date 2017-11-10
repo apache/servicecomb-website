@@ -16,3 +16,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb直播第二期](http://www.itdks.com/liveevent/detail/6620), 20171102
  * [ServiceComb前世今生]({{ site.url }}{{ site.baseurl }}/assets/slides/20171102/ServiceComb_PastAndPresent.pdf)
+
+## [ServiceComb直播第三期](http://www.itdks.com/liveevent/detail/6621), 20171109
+ * [消费者云ServiceComb微服务实践]({{ site.url }}{{ site.baseurl }}/assets/slides/20171109/MicroservicePracticeOfHuaweiConsumerCloudBasedOnServiceComb.pdf)
