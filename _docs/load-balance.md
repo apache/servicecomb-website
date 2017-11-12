@@ -22,12 +22,12 @@ The simple embedded load balancer will be used by default. No extra configuratio
 
 Run one more *BMI calculator service* with the following command: 
 ```bash
-mvn spring-boot:run -Drun.profiles=v2 -Drun.jvmArguments="-Dcse.rest.address=0.0.0.0:7778"
+mvn spring-boot:run -Drun.jvmArguments="-Dcse.rest.address=0.0.0.0:7778"
 ```
 
-To better visualize the result, we use another version of *BMI calculator service* which calculates half of the BMI, namely v2. Besides, a different service port is needed to avoid port conflict.
+To better distinguish different running instances, we added a new interface that returns instance id in the implementation of BMI calculator, details can refer to [the implementation of BMI calculator](https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi/calculator). Besides, a different service port is needed to avoid port conflict.
 
-Now you can see the following figures shows up alternately by clicking the *Submit* button.
+Now you can see the instance id in the following figures shows up alternately by clicking the *Submit* button.
 
 ![Load balance result](/assets/images/load-balance-result.png){: .align-center}
 

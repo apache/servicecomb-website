@@ -150,8 +150,7 @@ Configure routing rules and service endpoint in `application.yaml`.
 ```yaml
 zuul:
   routes:
-    calculator:
-      serviceId: calculator
+    calculator: /calculator/**
 
 # disable netflix eurkea since it's not used for service discovery
 ribbon:

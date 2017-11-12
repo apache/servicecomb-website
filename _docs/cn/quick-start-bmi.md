@@ -150,8 +150,7 @@ ServiceComb从0.4.0-SNAPSHOT版本之后新增了`spring-cloud-zuul`模块使能
 ```yaml
 zuul:
   routes:
-    calculator:
-      serviceId: calculator
+    calculator: /calculator/**
 
 # disable netflix eurkea since it's not used for service discovery
 ribbon:
