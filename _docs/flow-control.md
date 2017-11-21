@@ -48,7 +48,7 @@ mvn spring-boot:run -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=qps
 
 ## Verification
 
-Visit <a>http://localhost:8888</a>. Input a positive height and weight and then click *Submit* button twice or more in less than one second. You will see the web page change from the left one to the right one.
+Visit <a>http://localhost:8889</a>. Input a positive height and weight and then click *Submit* button twice or more in less than one second. You will see the web page change from the left one to the right one.
 
 ![Flow control result](/assets/images/flow-control-result.png){: .align-center}
 

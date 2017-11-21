@@ -50,7 +50,7 @@ mvn spring-boot:run -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=biz
 
 ## Verification
 
-1. Circuit-break microservices. Visit <a>http://localhost:8888</a>, enter a negative height or weight and click the *Submit* button three times or more continuously. Then the web page should look like the left one in fig-1.
+1. Circuit-break microservices. Visit <a>http://localhost:8889</a>, enter a negative height or weight and click the *Submit* button three times or more continuously. Then the web page should look like the left one in fig-1.
 
 2. Verify serivces are in circuit-break status. Enter a positive height and weight, then click *Submit* button. The web page still looks like the left one in fig-1. In the meanwhile, no exceptions show in the log of *BMI calculator service*. Instead it shows lines contain "fallback called". 
 

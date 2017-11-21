@@ -48,7 +48,7 @@ mvn spring-boot:run -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=qps
 
 ## 验证 
 
-访问 <a>http://localhost:8888</a>，在身高和体重的输入框中输入正数，尝试在1秒内多次点击 *Submit* 按钮，此时就能看到网页由左侧的正常的界面变成了右侧提示由于流控受限而请求被拒的界面。
+访问 <a>http://localhost:8889</a>，在身高和体重的输入框中输入正数，尝试在1秒内多次点击 *Submit* 按钮，此时就能看到网页由左侧的正常的界面变成了右侧提示由于流控受限而请求被拒的界面。
 
 ![流量控制效果图](/assets/images/flow-control-result.png){: .align-center}
 

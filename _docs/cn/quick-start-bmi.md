@@ -158,7 +158,7 @@ ribbon:
     enabled: false
 
 server:
-  port: 8888
+  port: 8889
 ```
 在 `microservice.yaml` 文件中配置网关服务的信息和服务注册中心的地址。
 ```yaml

@@ -60,7 +60,7 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
    cd webapp; mvn spring-boot:run
    ```
 
-3. 验证服务。微服务启动完毕后，即可通过 <a>http://localhost:8888</a> 访问 **体质指数** 应用，届时将能看到如下界面，并可输入您的身高和体重信息验证服务是否正常运行。
+3. 验证服务。微服务启动完毕后，即可通过 <a>http://localhost:8889</a> 访问 **体质指数** 应用，届时将能看到如下界面，并可输入您的身高和体重信息验证服务是否正常运行。
 
    ![体质指数应用运行界面](/assets/images/bmi-interface.png){: .align-center}
 

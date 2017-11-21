@@ -61,7 +61,7 @@ Note that the dotted lines indicate the process of service registration and disc
    cd webapp; mvn spring-boot:run
    ```
 
-3. Verify the application. Visit <a>http://localhost:8888</a> in browser. Then input your height and weight to verify.
+3. Verify the application. Visit <a>http://localhost:8889</a> in browser. Then input your height and weight to verify.
 
    ![BMI user interface](/assets/images/bmi-interface.png){: .align-center}
 

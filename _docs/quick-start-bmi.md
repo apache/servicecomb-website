@@ -158,7 +158,7 @@ ribbon:
     enabled: false
 
 server:
-  port: 8888
+  port: 8889
 ```
 Enable service discovery with zuul by putting the application information and service center address in `microservice.yaml`.
 ```yaml
