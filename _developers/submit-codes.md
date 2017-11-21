@@ -51,8 +51,8 @@ last_modified_at: 2017-09-08T20:26:43-20:46
 
 - 检查远程仓库设置：
 
-  ```shell
-  git remote –v
+  ```shell  
+  git remote -v
   origin https://github.com/<your_github_name>/ServiceComb.github.io.git (fetch)
   origin    https://github.com/<your_github_name>/ServiceComb.github.io.git (push)
   upstream  https://github.com/ServiceComb/ServiceComb.github.io.git (fetch)
