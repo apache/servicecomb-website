@@ -21,4 +21,4 @@ date: 2017-06-20T11:02:20+08:00
  * [消费者云ServiceComb微服务实践]({{ site.url }}{{ site.baseurl }}/assets/slides/20171109/MicroservicePracticeOfHuaweiConsumerCloudBasedOnServiceComb.pdf)
 
 ## [ServiceComb 直播第四期](http://www.itdks.com/liveevent/detail/6622), 20171124
- * [ServiceComb快速入门&&在线Coding]({{ site.url }}{{ site.baseurl }}/assets/slides/20171124/LiveCodingServiceCombQuickStart.pdf)
+ * [ServiceComb快速入门&&在线Coding]({{ site.url }}{{ site.baseurl }}/assets/slides/20171124/LiveCodingServiceCombQuickStart.zip)
