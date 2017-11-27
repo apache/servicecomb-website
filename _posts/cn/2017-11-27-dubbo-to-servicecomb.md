@@ -13,6 +13,8 @@ redirect_from:
 Dubbo和Java chassis底层都使用了Spring的依赖注入和bean管理系统，所以使用Dubbo的服务迁移到ServiceComb工作量较小，
 主要改动在依赖和配置方面。
 
+本文示例代码可在[Java chassis](https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples)中获取。
+
 ## 服务提供方
 ### 替换依赖
 将对dubbo的依赖替换为对Java chassis的依赖
@@ -169,6 +171,8 @@ cse:
 ## 服务消费方
 ### 替换依赖
 将对Dubbo的依赖替换为对Java chassis的依赖
+
+Dubbo
 ```xml
   <dependency>
     <groupId>com.alibaba</groupId>
@@ -177,6 +181,7 @@ cse:
   </dependency>
 ```
 
+Java chassis
 ```xml
 	<dependencyManagement>
 		<dependencies>
@@ -207,6 +212,7 @@ cse:
 ```
 
 ### 修改消费方启动入口
+Dubbo
 ```java
 public class ConsumerMain
 {
@@ -223,6 +229,7 @@ public class ConsumerMain
 }
 ```
 
+Java chassis
 ```java
 public class ConsumerMain
 {
