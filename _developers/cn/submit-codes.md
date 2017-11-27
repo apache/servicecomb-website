@@ -115,7 +115,7 @@ fig-2 Create pull request
    此时会弹出修改记录的文件，一般直接保存即可。然后会提示哪些文件出现了冲突，此时可打开冲突文件对冲突部分进行修改，将提示的所有冲突文件的冲突都解决后，执行
    ```bash
    git add .
-   git reabse --continue
+   git rebase --continue
    ```
    依此往复，直至屏幕出现类似 *rebase successful* 字样即可，此时您可以进行往提交PR的分支进行更新：
    ```bash
