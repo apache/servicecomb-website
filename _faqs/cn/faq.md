@@ -486,3 +486,39 @@ redirect_from:
 * **Q: 如果服务端是链式调用，即类似a->b->c，那设置了qps 流控会不会造成水管粗细不均的事情？**
 
    A: 一般采取的模式是先测量再设置。qps设置最终是结合整体业务需求来进行调控的，而不是就单个节点来进行设置。
+
+* **Q: 通过cse://serviceName/appPath调用服务失败，报错:java.lang.Error:not support def type:class io.swagger.models.properties xxx**
+
+   A: 检查consumer和provider依赖的java-chassis版本是否一致，如果不一致请修改并使用较新版本。
+
+* **Q: 发送rest请求时，出现如下报错：Bad Request,description:http:request body too large**
+
+   A: 检查Service Center是否老版本，如果是，则升级到最新版本。
+
+* **Q: 如何在Json序列化忽略Bean中的指定属性**
+
+   A: 使用@JsonIgnore注解标记需要忽略的属性，注意修改完成后需重启Service Center。例如:
+
+  ```java
+  public class OutputForTest{
+  @JsonIgnore
+  private String outputId = null;
+  private String inputId = null;
+  ...
+  }
+  ```
+
+* **Q: 如何在用户自定义的handler中获取header中某个字段的值**
+
+   A: 在用户自定义的handler使用@ApiImplicitParams注解声明，使用invocation.getArgs()获取header的值。例如:
+
+  ```java
+  public class MyHandler implements Handler {
+    @ApiImplicitParams({@ApiImplicitParam(name = "tester", dataType = "string", paramType = "header")})
+    @Override
+    public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
+      Object[] args = invocation.getArgs();
+      System.out.println(args);
+    }
+  }
+  ```
