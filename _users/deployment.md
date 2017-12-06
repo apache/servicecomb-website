@@ -49,12 +49,12 @@ redirect_from:
         </param-value>
     </context-param>
     <listener>
-        <listener-class>com.huawei.paas.cse.transport.rest.servlet.RestServletContextListener</listener-class>
+        <listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class>
     </listener>
 
     <servlet>
         <servlet-name>RestServlet</servlet-name>
-        <servlet-class>com.huawei.paas.cse.transport.rest.servlet.RestServlet</servlet-class>
+        <servlet-class>io.servicecomb.transport.rest.servlet.RestServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
     </servlet>
@@ -70,8 +70,8 @@ redirect_from:
 ```xml
 <dependencies>
     <dependency>
-        <groupId>com.huawei.paas.cse</groupId>
-        <artifactId>cse-transport-rest-servlet</artifactId>
+        <groupId>io.servicecomb</groupId>
+        <artifactId>transport-rest-servlet</artifactId>
     </dependency>
 </dependencies>
 <build>
