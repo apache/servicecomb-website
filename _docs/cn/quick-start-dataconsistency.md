@@ -26,7 +26,7 @@ last_modified_at: 2017-09-19T11:50:10-04:00
 注：Demo 集成在 [ServiceComb-Saga](https://github.com/ServiceComb/ServiceComb-Saga) 项目中。
 
 1. 准备环境
-- [Oracle JDK 1.8+](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Oracle JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Maven 3.x](https://maven.apache.org/install.html)
 - [Docker](https://www.docker.com/get-docker)
 - [MySQL](https://dev.mysql.com/downloads/)

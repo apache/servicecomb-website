@@ -25,7 +25,7 @@ Travel application demo including four services
 Note, demo is in the [ServiceComb-Saga](https://github.com/ServiceComb/ServiceComb-Saga) project.
 
 1. Prerequisites
-- [Oracle JDK 1.8+](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Oracle JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Maven 3.x](https://maven.apache.org/install.html)
 - [Docker](https://www.docker.com/get-docker)
 - [MySQL](https://dev.mysql.com/downloads/)

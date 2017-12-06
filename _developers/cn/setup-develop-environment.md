@@ -10,7 +10,7 @@ last_modified_at: 2017-06-24T18:48:43+08:00
 ## 基本环境准备
 在您开始前，请确保以下应用已安装：
 * **Git**，安装详情可参考[Git安装教程](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git){:target="_blank"}
-* **JDK 1.8+**，安装详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html){:target="_blank"}
+* **JDK 1.8**，安装详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html){:target="_blank"}
 * **Maven 3.x**，安装详情可参考[Maven安装教程](https://maven.apache.org/install.html){:target="_blank"}
 * **Docker**，安装详情可参考[Docker 安装教程](https://docs.docker.com/engine/installation/){:target="_blank"}
 * **Service Center**, 安装详情可参考[Service Center安装教程](/cn/users/setup-environment/#运行service-center)
