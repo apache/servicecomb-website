@@ -120,9 +120,6 @@ cse:
   service:
     registry:
       address: https://127.0.0.1:30100
-  config:
-    client:
-      serverUri: https://127.0.0.1:30103
   rest:
     address: 0.0.0.0:8080?sslEnabled=true
   highway:
