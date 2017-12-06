@@ -63,7 +63,7 @@ ssl.[tag].[property]
 | ssl.keyStoreType | PKCS12 | - | 否 | 身份证书类型 | - |
 | ssl.keyStoreValue | - | - | 否 | 身份证书密码 | - |
 | ssl.crl | revoke.crl | - | 否 | 吊销证书文件 | - |
-| ssl.sslCustomClass | - | com.huawei.paas.foundation.ssl.SSLCustom的实现类 | 否 | SSLCustom类的实现，用于开发者转换密码、文件路径等。 | - |
+| ssl.sslCustomClass | - | io.servicecomb.foundation.ssl.SSLCustom的实现类 | 否 | SSLCustom类的实现，用于开发者转换密码、文件路径等。 | - |
 
 > **说明**：
 >
