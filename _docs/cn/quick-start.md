@@ -21,7 +21,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
    ```bash
    git clone https://github.com/ServiceComb/ServiceComb-Java-Chassis.git
    cd ServiceComb-Java-Chassis
-   mvn clean install -DskipTests -DskipITs
+   mvn clean install -DskipTests
    ```
 
 ## 运行 Service Center
