@@ -22,3 +22,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb live streaming phase IV](http://www.itdks.com/liveevent/detail/6622), 20171124
  * [Live coding the quick start example of ServiceComb]({{ site.url }}{{ site.baseurl }}/assets/slides/20171124/LiveCodingServiceCombQuickStart.zip)
+
+## [ServiceComb live streaming phase V](http://www.itdks.com/liveevent/detail/6623), 20171207
+ * [Uncover ServiceComb Design]({{ site.url }}{{ site.baseurl }}/assets/slides/20171207/Uncover_ServiceComb_Design.pdf)

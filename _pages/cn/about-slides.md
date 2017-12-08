@@ -22,3 +22,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb 直播第四期](http://www.itdks.com/liveevent/detail/6622), 20171124
  * [ServiceComb快速入门&&在线Coding]({{ site.url }}{{ site.baseurl }}/assets/slides/20171124/LiveCodingServiceCombQuickStart.zip)
+
+## [ServiceComb 直播第五期](http://www.itdks.com/liveevent/detail/6623), 20171207
+ * [ServiceComb设计揭秘]({{ site.url }}{{ site.baseurl }}/assets/slides/20171207/Uncover_ServiceComb_Design.pdf)
