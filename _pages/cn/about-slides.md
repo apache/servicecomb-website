@@ -11,6 +11,9 @@ date: 2017-06-20T11:02:20+08:00
  * [ServiceComb RoadMap]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/ServiceCombRoadMap.pdf)
  * [ServiceComb Workshop]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/LinuxCon-Workshop-company.pdf)  
 
+## Arch Submit, 20171209, 北京
+ * [Service Mesh在华为公有云的实践]({{ site.url }}{{ site.baseurl }}/assets/slides/20171209/PracticeOfServiceMeshOnHuaweiPublicCloud.pdf)
+
 ## [ServiceComb直播第一期](http://www.itdks.com/liveevent/detail/6618), 20171026
 * [ServiceComb开源项目介绍]({{ site.url }}{{ site.baseurl }}/assets/slides/20171026/ServiceCombIntroduce1026.pdf)
 

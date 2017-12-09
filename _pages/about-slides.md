@@ -10,6 +10,9 @@ date: 2017-06-20T11:02:20+08:00
  * [design principles and ecosystem of microservice]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/MSAPrinciple&EcoSystem.pdf)
  * [ServiceComb RoadMap]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/ServiceCombRoadMap.pdf)
  * [ServiceComb Workshop]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/LinuxCon-Workshop-company.pdf)
+ 
+## Arch Submit, 20171209, Beijing
+ * [Practice Of Service Mesh on Huawei Public Cloud]({{ site.url }}{{ site.baseurl }}/assets/slides/20171209/PracticeOfServiceMeshOnHuaweiPublicCloud.pdf)
 
 ## [ServiceComb live streaming phase I](http://www.itdks.com/liveevent/detail/6618), 20171026
 * [ServiceComb Introduction]({{ site.url }}{{ site.baseurl }}/assets/slides/20171026/ServiceCombIntroduce1026.pdf)
