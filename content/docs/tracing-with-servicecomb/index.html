@@ -1,0 +1,878 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Distributed Tracing with ServiceComb and Zipkin - Apache incubator ServiceComb</title>
+
+
+
+
+<meta name="description" content="A introduction of how to set up distributed tracing with ServiceComb and Zipkin">
+
+
+
+
+<meta name="author" content="Sean Yin">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache incubator ServiceComb">
+<meta property="og:title" content="Distributed Tracing with ServiceComb and Zipkin">
+
+
+  <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/docs/tracing-with-servicecomb/">
+  <meta property="og:url" content="http://github.com/pages/ServiceComb/servicesomb.github.io/docs/tracing-with-servicecomb/">
+
+
+
+  <meta property="og:description" content="A introduction of how to set up distributed tracing with ServiceComb and Zipkin">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Distributed Tracing with ServiceComb and Zipkin">
+  <meta name="twitter:description" content="A introduction of how to set up distributed tracing with ServiceComb and Zipkin">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@seanyinx">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-07-17T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache incubator ServiceComb",
+      "url" : "http://github.com/pages/ServiceComb/servicesomb.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache incubator ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/js/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="//assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/tracing-with-servicecomb/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Sean Yin</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+        Nothing but speed is indestructible
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="http://seanyinx.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:seanyinx@gmail.com">
+            <meta itemprop="email" content="seanyinx@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/seanyinx" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Distributed Tracing with ServiceComb and Zipkin">
+    <meta itemprop="description" content="A introduction of how to set up distributed tracing with ServiceComb and Zipkin">
+    <meta itemprop="datePublished" content="July 17, 2017">
+    <meta itemprop="dateModified" content="July 17, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Distributed Tracing with ServiceComb and Zipkin
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Microservice architecture solves many problems of monolithic applications, but it also comes with costs. Request latencies
+due to network instability is one of the prices we have to pay.</p>
+
+<p>In monolithic applications, modules are all running in one process and there's no such thing as communication issues among 
+modules. However, with microservice architecture, services are communicating through a network and we have to deal with all 
+network related issues, such as delays, timeouts, and partition.</p>
+
+<p>In addition, given more and more services deployed, we can easily lose the sight on how requests flow through
+the web of microservices in our applications. How can we monitor the network latencies and flow of requests through our system?</p>
+
+<h2 id="zipkin">Zipkin</h2>
+<blockquote>
+  <p><a href="http://zipkin.io/">Zipkin</a> is a distributed tracing system. It helps gather timing data needed to troubleshoot latency 
+problems in microservice architectures. It manages both the collection and lookup of this data. Zipkin’s design is based 
+on the Google <a href="http://research.google.com/pubs/pub36356.html">Dapper paper</a>.[1]</p>
+</blockquote>
+
+<p>ServiceComb integrates with Zipkin to provide automatic tracing, so that users can focus on fulfilling their business requirements.</p>
+
+<h2 id="instructions">Instructions</h2>
+<p>We will use the <a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">workshop demo</a> as an example to illustrate how
+to apply distributed tracing with Zipkin.</p>
+
+<h3 id="adding-dependencies">Adding Dependencies</h3>
+<p>A microservice written with ServiceComb Java Chassis just need to add one dependency below to its pom.xml.</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>handler-tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+</code></pre>
+</div>
+
+<p>If the microservice is an API gateway with Spring Cloud + Zuul like manager service in the workshop demo, an additional 
+dependency has to be included.</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul-zipkin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="configuring-tracing-handlers-and-collector">Configuring Tracing Handlers And Collector</h3>
+<p>In the configuration file <code class="highlighter-rouge">microservice.yaml</code> , apply tracing handlers and add tracing collector address.</p>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Consumer</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-consumer</span>
+      <span class="s">Provider</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
+
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">tracing</span><span class="pi">:</span>
+    <span class="s">collector</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://zipkin.servicecomb.io:9411</span>
+</code></pre>
+</div>
+
+<p>That's all! After two configuration additions and no change to a single line of code, distributed tracing with Zipkin is 
+enabled for microservices written with Java chassis.</p>
+
+<p><strong>Note</strong> If other dependencies in your project also include zipkin (e.g. Spring Cloud), it may cause runtime error due to
+conflict of incompatible zipkin versions. In such a case, you may need to explicitly declare the compatible zipkin version
+in your pom.</p>
+
+<h2 id="a-quick-demo">A Quick Demo</h2>
+<p>After enabled tracing in the workshop demo, we are able to showcase the tracing capability locally with docker.</p>
+<ol>
+  <li>
+    <p>Build all docker images of services in the workshop demo with command <code class="highlighter-rouge">mvn package -DskipTests -Pdocker</code> or <code class="highlighter-rouge">mvn package -DskipTests -Pdocker -Pdocker-machine</code>
+if you are using <a href="https://www.docker.com/products/docker-toolbox">Docker Toolbox</a></p>
+  </li>
+  <li>
+    <p>Run <code class="highlighter-rouge">docker-compose up</code> under workshop demo folder</p>
+  </li>
+  <li>
+    <p>Send requests to the demo application like what we did in the video below</p>
+  </li>
+  <li>
+    <p>Open Zipkin website in a browser, which is hosted in a docker container started at step 2, eg. http://docker.container.ip:9411</p>
+  </li>
+</ol>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://player.youku.com/embed/XMjg1NzQ3NzUzNg" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<p>Now we should be able to see Zipkin homepage with a few traced services.
+<img src="/assets/images/tracing.1.png" alt="zipkin homepage" class="align-center" /></p>
+
+<p>If we choose manager and click Find Traces button, some traces will be displayed. Please don't mind the system performance
+being not very good, since we are running so many services in docker on a laptop manufactured in 2012.
+<img src="/assets/images/tracing.2.png" alt="traces of manager service" class="align-center" /></p>
+
+<p>We are also able to see the spans of an individual trace by clicking on it.
+<img src="/assets/images/tracing.3.png" alt="trace spans of manager service" class="align-center" /></p>
+
+<p>A more detailed timing information will be displayed if we click on any span in the trace.
+<img src="/assets/images/tracing.4.png" alt="span details of manager service" class="align-center" /></p>
+
+<p>Dependency graph of services can be helpful to gain insight on request flow, if we click on the Dependencies menu.
+<img src="/assets/images/tracing.5.png" alt="service dependencies" class="align-center" /></p>
+
+<h2 id="summary">Summary</h2>
+<p>As we can see, adding distributed tracing capability to microservices using ServiceComb is as easy as following 2 simple 
+steps as shown in the instruction section above. Doing so, we leverage the powerful features provided by Zipkin, such as
+analyzing timing data to troubleshoot network latencies among our microservices and gaining insight on our service dependencies.</p>
+
+<h2 id="references">References</h2>
+<ul>
+  <li>[1] <a href="http://zipkin.io/">Zipkin</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#distributed-tracing" class="page__taxonomy-item" rel="tag">distributed tracing</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#zipkin" class="page__taxonomy-item" rel="tag">zipkin</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-07-17">July 17, 2017</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Distributed Tracing with ServiceComb and Zipkin /docs/tracing-with-servicecomb/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/tracing-with-servicecomb/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/docs/tracing-with-servicecomb/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/tracing-with-servicecomb/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/go-to-cloud/" class="pagination--pager" title="单体应用利用ServiceComb实现微服务化和云化之路
+">Previous</a>
+    
+    
+      <a href="/cn/docs/tracing-with-servicecomb/" class="pagination--pager" title="基于 ServiceComb 和 Zipkin 的分布式调用链追踪
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">Leave a Comment</h4>
+        <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/ServiceComb/servicesomb.github.io/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">Comment <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">Name <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">Email address <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">Website (optional)</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="tracing-with-servicecomb">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">Submit Comment</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/jira_beginner_guide/" rel="permalink">老司机带你刷任务 - ServiceComb JIRA入门指南
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">ServiceComb JIRA入门指南
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/how-to-reform-a-legacy-system/" rel="permalink">最头疼的遗留系统该如何改造？
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/issues/new?title=Issue with _posts/2017-07-17-tracing-with-servicecomb.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/edit/master/_posts/2017-07-17-tracing-with-servicecomb.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">Dev</span></a> |
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">User</span></a>
+        </li>
+        <li>
+            <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2017 Apache incubator ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('Submitted');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('Submit Comment');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

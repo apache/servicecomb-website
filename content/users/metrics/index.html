@@ -1,0 +1,748 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Metrics Monitor - Apache incubator ServiceComb</title>
+
+
+
+
+<meta name="description" content="Metrics Monitor">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache incubator ServiceComb">
+<meta property="og:title" content="Metrics Monitor">
+
+
+  <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/metrics/">
+  <meta property="og:url" content="http://github.com/pages/ServiceComb/servicesomb.github.io/users/metrics/">
+
+
+
+  <meta property="og:description" content="Metrics Monitor">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Metrics Monitor">
+  <meta name="twitter:description" content="Metrics Monitor">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache incubator ServiceComb",
+      "url" : "http://github.com/pages/ServiceComb/servicesomb.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache incubator ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/js/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="//assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/users/metrics/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/" class="">Java Chassis Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/setup-environment/" class="">Setup Environment</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop Service Provider</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-definition/" class="">Service Definition</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-contract/" class="">Service Contract</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-springmvc/" class="">Develop Microservice with SpringMVC</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-jax-rs/" class="">Develop Microservice with JAX-RS</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-transparent-rpc/" class="">Develop Microservice with Transparent RPC</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-interface-constraints/" class="">Service Interface Constraints</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-configurations/" class="">Service Configurations</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/communicate-protocol/" class="">Communicate Protocol</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/application-boot-process/" class="">Application Boot Up Process</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-heartbeat/" class="">Service Heartbeat</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop Service Consumer</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-rest-template/" class="">Develop with Rest Template</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-rpc/" class="">Develop with Transparent RPC</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/use-service-contract/" class="">Use Service Contract</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/invoke-control/" class="">Invoke Control</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">General Development</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/local-develop-test/" class="">Develop and Test in Local Environment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/use-servicecomb-in-spring-boot/" class="">Use ServiceComb in Spring Boot</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/distributed-tracing/" class="">Distributed Tracing</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/customized-tracing/" class="">Customized Tracing</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Edging Service</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/edging-service/nginx/" class="">confd and Nginx</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/edging-service/zuul/" class="">Zuul</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/users/metrics/"><span class="nav__sub-title nav__sub-title-with-url">Metrics</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deployment</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/run-mode/" class="">Run Mode</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Security</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/use-tls/" class="">Use TLS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Metrics Monitor">
+    <meta itemprop="description" content="Metrics Monitor">
+    
+    <meta itemprop="dateModified" content="November 29, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Metrics Monitor
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#如何配置" id="markdown-toc-如何配置">如何配置</a></li>
+  <li><a href="#注意事项" id="markdown-toc-注意事项">注意事项</a></li>
+  <li><a href="#文件输出" id="markdown-toc-文件输出">文件输出</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p>微服务框架从0.4.1版本开始支持监控功能Metrics，请注意这个功能还处于开发（Preview）阶段，请不要部署到生产环境，并且我们未来会做较大的调整，更多讨论会持续发布在<a href="https://groups.google.com/forum/#!forum/servicecomb-developers">Google Group</a>中。</p>
+<h2 id="如何配置">如何配置</h2>
+<p>请在microservice.yaml中添加如下配置项：</p>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
+<span class="s">service_description</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">demoService</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">metrics</span><span class="pi">:</span>
+    <span class="c1">#metrics数据采集时间（同样是写文件间隔），单位秒</span>
+    <span class="s">polltime</span><span class="pi">:</span> <span class="s">5</span>
+    <span class="c1">#如果metric是浮点数，输出结果保留几位小数，默认为1</span>
+    <span class="s">round_places</span><span class="pi">:</span> <span class="s">1</span>
+    <span class="s">file</span><span class="pi">:</span>
+      <span class="c1">#是否启用文件输出</span>
+      <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
+      <span class="c1">#输出文件的根目录</span>
+      <span class="s">root_path</span><span class="pi">:</span> <span class="s">D:/Temp</span>
+      <span class="c1">#metrics文件的前缀</span>
+      <span class="s">name_prefix</span><span class="pi">:</span> <span class="s">demo.demoService</span>
+      <span class="c1">#metrics文件Rolling最大大小，默认10MB，例如10KB，10MB，10GB</span>
+      <span class="s">max_rolling_size</span><span class="pi">:</span> <span class="s">10MB</span>
+      <span class="c1">#metrics文件Rolling文件保存数量，默认10个</span>
+      <span class="s">max_rolling_count</span><span class="pi">:</span> <span class="s">10</span>
+</code></pre>
+</div>
+
+<h2 id="注意事项">注意事项</h2>
+<ul>
+  <li>如果使用ServiceComb Spring Boot Start快速构建项目，需要排除log4j-over-slf4j依赖
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter<span class="nt">&lt;/artifactId&gt;</span>
+   <span class="c">&lt;!--Metric使用log4j输出，屏蔽掉spring-boot-starter中的log4j-over-slf4j--&gt;</span>
+   <span class="nt">&lt;exclusions&gt;</span>
+     <span class="nt">&lt;exclusion&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.slf4j<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>log4j-over-slf4j<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;/exclusion&gt;</span>
+   <span class="nt">&lt;/exclusions&gt;</span>
+ <span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+    </div>
+  </li>
+  <li>需要在provider治理链中添加bizkeeper-provider，否则TPS和Latency无数据
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
+ <span class="s">service_description</span><span class="pi">:</span>
+   <span class="s">name</span><span class="pi">:</span> <span class="s">demoService</span>
+   <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+ <span class="s">cse</span><span class="pi">:</span>
+   <span class="s">handler</span><span class="pi">:</span>
+     <span class="s">chain</span><span class="pi">:</span>
+       <span class="s">Provider</span><span class="pi">:</span>
+         <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h2 id="文件输出">文件输出</h2>
+<p>每一个文件就是一个微服务示例级别的metrics数据输出：</p>
+
+<p><img src="/assets/images/metrics-output.png" alt="Metrics图片" /></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/issues/new?title=Issue with _users/Metrics.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/edit/master/_users/Metrics.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">Dev</span></a> |
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">User</span></a>
+        </li>
+        <li>
+            <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2017 Apache incubator ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

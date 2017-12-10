@@ -1,0 +1,566 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>代码提交指南 - Apache incubator ServiceComb</title>
+
+
+
+
+<meta name="description" content="介绍如何向 ServiceComb 项目提交代码">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache incubator ServiceComb">
+<meta property="og:title" content="代码提交指南">
+
+
+  <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/developers/submit-codes/">
+  <meta property="og:url" content="http://github.com/pages/ServiceComb/servicesomb.github.io/developers/submit-codes/">
+
+
+
+  <meta property="og:description" content="介绍如何向 ServiceComb 项目提交代码">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="代码提交指南">
+  <meta name="twitter:description" content="介绍如何向 ServiceComb 项目提交代码">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache incubator ServiceComb",
+      "url" : "http://github.com/pages/ServiceComb/servicesomb.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache incubator ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/js/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="//assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/developers/submit-codes/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/"><span class="nav__sub-title nav__sub-title-with-url">Developer Guide</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/setup-develop-environment/"><span class="nav__sub-title nav__sub-title-with-url">Develop Environment Setup</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/submit-codes/"><span class="nav__sub-title nav__sub-title-with-url">Code Submit Guide</span></a>
+        
+
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="代码提交指南">
+    <meta itemprop="description" content="介绍如何向 ServiceComb 项目提交代码">
+    
+    <meta itemprop="dateModified" content="September 08, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">代码提交指南
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#贡献途径" id="markdown-toc-贡献途径">贡献途径</a></li>
+  <li><a href="#运行测试" id="markdown-toc-运行测试">运行测试</a></li>
+  <li><a href="#pr指南" id="markdown-toc-pr指南">PR指南</a>    <ul>
+      <li><a href="#fork仓库" id="markdown-toc-fork仓库">Fork仓库</a></li>
+      <li><a href="#配置git和提交修改" id="markdown-toc-配置git和提交修改">配置git和提交修改</a></li>
+      <li><a href="#创建pr" id="markdown-toc-创建pr">创建PR</a></li>
+      <li><a href="#冲突解决" id="markdown-toc-冲突解决">冲突解决</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="贡献途径">贡献途径</h2>
+<p>　　ServiceComb正在不断成长中，也希望能找到更多志同道合的同伴一起成长和进步。向ServiceComb 贡献的途径有多种：</p>
+<ul>
+  <li>完善文档。完善网站上的文档或者项目中的介绍文档和API说明文档。其中，网站文档的完善可通过网站最底端的<strong>报告本网页问题</strong>或<strong>在Github上编辑此页</strong>对文档内容进行完善。</li>
+  <li>
+    <p>实现功能特性需求或修复BUG。项目的功能特性需求或者已发现但未修复的BUG都会在项目中的issue处看到，以<a href="https://github.com/ServiceComb/saga/issues">Saga</a>项目为例，一般都会带有类似 <strong>enhancement</strong> 或类似 <strong>bug</strong> 的标签来说明这是功能需求还是BUG，读者可以结合自己的兴趣点来选择。此外，您也可以通过日常使用或阅读代码时发现BUG并以Issue的方式进行描述并针对该BUG提交PR，帮助我们进一步改进。同时，也欢迎您提出需求并在实现后提交PR。</p>
+
+    <p><img src="/assets/images/find-features-by-example.png" alt="寻觅功能需求示例" class="align-center" /></p>
+  </li>
+</ul>
+
+<h2 id="运行测试">运行测试</h2>
+<p>　　在您提交代码前，请先按照项目README中说明的自动测试部分对代码的功能性和实现上的正确性进行验证。</p>
+
+<h2 id="pr指南">PR指南</h2>
+<p>　　在 <a href="https://github.com/ServiceComb">Github</a> 上面可以很方便地提交 <a href="https://help.github.com/articles/about-pull-requests/">Pull Request (PR)</a>，下面将以本网站项目<a href="https://github.com/ServiceComb/ServiceComb.github.io">ServiceComb/ServiceComb.github.io</a> 为例（如果是其他项目，请替换项目名ServiceComb.github.io）。</p>
+
+<h3 id="fork仓库">Fork仓库</h3>
+
+<p>　　进入 ServiceComb/ServiceComb.github.io 的 <a href="https://github.com/ServiceComb/ServiceComb.github.io">github 页面</a> ，点击右上角按钮 <code class="highlighter-rouge">Fork</code> 进行 Fork。</p>
+
+<p><img src="/assets/images/fork-repo.jpg" alt="体质指数应用运行界面" class="align-center" /></p>
+
+<h3 id="配置git和提交修改">配置git和提交修改</h3>
+
+<ul>
+  <li>
+    <p>将代码克隆到本地：</p>
+
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/&lt;your_github_name&gt;/ServiceComb.github.io.git
+</code></pre>
+    </div>
+
+    <p>注意：请将 &lt;your_github_name&gt; 替换为您的github名字。</p>
+  </li>
+</ul>
+
+<p>　　clone完成后，origin会默认指向github上的远程fork地址。</p>
+
+<ul>
+  <li>
+    <p>将 ServiceComb/ServiceComb.github.io 添加为本地仓库的远程分支 upstream：</p>
+
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">cd </span>ServiceComb.github.io
+git remote add upstream https://github.com/ServiceComb/ServiceComb.github.io.git
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>检查远程仓库设置：</p>
+
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git remote -v
+origin https://github.com/&lt;your_github_name&gt;/ServiceComb.github.io.git <span class="o">(</span>fetch<span class="o">)</span>
+origin    https://github.com/&lt;your_github_name&gt;/ServiceComb.github.io.git <span class="o">(</span>push<span class="o">)</span>
+upstream  https://github.com/ServiceComb/ServiceComb.github.io.git <span class="o">(</span>fetch<span class="o">)</span>
+upstream  https://github.com/ServiceComb/ServiceComb.github.io.git <span class="o">(</span>push<span class="o">)</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>新建分支以便在分支上做修改：</p>
+
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git checkout -b &lt;your_branch_name&gt;
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<p>　　注意： &lt;your_branch_name&gt; 为您自定义的分支名字。</p>
+
+<p>　　创建完成后可进行代码更改。</p>
+
+<ul>
+  <li>
+    <p>提交代码到远程分支：</p>
+
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git commit -a -m <span class="s2">"&lt;you_commit_message&gt;"</span>
+git push origin &lt;your_branch_name&gt;
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<p>　　更多 git 使用方法请访问：<a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository">git 使用</a>，这里不赘述。</p>
+
+<h3 id="创建pr">创建PR</h3>
+
+<p>　　在浏览器切换到自己的 github 页面，切换分支到提交的分支 &lt;your_branch_name&gt; ，依次点击 <code class="highlighter-rouge">New pull request</code> 和 <code class="highlighter-rouge">Create pull request</code> 按钮进行创建，如下图所示：</p>
+
+<p class="figure-caption"><img src="/assets/images/new-pr.jpg" alt="体质指数应用运行界面" class="align-center" />
+fig-1 New pull request</p>
+
+<p class="figure-caption"><img src="/assets/images/create-pr.jpg" alt="体质指数应用运行界面" class="align-center" />
+fig-2 Create pull request</p>
+
+<p>　　至此，您的PR创建完成，更多关于 PR 请阅读 <a href="https://help.github.com/categories/collaborating-with-issues-and-pull-requests/">collaborating-with-issues-and-pull-requests</a> 。</p>
+
+<h3 id="冲突解决">冲突解决</h3>
+<p>　　提交PR时的代码冲突一般是由于多人编辑同一个文件引起的，解决冲突主要通过以下步骤即可：</p>
+<ol>
+  <li>切换至主分支
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git checkout master
+</code></pre>
+    </div>
+  </li>
+  <li>同步远端主分支至本地
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git pull upstream master
+</code></pre>
+    </div>
+  </li>
+  <li>切换回刚才的分支（假设分支名为fix）
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git checkout fix 
+</code></pre>
+    </div>
+  </li>
+  <li>进行rebase
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git rebase -i master
+</code></pre>
+    </div>
+    <p>此时会弹出修改记录的文件，一般直接保存即可。然后会提示哪些文件出现了冲突，此时可打开冲突文件对冲突部分进行修改，将提示的所有冲突文件的冲突都解决后，执行</p>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git add .
+git rebase --continue
+</code></pre>
+    </div>
+    <p>依此往复，直至屏幕出现类似 <em>rebase successful</em> 字样即可，此时您可以进行往提交PR的分支进行更新：</p>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git push -f origin fix
+</code></pre>
+    </div>
+  </li>
+</ol>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/issues/new?title=Issue with _developers/submit-codes.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/edit/master/_developers/submit-codes.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">Dev</span></a> |
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">User</span></a>
+        </li>
+        <li>
+            <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2017 Apache incubator ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

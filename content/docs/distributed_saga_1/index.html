@@ -1,0 +1,922 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Eventual Data Consistency Solution in ServiceComb - part 1 - Apache incubator ServiceComb</title>
+
+
+
+
+<meta name="description" content="The background of data consistency problem in the scenario of microservice architecture">
+
+
+
+
+<meta name="author" content="Sean Yin">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache incubator ServiceComb">
+<meta property="og:title" content="Eventual Data Consistency Solution in ServiceComb - part 1">
+
+
+  <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/docs/distributed_saga_1/">
+  <meta property="og:url" content="http://github.com/pages/ServiceComb/servicesomb.github.io/docs/distributed_saga_1/">
+
+
+
+  <meta property="og:description" content="The background of data consistency problem in the scenario of microservice architecture">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Eventual Data Consistency Solution in ServiceComb - part 1">
+  <meta name="twitter:description" content="The background of data consistency problem in the scenario of microservice architecture">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@seanyinx">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-09-13T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache incubator ServiceComb",
+      "url" : "http://github.com/pages/ServiceComb/servicesomb.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache incubator ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/js/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="//assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/distributed_saga_1/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Sean Yin</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+        Nothing but speed is indestructible
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="http://seanyinx.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:seanyinx@gmail.com">
+            <meta itemprop="email" content="seanyinx@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/seanyinx" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Eventual Data Consistency Solution in ServiceComb - part 1">
+    <meta itemprop="description" content="The background of data consistency problem in the scenario of microservice architecture">
+    <meta itemprop="datePublished" content="September 13, 2017">
+    <meta itemprop="dateModified" content="September 13, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Eventual Data Consistency Solution in ServiceComb - part 1
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Data consistency is a critical aspect of many systems, especially in cloud and microservice environment. We recently
+released <a href="https://github.com/ServiceComb/saga">Saga</a> project under ServiceComb to address data consistency issue. 
+But why is data consistency so important and what is Saga?</p>
+
+<h2 id="data-consistency-of-monolithic-applications">Data Consistency of Monolithic Applications</h2>
+<p>Imagine we are a giant corporation who runs an airline, a car rental company, and a hotel chain. We provide one-stop trip 
+planning experience for our customers, so that they only have to provide a destination and we will book a flight, rent a 
+car, and reserve a hotel room for them. From the business point of view, we have to make sure <strong>bookings with all the three
+are successful to make a successful trip plan, or there will be no plan</strong>.</p>
+
+<p>This requirement is easily satisfied with our current monolithic application. We just had to wrap all the three bookings 
+in a single database transaction and they would all be done successfully or none was done.</p>
+
+<p><img src="/assets/images/saga.monolithic.png" alt="Monolithic Application" class="align-center" /></p>
+
+<p>When this feature released, our business was happy, and our customer was happy.</p>
+
+<h2 id="data-consistency-in-the-microservice-scenario">Data Consistency in the Microservice Scenario</h2>
+<p>In a few years, our corporation is doing so well on this trip planning business and our customers grow over tenfold. As 
+more services provided by our airline, car rental company, and hotel chain, our application and development teams also 
+grow. Now our monolith is so big and complex that not a single person understands how everything works together. What's
+even worse is that it takes weeks for all the development teams to put together their changes for a new release. Our business
+is not happy, since our market share is dropping due to the delay of our new features.</p>
+
+<p>We decide to split our monolith into four microservices, flight booking, car rental, hotel reservation, and payment, after 
+several rounds of discussions. Services use their own database and communicate through HTTP requests. They are released
+according to their own schedule to meet the market needs. But we face a new problem: how do we ensure the original business 
+rule of bookings with all three services must be successful to make a trip plan? A service cannot just access another's
+database, because it violates the service boundary and services may not use the same database technology.</p>
+
+<p><img src="/assets/images/saga.service.boundary.png" alt="Service Boundary" class="align-center" /></p>
+
+<h2 id="sagas">Sagas</h2>
+<p>We found a <a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">great paper</a> by Hector &amp; Kenneth on the Internet talking about data consistency issues and this paper mentioned 
+a terminology named Saga.</p>
+
+<blockquote>
+  <p>A saga refers to a long live transaction that can be broken into a collection of sub-transactions that can be interleaved
+in any way with other transactions. Each sub transactions in this case is a real transaction in the sense that it preserves 
+database consistency. [<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">1</a>]</p>
+</blockquote>
+
+<p>In case of our business, a trip transaction is a saga which consists of four sub-transactions: flight booking, car rental, 
+hotel reservation, and payment.</p>
+
+<p><img src="/assets/images/saga.transactions.png" alt="Transactions" class="align-center" /></p>
+
+<p>Saga is also described in <a href="http://www.chrisrichardson.net/">Chris Richardson</a>'s article: <a href="http://microservices.io/patterns/data/saga.html">Pattern: Saga</a>.</p>
+<blockquote>
+  <p>Chris Richardson is an experienced software architect, author of POJOs in Action and the creator of the original CloudFoundry.com. [3]</p>
+</blockquote>
+
+<p>Caitie McCaffrey also showed how she applied saga pattern in <a href="https://en.wikipedia.org/wiki/Halo_4">Halo 4</a> by Microsoft in <a href="https://www.youtube.com/watch?v=xDuwrtwYHu8">her talk</a>.</p>
+
+<h3 id="how-saga-works">How Saga Works</h3>
+<blockquote>
+  <p>The transactions in a saga are related to each other and should be executed as a (non-atomic) unit. Any partial executions 
+of the saga are undesirable, and if they occur, must be compensated for. To amend partial executions, each saga transaction 
+T<sub>1</sub> should be provided with a compensating transaction C<sub>1</sub>.[<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">1</a>]</p>
+</blockquote>
+
+<p>We define the following transactions and their corresponding compensations for our services according to the rule above:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Service</th>
+      <th style="text-align: center">Transaction</th>
+      <th style="text-align: center">Compensation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">flight booking</td>
+      <td style="text-align: center">book flight</td>
+      <td style="text-align: center">cancel booking</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">car rental</td>
+      <td style="text-align: center">rent car</td>
+      <td style="text-align: center">cancel booking</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">hotel reservation</td>
+      <td style="text-align: center">reserve room</td>
+      <td style="text-align: center">cancel reservation</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">payment</td>
+      <td style="text-align: center">pay</td>
+      <td style="text-align: center">refund</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>Once compensating transactions C<sub>1</sub>, C<sub>2</sub>, …, C<sub>n-1</sub> are defined for saga T<sub>1</sub>, T<sub>2</sub>, …, T<sub>n</sub>, 
+then the system can make the following guarantee [<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">1</a>]</p>
+  <ul>
+    <li>either the sequence T<sub>1</sub>, T<sub>2</sub>, …, T<sub>n</sub> (which is the preferable one)</li>
+    <li>or the sequence T<sub>1</sub>, T<sub>2</sub>, …, T<sub>j</sub>, C<sub>j</sub>, …, C<sub>2</sub>, C<sub>1</sub>, for some 0 &lt; j &lt; n, will be executed</li>
+  </ul>
+</blockquote>
+
+<p>In another word, with the above defined transaction/compensation pairs, saga guarantees the following business rules are met:</p>
+<ul>
+  <li>all the bookings are either executed successfully, or cancelled if any of them fails</li>
+  <li>if the payment fails in the last step, all bookings are cancelled too</li>
+</ul>
+
+<h3 id="saga-recovery">Saga Recovery</h3>
+<p>Two types of saga recovery were described in the <a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">original paper</a>:</p>
+<ul>
+  <li><strong>backward recovery</strong> <em>compensates</em> all completed transactions if one failed</li>
+  <li><strong>forward recovery</strong> <em>retries</em> failed transactions, assuming every sub-transaction will eventually succeed</li>
+</ul>
+
+<p>Apparently there is no need for compensating transactions in forward recovery, which is useful if sub-transactions will
+always succeed (eventually) or compensations are very hard or impossible for your business.</p>
+
+<p>Theoretically compensating transactions shall never fail. However, in the distributed world, servers may go down, network 
+can fail, and even data centers may go dark. What can we do in such situations? The last resort is to have fallbacks which
+may involve manual intervention.</p>
+
+<h3 id="the-restrictions-of-saga">The Restrictions of Saga</h3>
+<p>That looks promising. Are all long live transactions can be done this way? There are a few restrictions:</p>
+<ul>
+  <li>A saga only permits two levels of nesting, the top level saga and simple transactions [<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">1</a>]</li>
+  <li>At the outer level, full atomicity is not provided. That is, sagas may view the partial results of other sagas [<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">1</a>]</li>
+  <li>Each sub-transaction should be an independent atomic action [2]</li>
+</ul>
+
+<p>In our case, flight booking, car rental, hotel reservation, and payment are naturally independent actions and transaction
+of each can be performed atomically with their corresponding databases.</p>
+
+<p>We don't need atomicity at the trip transaction level either. One user may book the last seat on a flight which gets 
+cancelled later due to insufficient balance in credit card. Another user may see the flight fully booked and one seat freed
+up for booking due to the cancellation. He/she can grab the last flight seat and complete the trip plan. It does not really
+matter to our business.</p>
+
+<p>There are also things to consider on compensations.</p>
+<blockquote>
+  <p>The compensating transaction undoes, from a semantic point of view, any of the actions performed by T<sub>i</sub>, but 
+does not necessarily return the database to the state that existed when the execution of T<sub>i</sub> began. (For instance,
+if a transaction fires a missile, it may not be possible to undo this action) [<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">1</a>]</p>
+</blockquote>
+
+<p>However, this is not a problem at all for our business. And it is still possible to compensate for actions hard to undo. For
+example, a transaction sending an email can be compensated by sending another email explaining the problem.</p>
+
+<h2 id="summary">Summary</h2>
+<p>Now we have a solution to tackle our data consistency issue with saga. It allows us to either successfully perform all
+transactions or compensate succeeded ones in case any fails. Although saga does not provide <a href="https://en.wikipedia.org/wiki/ACID">ACID</a> guarantee, it still suits
+many scenarios where eventual data consistency is enough. How do we design a saga system? Let's address the question in our
+next blog post.</p>
+
+<h2 id="references">References</h2>
+<ol>
+  <li><a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">Original Paper on Sagas</a> by By Hector Garcia-Molina &amp; Kenneth Salem</li>
+  <li>Gifford, David K and James E Donahue, “Coordinating Independent Atomic Actions”, Proceedings of IEEE COMPCON, San Francisco, CA, February, 1985</li>
+  <li>Chris Richardson: http://www.chrisrichardson.net/</li>
+  <li>ServiceComb Saga Project: https://github.com/ServiceComb/saga</li>
+</ol>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#saga" class="page__taxonomy-item" rel="tag">saga</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-09-13">September 13, 2017</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Eventual Data Consistency Solution in ServiceComb - part 1 /docs/distributed_saga_1/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/distributed_saga_1/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/docs/distributed_saga_1/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/distributed_saga_1/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/seckill-development-journey-part-III/" class="pagination--pager" title="秒杀开发历程（三）
+">Previous</a>
+    
+    
+      <a href="/cn/docs/distributed_saga_1/" class="pagination--pager" title="ServiceComb中的数据最终一致性方案 - part 1
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">Leave a Comment</h4>
+        <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/ServiceComb/servicesomb.github.io/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">Comment <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">Name <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">Email address <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">Website (optional)</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="saga-background">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">Submit Comment</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/jira_beginner_guide/" rel="permalink">老司机带你刷任务 - ServiceComb JIRA入门指南
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">ServiceComb JIRA入门指南
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/how-to-reform-a-legacy-system/" rel="permalink">最头疼的遗留系统该如何改造？
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/issues/new?title=Issue with _posts/2017-09-13-saga-background.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/edit/master/_posts/2017-09-13-saga-background.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">Dev</span></a> |
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">User</span></a>
+        </li>
+        <li>
+            <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2017 Apache incubator ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('Submitted');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('Submit Comment');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

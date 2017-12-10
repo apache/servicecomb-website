@@ -1,0 +1,1133 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>最头疼的遗留系统该如何改造？ - Apache incubator ServiceComb</title>
+
+
+
+
+<meta name="description" content="微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？">
+
+
+
+
+<meta name="author" content="Wang Lei">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache incubator ServiceComb">
+<meta property="og:title" content="最头疼的遗留系统该如何改造？">
+
+
+  <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/cn/docs/how-to-reform-a-legacy-system/">
+  <meta property="og:url" content="http://github.com/pages/ServiceComb/servicesomb.github.io/cn/docs/how-to-reform-a-legacy-system/">
+
+
+
+  <meta property="og:description" content="微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="最头疼的遗留系统该如何改造？">
+  <meta name="twitter:description" content="微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-10-23T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache incubator ServiceComb",
+      "url" : "http://github.com/pages/ServiceComb/servicesomb.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache incubator ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/js/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="//assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/how-to-reform-a-legacy-system/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Wang Lei</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        Happy Coding, Happy Life
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="https://wldandan.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> 网站
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:wanglei177@huawei.com">
+            <meta itemprop="email" content="wanglei177@huawei.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="最头疼的遗留系统该如何改造？">
+    <meta itemprop="description" content="微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？">
+    <meta itemprop="datePublished" content="October 23, 2017">
+    <meta itemprop="dateModified" content="October 23, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">最头疼的遗留系统该如何改造？
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <p>随着RESTful、云计算、DevOps、持续交付等概念的深入人心，微服务（Microservices）逐渐成为系统架构的一个代名词。那么微服务是否是业界期待已久的架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？在该分享中，王磊将通过实际的案例，跟大家探讨使用微服务改造遗留系统的实践之路。</p>
+
+<ul>
+  <li>什么是微服务</li>
+  <li>微服务的诞生背景</li>
+  <li>遗留系统的微服务改造策略</li>
+  <li>微服务改造之路</li>
+</ul>
+
+<h2 id="背景">背景</h2>
+<p>什么是系统架构设计？</p>
+
+<p>一直以来，系统架构设计是IT领域经久不衰的话题之一，是每个系统构建过程中极其关键的一部分，它决定了系统是否能够被正确、有效的构建。架构师们也一直在持续探索，寻找更优秀的架构设计方式来构建系统。</p>
+
+<p>那什么是系统的架构设计？对于这个问题，我相信每个朋友都会有不同的定义，实际上，也并没有一个标准的答案来解释什么是架构设计。</p>
+
+<p>基于我过去的经验和工作方式，我认为系统架构设计的本质，是在应用系统内部找到这样一个动态平衡：平衡业务、技术、团队的同时，考虑系统灵活性、可扩展性以及可维护性等因素，并将应用系统划分成不同的部分，使这些部分彼此之间相互分工、相互协作，从而为用户提供某种特定的价值的方式。</p>
+
+<p>随着RESTful、云计算、DevOps、持续交付等概念的深入人心，<strong>微服务架构逐渐成为系统架构的一个代名词</strong>。</p>
+
+<h2 id="什么是微服务架构">什么是微服务架构</h2>
+<p>2015年，微服务架构这个词，以相当高的频率出现在各种演讲、文章、会议、社区上。这里，我先和大家快速回顾一下，Martin Fowler对微服务的抽象。</p>
+
+<p><img src="/assets/images/microservice_definition_by_martin_folwer.jpeg" alt="" /></p>
+
+<p>如上所示，微服务架构的核心四要素，我用红色标注出来了。如果翻译成中文，大致如下所示：</p>
+
+<blockquote>
+  <p>微服务架构是一种架构模式，它提倡将单一应用程序划分成一组小的服务，服务之间互相协调、互相配合，为用户提供最终价值。 每个服务运行在其独立的进程中，服务与服务间采用轻量级的通信机制互相协作（通常是基于HTTP协议的RESTful API）。 每个服务都围绕着具体业务进行构建，并且能够被独立的部署到生产环境、类生产环境等。 另外，对具体的服务而言，应根据业务上下文，选择合适的语言、工具对其进行构建。</p>
+</blockquote>
+
+<p>总结成一句话就是<strong>微服务是围绕业务构建的细粒度的分布式系统</strong>。</p>
+
+<h2 id="微服务的诞生背景">微服务的诞生背景</h2>
+<p>2015年，微服务突然火了，为什么？</p>
+
+<p>其实微服务架构并不是技术创新，而是IT发展到现阶段对技术架构的一种阐释。</p>
+
+<p>它要求包括<strong>快速和业务对齐（aligning business）、理解和抽象业务（基于领域建模）、快速开发（Lean、Agile）、快速反馈和交付（CI、CD、DevOps）</strong>。</p>
+
+<p>所以说，微服务并不是技术，而是将化整为零（或称分治）思想换了一种说法，无论是把一个大型系统分割成多个小而自治的系统，还是把一个大型团队分成多个团队，或是把一个复杂的项目分成多个交付阶段都是这种思想的运用。</p>
+
+<p>当然，任何新事物的诞生，总会有一个推动因素。微服务的诞生也并非偶然。它是互联网高速发展，技术日新月异的变化以及传统架构无法适应快速变化等多重因素的推动下所诞生的产物。</p>
+
+<p>基于个人的理解，我将微服务的诞生因素总结为如下几点：</p>
+
+<p><img src="/assets/images/why_microservice_show_up.jpeg" alt="" /></p>
+
+<ol>
+  <li>
+    <p><strong>互联网行业的快速发展</strong></p>
+
+    <p>过去的十年中，互联网对我们的生活产生了翻天覆地的变化，越来越多的传统行业公司也开始依赖互联网技术打造其核心竞争优势。</p>
+
+    <p>在这种情况下，如何从系统架构的角度出发，构建灵活、易扩展的系统，快速应对需求的变化；同时，随着用户量的增加，如何保证系统的可伸缩性、高可用性，成为系统架构面临的挑战。</p>
+  </li>
+  <li>
+    <p><strong>单块架构系统面临的挑战</strong></p>
+
+    <p>随着用户需求个性化、产品生命周期变短、市场需求不稳定等因素的出现，单块架构系统面临着越来越多的挑战。如何找到一种更有效的、更灵活、适应需求的系统架构方式，成为大家关注的焦点。</p>
+  </li>
+  <li>
+    <p><strong>敏捷、精益方法、持续交付的深入人心</strong></p>
+
+    <p>在IT行业发展的过去十年，敏捷、精益、持续交付等价值观、方法论的提出以及实践，让很多组织意识到应变市场变化、提高响应力的重要性，应该构建软件交付周期的闭环（分析、开发、测试、部署、运维、监控、运营），而不仅仅是提高开发阶段的效率。</p>
+
+    <p><strong>精益创业（Lean Startup）</strong>帮助组织分析并建立最小可实行产品（MinimumViableProduct），通过迭代持续改进敏捷方法帮助组织消除浪费，通过反馈不断找到正确的方向。</p>
+
+    <p><strong>持续交付</strong>则帮助组织构建更快、更可靠、可频繁发布的交付机制并构建产品交付闭环。</p>
+
+    <p>大部分组织已经基本上形成了一套可实施的交付体系。包括持续集成、自动化测试、数据管理、自动化部署机制等。</p>
+
+    <p>这时候，大泥球式的单块架构，会逐渐成为影响交付周期进一步优化的瓶颈，因此如何找到灵活性高、扩展性好的架构方式，也成为进一步优化交付周期面临的挑战。</p>
+  </li>
+  <li>
+    <p><strong>Docker等容器虚拟化技术的快速发展</strong></p>
+
+    <p>同传统的虚拟化技术相比，基于容器技术的Docker，不需要复杂的Hypervisor机制支持，具有更高的虚拟化性能和效率。</p>
+
+    <p>同时容器可以很容易的运行在任意的装有DockerEngine的系统上，使得开发人员能够用更低的成本将应用程序部署在不同平台上。</p>
+  </li>
+  <li>
+    <p><strong>DevOps文化</strong></p>
+
+    <p>DevOps文化的推行打破了传统开发与运维之间的壁垒，帮助组织形成开发、运维紧密配合的、全功能化的高效团队，并尽早降低软件交付最后一公里的风险。</p>
+  </li>
+</ol>
+
+<h2 id="遗留系统的微服务改造策略">遗留系统的微服务改造策略</h2>
+<p>聊完什么是微服务架构以及其诞生背景，接下来我们来谈谈如何改造遗留系统。</p>
+
+<p>在过去的10多年间，大部分工作时间我都在和遗留系统打交道。我相信很多朋友也是工作在已经运转多年的遗留系统上。</p>
+
+<p>对于这类系统，当谈论使用微服务对其进行改造时，我认为要谨记一点：</p>
+
+<p><strong>改造不是重做。</strong></p>
+
+<p><strong>在改造的过程中，要始终以保证系统为用户提供的业务价值可用作为首要目标。</strong>从这个点出发，基于我的经验，对微服务改造的策略总结为如下五个步骤：</p>
+
+<p><img src="/assets/images/microservice_reform_strategy.jpeg" alt="" /></p>
+
+<ol>
+  <li>
+    <p>范围定义</p>
+
+    <p>对于遗留系统而言，通常业务运转时间较长（譬如5~8年以上，甚至更长），因此涉及的功能繁杂，代码中存在大量无效或者过时的需求，缺陷修复成本较高。</p>
+
+    <p>另外，系统在演进的过程中，也会持续为用户提供新的功能和价值。因此，划分出清晰的范围非常重要。</p>
+
+    <p>实际上，范围定义主要包括两部分：</p>
+
+    <ol>
+      <li>
+        <p>明确业务改造范围</p>
+
+        <p>所谓改造范围，就是确定我们常说的业务试点。通常，作为初次尝试微服务实践的组织，建议选取业务范围影响较小、非关键功能的试点，这样做也是为了确保在不影响核心业务的情况下快速尝试并获得反馈。</p>
+      </li>
+      <li>
+        <p>明确成员责任范围</p>
+
+        <p>明确成员责任范围，确定由谁来改造，确保改造的目标清晰。</p>
+
+        <p>实际上，对于产品而言，遗留系统的维护和更新，包括缺陷定位、缺陷修复、数据更新、功能实现、测试、交付给运维团队等，通常已经让团队的工作处于高负荷状态。因此，需要确定成员，全身心的投入，以微服务改造作为短期目标。</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>功能剥离</p>
+
+    <p>有了明确的业务范围，成员也有了清晰的责任，接下来就需要将部分功能点进行剥离。</p>
+
+    <p>所谓剥离，就是将选中的功能从原有的系统中拆分出来，并构建成独立的服务。在这个阶段，主要包括两点：</p>
+
+    <ol>
+      <li>
+        <p>将功能从原有系统拆分出来，并构建新服务</p>
+
+        <p>一提到拆分，很多朋友会纠结，“系统复杂，如何拆分微服务才好？怎么样的拆分才合理？”。其实，从我个人的观点来看，这时候还不是纠结服务到底怎么划分合理的时候。为什么？</p>
+
+        <ol>
+          <li>
+            <p>好的架构是动态演变和迭代出来的，业务在不断改变，技术和工具也在不会的升级换代，没有完美的架构，只有无限逼近完美的动态平衡，所以先小范围、低成本动起来，在运转中找平衡点。</p>
+          </li>
+          <li>
+            <p>微服务的复杂度在于分布式系统本身，以及其生态系统（开发、测试、部署、运维、监控、告警）的搭建。</p>
+          </li>
+          <li>
+            <p>团队文化的形成是一个相对漫长的过程，如果花很大力气关注服务怎么拆，而没有聚焦在生态系统的搭建以及团队文化的形成上，实际上是舍本逐末。即便拆分出了不同的服务，在落地的时候也会遇到诸多问题。所以，找一个功能点先拆，然后搭建持续交付流水线，快速试错，建立好有效的反馈闭环机制，再不断寻找动态平衡，拆分出更细的服务或者将不合理的服务合并。</p>
+          </li>
+        </ol>
+      </li>
+      <li>
+        <p>在原有的系统前端，使用代理机制，并使用遗留系统和新服务组合为用户提供价值</p>
+
+        <p>这一步，目的是使用组合的系统（遗留系统+新的服务）为用户提供价值。</p>
+
+        <p>对于Web系统，通常可以在前端使用直接请求新的服务。也可以在后端使用转发请求，获取新服务提供的数据。</p>
+
+        <p>如下图所示：</p>
+
+        <p><img src="/assets/images/microservice_reform_strategy.jpeg" alt="" /></p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>数据解耦</p>
+
+    <p>在以前的遗留系统构建过程中，通常使用数据库作为集成点，不同功能/系统之间通过数据库完成数据交换。对于某些系统，还大量使用存储过程完成业务逻辑，开发的时候看似效率高，但几年下来，DBA成了IT团队最懂业务的人，维护成为瓶颈。</p>
+
+    <p>而实际上，业务的数据是业务固有的组成部分，应当随着业务的变化而变化。业务拆分出来，数据也应该拆分出来。从而保证访问数据只能通过统一的相关业务API完成。便于在将来的业务和架构演进中，有效的对数据维护、管理和升级。</p>
+  </li>
+  <li>
+    <p>数据同步</p>
+
+    <p>数据同步，是一个价值体现的过渡过程。</p>
+
+    <p>一方面，遗留系统的改造中存在的各种各样的挑战和我们今天认为的不合理（当时的场景也许是合理的）。另一方面，对于大部分遗留的系统，都会使用数据库作为集成点（开发成本低），导致某业务功能的数据与其他功能有着千丝万缕的联系，数据的变化容易对其他功能造成影响。</p>
+
+    <p>因此对于大型的遗留系统，很难在短期的时间内（3~6个月）完成全系统的改造。需要一个相对漫长，循序渐进的过程来完成改造。</p>
+
+    <p>譬如，在电商系统中，商家的后台管理系统中的产品、价格的更新，会发布到面向用户的电商搜索系统中以及其他系统中。如果我们将系统中的产品相关拆分成独立服务，则必须也要拆分数据发布机制，否则的话容易造成数据不一致。但拆分数据发布机制，又需要分析清楚不同数据之间的影响和依赖，需要更大的成本，短期内不易完成。</p>
+
+    <p>这时候，如果将新服务的数据同步回原有的数据库，采用这样一个折中的的过程，既能保障新的服务和数据被独立，又不影响原有的遗留系统功能。</p>
+
+    <p>说白了，这其实也是在保证系统为用户提供的业务价值不被破坏。</p>
+
+    <p>有了之前的尝试，接下来就是通过不断的迭代，完成功能剥离，数据解耦、数据同步，从而将更多的功能拆分成独立的服务。</p>
+  </li>
+</ol>
+
+<p><img src="/assets/images/legacy_system_reform_strategy.jpeg" alt="" /></p>
+
+<p>如上就是我对于遗留系统改造的策略。</p>
+
+<h2 id="遗留系统改造实践">遗留系统改造实践</h2>
+<p>接下来，我和大家分享一个我所经历的遗留系统改造的案例。首先，让我们看看这个系统的背景和一些数据。</p>
+
+<h3 id="客户背景">客户背景</h3>
+
+<p><a href="http://movit-tech.com/">盟拓软件</a>是中国房地产行业IT服务及行业解决方案和产品的领先厂家，其依据市场变化推出全民卖房的新营销模式，正从线下的传统现场售楼模式向线上的房地产电商模式进行转变。</p>
+
+<h3 id="业务痛点">业务痛点</h3>
+
+<p>当今房地产行业呈现短期开盘峰值、后期零星散客的业务特性。其面临着高昂线下运营成本，营销成本占销售额&gt;5%。而由此引入的线上竞价秒杀营销模式，传统IT解决方案的系统资源率、峰值扩容能力将无法满足。</p>
+
+<p><img src="/assets/images/case_mengtuo_traditional_mode.png" alt="" /></p>
+
+<h3 id="系统概览">系统概览</h3>
+
+<p>系统为典型的三层单块架构，使用MySQL数据库存储数据。运行在服务器上的应用处理性能较低，为了应对短暂的访问高峰，额外购置了较多的服务器资源，访问高峰过后，服务器资源闲置造成较大浪费，且需要较多人员维护。</p>
+
+<h3 id="相关数据">相关数据</h3>
+
+<ul>
+  <li>
+    <p>代码约<strong>100万</strong>行，测试覆盖率为<strong>10%</strong>，集成测试时间为<strong>一个月</strong></p>
+
+    <p>代码臃肿，无效遗留代码较多，且业务间紧耦合，测试覆盖率较低，测试出问题了难以定位，导致测试耗时较长。</p>
+  </li>
+  <li>
+    <p>营销预案需<strong>提前1个月</strong>准备资源</p>
+
+    <p>为应对访问高峰，每次都需要预购大量的服务资源，重新部署环境，并运行相关测试。</p>
+  </li>
+  <li>
+    <p>业务耦合紧，新业务上线<strong>&gt;半年</strong></p>
+
+    <p>每次测试都要多个业务团队联合测试，问题定位较耗时，测试效率低。</p>
+  </li>
+  <li>
+    <p>上百种业务，2-3种开发语言</p>
+
+    <p>业务复杂，且语言不一，系统联调时耗时较多且需相互配合，时间周期较长。</p>
+  </li>
+  <li>
+    <p>运维团队<strong>&gt;20人</strong></p>
+
+    <p>臃肿的团队导致问题定位需多方配合，沟通成本高。</p>
+  </li>
+</ul>
+
+<p><strong>基于之前定义的改造策略，我们的改造过程大致如下所示：</strong></p>
+
+<p>范围定义：</p>
+
+<ul>
+  <li>
+    <p>将原房地产CRM平台按业务类别拆分为多个微服务。</p>
+
+    <p><img src="/assets/images/case_mengtuo_reform_before_and_after.png" alt="" /></p>
+  </li>
+</ul>
+
+<p>功能剥离：</p>
+
+<ul>
+  <li>从单体CRM系统中逐步拆分出业务模块（服务网关、客户服务、房源服务、机会服务、积分服务）。</li>
+</ul>
+
+<p>数据解耦</p>
+
+<ul>
+  <li>每个微服务的数据进行独立存储。</li>
+</ul>
+
+<p>数据同步</p>
+
+<ul>
+  <li>在负载较低时，将数据同步回原有的遗留系统中不断迭代，陆续完成后续的服务。</li>
+</ul>
+
+<p>改造过程中，基于ServiceComb，<strong>通过控制请求路由，逐步架空对原单体应用的请求， 平滑过渡系统到微服务架构。</strong></p>
+
+<p><strong>单个服务的构建并没有那么复杂，基于ServiceComb，通过如下的简单4步，即可快速完成改造：</strong></p>
+
+<ol>
+  <li>引入<a href="https://github.com/ServiceComb/ServiceComb-Java-Chassis">ServiceComb Java Chassis</a>框架依赖</li>
+  <li>定义服务接口端点</li>
+  <li>添加服务配置文件</li>
+  <li>注释服务启动入口</li>
+</ol>
+
+<p>另外，通过Company Workshop中提供的Docker插件配置，10分钟内完成了服务容器化，自动生成镜像。</p>
+
+<p>同时，利用ServiceComb开发的微服务应用，可同时无缝接入<a href="https://www.huaweicloud.com/product/servicestage.html">ServiceStage</a>，享受到微服务治理、容器虚机混编、应用拓扑等能力。</p>
+
+<p>为应对短暂的业务高峰，经常需要预购大量的资源来提前部署和验证环境，花费大量的人力物力，且资源利用率极低。因此，进行云化改造后的产品和解决方案需要具备随着参与人数增加而秒级伸缩，支撑业务峰值和资源利用率的能力。盟拓软件基于华为ServiceStage的核心技术容器改造、混编方案、编排调度算法等进行容器虚机混编应用云化改造，实现了应用的秒级部署和弹性伸缩能力，极大地提高了资源的利用率。</p>
+
+<p><strong>改造后效果：</strong></p>
+
+<ul>
+  <li>运维人力<strong>减少80%</strong></li>
+  <li>资源利用率<strong>提升50%</strong>，大幅降低运营成本</li>
+  <li><strong>每秒万级</strong>调用链分析能力</li>
+  <li>传统系统和应用平滑改造上云</li>
+  <li>互联网营销模式，天粒度业务快速创新</li>
+</ul>
+
+<p><img src="/assets/images/case_mengtuo_new_mode.png" alt="" /></p>
+
+<p><strong>理论上，经过不断地迭代，逐渐完成业务功能解耦，新服务构建。那么遗留系统就会被替换掉。</strong></p>
+
+<h2 id="改造要点">改造要点</h2>
+<p>在改造的整个过程中，我认为如下几个实践是非常重要的：</p>
+
+<p><img src="/assets/images/best_practices_for_legacy_system_reform.jpeg" alt="" /></p>
+
+<h3 id="基础设施自动化">基础设施自动化</h3>
+<p>原有的部署发生在数据中心，因此流程上相对复杂，而且存在一定弊端（譬如审批和协作上，起不到实质作用）。对于改造后的服务而言，我们使用更多的自动化方式代替复杂的审批流程。通过使用华为ServiceStage作为基础设施，团队能够更自主的对基础设施进行管理。如资源创建、销毁、更新等。随着服务的增多，基础设施自动化帮助我们节省了大量的时间。当然，从组织层面，也成立了专门的小组研究华为ServiceStage以及相关的DevOps配套工具。</p>
+
+<p>目前，国内外有很多优秀的云平台，可以方便的为用户提供基础设施的自动化机制。</p>
+
+<h3 id="微服务生态系统">微服务生态系统</h3>
+<p>微服务的生态系统是指微服务实施过程相关的协作部分，涉及部分较多，譬如测试机制、持续集成、自动化部署、细粒度监控、日志聚合、告警、持续交付，以及大家非常关注的服务注册、服务发现机制等。</p>
+
+<p>这部分的灵活性比较大，因为目前如上说的每一个领域都有很多优秀的工具。譬如日志聚合目前业界的方案通常为ELK，监控的方案如Zabbix、NewRelic、CloudWatch等，成熟的监控工具都具有告警功能，PagerDuty也提供更专业的告警服务。服务注册和发现有ServiceComb框架的Service Center，Eureka，Consul，Zookeeper。大家可以在各自的团队中自由发挥。</p>
+
+<h3 id="开发框架的演进">开发框架的演进</h3>
+<p>开发框架是团队在构建微服务的过程中，不断总结，梳理出的快速开发微服务的相关工具和框架。</p>
+
+<p>我们基于ServiceComb构建了快速开发框架，主要包括四部分，如下图所示：</p>
+
+<p><img src="/assets/images/rapid_development_framework.png" alt="" /></p>
+
+<ol>
+  <li>
+    <p>微服务工程示例</p>
+
+    <p>提供微服务改造架构最佳实践参考工程Company，使能微服务改造或开发能复用其架构设计和配置，同时指导实现服务容器化和后续服务性能测试等提高服务可靠性。</p>
+  </li>
+  <li>
+    <p>契约生成工具</p>
+
+    <p>ServiceComb采用了基于OpenAPI的服务契约，使业务逻辑与编程语言解耦，并可使用Swagger工具定义服务契约，自动生成契约对应的代码和文档。</p>
+  </li>
+  <li>
+    <p>持续集成</p>
+
+    <p>持续集成使用了Jenkins，通过其配置文件定义主要的阶段：</p>
+
+    <blockquote>
+      <p>验证：运行单元测试，集成测试</p>
+
+      <p>构建：构建可执行的jar部署包</p>
+
+      <p>部署：基于指定版本制作镜像，并推送到测试或生产环境下</p>
+    </blockquote>
+
+    <p>利用这样的持续集成模板工程，花费很少的时间，就可以针对新建的微服务应用，快速配置其对应的持续集成环境。</p>
+  </li>
+  <li>
+    <p>Kubernetes集群一键部署</p>
+
+    <p>Kubernetes是谷歌开源的一个容器集群管理工具。基于Kubernetes，可实现微服务的快速部署及弹性伸缩。我们提供了一键部署脚本，部署时只需稍作修改即可通过一条命令，自动完成资源的创建、部署、弹性伸缩、金丝雀发布等。</p>
+  </li>
+</ol>
+
+<h3 id="团队运维自管理">团队运维自管理</h3>
+
+<p>这一部分是关于团队的文化管理。也是对DevOPS的延伸，我们称为TMI（Team Managed Infrastructure）。</p>
+
+<p>目的是将分析、开发、测试以及资源创建、销毁、自动化部署的权利交给团队，由团队按需完成部署（加上看板的流程管理，而非Scrum的固定迭代，可以做到一天部署多次）。</p>
+
+<p>当然，这个环节非常依赖于成熟的监控以及告警机制，当出现问题时，能够有效的通知到责任人，快速反馈，快速修复。团队内部也会定期轮换Pager（出问题救火的人），培养团队以服务可用作为大家的共同目标，培养产品观念，而非项目观念。</p>
+
+<p>再回顾一下这个图：</p>
+
+<p><img src="/assets/images/best_practices_for_legacy_system_reform.jpeg" alt="" /></p>
+
+<p>最后，和大家分享一下，我个人在微服务实施过程中总结的4句方针:</p>
+
+<p><strong>由大到小，由粗到细</strong></p>
+
+<p><strong>关注运维，关注监控</strong></p>
+
+<p><strong>快速反馈，快速修复</strong></p>
+
+<p><strong>循序渐进，增量实现</strong></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E7%B3%BB%E7%BB%9F%E6%94%B9%E9%80%A0" class="page__taxonomy-item" rel="tag">系统改造</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2017-10-23">2017年10月23日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=最头疼的遗留系统该如何改造？ /cn/docs/how-to-reform-a-legacy-system/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/how-to-reform-a-legacy-system/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/how-to-reform-a-legacy-system/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/how-to-reform-a-legacy-system/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/docs/how-to-reform-a-legacy-system/" class="pagination--pager" title="最头疼的遗留系统该如何改造？
+">向前</a>
+    
+    
+      <a href="/docs/service-center-ui/" class="pagination--pager" title="Service-Center Management UI Console
+">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/ServiceComb/servicesomb.github.io/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="how-to-reform-a-legacy-system">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/jira_beginner_guide/" rel="permalink">老司机带你刷任务 - ServiceComb JIRA入门指南
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">ServiceComb JIRA入门指南
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/how-to-reform-a-legacy-system/" rel="permalink">最头疼的遗留系统该如何改造？
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/issues/new?title=Issue with _posts/cn/2017-10-23-how-to-reform-a-legacy-system.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/edit/master/_posts/cn/2017-10-23-how-to-reform-a-legacy-system.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">开发者</span></a> |
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">用户</span></a>
+        </li>
+        <li>
+            <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2017 Apache incubator ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

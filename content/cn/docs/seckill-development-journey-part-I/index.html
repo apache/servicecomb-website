@@ -1,0 +1,820 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>秒杀开发历程（一） - Apache incubator ServiceComb</title>
+
+
+
+
+<meta name="description" content="介绍如何一步一步构建秒杀项目的过程">
+
+
+
+
+<meta name="author" content="Yangyong Zheng">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache incubator ServiceComb">
+<meta property="og:title" content="秒杀开发历程（一）">
+
+
+  <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/cn/docs/seckill-development-journey-part-I/">
+  <meta property="og:url" content="http://github.com/pages/ServiceComb/servicesomb.github.io/cn/docs/seckill-development-journey-part-I/">
+
+
+
+  <meta property="og:description" content="介绍如何一步一步构建秒杀项目的过程">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="秒杀开发历程（一）">
+  <meta name="twitter:description" content="介绍如何一步一步构建秒杀项目的过程">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-08-26T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache incubator ServiceComb",
+      "url" : "http://github.com/pages/ServiceComb/servicesomb.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache incubator ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/js/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="//assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/seckill-development-journey-part-I/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Yangyong Zheng</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        Fast Action, do not ask
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="https://zhengyangyong.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> 网站
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:yangyong.zheng@huawei.com">
+            <meta itemprop="email" content="yangyong.zheng@huawei.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="秒杀开发历程（一）">
+    <meta itemprop="description" content="介绍如何一步一步构建秒杀项目的过程">
+    <meta itemprop="datePublished" content="August 26, 2017">
+    <meta itemprop="dateModified" content="September 13, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">秒杀开发历程（一）
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <h2 id="概述">概述</h2>
+<p>　　秒杀是我们ServiceComb开源团队以领域驱动设计（<a href="https://en.wikipedia.org/wiki/Domain-driven_design">DDD</a>）为背景，如何从零开始构建一个微服务架构的示例项目。在这个过程中，您可以学习到微服务架构区别于传统单体程序架构的诸多特点，同时我们还将使用敏捷开发的模式快速构建它。</p>
+
+<h2 id="背景">背景</h2>
+<p>　　秒杀的需求起源于互联网常见的促销方式——支付订单的时候，我们可以支持使用优惠券获得一些折扣，由于优惠券的数量是非常有限的，所以我们必须提供一个平台，让每一位希望得到它的人公平竞争，这样的场景我相信在平日的生活中随处可见。</p>
+
+<p>　　由于秒杀是一个示例项目，所以我们不希望它太复杂，真实的秒杀活动需要考虑的细节要远远超过我们的想象；我们也不希望它太过于具体在特定的形式，例如优惠券、满减、抢购码，等等，这样总会让部分读者难以理解；最后，我们使用了先到先得这种最原始的策略，如果您想尝试其他策略，可以下载代码自行修改，我相信也不会太困难。</p>
+
+<h2 id="初次设计">初次设计</h2>
+<p>　　首先我们分析客户核心业务述求：</p>
+
+<ol>
+  <li>客户可以请求秒杀一张优惠券，系统返回获取优惠券成功或失败（已经被秒光了）；</li>
+  <li>客户可以查询自己目前有多少张优惠券；</li>
+</ol>
+
+<p>　　那么我们开始吧，等等，您说这个描述也太简单了？客户还没有登录系统呢，秒杀活动又是怎么来的，怎么开始的？客户是请求哪个活动的优惠券呀？折扣是不是不一样？还有……</p>
+
+<p>　　确实，我们习惯于在一开始就思考很多，一些较大的系统，可能设计阶段就要几个月，但是这次可以不用考虑太多，因为我认为：</p>
+<ol>
+  <li>设计太多并不能保证构建完毕后就一定能完全符合需求，唯一不变的就是需求总是变化，所以不要过度设计；</li>
+  <li>微服务架构的原则是组件（服务）提供较为单一的功能，所以每个组件所需要实现的功能范围比较小，不必先将所有的功能都设计出来；</li>
+  <li>应该尽快切入主题，也就是立刻去解决核心域的问题。</li>
+</ol>
+
+<p>　　现在，我们需要使用正确的“姿势”完成设计过程——遵循领域驱动设计（<a href="https://en.wikipedia.org/wiki/Domain-driven_design">DDD</a>）的诸多原则，设计过程的核心就是识别出实体、值对象和服务等元素，进一步寻找聚合；由于我们的需求非常简单，所以很容易就能将它们找出来：</p>
+<ul>
+  <li>实体：促销秒杀（Promotion）</li>
+  <li>值对象：优惠券（Coupon），促销秒杀事件（PromotionEvent）</li>
+  <li>领域服务：秒杀活动（SecKill）</li>
+</ul>
+
+<p>　　之后我们分析他们之间的聚合，分出两个微服务，为了能快速达到目的，它们之间直接使用MySQL共享数据（微服务推荐使用独立的存储，我们未来去改造）：</p>
+<ol>
+  <li>Command：SecKill领域服务；</li>
+  <li>Query： Coupon值对象查询</li>
+</ol>
+
+<p><img src="/assets/images/seckill-develop-course-part-I-arth.png" alt="图1 初次架构" class="align-center" /></p>
+
+<h2 id="功能实现">功能实现</h2>
+<p>　　秒杀的代码托管在<a href="https://github.com/ServiceComb/seckill">Github</a>，欢迎Watch和Star。</p>
+
+<h3 id="command微服务的实现">Command微服务的实现</h3>
+<p>　　我们设计了SecKillCommandService和SecKillPersistentRunner两个类分别完成秒杀处理和结果持久化，考虑到持久化速度慢，我们使用BlockQueue做缓存；另外设计了SecKillCommandRestController作为客户请求的Endpoint；ServiceComb支持多种编程模型和通信模型，我们使用目前较较为流行的Spring Boot Rest作为基础框架，如果您的程序也使用了它，那么只需要稍加调整即可无缝上云。</p>
+
+<p><img src="/assets/images/seckill-develop-course-part-I-command.png" alt="图2 Command微服务组件" class="align-center" /></p>
+
+<h2 id="query微服务的实现">Query微服务的实现</h2>
+<p>　　查询逻辑较简单，因为PromotionEvent是值对象，我们使用了PromotionEvent推导Coupon，各位看官读读代码就明白了。</p>
+
+<h2 id="构建支撑域">构建支撑域</h2>
+<p>　　Promotion是实体，诚然，就像一开始提到的，我们需要在另外一个领域去管理（构建）它才能开始后面的秒杀活动，由于我们直接切入核心域展开工作，支撑域和普通域部分目前我们通过Spring注入固定对象来完成，例如：</p>
+
+<p><img src="/assets/images/seckill-develop-course-part-I-spring.png" alt="图3 支撑域注入" class="align-center" /></p>
+
+<h2 id="功能验证">功能验证</h2>
+<p>　　最后，我们使用PostMan体验完成的功能，请注意Body的填写使用JSON格式，并且类型选择JSON(application/json)：</p>
+<h3 id="请求秒杀">请求秒杀</h3>
+
+<p><img src="/assets/images/seckill-develop-course-part-I-request-seckill.png" alt="图4 请求秒杀" class="align-center" /></p>
+
+<h3 id="查询拥有的优惠券">查询拥有的优惠券</h3>
+
+<p><img src="/assets/images/seckill-develop-course-part-I-query-coupons.png" alt="图5 查询拥有的优惠券" class="align-center" /></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E7%A7%92%E6%9D%80" class="page__taxonomy-item" rel="tag">秒杀</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2017-09-13">2017年9月13日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=秒杀开发历程（一） /cn/docs/seckill-development-journey-part-I/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/seckill-development-journey-part-I/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/seckill-development-journey-part-I/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/seckill-development-journey-part-I/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/docs/seckill-development-journey-part-I/" class="pagination--pager" title="SecKill Development Journey (I)
+">向前</a>
+    
+    
+      <a href="/docs/seckill-development-journey-part-II/" class="pagination--pager" title="SecKill Develop Journey  (II)
+">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/ServiceComb/servicesomb.github.io/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="seckill-develop-course-part-I">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/jira_beginner_guide/" rel="permalink">老司机带你刷任务 - ServiceComb JIRA入门指南
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">ServiceComb JIRA入门指南
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/how-to-reform-a-legacy-system/" rel="permalink">最头疼的遗留系统该如何改造？
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/issues/new?title=Issue with _posts/cn/2017-08-26-seckill-develop-course-part-I.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/edit/master/_posts/cn/2017-08-26-seckill-develop-course-part-I.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">开发者</span></a> |
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">用户</span></a>
+        </li>
+        <li>
+            <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2017 Apache incubator ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

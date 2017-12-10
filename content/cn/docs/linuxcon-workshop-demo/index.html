@@ -1,0 +1,1528 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Linux Con Workshop Demo - Apache incubator ServiceComb</title>
+
+
+
+
+<meta name="description" content="A step by step guide on how to use ServiceComb to develop a complete project">
+
+
+
+
+<meta name="author" content="Sean Yin">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache incubator ServiceComb">
+<meta property="og:title" content="Linux Con Workshop Demo">
+
+
+  <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/cn/docs/linuxcon-workshop-demo/">
+  <meta property="og:url" content="http://github.com/pages/ServiceComb/servicesomb.github.io/cn/docs/linuxcon-workshop-demo/">
+
+
+
+  <meta property="og:description" content="A step by step guide on how to use ServiceComb to develop a complete project">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Linux Con Workshop Demo">
+  <meta name="twitter:description" content="A step by step guide on how to use ServiceComb to develop a complete project">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@seanyinx">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-06-15T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache incubator ServiceComb",
+      "url" : "http://github.com/pages/ServiceComb/servicesomb.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache incubator ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/js/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="//assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/linuxcon-workshop-demo/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Sean Yin</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        Nothing but speed is indestructible
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="http://seanyinx.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> 网站
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:seanyinx@gmail.com">
+            <meta itemprop="email" content="seanyinx@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/seanyinx" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Linux Con Workshop Demo">
+    <meta itemprop="description" content="A step by step guide on how to use ServiceComb to develop a complete project">
+    <meta itemprop="datePublished" content="June 15, 2017">
+    <meta itemprop="dateModified" content="June 15, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Linux Con Workshop Demo
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <p>为了读者能更容易了解ServiceComb微服务框架的功能以及如何用其快速开发微服务，所以提供大家耳熟能详的例子，降低学习曲线的同时，增加趣味性，加深理解。</p>
+
+<p>本文中假设我们成立了一家科研公司，处理复杂的数学运算，以及尖端生物科技研究，并为用户提供如下服务：</p>
+
+<ul>
+  <li>
+    <p>黄金分割数列计算</p>
+  </li>
+  <li>
+    <p>蜜蜂繁殖规律 (计算每只雄蜂/雌蜂的祖先数量)</p>
+  </li>
+</ul>
+
+<p>但是我们如何将公司的这些强大运算能力提供给我们的消费者呢？</p>
+
+<p>首先我们通过认证服务保障公司的计算资源没有被滥用， 同时我们对外提供Rest服务让用户来进行访问。 下面的视频展示具体的服务验证调用的情况。</p>
+
+<!-- Courtesy of embedresponsively.com //-->
+<div class="responsive-video-container">
+
+  <iframe src="https://player.youku.com/embed/XMjg1NzQ3NzUzNg" frameborder="0" allowfullscreen=""></iframe>
+
+</div>
+
+<aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#业务场景" id="markdown-toc-业务场景">业务场景</a></li>
+  <li><a href="#公司结构-系统架构" id="markdown-toc-公司结构-系统架构">公司结构 (系统架构)</a></li>
+  <li><a href="#技工-worker" id="markdown-toc-技工-worker">技工 (Worker)</a>    <ul>
+      <li><a href="#黄金分割运算服务" id="markdown-toc-黄金分割运算服务">黄金分割运算服务</a></li>
+      <li><a href="#技工服务端点" id="markdown-toc-技工服务端点">技工服务端点</a></li>
+    </ul>
+  </li>
+  <li><a href="#告示栏-bulletin-board" id="markdown-toc-告示栏-bulletin-board">告示栏 (Bulletin Board)</a></li>
+  <li><a href="#养蜂人-beekeeper" id="markdown-toc-养蜂人-beekeeper">养蜂人 (Beekeeper)</a>    <ul>
+      <li><a href="#蜜蜂繁殖规律研究服务" id="markdown-toc-蜜蜂繁殖规律研究服务">蜜蜂繁殖规律研究服务</a></li>
+      <li><a href="#养蜂人服务端点" id="markdown-toc-养蜂人服务端点">养蜂人服务端点</a></li>
+    </ul>
+  </li>
+  <li><a href="#门卫-doorman" id="markdown-toc-门卫-doorman">门卫 (Doorman)</a>    <ul>
+      <li><a href="#门卫认证服务" id="markdown-toc-门卫认证服务">门卫认证服务</a></li>
+      <li><a href="#门卫认证服务端点" id="markdown-toc-门卫认证服务端点">门卫认证服务端点</a></li>
+    </ul>
+  </li>
+  <li><a href="#经理-manager" id="markdown-toc-经理-manager">经理 (Manager)</a>    <ul>
+      <li><a href="#用户认证服务" id="markdown-toc-用户认证服务">用户认证服务</a></li>
+      <li><a href="#请求过滤" id="markdown-toc-请求过滤">请求过滤</a></li>
+    </ul>
+  </li>
+  <li><a href="#项目归档-project-archive" id="markdown-toc-项目归档-project-archive">项目归档 (Project Archive)</a></li>
+  <li><a href="#人力资源-human-resource" id="markdown-toc-人力资源-human-resource">人力资源 (Human Resource)</a></li>
+  <li><a href="#总结" id="markdown-toc-总结">总结</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="业务场景">业务场景</h2>
+<p>让我们先对业务场景进行总结分析</p>
+
+<ol>
+  <li>
+    <p>为了公司持续发展，我们需要对用户消费的运算能力收费，所以我们聘用了<strong>门卫</strong>认证用户，避免不法分子混入</p>
+  </li>
+  <li>
+    <p>为了提供足够的黄金分割数量运算能力，我们需要雇佣相应的<strong>技工</strong></p>
+  </li>
+  <li>
+    <p>为了持续研究蜜蜂繁殖规律，公司建立了自己的蜂场，需要相应的<strong>养蜂人</strong>进行管理研究</p>
+  </li>
+  <li>
+    <p>为了平衡<strong>技工</strong>、<strong>养蜂人</strong>、和<strong>门卫</strong>的工作量和时间，我们建立了<strong>告示栏</strong>机制，让当前有闲暇的人员发布自己的联系方式，以便我们能及时联系技能匹配的人员以服务到来的用户</p>
+  </li>
+  <li>
+    <p>因为运算能力成本高昂，我们将运算项目进行了<strong>归档</strong>，以便未来有相同请求时，我们能直接查询<strong>项目归档</strong>，节省公司运算成本</p>
+  </li>
+  <li>
+    <p>面对上述复杂的场景，我们又聘用了<strong>部门经理</strong>来管理公司成员和设施</p>
+  </li>
+  <li>
+    <p>最后，当公司日益壮大，用户数量暴涨时，我们还需要招聘更多<strong>技工</strong>、<strong>养蜂人</strong>、和<strong>门卫</strong>，所以增加了<strong>人力资源</strong>部门</p>
+  </li>
+</ol>
+
+<h2 id="公司结构-系统架构">公司结构 (系统架构)</h2>
+<p>到现在业务场景已经比较清晰，我们把上述职务部门和设施画成公司组织结构图。
+<img src="/assets/images/workshop-company-structure.png" alt="company structure" class="align-center" /></p>
+
+<p>现在公司组织结构已经完整，让我们着手搭建相应部门。</p>
+
+<h2 id="技工-worker">技工 (Worker)</h2>
+<p>因为技工最为简单，对其他部门人员依赖最少，我们首先搭建这个部门。</p>
+
+<h3 id="黄金分割运算服务">黄金分割运算服务</h3>
+<p>技工的主要工作时提供黄金分割数列计算服务，当用户需要知道第n个黄金分割数时，技工以最快的速度计算出数值并返回给用户。
+我们可以把这个工作简化为如下数学方程:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>value = fibo(n)
+</code></pre>
+</div>
+
+<p>在暂时不考虑性能的情况下，我们可以迅速实现黄金分割数列的计算。</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">FibonacciService</span> <span class="o">{</span>
+  <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@Service</span>
+<span class="kd">class</span> <span class="nc">FibonacciServiceImpl</span> <span class="kd">implements</span> <span class="n">FibonacciService</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="nf">term</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">term</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="技工服务端点">技工服务端点</h3>
+<p>黄金分割数量运算已经实现，现在我们需要将服务提供给用户，首先我们定义端点接口：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FibonacciEndpoint</span> <span class="o">{</span>
+  <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>引入 <code class="highlighter-rouge">ServiceComb</code> 依赖：</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+</code></pre>
+</div>
+
+<p>接下来我们同时暴露黄金分割运算服务的<strong>Restful</strong>和<strong>RPC</strong>端点：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRestEndpoint"</span><span class="o">)</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/fibonacci"</span><span class="o">)</span>
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciRestEndpoint</span> <span class="kd">implements</span> <span class="n">FibonacciEndpoint</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="n">FibonacciRestEndpoint</span><span class="o">(</span><span class="n">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">fibonacciService</span> <span class="o">=</span> <span class="n">fibonacciService</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/term"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+  <span class="nd">@ResponseBody</span>
+  <span class="kd">public</span> <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">fibonacciService</span><span class="o">.</span><span class="na">term</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRpcEndpoint"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciRpcEndpoint</span> <span class="kd">implements</span> <span class="n">FibonacciEndpoint</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">public</span> <span class="nf">FibonacciRpcEndpoint</span><span class="o">(</span><span class="n">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">fibonacciService</span> <span class="o">=</span> <span class="n">fibonacciService</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">fibonacciService</span><span class="o">.</span><span class="na">term</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>这里用 <code class="highlighter-rouge">@RestSchema</code> 和 <code class="highlighter-rouge">@RpcSchema</code> 注释两个端点后，<code class="highlighter-rouge">ServiceComb</code> 会自动生成对应的服务端点契约，根据如下
+<code class="highlighter-rouge">microsevice.yaml</code> 配置端点端口，并将契约和服务一起注册到<a href="https://github.com/ServiceComb/service-center">Service Center</a>：</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="c1"># all interconnected microservices must belong to an application wth the same ID</span>
+<span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
+<span class="s">service_description</span><span class="pi">:</span>
+<span class="c1"># name of the declaring microservice</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">worker</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="c1"># service center address</span>
+<span class="s">cse</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
+  <span class="s">highway</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre>
+</div>
+
+<p>最后，提供技工服务应用启动入口，并加上 <code class="highlighter-rouge">@EnableServiceComb</code> 注释启用 <code class="highlighter-rouge">ServiceComb</code> ：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableServiceComb</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkerApplication</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">WorkerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="告示栏-bulletin-board">告示栏 (Bulletin Board)</h2>
+<p><strong>告示栏</strong>提供为<strong>门卫</strong>、<strong>技工</strong>和<strong>养蜂人</strong>注册联系方式的设施，同时<strong>经理</strong>和<strong>养蜂人</strong>可通过此设施查询注册方的联系方式，以方便匹配能力的提供和消费。</p>
+
+<p><code class="highlighter-rouge">Service Center</code> 提供契约和服务注册、发现功能，而且校验服务提供方和消费方的契约是否匹配，我们可以<a href="https://github.com/ServiceComb/service-center/releases">下载</a>编译好的版本直接运行。</p>
+
+<h2 id="养蜂人-beekeeper">养蜂人 (Beekeeper)</h2>
+<p><strong>养蜂人</strong>研究蜜蜂繁殖规律，计算每只蜜蜂 (雄蜂/雌蜂) 的祖先数量。因为蜜蜂繁殖规律和黄金分割数列相关，所以<strong>养蜂人</strong>同时消费<strong>技工</strong>提供的计算服务。</p>
+
+<p><a href="http://www.dave-cushman.net/bee/fibonacci.html">研究</a>表明，雄蜂(Drone)由未受精卵孵化而生，只有母亲；而雌蜂(Queen)由受精卵孵化而生，既有母又有父。</p>
+
+<p class="figure-caption"><img src="/assets/images/fibonaccitree.gif" alt="fibonacci tree" />
+Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a></p>
+
+<p>参考上图，蜜蜂的某一代祖先数量符合黄金分割数列的模型，由此我们可以很快实现服务功能。</p>
+
+<h3 id="蜜蜂繁殖规律研究服务">蜜蜂繁殖规律研究服务</h3>
+<p>首先我们定义黄金数列运算接口：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FibonacciCalculator</span> <span class="o">{</span>
+
+  <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>接下来定义并实现蜜蜂繁殖规律研究服务:</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">BeekeeperService</span> <span class="o">{</span>
+  <span class="kt">long</span> <span class="nf">ancestorsOfDroneAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">generation</span><span class="o">);</span>
+
+  <span class="kt">long</span> <span class="nf">ancestorsOfQueenAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">generation</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">BeekeeperServiceImpl</span> <span class="kd">implements</span> <span class="n">BeekeeperService</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">FibonacciCalculator</span> <span class="n">fibonacciCalculator</span><span class="o">;</span>
+
+  <span class="n">BeekeeperServiceImpl</span><span class="o">(</span><span class="n">FibonacciCalculator</span> <span class="n">fibonacciCalculator</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">fibonacciCalculator</span> <span class="o">=</span> <span class="n">fibonacciCalculator</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">long</span> <span class="nf">ancestorsOfDroneAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">generation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">generation</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">fibonacciCalculator</span><span class="o">.</span><span class="na">term</span><span class="o">(</span><span class="n">generation</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">long</span> <span class="nf">ancestorsOfQueenAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">generation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">generation</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">fibonacciCalculator</span><span class="o">.</span><span class="na">term</span><span class="o">(</span><span class="n">generation</span> <span class="o">+</span> <span class="mi">2</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>这里我们用到之前定义的 <code class="highlighter-rouge">FibonacciCalculator</code> 接口，并希望通过这个接口远程调用<strong>技工</strong>服务端点。<code class="highlighter-rouge">@RpcReference</code>
+注释能帮助我们自动从<a href="https://github.com/ServiceComb/service-center">Service Center</a>中获取
+<code class="highlighter-rouge">microserviceName = "worker", schemaId = "fibonacciRpcEndpoint"</code> ， 即服务名为 <code class="highlighter-rouge">worker</code> 已经schema ID为
+<code class="highlighter-rouge">fibonacciRpcEndpoint</code>的端点：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<span class="kd">class</span> <span class="nc">BeekeeperConfig</span> <span class="o">{</span>
+
+  <span class="nd">@RpcReference</span><span class="o">(</span><span class="n">microserviceName</span> <span class="o">=</span> <span class="s">"worker"</span><span class="o">,</span> <span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRpcEndpoint"</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="n">FibonacciCalculator</span> <span class="n">fibonacciCalculator</span><span class="o">;</span>
+
+  <span class="nd">@Bean</span>
+  <span class="n">BeekeeperService</span> <span class="nf">beekeeperService</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">BeekeeperServiceImpl</span><span class="o">(</span><span class="n">fibonacciCalculator</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>我们在<strong>技工</strong>一节已定义好对应的服务名和schema ID端点，通过上面的配置，<code class="highlighter-rouge">ServiceComb</code> 会自动将远程<strong>技工</strong>服务
+实例和 <code class="highlighter-rouge">FibonacciCalculator</code> 绑定在一起。</p>
+
+<h3 id="养蜂人服务端点">养蜂人服务端点</h3>
+<p>与上一节<strong>技工</strong>服务相似，我们在这里也需要提供养蜂人服务端点，让用户可以进行调用：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"beekeeperRestEndpoint"</span><span class="o">)</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/rest"</span><span class="o">)</span>
+<span class="nd">@Controller</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeekeeperController</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">BeekeeperController</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">BeekeeperService</span> <span class="n">beekeeperService</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="n">BeekeeperController</span><span class="o">(</span><span class="n">BeekeeperService</span> <span class="n">beekeeperService</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">beekeeperService</span> <span class="o">=</span> <span class="n">beekeeperService</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/drone/ancestors/{generation}"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">GET</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">APPLICATION_JSON_UTF8_VALUE</span><span class="o">)</span>
+  <span class="nd">@ResponseBody</span>
+  <span class="kd">public</span> <span class="n">Ancestor</span> <span class="nf">ancestorsOfDrone</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">generation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span>
+        <span class="s">"Received request to find the number of ancestors of drone at generation {}"</span><span class="o">,</span>
+        <span class="n">generation</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Ancestor</span><span class="o">(</span><span class="n">beekeeperService</span><span class="o">.</span><span class="na">ancestorsOfDroneAt</span><span class="o">(</span><span class="n">generation</span><span class="o">));</span>
+  <span class="o">}</span>
+
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/queen/ancestors/{generation}"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">GET</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">APPLICATION_JSON_UTF8_VALUE</span><span class="o">)</span>
+  <span class="nd">@ResponseBody</span>
+  <span class="kd">public</span> <span class="n">Ancestor</span> <span class="nf">ancestorsOfQueen</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">generation</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span>
+        <span class="s">"Received request to find the number of ancestors of queen at generation {}"</span><span class="o">,</span>
+        <span class="n">generation</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">Ancestor</span><span class="o">(</span><span class="n">beekeeperService</span><span class="o">.</span><span class="na">ancestorsOfQueenAt</span><span class="o">(</span><span class="n">generation</span><span class="o">));</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Ancestor</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kt">long</span> <span class="n">ancestors</span><span class="o">;</span>
+
+  <span class="n">Ancestor</span><span class="o">()</span> <span class="o">{</span>
+  <span class="o">}</span>
+
+  <span class="n">Ancestor</span><span class="o">(</span><span class="kt">long</span> <span class="n">ancestors</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">ancestors</span> <span class="o">=</span> <span class="n">ancestors</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getAncestors</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">ancestors</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>因为<strong>养蜂人</strong>需要消费<strong>技工</strong>提供的服务，所以其 <code class="highlighter-rouge">microservice.yaml</code> 配置稍有不同：</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="c1"># all interconnected microservices must belong to an application wth the same ID</span>
+<span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
+<span class="s">service_description</span><span class="pi">:</span>
+<span class="c1"># name of the declaring microservice</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">beekeeper</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="s">cse</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8090</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Consumer</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-consumer,loadbalance</span>
+  <span class="s">references</span><span class="pi">:</span>
+<span class="c1">#  this one below must refer to the microservice name it communicates with</span>
+    <span class="s">worker</span><span class="pi">:</span>
+      <span class="s">version-rule</span><span class="pi">:</span> <span class="s">0.0.1</span>
+</code></pre>
+</div>
+
+<p>这里我们需要定义 <code class="highlighter-rouge">cse.references.worker.version-rule</code> ，让配置名称中指向<strong>技工</strong>服务名 <code class="highlighter-rouge">worker</code> ，并匹配其版本号。</p>
+
+<p>最后定义养蜂人服务应用入口：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableServiceComb</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeekeeperApplication</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">BeekeeperApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="门卫-doorman">门卫 (Doorman)</h2>
+<p><strong>门卫</strong>为公司提供安全保障，屏蔽非合法用户，防止其骗取免费服务，甚至伤害<strong>技工</strong>和<strong>养蜂人</strong>。</p>
+
+<h3 id="门卫认证服务">门卫认证服务</h3>
+<p>认证功能我们采用<a href="https://jwt.io/introduction/">JSON Web Token (JWT)</a>的机制，具体实现超出了这篇文章的范围，
+细节大家可以查看github上<a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">workshop</a>的 <code class="highlighter-rouge">doorman</code> 模块代码。</p>
+
+<p>认证服务的接口如下，<code class="highlighter-rouge">authenticate</code> 方法根据用户名和密码查询确认用户存在，并返回对应JWT token。用户登录后的每次
+请求都需要带上返回的JWT token，而 <code class="highlighter-rouge">validate</code> 方法将验证token以确认其有效。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="nf">authenticate</span><span class="o">(</span><span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">);</span>
+
+  <span class="n">String</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="门卫认证服务端点">门卫认证服务端点</h3>
+
+<p>与前两节的Rest服务端点相似，我们加上 <code class="highlighter-rouge">@RestSchema</code> 注释，以便 <code class="highlighter-rouge">ServiceComb</code> 自动配置端点、生成契约并注册服务。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"authenticationRestEndpoint"</span><span class="o">)</span>
+<span class="nd">@Controller</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/rest"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationController</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">AuthenticationController</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+  <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">USERNAME</span> <span class="o">=</span> <span class="s">"username"</span><span class="o">;</span>
+  <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PASSWORD</span> <span class="o">=</span> <span class="s">"password"</span><span class="o">;</span>
+  <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TOKEN</span> <span class="o">=</span> <span class="s">"token"</span><span class="o">;</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="n">AuthenticationController</span><span class="o">(</span><span class="n">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">authenticationService</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/login"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">POST</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">TEXT_PLAIN_VALUE</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">login</span><span class="o">(</span>
+      <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">USERNAME</span><span class="o">)</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
+      <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">PASSWORD</span><span class="o">)</span> <span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received login request from user {}"</span><span class="o">,</span> <span class="n">username</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">.</span><span class="na">authenticate</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+    <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpHeaders</span><span class="o">();</span>
+    <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">AUTHORIZATION</span><span class="o">,</span> <span class="n">TOKEN_PREFIX</span> <span class="o">+</span> <span class="n">token</span><span class="o">);</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Authenticated user {} successfully"</span><span class="o">,</span> <span class="n">username</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="s">"Welcome, "</span> <span class="o">+</span> <span class="n">username</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="n">OK</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/validate"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">POST</span><span class="o">,</span> <span class="n">consumes</span> <span class="o">=</span> <span class="n">APPLICATION_JSON_UTF8_VALUE</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">TEXT_PLAIN_VALUE</span><span class="o">)</span>
+  <span class="nd">@ResponseBody</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">validate</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">Token</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received validation request of token {}"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">authenticationService</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">token</span><span class="o">.</span><span class="na">getToken</span><span class="o">());</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Token</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="n">token</span><span class="o">;</span>
+
+  <span class="n">Token</span><span class="o">()</span> <span class="o">{</span>
+  <span class="o">}</span>
+
+  <span class="n">Token</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">token</span> <span class="o">=</span> <span class="n">token</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getToken</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">"Token{"</span> <span class="o">+</span>
+        <span class="s">"token='"</span> <span class="o">+</span> <span class="n">token</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
+        <span class="sc">'}'</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>同样，我们需要提供服务应用启动入口以及 <code class="highlighter-rouge">microservice.yaml</code>：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableServiceComb</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DoormanApplication</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">DoormanApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="c1"># all interconnected microservices must belong to an application wth the same ID</span>
+<span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
+<span class="s">service_description</span><span class="pi">:</span>
+<span class="c1"># name of the declaring microservice</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">doorman</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="s">cse</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:9090</span>
+</code></pre>
+</div>
+
+<h2 id="经理-manager">经理 (Manager)</h2>
+<p>为了管理所有人员和设施，<strong>经理</strong>作为用户唯一接口人，主要功能有：</p>
+
+<ul>
+  <li>
+    <p>联系<strong>门卫</strong>认证用户，保护<strong>技工</strong>和<strong>养蜂人</strong>，以免非法用户骗取服务并逃避服务费用</p>
+  </li>
+  <li>
+    <p>联系能力相符的<strong>技工</strong>和<strong>养蜂人</strong>，平衡工作量，避免单个人员工作超载</p>
+  </li>
+  <li>
+    <p>管理<strong>项目归档</strong>，避免重复工作，保证公司收益最大化</p>
+  </li>
+</ul>
+
+<p>由于<strong>经理</strong>责任重大，我们选取了业界有名的<a href="https://github.com/Netflix/zuul">Netflix Zuul</a>作为候选人并加以培训，
+提升其能力，以保证其能胜任该职位。</p>
+
+<p>首先我们引入依赖：</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-discovery<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="用户认证服务">用户认证服务</h3>
+<p>当用户发送非登录请求时，我们首先需要验证用户合法，在如下服务中，我们通过<strong>告示栏</strong>获取<strong>门卫</strong>联系方式，
+然后发送用户token给<strong>门卫</strong>进行认证。</p>
+
+<p><code class="highlighter-rouge">ServiceComb</code> 提供了相应 <code class="highlighter-rouge">RestTemplate</code> 实现查询<a href="https://github.com/ServiceComb/service-center">Service Center</a>
+中的服务注册信息，只需在地址中以如下格式包含被调用的服务名</p>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code>cse://doorman/path/to/rest/endpoint
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">ServiceComb</code> 将自动查询对应服务并发送请求到地址中的服务端点。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">AuthenticationService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DOORMAN_ADDRESS</span> <span class="o">=</span> <span class="s">"cse://doorman"</span><span class="o">;</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">;</span>
+
+  <span class="n">AuthenticationService</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">restTemplate</span> <span class="o">=</span> <span class="n">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+
+    <span class="k">this</span><span class="o">.</span><span class="na">restTemplate</span><span class="o">.</span><span class="na">setErrorHandler</span><span class="o">(</span><span class="k">new</span> <span class="n">ResponseErrorHandler</span><span class="o">()</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasError</span><span class="o">(</span><span class="n">ClientHttpResponse</span> <span class="n">clientHttpResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+      <span class="o">}</span>
+
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleError</span><span class="o">(</span><span class="n">ClientHttpResponse</span> <span class="n">clientHttpResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+      <span class="o">}</span>
+    <span class="o">});</span>
+  <span class="o">}</span>
+
+  <span class="nd">@HystrixCommand</span><span class="o">(</span><span class="n">fallbackMethod</span> <span class="o">=</span> <span class="s">"timeout"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Validating token {}"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
+    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span>
+        <span class="n">DOORMAN_ADDRESS</span> <span class="o">+</span> <span class="s">"/rest/validate"</span><span class="o">,</span>
+        <span class="n">validationRequest</span><span class="o">(</span><span class="n">token</span><span class="o">),</span>
+        <span class="n">String</span><span class="o">.</span><span class="na">class</span>
+    <span class="o">);</span>
+
+    <span class="k">if</span> <span class="o">(!</span><span class="n">responseEntity</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">().</span><span class="na">is2xxSuccessful</span><span class="o">())</span> <span class="o">{</span>
+      <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"No such user found with token {}"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Validated request of token {} to be user {}"</span><span class="o">,</span> <span class="n">token</span><span class="o">,</span> <span class="n">responseEntity</span><span class="o">.</span><span class="na">getBody</span><span class="o">());</span>
+    <span class="k">return</span> <span class="n">responseEntity</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">timeout</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"Request to validate token {} timed out"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="n">REQUEST_TIMEOUT</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="n">HttpEntity</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">&gt;</span> <span class="nf">validationRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpHeaders</span><span class="o">();</span>
+    <span class="n">headers</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_UTF8</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="k">new</span> <span class="n">HttpEntity</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="n">Token</span><span class="o">(</span><span class="n">token</span><span class="o">),</span> <span class="n">headers</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="请求过滤">请求过滤</h3>
+<p>接下来我们提供 <code class="highlighter-rouge">ZuulFilter</code> 实现过滤用户请求，调用 <code class="highlighter-rouge">authenticationService.validate(token)</code> 认证用户token。
+若用户合法则路由用户请求到对应服务，否则返回 <code class="highlighter-rouge">403 forbidden</code>。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Component</span>
+<span class="kd">class</span> <span class="nc">AuthenticationAwareFilter</span> <span class="kd">extends</span> <span class="n">ZuulFilter</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">AuthenticationAwareFilter</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">LOGIN_PATH</span> <span class="o">=</span> <span class="s">"/login"</span><span class="o">;</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">PathExtractor</span> <span class="n">pathExtractor</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="n">AuthenticationAwareFilter</span><span class="o">(</span>
+      <span class="n">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">,</span>
+      <span class="n">PathExtractor</span> <span class="n">pathExtractor</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">this</span><span class="o">.</span><span class="na">authenticationService</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">;</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">pathExtractor</span> <span class="o">=</span> <span class="n">pathExtractor</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">filterType</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">"pre"</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">filterOrder</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">shouldFilter</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">pathExtractor</span><span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="n">RequestContext</span><span class="o">.</span><span class="na">getCurrentContext</span><span class="o">());</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received request with query path: {}"</span><span class="o">,</span> <span class="n">path</span><span class="o">);</span>
+    <span class="k">return</span> <span class="o">!</span><span class="n">path</span><span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="n">LOGIN_PATH</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">Object</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">filter</span><span class="o">();</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">filter</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">RequestContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">RequestContext</span><span class="o">.</span><span class="na">getCurrentContext</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">doesNotContainToken</span><span class="o">(</span><span class="n">context</span><span class="o">))</span> <span class="o">{</span>
+      <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"No token found in request header"</span><span class="o">);</span>
+      <span class="n">rejectRequest</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+      <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+      <span class="k">if</span> <span class="o">(!</span><span class="n">responseEntity</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">().</span><span class="na">is2xxSuccessful</span><span class="o">())</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"Unauthorized token {} and request rejected"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
+        <span class="n">rejectRequest</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Token {} validated"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">rejectRequest</span><span class="o">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">setResponseStatusCode</span><span class="o">(</span><span class="n">SC_FORBIDDEN</span><span class="o">);</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">setSendZuulResponse</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">doesNotContainToken</span><span class="o">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">authorizationHeader</span><span class="o">(</span><span class="n">context</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span>
+        <span class="o">||</span> <span class="o">!</span><span class="n">authorizationHeader</span><span class="o">(</span><span class="n">context</span><span class="o">).</span><span class="na">startsWith</span><span class="o">(</span><span class="n">TOKEN_PREFIX</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="n">String</span> <span class="nf">token</span><span class="o">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">authorizationHeader</span><span class="o">(</span><span class="n">context</span><span class="o">).</span><span class="na">replace</span><span class="o">(</span><span class="n">TOKEN_PREFIX</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="n">String</span> <span class="nf">authorizationHeader</span><span class="o">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">getHeader</span><span class="o">(</span><span class="n">AUTHORIZATION</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>最后提供服务应用入口：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableCircuitBreaker</span>
+<span class="nd">@EnableZuulProxy</span>
+<span class="nd">@EnableDiscoveryClient</span>
+<span class="nd">@EnableServiceComb</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ManagerApplication</span> <span class="o">{</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ManagerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">application.yaml</code> 中定义路由规则：</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">zuul</span><span class="pi">:</span>
+  <span class="s">routes</span><span class="pi">:</span>
+    <span class="s">doorman</span><span class="pi">:</span>
+      <span class="s">serviceId</span><span class="pi">:</span> <span class="s">doorman</span>
+      <span class="s">sensitiveHeaders</span><span class="pi">:</span>
+    <span class="s">worker</span><span class="pi">:</span>
+      <span class="s">serviceId</span><span class="pi">:</span> <span class="s">worker</span>
+    <span class="s">beekeeper</span><span class="pi">:</span>
+      <span class="s">serviceId</span><span class="pi">:</span> <span class="s">beekeeper</span>
+
+<span class="c1"># disable netflix eurkea since it's not used for service discovery</span>
+<span class="s">ribbon</span><span class="pi">:</span>
+  <span class="s">eureka</span><span class="pi">:</span>
+    <span class="s">enabled</span><span class="pi">:</span> <span class="s">false</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">microservice.yaml</code> 中定义服务中心地址：</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
+<span class="s">service_description</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">manager</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="s">cse</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
+</code></pre>
+</div>
+
+<h2 id="项目归档-project-archive">项目归档 (Project Archive)</h2>
+<p><strong>经理</strong>在每次用户请求后将项目进行归档，如果将来有内容相同的请求到达，<strong>经理</strong>可以就近获取结果，不必再购买
+<strong>技工</strong>和<strong>养蜂人</strong>提供的计算服务，节省公司开支。</p>
+
+<p>对于归档功能的实现，我们采用了<strong>Spring Cache Abstraction</strong>，具体细节超出了这篇文章的范围，大家如果有兴趣可以
+查看github上<a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">workshop</a>的 <code class="highlighter-rouge">manager</code> 模块代码。</p>
+
+<h2 id="人力资源-human-resource">人力资源 (Human Resource)</h2>
+<p><strong>人力资源</strong>从运维层面保证服务的可靠性，主要功能有</p>
+
+<ul>
+  <li>
+    <p>弹性伸缩，以保证用户请求量超过<strong>技工</strong>或<strong>养蜂人</strong>处理能力后，招聘更多<strong>技工</strong>或<strong>养蜂人</strong>加入项目；当请求量回落后，裁剪<strong>技工</strong>或<strong>养蜂人</strong>以节省公司开支</p>
+  </li>
+  <li>
+    <p>健康检查，以保证<strong>技工</strong>或<strong>养蜂人</strong>告病时，能有替补接手任务</p>
+  </li>
+  <li>
+    <p>滚动升级，以保证项目需要新技能时，能替换、培训<strong>技工</strong>或<strong>养蜂人</strong>，不中断接收用户请求</p>
+  </li>
+</ul>
+
+<p><strong>人力资源</strong>的功能需要云平台提供支持，在后续的文章中会跟大家介绍，我们如何在华为云上轻松实现这些功能。</p>
+
+<h2 id="总结">总结</h2>
+<p>在这篇文章中，我们用一个公司的组织结构作为例子，给大家介绍了微服务的完整架构，以及如何使用微服务框架 <code class="highlighter-rouge">ServiceComb</code>
+快速开发微服务，以及服务间互通、契约认证。</p>
+
+<p><a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">Workshop demo</a>项目也包含大量完整易懂的测试
+代码，以及使用docker集成微服务，模拟生存环境，同时应用<a href="https://travis-ci.org/">Travis</a>搭建持续集成环境，体现
+DevOps在微服务开发中的实践。希望能对大家有所帮助。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E7%A4%BA%E4%BE%8B" class="page__taxonomy-item" rel="tag">示例</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2017-06-15">2017年6月15日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Linux Con Workshop Demo /cn/docs/linuxcon-workshop-demo/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/linuxcon-workshop-demo/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/linuxcon-workshop-demo/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/linuxcon-workshop-demo/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/docs/linuxcon-workshop-demo/" class="pagination--pager" title="Linux Con Workshop Demo
+">向前</a>
+    
+    
+      <a href="/docs/go-to-cloud/" class="pagination--pager" title="单体应用利用ServiceComb实现微服务化和云化之路
+">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/ServiceComb/servicesomb.github.io/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="linuxcon-workshop-demo">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/jira_beginner_guide/" rel="permalink">老司机带你刷任务 - ServiceComb JIRA入门指南
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">ServiceComb JIRA入门指南
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/how-to-reform-a-legacy-system/" rel="permalink">最头疼的遗留系统该如何改造？
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/issues/new?title=Issue with _posts/cn/2017-06-15-linuxcon-workshop-demo.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/edit/master/_posts/cn/2017-06-15-linuxcon-workshop-demo.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">开发者</span></a> |
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">用户</span></a>
+        </li>
+        <li>
+            <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2017 Apache incubator ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

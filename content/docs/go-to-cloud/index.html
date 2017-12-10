@@ -1,0 +1,936 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>单体应用利用ServiceComb实现微服务化和云化之路 - Apache incubator ServiceComb</title>
+
+
+
+
+<meta name="description" content="该文档演示：从已有基于spring boot的单体应用利用ServiceComb实现微服务化和云化之路">
+
+
+
+
+<meta name="author" content="Tank Tian">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache incubator ServiceComb">
+<meta property="og:title" content="单体应用利用ServiceComb实现微服务化和云化之路">
+
+
+  <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/docs/go-to-cloud/">
+  <meta property="og:url" content="http://github.com/pages/ServiceComb/servicesomb.github.io/docs/go-to-cloud/">
+
+
+
+  <meta property="og:description" content="该文档演示：从已有基于spring boot的单体应用利用ServiceComb实现微服务化和云化之路">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="单体应用利用ServiceComb实现微服务化和云化之路">
+  <meta name="twitter:description" content="该文档演示：从已有基于spring boot的单体应用利用ServiceComb实现微服务化和云化之路">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-06-24T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache incubator ServiceComb",
+      "url" : "http://github.com/pages/ServiceComb/servicesomb.github.io",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache incubator ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/js/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/css/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="//assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/go-to-cloud/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Tank Tian</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+        How lucky we are. To be free.
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="https://tanktian.github.io/" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:chd.tianming@gmail.com">
+            <meta itemprop="email" content="chd.tianming@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="单体应用利用ServiceComb实现微服务化和云化之路">
+    <meta itemprop="description" content="该文档演示：从已有基于spring boot的单体应用利用ServiceComb实现微服务化和云化之路">
+    <meta itemprop="datePublished" content="June 24, 2017">
+    <meta itemprop="dateModified" content="June 24, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">单体应用利用ServiceComb实现微服务化和云化之路
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <h2 id="背景">背景</h2>
+
+<ol>
+  <li>
+    <p>Service Stage：微服务云应用平台，它是面向企业及开发者的一站式DevOps平台服务，支持基于微服务的应用开发、治理、部署及运维监控的全生命周期管理，并提供大规模容器集群管理及中间件服务等平台能力，帮助用户快速构建云分布式应用。</p>
+  </li>
+  <li>
+    <p>本指导以Acmeair demo为例，演示如何使用ServiceComb (华为微服务框架开源版本)实现应用的微服务化，并利用Service Stage云平台上实现应用的云化。</p>
+  </li>
+</ol>
+
+<h2 id="服务化和云化步骤">服务化和云化步骤</h2>
+
+<ul>
+  <li>
+    <p>环境准备：基于Service Stage完成创建集群、添加节点等资源准备工作</p>
+  </li>
+  <li>
+    <p>微服务开发</p>
+
+    <ol>
+      <li>
+        <p>微服务的拆分设计</p>
+      </li>
+      <li>
+        <p>基于ServiceComb框架快速微服务化</p>
+      </li>
+      <li>
+        <p>制作镜像上传Service Stage软件仓库；</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>应用上线：通过Service Stage从软件仓库获取版本实现部署上线；</p>
+  </li>
+  <li>
+    <p>应用运维：通过Service Stage对微服务或应用进行生命周期管理（部署-启动-上线-升级-扩容-停止-下线-删除）、告警、监控、调用链分析和治理等。</p>
+  </li>
+</ul>
+
+<h2 id="环境准备创建集群添加节点完成节点自动纳管">环境准备：创建集群、添加节点，完成节点自动纳管</h2>
+<h3 id="创建集群">创建集群</h3>
+<p>请参考<a href="http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053496188.html">创建集群详细指导</a><br />
+<img src="/assets/images/create-group.png" alt="create group" class="align-center" /></p>
+
+<h3 id="添加节点">添加节点</h3>
+<p>请参考<a href="http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053443149.html">为集群添加节点详细指导</a> <br />
+<img src="/assets/images/add-node.png" alt="add node" class="align-center" /></p>
+
+<h2 id="微服务开发">微服务开发</h2>
+<h3 id="应用架构设计划分微服务识别服务依赖关系">应用架构设计，划分微服务，识别服务依赖关系</h3>
+<p><img src="/assets/images/micro-service-design.png" alt="micro service design" class="align-center" /></p>
+
+<h3 id="创建微服务-单体应用微服务应用">创建微服务: 单体应用—&gt;微服务应用</h3>
+<p><img src="/assets/images/micro-service-structure.PNG" alt="micro service structure" class="align-center" /></p>
+
+<h3 id="简单4步servicecomb帮你完成微服务化改造">简单4步ServiceComb帮你完成微服务化改造</h3>
+<p>备注：改造完成的Acmeair Demo如何本地运行，如何本地查看运行效果？ 请参考下文“Acmeair本地运行”章节。</p>
+<h4 id="step-1-pom引入对servicecomb和service-stage的依赖">Step 1: POM引入对ServiceComb和Service Stage的依赖</h4>
+<p>对ServiceComb的依赖：
+<img src="/assets/images/pom-dependence.png" alt="pom dependence" class="align-center" /></p>
+
+<p>对Service Stage的依赖： <br />
+<img src="/assets/images/huaweicloud_dependencies.png" alt="huaweicloud dependencies" class="align-center" /></p>
+
+<h4 id="step-2-增加微服务描述文件和spring配置文件">Step 2 增加微服务描述文件和spring配置文件</h4>
+<p><img src="/assets/images/config-file.png" alt="config file" class="align-center" /></p>
+
+<h4 id="step-3-引入servicecomb注解一行代码完成服务发布">Step 3: 引入ServiceComb注解一行代码完成服务发布</h4>
+<p><img src="/assets/images/code-adjust.png" alt="code adjust" class="align-center" /></p>
+
+<h4 id="step-4-使用servicecomb接口简单创建resttemplate完成服务消费也支持注解方式进行消费">Step 4: 使用ServiceComb接口简单创建RestTemplate完成服务消费（也支持注解方式进行消费）</h4>
+<p><img src="/assets/images/service-consumer.png" alt="service consumer" class="align-center" /></p>
+
+<h3 id="制作镜像上传到云镜像中心">制作镜像上传到云镜像中心</h3>
+<p>请参考<a href="http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0055101643.html">上传镜像详细指导</a><br />
+<img src="/assets/images/image-upload-1.png" alt="image upload 1" class="align-center" /><br />
+<img src="/assets/images/image-upload-2.png" alt="image upload 2" class="align-center" /></p>
+
+<h2 id="应用上线利用应用管理实现部署上线">应用上线：利用应用管理实现部署上线</h2>
+<p>请参考<a href="http://support.hwclouds.com/usermanual-servicestage/user_deployService.html">部署微服务详细指导</a> <br />
+<img src="/assets/images/service-deploy.png" alt="service deploy" class="align-center" /></p>
+
+<h2 id="应用运维保障应用平稳运行">应用运维：保障应用平稳运行</h2>
+<h3 id="微服务调用链分析">微服务调用链分析</h3>
+<p>请参考<a href="http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053555508.html">应用调用分析详细指导</a><br />
+ <img src="/assets/images/service-monitor-1.png" alt="service monitor 1" class="align-center" /></p>
+
+<h3 id="微服务状态监控">微服务状态监控</h3>
+<p>请参考<a href="http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053555506.html">应用监控详细指导</a><br />
+<img src="/assets/images/service-monitor-2.png" alt="service monitor 2" class="align-center" /></p>
+
+<h3 id="按需弹性伸缩">按需弹性伸缩</h3>
+<p>请参考<a href="http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0054051691.html">弹性伸缩详细指导</a><br />
+<img src="/assets/images/scaling.png" alt="scaling" class="align-center" /></p>
+
+<h3 id="微服务可视化治理">微服务可视化治理</h3>
+<p>请参考<a href="http://support.hwclouds.com/usermanual-servicestage/zh-cn_topic_0053560172.html">微服务管理详细指导</a><br />
+<img src="/assets/images/governance.png" alt="governance" class="align-center" /></p>
+
+<h1 id="acmeair本地运行">Acmeair本地运行</h1>
+<p>本章节介绍在windows 64位环境下如何本地运行Acmeair</p>
+
+<h2 id="环境准备">环境准备</h2>
+
+<ul>
+  <li>
+    <p>JDK 1.8</p>
+  </li>
+  <li>
+    <p>maven 3.x</p>
+  </li>
+  <li>
+    <p>eclipse</p>
+  </li>
+  <li>
+    <p>service-center</p>
+  </li>
+</ul>
+
+<p>  下载<a href="https://github.com/ServiceComb/service-center/releases">service-center-x.x.x-x-windows-amd64.zip</a>解压到任意目录</p>
+
+<ul>
+  <li>
+    <p>mongodb（可选）</p>
+  </li>
+  <li>
+    <p>下载<a href="https://github.com/TankTian/acmeair/archive/master.zip">acmeair源码</a></p>
+  </li>
+</ul>
+
+<h2 id="导入项目并构建">导入项目并构建</h2>
+<h3 id="将acmeair项目导入eclipse">将acmeair项目导入eclipse</h3>
+<p>Import - - Maven:Existing Maven Projects，选择代码所在的目录，点击finish完成导入  <br />
+<img src="/assets/images/import-project.png" alt="import project" class="align-center" /></p>
+
+<h3 id="修改微服务描述文件">修改微服务描述文件</h3>
+
+<ol>
+  <li>
+    <p>acmeair-booking-service\src\main\resources\microservice.yaml<br />
+<img src="/assets/images/booking-microservice-yaml.png" alt="booking microservice yaml" class="align-center" /></p>
+  </li>
+  <li>
+    <p>acmeair-customer-service\src\main\resources\microservice.yaml <br />
+<img src="/assets/images/customer-microservice-yaml.png" alt="customer microservice yaml" class="align-center" /></p>
+  </li>
+  <li>
+    <p>acmeair-website\src\main\resources\microservice.yaml<br />
+<img src="/assets/images/website-microservice-yaml.png" alt="website microservice yaml" class="align-center" /></p>
+  </li>
+</ol>
+
+<h3 id="执行-mvn-install-结果-build-success-项目完成构建">执行 mvn install 结果 BUILD SUCCESS ，项目完成构建</h3>
+<p><img src="/assets/images/compile.png" alt="compile" class="align-center" /></p>
+
+<h2 id="启动服务">启动服务</h2>
+<h3 id="service-center">service-center</h3>
+<p>找到service-center-0.1.0-m1-windows-amd64解压目录，双击start.bat<br />
+<img src="/assets/images/servcie-center.png" alt="servcie center" class="align-center" /> <br />
+<img src="/assets/images/service-center-start-success.png" alt="service center start success" class="align-center" /></p>
+
+<h3 id="acmeair-booking">acmeair-booking</h3>
+<p>AcmeairApplication:Run As - - Run Configurations…<br />
+<img src="/assets/images/start-booking.png" alt="start booking" class="align-center" />  <br />
+watching microservice 2 successfully，服务注册成功<br />
+<img src="/assets/images/booking-start-success.png" alt="booking start success" class="align-center" /></p>
+
+<h3 id="acmeair-customer">acmeair-customer</h3>
+<p>CustomerServiceApplication:Run As - - Run Configurations…<br />
+<img src="/assets/images/start-customer.png" alt="start customer" class="align-center" /> <br />
+watching microservice 4 successfully，服务注册成功<br />
+<img src="/assets/images/customer-start-success.png" alt="customer start success" class="align-center" /></p>
+
+<h3 id="acmeair-website">acmeair-website</h3>
+<p>将acmeair-website\target\ROOT.war复制到tomcat webapps文件夹下，启动tomcat<br />
+<img src="/assets/images/start-website.png" alt="start website" class="align-center" /></p>
+
+<h2 id="前台访问">前台访问</h2>
+<p>输入http://localhost:8080<br />
+<img src="/assets/images/home-page.png" alt="home page" class="align-center" /></p>
+
+<p>点击网页最下端Acme航空配置<br />
+<img src="/assets/images/init-data.png" alt="init data" class="align-center" /></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#huawei-cloud" class="page__taxonomy-item" rel="tag">Huawei Cloud</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-06-24">June 24, 2017</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=单体应用利用ServiceComb实现微服务化和云化之路 /docs/go-to-cloud/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/go-to-cloud/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/docs/go-to-cloud/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/go-to-cloud/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/linuxcon-workshop-demo/" class="pagination--pager" title="Linux Con Workshop Demo
+">Previous</a>
+    
+    
+      <a href="/cn/docs/go-to-cloud/" class="pagination--pager" title="单体应用利用ServiceComb实现微服务化和云化之路
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">Leave a Comment</h4>
+        <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/ServiceComb/servicesomb.github.io/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">Comment <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">Name <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">Email address <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">Website (optional)</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="go-to-cloud">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">Submit Comment</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/jira_beginner_guide/" rel="permalink">老司机带你刷任务 - ServiceComb JIRA入门指南
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">ServiceComb JIRA入门指南
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/service-center-ui/" rel="permalink">Service-Center Management UI Console
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">An introduction Service-Center Management Console
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/how-to-reform-a-legacy-system/" rel="permalink">最头疼的遗留系统该如何改造？
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/issues/new?title=Issue with _posts/2017-06-24-go-to-cloud.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/ServiceComb/ServiceComb.github.io/edit/master/_posts/2017-06-24-go-to-cloud.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">Dev</span></a> |
+            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">User</span></a>
+        </li>
+        <li>
+            <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2017 Apache incubator ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('Submitted');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('Submit Comment');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>
