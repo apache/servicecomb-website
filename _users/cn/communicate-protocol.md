@@ -30,7 +30,7 @@ ServiceComb实现了两种网络通道，包括REST和Highway，均支持TLS加�
 
 ### 完整线程
 
-ServicecComb微服务的完整线程模型如下图所示：
+ServiceComb微服务的完整线程模型如下图所示：
 
 ![](/assets/images/thread-model.png)
 

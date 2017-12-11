@@ -17,7 +17,7 @@ redirect_from:
 
 ### 配置说明
 
-　　负载均衡策略在mocroservice.yaml文件中配置，配置项为`cse.loadbalance.[MicroServiceName].[property name]`，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。
+　　负载均衡策略在microservice.yaml文件中配置，配置项为`cse.loadbalance.[MicroServiceName].[property name]`，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。
 
 　　**表1 配置项说明**
 

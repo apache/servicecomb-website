@@ -139,7 +139,7 @@ redirect_from:
    }
    ```
 
-* **步骤 7** 启动xxxServer，该服务便可注册到ServieComb的Service Center。
+* **步骤 7** 启动xxxServer，该服务便可注册到ServiceComb的Service Center。
 
 
 ## 在ServiceComb框架中集成Spring Boot框架

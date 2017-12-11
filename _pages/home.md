@@ -33,7 +33,7 @@ feature_row:
     alt: "Standard"
     title: "Service Contract"
     url: /users/service-contract/
-    excerpt: "service contract gurantee based on [OpenAPI](https://www.openapis.org)"
+    excerpt: "service contract guarantee based on [OpenAPI](https://www.openapis.org)"
   - image_path: /assets/images/servicecomb-feature-quickstart.png
     alt: "Efficient"
     title: "Rapid Development"
