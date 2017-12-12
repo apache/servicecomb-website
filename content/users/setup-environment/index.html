@@ -595,40 +595,42 @@
   <li>
     <p>以可执行文件的方式运行</p>
 
-    <details open="">
-   <summary>Windows运行步骤</summary>
-   <div>
+    <ul class="nav nav-tabs">
+  <li data-toggle="tab" class="active"><a data-toggle="tab" href="#windows">Windows</a></li>
+  <li data-toggle="tab"><a data-toggle="tab" href="#linux">Linux</a></li>
+</ul>
+
+    <div class="tab-content">
+  <div id="windows" class="tab-pane active">
         <ol>
-          <li>下载<a href="https://github.com/ServiceComb/service-center/releases/download/0.1.1/service-center-0.1.1-windows-amd64.zip">服务注册中心可执行文件压缩包</a></li>
+          <li>下载<a href="https://github.com/ServiceComb/service-center/releases/download/0.5.0/service-center-0.5.0-windows-amd64.zip">服务注册中心可执行文件压缩包</a></li>
           <li>解压缩到当前文件夹</li>
           <li>进入解压缩后的目录，然后双击运行<strong>start</strong>文件</li>
         </ol>
       </div>
- </details>
-    <details open="">
-   <summary>Linux运行步骤</summary>
-   <div>
+  <div id="linux" class="tab-pane fade">
         <ol>
           <li>下载服务注册中心可执行文件压缩包并解压缩
-            <div class="language-bash highlighter-rouge"><pre class="highlight"><code>wget https://github.com/ServiceComb/service-center/releases/download/0.1.1/service-center-0.1.1-linux-amd64.tar.gz
-tar xvf service-center-0.1.1-linux-amd64.tar.gz
+            <div class="language-bash highlighter-rouge"><pre class="highlight"><code>wget https://github.com/ServiceComb/service-center/releases/download/0.5.0/service-center-0.5.0-linux-amd64.tar.gz
+tar xvf service-center-0.5.0-linux-amd64.tar.gz
 </code></pre>
             </div>
           </li>
           <li>运行服务注册中心
-            <div class="language-bash highlighter-rouge"><pre class="highlight"><code>bash service-center-0.1.1-linux-amd64/start.sh
+            <div class="language-bash highlighter-rouge"><pre class="highlight"><code>bash service-center-0.5.0-linux-amd64/start.sh
 </code></pre>
             </div>
           </li>
         </ol>
       </div>
- </details>
+</div>
 
     <p class="notice--warning">注意：Window和Linux版本均只支持64位系统。</p>
   </li>
+  <li>
+    <p>以Docker的方式运行</p>
+  </li>
 </ol>
-
-<p>2.以Docker的方式运行</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker pull servicecomb/service-center
 docker run -d -p 30100:30100 servicecomb/service-center:latest

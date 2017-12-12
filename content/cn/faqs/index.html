@@ -499,7 +499,7 @@
          <span class="s">200</span><span class="pi">:</span>
            <span class="s">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">response</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">200"</span>
            <span class="s">schema</span><span class="pi">:</span>
-             <span class="s">$ref</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#/definitions/ReponseImpl"</span>
+             <span class="s">$ref</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#/definitions/ResponseImpl"</span>
 </code></pre>
     </div>
 
@@ -524,7 +524,7 @@
          <span class="s">200</span><span class="pi">:</span>
            <span class="s">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">response</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">200"</span>
            <span class="s">schema</span><span class="pi">:</span>
-             <span class="s">$ref</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#/definitions/ReponseImpl"</span>
+             <span class="s">$ref</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#/definitions/ResponseImpl"</span>
 </code></pre>
     </div>
   </li>
@@ -774,7 +774,7 @@
   <li>
     <p><strong>Q: Transport是个什么概念？用来干什么的？</strong></p>
 
-    <p>A: transport负责编解码，以及传输。通信模型有rest和highway两种，highway对应的是私有协议，使用protobuf编码，rest用的是json。hightway和rest都是基于vertx做的，vertx是基于netty的。</p>
+    <p>A: transport负责编解码，以及传输。通信模型有rest和highway两种，highway对应的是私有协议，使用protobuf编码，rest用的是json。highway和rest都是基于vertx做的，vertx是基于netty的。</p>
   </li>
   <li>
     <p><strong>Q: 框架中引入了vertx会有什么好处？</strong></p>
@@ -874,6 +874,11 @@
 <span class="o">}</span>
 </code></pre>
     </div>
+  </li>
+  <li>
+    <p><strong>Q: 微服务运行时抛出异常：<code class="highlighter-rouge"> java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty</code>？</strong></p>
+
+    <p>A: 可将Service Center升级至0.4.0+版本来解决，<a href="https://github.com/ServiceComb/service-center/releases">Service Center最新版本传送门</a>。</p>
   </li>
 </ul>
 
