@@ -117,7 +117,7 @@ Import - - Maven:Existing Maven Projects，选择代码所在的目录，点击f
 该缺少的jar包为商业版本特性，请联系华为公有云 Service Stage 团队获取（此jar上云必选，否则无法使用Service Stage service centerc/config center/调用链等特性；本地调试时huawei商业版本的几个包依赖可以去掉，可以实现本地的服务发现和注册）。  
 如果需要将jar包复制到maven本地仓库中，具体包列表如下：  
 ![jar-list]({{ site.url }}{{ site.baseurl }}/assets/images/jar-list.png){: .align-center}  
-eclispe中更新工程：Maven - - Update Project…
+eclipse中更新工程：Maven - - Update Project…
 
 ###	修改微服务描述文件
 

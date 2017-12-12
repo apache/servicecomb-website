@@ -186,7 +186,7 @@ redirect_from:
            200:
              description: "response of 200"
              schema:
-               $ref: "#/definitions/ReponseImpl"
+               $ref: "#/definitions/ResponseImpl"
    ```
    
    如果客户端没有放置swagger，还会报告如下异常：
@@ -211,7 +211,7 @@ redirect_from:
            200:
              description: "response of 200"
              schema:
-               $ref: "#/definitions/ReponseImpl"
+               $ref: "#/definitions/ResponseImpl"
    ```
 
 * **Q: ServiceComb微服务框架服务调用是否使用长连接?**
@@ -437,7 +437,7 @@ redirect_from:
 
 * **Q: Transport是个什么概念？用来干什么的？**
 
-   A: transport负责编解码，以及传输。通信模型有rest和highway两种，highway对应的是私有协议，使用protobuf编码，rest用的是json。hightway和rest都是基于vertx做的，vertx是基于netty的。
+   A: transport负责编解码，以及传输。通信模型有rest和highway两种，highway对应的是私有协议，使用protobuf编码，rest用的是json。highway和rest都是基于vertx做的，vertx是基于netty的。
 
 * **Q: 框架中引入了vertx会有什么好处？**
 

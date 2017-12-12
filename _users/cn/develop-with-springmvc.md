@@ -82,7 +82,7 @@ ServiceComb支持SpringMVC注解，允许使用SpringMVC风格开发微服务。
           xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
    
-       <context:component-scan base-package="io.servicecomb.samples.springmvc.povider"/>
+       <context:component-scan base-package="io.servicecomb.samples.springmvc.provider"/>
    </beans>
    ```
 

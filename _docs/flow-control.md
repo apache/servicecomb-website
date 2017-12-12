@@ -8,7 +8,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 ---
 
 {% include toc %}
-Flow control machanism controls the transmission speed to avoid microservices being overloaded. This guide shows how to use flow control with **ServiceComb** in the BMI application. 
+Flow control mechanism controls the transmission speed to avoid microservices being overloaded. This guide shows how to use flow control with **ServiceComb** in the BMI application. 
 
 ## Before you start
 

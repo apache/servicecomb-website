@@ -55,7 +55,7 @@ ssl.[tag].[property]
 | ssl.protocols | TLSv1.2 | - | 否 | 协议列表 | 使用逗号分隔 |
 | ssl.ciphers | TLS\_ECDHE\_RSA\_WITH\_AES\_256\_GCM\_SHA384,<br/>TLS\_RSA\_WITH\_AES\_256\_GCM\_SHA384,<br/>TLS\_ECDHE\_RSA\_WITH\_AES\_128\_GCM\_SHA256,<br/>TLS\_RSA\_WITH\_AES\_128\_GCM\_SHA256 | - | 否 | 算法列表 | 使用逗号分隔 |
 | ssl.authPeer | true | - | 否 | 是否认证对端 | - |
-| ssl.checkCN.host | true | - | 否 | 是否对证书的CN进行检查 | 该配置项只对Consumer端，并且使用http协议有效，即Consumser端使用rest通道有效。对于Provider端、highway通道等无效。检查CN的目的是防止服务器被钓鱼，参考标准定义：[https://tools.ietf.org/html/rfc2818。](https://tools.ietf.org/html/rfc2818。) |
+| ssl.checkCN.host | true | - | 否 | 是否对证书的CN进行检查 | 该配置项只对Consumer端，并且使用http协议有效，即Consumer端使用rest通道有效。对于Provider端、highway通道等无效。检查CN的目的是防止服务器被钓鱼，参考标准定义：[https://tools.ietf.org/html/rfc2818。](https://tools.ietf.org/html/rfc2818。) |
 | ssl.trustStore | trust.jks | - | 否 | 信任证书文件 | - |
 | ssl.trustStoreType | JKS | - | 否 | 信任证书类型 | - |
 | ssl.trustStoreValue | - | - | 否 | 信任证书密码 | - |
