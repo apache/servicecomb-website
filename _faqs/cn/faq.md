@@ -522,3 +522,7 @@ redirect_from:
     }
   }
   ```
+  
+* **Q: 微服务运行时抛出异常：` java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty`？**
+
+   A: 可将Service Center升级至0.4.0+版本来解决，[Service Center最新版本传送门](https://github.com/ServiceComb/service-center/releases)。
