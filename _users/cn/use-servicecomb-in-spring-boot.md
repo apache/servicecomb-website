@@ -65,7 +65,7 @@ redirect_from:
      <artifactId>spring-boot-starter-discovery</artifactId>
    </dependency>
    <dependency>
-     <!--让服务运行于Spring boot embeded tomat中-->
+     <!--让服务运行于Spring boot embedded tomcat中-->
      <group>io.servicecomb</group>
      <artifactId>spring-boot-starter-transport</artifactId>
    </dependency>
