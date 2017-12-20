@@ -142,5 +142,5 @@ It is all of the demonstrate  above, anyway, Martin Fowler wrote in the [March 2
 
 Mr. Wang Lei, the forerunner of domestic practice micro-service, also held a comprehensive discussion in the book "Micro Service Architecture and Practice".      
 
-Company based on ServiceComb, with micor-service properties, so we can doing  fine-grained control to the single-load serivce Company-manager, to achieve the purpose of on-demand, this will greatly helpful to accurately and effectively solve the application bottlenecks, improve the efficiency of resource use.
+Company based on ServiceComb, with micro-service properties, so we can doing  fine-grained control to the single-load service Company-manager, to achieve the purpose of on-demand, this will greatly helpful to accurately and effectively solve the application bottlenecks, improve the efficiency of resource use.
 

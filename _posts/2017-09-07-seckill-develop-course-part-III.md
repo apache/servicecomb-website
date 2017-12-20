@@ -31,9 +31,9 @@ redirect_from:
 ## Improvement Implement
 ### Database Separation
 #### WriteDB
-  Admin micro-serivce maintain Promotion entity;
+  Admin micro-service maintain Promotion entity;
 
-  Command micro-serivce wirte PromotionEvent Value-Object,when recovery Promotion,Relapy PromotionEvent.
+  Command micro-service write PromotionEvent Value-Object,when recovery Promotion,Relapy PromotionEvent.
 #### ReadDB
   Event micro-service write ActivePromotion Value-Object and Coupon Value-Object;
 

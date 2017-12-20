@@ -18,6 +18,29 @@ The workflow of BMI application have been introduced in [Quick start](/docs/quic
 
 - **Web service**：provides both user interface and gateway service.
 
+Before we start, we need to add some common dependencies in the parent project of the services'.
+```java
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.servicecomb</groupId>
+        <artifactId>java-chassis-dependencies</artifactId>
+        <version>0.5.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
+  </dependencies>
+```
+**Notice**: The `java-chassis-dependencies` is imported as pom to unify version management of dependencies.
+
 Now we will introduce the detailed implementation of these two microservices. The full code is on [github](https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi).
 ### Implementation of calculator
 The calculator service provides capability of calculating BMI. It contains three parts:

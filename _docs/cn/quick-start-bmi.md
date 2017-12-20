@@ -18,6 +18,29 @@ last_modified_at: 2017-09-04T10:01:43-04:00
 
 * **体质指数界面**：提供用户界面及网关服务。
 
+在开始前，需要先在服务的父工程中添加以下依赖项：
+```java
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.servicecomb</groupId>
+        <artifactId>java-chassis-dependencies</artifactId>
+        <version>0.5.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+    </dependency>
+  </dependencies>
+```
+**注意**: `java-chassis-dependencies` 这个依赖是以pom的形式导入来统一项目中的依赖项的版本管理。
+
 下面将对这两个微服务的实现进行介绍，其代码已托管于[github](https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi)上。
 ### 体质指数计算器实现
 体质指数计算器提供运算服务，其实现分为三部分：

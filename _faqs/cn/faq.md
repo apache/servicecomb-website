@@ -169,7 +169,7 @@ redirect_from:
            200:
              description: "response of 200"
              schema:
-               $ref: "#/definitions/ReponseImpl"
+               $ref: "#/definitions/ResponseImpl"
    ```
    
    采用上面方式定义接口。在服务注册以后，从服务中心查询下来的接口type: string 丢失，变成了：
