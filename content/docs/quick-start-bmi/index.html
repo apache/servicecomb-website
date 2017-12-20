@@ -384,6 +384,29 @@
   </li>
 </ul>
 
+<p>Before we start, we need to add some common dependencies in the parent project of the services’.</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="o">&lt;</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">io</span><span class="o">.</span><span class="na">servicecomb</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">java</span><span class="o">-</span><span class="n">chassis</span><span class="o">-</span><span class="n">dependencies</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">0.5</span><span class="o">.</span><span class="mi">0</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="n">pom</span><span class="o">&lt;/</span><span class="n">type</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">scope</span><span class="o">&gt;</span><span class="kn">import</span><span class="err">&lt;/</span><span class="nn">scope</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">dependencies</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
+
+  <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">hibernate</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hibernate</span><span class="o">-</span><span class="n">validator</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">dependencies</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+<p><strong>Notice</strong>: The <code class="highlighter-rouge">java-chassis-dependencies</code> is imported as pom to unify version management of dependencies.</p>
+
 <p>Now we will introduce the detailed implementation of these two microservices. The full code is on <a href="https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi">github</a>.</p>
 <h3 id="implementation-of-calculator">Implementation of calculator</h3>
 <p>The calculator service provides capability of calculating BMI. It contains three parts:</p>
@@ -631,8 +654,7 @@
       <ul class="social-icons">
         <p class="header">Community</p>
         <li>
-            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">Dev</span></a> |
-            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">User</span></a>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
         </li>
         <li>
             <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>

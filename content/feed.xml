@@ -1,4 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-12-12T16:43:37+08:00</updated><id>/</id><title type="html">Apache incubator ServiceComb</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;servicecomb-developers@googlegroups.com&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>servicecomb-developers@googlegroups.com</email></author><entry xml:lang="cn"><title type="html">老司机带你刷任务 - ServiceComb JIRA入门指南</title><link href="/cn/docs/jira_beginner_guide/" rel="alternate" type="text/html" title="老司机带你刷任务 - ServiceComb JIRA入门指南" /><published>2017-11-16T00:00:00+08:00</published><updated>2017-11-16T11:43:00+08:00</updated><id>/cn/docs/jira-beginner-guide</id><content type="html" xml:base="/cn/docs/jira_beginner_guide/">&lt;p&gt;想参与社区贡献，却感觉老虎咬天，无从下口？不用担心，老司机带你一起刷新手任务！&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2017-12-20T11:50:19+08:00</updated><id>/</id><title type="html">Apache incubator ServiceComb</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;servicecomb-developers@googlegroups.com&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>servicecomb-developers@googlegroups.com</email></author><entry xml:lang="en"><title type="html">Proposal for refactoring service registry module in Java Chassis</title><link href="/docs/service-registry-refactor-proposal/" rel="alternate" type="text/html" title="Proposal for refactoring service registry module in Java Chassis" /><published>2017-12-19T00:00:00+08:00</published><updated>2017-12-19T09:18:43+08:00</updated><id>/docs/service-registry-refactor-proposal</id><content type="html" xml:base="/docs/service-registry-refactor-proposal/">&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;The architecture of the &lt;code class=&quot;highlighter-rouge&quot;&gt;service registry&lt;/code&gt; module in Java Chassis is as follows.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/service_registry.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;However, it has the following problems:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Low level components access high level components frequently. The cyclic relationships make the implementation complicated and introduce some redundant access points.&lt;/li&gt;
+  &lt;li&gt;Low level components should be stateless to be reused by high level components. Introducing state into low level components makes it relies heavily on the high level components, causing cyclic relationships.&lt;/li&gt;
+  &lt;li&gt;Hard to integrate with third-party framework. It does not provide a standalone client with cache capability inside. It also requires the configurations should be loaded from dynamic properties.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;proposed-architecture&quot;&gt;Proposed Architecture&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/proposed_architecture.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The above architecture is what the &lt;code class=&quot;highlighter-rouge&quot;&gt;service registry&lt;/code&gt; module supposed to be in my opinion. The low level components like &lt;code class=&quot;highlighter-rouge&quot;&gt;ApiManager&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;UriManager&lt;/code&gt; are stateless so they do not rely on high level components any more. Relationships between components are clear and simple.&lt;/p&gt;
+
+&lt;p&gt;Tasks can be divided into the following parts:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/task.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There are two types of tasks:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Simple Task. Task that executes only once.&lt;/li&gt;
+  &lt;li&gt;Period Task. Task that executes at every interval.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The result of task will convert to event and posts to the &lt;code class=&quot;highlighter-rouge&quot;&gt;EventManager&lt;/code&gt;. Any methods that subscribes that kind of event will be notified and execute the corresponding response, e.g. update the cache.&lt;/p&gt;
+
+&lt;p&gt;Both the outside requests and chassis requests share the same interface of Configuration, they can implement their own way to load configurations. The difference between chassis requests and outside requests is that chassis requests need to manage microservice informations of their own. Besides,  chassis requests also need to provide a compatible interface for requests to use. There comes  to the component &lt;code class=&quot;highlighter-rouge&quot;&gt;RegistryUtils&lt;/code&gt;. It is responsible for the following stuff:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Initialize service registry client with configurations.&lt;/li&gt;
+  &lt;li&gt;Initialization of service center service, attach with a PullTask.&lt;/li&gt;
+  &lt;li&gt;Initialization of service itself, attach with RegisterTask, HeartbeatTask and WatchTask.&lt;/li&gt;
+  &lt;li&gt;Provide wrapper method for service registry client.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The initialization process of service registry client is as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/client_initialization.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If the auto discovery switch is on, it need to create a period task &lt;code class=&quot;highlighter-rouge&quot;&gt;PullTask&lt;/code&gt; to make the available service center services’ information up to date.&lt;/p&gt;
+
+&lt;p&gt;Any requests to a new microservice will create a new entry in the service registry client. Once we access the same microservice again, the client will response with the cached version which reduces communication cost with service center.&lt;/p&gt;
+
+&lt;p&gt;Let’s checkout how the &lt;code class=&quot;highlighter-rouge&quot;&gt;Microservice&lt;/code&gt; component works. Instances and its versions are cached inside the microservice. To get an instance of a specified id, all it needs to do is lookup the cache or create a query task to update the cache. All interactions from &lt;code class=&quot;highlighter-rouge&quot;&gt;Microservice&lt;/code&gt; to  &lt;code class=&quot;highlighter-rouge&quot;&gt;ApiManager&lt;/code&gt; are done by the &lt;code class=&quot;highlighter-rouge&quot;&gt;Task&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;ApiManager&lt;/code&gt; is designed to interact directly with service center as a pure client with api inside only. Its structure is as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/api_manager.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>Eric Lee</name><email>eric.lee.ltk@gmail.com</email><uri>https://eric-lee-ltk.github.io</uri></author><category term="refactor" /><summary type="html">Analysis of service registry and propose a new architecture for it</summary></entry><entry xml:lang="cn"><title type="html">老司机带你刷任务 - ServiceComb JIRA入门指南</title><link href="/cn/docs/jira_beginner_guide/" rel="alternate" type="text/html" title="老司机带你刷任务 - ServiceComb JIRA入门指南" /><published>2017-11-16T00:00:00+08:00</published><updated>2017-11-16T11:43:00+08:00</updated><id>/cn/docs/jira-beginner-guide</id><content type="html" xml:base="/cn/docs/jira_beginner_guide/">&lt;p&gt;想参与社区贡献，却感觉老虎咬天，无从下口？不用担心，老司机带你一起刷新手任务！&lt;/p&gt;
 
 &lt;p&gt;ServiceComb的所有任务托管在&lt;a href=&quot;https://servicecomb.atlassian.net&quot;&gt;ServiceComb JIRA&lt;/a&gt;上，
 首先你需要&lt;a href=&quot;https://id.atlassian.com/signup?continue=https%3A%2F%2Fservicecomb.atlassian.net%2Flogin%3FredirectCount%3D1&quot;&gt;注册&lt;/a&gt;一个免费JIRA账户。&lt;/p&gt;
@@ -1347,130 +1401,4 @@ there are a few requirements on design of microservices to ensure saga consisten
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf&quot;&gt;Original Paper on Sagas&lt;/a&gt; by By Hector Garcia-Molina &amp;amp; Kenneth Salem&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Sean Yin</name><email>seanyinx@gmail.com</email><uri>http://seanyinx.github.io</uri></author><category term="saga" /><summary type="html">The design of distributed saga in ServiceComb</summary></entry><entry xml:lang="cn"><title type="html">使用JMeter对秒杀示例进行性能测试</title><link href="/cn/docs/performance-test-on-seckill-with-jmeter/" rel="alternate" type="text/html" title="使用JMeter对秒杀示例进行性能测试" /><published>2017-09-15T00:00:00+08:00</published><updated>2017-09-15T09:00:00+08:00</updated><id>/cn/docs/performance-test-on-seckill-with-jmeter</id><content type="html" xml:base="/cn/docs/performance-test-on-seckill-with-jmeter/">&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
-&lt;p&gt;　　&lt;a href=&quot;https://github.com/ServiceComb/seckill&quot;&gt;秒杀&lt;/a&gt;是我们ServiceComb开源团队以领域驱动设计（&lt;a href=&quot;https://en.wikipedia.org/wiki/Domain-driven_design&quot;&gt;DDD&lt;/a&gt;）为背景，从零开始构建一个微服务架构的示例项目；在《秒杀开发历程》系列博文中提到它作为一个高并发压力场景的应用，采用了&lt;a href=&quot;https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs&quot;&gt;CQRS&lt;/a&gt;模式构建，因此我们将使用&lt;a href=&quot;http://jmeter.apache.org/&quot;&gt;JMeter&lt;/a&gt;来对其进行性能评估。&lt;/p&gt;
-
-&lt;h2 id=&quot;制定用户行为模型&quot;&gt;制定用户行为模型&lt;/h2&gt;
-&lt;p&gt;　　因为秒杀的场景在现实生活中非常常见，所以用户行为模型非常容易设计：&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;客户不停的刷秒杀活动，直到刷出一个正在进行的秒杀活动；&lt;/li&gt;
-  &lt;li&gt;刷出了秒杀活动后，马上请求秒杀优惠券；&lt;/li&gt;
-  &lt;li&gt;无论是否成功，客户会稍后查询一次自己已经拥有的优惠券确定优惠券是否进入自己的账号。&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;　　我们还需要一个管理员用户，隔一段时间就创建发布秒杀活动，当然活动包含的优惠券数量将会远少于客户的数量。
-　　
-　　用户行为模型在JMeter中体现为脚本逻辑，完成的脚本逻辑如下：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/performance-test-on-seckill-with-jmeter-script.png&quot; alt=&quot;图1 脚本模型&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;　　脚本文件已经托管至秒杀项目中，可直接获取：&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/ServiceComb/seckill
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;seckill/performance-test/script
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;性能测试环境&quot;&gt;性能测试环境&lt;/h2&gt;
-&lt;p&gt;　　我们调来了两台云服务器进行性能测试，角色和配置如下：&lt;/p&gt;
-&lt;h3 id=&quot;秒杀服务器配置&quot;&gt;秒杀服务器配置&lt;/h3&gt;
-&lt;p&gt;　　承载秒杀示例所有的微服务和中间件，包括四个微服务（Admin、Command、Event和Query）、两个数据库（ReadDB和WriteDB）和一个Message Broker（ActiveMQ）。&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th&gt;配置项&lt;/th&gt;
-      &lt;th&gt;配置值&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td&gt;CPU&lt;/td&gt;
-      &lt;td&gt;Intel Xeon E5-2690 3.0GHz * 16&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;MEM&lt;/td&gt;
-      &lt;td&gt;64GB&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td&gt;OS&lt;/td&gt;
-      &lt;td&gt;Ubuntu 16.04.2 LTS&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;　　为了能够便于配置和启动示例系统，我们采用《秒杀开发历程（三）》中的一键启动模式拉起所有的服务，因此Docker升级为当前最新版17.06.2-ce，能够支持配置Container使用CPU和内存的大小限制，以Admin微服务为例：
-　　&lt;/p&gt;
-&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;s&quot;&gt;admin-service&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;mem_limit&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;4096m&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;cpu_count&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;4&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;cpu_percent&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;50&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;image&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;seckill-admin-service:0.2.0-SNAPSHOT&quot;&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;admin-service&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;links&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;mysql-write-db:write_db.servicecomb.io&quot;&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;environment&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;JAVA_OPTS=-Dspring.profiles.active=prd -Dendpoints.shutdown.enabled=true&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;ports&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
-      &lt;span class=&quot;pi&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;8081:8081&quot;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h3 id=&quot;加压机配置&quot;&gt;加压机配置&lt;/h3&gt;
-&lt;p&gt;　　加压机与秒杀服务器处于同一网络环境中，配置如下：
-　　
-| 配置项  | 配置值                            |
-| —- | —————————— |
-| CPU  | Intel Xeon E5-2690 3.0GHz * 16 |
-| MEM  | 32GB                           |
-| OS   | Ubuntu 16.04.2 LTS             |&lt;/p&gt;
-
-&lt;h2 id=&quot;启动测试&quot;&gt;启动测试&lt;/h2&gt;
-&lt;p&gt;　　我们设定测试场景为200客户，每隔1秒启动一个新客户；1个管理员每隔10秒发布1个秒杀活动，一共发布160次，每个秒杀活动包含50张优惠券，即一共投放8000张优惠券。整个测试持续半个小时。
-　　
-　　现在，我们切换到性能测试脚本目录下，执行下面的命令启动测试：
-　　&lt;/p&gt;
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jmeter -n -t seckill.jmx -l log.jtl
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;h2 id=&quot;测试结果&quot;&gt;测试结果&lt;/h2&gt;
-&lt;p&gt;　　测试完毕后通过下面的命令分析测试结果日志数据，请将&lt;report folder=&quot;&quot;&gt;替换为你的本地目录：&lt;/report&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jmeter -g log.jtl -o &amp;lt;report folder&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;　　我们需要先验证测试结果的正确性，查看数据统计图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/performance-test-on-seckill-with-jmeter-statistics.png&quot; alt=&quot;图2 事务统计&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;　　其中秒杀的失败率在96.45%，原因是Query对于活动的秒杀活动采用的是0.5秒刷新缓存的策略，在活动中的优惠券被秒杀一空下架前，短暂的时间内仍然能够查询到这个活动；架构中采用的&lt;a href=&quot;https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs&quot;&gt;CQRS&lt;/a&gt;模式只能保证最终一致性，并不能保证实时一致性。
-　　
-　　成功秒杀的次数为225264 - 217264 = 8000，正好等于我们设定的优惠券投放量，其他事务的失败率均为0%，因此测试结果正确。&lt;/p&gt;
-
-&lt;h3 id=&quot;吞吐能力&quot;&gt;吞吐能力&lt;/h3&gt;
-&lt;p&gt;　　秒杀整体吞吐能力如下图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/performance-test-on-seckill-with-jmeter-tps-all.png&quot; alt=&quot;图3 整体吞吐能力&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;　　可以看到查询活跃的秒杀活动（刷券）事务处理量最高，稳定在4000左右，其他因为业务比例的原因较低，去掉查询活跃的秒杀活动事务后如下图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/performance-test-on-seckill-with-jmeter-tps-less.png&quot; alt=&quot;图4 秒杀和优惠券查询&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;　　秒杀和优惠券查询之间的差值是由于存在秒杀失败造成的，我们的用户行为模型是无论秒杀成功与否都会进行一次优惠券查询。&lt;/p&gt;
-
-&lt;h3 id=&quot;响应时间&quot;&gt;响应时间&lt;/h3&gt;
-&lt;p&gt;　　事务的响应时间我们可以看下面两个图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/performance-test-on-seckill-with-jmeter-latencies.png&quot; alt=&quot;图5 响应时间&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/performance-test-on-seckill-with-jmeter-time-percentiles.png&quot; alt=&quot;图6 响应时间分布&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;　　75%的事务处理时间都在10ms以下，整体平均响应时间处于50ms以下。&lt;/p&gt;
-
-&lt;h2 id=&quot;瓶颈分析&quot;&gt;瓶颈分析&lt;/h2&gt;
-&lt;p&gt;　　依据执行过程中对于测试资源的观察，加压机CPU使用率基本已满（200线程并发），服务器CPU使用率低于20%，其他资源使用率很低。&lt;/p&gt;
-
-&lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
-&lt;p&gt;　　通过这次性能测试，我们得知秒杀示例在使用一台普通服务器配置能够达到总体5000以上的TPS还能够保持较低的资源使用率，表现出良好的性能；未来我们会将秒杀示例部署在K8S群集中并配置弹性伸缩进行压力测试，您可以阅读我们&lt;a href=&quot;http://servicecomb.io/cn/docs/stress-test-on-company-with-jmeter-in-k8s/&quot;&gt;《在Kubernetes集群中使用JMeter对Company示例进行压力测试》&lt;/a&gt;这篇文章展望。&lt;/p&gt;</content><author><name>Yangyong Zheng</name><email>yangyong.zheng@huawei.com</email><uri>https://zhengyangyong.github.io</uri></author><category term="seckill" /><category term="压力测试" /><summary type="html">介绍如何使用JMeter进行性能测试以及获取秒杀示例的性能基线</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>Sean Yin</name><email>seanyinx@gmail.com</email><uri>http://seanyinx.github.io</uri></author><category term="saga" /><summary type="html">The design of distributed saga in ServiceComb</summary></entry></feed>

@@ -385,6 +385,29 @@
   </li>
 </ul>
 
+<p>在开始前，需要先在服务的父工程中添加以下依赖项：</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="o">&lt;</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">io</span><span class="o">.</span><span class="na">servicecomb</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">java</span><span class="o">-</span><span class="n">chassis</span><span class="o">-</span><span class="n">dependencies</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">0.5</span><span class="o">.</span><span class="mi">0</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="n">pom</span><span class="o">&lt;/</span><span class="n">type</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">scope</span><span class="o">&gt;</span><span class="kn">import</span><span class="err">&lt;/</span><span class="nn">scope</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">dependencies</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
+
+  <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">hibernate</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hibernate</span><span class="o">-</span><span class="n">validator</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">dependencies</span><span class="o">&gt;</span>
+</code></pre>
+</div>
+<p><strong>注意</strong>: <code class="highlighter-rouge">java-chassis-dependencies</code> 这个依赖是以pom的形式导入来统一项目中的依赖项的版本管理。</p>
+
 <p>下面将对这两个微服务的实现进行介绍，其代码已托管于<a href="https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi">github</a>上。</p>
 <h3 id="体质指数计算器实现">体质指数计算器实现</h3>
 <p>体质指数计算器提供运算服务，其实现分为三部分：</p>
@@ -634,8 +657,7 @@
       <ul class="social-icons">
         <p class="header">社区</p>
         <li>
-            <a href="https://groups.google.com/forum/#!forum/servicecomb-developers" target="_blank"><span class="group">开发者</span></a> |
-            <a href="https://groups.google.com/forum/#!forum/servicecomb-users" target="_blank">用户</span></a>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
         </li>
         <li>
             <a href="http://github.com/ServiceComb" target="_blank"><span class="github">Github</span></a>
