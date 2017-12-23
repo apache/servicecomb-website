@@ -1,31 +1,29 @@
 ---
-title: "服务心跳"
+title: "Service Heartbeat"
 lang: en
 ref: service-heartbeat
 permalink: /users/service-heartbeat/
-excerpt: "服务心跳"
+excerpt: "Service Heartbeat"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
 
 {% include toc %}
-## 场景描述
+## Scenario
 
-当微服务实例注册到服务中心后，微服务需要定时向服务中心发送心跳。若服务中心在一定时间内没有收到心跳信息，则会注销此实例。
+After a microservice instance is registered in the service center, the microservice need to periodically send heartbeats to the service center. If the service center receives no heartbeat within a specific period, the instance will be registered.
 
-## 涉及API
+## Involved APIs
 
-* `io.servicecomb.serviceregistry.client.ServiceRegistryClient`：服务中心客户端
+* `io.servicecomb.serviceregistry.client.ServiceRegistryClient` is the service client.
 
-## 配置说明
-
-`ServiceRegistryClient`提供了发送心跳的方法`heartbeat`，用户直接调用即可，示例代码如下：
+`ServiceRegistryClient` provides heartbeat to send heartbeats. You can call it as required. The sample code is as follows:
 
 ```java
 public static void main(String[] args) throws Exception {
-  // 首先需要注册微服务和实例
-  // 发送心跳，不然实例会消失
+  // Register the microservice and the instance first
+  // Send the heartbeats. Otherwise, the instances will be lost.
   while (true) {
     System.out.println("heartbeat sended:" + client.heartbeat(service2.getServiceId(), instance.getInstanceId()));
     Thread.sleep(3000);

@@ -1,55 +1,55 @@
 ---
-title: "服务定义"
+title: "Service Definition"
 lang: en
 ref: service-definition
 permalink: /users/service-definition/
-excerpt: "服务定义"
+excerpt: "Service Definition"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
 
 {% include toc %}
-## 概念阐述
+## Concept Description
 
-服务定义信息是微服务的身份标识，它定义了服务从属于哪个应用，以及名字和版本。服务定义信息中也可以有扩展信息，用于定义服务的属性元数据。
+A service definition identifies a microservice. It defines the service name, version, and the application that the service belongs to. The service definition can also contain extended information defining the attribute metadata of a service.
 
-## 场景描述
+## Scenario
 
-当用户定义新的微服务或修改微服务的基本信息时，会涉及到服务定义信息的创建和修改操作。
+To define a new microservice or modify its basic information, you may need to create and modify service definitions.
 
-## 配置说明
+## Configuration
 
-介绍涉及microservice.yaml文件的以下配置项，文件在项目中的存放路径为src/main/resources/microservice.yaml。
+This section describe the following configration items related to the microservice.yaml file in the src\main\resources\ directory.
 
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| APPLICATION\_ID | - | - | 是 | 应用名 | - |
-| service\_description.name | - | - | 是 | 微服务名 | 应确保app内部唯一。微服务名支持数字、大小写字母和"-"、"\_"、"."三个特殊字符，但是不能以特殊字符作为首尾字符，命名规范为：^\[a-zA-Z0-9\]+$\|^\[a-zA-Z0-9\]\[a-zA-Z0-9\_-.\]\*\[a-zA-Z0-9\]$。 |
-| service\_description.version | - | - | 是 | 微服务版本号 | - |
-| service\_description.properties | - | - | 否 | 微服务元数据配置（通过microservice.yaml文件进行配置） | - |
-| service\_description.propertyExtendedClass | - | - | 否 | 微服务元数据配置（通过实现接口PropertyExtended进行配置） | 接口返回的配置会覆盖配置文件中key相同的配置。 |
-| instance\_description.properties | - | - | 否 | 服务实例元数据配置（通过microservice.yaml文件进行配置） |  |
-| instance\_description.propertyExtendedClass | - | - | 否 | 微服务元数据配置（通过实现接口PropertyExtended进行配置） | 同service\_description.propertyExtendedClass |
+| Configuration on Item                    | Default | Range | Mandatory | Description                              | Remarks                                  |
+| :--------------------------------------- | :------ | :---- | :-------- | :--------------------------------------- | :--------------------------------------- |
+| APPLICATION\_ID                          | -       | -     | Yes       | Indicates an application name.           | -                                        |
+| service\_description.name                | -       | -     | Yes       | Indicates a microservice name            | The microservice name should be unique within an application. The name can contain digits, uppercase and lowercase letters, hyphens(-), underscores(_), and periods(.); and can neither start nor end with punctuations. The naming rule is as follows: ^\[a-zA-Z0-9\]+$\|^\[a-zA-Z0-9\]\[a-zA-Z0-9\_-.\]\*\[a-zA-Z0-9\]$. |
+| service\_description.version             | -       | -     | Yes       | Indicates a service version.             | -                                        |
+| service\_description.properties          | -       | -     | No        | Configures microservice metadata(in the microservice.yaml file). | -                                        |
+| service\_description.propertyExtendedClass | -       | -     | No        | Configures microservice metadata(through the PropertyExtended API). | The configurations returned through the API will overwrite those with the same keys in the configuration file. |
+| instance\_description.properties         | -       | -     | No        | Configures instance metadata(in the microservice.yaml file) |                                          |
+| instance\_description.propertyExtendedClass | -       | -     | No        | Configures microservice metadata(through the PropertyExtended API). | The configurations returned through the API will overwrite thos with the same keys in the configuration file. |
 
-> 说明：
-- 服务的元数据会随服务一同注册到服务中心，如需修改，则要连同服务version一起变更。若想保持服务version不变，则需要通过服务管理中心统一变更元数据。
-- 默认情况下，微服务只支持同一个app内部的服务调用。可在微服务的properties中配置allowCrossApp=true属性，开启可被跨app访问权限。
+> NOTE：
+- The metadata of a service is registered to the service center with the service. It is changed together with the service version. Changing metadata in the service center will keep the version unchanged.
+- By default, one microservice can be called by only one APPLICATION_ID. You can set allowCrossApp=true in microservice properties to access a microservice acroos APPLICATION_ID.
 
-## 示例代码
+## Sample Code
 
 ```yaml
-APPLICATION_ID: helloTest #应用名
-service_description: #服务描述
-  name: helloServer #微服务名称
-  version: 0.0.1 #服务版本号
-  properties: #元数据
+APPLICATION_ID: helloTest #Application name
+service_description: #Service description
+  name: helloServer #Microservice name
+  version: 0.0.1 #Service version
+  properties: #Metadata
     allowCrossApp: false
     key1: value1
     key2: value2
   propertyExtentedClass: io.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
-instance_description: #实例描述
-  properties: #元数据
+instance_description: #Instance description
+  properties: #Metadata
     key3: value3
   propertyExtentedClass: io.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
 ```
