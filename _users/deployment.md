@@ -1,43 +1,49 @@
 ---
-title: "运行模式"
+title: "Running Mode"
 lang: en
 ref: run-mode
 permalink: /users/run-mode/
-excerpt: "运行模式"
+excerpt: "Running Mode"
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
 
 {% include toc %}
-微服务框架当前提供了两种部署运行模式：standalone模式和web容器模式。推荐使用**standalone模式**拉起服务进程。
-## standalone模式
-一个Standalone的容器，以简单的Main加载Spring启动，因为服务通常不需要Tomcat/JBoss等Web容器的特性，没必要用Web容器去加载服务。微框架提供了standalone部署运行模式，服务容器只是一个简单的Main方法，并加载一个简单的Spring容器，用于暴露服务。
+Currently, ServiceComb microservice framework support two kind of deploy mode: standalone mode and web container mode. You are advised to to use standalone to to start your services.
+## Standalone Mode
+A standalone container is loaded with a simple Main to start Spring. Because the service usually does not need the Web container feature, such as Tomcat/JBoss.
 
-### 操作步骤
+It is not necessary to unload services using the Web container. The microservice framework provides the standalone deployment mode.
 
-* **步骤1** 编写Main函数，初始化日志和加载服务配置，内容如下：
+The service container is only a simple Main method, and a simple Spring container is loaded to expose services.
+
+### Procedure
+
+* **Step 1**  Compile the Main function to initialize logs and load service configurations. The contents are as follows:
 
    ```java
    import io.servicecomb.foundation.common.utils.BeanUtils;
    import io.servicecomb.foundation.common.utils.Log4jUtils;
    public class MainServer {
      public static void main(String[] args) throws Exception {
-     　Log4jUtils.init(); #日志初始化
-     　BeanUtils.init(); # Spring bean初始化
+     　Log4jUtils.init(); #Log initialization
+     　BeanUtils.init(); # Spring bean initialization
        // other codes omitted
      }
    }
    ```
 
-* **步骤2** 运行MainServer即可启动该微服务进程，向外暴露服务。
+* **Step 2** Run MainServer to start process and expose services.
 
-   注意：如果使用的是rest网络通道，需要将pom中的transport改为使用cse-transport-rest-vertx包。
+   NOTE: If the rest network is used, change transparent in the POM file to the cse-transport-rest-vertx package.
 
-## WEB容器模式
-如果需要将该微服务加载到web容器中启动运行时，需要新建一个servlet工程包装一下，该servlet工程，根据需要，可以不写或写少量的引导代码即可。
+## WEB Container Mode
+If you need to load the microservice to the web container, create a sersvlet project package. You do not need to write or write a small number of boot codes as needed.
 
-### 开发示例
+### Development Example
+
+**Step 1** Create a servlet project and modify the web.xml file as follows:
 
 ```xml
 <web-app>
@@ -65,7 +71,7 @@ redirect_from:
 </web-app>
 ```
 
-* **步骤2 修改pom文件**
+* **Step 2 Modify the POM file**
 
 ```xml
 <dependencies>
@@ -79,7 +85,7 @@ redirect_from:
 </build>
 ```
 
-**注意事项:**
-1. RESTful调用应该与web容器中其他静态资源调用（比如html、js等等）隔离开来，所以webroot后一段应该还有一层关键字，比如上面web.xml中举的例子（/test/rest）中的rest。
-2. 以tomcat为例，默认每个war包都有不同的webroot，这个webroot需要是basePath的前缀，比如webroot为test，则该微服务所有的契约都必须以/test打头。
-3. 当微服务加载在web容器中，并直接使用web容器开的http、https端口时，因为是使用的web容器的通信通道，所以需要满足web容器的规则。
+**NOTICE:**
+1. The Restful call must be separated from other static resources (such as HTML and js) in the web container. The next segment of webroot should have a keyword, such as rest in this example (/test/rest) in web.xml
+2. The Tomcat is used as an example. Each WAR package has unique webroot, which must be a basePath prefix. For example , if webroot is test, all the API definitions of the microservice must start with /test.
+3. When the microservice is loaded to the web container and the HTTP and HTTPS ports are opened using the web container, which must meet requirements for the web container rules.
