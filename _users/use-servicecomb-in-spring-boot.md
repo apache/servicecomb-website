@@ -1,41 +1,41 @@
 ---
-title: "在Spring Boot中使用ServiceComb"
+title: "Use ServiceComb in Spring Boot"
 lang: en
 ref: use-servicecomb-in-spring-boot
 permalink: /users/use-servicecomb-in-spring-boot/
-excerpt: "在Spring Boot中使用ServiceComb"
+excerpt: "Use ServiceComb in Spring Boot"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
 
 {% include toc %}
-## 使用Service Center和治理中心管理Spring Cloud应用
-### 概念阐述
+## Using the Service Center and Governance Center to Manage the Spring Cloud Application
+### Concept Description
 
-本小节介绍在SpringCloud原生应用中，通过改变相关配置，让SpringCloud应用使用ServiceComb微服务框架中的Service Center和治理中心。
+This section describes how to change configurations in the native Spring Cloud application to allow the Spring Cloud application to use the service center and governance center in the microservice framework.
 
-### 场景描述
+### Scenario
 
-* SpringCloud应用默认情况下由Spring Cloud Eureka提供在分布式环境下的服务发现和服务注册的功能。
+* The Spring Cloud Eureka client provides the service discovery and service registration function in the distributed environment by default.
 
    ![](/assets/images/manage_springcloud_application_using_sc_and_gs.png)
 
-* ServiceComb微服务框架中的Service Center用于服务元数据以及服务实例元数据的管理和处理注册、发现，同时还支持以下功能：
+* The service center in microservice framework is used to manage and process registration and discovery of service metadata and service instance metadata, and also supports the following functions:
 
-> * 支持pull/push两种模式监控实例变化
+> * The pull and push modes used to monitor instance changes
 >
-> * 实例动态扩容，海量的长连接或者短连接
+> * Dynamic instance scale-out, massive persistent connections, or short connections.
 >
-> * 支持灰度发布、服务分组等高级管理特性
+> * Advanced management features, such as gray release and sersvice grouping.
 
-使用SpringBoot/Cloud开发应用，并让服务运行于ServiceComb微服务SDK容器中，使用其高性能通信、服务治理、分布式事务管理等功能。
+You can use Spring Cloud or Spring Boot to develop applications, enable services run in the microservice SDK container, and use functions, such as high-performance communication, service governance, and distributed transaction management.
 
-### 配置说明
+### Configuration Description
 
-使用SpringBoot/Cloud开发应用，在原有应用的基础上按照以下步骤进行操作，即可对接ServiceComb的SDK各组件：
+Use Spring Boot or Spring Cloud to develop applications and perform the following steps based on the original application to interconnect with the SDK components of ServiceComb.
 
-* **步骤 1** 在pom中添加依赖管理dependencyManagement：
+* **Step 1** Add dependencyManagement to teh POM file:
 
    ```xml
    <dependencyManagement>
@@ -51,21 +51,21 @@ redirect_from:
    </dependencyManagement>
    ```
 
-* **步骤 2** 在pom中添加依赖：
+* **Step 2** Add the following dependency to POM file.
 
    ```xml
    <dependency>
-     <!--让服务运行于微服务sdk容器中-->
+     <!--let services run in the microservice SDK container.-->
      <group>io.servicecomb</group>
      <artifactId>spring-boot-starter-provider</artifactId>
    </dependency>
    <dependency>
-     <!--使用服务中心-->
+     <!--Use Service Center.-->
      <group>io.servicecomb</group>
      <artifactId>spring-boot-starter-discovery</artifactId>
    </dependency>
    <dependency>
-     <!--让服务运行于Spring boot embedded tomcat中-->
+     <!--Let Servieces run in Spring boot embedded tomcat-->
      <group>io.servicecomb</group>
      <artifactId>spring-boot-starter-transport</artifactId>
    </dependency>
@@ -78,9 +78,9 @@ redirect_from:
    </dependency>
    ```
 
-* **步骤 3** 配置处理链和协议：
+* **Step 3** Configure the processing chain and protocol:
 
-   在resources目录下新建microservice.yaml文件，对服务进行定义，详细定义规则请参考[服务定义章节](/users/service-definition/)，示例如下：
+   Create the microservice.yaml file in the resources directory and define the service. For details, see Service Definition. For example:
 
    ```yaml
    APPLICATION_ID: discoverytest
@@ -90,33 +90,33 @@ redirect_from:
    cse:
      service:
        registry:
-         address:  http://127.0.0.1:30100 #服务注册中心地址
+         address:  http://127.0.0.1:30100 #Service Center registration
       rest:
-        address: 0.0.0.0:8080 #服务发布的端口
+        address: 0.0.0.0:8080 #Port number released by the service
       handler:
         chain:
           Provider:
-            default: bizkeeper-provider #调用的处理链
+            default: bizkeeper-provider #Call processing chain
    ```
 
-* **步骤4** 若要使用ServiceComb的服务中心：
+* **Step 4** To use the ServiceComb configuration center, run the following commands
 
-   在pom中添加依赖：
+   Add the following dependency to POM file:
 
    ```java
    <dependency>
-     <!--使用服务中心-->
+     <!--Use the configuration center-->
      <group>io.servicecomb</group>
      <artifactId>spring-boot-starter-discovery</artifactId>
    </dependency>
    ```
 
-* **步骤 5** 在启动类添加注解@EnableServiceComb：
+* **Step 5** Add the annotation @EnableServiceComb to the main class:
 
    ```java
    @EnableDiscoveryClient
    @SpringBootApplication
-   @EnableServiceComb //新增注解
+   @EnableServiceComb //new annotation
    public class xxxServer {
      public static void main(String[] args) {
        SpringApplication.run(xxxServer.class, args);
@@ -124,7 +124,7 @@ redirect_from:
    }
    ```
 
-* **步骤 6** 定义服务契约，具体请参考[服务契约](/users/service-contract/)，示例如下：
+* **Step 6** Define the API definition. For details ,see [Service Contract](/users/service-contract/):
 
    ```java
    // ControllerImpl.class:
@@ -139,31 +139,29 @@ redirect_from:
    }
    ```
 
-* **步骤 7** 启动xxxServer，该服务便可注册到ServiceComb的Service Center。
+* **Step 7** Start the xxxServer. The service can be registered in the service center of ServiceComb.
 
 
-## 在ServiceComb框架中集成Spring Boot框架
-### 概念阐述
+## Integrating Spring Boot into Java Chassis
+### Concept Description
 
-本小节介绍了在ServiceComb框架中集成SpringBoot框架的好处和操作步骤。
+This section describes advantages and procedures of integrating the Spring Boot framework in the Java Chassis framework.
 
-### 场景描述
+### Scenario
 
-#### **SpringBoot框架**
+#### **Spring Boot framework**
 
-　　Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。从最根本上来讲，Spring Boot就是一些库的集合，它能够被任意项目的构建系统所使用。Boot的功能是模块化的，通过导入Boot所谓的"starter"模块，可以将许多的依赖添加到工程中。
+　　Spring Boot is a new framework provided by the Pivotal team. It is designed to simplify the initial establishment and development of new Spring applications. The framework is configured in a specific manner so that developers do not need to define the sample configuration. Spring Boot is a collection of some databases and can be used by the construction system of any projects. The Boot function is modularized. By importing the starter module of Spring Boot, you can add many dependencies to a project.
 
-#### **在ServiceComb中集成SpringBoot**
+#### **Integrating Spring Boot into ServicComb**
 
-　　使用原生的ServiceComb框架开发微服务应用，如若需要使用ServiceComb框架提供的各项功能服务，需要在微服务项目工程pom文件中添加相应的依赖包，例如需要使用ServiceComb框架提供的负载均衡服务，需要添加handler-loadbalance包依赖。这样可以把ServiceComb提供的能力以starter的方式插入Spring Boot中，同时使用Spring Boot中提供的其他开箱即用的starter（例如SpringCloud）一起构建微服务。
+　　You need to use the native Java Chassis framework to develop microservice applications. To use the functions provided by the Java Chaasis framework, add dependency packages to the POM file of microservice project. For example, to use the load balancing service provided by the Java Chassis framework, add the dependency package of the handler-loadbalance package. In this way, functions provided by ServiceComb can be inserted into Spring Boot in the manner of starter, and the microservice can be built together with the startere (such as Spring Cloud) provided by Spring B
 
-### ServiceComb集成SpringBoot
+### Integrating Spring Boot into ServiceComb
 
-　　首先使用ServiceComb框架开发微服务应用，详细步骤请参考[开发服务提供者](/users/service-definition/)与[开发服务消费者](/users/develop-with-rest-template/)。然后在这个基础上集成SpringBoot框架。
+　　You need to use the Java Chassis framework to develop microservice applications, and then integrate the Spring Boot framework.
 
-　　在对应用进行SpringBoot框架适配前，请确保应用能够正常运行，并且能够从中央的maven库下载依赖的资源。
-
-* **步骤 1** 在工程pom文件添加&lt;dependencyManagement&gt;节点：
+* **Step 1** Add the dependency Management node to the POM file.
 
    ```xml
    <dependencyManagement> 
@@ -179,9 +177,9 @@ redirect_from:
    </dependencyManagement>
    ```
 
-* **步骤 2** 添加如下依赖：
+* **Step 2** Add the following dependency:
 
-   引入ServiceComb提供的Spring Boot依赖
+   Import Spring Boot dependency provided by ServiceComb
 
    ```xml
    <dependency> 
@@ -189,8 +187,6 @@ redirect_from:
      <artifactId>spring-boot-starter-provider</artifactId> 
    </dependency>
    ```
-
-   引入Spring Boot依赖
 
    ```xml
    <dependency> 
@@ -203,20 +199,20 @@ redirect_from:
    </dependency>
    ```
 
-* **步骤 3** 在resources目录下新建application.yml文件，文件内容如下：
+* **Step 3** Create the application.yaml file in the resources directory. The file content is as follows:
 
    ```yaml
    server:
-     port: 7999 #此处的端口为springboot服务端口
+     port: 7999 #Port number of the Spring Boot service
    ```
 
-* **步骤 4** 为微服务启动类添加注解：
+* **Step 4** Add the following annotation for the microservice main class:
 
    ```java
    package xxx
    import xxx
-   @SpringBootApplication //新增注解
-   @EnableServiceComb //新增注解
+   @SpringBootApplication //New Annotation
+   @EnableServiceComb //New Annotation
    public class xxxServer/Client {
      public static void main(final String[] args) {
      　 Log4jUtils.init();
