@@ -1,49 +1,49 @@
 ---
-title: "通信协议"
+title: "Communication Protocol"
 lang: en
 ref: communicate-protocol
 permalink: /users/communicate-protocol/
-excerpt: "通信协议"
+excerpt: "Communication Protocol"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
 
 {% include toc %}
-## 通信协议
-### 概念阐述
+## Communication Protocol
+### Concept Description
 
-ServiceComb实现了两种网络通道，包括REST和Highway，均支持TLS加密传输。其中，REST网络通道将服务以标准RESTful形式发布，调用端兼容直接使用http client使用标准RESTful形式进行调用。
+ServiceComb uses two network channels, REST and Highway, both supporting encrypted Transport Layer Security (TLS) transmission. The REST channel releases services in the standard RESTful form. The consumer can send requests using http client.
 
-### 注意事项
+### Precautions
 
-参数和返回值的序列化：
+Serialization of parameters and the returned values:
 
-当前REST通道的body参数只支持application/json序列化方式，如果要向服务端发送form类型的参数，那么需要在调用端构造好application/json格式的body，不能直接以multipart/form-data格式传递form类型参数。
+Currently, the body parameters of the REST channel support only the application/json serialization. To send form-type parameters to the server, construct a body of the application/json format at the consumer end. Do not send the form type parameters in multipart/form-data format.
 
-当前REST通道返回值支持application/json和text/plain两种格式，服务提供者通过produces声明可提供序列化能力，服务消费者通过请求的Accept头指明返回值序列化方式，默认返回application/json格式的数据。
+Currently, the REST channel supports the application/json and text/plain serialization. A provider uses produces to declare that it has the serialization capability. The consumer specifies the serialization mode of the returned values by setting parameters regarding the requested Accept header. Data serialized in application/json serialization mode is returned by default.
 
-## 线程模型
-### 概念阐述
+## Thread Model
+### Concept Description
 
-本小节主要介绍ServiceComb微服务的完整线程模型，介绍IO线程和业务线程之间的关系
+This section describes the thread model for ServiceComb microservices and the relationship between the I/O and service threads.
 
-### 完整线程
+### Thread Model
 
-ServiceComb微服务的完整线程模型如下图所示：
+The complete thread model of CSE is shown in the following figure.
 
-![](/assets/images/thread-model.png)
+![](/assets/images/thread-model-en.png)
 
-> 1. 业务线程在第一次调用时会绑定某一个网络线程,避免在不同网络线程之间切换,无谓地增加线程冲突的概率
-> 2. 业务线程绑定网络线程后,会再绑定该网络线程内部的某个连接,同样是为了避免线程冲突
+> 1. When a service thread is called for the first time, it binds to a network thread to avoid thread conflicts caused by switching among different network threads.
+> 2. After the service thread bound to a network thread, it will bind to a connection of the network to avoid thread conflicts.
 
-* 客户端和服务器都可以配置多个网络线程\(eventloop\)，默认为CPU核数的两倍，每个网络线程可以配置多个连接，默认为1，支持Rest和Highway两种网络通道，具体配置请查看如下章节：
+* Multiple network threads (eventloop) can be bound to both the client and the server. The number of network threads is two times the quantity of the CPU cores by default. Multiple connections can be configured for each network thread, and the default number is 1. The Rest and Highway network channels are supported. For details about these configurations, see following sections:
    * [REST over Servlet](/users/communicate-protocol#rest-over-servlet)
    * [REST over Vertx](/users/communicate-protocol/#rest-over-vertx)
-   * [Highway RPC协议](/users/communicate-protocol/#highway-rpc协议)
-* 客户端可配置业务线程池executor，线程粒度可细化至schemaId:operation，配置如下：
+   * [Highway RPC Protocol](/users/communicate-protocol/#highway-rpc协议)
+* You can configure the service thread pool executor for the client, and the thread granularity can be schemaId: operation.
 
-在microservice.yaml中添加executors配置，为schemaId:operation配置单独的业务线程池：
+Add the executors in the microservice.yaml file and configure an independent service thread pool for schemaId: operation:
 
 ```yaml
 cse: 
@@ -53,13 +53,13 @@ cse:
 ```
 
 ## REST over Servlet
-### 配置说明
+### Configuration
 
-　　REST over Servlet对应使用web容器模式部署运行，需要新建一个servlet工程将微服务包装起来，加载到web容器中启动运行，包装微服务的方法有两种，一种完全使用web.xml配置文件配置，另一种仅在web.xml文件中配置listener，在microservice.yaml文件中配置urlPattern，两种方式如下所示：
+　　REST over Servlet is deployed and runs using a web container. You need to create a servlet project to pack the microservice, load it to the web container, and then start it. To pack a microservice, you can either fully configure it in the web.xml, or configure its listener and urlPattern in the web.xml and microservice.yaml files, respectively.
 
-* 在web.xml文件中完成全部配置
+* Configure the microservice in the web.xml file.
 
-   web.xml文件配置在项目的src/main/webapp/WEB\_INF目录，配置内容如下：
+   The web.xml file is under the src/main/webapp/WEB\_INF directory of the project, and its content is as follows:
 
    ```xml
    <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">  
@@ -83,7 +83,7 @@ cse:
    </web-app>
    ```
 
-* 在web.xml文件中仅配置listener，在microservice.yaml文件中配置urlPattern
+* Configure the listener in the web.xml file and urlPattern in the microservice.yaml file.
 
    ```xml
    <web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">  
@@ -97,13 +97,13 @@ cse:
    </web-app>
    ```
 
-   在microservice.yaml文件中需要增加一行配置来指定urlPattern：
+   In the microservice.yaml file, add a row to specify the urlPattern：
 
    ```yaml
    servicecomb.rest.servlet.urlPattern: /rest/*
    ```
 
-以上两种方式是等效的，两种方式都需要在maven pom文件中添加如下依赖：
+The two method are equivalent, and they both require that the following dependencies be added in the pox.xml file:
 
 ```xml
 <dependency> 
@@ -112,21 +112,21 @@ cse:
 </dependency>
 ```
 
-REST over Servlet在microservice.yaml文件中的配置项见下表：
+Configuration items that need to be set in the microservice.yaml file are described in Table 1:
 
-表1 REST over Servlet配置项说明
+Table 1 Configuration items of REST over Servlet
 
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.rest.address | 0.0.0.0:8080 | - | 否 | 服务监听地址 | - |
-| cse.rest.timeout | 3000 | - | 否 | 超时时间 | 单位为毫秒 |
-| cse.request.timeout | 30000 | - | 否 | 请求超时时间 | 同REST over Vertx的配置 |
-| cse.references.\[服务名\].transport | rest |  | 否 | 访问的transport类型 | 同REST over Vertx的配置 |
-| cse.references.\[服务名\].version-rule | latest | - | 否 | 访问实例的版本号 | 同REST over Vertx的配置 |
+| Configuration Item                  | Default Value | Value Range | Mandatory | Description                              | Remark                                   |
+| :---------------------------------- | :------------ | :---------- | :-------- | :--------------------------------------- | :--------------------------------------- |
+| cse.rest.address                    | 0.0.0.0:8080  | -           | No        | Specifies the server listening IP address. | -                                        |
+| cse.rest.timeout                    | 3000          | -           | No        | Specifies the timeout duration           | The unit is ms.                          |
+| cse.request.timeout                 | 30000         | -           | No        | Specifies the request timeout duration.  | The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx. |
+| cse.references.\[服务名\].transport    | rest          |             | No        | Specifies the accessed transport type.   | The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx. |
+| cse.references.\[服务名\].version-rule | latest        | -           | No        | Specifies the version of the accessed instance. | The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx. |
 
-### 示例代码
+### Sample Code
 
-microservice.yaml文件中的配置示例如下：
+The following is an example of the configuration in the microservice.yaml file for REST over Servlet:
 
 ```yaml
 cse:
@@ -136,9 +136,9 @@ cse:
 ```
 
 ## REST over Vertx
-### 配置说明
+### Configuration
 
-REST over Vertx通信通道对应使用standalone部署运行模式，可直接通过main函数拉起。main函数中需要初始化日志和加载服务配置，代码如下：
+The REST over Vertx communication channel uses the standalone running mode that can be started using the main function. In the main function, you need to initialize logs and load service configuration. The code is as follow:
 
 ```java
 import io.servicecomb.foundation.common.utils.BeanUtils;
@@ -146,13 +146,13 @@ import io.servicecomb.foundation.common.utils.Log4jUtils;
 
 public class MainServer {
   public static void main(String[] args) throws Exception {
-  　Log4jUtils.init();//日志初始化
-  　BeanUtils.init(); // Spring bean初始化
+  　Log4jUtils.init();//Log initialization
+  　BeanUtils.init(); // Spring bean initialization
   }
 }
 ```
 
-使用REST over Vertx网络通道需要在maven pom文件中添加如下依赖：
+To use the REST over Vertx communication channel, you need to add the following dependencies in the maven pom.xml file:
 
 ```xml
 <dependency>
@@ -161,23 +161,23 @@ public class MainServer {
 </dependency>
 ```
 
-REST over Vertx通道在microservice.yaml文件中有以下配置项：
+Configuration items that need to be set in the microservice.yaml file are described as follows:
 
-表2 REST over Vertx配置项说明
+Table 2 Configuration items of REST over Vertx
 
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.rest.address | 0.0.0.0:8080 | - | 否 | 服务监听地址 | 仅服务提供者需要配置 |
-| cse.rest.server.thread-count | 1 | - | 否 | 服务端线程数 | 仅服务提供者需要配置 |
-| cse.rest.client.thread-count | 1 | - | 否 | 客户端网络线程数 | 仅服务消费者需要配置 |
-| cse.rest.client.connection-pool-per-thread | 1 | - | 否 | 客户端每个网络线程中的连接池的个数 | 仅服务消费者需要配置 |
-| cse.request.timeout | 30000 | - | 否 | 请求超时时间 |  |
-| cse.references.\[服务名\].transport | rest |  | 否 | 访问的transport类型 | 仅服务消费者需要配置 |
-| cse.references.\[服务名\].version-rule | latest | - | 否 | 访问实例的版本号 | 仅服务消费者需要配置支持latest，1.0.0+，1.0.0-2.0.2，精确版本。详细参考服务中心的接口描述。 |
+| Configuration Item                       | Default Value | Value Range | Mandatory | Description                              | Remark                                   |
+| :--------------------------------------- | :------------ | :---------- | :-------- | :--------------------------------------- | :--------------------------------------- |
+| cse.rest.address                         | 0.0.0.0:8080  | -           | No        | Specifies the server listening IP address. | Only service providers require this parameter. |
+| cse.rest.server.thread-count             | 1             | -           | No        | Specifies the number of server threads.  | Only service providers require this parameter. |
+| cse.rest.client.thread-count             | 1             | -           | No        | Specifies the number of client network threads. | Only service consumers require this parameter. |
+| cse.rest.client.connection-pool-per-thread | 1             | -           | No        | Specifies the number of connection pools in each client thread. | Only service consumers require this parameter. |
+| cse.request.timeout                      | 30000         | -           | No        | Specifies the request timeout duration.  |                                          |
+| cse.references.\[服务名\].transport         | rest          |             | No        | Specifies the accessed transport type.   | Only service consumers require this parameter. |
+| cse.references.\[服务名\].version-rule      | latest        | -           | No        | Specifies the version of the accessed instance. | Only service consumers require this parameter. You can set it to latest, a version range such as 1.0.0+ or 1.0.0-2.0.2, or a specific version number. For details, see the API description of the service center. |
 
-### 示例代码
+### Sample Code
 
-microservice.yaml文件中的配置示例：
+An example of the configuration in the microservice.yaml file for REST over Vertx is as follows:
 
 ```yaml
 cse:
@@ -190,14 +190,14 @@ cse:
       version-rule: 0.0.1
 ```
 
-## Highway RPC协议
-### 概念阐述
+## Highway RPC Protocol
+### Concept Description
 
-Highway是ServiceComb的高性能私有协议，用户可在有特殊性能需求的场景下选用。
+Highway is a high-performance proprietary protocol of ServiceComb, and you can use it in scenarios having special performance requirements.
 
-### 配置说明
+### Configuration
 
-使用Highway网络通道需要在maven pom文件中添加如下依赖：
+To use the Highway communication channel, you need to add the following dependencies in the maven pom.xml file:
 
 ```xml
 <dependency> 
@@ -206,23 +206,23 @@ Highway是ServiceComb的高性能私有协议，用户可在有特殊性能需�
 </dependency>
 ```
 
-Highway通道在microservice.yaml文件中的配置项如下表所示：
+Configuration items that need to be set in the microservice.yaml file are described as follows:
 
-表3 Highway配置项说明
+Table 3 Configuration items of Highway
 
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.highway.address | 0.0.0.0:7070 | - | 否 | 服务监听地址 | - |
-| cse.highway.server.thread-count | 1 | - | 否 | 服务端网络线程个数 | - |
-| cse.highway.client.thread-count | 1 | - | 否 | 客户端网络线程个数 | - |
-| cse.highway.client.connection-pool-per-thread | 1 | - | 否 | 客户端每个网络线程的连接池个数 | - |
-| cse.request.timeout | 30000 | - | 否 | 请求超时时间 | 同REST over Vertx的配置 |
-| cse.references.\[服务名\].transport | rest |  | 否 | 访问的transport类型 | 同REST over Vertx的配置 |
-| cse.references.\[服务名\].version-rule | latest | - | 否 | 访问实例的版本号 | 同REST over Vertx的配置 |
+| Configuration Item                       | Default Value | Value Range | Mandatory | Description                              | Remark                                   |
+| :--------------------------------------- | :------------ | :---------- | :-------- | :--------------------------------------- | :--------------------------------------- |
+| cse.highway.address                      | 0.0.0.0:7070  | -           | No        | Specifies the server listening IP address. | -                                        |
+| cse.highway.server.thread-count          | 1             | -           | No        | Specifies the number of server network threads. | -                                        |
+| cse.highway.client.thread-count          | 1             | -           | No        | Specifies the number of client network threads. | -                                        |
+| cse.highway.client.connection-pool-per-thread | 1             | -           | No        | Specifies the number of connection pools in each client thread. | -                                        |
+| cse.request.timeout                      | 30000         | -           | No        | Specifies the request timeout duration.  | The configuration of this parameter for Highway is the same as that for REST over Vertx. |
+| cse.references.\[服务名\].transport         | rest          |             | No        | Specifies the accessed transport type.   | The configuration of this parameter for Highway is the same as that for REST over Vertx. |
+| cse.references.\[服务名\].version-rule      | latest        | -           | No        | Specifies the version of the accessed instance. | The configuration of this parameter for Highway is the same as that for REST over Vertx. |
 
-### 示例代码
+### 
 
-microservice.yaml文件中的配置示例：
+An example of the configuration in the microservice.yaml file for Highway is as follows:
 
 ```yaml
 cse:

@@ -1,46 +1,46 @@
 ---
-title: "服务配置"
+title: "Service Configurations"
 lang: en
 ref: service-configurations
 permalink: /users/service-configurations/
-excerpt: "服务配置"
+excerpt: "Service Configurations"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
 
 {% include toc %}
-## 负载均衡策略
-### 场景描述
+## Load Balancing Policy
+### Scenario
 
-　　ServiceComb提供了基于Ribbon的负载均衡方案，用户可以通过配置文件配置负载均衡策略，当前支持随机、顺序、基于响应时间的权值等多种负载均衡路由策略。
+　　ServiceComb provides a Ribbon-based load balancing solution. You can configure a load balancing policy in the configuration file. Currently, a load balancing routing policy can be random, sequential, or based on response time weight.
 
-### 配置说明
+### Configuration
 
-　　负载均衡策略在microservice.yaml文件中配置，配置项为`cse.loadbalance.[MicroServiceName].[property name]`，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。
+　　Load balancing policies are configured by setting the parameter `cse.loadbalance.[MicroServiceName].[property name]` in the microservice.yaml fiel. If MicroServiceName is not set, the configuration is set for all microservices. Otherwise, the configuration is set for a specific microservice.
 
-　　**表1 配置项说明**
+　　**Table 1 Configuration items of load balancing policy**
 
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.loadbalance.NFLoadBalancerRuleClassName | com.netflix.loadbalancer.RoundRobinRule | com.netflix.loadbalancer.RoundRobinRule（轮询）com.netflix.loadbalancer.RandomRule（随机）com.netflix.loadbalancer.WeightedResponseTimeRule（服务器响应时间权值）io.servicecomb.loadbalance.SessionStickinessRule（会话保持） | 否 | 负载均衡路由策略 | - |
-| cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds | 30 | Integer | 否 | 客户端闲置时间，超过限制后选择后面的服务器。 | 暂不支持微服务配置。e.g. cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds |
-| cse.loadbalance.SessionStickinessRule.successiveFailedTimes | 5 | Integer | 否 | 客户端失败次数，超过后会切换服务器 | 暂不支持微服务配置 |
-| cse.loadbalance.retryEnabled | FALSE | Boolean | 否 | 负载均衡捕获到服务调用异常，是否进行重试 | - |
-| cse.loadbalance.retryOnNext | 0 | Integer | 否 | 尝试新的服务器的次数 | - |
-| cse.loadbalance.retryOnSame | 0 | Integer | 否 | 同一个服务器尝试的次数 | - |
-| cse.loadbalance.isolation.enabled | FALSE | Boolean | 否 | 是否开启故障实例隔离功能 | - |
-| cse.loadbalance.isolation.enableRequestThreshold | 20 | Integer | 否 | 当实例的调用总次数达到该值时开始进入隔离逻辑门槛 | - |
-| cse.loadbalance.isolation.errorThresholdPercentage | 20 | Integer，区间为\(0,100\] | 否 | 实例故障隔离错误百分比 | - |
-| cse.loadbalance.isolation.singleTestTime | 10000 | Integer | 否 | 故障实例单点测试时间 | 单位为ms |
-| cse.loadbalance.transactionControl.policy | io.servicecomb.loadbalance.filter.SimpleTransactionControlFilter | - | 否 | 动态路由分流策略 | 框架提供了简单的分流机制，开发者也可以实现自定义的分流过滤策略 |
-| cse.loadbalance.transactionControl.options | - | key/value pairs | 否 | 针对SimpleTransactionControlFilter分流策略的配置项，可添加任意项过滤标签 | - |
+| Configuration Items                      | Default Value                            | Value Range                              | Mandatory | Description                              | Remarks                                  |
+| :--------------------------------------- | :--------------------------------------- | :--------------------------------------- | :-------- | :--------------------------------------- | :--------------------------------------- |
+| cse.loadbalance.NFLoadBalancerRuleClassName | com.netflix.loadbalancer.RoundRobinRule  | com.netflix.loadbalancer.RoundRobinRule（polling）com.netflix.loadbalancer.RandomRule（random）com.netflix.loadbalancer.WeightedResponseTimeRule（server response time weight）io.servicecomb.loadbalance.SessionStickinessRule（session stickiness） | No        | Specifiles the load balancing policy     | -                                        |
+| cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds | 30                                       | Integer                                  | No        | Specifies the idle time of a client. If the idle time exceeds the set value, ServiceComb will select another server. | Currently, this parameter cannot be set for a certain microservice. For example, cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds cannot be set to cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds |
+| cse.loadbalance.SessionStickinessRule.successiveFailedTimes | 5                                        | Integer                                  | No        | Specifies the number of failed requests from the client. If the number exceeds the set value, ServiceComb will switch to another server | Currently, this parameter cannot be set for a certain microservice. |
+| cse.loadbalance.retryEnabled             | FALSE                                    | Boolean                                  | No        | Specifies whether to call a service again when a exception is captured by the load balance. | -                                        |
+| cse.loadbalance.retryOnNext              | 0                                        | Integer                                  | No        | Specifies the number of attempts to connect to another server. | -                                        |
+| cse.loadbalance.retryOnSame              | 0                                        | Integer                                  | No        | Specifies the number of attempts to connect to the same server. | -                                        |
+| cse.loadbalance.isolation.enabled        | FALSE                                    | Boolean                                  | No        | Specifies whether to enable faulty instance isolation. | -                                        |
+| cse.loadbalance.isolation.enableRequestThreshold | 20                                       | Integer                                  | No        | Specifies the threshold number of instance calls. If this value is reached, isolation is enabled. | -                                        |
+| cse.loadbalance.isolation.errorThresholdPercentage | 20                                       | Integer，\(0,100\]                        | No        | Specifies the error percentage. Instance fault isolation is enabled when the set value is reached. | -                                        |
+| cse.loadbalance.isolation.singleTestTime | 10000                                    | Integer                                  | No        | Specifies the duration of a faulty instance test on a single node. | This unit is ms.                         |
+| cse.loadbalance.transactionControl.policy | io.servicecomb.loadbalance.filter.SimpleTransactionControlFilter | -                                        | No        | Specifies the offload policies for dynamic routing. | The framework provides simple offload mechanisms. You can also customize offload policies. |
+| cse.loadbalance.transactionControl.options | -                                        | key/value pairs                          | No        | Specifies the parameter configured for the SimpleTransactionControlFilter offload policy. You can add any filtration tag for this item. | -                                        |
 
-### 示例代码
+### Sample Code
 
-　　负载均衡策略配置在src/main/resources/microservice.yaml文件中。
+　　in the src/main/resources/microservice.yaml file, configure a load balancing policy.
 
-　　配置处理链：
+　　Configure a processing link：
 
 ```yaml
 cse:
@@ -52,7 +52,7 @@ cse:
   # other configurations omitted
 ```
 
-　　增加路由策略：
+　　Add a routing policy:
 
 ```yaml
 cse：
@@ -62,31 +62,30 @@ cse：
   # other configurations omitted
 ```
 
-## 自定义路由策略
+## Customizing Routing Policies
 
-　　用户可以在ServiceComb提供的路由策略框架下根据业务需要，通过编程的方式来开发路由策略。实施步骤如下：
+　　Based on the routing policy framework provided by ServiceComb, you can program to customize routing policies as required. Perform the following steps:
 
-* 实现接口`com.netflix.loadbalancer.IRule`中定义的接口方法。
-路由选择逻辑在public Server choose\(Object key\)方法中实现。LoadBalancerStats是一个封装了负载均衡器当前运行状态的一个结构。通过获取stats中各个实例的运行指标，在choose方法中，判定将当前请求路由到哪个实例上进行处理。处理风格可以参照`io.servicecomb.loadbalance.SessionStickinessRule`。
+* Encode using the API method defined in the `com.netflix.loadbalancer.IRule` API. Encode in the public Server  choose(Object key) method. LoadBalancerStats is a structure that encapsulates the running state of the load balancer. Determine on which instance the current routing request will be processed based on the running indexes of each instance by using the Server choose(Object key) method. Use method `io.servicecomb.loadbalance.SessionStickinessRule`for instance processing.
 
-* 编译开发的策略，保证生成的class在classpath下。
+* Compile the developed policy and ensure that the generated class is under classpath.
 
-* 通过SDK配置该路由策略，假如是`AbcRule`。则配置如下：       `cse.loadbalance.NFLoadBalancerRuleClassName=io.servicecomb.ribbon.rule.AbcRule`
-   
-## 限流策略
-### 场景描述
+* Use the software development kit(SDK) to configure the routing policy. Use AbcRule as a routing policy example. The configuration is as follows:        `cse.loadbalance.NFLoadBalancerRuleClassName=io.servicecomb.ribbon.rule.AbcRule`
 
-用户在provider端使用限流策略，可以限制指定微服务向其发送请求的频率，达到限制每秒钟最大请求数量的效果。
+## Rate Limiting Policy
+### Scenario
 
-### 注意事项
+Users at the provider end can use the rate limiting policy to limit the maximum number of requests sent from a specified microservice per second. 
 
-1. 限流策略的控制并不是绝对精确的，可能会有少量误差。
-2. provider端的流量控制是业务层面的功能，不是安全意义上的流量控制，如需防止DDoS攻击，需要结合其他的一系列措施。
-3. 流量控制是微服务级的，不是进程级的。
+### Precautions
 
-### 配置说明
+1. There may be a small different between the rate limit and actual traffic.
+2. The rate limit function at the provider end is for service rather than security purpose. To prevent distributed denial of service(DDos) attacks, you need to take other measures.
+3. Traffic control is a microservice-level rather than process-level function.
 
-　　限流策略配置在microservice.yaml文件中，相关配置项见下表。要开启服务提供者端的限流策略，还需要在处理链中配置服务端限流handler，配置示例如下：
+### Configuration
+
+　　Rate limiting policies are configured in the microservice.yaml file. For related configuration items, see Table 2. To enable the rate limiting policy at the provider end, you also need to configure the rate limiting handler on the server in the processing chain and add dependencies in the pom.xml file. An example of microservice.yaml file configuration is as follows:
 
 ```yaml
 cse:
@@ -96,55 +95,58 @@ cse:
         default: qps-flowcontrol-provider
 ```
 
-　　**表2 QPS流控配置项说明**
+　　**Table2 Configuration items of the QPS rate limit**
 
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.flowcontrol.Provider.qps.enabled | true | true/false | 否 | 是否启用Provider流控 | - |
-| cse.flowcontrol.Provider.qps.limit.\[ServiceName\] | 2147483647（max int） | \(0,2147483647\]，整形 | 否 | 每秒钟允许的请求数 | 仅支持microservice一个级别的配置 |
-| cse.flowcontrol.Provider.qps.global.limit | 2147483647（max int） | (0,2147483647\]，整形 | 否 | provider接受请求流量的全局配置 | 没有具体到微服务的配置时，此配置生效 |
+| Configuration Item                       | Default Value       | Value Range              | Mandatory | Description                              | Remarks                                  |
+| :--------------------------------------- | :------------------ | :----------------------- | :-------- | :--------------------------------------- | :--------------------------------------- |
+| cse.flowcontrol.Provider.qps.enabled     | true                | true/false               | No        | Specifies whether to enable traffic control  at the provider end. | -                                        |
+| cse.flowcontrol.Provider.qps.limit.\[ServiceName\] | 2147483647（max int） | \(0,2147483647\]，Integer | No        | Specifies the number of requests allowed per second. | This parameter can only be configured for microservice |
+| cse.flowcontrol.Provider.qps.global.limit | 2147483647（max int） | (0,2147483647\]，Integer  | No        | Specifies the total number of requests allowed per second at the provider end | If no configuration is set for any specific microservices, this parameter takes effect |
 
-## 降级策略
-### 概念阐述
+## 
+## Fallback Policy
 
-降级策略是当服务请求异常时，微服务所采用的异常处理策略。降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：
+### Concept Description
 
-降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：
-* “隔离”是一种异常检测机制，常用的检测方法是请求超时、流量过大等。一般的设置参数包括超时时间、同时并发请求个数等。
-* “熔断”是一种异常反应机制，“熔断”依赖于“隔离”。熔断通常基于错误率来实现。一般的设置参数包括统计请求的个数、错误率等。
-* “容错”是一种异常处理机制，“容错”依赖于“熔断”。熔断以后，会调用“容错”的方法。一般的设置参数包括调用容错方法的次数等。
+A fallback policy is used when a service request is abnormal.
 
-把这些概念联系起来：当"隔离"措施检测到N次请求中共有M次错误的时候，"熔断"不再发送后续请求，调用"容错"处理函数。这个技术上的定义，是和Netflix Hystrix一致的，通过这个定义，非常容易理解它提供的配置项，参考：[https://github.com/Netflix/Hystrix/wiki/Configuration](https://github.com/Netflix/Hystrix/wiki/Configuration)。当前ServiceComb提供两种容错方式，分别为返回null值和抛出异常。
+There are three key concepts in fallback: isolation, fallbreak, and fault tolerance:
 
-### 场景描述
+* Isolation is an exception detection mechanism. Two common items that need to be detected are timeout duration and the number of concurrent requests.
+* Fallbreak is an exception response mechanism, and it depends on isolation. Fallbreak is triggered based on the error rate. Two common items need to set are the number of requests to collect and error rate.
+* Fault tolerance is an exception handling mechanism that depends on fallbreak. Fault tolerance is called after a fallbreak. For fault tolerance, you need to set the number of fault tolerance call items.
 
-用户通过配置降级策略，可以设置微服务的异常处理策略。
+During fallback, if M(the threshold) errors are detected in N requests, the consumer will no longer send requests  and the fault tolerance mechanism will be enabled. The preceding fallback process is accepted in Netflix Hystrix and helps you configure the parameters. Obtain information about the parameter configuration at [https://github.com/Netflix/Hystrix/wiki/Configuration](https://github.com/Netflix/Hystrix/wiki/Configuration). Currently, ServiceComb provides two types of fault tolerance modes: returning null values and throwing exceptions.
 
-### 配置说明
+### Scenario
 
-　　配置项如表所示。
+By configuring a fallback policy, you can handler microservice exceptions.
 
-　　**表3 降级策略相关配置项说明**
+### Configuration
 
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.isolation.timeout.enabled | FALSE | - | 否 | 是否启用超时检测 |  |
-| cse.isolation.timeoutInMilliseconds | 30000 | - | 否 | 超时时间阈值 |  |
-| cse.isolation.maxConcurrentRequests | 10 | - | 否 | 最大并发数阈值 |  |
-| cse.circuitBreaker.enabled | TRUE | - | 否 | 是否启用熔断措施 |  |
-| cse.circuitBreaker.forceOpen | FALSE | - | 否 | 不管失败次数，都进行熔断 |  |
-| cse.circuitBreaker.forceClosed | FALSE | - | 否 | 任何时候都不熔断 | 当与forceOpen同时配置时，forceOpen优先。 |
-| cse.circuitBreaker.sleepWindowInMilliseconds | 15000 | - | 否 | 熔断后，多长时间恢复 | 恢复后，会重新计算失败情况。注意：如果恢复后的调用立即失败，那么会立即重新进入熔断。 |
-| cse.circuitBreaker.requestVolumeThreshold | 20 | - | 否 | 10s内统计错误发生次数阈值，超过阈值则触发熔断 | 由于10秒还会被划分为10个1秒的统计周期，经过1s中后才会开始计算错误率，因此从调用开始至少经过1s，才会发生熔断。 |
-| cse.circuitBreaker.errorThresholdPercentage | 50 | - | 否 | 错误率阈值，达到阈值则触发熔断 |  |
-| cse.fallback.enabled | TRUE | - | 否 | 是否启用出错后的故障处理措施 |  |
-| cse.fallback.maxConcurrentRequests | 10 | - | 否 | 并发调用容错处理措施（cse.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常 |  |
-| cse.fallbackpolicy.policy | throwexception | returnnulll \| throwexception | 否 | 出错后的处理策略 |  |
+　　Configuration items of fallback policies are as follows:
 
-**注意：** 谨慎使用cse.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将cse.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间cse.request.timeout=30000。
+　　**Table 3 Configuration items of the fallback policy**
+
+| Configuration Item                       | Default value  | Value Range                   | Mandatory | Description                              | Remarks                                  |
+| :--------------------------------------- | :------------- | :---------------------------- | :-------- | :--------------------------------------- | :--------------------------------------- |
+| cse.isolation.timeout.enabled            | FALSE          | -                             | No        | Specifies whether to enable timeout detection. |                                          |
+| cse.isolation.timeoutInMilliseconds      | 30000          | -                             | No        | Specifies the timeout duration threshold. |                                          |
+| cse.isolation.maxConcurrentRequests      | 10             | -                             | No        | Specifies the maximum number of concurrent requests. |                                          |
+| cse.circuitBreaker.enabled               | TRUE           | -                             | No        | Specifies whether to enable fallbreak.   |                                          |
+| cse.circuitBreaker.forceOpen             | FALSE          | -                             | No        | Specifies that fallbreak is enable regardless of the number of failed requests or the error rate. |                                          |
+| cse.circuitBreaker.forceClosed           | FALSE          | -                             | No        | Specifies that fallbreak can be implemented at any time. | If this parameter and cse.circuitBreaker.forceOpen both need to be configured, cse.circuitBreaker.forceOpen has priority. |
+| cse.circuitBreaker.sleepWindowInMilliseconds | 15000          | -                             | No        | Specifies the duration needed to recover from fallbreak. | After the recovery, the number of failed requests will be recalculated. Not: If the consumer fails to send a request to the provider after the recovery, fallbreak is enabled again. |
+| cse.circuitBreaker.requestVolumeThreshold | 20             | -                             | No        | Specifies the threshold of failed requests sent within 10 seconds. If the threshold is reached, fallbreak is triggered. | Ten seconds will be divided into ten 1 seconds, and the error rate is calculated 1 second later after an error occurred. Therefore, fallbreak can be implemented at least 1 second after the call. |
+| cse.circuitBreaker.errorThresholdPercentage | 50             | -                             | No        | Specifies the threshold of error rate. If the threshold is reached, fallbreak is triggered. |                                          |
+| cse.fallback.enabled                     | TRUE           | -                             | No        | Specifies whether to enable troubleshooting measures after an error occurred. |                                          |
+| cse.fallback.maxConcurrentRequests       | 10             | -                             | No        | Specifies the number of fault tolerance(cse.fallbackpolicy.policy) requests concurrently called. If the value exceeds 10, the measures will no longer be called, and exception are returned. |                                          |
+| cse.fallbackpolicy.policy                | throwexception | returnnulll \| throwexception | No        | Specifies the error handling policies after an error occurred. |                                          |
+
+**NOTE:** Be cautions when setting cse.isolation.timeout.enabled to TRUE, All processes are asynchronously processed in the system, and any error value returned by an intermediate process because the set timeout duration is reached can cause failure of the follow-up processes. Therefore, you are advised to keep the default value FALSE for cse.isolation.timeout.enabled. For timeout duration from the network aspect, you are advised to set cse.request.timeout=30000.
 {: .notice--warning}
 
-## 示例代码
+## Sample Code
 
 ```yaml
 cse:
@@ -165,5 +167,6 @@ cse:
     policy: throwexception
 ```
 
-> **说明：**
-> 降级策略需要启用服务治理能力，对应的服务提供者的handler是`bizkeeper-provider`，服务消费者的handler是`bizkeeper-consumer`。
+> **NOTE:**
+>
+> You need to enable service governance for fallback, The provider handler is bizkeeper-provider, and the consumer handler is bizkeeper-consumer.
