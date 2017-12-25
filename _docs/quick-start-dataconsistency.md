@@ -22,14 +22,14 @@ Travel application demo including four services
 
 ## Running Demo
 
-Note, demo is in the [ServiceComb-Saga](https://github.com/ServiceComb/ServiceComb-Saga) project.
+Note, demo is in the [ServiceComb-Saga](https://github.com/apache/incubator-servicecomb-saga) project.
 
 1. Prerequisites
 - [Oracle JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Maven 3.x](https://maven.apache.org/install.html)
 - [Docker](https://www.docker.com/get-docker)
 - [MySQL](https://dev.mysql.com/downloads/)
-- [Service Center](https://github.com/ServiceComb/service-center)
+- [Service Center](https://github.com/apache/incubator-servicecomb-service-center)
 - [Docker compose](https://docs.docker.com/compose/install/)
 
 2. Configuration
@@ -145,7 +145,7 @@ Note, demo is in the [ServiceComb-Saga](https://github.com/ServiceComb/ServiceCo
 
 ## Verify services
 
-1. Use [Saga API](https://github.com/ServiceComb/ServiceComb-Saga/blob/master/docs/api/api.md) to set request content and save it to *request.json*
+1. Use [Saga API](https://github.com/apache/incubator-servicecomb-saga/blob/master/docs/api/api.md) to set request content and save it to *request.json*
 
 	```json
 	{

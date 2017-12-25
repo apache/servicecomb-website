@@ -64,4 +64,4 @@ Once you selected the instance then you are ready for testing the Schema, you ca
 ![Schema Test]({{ site.url }}{{ site.baseurl }}/assets/images/Schematest.PNG){: .align-center}  
 
 
-##### You can have a look at the [Quick Start Guide](https://github.com/ServiceComb/service-center/tree/master/frontend#quickstart-guide) to know about how to bring up the Management Console.
+##### You can have a look at the [Quick Start Guide](https://github.com/apache/incubator-servicecomb-service-center/tree/master/frontend#quickstart-guide) to know about how to bring up the Management Console.

@@ -31,14 +31,14 @@ last_modified_at: 2017-09-03T10:01:43-04:00
    
    <div class="tab-content">
      <div id="windows" class="tab-pane active" markdown="1">
-   1. 下载[服务注册中心可执行文件压缩包](https://github.com/ServiceComb/service-center/releases/download/0.5.0/service-center-0.5.0-windows-amd64.zip)
+   1. 下载[服务注册中心可执行文件压缩包](https://github.com/apache/incubator-servicecomb-service-center/releases/download/0.5.0/service-center-0.5.0-windows-amd64.zip)
    2. 解压缩到当前文件夹
    3. 进入解压缩后的目录，然后双击运行**start**文件
      </div>
      <div id="linux" class="tab-pane fade" markdown="1">
    1. 下载服务注册中心可执行文件压缩包并解压缩
    ```bash
-   wget https://github.com/ServiceComb/service-center/releases/download/0.5.0/service-center-0.5.0-linux-amd64.tar.gz
+   wget https://github.com/apache/incubator-servicecomb-service-center/releases/download/0.5.0/service-center-0.5.0-linux-amd64.tar.gz
    tar xvf service-center-0.5.0-linux-amd64.tar.gz
    ```
    2. 运行服务注册中心

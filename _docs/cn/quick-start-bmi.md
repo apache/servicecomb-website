@@ -41,7 +41,7 @@ last_modified_at: 2017-09-04T10:01:43-04:00
 ```
 **注意**: `java-chassis-dependencies` 这个依赖是以pom的形式导入来统一项目中的依赖项的版本管理。
 
-下面将对这两个微服务的实现进行介绍，其代码已托管于[github](https://github.com/ServiceComb/ServiceComb-Java-Chassis/tree/master/samples/bmi)上。
+下面将对这两个微服务的实现进行介绍，其代码已托管于[github](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/bmi)上。
 ### 体质指数计算器实现
 体质指数计算器提供运算服务，其实现分为三部分：
 

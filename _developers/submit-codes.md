@@ -12,7 +12,7 @@ last_modified_at: 2017-09-08T20:26:43-20:46
 ## 贡献途径
 　　ServiceComb正在不断成长中，也希望能找到更多志同道合的同伴一起成长和进步。向ServiceComb 贡献的途径有多种：
 * 完善文档。完善网站上的文档或者项目中的介绍文档和API说明文档。其中，网站文档的完善可通过网站最底端的**报告本网页问题**或**在Github上编辑此页**对文档内容进行完善。
-* 实现功能特性需求或修复BUG。项目的功能特性需求或者已发现但未修复的BUG都会在项目中的issue处看到，以[Saga](https://github.com/ServiceComb/saga/issues)项目为例，一般都会带有类似 **enhancement** 或类似 **bug** 的标签来说明这是功能需求还是BUG，读者可以结合自己的兴趣点来选择。此外，您也可以通过日常使用或阅读代码时发现BUG并以Issue的方式进行描述并针对该BUG提交PR，帮助我们进一步改进。同时，也欢迎您提出需求并在实现后提交PR。
+* 实现功能特性需求或修复BUG。项目的功能特性需求或者已发现但未修复的BUG都会在项目中的issue处看到，以[Saga](https://github.com/apache/incubator-servicecomb-saga/issues)项目为例，一般都会带有类似 **enhancement** 或类似 **bug** 的标签来说明这是功能需求还是BUG，读者可以结合自己的兴趣点来选择。此外，您也可以通过日常使用或阅读代码时发现BUG并以Issue的方式进行描述并针对该BUG提交PR，帮助我们进一步改进。同时，也欢迎您提出需求并在实现后提交PR。
 
    ![寻觅功能需求示例](/assets/images/find-features-by-example.png){: .align-center}
 

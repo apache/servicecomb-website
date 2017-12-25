@@ -60,7 +60,7 @@ redirect_from:
 
 ## 最佳实践  
 很多项目都使用maven提供的dependencyManagement配置来管理依赖关系，保证不会因为引入了新的组件，导致基础组件的版本发生变更，出现漏测试的情况。该机制在Spring boot、ServiceComb等开源项目中广泛采用。对于需要提供额外三方软件使用清单的商用产品，这种管理方式可以增强认证信息的准确性。以ServiceComb为例，该项目引入的所有的三方件的版本都统一在:  
- [https://github.com/ServiceComb/ServiceComb-Java-Chassis/blob/master/java-chassis-dependencies/pom.xml](https://github.com/ServiceComb/ServiceComb-Java-Chassis/blob/master/java-chassis-dependencies/pom.xml)   
+ [https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/java-chassis-dependencies/pom.xml](https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/java-chassis-dependencies/pom.xml)   
 管理，其他的子模块都不配置三方件的版本号，从而每个子模块依赖的三方件版本都是同一个版本，即使他们依赖的模块间接依赖了不同的三方件版本。  
 这种机制给使用者也带来了一定的好处，使用者可以采用dependencyManagement来定义自己的三方组件依赖关系，定义的时候，通过import方式继承。比如使用ServiceComb的微服务，可以采用如下方式管理依赖关系：
 

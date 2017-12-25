@@ -12,7 +12,7 @@ redirect_from:
 ---
 
 Data consistency is a critical aspect of many systems, especially in cloud and microservice environment. We recently
-released [Saga](https://github.com/ServiceComb/saga) project under ServiceComb to address data consistency issue. 
+released [Saga](https://github.com/apache/incubator-servicecomb-saga) project under ServiceComb to address data consistency issue. 
 But why is data consistency so important and what is Saga?
 
 ## Data Consistency of Monolithic Applications
@@ -128,6 +128,6 @@ next blog post.
 1. [Original Paper on Sagas][1] by By Hector Garcia-Molina & Kenneth Salem
 2. Gifford, David K and James E Donahue, “Coordinating Independent Atomic Actions”, Proceedings of IEEE COMPCON, San Francisco, CA, February, 1985
 3. Chris Richardson: http://www.chrisrichardson.net/
-4. ServiceComb Saga Project: https://github.com/ServiceComb/saga
+4. ServiceComb Saga Project: https://github.com/apache/incubator-servicecomb-saga
 
 [1]:https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf
