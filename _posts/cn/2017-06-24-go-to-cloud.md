@@ -102,7 +102,7 @@ redirect_from:
 
 * service-center    
 
-   下载[service-center-x.x.x-x-windows-amd64.zip](https://github.com/ServiceComb/service-center/releases)解压到任意目录
+   下载[service-center-x.x.x-x-windows-amd64.zip](https://github.com/apache/incubator-servicecomb-service-center/releases)解压到任意目录
 
 * mongodb（可选）
 

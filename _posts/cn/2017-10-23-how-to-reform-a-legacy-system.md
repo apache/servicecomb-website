@@ -233,7 +233,7 @@ redirect_from:
 
 **单个服务的构建并没有那么复杂，基于ServiceComb，通过如下的简单4步，即可快速完成改造：**
 
-1. 引入[ServiceComb Java Chassis](https://github.com/ServiceComb/ServiceComb-Java-Chassis)框架依赖
+1. 引入[ServiceComb Java Chassis](https://github.com/apache/incubator-servicecomb-java-chassis)框架依赖
 2. 定义服务接口端点
 3. 添加服务配置文件
 4. 注释服务启动入口

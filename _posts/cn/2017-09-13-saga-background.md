@@ -10,7 +10,7 @@ redirect_from:
   - /theme-setup/
 ---
 
-数据一致性是许多系统的关键部分，特别是在微服务和云的环境下。我们最近在ServiceComb下发布了[Saga](https://github.com/ServiceComb/saga)项目，
+数据一致性是许多系统的关键部分，特别是在微服务和云的环境下。我们最近在ServiceComb下发布了[Saga](https://github.com/apache/incubator-servicecomb-saga)项目，
 以解决数据一致性问题。但为什么数据一致性如此重要？Saga又是什么？
 
 ## 单体应用的数据一致性
@@ -104,6 +104,6 @@ Saga看起来很有希望满足我们的需求。所有长活事务都可以这�
 1. [Original Paper on Sagas][1] by By Hector Garcia-Molina & Kenneth Salem
 2. Gifford, David K and James E Donahue, “Coordinating Independent Atomic Actions”, Proceedings of IEEE COMPCON, San Francisco, CA, February, 1985
 3. Chris Richardson: http://www.chrisrichardson.net/
-4. ServiceComb Saga Project: https://github.com/ServiceComb/saga
+4. ServiceComb Saga Project: https://github.com/apache/incubator-servicecomb-saga
 
 [1]:https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf

@@ -44,7 +44,7 @@ redirect_from:
 
 * **Q: 服务接口的返回类型可以是任意类型吗？还是必须是responseEntity？**
 
-   A: 可以，具体可以参考java-chassis的[integration-test的实现](https://github.com/ServiceComb/java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/io/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java#L145)。
+   A: 可以，具体可以参考java-chassis的[integration-test的实现](https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/io/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java)。
 
 * **Q: 微服务启动后，无法正确调用接口，使用的代码为：**
 
@@ -525,4 +525,4 @@ redirect_from:
   
 * **Q: 微服务运行时抛出异常：` java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty`？**
 
-   A: 可将Service Center升级至0.4.0+版本来解决，[Service Center最新版本传送门](https://github.com/ServiceComb/service-center/releases)。
+   A: 可将Service Center升级至0.4.0+版本来解决，[Service Center最新版本传送门](https://github.com/apache/incubator-servicecomb-service-center/releases)。

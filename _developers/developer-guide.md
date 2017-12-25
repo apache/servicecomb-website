@@ -1,24 +1,24 @@
 ---
-title: "开发者指南"
+title: "Developer Guide"
 lang: en
 ref: developer-guide
 permalink: /developers/
-excerpt: "开发者指南"
+excerpt: "Developer Guide"
 last_modified_at: 2017-06-24T19:18:43+08:00
 ---
 
-**ServiceComb** 项目托管在[Github](https://github.com/ServiceComb)上，其各子项目如下表所示：
+**ServiceComb** is hosted on [Github](https://github.com/apache?q=incubator-servicecomb), it has the following sub-projects:
 
-| 项目名                                                                        | 项目简介                   | 编程语言 |
+| Project Name | Project Introduction | Programming Language |
 |-------------------------------------------------------------------------------|----------------------------|----------|
-| [Java Chassis](https://github.com/ServiceComb/ServiceComb-Java-Chassis)       | Java微服务框架（SDK）      | Java     |
-| [Service Center](https://github.com/ServiceComb/service-center)               | 服务中心（服务注册及发现） | Go       |
-| [Saga](https://github.com/ServiceComb/saga)                                   | 微服务数据最终一致性实现   | Java     |
-| [ServiceComb.github.io](https://github.com/ServiceComb/ServiceComb.github.io) | ServiceComb网站            | Markdown |
+| [Java Chassis](https://github.com/apache/incubator-servicecomb-java-chassis)      | Java Microservice Framework（SDK） | Java     |
+| [Service Center](https://github.com/apache/incubator-servicecomb-service-center)               | Service registration and discovery | Go       |
+| [Saga](https://github.com/apache/incubator-servicecomb-saga)                                   | Data Eventually Consistency Solution for Microservice | Java     |
+| [Website](https://github.com/apache/incubator-servicecomb-website) | ServiceComb Website | Markdown |
 
-参与 ServiceComb 项目并为其作出贡献的方法有很多：代码实现、测试编写、流程工具改进、文档完善等。您可以选择上述任何一个或多个感兴趣的项目进行贡献。具体贡献事宜可参考以下指南：
+There are many ways to get involved in ServiceComb and contribute to it, e.g. submit codes, submit tests, tools improvements, document improvements. You can contribute to one or more interested projects. You can refer to the following guide about how to contribute to this community.
 
-* [开发环境准备](/developers/setup-develop-environment/)：主要介绍git，JDK，Maven以及IDE的安装及配置。
-* [代码提交指南](/developers/submit-codes/)：主要介绍功能特性需求及现有bug的获取途径，提交代码前的测试事宜，如何提交PR以及如何解决冲突等。
+* [Setup Develop Environment](/developers/setup-develop-environment/). Introduce how to install and setup git, JDK, Maven and IDE(IntelliJ).
+* [Code Submit Guide](/developers/submit-codes/). Introduce how to get involved with development of ServiceComb and how to submit codes.
 
-同时，也欢迎您加入[ServiceComb开发者群组](https://groups.google.com/forum/#!forum/servicecomb-developers)了解 ServiceComb 项目的开发动态以及进行话题讨论。
+In the meanwhile, welcome to subscribe the [ServiceComb mailing list](mailto:dev-subscribe@servicecomb.incubator.apache.org) to keep track of the development status of ServiceComb community and discuss with us.
