@@ -19,12 +19,12 @@
 
 
 
-<title>使用服务契约 - Apache incubator ServiceComb</title>
+<title>Service Using API Definitions - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="使用服务契约">
+<meta name="description" content="Service Using API Definitions">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="使用服务契约">
+<meta property="og:title" content="Service Using API Definitions">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/use-service-contract/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="使用服务契约">
+  <meta property="og:description" content="Service Using API Definitions">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="使用服务契约">
-  <meta name="twitter:description" content="使用服务契约">
+  <meta name="twitter:title" content="Service Using API Definitions">
+  <meta name="twitter:description" content="Service Using API Definitions">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="使用服务契约">
-    <meta itemprop="description" content="使用服务契约">
+    <meta itemprop="headline" content="Service Using API Definitions">
+    <meta itemprop="description" content="Service Using API Definitions">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">使用服务契约
+            <h1 class="page__title" itemprop="headline">Service Using API Definitions
 </h1>
             
           </header>
@@ -564,11 +564,10 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
-  <li><a href="#配置说明" id="markdown-toc-配置说明">配置说明</a>    <ul>
-      <li><a href="#配置依赖服务" id="markdown-toc-配置依赖服务">配置依赖服务</a></li>
-      <li><a href="#手工配置服务契约" id="markdown-toc-手工配置服务契约">手工配置服务契约</a></li>
-      <li><a href="#从服务中心自动下载契约" id="markdown-toc-从服务中心自动下载契约">从服务中心自动下载契约</a></li>
+  <li><a href="#scenario" id="markdown-toc-scenario">Scenario</a></li>
+  <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a>    <ul>
+      <li><a href="#manually-configuring-service-api-definition" id="markdown-toc-manually-configuring-service-api-definition">Manually Configuring Service API Definition</a></li>
+      <li><a href="#automatically-downloading-api-definition-from-service-center" id="markdown-toc-automatically-downloading-api-definition-from-service-center">Automatically Downloading API Definition from Service Center</a></li>
     </ul>
   </li>
 </ul>
@@ -576,19 +575,17 @@
   </nav>
 </aside>
 
-<h2 id="场景描述">场景描述</h2>
+<h2 id="scenario">Scenario</h2>
 
-<p>当服务消费者调用服务提供者的服务时，需要注册服务契约。消费者有两种方式获取提供者的服务契约，一种是从服务的提供方离线获取契约文件，手工配置到项目中；另一种是从服务中心自动下载契约。</p>
+<p>When a consumer calls a service from a provider, you need to register a service API definition. You can obtain service API definition from your provider for your consumer in two ways. One is to obtain the service API definition from the provider off-line and manually configure the API definition to the project. Another is to automatically download the service API definition from the service center.</p>
 
-<h2 id="配置说明">配置说明</h2>
+<h2 id="configuration">Configuration</h2>
 
 <blockquote>
-  <p>说明：服务契约的获取方式与服务消费者的开发方式是无关的，用户可以任意组合使用。</p>
+  <p>You can obtain service API definition in either way, regardless of the development mode of service consumers.</p>
 </blockquote>
 
-<h3 id="配置依赖服务">配置依赖服务</h3>
-
-<p>服务消费者需要在microservice.yaml文件中配置依赖的provider，示例配置如下：</p>
+<p>In the microservice.yaml file, configure a provider for the consumer. The following is an example of the configuration:</p>
 
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
   <span class="c1"># other configurations omitted</span>
@@ -599,36 +596,36 @@
 </div>
 
 <blockquote>
-  <p>version-rule是版本匹配规则，有四种格式：</p>
+  <p>There are four kind of rule for version-rule:</p>
 
   <ul>
-    <li>精确版本匹配：例如<code class="highlighter-rouge">version-rule: 0.0.1</code>，表示只匹配版本号为0.0.1的服务提供者</li>
-    <li>后续版本匹配：例如<code class="highlighter-rouge">version-rule: 1.0.0+</code>，表示匹配版本号大于或等于1.0.0的服务提供者</li>
-    <li>最新版本：<code class="highlighter-rouge">version-rule: latest</code>，表示匹配最新版本的服务提供者</li>
-    <li>版本范围：例如<code class="highlighter-rouge">1.0.0-2.0.2</code>，表示匹配版本号在1.0.0至2.0.2之间的服务提供者，包含1.0.0和2.0.2</li>
+    <li>Accurate Matching Rule: such as <code class="highlighter-rouge">version-rule: 0.0.1</code>, it indicates that only those  providers whose version is 0.0.1 can be matched.</li>
+    <li>Later Matching Rule: such as <code class="highlighter-rouge">version-rule: 1.0.0+</code>, it indicates that those providers whose version is later that 1.0.0 can be matched.</li>
+    <li>Latest Matching Rule: such as <code class="highlighter-rouge">version-rule: latest</code>, it indicates that only  those providers whose version number is latest can be matched.</li>
+    <li>Range Matching Rule: such as<code class="highlighter-rouge">1.0.0-2.0.2</code>,  it indicates that those provider whose version number is between 1.0.0 and 2.0.2 can be matched, including 1.0.0 and 2.0.2</li>
   </ul>
 
-  <p>此配置项默认为<code class="highlighter-rouge">latest</code></p>
+  <p>The default version rule of version-rule is <code class="highlighter-rouge">latest</code>.</p>
 </blockquote>
 
-<h3 id="手工配置服务契约">手工配置服务契约</h3>
+<h3 id="manually-configuring-service-api-definition">Manually Configuring Service API Definition</h3>
 
-<p>服务消费者的开发者在线下拿到服务提供者的契约，配置到消费者工程的特定目录下。服务契约在项目中的存放目录与<a href="/users/service-contract/">服务契约</a>的配置说明部分相同。</p>
+<p>After you obtained the API definition of your consumer from the provider, configure it in a specified directory of the consumer project. The directory is the one mentioned in the configuration description <a href="/users/service-contract/">Service Contract</a>.</p>
 
-<p>microservice目录下的每一个目录代表一个微服务，微服务目录下的每一个yaml文件代表一个schema契约，文件名就是schemaId。applications目录下存放需要指明appId的服务契约，用于跨app调用等场景。目录结构如下所示：</p>
+<p>Each directory under the microservices directory indecates a microservice, and each .yaml file under the jaxrs directory represents a schema API definition. The file name is the schema ID. The service API definitions whose application IDs need to be specified are stored under the applications directory for cross-application calls. The directory structure is as follows:</p>
 <pre><code class="language-txt">resources
   - microservices
-      - serviceName            # 微服务名
-          - schemaId.yaml      # schema接口的契约
+      - serviceName            # Microservice name
+          - schemaId.yaml      # Schema API definition
   - applications
-      - appId                  # 应用ID
-          - serviceName        # 微服务名
-              - schemaId.yaml  # schema接口的契约
+      - appId                  # Application ID
+          - serviceName        # Microservice name
+              - schemaId.yaml  # Schema API definition
 </code></pre>
 
-<h3 id="从服务中心自动下载契约">从服务中心自动下载契约</h3>
+<h3 id="automatically-downloading-api-definition-from-service-center">Automatically Downloading API Definition from Service Center</h3>
 
-<p>服务消费者也可以不用显式地将契约存放在项目目录中，当程序启动时，ServiceComb框架会自动根据microservice.yaml文件中配置的服务提供者的微服务名称和版本号，从服务中心自动下载契约信息。</p>
+<p>If a consumer does not explicitly store the API definition in the project directory, when the application is started, the ServiceComb framework automatically downloads the information about the API definition from the service center based on the provider’s microservices name and version configured in microservice.yaml.</p>
 
         
       </section>

@@ -19,12 +19,12 @@
 
 
 
-<title>调用控制 - Apache incubator ServiceComb</title>
+<title>Invoke Control - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="调用控制">
+<meta name="description" content="Invoke Control">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="调用控制">
+<meta property="og:title" content="Invoke Control">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/invoke-control/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="调用控制">
+  <meta property="og:description" content="Invoke Control">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="调用控制">
-  <meta name="twitter:description" content="调用控制">
+  <meta name="twitter:title" content="Invoke Control">
+  <meta name="twitter:description" content="Invoke Control">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="调用控制">
-    <meta itemprop="description" content="调用控制">
+    <meta itemprop="headline" content="Invoke Control">
+    <meta itemprop="description" content="Invoke Control">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">调用控制
+            <h1 class="page__title" itemprop="headline">Invoke Control
 </h1>
             
           </header>
@@ -564,20 +564,20 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#实例级故障隔离" id="markdown-toc-实例级故障隔离">实例级故障隔离</a>    <ul>
-      <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
-      <li><a href="#配置说明" id="markdown-toc-配置说明">配置说明</a></li>
+  <li><a href="#instance-level-fault-isolation" id="markdown-toc-instance-level-fault-isolation">Instance-Level Fault Isolation</a>    <ul>
+      <li><a href="#scenario" id="markdown-toc-scenario">Scenario</a></li>
+      <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a></li>
     </ul>
   </li>
-  <li><a href="#熔断策略" id="markdown-toc-熔断策略">熔断策略</a>    <ul>
-      <li><a href="#场景描述-1" id="markdown-toc-场景描述-1">场景描述</a></li>
-      <li><a href="#配置说明-1" id="markdown-toc-配置说明-1">配置说明</a></li>
+  <li><a href="#circuit-break-policy" id="markdown-toc-circuit-break-policy">Circuit Break Policy</a>    <ul>
+      <li><a href="#scenario-1" id="markdown-toc-scenario-1">Scenario</a></li>
+      <li><a href="#configuration-1" id="markdown-toc-configuration-1">Configuration</a></li>
     </ul>
   </li>
-  <li><a href="#限流策略" id="markdown-toc-限流策略">限流策略</a>    <ul>
-      <li><a href="#场景描述-2" id="markdown-toc-场景描述-2">场景描述</a></li>
-      <li><a href="#注意事项" id="markdown-toc-注意事项">注意事项</a></li>
-      <li><a href="#配置说明-2" id="markdown-toc-配置说明-2">配置说明</a></li>
+  <li><a href="#flow-control-policy" id="markdown-toc-flow-control-policy">Flow Control Policy</a>    <ul>
+      <li><a href="#scenario-2" id="markdown-toc-scenario-2">Scenario</a></li>
+      <li><a href="#precaution" id="markdown-toc-precaution">Precaution</a></li>
+      <li><a href="#configuration-2" id="markdown-toc-configuration-2">Configuration</a></li>
     </ul>
   </li>
 </ul>
@@ -585,25 +585,25 @@
   </nav>
 </aside>
 
-<h2 id="实例级故障隔离">实例级故障隔离</h2>
+<h2 id="instance-level-fault-isolation">Instance-Level Fault Isolation</h2>
 
-<h3 id="场景描述">场景描述</h3>
+<h3 id="scenario">Scenario</h3>
 
-<p>实例级故障隔离功能允许在微服务的部分实例调用失败时，停止向故障实例发送请求，从而达到隔离故障实例的功能。</p>
+<p>In the scenario where some instances fail to be called, the instance-level fault isolation function stops the ServiceComb framework from sending requests to the faulty instance.</p>
 
-<h3 id="配置说明">配置说明</h3>
+<h3 id="configuration">Configuration</h3>
 
-<p>实例级故障隔离功能集成在负载均衡功能中，负载均衡策略的配置见<a href="/users/service-configurations/#负载均衡策略">负载均衡策略</a>。负载均衡策略中，与实例级故障隔离相关的配置项见下表。</p>
+<p>This instance-level fault isolation function is integrated into the load balancing function. For configuration of the load balancing policy, see  <a href="/users/service-configurations/#负载均衡策略">Service Configurations</a>. For parameters associated with instance-level fault isolation in the load balancing policy, see table below:</p>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">配置项</th>
-      <th style="text-align: left">默认值</th>
-      <th style="text-align: left">取值范围</th>
-      <th style="text-align: left">是否必选</th>
-      <th style="text-align: left">含义</th>
-      <th style="text-align: left">注意</th>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default Value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remark</th>
     </tr>
   </thead>
   <tbody>
@@ -611,58 +611,58 @@
       <td style="text-align: left">cse.loadbalance.isolation.enabled</td>
       <td style="text-align: left">false</td>
       <td style="text-align: left">Boolean</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">是否开启故障实例隔离功能</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies whether to enable faulty instance isolation.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.loadbalance.isolation.enableRequestThreshold</td>
       <td style="text-align: left">20</td>
       <td style="text-align: left">Integer</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">当实例的调用总次数达到该值时开始进入隔离逻辑门槛</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the threshold number of instance calls. If this value is reached, isolation is enabled.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.loadbalance.isolation.errorThresholdPercentage</td>
       <td style="text-align: left">20</td>
-      <td style="text-align: left">Integer，区间为(0,100]</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">实例故障隔离错误百分比</td>
+      <td style="text-align: left">Integer, (0,100]</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the error percentage. Instance fault isolation is enabled when the set value is reached.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.loadbalance.isolation.singleTestTime</td>
       <td style="text-align: left">10000</td>
       <td style="text-align: left">Integer</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">故障实例单点测试时间</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the duration of a faulty instance test on a single node.</td>
       <td style="text-align: left"> </td>
     </tr>
   </tbody>
 </table>
 
-<h2 id="熔断策略">熔断策略</h2>
-<h3 id="场景描述-1">场景描述</h3>
+<h2 id="circuit-break-policy">Circuit Break Policy</h2>
+<h3 id="scenario-1">Scenario</h3>
 
-<p>熔断策略是对ServiceComb熔断功能的设置，用户通过配置熔断策略可以指定在何种条件下ServiceComb框架将终止发送请求。</p>
+<p>Circuit brake policy can configure ServiceComb fallback capability, you can configure conditions under which service will stop send request after circuit break policy configured.</p>
 
-<h3 id="配置说明-1">配置说明</h3>
+<h3 id="configuration-1">Configuration</h3>
 
-<p>熔断作为异常反应机制是降级策略的一部分，相关概念还有隔离和容错。三者的关系以及配置方式参见<a href="/users/service-configurations/#降级策略">降级策略</a>。</p>
+<p>Circuit break is part of fallback policy when a service request is abnormal, relevant concept such as isolation and fault tolerance please refer to <a href="/users/service-configurations/#降级策略">fallback policy</a>。</p>
 
-<h2 id="限流策略">限流策略</h2>
-<h3 id="场景描述-2">场景描述</h3>
+<h2 id="flow-control-policy">Flow Control Policy</h2>
+<h3 id="scenario-2">Scenario</h3>
 
-<p>用户在consumer端使用限流策略，可以限制发往指定微服务的请求的频率。</p>
+<p>You can limit the frequency of request send to specific microservice when flow control was enables in consumer service.</p>
 
-<h3 id="注意事项">注意事项</h3>
+<h3 id="precaution">Precaution</h3>
 
-<p>参考服务提供者处<a href="/users/service-configurations/#限流策略">限流策略注意事项</a>。</p>
+<p>See detail info at <a href="/users/service-configurations/#限流策略">Service Configurations</a>。</p>
 
-<h3 id="配置说明-2">配置说明</h3>
+<h3 id="configuration-2">Configuration</h3>
 
-<p>限流策略配置在microservice.yaml文件中，相关配置项见下表。要开启服务消费者端的限流策略，还需要在处理链中配置消费端限流handler，配置示例如下：</p>
+<p>Flow control policy configuration is in microservice.yaml file. You need to configure consumer handler in chain of service. See example blow:</p>
 
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
   <span class="s">handler</span><span class="pi">:</span>
@@ -672,17 +672,17 @@
 </code></pre>
 </div>
 
-<p>QPS流控配置项说明</p>
+<p>Configuration items of QPS:</p>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">配置项</th>
-      <th style="text-align: left">默认值</th>
-      <th style="text-align: left">取值范围</th>
-      <th style="text-align: left">是否必选</th>
-      <th style="text-align: left">含义</th>
-      <th style="text-align: left">注意</th>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default Value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remark</th>
     </tr>
   </thead>
   <tbody>
@@ -690,20 +690,21 @@
       <td style="text-align: left">cse.flowcontrol.Consumer.qps.enabled</td>
       <td style="text-align: left">true</td>
       <td style="text-align: left">Boolean</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">是否启用Consumer流控</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies whether consumers flowcontrol enables.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.flowcontrol.Consumer.qps.limit.[ServiceName].[Schema].[operation]</td>
       <td style="text-align: left">2147483647  (max int)</td>
-      <td style="text-align: left">(0,2147483647]，整形</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">每秒钟允许的请求数</td>
-      <td style="text-align: left">支持microservice、schema、operation三个级别的配置</td>
+      <td style="text-align: left">(0,2147483647], Integer</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies number of requests per second.</td>
+      <td style="text-align: left">Support three level configurations: microservice、schema、operation.</td>
     </tr>
   </tbody>
 </table>
+
 
         
       </section>

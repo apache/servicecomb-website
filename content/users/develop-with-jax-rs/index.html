@@ -19,12 +19,12 @@
 
 
 
-<title>用JAX-RS开发微服务 - Apache incubator ServiceComb</title>
+<title>Development Style-JAX-RS - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="用JAX-RS开发微服务">
+<meta name="description" content="Development Style-JAX-RS">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="用JAX-RS开发微服务">
+<meta property="og:title" content="Development Style-JAX-RS">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/develop-with-jax-rs/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="用JAX-RS开发微服务">
+  <meta property="og:description" content="Development Style-JAX-RS">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="用JAX-RS开发微服务">
-  <meta name="twitter:description" content="用JAX-RS开发微服务">
+  <meta name="twitter:title" content="Development Style-JAX-RS">
+  <meta name="twitter:description" content="Development Style-JAX-RS">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="用JAX-RS开发微服务">
-    <meta itemprop="description" content="用JAX-RS开发微服务">
+    <meta itemprop="headline" content="Development Style-JAX-RS">
+    <meta itemprop="description" content="Development Style-JAX-RS">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">用JAX-RS开发微服务
+            <h1 class="page__title" itemprop="headline">Development Style-JAX-RS
 </h1>
             
           </header>
@@ -564,25 +564,23 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-  <li><a href="#开发示例" id="markdown-toc-开发示例">开发示例</a></li>
-  <li><a href="#涉及api" id="markdown-toc-涉及api">涉及API</a></li>
+  <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+  <li><a href="#development-example" id="markdown-toc-development-example">Development Example</a></li>
+  <li><a href="#involved-apis" id="markdown-toc-involved-apis">Involved APIs</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<h2 id="concept-description">Concept Description</h2>
 
-<p>ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。</p>
+<p>ServiceComb supports developers in developing services in JAX-RS mode by using JAX-RS.</p>
 
-<h2 id="开发示例">开发示例</h2>
+<h2 id="development-example">Development Example</h2>
 
 <ul>
   <li>
-    <p><strong>步骤 1</strong> 定义服务接口。</p>
-
-    <p>根据开发之前定义好的契约，编写Java业务接口，代码如下：</p>
+    <p><strong>Steps 1</strong> Define a service API. Compile the Java API definition based on the API definition defined before development. The code is as follows:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Hello</span> <span class="o">{</span>
   <span class="err">　</span><span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
@@ -592,14 +590,12 @@
     </div>
 
     <blockquote>
-      <p><strong>说明</strong>：
- 该接口的位置需要与契约中x-java-interface所指定的路径一致。</p>
+      <p><strong>NOTE</strong>：
+The location of the API must be the same as the path specified by x-java-interface in the API definition.</p>
     </blockquote>
   </li>
   <li>
-    <p><strong>步骤 2</strong> 实现服务。</p>
-
-    <p>使用JAX-RS注解开发业务代码，Hello的服务实现如下：</p>
+    <p><strong>Step 2</strong> Implement the service. JAX-RS is used to describe the development of service code. The implementation of the Hello service is as follows:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">javax.ws.rs.POST</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">javax.ws.rs.Path</span><span class="o">;</span>
@@ -629,9 +625,7 @@
     </div>
   </li>
   <li>
-    <p><strong>步骤 3</strong> 发布服务。</p>
-
-    <p>在服务的实现类上打上注解<code class="highlighter-rouge">@RestSchema</code>，指定schemaId，表示该实现作为当前微服务的一个schema发布，代码如下：</p>
+    <p><strong>Step 3</strong> Release the service. Add <code class="highlighter-rouge">@RestSchema</code> as the annotation of the service implementation class and specify schemaID, which indicates that the implementation is released as a schema of the current microservice. The code is as follows:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">io.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
  <span class="c1">// other code omitted</span>
@@ -642,7 +636,7 @@
 </code></pre>
     </div>
 
-    <p>然后在resources/META-INF/spring目录下创建jaxrsHello.bean.xml文件，配置spring进行服务扫描的base-package，文件内容如下：</p>
+    <p>Create the jaxrsHello.bean.xml file in the resources/META-INF/spring directory and configure base-package that performs scanning. The content of the file is as follows:</p>
 
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
  <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">" http://www.springframework.org/schema/beans "</span> <span class="na">xmlns:xsi=</span><span class="s">" http://www.w3.org/2001/XMLSchema-instance "</span>
@@ -650,7 +644,7 @@
         <span class="na">xmlns:cse=</span><span class="s">" http://www.huawei.com/schema/paas/cse/rpc "</span>
         <span class="na">xmlns:context=</span><span class="s">" http://www.springframework.org/schema/context "</span>
         <span class="na">xsi:schemaLocation=</span><span class="s">" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd"</span><span class="nt">&gt;</span>
-   
+
      <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"io.servicecomb.samples.jaxrs.provider"</span><span class="nt">/&gt;</span>
  <span class="nt">&lt;/beans&gt;</span>
 </code></pre>
@@ -658,28 +652,28 @@
   </li>
 </ul>
 
-<h2 id="涉及api">涉及API</h2>
+<h2 id="involved-apis">Involved APIs</h2>
 
-<p>JAX-RS开发模式当前支持如下注解，所有注解的使用方法参考<a href="https://jax-rs-spec.java.net/nonav/2.0-rev-a/apidocs/index.html">JAX-RS官方文档</a>。</p>
+<p>Currently, the JAX-RS development mode supports the following annotation. For details about how to use JAX-RS, see <a href="https://jax-rs-spec.java.net/nonav/2.0-rev-a/apidocs/index.html">JAX-RS official documentation</a>。</p>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">注解</th>
-      <th style="text-align: left">位置</th>
-      <th style="text-align: left">描述</th>
+      <th style="text-align: left">Remarks</th>
+      <th style="text-align: left">Location</th>
+      <th style="text-align: left">Description</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td style="text-align: left">javax.ws.rs.Path</td>
       <td style="text-align: left">schema/operation</td>
-      <td style="text-align: left">URL路径</td>
+      <td style="text-align: left">URL path</td>
     </tr>
     <tr>
       <td style="text-align: left">javax.ws.rs.Produces</td>
       <td style="text-align: left">schema/operation</td>
-      <td style="text-align: left">方法支持的编解码能力</td>
+      <td style="text-align: left">Coding/decoding capability supported by the method</td>
     </tr>
     <tr>
       <td style="text-align: left">javax.ws.rs.DELETE</td>
@@ -704,31 +698,31 @@
     <tr>
       <td style="text-align: left">javax.ws.rs.QueryParam</td>
       <td style="text-align: left">parameter</td>
-      <td style="text-align: left">从query string中获取参数</td>
+      <td style="text-align: left">Obtain parameters from query string</td>
     </tr>
     <tr>
       <td style="text-align: left">javax.ws.rs.PathParam</td>
       <td style="text-align: left">parameter</td>
-      <td style="text-align: left">从path中获取参数，必须在path中定义该参数</td>
+      <td style="text-align: left">Obtain parameters from path, This parameter must be defined in path.</td>
     </tr>
     <tr>
       <td style="text-align: left">javax.ws.rs.HeaderParam</td>
       <td style="text-align: left">parameter</td>
-      <td style="text-align: left">从header中获取参数</td>
+      <td style="text-align: left">Obtain parameters from header.</td>
     </tr>
     <tr>
       <td style="text-align: left">javax.ws.rs.CookieParam</td>
       <td style="text-align: left">parameter</td>
-      <td style="text-align: left">从cookie中获取参数</td>
+      <td style="text-align: left">Obtain parameters from cookie.</td>
     </tr>
   </tbody>
 </table>
 
 <blockquote>
-  <p><strong>说明</strong>：</p>
+  <p><strong>NOTE</strong>：</p>
   <ul>
-    <li>当方法参数没有注解，且不为HttpServletRequest类型参数时，默认为body类型参数，一个方法只支持最多一个body类型参数。</li>
-    <li>打在参数上面的注解建议显式定义出value值，否则将直接使用契约中的参数名，例如应该使用<code class="highlighter-rouge">@QueryParam\("name"\) String name</code>，而不是<code class="highlighter-rouge">@QueryParam String name</code>。</li>
+    <li>When the method parameter has no annotation and is not an HttpServletRequest parameter, the parameter is of the body type by default. One method supports a maximum of one body-typed parameter.</li>
+    <li>You are advised to explicitly define the value of the parameter. Otherwise, the parameter name in the API definition is used, such as <code class="highlighter-rouge">@QueryParam\("name"\) String name</code> String name instead of <code class="highlighter-rouge">@QueryParam String name</code>.</li>
   </ul>
 </blockquote>
 

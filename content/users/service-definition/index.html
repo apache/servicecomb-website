@@ -19,12 +19,12 @@
 
 
 
-<title>服务定义 - Apache incubator ServiceComb</title>
+<title>Service Definition - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="服务定义">
+<meta name="description" content="Service Definition">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="服务定义">
+<meta property="og:title" content="Service Definition">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/service-definition/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="服务定义">
+  <meta property="og:description" content="Service Definition">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="服务定义">
-  <meta name="twitter:description" content="服务定义">
+  <meta name="twitter:title" content="Service Definition">
+  <meta name="twitter:description" content="Service Definition">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="服务定义">
-    <meta itemprop="description" content="服务定义">
+    <meta itemprop="headline" content="Service Definition">
+    <meta itemprop="description" content="Service Definition">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">服务定义
+            <h1 class="page__title" itemprop="headline">Service Definition
 </h1>
             
           </header>
@@ -564,36 +564,36 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
-  <li><a href="#配置说明" id="markdown-toc-配置说明">配置说明</a></li>
-  <li><a href="#示例代码" id="markdown-toc-示例代码">示例代码</a></li>
+  <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+  <li><a href="#scenario" id="markdown-toc-scenario">Scenario</a></li>
+  <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a></li>
+  <li><a href="#sample-code" id="markdown-toc-sample-code">Sample Code</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<h2 id="concept-description">Concept Description</h2>
 
-<p>服务定义信息是微服务的身份标识，它定义了服务从属于哪个应用，以及名字和版本。服务定义信息中也可以有扩展信息，用于定义服务的属性元数据。</p>
+<p>A service definition identifies a microservice. It defines the service name, version, and the application that the service belongs to. The service definition can also contain extended information defining the attribute metadata of a service.</p>
 
-<h2 id="场景描述">场景描述</h2>
+<h2 id="scenario">Scenario</h2>
 
-<p>当用户定义新的微服务或修改微服务的基本信息时，会涉及到服务定义信息的创建和修改操作。</p>
+<p>To define a new microservice or modify its basic information, you may need to create and modify service definitions.</p>
 
-<h2 id="配置说明">配置说明</h2>
+<h2 id="configuration">Configuration</h2>
 
-<p>介绍涉及microservice.yaml文件的以下配置项，文件在项目中的存放路径为src/main/resources/microservice.yaml。</p>
+<p>This section describe the following configration items related to the microservice.yaml file in the src\main\resources\ directory.</p>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">配置项</th>
-      <th style="text-align: left">默认值</th>
-      <th style="text-align: left">取值范围</th>
-      <th style="text-align: left">是否必选</th>
-      <th style="text-align: left">含义</th>
-      <th style="text-align: left">注意</th>
+      <th style="text-align: left">Configuration on Item</th>
+      <th style="text-align: left">Default</th>
+      <th style="text-align: left">Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remarks</th>
     </tr>
   </thead>
   <tbody>
@@ -601,82 +601,82 @@
       <td style="text-align: left">APPLICATION_ID</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">应用名</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">Indicates an application name.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">service_description.name</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">微服务名</td>
-      <td style="text-align: left">应确保app内部唯一。微服务名支持数字、大小写字母和”-“、”_“、”.”三个特殊字符，但是不能以特殊字符作为首尾字符，命名规范为：^[a-zA-Z0-9]+$|^[a-zA-Z0-9][a-zA-Z0-9_-.]*[a-zA-Z0-9]$。</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">Indicates a microservice name</td>
+      <td style="text-align: left">The microservice name should be unique within an application. The name can contain digits, uppercase and lowercase letters, hyphens(-), underscores(_), and periods(.); and can neither start nor end with punctuations. The naming rule is as follows: ^[a-zA-Z0-9]+$|^[a-zA-Z0-9][a-zA-Z0-9_-.]*[a-zA-Z0-9]$.</td>
     </tr>
     <tr>
       <td style="text-align: left">service_description.version</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">微服务版本号</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">Indicates a service version.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">service_description.properties</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">微服务元数据配置（通过microservice.yaml文件进行配置）</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Configures microservice metadata(in the microservice.yaml file).</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">service_description.propertyExtendedClass</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">微服务元数据配置（通过实现接口PropertyExtended进行配置）</td>
-      <td style="text-align: left">接口返回的配置会覆盖配置文件中key相同的配置。</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Configures microservice metadata(through the PropertyExtended API).</td>
+      <td style="text-align: left">The configurations returned through the API will overwrite those with the same keys in the configuration file.</td>
     </tr>
     <tr>
       <td style="text-align: left">instance_description.properties</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">服务实例元数据配置（通过microservice.yaml文件进行配置）</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Configures instance metadata(in the microservice.yaml file)</td>
       <td style="text-align: left"> </td>
     </tr>
     <tr>
       <td style="text-align: left">instance_description.propertyExtendedClass</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">微服务元数据配置（通过实现接口PropertyExtended进行配置）</td>
-      <td style="text-align: left">同service_description.propertyExtendedClass</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Configures microservice metadata(through the PropertyExtended API).</td>
+      <td style="text-align: left">The configurations returned through the API will overwrite thos with the same keys in the configuration file.</td>
     </tr>
   </tbody>
 </table>
 
 <blockquote>
-  <p>说明：</p>
+  <p>NOTE：</p>
   <ul>
-    <li>服务的元数据会随服务一同注册到服务中心，如需修改，则要连同服务version一起变更。若想保持服务version不变，则需要通过服务管理中心统一变更元数据。</li>
-    <li>默认情况下，微服务只支持同一个app内部的服务调用。可在微服务的properties中配置allowCrossApp=true属性，开启可被跨app访问权限。</li>
+    <li>The metadata of a service is registered to the service center with the service. It is changed together with the service version. Changing metadata in the service center will keep the version unchanged.</li>
+    <li>By default, one microservice can be called by only one APPLICATION_ID. You can set allowCrossApp=true in microservice properties to access a microservice acroos APPLICATION_ID.</li>
   </ul>
 </blockquote>
 
-<h2 id="示例代码">示例代码</h2>
+<h2 id="sample-code">Sample Code</h2>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">helloTest</span> <span class="c1">#应用名</span>
-<span class="s">service_description</span><span class="pi">:</span> <span class="c1">#服务描述</span>
-  <span class="s">name</span><span class="pi">:</span> <span class="s">helloServer</span> <span class="c1">#微服务名称</span>
-  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span> <span class="c1">#服务版本号</span>
-  <span class="s">properties</span><span class="pi">:</span> <span class="c1">#元数据</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">helloTest</span> <span class="c1">#Application name</span>
+<span class="s">service_description</span><span class="pi">:</span> <span class="c1">#Service description</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">helloServer</span> <span class="c1">#Microservice name</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span> <span class="c1">#Service version</span>
+  <span class="s">properties</span><span class="pi">:</span> <span class="c1">#Metadata</span>
 <span class="err"> </span><span class="s">   allowCrossApp</span><span class="pi">:</span> <span class="s">false</span>
  <span class="s">   key1</span><span class="pi">:</span> <span class="s">value1</span>
     <span class="s">key2</span><span class="pi">:</span> <span class="s">value2</span>
   <span class="s">propertyExtentedClass</span><span class="pi">:</span> <span class="s">io.servicecomb.serviceregistry.MicroServicePropertyExtendedStub</span>
-<span class="s">instance_description</span><span class="pi">:</span> <span class="c1">#实例描述</span>
-  <span class="s">properties</span><span class="pi">:</span> <span class="c1">#元数据</span>
+<span class="s">instance_description</span><span class="pi">:</span> <span class="c1">#Instance description</span>
+  <span class="s">properties</span><span class="pi">:</span> <span class="c1">#Metadata</span>
     <span class="s">key3</span><span class="pi">:</span> <span class="s">value3</span>
   <span class="s">propertyExtentedClass</span><span class="pi">:</span> <span class="s">io.servicecomb.serviceregistry.MicroServicePropertyExtendedStub</span>
 </code></pre>

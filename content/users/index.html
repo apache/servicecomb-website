@@ -19,12 +19,12 @@
 
 
 
-<title>Java Chassis系统架构 - Apache incubator ServiceComb</title>
+<title>Java Chassis Architecture - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="Java Chassis系统架构">
+<meta name="description" content="Java Chassis Architecture">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="Java Chassis系统架构">
+<meta property="og:title" content="Java Chassis Architecture">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="Java Chassis系统架构">
+  <meta property="og:description" content="Java Chassis Architecture">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="Java Chassis系统架构">
-  <meta name="twitter:description" content="Java Chassis系统架构">
+  <meta name="twitter:title" content="Java Chassis Architecture">
+  <meta name="twitter:description" content="Java Chassis Architecture">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Java Chassis系统架构">
-    <meta itemprop="description" content="Java Chassis系统架构">
+    <meta itemprop="headline" content="Java Chassis Architecture">
+    <meta itemprop="description" content="Java Chassis Architecture">
     
     <meta itemprop="dateModified" content="June 14, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">Java Chassis系统架构
+            <h1 class="page__title" itemprop="headline">Java Chassis Architecture
 </h1>
             
           </header>
@@ -564,92 +564,92 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#框架概述" id="markdown-toc-框架概述">框架概述</a></li>
-  <li><a href="#主要设计意图" id="markdown-toc-主要设计意图">主要设计意图</a></li>
-  <li><a href="#模块说明" id="markdown-toc-模块说明">模块说明</a></li>
+  <li><a href="#basic-framework" id="markdown-toc-basic-framework">Basic Framework</a></li>
+  <li><a href="#purpose" id="markdown-toc-purpose">Purpose</a></li>
+  <li><a href="#modules" id="markdown-toc-modules">Modules</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="框架概述">框架概述</h2>
-<p><img src="/assets/images/servicecomb-models.png" alt="ServiceComb Model" class="align-center" /></p>
+<h2 id="basic-framework">Basic Framework</h2>
+<p><img src="/assets/images/servicecomb_mode_en.png" alt="ServiceComb Model" class="align-center" /></p>
 
-<h2 id="主要设计意图">主要设计意图</h2>
+<h2 id="purpose">Purpose</h2>
 
-<p>1.编程模型和通信模型分离，不同的编程模型可以灵活组合不同的通信模型。应用开发者在开发阶段只关注接口开发，部署阶段灵活切换通信方式；支持legacy系统的切换，legacy系统只需要修改服务发布的配置文件（或者annotation），而不需要修改代码。</p>
+<p>1.To decouple the programming and communication models, so that a programming model can be combined with any communication models as needed. Application developers only need to focus on APIs during development and can flexibly switch communication models during deployment. Services can also be switched over to a legacy system. The developers simply need to modify the configuration file(or annotation) released by the service.</p>
 
-<p>现阶段支持SpringMVC、JAX-RS和透明RPC三种开发方式。</p>
+<p>Currently, applications can be developed in Spring MVC, JAX-RS, or transparent RPC mode.</p>
 
-<p>2.内建API-first支持。通过契约规范化微服务开发，实现跨语言的通信，并支持配套的软件工具链（契约生成代码、代码生成契约等）开发，构建完整的开发生态。</p>
+<p>2.To introduce the code-first approach. This allows cross-language communication through API definition-based microservice development and supports the development of software tool chains(such as code generated based on API definitions and API definitions generated based on code) to build a complete development ecosystem.</p>
 
-<p>3.定义了常用的微服务运行模型，将微服务从发现到交互过程中的各种容错手段都封装起来。该运行模型支持自定义和扩展。</p>
+<p>3.To define common microservice running model, encapsulating fault tolerance methods of microservices used from discovery to interaction, The running model can be customized or extended.</p>
 
-<h2 id="模块说明">模块说明</h2>
+<h2 id="modules">Modules</h2>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">类型</th>
+      <th style="text-align: left">Type</th>
       <th style="text-align: left">artifact id</th>
-      <th style="text-align: left">是否可选</th>
-      <th style="text-align: left">功能说明</th>
+      <th style="text-align: left">Available or NOT</th>
+      <th style="text-align: left">Function</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left">编程模型</td>
+      <td style="text-align: left">Programming model</td>
       <td style="text-align: left">provider-pojo</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">提供RPC开发模式</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">Provides the RPC development mode.</td>
     </tr>
     <tr>
-      <td style="text-align: left">编程模型</td>
+      <td style="text-align: left">Programming model</td>
       <td style="text-align: left">provider-jaxrs</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">提供JAX RS开发模式</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">Provides the JAX-RS development mode.</td>
     </tr>
     <tr>
-      <td style="text-align: left">编程模型</td>
+      <td style="text-align: left">Programming model</td>
       <td style="text-align: left">provider-springmvc</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">提供Spring MVC开发模式</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">Provides the Spring MVC development mode.</td>
     </tr>
     <tr>
-      <td style="text-align: left">通信模型</td>
+      <td style="text-align: left">Communication on model</td>
       <td style="text-align: left">transport-rest-vertx</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">运行于HTTP之上的开发框架，不依赖WEB容器，应用打包为可执行jar</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">A development framework running over HTTP, it does not depend on Web containers. Applications are packaged as executable .jar files.</td>
     </tr>
     <tr>
-      <td style="text-align: left">通信模型</td>
+      <td style="text-align: left">Communication on model</td>
       <td style="text-align: left">transport-rest-servlet</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">运行于WEB容器的开发框架，应用打包为war包</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">A development framework running on Web container. Applications are packaged as WAR files.</td>
     </tr>
     <tr>
-      <td style="text-align: left">通信模型</td>
+      <td style="text-align: left">Communication on model</td>
       <td style="text-align: left">transport-highway</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">提供高性能的私有通信协议，仅用于java之间互通。</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">Provides high-performance private communication protocols for Java communication.</td>
     </tr>
     <tr>
-      <td style="text-align: left">运行模型</td>
+      <td style="text-align: left">Running model</td>
       <td style="text-align: left">handler-loadbalance</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">负载均衡模块。提供各种路由策略和配置方法。一般客户端使用。</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">A load balancing module that provides various routing policies and configurations. It is usually used for clients.</td>
     </tr>
     <tr>
-      <td style="text-align: left">运行模型</td>
+      <td style="text-align: left">Running model</td>
       <td style="text-align: left">handler-bizkeeper</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">和服务治理相关的功能，比如隔离、熔断、容错。</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">Provides service governance functions, such as isolation, fallbreak, and fault tolerance.</td>
     </tr>
     <tr>
-      <td style="text-align: left">运行模型</td>
+      <td style="text-align: left">Running model</td>
       <td style="text-align: left">handler-tracing</td>
-      <td style="text-align: left">是</td>
-      <td style="text-align: left">调用链跟踪模块，对接监控系统，吐出打点数据。</td>
+      <td style="text-align: left">Yes</td>
+      <td style="text-align: left">Provides the capability of developing and managing TCC transactions.</td>
     </tr>
   </tbody>
 </table>

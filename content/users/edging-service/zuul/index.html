@@ -19,12 +19,12 @@
 
 
 
-<title>使用Zuul做边缘服务 - Apache incubator ServiceComb</title>
+<title>Using Zuul for Edge Service - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="使用Zuul做边缘服务">
+<meta name="description" content="Using Zuul for Edge Service">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="使用Zuul做边缘服务">
+<meta property="og:title" content="Using Zuul for Edge Service">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/edging-service/zuul/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="使用Zuul做边缘服务">
+  <meta property="og:description" content="Using Zuul for Edge Service">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="使用Zuul做边缘服务">
-  <meta name="twitter:description" content="使用Zuul做边缘服务">
+  <meta name="twitter:title" content="Using Zuul for Edge Service">
+  <meta name="twitter:description" content="Using Zuul for Edge Service">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="使用Zuul做边缘服务">
-    <meta itemprop="description" content="使用Zuul做边缘服务">
+    <meta itemprop="headline" content="Using Zuul for Edge Service">
+    <meta itemprop="description" content="Using Zuul for Edge Service">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">使用Zuul做边缘服务
+            <h1 class="page__title" itemprop="headline">Using Zuul for Edge Service
 </h1>
             
           </header>
@@ -564,60 +564,60 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a>    <ul>
+  <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a>    <ul>
       <li><a href="#api-gateway" id="markdown-toc-api-gateway">API Gateway：</a></li>
       <li><a href="#zuul" id="markdown-toc-zuul">Zuul</a></li>
     </ul>
   </li>
-  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
-  <li><a href="#注意事项" id="markdown-toc-注意事项">注意事项</a></li>
-  <li><a href="#启动zuul-proxy" id="markdown-toc-启动zuul-proxy">启动Zuul Proxy</a></li>
-  <li><a href="#使用zuul-proxy" id="markdown-toc-使用zuul-proxy">使用Zuul Proxy</a></li>
+  <li><a href="#scenario" id="markdown-toc-scenario">Scenario</a></li>
+  <li><a href="#precautions" id="markdown-toc-precautions">Precautions</a></li>
+  <li><a href="#starting-zuul-proxy" id="markdown-toc-starting-zuul-proxy">Starting Zuul Proxy</a></li>
+  <li><a href="#using-zuul-proxy" id="markdown-toc-using-zuul-proxy">Using Zuul Proxy</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<h2 id="concept-description">Concept Description</h2>
 
 <h3 id="api-gateway">API Gateway：</h3>
 
-<p>API Gateway是一个服务器，也可以说是进入系统的唯一节点。API Gateway封装内部系统的架构，并且提供API给各个客户端。</p>
+<p>An API Gateway is a server and the only node through which you can access the system. API Gateway encapsulates the internal system architecture and provides APIs for clients.</p>
 
 <h3 id="zuul">Zuul</h3>
 
-<p>Zuul是Netflix的基于JVM的路由器和服务器端负载均衡器，可以使用Zuul进行以下操作：</p>
+<p>Zuul is a JVM-based router and server load balancer of Netflix. You can use Zuul to perform the following operations:</p>
 
 <ul>
-  <li>认证</li>
-  <li>洞察</li>
-  <li>压力测试</li>
-  <li>金丝雀测试</li>
-  <li>动态路由</li>
-  <li>服务迁移</li>
-  <li>负载脱落</li>
-  <li>安全</li>
-  <li>静态相响应处理</li>
-  <li>主动/被动流量管理</li>
+  <li>Certification</li>
+  <li>Insight</li>
+  <li>Stress test</li>
+  <li>Canary test</li>
+  <li>Dynamic route</li>
+  <li>Service migration</li>
+  <li>Offload</li>
+  <li>Security</li>
+  <li>Static phase response processing</li>
+  <li>Proactive/passive traffic management</li>
 </ul>
 
-<p>本小节主要介绍在SpringBoot应用中使用Zuul做API Gateway。关于Zuul的详细功能介绍请参考文档<a href="https://springcloud.cc/spring-cloud-dalston.html#_router_and_filter_zuul">路由器和过滤器：Zuul</a>。</p>
+<p>This section describes how to use Zuul as the API Gateway in the Spring Boot application. For details about Zuul, see <a href="https://springcloud.cc/spring-cloud-dalston.html#_router_and_filter_zuul">Router and Filter: Zuul</a>.</p>
 
-<h2 id="场景描述">场景描述</h2>
+<h2 id="scenario">Scenario</h2>
 
-<p>Zuul做API Gateway，即建立一个Zuul Proxy应用，在该Proxy应用中统一定义所有的微服务访问入口，通过使用不同的前缀(stripped)来区分各个微服务。本小节通过建立一个ZuulProxy SpringBoot应用来演示Zuul的API Gateway功能。</p>
+<p>Use Zuul as the API Gateway, that is, establishes a Zuul Proxy application. In this proxy application, a unified access of all the microservices is defined, and each microservice is distinguished using a prefix (stipped). This section establishes the ZuulProxy Spring Boot application to demonstrate the API Gateway function.</p>
 
-<h2 id="注意事项">注意事项</h2>
+<h2 id="precautions">Precautions</h2>
 
-<p>本小节介绍的ZuulProxy和ZuulServer等demo都是基于SpringBoot和ServiceComb框架的应用，具体请参考<a href="/users/use-servicecomb-in-spring-boot/">在ServiceComb框架中集成SpringBoot框架</a>。</p>
+<p>In this section, demos, such as ZuulProxy and ZuulServer, are based on Spring Boot and the Java Chassis framework. For detals, see <a href="/users/use-servicecomb-in-spring-boot/">Integrating Spring Boot into Java Chassis</a>.</p>
 
-<h2 id="启动zuul-proxy">启动Zuul Proxy</h2>
+<h2 id="starting-zuul-proxy">Starting Zuul Proxy</h2>
 
-<p>本节介绍如何启动一个zuul proxy应用作为API Gateway。步骤如下：</p>
+<p>This topic describes how to start a ZuulProxy application as the API Gateway. Perform the following steps:</p>
 
 <ul>
   <li>
-    <p><strong>步骤 1</strong>在pom文件中添加依赖：</p>
+    <p><strong>Step 1</strong> Add the following dependency to the POM file.</p>
 
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span> 
    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>  
@@ -638,11 +638,11 @@
     </div>
   </li>
   <li>
-    <p><strong>步骤 2</strong>在SpringBoot主类添加注解：</p>
+    <p><strong>Step 2</strong> Add annotations to the main Spring Boot category:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@SpringBootApplication</span>
  <span class="nd">@EnableServiceComb</span>
- <span class="nd">@EnableZuulProxy</span><span class="c1">//新增注解</span>
+ <span class="nd">@EnableZuulProxy</span><span class="c1">//new Annotation</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZuulMain</span><span class="o">{</span>
  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
      <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ZuulMain</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
@@ -652,80 +652,80 @@
     </div>
   </li>
   <li>
-    <p><strong>步骤 3</strong>在application.yml文件中定义路由策略：</p>
+    <p><strong>Step 3</strong> Define a routing policy in the application.yaml file</p>
 
     <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">server</span><span class="pi">:</span>
-   <span class="s">port</span><span class="pi">:</span> <span class="s">8754</span> <span class="c1">#api gateway服务端口</span>
+   <span class="s">port</span><span class="pi">:</span> <span class="s">8754</span> <span class="c1">#api gateway service port number</span>
  <span class="s">zuul</span><span class="pi">:</span>
-   <span class="s">routes</span><span class="pi">:</span> <span class="c1">#路由策略</span>
-     <span class="s">discoveryServer</span><span class="pi">:</span> <span class="s">/myServer/**</span> <span class="c1">#路由规则</span>
+   <span class="s">routes</span><span class="pi">:</span> <span class="c1">#Routing policy</span>
+     <span class="s">discoveryServer</span><span class="pi">:</span> <span class="s">/myServer/**</span> <span class="c1">#Routing rule</span>
 </code></pre>
     </div>
 
-    <p>上述的配置项可以根据实际开发环境进行配置。关于zuul.routers的路由策略的详细定义规则，请参考官方文献：<a href="https://springcloud.cc/spring-cloud-dalston.html#_router_and_filter_zuul">路由器和过滤器：Zuul</a>，可更细粒度地对路由进行控制。</p>
+    <p>The configuration item in ted indicates that the configuration can be performed based on the actual development environment. For details about the rules for defining routing policies of zuul.routers, see：<a href="https://springcloud.cc/spring-cloud-dalston.html#_router_and_filter_zuul">Router and Fillter: Zuul</a> to control routes in a finer granularity.</p>
   </li>
   <li>
-    <p><strong>步骤 4</strong>在microservice.yaml定义微服务属性：</p>
+    <p><strong>Step 4</strong> Define the microservice attributes in the microservice.yaml fiel.</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#服务ID</span>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#Service ID</span>
  <span class="s">service_description</span><span class="pi">:</span>
-   <span class="s">name</span><span class="pi">:</span> <span class="s">discoveryGateway</span> <span class="c1">#服务名称</span>
-   <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.2</span> <span class="c1">#服务版本号</span>
+   <span class="s">name</span><span class="pi">:</span> <span class="s">discoveryGateway</span> <span class="c1">#Service Name</span>
+   <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.2</span> <span class="c1">#Service Version</span>
  <span class="s">cse</span><span class="pi">:</span>
    <span class="s">service</span><span class="pi">:</span>
      <span class="s">registry</span><span class="pi">:</span>
-       <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>  <span class="c1">#服务注册中心地址</span>
+       <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>  <span class="c1">#Service Center registration</span>
    <span class="s">rest</span><span class="pi">:</span>
-     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8082</span> <span class="c1">#微服务端口，可不写</span>
+     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8082</span> <span class="c1">#(Optional) microservice port number</span>
 </code></pre>
     </div>
   </li>
 </ul>
 
-<p>本小节所有服务使用的都是本地的服务中心，具体的服务中心启动流程请参考<a href="/users/setup-environment/#运行service-center">启动本地服务中心</a>。</p>
+<p>All the services used in this section use the local service center. For details, see <a href="/users/setup-environment/#运行service-center">Starting the Local Service Center</a>。</p>
 
 <ul>
-  <li><strong>步骤 5　</strong>运行ZuulMain 应用</li>
+  <li><strong>Step 5　</strong> Run ZuulMain Application</li>
 </ul>
 
-<h2 id="使用zuul-proxy">使用Zuul Proxy</h2>
+<h2 id="using-zuul-proxy">Using Zuul Proxy</h2>
 
-<p>在使用zuul做的API Gateway前，首先要启动在zuul.routers中定义的微服务提供者。</p>
+<p>Before using the API Gateway provided by Zuul, start the microservice provider defined in zuul.routers.</p>
 
-<p>开发服务提供者，开发流程请参考<a href="/users/service-definition/">开发服务提供者</a>。在微服务microservice.yaml文件中需注意以下两点：</p>
+<p>Pay attention to the following points in the microservice.yaml file:</p>
 
 <ul>
   <li>
-    <p>APPLICATION_ID需要于zuul proxy中定义的保持一致。</p>
+    <p>APPLICATION_ID must be the same as that defined in ZuulProxy.</p>
   </li>
   <li>
-    <p>service_description.name需要于zuul.routers中相对应。</p>
+    <p>The value of service_description.name must be the same as that of zuul.routers</p>
   </li>
 </ul>
 
-<p>示例如下：</p>
+<p>An example is as follows:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#与zuul proxy一致</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#same as ZuulProxy</span>
   <span class="s">service_description</span><span class="pi">:</span>
-    <span class="s">name</span><span class="pi">:</span> <span class="s">discoveryServer</span> <span class="c1">#服务名称，与zuul.routers对应</span>
+    <span class="s">name</span><span class="pi">:</span> <span class="s">discoveryServer</span> <span class="c1">#Service name, which corresponds to that of zuul.routers</span>
     <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.2</span>
 <span class="s">cse</span><span class="pi">:</span>
   <span class="s">service</span><span class="pi">:</span>
     <span class="s">registry</span><span class="pi">:</span>
-      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#服务注册中心地址</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#Service Center registration</span>
   <span class="s">rest</span><span class="pi">:</span>
     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
 </code></pre>
 </div>
 
-<p>API Gateway的访问入口为：<a href="http://127.0.0.1:8754">http://127.0.0.1:8754</a>，所有在zuul.routers中定义的服务都可通过这个访问入口进行代理访问，访问规则如下：</p>
+<p>The portal for API Gateway is: <a href="http://127.0.0.1:8754">http://127.0.0.1:8754</a>. All services defined in zuul.routers can be accessed through this portal. The access rule are as follows:</p>
 
 <p>http://127.0.0.1:8754/myServer/***](http://127.0.0.1:8754/myServer/***)</p>
 
-<p>这表示，Http调用<a href="http://127.0.0.1:8754/myServer/***">http://127.0.0.1:8754/myServer/***</a>，会转到discoveryServer服务（例如：”/myServer/101”跳转到discoveryServer 服务下的”/101”）</p>
+<p>This indicates that HTTP calls [http://127.0.0.1:8754/myServer/*** to switch to the discoveryServer service. For example: “/myServer/101” switches to “/101” of discoveryServer service.</p>
 
 <blockquote>
-  <p>如果在服务中心同时存在多个discoveryServer服务(版本不同),zuul默认采用Ribbon策略对请求进行转发。</p>
+  <p>If multiple discoveryServer service (in different versions) exist in the Service Center, Zuul uses the Ribbon policy to transfer the request by default.</p>
 </blockquote>
 
         

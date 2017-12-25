@@ -19,12 +19,12 @@
 
 
 
-<title>使用Rest Template方式开发 - Apache incubator ServiceComb</title>
+<title>Develop with Rest Template - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="使用Rest Template方式开发">
+<meta name="description" content="Develop with Rest Template">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="使用Rest Template方式开发">
+<meta property="og:title" content="Develop with Rest Template">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/develop-with-rest-template/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="使用Rest Template方式开发">
+  <meta property="og:description" content="Develop with Rest Template">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="使用Rest Template方式开发">
-  <meta name="twitter:description" content="使用Rest Template方式开发">
+  <meta name="twitter:title" content="Develop with Rest Template">
+  <meta name="twitter:description" content="Develop with Rest Template">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="使用Rest Template方式开发">
-    <meta itemprop="description" content="使用Rest Template方式开发">
+    <meta itemprop="headline" content="Develop with Rest Template">
+    <meta itemprop="description" content="Develop with Rest Template">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">使用Rest Template方式开发
+            <h1 class="page__title" itemprop="headline">Develop with Rest Template
 </h1>
             
           </header>
@@ -564,25 +564,25 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
-  <li><a href="#示例代码" id="markdown-toc-示例代码">示例代码</a></li>
+  <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+  <li><a href="#scenario" id="markdown-toc-scenario">Scenario</a></li>
+  <li><a href="#sample-code" id="markdown-toc-sample-code">Sample Code</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<h2 id="concept-description">Concept Description</h2>
 
-<p>　　Rest Template是Spring提供的RESTful访问接口，ServiceComb提供该接口的实现类用于服务的调用。</p>
+<p>　　Rest Template is a RESTful API provide by the Spring framework.  ServiceComb provides the API for service calling</p>
 
-<h2 id="场景描述">场景描述</h2>
+<h2 id="scenario">Scenario</h2>
 
-<p>　　用户使用ServiceComb提供的Rest Template实例，可以使用自定义的URL进行服务调用，而不用关心服务的具体地址。</p>
+<p>　　You can call microservices using your customized URL and the RestTemplate instance provided by ServiceComb regardless of the specific address of the service.</p>
 
-<h2 id="示例代码">示例代码</h2>
+<h2 id="sample-code">Sample Code</h2>
 
-<p>　　Rest Template实例通过调用<code class="highlighter-rouge">RestTemplateBuilder.create()</code>方法获取，再使用该实例通过自定义的URL进行服务调用，代码如下：</p>
+<p>　　Obtain RestTemplate by calling <code class="highlighter-rouge">RestTemplateBuilder.create()</code>. Then, use the instance and the customized URL to call microservices. The code is as follows:</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.web.client.RestTemplate</span><span class="o">;</span>
@@ -617,10 +617,10 @@
 </div>
 
 <blockquote>
-  <p>说明：</p>
+  <p>NOTE:</p>
   <ul>
-    <li>URL格式为：<code class="highlighter-rouge">cse://microserviceName/path?querystring</code>。以<a href="/users/develop-with-springmvc/">用SpringMVC开发微服务</a>中定义的服务提供者为例，其微服务名称是<code class="highlighter-rouge">springmvc</code>，basePath是<code class="highlighter-rouge">/springmvchello</code>，那么URL中的microserviceName是<code class="highlighter-rouge">springmvc</code>，请求sayhi时的path是<code class="highlighter-rouge">springmvchello/sayhi</code>，所以示例代码中请求sayhi的URL是<code class="highlighter-rouge">cse://springmvc/springmvchello/sayhi?name=Java Chassis</code>。</li>
-    <li>使用这种URL格式，ServiceComb框架会在内部进行服务发现、熔断容错等处理并最终将请求发送到服务提供者。</li>
+    <li>The URL must be in format of ServiceComb: <code class="highlighter-rouge">cse://microserviceName/path?querystring</code>. Use the provider defined in <a href="/users/develop-with-springmvc/">Develop Microservice with SpringMVC</a> as an example. The microservice name is <code class="highlighter-rouge">springmvc</code>, and its base path is <code class="highlighter-rouge">/springmvchello</code>, so you should set microserviceName in the URL to  <code class="highlighter-rouge">springmvchello/sayhi</code> when requesting sayhi. Therefore, the URL for requesting sayhi is  <code class="highlighter-rouge">cse://springmvc/springmvchello/sayhi?name=Java Chassis</code>.</li>
+    <li>During use of this URL format, the ServiceComb framework will perform internal microservice descovery, fallbreak, and fault tolerance and send the requests to the microservice providers.</li>
   </ul>
 </blockquote>
 

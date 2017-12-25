@@ -19,12 +19,12 @@
 
 
 
-<title>通信协议 - Apache incubator ServiceComb</title>
+<title>Communication Protocol - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="通信协议">
+<meta name="description" content="Communication Protocol">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="通信协议">
+<meta property="og:title" content="Communication Protocol">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/communicate-protocol/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="通信协议">
+  <meta property="og:description" content="Communication Protocol">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="通信协议">
-  <meta name="twitter:description" content="通信协议">
+  <meta name="twitter:title" content="Communication Protocol">
+  <meta name="twitter:description" content="Communication Protocol">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="通信协议">
-    <meta itemprop="description" content="通信协议">
+    <meta itemprop="headline" content="Communication Protocol">
+    <meta itemprop="description" content="Communication Protocol">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">通信协议
+            <h1 class="page__title" itemprop="headline">Communication Protocol
 </h1>
             
           </header>
@@ -564,30 +564,29 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#通信协议" id="markdown-toc-通信协议">通信协议</a>    <ul>
-      <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-      <li><a href="#注意事项" id="markdown-toc-注意事项">注意事项</a></li>
+  <li><a href="#communication-protocol" id="markdown-toc-communication-protocol">Communication Protocol</a>    <ul>
+      <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+      <li><a href="#precautions" id="markdown-toc-precautions">Precautions</a></li>
     </ul>
   </li>
-  <li><a href="#线程模型" id="markdown-toc-线程模型">线程模型</a>    <ul>
-      <li><a href="#概念阐述-1" id="markdown-toc-概念阐述-1">概念阐述</a></li>
-      <li><a href="#完整线程" id="markdown-toc-完整线程">完整线程</a></li>
+  <li><a href="#thread-model" id="markdown-toc-thread-model">Thread Model</a>    <ul>
+      <li><a href="#concept-description-1" id="markdown-toc-concept-description-1">Concept Description</a></li>
+      <li><a href="#thread-model-1" id="markdown-toc-thread-model-1">Thread Model</a></li>
     </ul>
   </li>
   <li><a href="#rest-over-servlet" id="markdown-toc-rest-over-servlet">REST over Servlet</a>    <ul>
-      <li><a href="#配置说明" id="markdown-toc-配置说明">配置说明</a></li>
-      <li><a href="#示例代码" id="markdown-toc-示例代码">示例代码</a></li>
+      <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a></li>
+      <li><a href="#sample-code" id="markdown-toc-sample-code">Sample Code</a></li>
     </ul>
   </li>
   <li><a href="#rest-over-vertx" id="markdown-toc-rest-over-vertx">REST over Vertx</a>    <ul>
-      <li><a href="#配置说明-1" id="markdown-toc-配置说明-1">配置说明</a></li>
-      <li><a href="#示例代码-1" id="markdown-toc-示例代码-1">示例代码</a></li>
+      <li><a href="#configuration-1" id="markdown-toc-configuration-1">Configuration</a></li>
+      <li><a href="#sample-code-1" id="markdown-toc-sample-code-1">Sample Code</a></li>
     </ul>
   </li>
-  <li><a href="#highway-rpc协议" id="markdown-toc-highway-rpc协议">Highway RPC协议</a>    <ul>
-      <li><a href="#概念阐述-2" id="markdown-toc-概念阐述-2">概念阐述</a></li>
-      <li><a href="#配置说明-2" id="markdown-toc-配置说明-2">配置说明</a></li>
-      <li><a href="#示例代码-2" id="markdown-toc-示例代码-2">示例代码</a></li>
+  <li><a href="#highway-rpc-protocol" id="markdown-toc-highway-rpc-protocol">Highway RPC Protocol</a>    <ul>
+      <li><a href="#concept-description-2" id="markdown-toc-concept-description-2">Concept Description</a></li>
+      <li><a href="#configuration-2" id="markdown-toc-configuration-2">Configuration</a></li>
     </ul>
   </li>
 </ul>
@@ -595,49 +594,49 @@
   </nav>
 </aside>
 
-<h2 id="通信协议">通信协议</h2>
-<h3 id="概念阐述">概念阐述</h3>
+<h2 id="communication-protocol">Communication Protocol</h2>
+<h3 id="concept-description">Concept Description</h3>
 
-<p>ServiceComb实现了两种网络通道，包括REST和Highway，均支持TLS加密传输。其中，REST网络通道将服务以标准RESTful形式发布，调用端兼容直接使用http client使用标准RESTful形式进行调用。</p>
+<p>ServiceComb uses two network channels, REST and Highway, both supporting encrypted Transport Layer Security (TLS) transmission. The REST channel releases services in the standard RESTful form. The consumer can send requests using http client.</p>
 
-<h3 id="注意事项">注意事项</h3>
+<h3 id="precautions">Precautions</h3>
 
-<p>参数和返回值的序列化：</p>
+<p>Serialization of parameters and the returned values:</p>
 
-<p>当前REST通道的body参数只支持application/json序列化方式，如果要向服务端发送form类型的参数，那么需要在调用端构造好application/json格式的body，不能直接以multipart/form-data格式传递form类型参数。</p>
+<p>Currently, the body parameters of the REST channel support only the application/json serialization. To send form-type parameters to the server, construct a body of the application/json format at the consumer end. Do not send the form type parameters in multipart/form-data format.</p>
 
-<p>当前REST通道返回值支持application/json和text/plain两种格式，服务提供者通过produces声明可提供序列化能力，服务消费者通过请求的Accept头指明返回值序列化方式，默认返回application/json格式的数据。</p>
+<p>Currently, the REST channel supports the application/json and text/plain serialization. A provider uses produces to declare that it has the serialization capability. The consumer specifies the serialization mode of the returned values by setting parameters regarding the requested Accept header. Data serialized in application/json serialization mode is returned by default.</p>
 
-<h2 id="线程模型">线程模型</h2>
-<h3 id="概念阐述-1">概念阐述</h3>
+<h2 id="thread-model">Thread Model</h2>
+<h3 id="concept-description-1">Concept Description</h3>
 
-<p>本小节主要介绍ServiceComb微服务的完整线程模型，介绍IO线程和业务线程之间的关系</p>
+<p>This section describes the thread model for ServiceComb microservices and the relationship between the I/O and service threads.</p>
 
-<h3 id="完整线程">完整线程</h3>
+<h3 id="thread-model-1">Thread Model</h3>
 
-<p>ServiceComb微服务的完整线程模型如下图所示：</p>
+<p>The complete thread model of CSE is shown in the following figure.</p>
 
-<p><img src="/assets/images/thread-model.png" alt="" /></p>
+<p><img src="/assets/images/thread-model-en.png" alt="" /></p>
 
 <blockquote>
   <ol>
-    <li>业务线程在第一次调用时会绑定某一个网络线程,避免在不同网络线程之间切换,无谓地增加线程冲突的概率</li>
-    <li>业务线程绑定网络线程后,会再绑定该网络线程内部的某个连接,同样是为了避免线程冲突</li>
+    <li>When a service thread is called for the first time, it binds to a network thread to avoid thread conflicts caused by switching among different network threads.</li>
+    <li>After the service thread bound to a network thread, it will bind to a connection of the network to avoid thread conflicts.</li>
   </ol>
 </blockquote>
 
 <ul>
-  <li>客户端和服务器都可以配置多个网络线程(eventloop)，默认为CPU核数的两倍，每个网络线程可以配置多个连接，默认为1，支持Rest和Highway两种网络通道，具体配置请查看如下章节：
+  <li>Multiple network threads (eventloop) can be bound to both the client and the server. The number of network threads is two times the quantity of the CPU cores by default. Multiple connections can be configured for each network thread, and the default number is 1. The Rest and Highway network channels are supported. For details about these configurations, see following sections:
     <ul>
       <li><a href="/users/communicate-protocol#rest-over-servlet">REST over Servlet</a></li>
       <li><a href="/users/communicate-protocol/#rest-over-vertx">REST over Vertx</a></li>
-      <li><a href="/users/communicate-protocol/#highway-rpc协议">Highway RPC协议</a></li>
+      <li><a href="/users/communicate-protocol/#highway-rpc协议">Highway RPC Protocol</a></li>
     </ul>
   </li>
-  <li>客户端可配置业务线程池executor，线程粒度可细化至schemaId:operation，配置如下：</li>
+  <li>You can configure the service thread pool executor for the client, and the thread granularity can be schemaId: operation.</li>
 </ul>
 
-<p>在microservice.yaml中添加executors配置，为schemaId:operation配置单独的业务线程池：</p>
+<p>Add the executors in the microservice.yaml file and configure an independent service thread pool for schemaId: operation:</p>
 
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span> 
   <span class="s">executors</span><span class="pi">:</span> 
@@ -647,15 +646,15 @@
 </div>
 
 <h2 id="rest-over-servlet">REST over Servlet</h2>
-<h3 id="配置说明">配置说明</h3>
+<h3 id="configuration">Configuration</h3>
 
-<p>　　REST over Servlet对应使用web容器模式部署运行，需要新建一个servlet工程将微服务包装起来，加载到web容器中启动运行，包装微服务的方法有两种，一种完全使用web.xml配置文件配置，另一种仅在web.xml文件中配置listener，在microservice.yaml文件中配置urlPattern，两种方式如下所示：</p>
+<p>　　REST over Servlet is deployed and runs using a web container. You need to create a servlet project to pack the microservice, load it to the web container, and then start it. To pack a microservice, you can either fully configure it in the web.xml, or configure its listener and urlPattern in the web.xml and microservice.yaml files, respectively.</p>
 
 <ul>
   <li>
-    <p>在web.xml文件中完成全部配置</p>
+    <p>Configure the microservice in the web.xml file.</p>
 
-    <p>web.xml文件配置在项目的src/main/webapp/WEB_INF目录，配置内容如下：</p>
+    <p>The web.xml file is under the src/main/webapp/WEB_INF directory of the project, and its content is as follows:</p>
 
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
    <span class="nt">&lt;context-param&gt;</span> 
@@ -680,7 +679,7 @@
     </div>
   </li>
   <li>
-    <p>在web.xml文件中仅配置listener，在microservice.yaml文件中配置urlPattern</p>
+    <p>Configure the listener in the web.xml file and urlPattern in the microservice.yaml file.</p>
 
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
    <span class="nt">&lt;context-param&gt;</span> 
@@ -694,7 +693,7 @@
 </code></pre>
     </div>
 
-    <p>在microservice.yaml文件中需要增加一行配置来指定urlPattern：</p>
+    <p>In the microservice.yaml file, add a row to specify the urlPattern：</p>
 
     <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb.rest.servlet.urlPattern</span><span class="pi">:</span> <span class="s">/rest/*</span>
 </code></pre>
@@ -702,7 +701,7 @@
   </li>
 </ul>
 
-<p>以上两种方式是等效的，两种方式都需要在maven pom文件中添加如下依赖：</p>
+<p>The two method are equivalent, and they both require that the following dependencies be added in the pox.xml file:</p>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
   <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
@@ -711,19 +710,19 @@
 </code></pre>
 </div>
 
-<p>REST over Servlet在microservice.yaml文件中的配置项见下表：</p>
+<p>Configuration items that need to be set in the microservice.yaml file are described in Table 1:</p>
 
-<p>表1 REST over Servlet配置项说明</p>
+<p>Table 1 Configuration items of REST over Servlet</p>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">配置项</th>
-      <th style="text-align: left">默认值</th>
-      <th style="text-align: left">取值范围</th>
-      <th style="text-align: left">是否必选</th>
-      <th style="text-align: left">含义</th>
-      <th style="text-align: left">注意</th>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default Value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remark</th>
     </tr>
   </thead>
   <tbody>
@@ -731,48 +730,48 @@
       <td style="text-align: left">cse.rest.address</td>
       <td style="text-align: left">0.0.0.0:8080</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">服务监听地址</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the server listening IP address.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.rest.timeout</td>
       <td style="text-align: left">3000</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">超时时间</td>
-      <td style="text-align: left">单位为毫秒</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the timeout duration</td>
+      <td style="text-align: left">The unit is ms.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.request.timeout</td>
       <td style="text-align: left">30000</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">请求超时时间</td>
-      <td style="text-align: left">同REST over Vertx的配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the request timeout duration.</td>
+      <td style="text-align: left">The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.references.[服务名].transport</td>
       <td style="text-align: left">rest</td>
       <td style="text-align: left"> </td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">访问的transport类型</td>
-      <td style="text-align: left">同REST over Vertx的配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the accessed transport type.</td>
+      <td style="text-align: left">The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.references.[服务名].version-rule</td>
       <td style="text-align: left">latest</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">访问实例的版本号</td>
-      <td style="text-align: left">同REST over Vertx的配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the version of the accessed instance.</td>
+      <td style="text-align: left">The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx.</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="示例代码">示例代码</h3>
+<h3 id="sample-code">Sample Code</h3>
 
-<p>microservice.yaml文件中的配置示例如下：</p>
+<p>The following is an example of the configuration in the microservice.yaml file for REST over Servlet:</p>
 
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
   <span class="s">rest</span><span class="pi">:</span>
@@ -782,23 +781,23 @@
 </div>
 
 <h2 id="rest-over-vertx">REST over Vertx</h2>
-<h3 id="配置说明-1">配置说明</h3>
+<h3 id="configuration-1">Configuration</h3>
 
-<p>REST over Vertx通信通道对应使用standalone部署运行模式，可直接通过main函数拉起。main函数中需要初始化日志和加载服务配置，代码如下：</p>
+<p>The REST over Vertx communication channel uses the standalone running mode that can be started using the main function. In the main function, you need to initialize logs and load service configuration. The code is as follow:</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">io.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">io.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainServer</span> <span class="o">{</span>
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-  <span class="err">　</span><span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span><span class="c1">//日志初始化</span>
-  <span class="err">　</span><span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="c1">// Spring bean初始化</span>
+  <span class="err">　</span><span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span><span class="c1">//Log initialization</span>
+  <span class="err">　</span><span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="c1">// Spring bean initialization</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre>
 </div>
 
-<p>使用REST over Vertx网络通道需要在maven pom文件中添加如下依赖：</p>
+<p>To use the REST over Vertx communication channel, you need to add the following dependencies in the maven pom.xml file:</p>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
 　　<span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -807,19 +806,19 @@
 </code></pre>
 </div>
 
-<p>REST over Vertx通道在microservice.yaml文件中有以下配置项：</p>
+<p>Configuration items that need to be set in the microservice.yaml file are described as follows:</p>
 
-<p>表2 REST over Vertx配置项说明</p>
+<p>Table 2 Configuration items of REST over Vertx</p>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">配置项</th>
-      <th style="text-align: left">默认值</th>
-      <th style="text-align: left">取值范围</th>
-      <th style="text-align: left">是否必选</th>
-      <th style="text-align: left">含义</th>
-      <th style="text-align: left">注意</th>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default Value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remark</th>
     </tr>
   </thead>
   <tbody>
@@ -827,64 +826,64 @@
       <td style="text-align: left">cse.rest.address</td>
       <td style="text-align: left">0.0.0.0:8080</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">服务监听地址</td>
-      <td style="text-align: left">仅服务提供者需要配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the server listening IP address.</td>
+      <td style="text-align: left">Only service providers require this parameter.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.rest.server.thread-count</td>
       <td style="text-align: left">1</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">服务端线程数</td>
-      <td style="text-align: left">仅服务提供者需要配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of server threads.</td>
+      <td style="text-align: left">Only service providers require this parameter.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.rest.client.thread-count</td>
       <td style="text-align: left">1</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">客户端网络线程数</td>
-      <td style="text-align: left">仅服务消费者需要配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of client network threads.</td>
+      <td style="text-align: left">Only service consumers require this parameter.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.rest.client.connection-pool-per-thread</td>
       <td style="text-align: left">1</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">客户端每个网络线程中的连接池的个数</td>
-      <td style="text-align: left">仅服务消费者需要配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of connection pools in each client thread.</td>
+      <td style="text-align: left">Only service consumers require this parameter.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.request.timeout</td>
       <td style="text-align: left">30000</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">请求超时时间</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the request timeout duration.</td>
       <td style="text-align: left"> </td>
     </tr>
     <tr>
       <td style="text-align: left">cse.references.[服务名].transport</td>
       <td style="text-align: left">rest</td>
       <td style="text-align: left"> </td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">访问的transport类型</td>
-      <td style="text-align: left">仅服务消费者需要配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the accessed transport type.</td>
+      <td style="text-align: left">Only service consumers require this parameter.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.references.[服务名].version-rule</td>
       <td style="text-align: left">latest</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">访问实例的版本号</td>
-      <td style="text-align: left">仅服务消费者需要配置支持latest，1.0.0+，1.0.0-2.0.2，精确版本。详细参考服务中心的接口描述。</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the version of the accessed instance.</td>
+      <td style="text-align: left">Only service consumers require this parameter. You can set it to latest, a version range such as 1.0.0+ or 1.0.0-2.0.2, or a specific version number. For details, see the API description of the service center.</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="示例代码-1">示例代码</h3>
+<h3 id="sample-code-1">Sample Code</h3>
 
-<p>microservice.yaml文件中的配置示例：</p>
+<p>An example of the configuration in the microservice.yaml file for REST over Vertx is as follows:</p>
 
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
   <span class="s">rest</span><span class="pi">:</span>
@@ -897,14 +896,14 @@
 </code></pre>
 </div>
 
-<h2 id="highway-rpc协议">Highway RPC协议</h2>
-<h3 id="概念阐述-2">概念阐述</h3>
+<h2 id="highway-rpc-protocol">Highway RPC Protocol</h2>
+<h3 id="concept-description-2">Concept Description</h3>
 
-<p>Highway是ServiceComb的高性能私有协议，用户可在有特殊性能需求的场景下选用。</p>
+<p>Highway is a high-performance proprietary protocol of ServiceComb, and you can use it in scenarios having special performance requirements.</p>
 
-<h3 id="配置说明-2">配置说明</h3>
+<h3 id="configuration-2">Configuration</h3>
 
-<p>使用Highway网络通道需要在maven pom文件中添加如下依赖：</p>
+<p>To use the Highway communication channel, you need to add the following dependencies in the maven pom.xml file:</p>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
   <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
@@ -913,19 +912,19 @@
 </code></pre>
 </div>
 
-<p>Highway通道在microservice.yaml文件中的配置项如下表所示：</p>
+<p>Configuration items that need to be set in the microservice.yaml file are described as follows:</p>
 
-<p>表3 Highway配置项说明</p>
+<p>Table 3 Configuration items of Highway</p>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">配置项</th>
-      <th style="text-align: left">默认值</th>
-      <th style="text-align: left">取值范围</th>
-      <th style="text-align: left">是否必选</th>
-      <th style="text-align: left">含义</th>
-      <th style="text-align: left">注意</th>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default Value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remark</th>
     </tr>
   </thead>
   <tbody>
@@ -933,64 +932,64 @@
       <td style="text-align: left">cse.highway.address</td>
       <td style="text-align: left">0.0.0.0:7070</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">服务监听地址</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the server listening IP address.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.highway.server.thread-count</td>
       <td style="text-align: left">1</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">服务端网络线程个数</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of server network threads.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.highway.client.thread-count</td>
       <td style="text-align: left">1</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">客户端网络线程个数</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of client network threads.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.highway.client.connection-pool-per-thread</td>
       <td style="text-align: left">1</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">客户端每个网络线程的连接池个数</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of connection pools in each client thread.</td>
       <td style="text-align: left">-</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.request.timeout</td>
       <td style="text-align: left">30000</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">请求超时时间</td>
-      <td style="text-align: left">同REST over Vertx的配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the request timeout duration.</td>
+      <td style="text-align: left">The configuration of this parameter for Highway is the same as that for REST over Vertx.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.references.[服务名].transport</td>
       <td style="text-align: left">rest</td>
       <td style="text-align: left"> </td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">访问的transport类型</td>
-      <td style="text-align: left">同REST over Vertx的配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the accessed transport type.</td>
+      <td style="text-align: left">The configuration of this parameter for Highway is the same as that for REST over Vertx.</td>
     </tr>
     <tr>
       <td style="text-align: left">cse.references.[服务名].version-rule</td>
       <td style="text-align: left">latest</td>
       <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">访问实例的版本号</td>
-      <td style="text-align: left">同REST over Vertx的配置</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the version of the accessed instance.</td>
+      <td style="text-align: left">The configuration of this parameter for Highway is the same as that for REST over Vertx.</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="示例代码-2">示例代码</h3>
+<p>###</p>
 
-<p>microservice.yaml文件中的配置示例：</p>
+<p>An example of the configuration in the microservice.yaml file for Highway is as follows:</p>
 
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
   <span class="s">highway</span><span class="pi">:</span>

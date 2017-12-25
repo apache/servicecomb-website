@@ -19,12 +19,12 @@
 
 
 
-<title>使用RPC方式开发 - Apache incubator ServiceComb</title>
+<title>Develop with RPC - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="使用RPC方式开发">
+<meta name="description" content="Develop with RPC">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="使用RPC方式开发">
+<meta property="og:title" content="Develop with RPC">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/develop-with-rpc/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="使用RPC方式开发">
+  <meta property="og:description" content="Develop with RPC">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="使用RPC方式开发">
-  <meta name="twitter:description" content="使用RPC方式开发">
+  <meta name="twitter:title" content="Develop with RPC">
+  <meta name="twitter:description" content="Develop with RPC">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="使用RPC方式开发">
-    <meta itemprop="description" content="使用RPC方式开发">
+    <meta itemprop="headline" content="Develop with RPC">
+    <meta itemprop="description" content="Develop with RPC">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">使用RPC方式开发
+            <h1 class="page__title" itemprop="headline">Develop with RPC
 </h1>
             
           </header>
@@ -564,20 +564,20 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-  <li><a href="#示例代码" id="markdown-toc-示例代码">示例代码</a></li>
+  <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+  <li><a href="#sample-code" id="markdown-toc-sample-code">Sample Code</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<h2 id="concept-description">Concept Description</h2>
 
-<p>RPC开发方式允许用户通过在服务接口上标注注解来生成服务提供者代理，从而进行服务的调用。</p>
+<p>The RPC development mode allows you to add annotations on the microservice APIs to generate the service provider agent. In this case, you can call microservices.</p>
 
-<h2 id="示例代码">示例代码</h2>
+<h2 id="sample-code">Sample Code</h2>
 
-<p>只需要声明一个服务接口类型的成员，并且使用<code class="highlighter-rouge">@RpcReference</code>标注该成员，声明依赖的微服务及schemaId，即可进行服务调用，示例代码如下：</p>
+<p>To call a microservice, you only need to declare a member of a service API type and add the @RpcReference annotation for the member, the microservice that depends on the declaration, and the schemaID. The sample code is as follows.</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
 
@@ -608,7 +608,7 @@
 </code></pre>
 </div>
 
-<p>在以上代码中，服务消费者已经取得了服务提供者的服务接口<code class="highlighter-rouge">Hello</code>，并在代码中声明一个<code class="highlighter-rouge">Hello</code>类型的成员。通过在<code class="highlighter-rouge">hello</code>上使用<code class="highlighter-rouge">@RPCReference</code>注解指明微服务名称和schemaId，ServiceComb框架可以在程序启动时从服务中心获取到对应的服务提供者实例信息，并且生成一个代理注入到hello中，用户可以像调用本地类一样调用远程服务。</p>
+<p>In the preceding code, the microservice consumers have obtained the microservice API Hello of the microservice provider and declared a member of the Hello type. The annotation <code class="highlighter-rouge">@RPCReference</code> on <code class="highlighter-rouge">Hello</code> specifies the microservice name and schemaId, The ServiceComb framework can obtain information about isntances from a certain provider during program startup and generate an agent to insert to Hello. This allows you to call a remote service in the same way as you call a local class.</p>
 
         
       </section>

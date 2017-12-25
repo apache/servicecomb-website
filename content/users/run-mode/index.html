@@ -19,12 +19,12 @@
 
 
 
-<title>运行模式 - Apache incubator ServiceComb</title>
+<title>Running Mode - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="运行模式">
+<meta name="description" content="Running Mode">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="运行模式">
+<meta property="og:title" content="Running Mode">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/run-mode/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="运行模式">
+  <meta property="og:description" content="Running Mode">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="运行模式">
-  <meta name="twitter:description" content="运行模式">
+  <meta name="twitter:title" content="Running Mode">
+  <meta name="twitter:description" content="Running Mode">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="运行模式">
-    <meta itemprop="description" content="运行模式">
+    <meta itemprop="headline" content="Running Mode">
+    <meta itemprop="description" content="Running Mode">
     
     <meta itemprop="dateModified" content="June 06, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">运行模式
+            <h1 class="page__title" itemprop="headline">Running Mode
 </h1>
             
           </header>
@@ -564,12 +564,12 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#standalone模式" id="markdown-toc-standalone模式">standalone模式</a>    <ul>
-      <li><a href="#操作步骤" id="markdown-toc-操作步骤">操作步骤</a></li>
+  <li><a href="#standalone-mode" id="markdown-toc-standalone-mode">Standalone Mode</a>    <ul>
+      <li><a href="#procedure" id="markdown-toc-procedure">Procedure</a></li>
     </ul>
   </li>
-  <li><a href="#web容器模式" id="markdown-toc-web容器模式">WEB容器模式</a>    <ul>
-      <li><a href="#开发示例" id="markdown-toc-开发示例">开发示例</a></li>
+  <li><a href="#web-container-mode" id="markdown-toc-web-container-mode">WEB Container Mode</a>    <ul>
+      <li><a href="#development-example" id="markdown-toc-development-example">Development Example</a></li>
     </ul>
   </li>
 </ul>
@@ -577,22 +577,26 @@
   </nav>
 </aside>
 
-<p>微服务框架当前提供了两种部署运行模式：standalone模式和web容器模式。推荐使用<strong>standalone模式</strong>拉起服务进程。</p>
-<h2 id="standalone模式">standalone模式</h2>
-<p>一个Standalone的容器，以简单的Main加载Spring启动，因为服务通常不需要Tomcat/JBoss等Web容器的特性，没必要用Web容器去加载服务。微框架提供了standalone部署运行模式，服务容器只是一个简单的Main方法，并加载一个简单的Spring容器，用于暴露服务。</p>
+<p>Currently, ServiceComb microservice framework support two kind of deploy mode: standalone mode and web container mode. You are advised to to use standalone to to start your services.</p>
+<h2 id="standalone-mode">Standalone Mode</h2>
+<p>A standalone container is loaded with a simple Main to start Spring. Because the service usually does not need the Web container feature, such as Tomcat/JBoss.</p>
 
-<h3 id="操作步骤">操作步骤</h3>
+<p>It is not necessary to unload services using the Web container. The microservice framework provides the standalone deployment mode.</p>
+
+<p>The service container is only a simple Main method, and a simple Spring container is loaded to expose services.</p>
+
+<h3 id="procedure">Procedure</h3>
 
 <ul>
   <li>
-    <p><strong>步骤1</strong> 编写Main函数，初始化日志和加载服务配置，内容如下：</p>
+    <p><strong>Step 1</strong>  Compile the Main function to initialize logs and load service configurations. The contents are as follows:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">io.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">io.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainServer</span> <span class="o">{</span>
    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-   <span class="err">　</span><span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="err">#日志初始化</span>
-   <span class="err">　</span><span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="err">#</span> <span class="n">Spring</span> <span class="n">bean</span><span class="err">初始化</span>
+   <span class="err">　</span><span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="err">#</span><span class="n">Log</span> <span class="n">initialization</span>
+   <span class="err">　</span><span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="err">#</span> <span class="n">Spring</span> <span class="n">bean</span> <span class="n">initialization</span>
      <span class="c1">// other codes omitted</span>
    <span class="o">}</span>
  <span class="o">}</span>
@@ -600,16 +604,18 @@
     </div>
   </li>
   <li>
-    <p><strong>步骤2</strong> 运行MainServer即可启动该微服务进程，向外暴露服务。</p>
+    <p><strong>Step 2</strong> Run MainServer to start process and expose services.</p>
 
-    <p>注意：如果使用的是rest网络通道，需要将pom中的transport改为使用cse-transport-rest-vertx包。</p>
+    <p>NOTE: If the rest network is used, change transparent in the POM file to the cse-transport-rest-vertx package.</p>
   </li>
 </ul>
 
-<h2 id="web容器模式">WEB容器模式</h2>
-<p>如果需要将该微服务加载到web容器中启动运行时，需要新建一个servlet工程包装一下，该servlet工程，根据需要，可以不写或写少量的引导代码即可。</p>
+<h2 id="web-container-mode">WEB Container Mode</h2>
+<p>If you need to load the microservice to the web container, create a sersvlet project package. You do not need to write or write a small number of boot codes as needed.</p>
 
-<h3 id="开发示例">开发示例</h3>
+<h3 id="development-example">Development Example</h3>
+
+<p><strong>Step 1</strong> Create a servlet project and modify the web.xml file as follows:</p>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;web-app&gt;</span>
     <span class="nt">&lt;context-param&gt;</span>
@@ -638,7 +644,7 @@
 </div>
 
 <ul>
-  <li><strong>步骤2 修改pom文件</strong></li>
+  <li><strong>Step 2 Modify the POM file</strong></li>
 </ul>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependencies&gt;</span>
@@ -653,11 +659,11 @@
 </code></pre>
 </div>
 
-<p><strong>注意事项:</strong></p>
+<p><strong>NOTICE:</strong></p>
 <ol>
-  <li>RESTful调用应该与web容器中其他静态资源调用（比如html、js等等）隔离开来，所以webroot后一段应该还有一层关键字，比如上面web.xml中举的例子（/test/rest）中的rest。</li>
-  <li>以tomcat为例，默认每个war包都有不同的webroot，这个webroot需要是basePath的前缀，比如webroot为test，则该微服务所有的契约都必须以/test打头。</li>
-  <li>当微服务加载在web容器中，并直接使用web容器开的http、https端口时，因为是使用的web容器的通信通道，所以需要满足web容器的规则。</li>
+  <li>The Restful call must be separated from other static resources (such as HTML and js) in the web container. The next segment of webroot should have a keyword, such as rest in this example (/test/rest) in web.xml</li>
+  <li>The Tomcat is used as an example. Each WAR package has unique webroot, which must be a basePath prefix. For example , if webroot is test, all the API definitions of the microservice must start with /test.</li>
+  <li>When the microservice is loaded to the web container and the HTTP and HTTPS ports are opened using the web container, which must meet requirements for the web container rules.</li>
 </ol>
 
         

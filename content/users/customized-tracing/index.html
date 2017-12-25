@@ -24,7 +24,7 @@
 
 
 
-<meta name="description" content="自定义调用链打点">
+<meta name="description" content="Dotting for Customized Tracing">
 
 
 
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="自定义调用链打点">
+  <meta property="og:description" content="Dotting for Customized Tracing">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
   <meta name="twitter:title" content="Customized Tracing">
-  <meta name="twitter:description" content="自定义调用链打点">
+  <meta name="twitter:description" content="Dotting for Customized Tracing">
   <meta name="twitter:url" content="">
 
   
@@ -544,7 +544,7 @@
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     <meta itemprop="headline" content="Customized Tracing">
-    <meta itemprop="description" content="自定义调用链打点">
+    <meta itemprop="description" content="Dotting for Customized Tracing">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -564,48 +564,48 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-  <li><a href="#前提条件" id="markdown-toc-前提条件">前提条件</a></li>
-  <li><a href="#注意事项" id="markdown-toc-注意事项">注意事项</a></li>
-  <li><a href="#自定义调用链打点" id="markdown-toc-自定义调用链打点">自定义调用链打点</a></li>
-  <li><a href="#使用步骤" id="markdown-toc-使用步骤">使用步骤:</a>    <ul>
-      <li><a href="#添加依赖" id="markdown-toc-添加依赖">添加依赖</a></li>
-      <li><a href="#启用自定义打点功能" id="markdown-toc-启用自定义打点功能">启用自定义打点功能</a></li>
-      <li><a href="#定制打点" id="markdown-toc-定制打点">定制打点</a></li>
+  <li><a href="#concept-disctiption" id="markdown-toc-concept-disctiption">Concept Disctiption</a></li>
+  <li><a href="#prerequisites" id="markdown-toc-prerequisites">Prerequisites</a></li>
+  <li><a href="#precautions" id="markdown-toc-precautions">Precautions</a></li>
+  <li><a href="#customized-dotting-call-chain" id="markdown-toc-customized-dotting-call-chain">Customized Dotting Call Chain</a></li>
+  <li><a href="#procedure" id="markdown-toc-procedure">Procedure:</a>    <ul>
+      <li><a href="#add-dependency" id="markdown-toc-add-dependency">Add dependency</a></li>
+      <li><a href="#enable-customized-dotting" id="markdown-toc-enable-customized-dotting">Enable customized dotting</a></li>
+      <li><a href="#customize-dotting" id="markdown-toc-customize-dotting">Customize dotting</a></li>
     </ul>
   </li>
-  <li><a href="#定制上报的数据" id="markdown-toc-定制上报的数据">定制上报的数据</a></li>
+  <li><a href="#customize-reported-data" id="markdown-toc-customize-reported-data">Customize reported data</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<h2 id="concept-disctiption">Concept Disctiption</h2>
 
-<p>分布式调用链追踪提供了服务间调用的时序信息，但服务内部的链路调用信息对开发者同样重要，如果能将两者合二为一，就能提供更完整的调用链，更容易定位错误和潜在性能问题。</p>
+<p>A distributed call chain tracking records the service calling sequence, but developers also need information about link invocation inside a microservice to describe a complete call chain. In this way, they can locate error and identify potential performance problems more easily.</p>
 
-<h2 id="前提条件">前提条件</h2>
-
-<ul>
-  <li>使用自定义打点功能需要首先配置并启用Java Chassis微服务调用链。</li>
-</ul>
-
-<h2 id="注意事项">注意事项</h2>
+<h2 id="prerequisites">Prerequisites</h2>
 
 <ul>
-  <li>使用<code class="highlighter-rouge">@Span</code>注释的自定义打点功能只支持和Java Chassis调用请求同一线程的方法调用。</li>
-  <li>添加<code class="highlighter-rouge">@Span</code>注释的方法必须是Spring管理的Bean，否则需要按这里<a href="https://stackoverflow.com/questions/41383941/load-time-weaving-for-non-spring-beans-in-a-spring-application">提到的方法</a>配置。</li>
+  <li>To use the customized dotting function, you need to configure and set the Java Chassis microservice call chain.</li>
 </ul>
 
-<h2 id="自定义调用链打点">自定义调用链打点</h2>
+<h2 id="precautions">Precautions</h2>
 
-<p>该功能集成了Zipkin，提供<code class="highlighter-rouge">@Span</code>注释为需要追踪的方法自定义打点。Java Chassis将自动追踪所有添加<code class="highlighter-rouge">@Span</code>注释的方法，把每个方法的本地调用信息与服务间调用信息连接起来。</p>
+<ul>
+  <li>The customized dotting that uses the <code class="highlighter-rouge">@Span</code> annotation can only be called using the thread that calls Java Chassis.</li>
+  <li>To add the <code class="highlighter-rouge">@Span</code> annotation, you must use the Bean method of Spring. Otherwise, you need to configure dotting following the procedure in this section.</li>
+</ul>
 
-<h2 id="使用步骤">使用步骤:</h2>
+<h2 id="customized-dotting-call-chain">Customized Dotting Call Chain</h2>
 
-<h3 id="添加依赖">添加依赖</h3>
+<p>This function integrates Zipkin and provides the <code class="highlighter-rouge">@Span</code> annotation to customize dotting for the method you want to track. Java Chassis automatically tracks all the methods that track the <code class="highlighter-rouge">@Span</code> annotation, associating the local method call information with the call information between services.</p>
 
-<p>基于 ServiceComb Java Chassis 的微服务只需要添加如下依赖到 pom.xml：</p>
+<h2 id="procedure">Procedure:</h2>
+
+<h3 id="add-dependency">Add dependency</h3>
+
+<p>For microservices based on ServiceComb Java Chassis, add the following content to pom.xml</p>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -614,9 +614,9 @@
 </code></pre>
 </div>
 
-<h3 id="启用自定义打点功能">启用自定义打点功能</h3>
+<h3 id="enable-customized-dotting">Enable customized dotting</h3>
 
-<p>在应用入口或Spring配置类上添加<code class="highlighter-rouge">@EnableZipkinTracing</code>注释：</p>
+<p>Addthe <code class="highlighter-rouge">@EnableZipkinTracing</code> annotation to the application portal or the Spring configuration class:</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableZipkinTracing</span>
@@ -628,9 +628,9 @@
 </code></pre>
 </div>
 
-<h3 id="定制打点">定制打点</h3>
+<h3 id="customize-dotting">Customize dotting</h3>
 
-<p>在需要定制打点的方法上添加<code class="highlighter-rouge">@Span</code>注释：</p>
+<p>Add the <code class="highlighter-rouge">@Span</code> annotation to the method that requires dotting customization:</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Component</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SlowRepoImpl</span> <span class="kd">implements</span> <span class="n">SlowRepo</span> <span class="o">{</span>
@@ -649,18 +649,20 @@
 </code></pre>
 </div>
 
-<p>就这样，通过使用<code class="highlighter-rouge">@Span</code>注释，我们启动了基于 Zipkin 的自定义打点功能。</p>
+<p>In this way, Zipkin-based customized dotting is enabled using the @Span annotation.</p>
 
-<h2 id="定制上报的数据">定制上报的数据</h2>
+<h2 id="customize-reported-data">Customize reported data</h2>
 
-<p>通过自定义打点上报的调用链包含两条数据：</p>
+<p>The call chain reported by customized dotting contains the following pieces of data:</p>
 
 <ul>
-  <li><strong>span name</strong> 默认为当前注释的方法全名。</li>
-  <li><strong>call.path</strong> 默认为当前注释的方法签名。</li>
-</ul>
+  <li><strong>span name</strong> which is the full name of the annotated method by default.</li>
+  <li>
+    <p><strong>call.path</strong>  which is the signature of the annotated method by default.</p>
 
-<p>例如，上述例子<code class="highlighter-rouge">SlowRepoImp</code>里上报的数据如下：</p>
+    <p>For example, the data reported in SlowRepoImp is as follows:</p>
+  </li>
+</ul>
 
 <table>
   <thead>
@@ -681,7 +683,7 @@
   </tbody>
 </table>
 
-<p>如果需要定制上报的数据内容，可以传入自定义的参数：</p>
+<p>To customize reported data, you can specify customized parameters:</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">CustomSpanTask</span> <span class="o">{</span>
     <span class="nd">@Span</span><span class="o">(</span><span class="n">spanName</span> <span class="o">=</span> <span class="s">"transaction1"</span><span class="o">,</span> <span class="n">callPath</span> <span class="o">=</span> <span class="s">"startA"</span><span class="o">)</span>

@@ -19,12 +19,12 @@
 
 
 
-<title>使用confd和Nginx做边缘服务 - Apache incubator ServiceComb</title>
+<title>Using Confd and Nginx for Edge Service - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="使用confd和Nginx做边缘服务">
+<meta name="description" content="Using Confd and Nginx for Edge Service">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="使用confd和Nginx做边缘服务">
+<meta property="og:title" content="Using Confd and Nginx for Edge Service">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/edging-service/nginx/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="使用confd和Nginx做边缘服务">
+  <meta property="og:description" content="Using Confd and Nginx for Edge Service">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="使用confd和Nginx做边缘服务">
-  <meta name="twitter:description" content="使用confd和Nginx做边缘服务">
+  <meta name="twitter:title" content="Using Confd and Nginx for Edge Service">
+  <meta name="twitter:description" content="Using Confd and Nginx for Edge Service">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="使用confd和Nginx做边缘服务">
-    <meta itemprop="description" content="使用confd和Nginx做边缘服务">
+    <meta itemprop="headline" content="Using Confd and Nginx for Edge Service">
+    <meta itemprop="description" content="Using Confd and Nginx for Edge Service">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">使用confd和Nginx做边缘服务
+            <h1 class="page__title" itemprop="headline">Using Confd and Nginx for Edge Service
 </h1>
             
           </header>
@@ -564,15 +564,15 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a>    <ul>
+  <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a>    <ul>
       <li><a href="#confd" id="markdown-toc-confd"><strong>confd</strong></a></li>
       <li><a href="#nginx" id="markdown-toc-nginx"><strong>Nginx</strong></a></li>
     </ul>
   </li>
-  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
-  <li><a href="#对接服务中心" id="markdown-toc-对接服务中心">对接服务中心</a>    <ul>
-      <li><a href="#方法一http调用" id="markdown-toc-方法一http调用"><strong>方法一：http调用</strong></a></li>
-      <li><a href="#方法二使用servicecomb开源代码接口" id="markdown-toc-方法二使用servicecomb开源代码接口"><strong>方法二：使用servicecomb开源代码接口</strong></a></li>
+  <li><a href="#scenario" id="markdown-toc-scenario">Scenario</a></li>
+  <li><a href="#interconnecting-with-the-service-center" id="markdown-toc-interconnecting-with-the-service-center">Interconnecting with the Service Center</a>    <ul>
+      <li><a href="#method-1-http-call" id="markdown-toc-method-1-http-call"><strong>Method 1: HTTP call</strong></a></li>
+      <li><a href="#method-2-using-the-open-source-code-api" id="markdown-toc-method-2-using-the-open-source-code-api"><strong>Method 2: Using the open-source code API</strong></a></li>
     </ul>
   </li>
 </ul>
@@ -580,61 +580,61 @@
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<h2 id="concept-description">Concept Description</h2>
 
 <h3 id="confd"><strong>confd</strong></h3>
 
-<p>confd是一个轻量级的配置管理工具，源码地址：<a href="https://github.com/kelseyhightower/confd">https://github.com/kelseyhightower/confd</a>，它可以将配置信息存储在etcd、consul、dynamodb、redis以及zookeeper等。confd定期会从这些存储节点pull最新的配置，然后重新加载服务，完成配置文件的更新。</p>
+<p>confd is a lightweight configuration management tool. The source code address is: https://github.com/kelseyhightower/confd](https://github.com/kelseyhightower/confd), It can store configuration information in etcd, consul, dynamodb, redis, and zookeeper. confd regularly pulls the latest configuration from storage nodes and then reloads services to complete updating the configuration file.</p>
 
 <h3 id="nginx"><strong>Nginx</strong></h3>
 
-<p>Nginx (engine x)是一个高性能的HTTP和反向代理服务器，具有负载均衡的功能。详情请参考<a href="http://www.nginx.cn/doc/">http://www.nginx.cn/doc/</a>。本小节介绍的服务主要使用到的是Nginx的http代理功能。</p>
+<p>Nginx (engine x) is a high-performance HTTP and  reverse proxy server that has the load balancing function. For details, see <a href="http://www.nginx.cn/doc/">http://www.nginx.cn/doc/</a>. This secton describes the HTTP proxy function of Nginx.</p>
 
-<h2 id="场景描述">场景描述</h2>
+<h2 id="scenario">Scenario</h2>
 
-<p>本小节介绍的技术是使用nginx+confd做边缘服务，同时可以对接ServiceComb微服务框架中的服务中心，从服务中心中拉去服务信息通过confd动态更新nginx的配置。</p>
+<p>This section describes how to use Nginx and confd to serve as edge services. Also, you can connect Nginx and confd to service center in the Java Chassis microservice framework and dynamically update configuration of Nginx using confd.</p>
 
-<p>使用nginx+confd动态反向代理的实现步骤可参考文章<a href="http://www.cnblogs.com/Anker/p/6112022.html">http://www.cnblogs.com/Anker/p/6112022.html</a>，本节主要介绍confd如何对接ServiceComb框架的服务中心。</p>
+<p>For details about how to use the dynamic reverse proxy of Nginx and confd, see <a href="http://www.cnblogs.com/Anker/p/6112022.html">http://www.cnblogs.com/Anker/p/6112022.html</a>, This section describes how to interconnect Confd with the service center of the Java Chassis framework.</p>
 
-<h2 id="对接服务中心">对接服务中心</h2>
+<h2 id="interconnecting-with-the-service-center">Interconnecting with the Service Center</h2>
 
-<p>本节介绍的技术核心在于如何使得confd获取到服务中心的服务信息，服务中心开放了以下接口供外部调用：</p>
+<p>This section describes how to enable confd to obtain service information from the service center. The service center provides the following APIs for external calls:</p>
 
-<h3 id="方法一http调用"><strong>方法一：http调用</strong></h3>
+<h3 id="method-1-http-call"><strong>Method 1: HTTP call</strong></h3>
 
-<p>服务中心开放http接口均需要添加租户头部信息：“X-Tenant-Name:tenantName”，tenameName为租户名，默认为default，例如”X-Tenant-Name:default”。</p>
+<p>The tenant header information of “X-Tenant-Name:tenantName” needs to be added to the HTTP API in the Service Center. tenameName is the tenant name. The default value is default, such as X-Tenant-Name:default.</p>
 
 <ul>
   <li>
-    <p>检查服务中心健康状态</p>
+    <p>Check the health status of the service center</p>
 
     <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/health
 </span></code></pre>
     </div>
   </li>
   <li>
-    <p>获取所有微服务信息</p>
+    <p>Obtain all microservice information</p>
 
     <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/microservices
 </span></code></pre>
     </div>
   </li>
   <li>
-    <p>获取指定id的微服务信息</p>
+    <p>Obtain the microservice information with a specified ID</p>
   </li>
 </ul>
 
 <blockquote>
   <ol>
     <li>
-      <p>首先根据微服务信息获取serviceId</p>
+      <p>Obtain the service ID based on the microservice information</p>
 
       <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err">GET 127.0.0.1:9980/registry/v3/existence?type=microservice&amp;appId={appId}&amp;serviceName={serviceName}&amp;version={version}
 </span></code></pre>
       </div>
     </li>
     <li>
-      <p>根据上述接口返回的serviceId获取微服务完整信息</p>
+      <p>Obtain complete microservice information based on the service ID returned by API</p>
 
       <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err">GET 127.0.0.1:9980/registry/v3/microservices/{serviceId}
 </span></code></pre>
@@ -645,58 +645,62 @@
 
 <ul>
   <li>
-    <p>获取指定微服务的所有实例信息</p>
+    <p>Obtain all instance information from specified microservice</p>
 
     <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/microservices/{serviceId}/instances
 </span></code></pre>
     </div>
-    <p>需要在header中添加：”X-ConsumerId:{serviceId}”。</p>
+    <p>Add the following information to the header file:</p>
+
+    <p>“X-ConsumerId:{serviceId}”</p>
   </li>
   <li>
-    <p>查找微服务实例信息</p>
+    <p>Searching microservice instance information</p>
 
     <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/instances?appId={appId}&amp;serviceName={serviceName}&amp;version={version}
 </span></code></pre>
     </div>
-    <p>需要在header中添加”X-ConsumerId:{serviceId}”。</p>
+    <p>Add the following information to the header file:</p>
+
+    <p>“X-ConsumerId:{serviceId}”</p>
   </li>
 </ul>
 
-<p>注意：在实际开发中请访问实际的service-center访问地址，并将上述url中{}的变量替换成具体值，http返回的数据均为json格式</p>
+<p>NOTE: The preceding service center address is provides as example only. Set the variables enclosed in curly brackets ({}) as needed. The data returned via HTTP is in JSON format.</p>
 
-<h3 id="方法二使用servicecomb开源代码接口"><strong>方法二：使用servicecomb开源代码接口</strong></h3>
+<h3 id="method-2-using-the-open-source-code-api"><strong>Method 2: Using the open-source code API</strong></h3>
 
-<p>在开发微服务应用，只需要调用servicecomb框架代码中的工具类RegistryUtil.java中提供的接口，即可获取服务中心的信息，接口描述如下：</p>
+<p>During the development of the microservice application, you only need to call the API provided by the tool RegistryUtil.java in the ServiceComb framework code to obtain the information in the Service Center. The API is described as follows:</p>
 
 <ul>
-  <li>获取所有微服务信息
+  <li>Obtain all microservice information
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">Microservice</span><span class="o">&gt;</span> <span class="nf">getAllMicroservices</span><span class="o">();</span>
 </code></pre>
     </div>
   </li>
-  <li>获取微服务唯一标识
+  <li>Obtain the unique ID of the microservice.
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">String</span> <span class="nf">getMicroserviceId</span><span class="o">(</span><span class="n">String</span> <span class="n">appId</span><span class="o">,</span> <span class="n">String</span> <span class="n">microserviceName</span><span class="o">,</span> <span class="n">String</span> <span class="n">versionRule</span><span class="o">);</span>
 </code></pre>
     </div>
   </li>
-  <li>根据微服务唯一标识查询微服务静态信息
+  <li>Query the microservice static information based on the unique ID of the microservice.
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">Microservice</span> <span class="nf">getMicroservice</span><span class="o">(</span><span class="n">String</span> <span class="n">microserviceId</span><span class="o">);</span>
 </code></pre>
     </div>
   </li>
-  <li>根据多个微服务唯一标识查询所有微服务实例信息
+  <li>Query all the microservice instance information based on the unique IDs of the microservices.
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">MicroserviceInstance</span><span class="o">&gt;</span> <span class="nf">getMicroserviceInstance</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerId</span><span class="o">,</span> <span class="n">String</span> <span class="n">providerId</span><span class="o">);</span>
 </code></pre>
     </div>
   </li>
-  <li>按照app+interface+version查询实例endpoints信息
+  <li>Query the instance end points information based on the application, interface, and version.
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">MicroserviceInstance</span><span class="o">&gt;</span> <span class="nf">findServiceInstance</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerId</span><span class="o">,</span> <span class="n">String</span> <span class="n">appId</span><span class="o">,</span> <span class="n">String</span> <span class="n">serviceName</span><span class="o">,</span><span class="n">String</span> <span class="n">versionRule</span><span class="o">);</span>
 </code></pre>
     </div>
   </li>
 </ul>
 
-<p>通过上述http接口可获取到服务中心的微服务和其实例的信息，从而通过confd动态更新nginx配置。</p>
+<p>You can obtain information about the microservice and instance of the Service Center using the HTTP API to dynamically update the Nginx configuration using confd.</p>
 
         
       </section>

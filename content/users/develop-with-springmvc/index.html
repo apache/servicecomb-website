@@ -19,12 +19,12 @@
 
 
 
-<title>用SpringMVC开发微服务 - Apache incubator ServiceComb</title>
+<title>Development Style-Spring MVC - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="用SpringMVC开发微服务">
+<meta name="description" content="Development Style-Spring MVC">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="用SpringMVC开发微服务">
+<meta property="og:title" content="Development Style-Spring MVC">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/develop-with-springmvc/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="用SpringMVC开发微服务">
+  <meta property="og:description" content="Development Style-Spring MVC">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="用SpringMVC开发微服务">
-  <meta name="twitter:description" content="用SpringMVC开发微服务">
+  <meta name="twitter:title" content="Development Style-Spring MVC">
+  <meta name="twitter:description" content="Development Style-Spring MVC">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="用SpringMVC开发微服务">
-    <meta itemprop="description" content="用SpringMVC开发微服务">
+    <meta itemprop="headline" content="Development Style-Spring MVC">
+    <meta itemprop="description" content="Development Style-Spring MVC">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">用SpringMVC开发微服务
+            <h1 class="page__title" itemprop="headline">Development Style-Spring MVC
 </h1>
             
           </header>
@@ -564,25 +564,23 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-  <li><a href="#开发示例" id="markdown-toc-开发示例">开发示例</a></li>
-  <li><a href="#涉及api" id="markdown-toc-涉及api">涉及API</a></li>
+  <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+  <li><a href="#development-example" id="markdown-toc-development-example">Development Example</a></li>
+  <li><a href="#involved-apis" id="markdown-toc-involved-apis">Involved APIs</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<h2 id="concept-description">Concept Description</h2>
 
-<p>ServiceComb支持SpringMVC注解，允许使用SpringMVC风格开发微服务。</p>
+<p>ServiceComb supports Spring MVC remark and allows you to develop microservices in Spring MVC mode.</p>
 
-<h2 id="开发示例">开发示例</h2>
+<h2 id="development-example">Development Example</h2>
 
 <ul>
   <li>
-    <p><strong>步骤 1</strong> 定义服务接口。</p>
-
-    <p>根据开发之前定义好的契约，编写Java业务接口，代码如下：</p>
+    <p><strong>Step 1</strong> Define a service API., Compile the Java API definition based on the API definition defined before development. The code is as follow:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Hello</span> <span class="o">{</span>
    <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
@@ -591,12 +589,10 @@
 </code></pre>
     </div>
 
-    <p>该接口的位置需要与契约中x-java-interface所指定的路径一致。</p>
+    <p>The location of the API must be the same as the path specified by x-java-interface in the API definition.</p>
   </li>
   <li>
-    <p><strong>步骤 2</strong> 实现服务。</p>
-
-    <p>使用Spring MVC注解开发业务代码，Hello的服务实现如下：</p>
+    <p><strong>Step 2</strong> Implement the services. Spring MVC is used to describe the development of service code. The implementation of the Hello service is as follow:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestBody</span><span class="o">;</span>
@@ -605,7 +601,7 @@
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">io.servicecomb.samples.common.schema.Hello</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">io.servicecomb.samples.common.schema.models.Person</span><span class="o">;</span>
-   
+
  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/springmvchello"</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
    <span class="nd">@Override</span>
@@ -624,9 +620,7 @@
     </div>
   </li>
   <li>
-    <p><strong>步骤 3</strong> 发布服务</p>
-
-    <p>在服务的实现类上打上注解@RestSchema，指定schemaId，表示该实现作为当前微服务的一个schema发布，代码如下：</p>
+    <p><strong>Step 3</strong> Release the service. Add @RestSchema as the annotation of the service implementation class and specify schemaId, which indicates that the implementation is released as a schema of the current microservice. The code is as follows:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">io.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
  <span class="c1">// other code omitted</span>
@@ -637,16 +631,16 @@
 </code></pre>
     </div>
 
-    <p>然后在<code class="highlighter-rouge">resources/META-INF/spring</code>目录下创建<code class="highlighter-rouge">springmvcHello.bean.xml</code>文件，命名规则为<code class="highlighter-rouge">\*.bean.xml</code>，配置spring进行服务扫描的base-package，文件内容如下：</p>
+    <p>Create the <code class="highlighter-rouge">springmvcHello.bean.xml</code>  file(the file name format is *.bean.xml) in the <code class="highlighter-rouge">resources/META-INF/spring</code> directory and configure base-package that performs scanning. The content of the file is as follows:</p>
 
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
-   
+
  <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
         <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
         <span class="na">xmlns:context=</span><span class="s">"http://www.springframework.org/schema/context"</span>
         <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans</span> <span class="err">classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd</span>
         <span class="err">http://www.springframework.org/schema/context</span> <span class="err">http://www.springframework.org/schema/context/spring-context-3.0.xsd"</span><span class="nt">&gt;</span>
-   
+
      <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"io.servicecomb.samples.springmvc.provider"</span><span class="nt">/&gt;</span>
  <span class="nt">&lt;/beans&gt;</span>
 </code></pre>
@@ -654,68 +648,68 @@
   </li>
 </ul>
 
-<h2 id="涉及api">涉及API</h2>
+<h2 id="involved-apis">Involved APIs</h2>
 
-<p>Spring MVC开发模式当前支持org.springframework.web.bind.annotation包下的如下注解，所有注解的使用方法参考<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC官方文档</a>。</p>
+<p>Currently, the Spring MVC development mode supports the following annotations in the org.springframework.web.bind.annotation package. For details about how to use the annotations, see <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC official documentation</a>。</p>
 
 <table>
   <thead>
     <tr>
-      <th style="text-align: left">注解</th>
-      <th style="text-align: left">位置</th>
-      <th style="text-align: left">描述</th>
+      <th style="text-align: left">Remarks</th>
+      <th style="text-align: left">Location</th>
+      <th style="text-align: left">Description</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td style="text-align: left">RequestMapping</td>
       <td style="text-align: left">schema/operation</td>
-      <td style="text-align: left">支持标注path/method/produces三种数据，operation默认继承schema上的produces</td>
+      <td style="text-align: left">Data of path, method or produces is allowed. By default, an operation inherits produces from a schema.</td>
     </tr>
     <tr>
       <td style="text-align: left">GetMapping</td>
       <td style="text-align: left">schema/operation</td>
-      <td style="text-align: left">支持标注path/produces两种数据，operation默认继承schema上的produces</td>
+      <td style="text-align: left">Data of path or produces is allowed. By default, an operation inherits produces from a schema.</td>
     </tr>
     <tr>
       <td style="text-align: left">PutMapping</td>
       <td style="text-align: left">schema/operation</td>
-      <td style="text-align: left">支持标注path/produces两种数据，operation默认继承schema上的produces</td>
+      <td style="text-align: left">Data of path or produces is allowed, an operation inherits produces from a schema.</td>
     </tr>
     <tr>
       <td style="text-align: left">PostMapping</td>
       <td style="text-align: left">schema/operation</td>
-      <td style="text-align: left">支持标注path/produces两种数据，operation默认继承schema上的produces</td>
+      <td style="text-align: left">Data of path or produces is allowed, an operation inherits produces from a schema.</td>
     </tr>
     <tr>
       <td style="text-align: left">DeleteMapping</td>
       <td style="text-align: left">schema/operation</td>
-      <td style="text-align: left">支持标注path/produces两种数据，operation默认继承schema上的produces</td>
+      <td style="text-align: left">Data of path or produces is allowed, an operation inherits produces from a schema.</td>
     </tr>
     <tr>
       <td style="text-align: left">PatchMapping</td>
       <td style="text-align: left">schema/operation</td>
-      <td style="text-align: left">支持标注path/produces两种数据，operation默认继承schema上的produces</td>
+      <td style="text-align: left">Data of path or produces is allowed, an operation inherits produces from a schema.</td>
     </tr>
     <tr>
       <td style="text-align: left">PathVariable</td>
       <td style="text-align: left">parameter</td>
-      <td style="text-align: left">从path中获取参数</td>
+      <td style="text-align: left">Obtain parameters from path.</td>
     </tr>
     <tr>
       <td style="text-align: left">RequestParam</td>
       <td style="text-align: left">parameter</td>
-      <td style="text-align: left">从query中获取参数</td>
+      <td style="text-align: left">Obtain parameters from query.</td>
     </tr>
     <tr>
       <td style="text-align: left">RequestHeader</td>
       <td style="text-align: left">parameter</td>
-      <td style="text-align: left">从header中获取参数</td>
+      <td style="text-align: left">Obtain parameters from header.</td>
     </tr>
     <tr>
       <td style="text-align: left">RequestBody</td>
       <td style="text-align: left">parameter</td>
-      <td style="text-align: left">从body中获取参数，每个operation只能有一个body参数</td>
+      <td style="text-align: left">Obtain parameters from body. Each operation can have only one body parameter.</td>
     </tr>
   </tbody>
 </table>

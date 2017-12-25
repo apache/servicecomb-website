@@ -19,12 +19,12 @@
 
 
 
-<title>服务接口约束 - Apache incubator ServiceComb</title>
+<title>API Constraints - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="服务接口约束">
+<meta name="description" content="API Constraints">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="服务接口约束">
+<meta property="og:title" content="API Constraints">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/service-interface-constraints/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="服务接口约束">
+  <meta property="og:description" content="API Constraints">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="服务接口约束">
-  <meta name="twitter:description" content="服务接口约束">
+  <meta name="twitter:title" content="API Constraints">
+  <meta name="twitter:description" content="API Constraints">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="服务接口约束">
-    <meta itemprop="description" content="服务接口约束">
+    <meta itemprop="headline" content="API Constraints">
+    <meta itemprop="description" content="API Constraints">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">服务接口约束
+            <h1 class="page__title" itemprop="headline">API Constraints
 </h1>
             
           </header>
@@ -564,16 +564,20 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#接口约束说明" id="markdown-toc-接口约束说明">接口约束说明</a></li>
-  <li><a href="#详细的约束列表" id="markdown-toc-详细的约束列表">详细的约束列表</a></li>
-  <li><a href="#协议上的差异" id="markdown-toc-协议上的差异">协议上的差异</a></li>
+  <li><a href="#api-constraints" id="markdown-toc-api-constraints">API Constraints</a></li>
+  <li><a href="#detailed-constraint-list" id="markdown-toc-detailed-constraint-list">Detailed Constraint List</a></li>
+  <li><a href="#protocol-difference" id="markdown-toc-protocol-difference">Protocol Difference</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="接口约束说明">接口约束说明</h2>
-<p>Java Chassis对于接口的使用约束建立在一个简单的原则上：接口定义即接口使用说明，不用通过查看代码实现，就能识别如何调用这个接口。举个例子：</p>
+<h2 id="api-constraints">API Constraints</h2>
+<p>A Java Chassis API constraints is that an API definition should describe its usage. You can identify how to call the API without checking the code.</p>
+
+<p>As developers, we aim at making our APIs easy to be called. However, developers have different understanding about this aim.</p>
+
+<p>For example:</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">);</span>
 <span class="kd">public</span> <span class="n">Object</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">);</span>
@@ -581,9 +585,9 @@
 </code></pre>
 </div>
 
-<p>显然如果调用接口一，我们知道要传递一个String类型的id参数，返回值是一个Person类型，Person里面存在String类型的name等参数。如果调用接口二，我们不知道怎么处理返回值，必须参考服务提供者的文档说明。可以看出，我们是站在使用者视角这边的，以更容易被使用作为参考。</p>
+<p>Obviously, if API 1 is called, we know that an ID parameter of String type needs to be transferred. The returned value is of Person type, which contains a string-typed name parameter. If API 2 is called, we do not know how to process the returned value, and need to refer to documents provided by the service provider. API 2 is developed in the perspective of RPC developers.</p>
 
-<p>当我们要将接口发布为REST接口的时候，可以通过使用swagger文件，指定id使用RequestParam或者PathVariable或者RequestBody进行传递，也可以使用SpringMVC或者JAX RS提供的标签来描述。</p>
+<p>To release an API as a REST API, we can use the swagger file; specify the ID to be transmitted using RequestParam, PathVariable, or RequestBody; or use the label provided by SpringMVC or JAX-RS.</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span> 
 <span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span> 
@@ -591,52 +595,51 @@
 </code></pre>
 </div>
 
-<p>通常，我们会将简单的数据类型，比如String, int等在RequestParam或者PathVariable传递，而把复杂的数据类型使用JSON编码以后在RequestBody传递，以减少HTTP协议限制可能给开发者带来的各种问题。</p>
+<p>Generally , simple data types, such as String and int, are transmitted in RequestParam or PathVariable, and complex data types are transmitted in RequestBody after being coded using JSON, to reduce problems cause by HTTP protocol restrictions on developers.</p>
 
-<h2 id="详细的约束列表">详细的约束列表</h2>
-<p>开发者不能在接口定义的时候使用如下类型：</p>
+<h2 id="detailed-constraint-list">Detailed Constraint List</h2>
+<p>Developers cannot use the following types to define APIs:</p>
 
 <ul>
-  <li>比较抽象的数据结构: java.lang.Object, net.sf.json.JsonObject等</li>
-  <li>接口或者抽象类
+  <li>Abstract data structures, such as  java.lang.Object, net.sf.json.JsonObject</li>
+  <li>API or abstract class
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IPerson</span> <span class="o">{...}</span>
  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractPerson</span>  <span class="o">{...}</span>
 </code></pre>
     </div>
   </li>
-  <li>泛型
+  <li>Generic type
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonHolder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{...}</span>
 </code></pre>
     </div>
   </li>
   <li>
-    <p>上述类型的集合类型或者没指定类型的集合，比如：<code class="highlighter-rouge">List&lt;IPerson&gt;, Map&lt;String, PersonHolder&lt;?&gt;&gt;, List, Map</code>等。 <code class="highlighter-rouge">List&lt;String&gt;, List&lt;Person&gt;</code>这些具体类型是支持的。</p>
-  </li>
-  <li>包含上述类型作为属性的类型
+    <p>A collection type of the preceding types or a set without a specified type, such as <code class="highlighter-rouge">List&lt;IPerson&gt;, Map&lt;String, PersonHolder&lt;?&gt;&gt;, List, Map</code>. such as <code class="highlighter-rouge">List&lt;String&gt;, List&lt;Person&gt;</code> are supported.</p>
+
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GroupOfPerson</span> <span class="o">{</span><span class="n">IPerson</span> <span class="n">master</span> <span class="o">...}</span>
 </code></pre>
     </div>
   </li>
 </ul>
 
-<p>开发者不用担心记不住这些约束，程序会在启动的时候检查不支持的类型，并给与错误提示。</p>
+<p>Developers do not need to worry about the constraints. The program automatically checks them when it is started, and displays types as properties.</p>
 
-<h2 id="协议上的差异">协议上的差异</h2>
-<p>尽管ServiceComb-Java-Chassis实现了不同协议之间开发方式的透明，受限于底层协议的限制，不同的协议存在少量差异。</p>
+<h2 id="protocol-difference">Protocol Difference</h2>
+<p>Although ServiceComb-Java-Chassis implements transparent transmission between protocols, there are slight differences between protocols due to the limitations of the underlying protocols:</p>
 
 <ul>
   <li>
-    <p>map，key只支持string</p>
+    <p>Map, The key supports only string.</p>
   </li>
-  <li>highway (protobuf限制)
+  <li>highway (protobuf restriction)
     <ol>
-      <li>不支持在网络上传递null，包括Collection、array中的元素，map的value</li>
-      <li>长度为0的数组、list，不会在网络上传递，接收端解码出来就是默认值</li>
+      <li>Null values cannot be transmitted over the network, including elements in Collection and array, and value in map.</li>
+      <li>The array and list with the length of 0 are not transmitted over the network. The receiver obtains the default value after decoding them.</li>
     </ol>
   </li>
   <li>springmvc
     <ol>
-      <li>不支持Date作为path、query参数。 因为springmvc直接将Date做toString放在path、query中，与swagger的标准不匹配。</li>
+      <li>Date cannot be used for the path or query parameter. Spring MVC stores toString in path and query, which does not match the swagger standard.</li>
     </ol>
   </li>
 </ul>

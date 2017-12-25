@@ -19,12 +19,12 @@
 
 
 
-<title>服务契约 - Apache incubator ServiceComb</title>
+<title>Service Contract - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="服务契约">
+<meta name="description" content="Service Contract">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="服务契约">
+<meta property="og:title" content="Service Contract">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/service-contract/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="服务契约">
+  <meta property="og:description" content="Service Contract">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="服务契约">
-  <meta name="twitter:description" content="服务契约">
+  <meta name="twitter:title" content="Service Contract">
+  <meta name="twitter:description" content="Service Contract">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="服务契约">
-    <meta itemprop="description" content="服务契约">
+    <meta itemprop="headline" content="Service Contract">
+    <meta itemprop="description" content="Service Contract">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">服务契约
+            <h1 class="page__title" itemprop="headline">Service Contract
 </h1>
             
           </header>
@@ -564,17 +564,17 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
-  <li><a href="#显式契约" id="markdown-toc-显式契约">显式契约</a>    <ul>
-      <li><a href="#配置说明" id="markdown-toc-配置说明">配置说明</a></li>
-      <li><a href="#示例代码" id="markdown-toc-示例代码">示例代码</a></li>
+  <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+  <li><a href="#scenario" id="markdown-toc-scenario">Scenario</a></li>
+  <li><a href="#explicit-api-definition" id="markdown-toc-explicit-api-definition">Explicit API Definition</a>    <ul>
+      <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a></li>
+      <li><a href="#sample-code" id="markdown-toc-sample-code">Sample Code</a></li>
     </ul>
   </li>
-  <li><a href="#隐式契约" id="markdown-toc-隐式契约">隐式契约</a>    <ul>
-      <li><a href="#概念阐述-1" id="markdown-toc-概念阐述-1">概念阐述</a></li>
-      <li><a href="#场景描述-1" id="markdown-toc-场景描述-1">场景描述</a></li>
-      <li><a href="#涉及api" id="markdown-toc-涉及api">涉及API</a></li>
+  <li><a href="#implicit-api-definition" id="markdown-toc-implicit-api-definition">Implicit API Definition</a>    <ul>
+      <li><a href="#concept-description-1" id="markdown-toc-concept-description-1">Concept Description</a></li>
+      <li><a href="#scenario-1" id="markdown-toc-scenario-1">Scenario</a></li>
+      <li><a href="#involved-api" id="markdown-toc-involved-api">Involved API</a></li>
     </ul>
   </li>
 </ul>
@@ -582,33 +582,33 @@
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<h2 id="concept-description">Concept Description</h2>
 
-<p>服务契约，指基于OpenAPI规范的微服务接口契约，是服务端与消费端对于接口的定义。</p>
+<p>The API of provider and consumer microservice is defined based on OpenAPI regulations.</p>
 
-<h2 id="场景描述">场景描述</h2>
+<h2 id="scenario">Scenario</h2>
 
-<p>服务契约用于服务端和消费端的解耦，服务端围绕契约进行服务的实现，消费端根据契约进行服务的调用，可支持服务端和消费端采用不同的编程语言实现。</p>
+<p>The API definition decouples providers and consumers, which allows the two parties to use different programming languages, Providers provide services and consumers call them based on the API definition.</p>
 
-<h2 id="显式契约">显式契约</h2>
+<h2 id="explicit-api-definition">Explicit API Definition</h2>
 
-<h3 id="配置说明">配置说明</h3>
+<h3 id="configuration">Configuration</h3>
 
-<p>ServiceComb使用yaml文件格式定义服务契约，推荐使用<a href="http://editor.swagger.io/#/">Swagger Editor</a>工具来编写契约，可检查语法格式及自动生成API文档。详细的契约文件格式请参考<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md">OpenAPI官方文档</a>。</p>
+<p>ServiceComb defines API in a .yaml faile. You are advised to use <a href="http://editor.swagger.io/#/">Swagger Editor</a> to write an API definition. This tool can check syntax and automaticlly generate an API document. For details about the API definition file format, see <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md"> Official OpenAPI documentation</a>。</p>
 
-<p>契约文件放置在”resources/microservices”或者”resources/applications”目录下，目录结构如下所示。</p>
+<p>The API definition file is located in “resources/microservices” or “resources/applications” directory. The directory structure is as follows:</p>
 
 <pre><code class="language-txt">resources
   - microservices
-    - serviceName #微服务名
-      - schemaId.yaml #schema接口的契约
+    - serviceName #Microservice name
+      - schemaId.yaml #schema API definition
   - applications
-    - appId #应用ID
-      - serviceName #微服务名
-        - schemaId.yaml #schema接口的契约
+    - appId #Application ID
+      - serviceName #Service name
+        - schemaId.yaml #Schema API definition
 </code></pre>
 
-<h3 id="示例代码">示例代码</h3>
+<h3 id="sample-code">Sample Code</h3>
 
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">swagger</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.0'</span>
 <span class="s">info</span><span class="pi">:</span>
@@ -630,11 +630,11 @@
           <span class="s">type</span><span class="pi">:</span> <span class="s">string</span>
       <span class="s">responses</span><span class="pi">:</span>
         <span class="s">200</span><span class="pi">:</span>
-          <span class="s">description</span><span class="pi">:</span> <span class="s">正确返回</span>
+          <span class="s">description</span><span class="pi">:</span> <span class="s">returned for a correct result</span>
           <span class="s">schema</span><span class="pi">:</span>
             <span class="s">type</span><span class="pi">:</span> <span class="s">string</span>
         <span class="s">default</span><span class="pi">:</span>
-          <span class="s">description</span><span class="pi">:</span> <span class="s">默认返回</span>
+          <span class="s">description</span><span class="pi">:</span> <span class="s">returned for a default result</span>
           <span class="s">schema</span><span class="pi">:</span>
             <span class="s">type</span><span class="pi">:</span> <span class="s">string</span>
   <span class="s">/sayhello</span><span class="pi">:</span>
@@ -648,11 +648,11 @@
             <span class="s">$ref</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#/definitions/Person"</span>
       <span class="s">responses</span><span class="pi">:</span>
         <span class="s">200</span><span class="pi">:</span>
-          <span class="s">description</span><span class="pi">:</span> <span class="s">正确返回</span>
+          <span class="s">description</span><span class="pi">:</span> <span class="s">returned for a correct result</span>
           <span class="s">schema</span><span class="pi">:</span>
             <span class="s">type</span><span class="pi">:</span> <span class="s">string</span>
         <span class="s">default</span><span class="pi">:</span>
-          <span class="s">description</span><span class="pi">:</span> <span class="s">默认返回</span>
+          <span class="s">description</span><span class="pi">:</span> <span class="s">returned for a default result</span>
           <span class="s">schema</span><span class="pi">:</span>
             <span class="s">type</span><span class="pi">:</span> <span class="s">string</span>
 <span class="s">definitions</span><span class="pi">:</span>
@@ -668,27 +668,27 @@
 </div>
 
 <blockquote>
-  <p><strong>注意</strong>：</p>
+  <p><strong>NOTE</strong>：</p>
   <ul>
-    <li>根据swagger标准，basePath配置的路径需要包括web server的webroot。</li>
-    <li>info.x-java-interface需要标明具体的接口路径，根据项目实际情况而定。</li>
+    <li>According to Swagger specifications, the path specified by basePath should contain the webroot of the web server.</li>
+    <li>info.x-java-interface requires a specific API path. Set it as needed.</li>
   </ul>
 </blockquote>
 
-<h2 id="隐式契约">隐式契约</h2>
-<h3 id="概念阐述-1">概念阐述</h3>
+<h2 id="implicit-api-definition">Implicit API Definition</h2>
+<h3 id="concept-description-1">Concept Description</h3>
 
-<p>　　隐式契约是指ServiceComb根据服务实现类自动生成的服务契约。</p>
+<p>　　The inplicit API definition is automatically generated by ServiceComb based on the service implementation class.</p>
 
-<h3 id="场景描述-1">场景描述</h3>
+<h3 id="scenario-1">Scenario</h3>
 
-<p>　　用户通过隐式契约功能，可以不预先定义契约和接口，直接定义实现类，在服务启动时，根据实现类自动生成契约，并注册到服务中心。</p>
+<p>　　By using the implicit API definition you can define the implementation class without pre-defining APIs. When the service is started, an API is automatically generated and registered to the service center.</p>
 
-<h3 id="涉及api">涉及API</h3>
+<h3 id="involved-api">Involved API</h3>
 
-<p>　　隐式契约可用于Spring MVC、JAX-RS、透明RPC三种开发模式，具体使用参见<a href="/users/develop-with-springmvc/">用SpringMVC开发微服务</a>、<a href="/users/develop-with-jax-rs/">用JAX-RS开发微服务</a>和<a href="/users/develop-with-transparent-rpc/">用透明RPC开发微服务</a>。</p>
+<p>　　Implicit API definitions can be used for Spring MVC, JAX-RS, and transparent RPC development modes, For details, see <a href="/users/develop-with-springmvc/">Development Style-SpringMVC</a>, <a href="/users/develop-with-jax-rs/">Development Stype-JAX-RS</a> and <a href="/users/develop-with-transparent-rpc/">Development Style-Transparent RPC</a>.</p>
 
-<p>　　使用透明RPC模式开发微服务时，由于从代码上无法分辨微服务开发人员期望如何定义契约，所以生成的契约全是POST方法，所有method的入参被包装为一个class，作为body参数传递，所以建议使用隐式契约开发provider时，选择SpringMVC或JAX-RS开发模式，可以得到完整的RESTful声明。</p>
+<p>　　When you develop a microservice in transparent RPC mode, the code does not show how you want to define an API, and all generated APIs are POST methods, The input parameters of all the methods will be packaged as a class and transferred as body parameters. Therefore, if you develop providers using implicit APIs, you are advised to choose Spring MVC or JAX-RS mode to obtain complete RESTful statements.</p>
 
         
       </section>

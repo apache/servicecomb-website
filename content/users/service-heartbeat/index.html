@@ -19,12 +19,12 @@
 
 
 
-<title>服务心跳 - Apache incubator ServiceComb</title>
+<title>Service Heartbeat - Apache incubator ServiceComb</title>
 
 
 
 
-<meta name="description" content="服务心跳">
+<meta name="description" content="Service Heartbeat">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache incubator ServiceComb">
-<meta property="og:title" content="服务心跳">
+<meta property="og:title" content="Service Heartbeat">
 
 
   <link rel="canonical" href="http://github.com/pages/ServiceComb/servicesomb.github.io/users/service-heartbeat/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="服务心跳">
+  <meta property="og:description" content="Service Heartbeat">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="服务心跳">
-  <meta name="twitter:description" content="服务心跳">
+  <meta name="twitter:title" content="Service Heartbeat">
+  <meta name="twitter:description" content="Service Heartbeat">
   <meta name="twitter:url" content="">
 
   
@@ -543,8 +543,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="服务心跳">
-    <meta itemprop="description" content="服务心跳">
+    <meta itemprop="headline" content="Service Heartbeat">
+    <meta itemprop="description" content="Service Heartbeat">
     
     <meta itemprop="dateModified" content="August 15, 2017">
 
@@ -552,7 +552,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">服务心跳
+            <h1 class="page__title" itemprop="headline">Service Heartbeat
 </h1>
             
           </header>
@@ -564,31 +564,28 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
-  <li><a href="#涉及api" id="markdown-toc-涉及api">涉及API</a></li>
-  <li><a href="#配置说明" id="markdown-toc-配置说明">配置说明</a></li>
+  <li><a href="#scenario" id="markdown-toc-scenario">Scenario</a></li>
+  <li><a href="#involved-apis" id="markdown-toc-involved-apis">Involved APIs</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="场景描述">场景描述</h2>
+<h2 id="scenario">Scenario</h2>
 
-<p>当微服务实例注册到服务中心后，微服务需要定时向服务中心发送心跳。若服务中心在一定时间内没有收到心跳信息，则会注销此实例。</p>
+<p>After a microservice instance is registered in the service center, the microservice need to periodically send heartbeats to the service center. If the service center receives no heartbeat within a specific period, the instance will be registered.</p>
 
-<h2 id="涉及api">涉及API</h2>
+<h2 id="involved-apis">Involved APIs</h2>
 
 <ul>
-  <li><code class="highlighter-rouge">io.servicecomb.serviceregistry.client.ServiceRegistryClient</code>：服务中心客户端</li>
+  <li><code class="highlighter-rouge">io.servicecomb.serviceregistry.client.ServiceRegistryClient</code> is the service client.</li>
 </ul>
 
-<h2 id="配置说明">配置说明</h2>
-
-<p><code class="highlighter-rouge">ServiceRegistryClient</code>提供了发送心跳的方法<code class="highlighter-rouge">heartbeat</code>，用户直接调用即可，示例代码如下：</p>
+<p><code class="highlighter-rouge">ServiceRegistryClient</code> provides heartbeat to send heartbeats. You can call it as required. The sample code is as follows:</p>
 
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-  <span class="c1">// 首先需要注册微服务和实例</span>
-  <span class="c1">// 发送心跳，不然实例会消失</span>
+  <span class="c1">// Register the microservice and the instance first</span>
+  <span class="c1">// Send the heartbeats. Otherwise, the instances will be lost.</span>
   <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"heartbeat sended:"</span> <span class="o">+</span> <span class="n">client</span><span class="o">.</span><span class="na">heartbeat</span><span class="o">(</span><span class="n">service2</span><span class="o">.</span><span class="na">getServiceId</span><span class="o">(),</span> <span class="n">instance</span><span class="o">.</span><span class="na">getInstanceId</span><span class="o">()));</span>
     <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>
