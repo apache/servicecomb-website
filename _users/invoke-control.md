@@ -1,53 +1,53 @@
 ---
-title: "调用控制"
+title: "Invoke Control"
 lang: en
 ref: invoke-control
 permalink: /users/invoke-control/
-excerpt: "调用控制"
+excerpt: "Invoke Control"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
 
 {% include toc %}
-## 实例级故障隔离
+## Instance-Level Fault Isolation
 
-### 场景描述
+### Scenario
 
-实例级故障隔离功能允许在微服务的部分实例调用失败时，停止向故障实例发送请求，从而达到隔离故障实例的功能。
+In the scenario where some instances fail to be called, the instance-level fault isolation function stops the ServiceComb framework from sending requests to the faulty instance.
 
-### 配置说明
+### Configuration
 
-实例级故障隔离功能集成在负载均衡功能中，负载均衡策略的配置见[负载均衡策略](/users/service-configurations/#负载均衡策略)。负载均衡策略中，与实例级故障隔离相关的配置项见下表。
+This instance-level fault isolation function is integrated into the load balancing function. For configuration of the load balancing policy, see  [Service Configurations](/users/service-configurations/#负载均衡策略). For parameters associated with instance-level fault isolation in the load balancing policy, see table below:
 
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.loadbalance.isolation.enabled | false | Boolean | 否 | 是否开启故障实例隔离功能 | - |
-| cse.loadbalance.isolation.enableRequestThreshold | 20 | Integer | 否 | 当实例的调用总次数达到该值时开始进入隔离逻辑门槛 | - |
-| cse.loadbalance.isolation.errorThresholdPercentage | 20 | Integer，区间为\(0,100\] | 否 | 实例故障隔离错误百分比 | - |
-| cse.loadbalance.isolation.singleTestTime | 10000 | Integer | 否 | 故障实例单点测试时间 |  |
+| Configuration Item                       | Default Value | Value Range        | Mandatory | Description                              | Remark |
+| :--------------------------------------- | :------------ | :----------------- | :-------- | :--------------------------------------- | :----- |
+| cse.loadbalance.isolation.enabled        | false         | Boolean            | No        | Specifies whether to enable faulty instance isolation. | -      |
+| cse.loadbalance.isolation.enableRequestThreshold | 20            | Integer            | No        | Specifies the threshold number of instance calls. If this value is reached, isolation is enabled. | -      |
+| cse.loadbalance.isolation.errorThresholdPercentage | 20            | Integer, \(0,100\] | No        | Specifies the error percentage. Instance fault isolation is enabled when the set value is reached. | -      |
+| cse.loadbalance.isolation.singleTestTime | 10000         | Integer            | No        | Specifies the duration of a faulty instance test on a single node. |        |
 
-## 熔断策略
-### 场景描述
+## Circuit Break Policy
+### Scenario
 
-熔断策略是对ServiceComb熔断功能的设置，用户通过配置熔断策略可以指定在何种条件下ServiceComb框架将终止发送请求。
+Circuit brake policy can configure ServiceComb fallback capability, you can configure conditions under which service will stop send request after circuit break policy configured.
 
-### 配置说明
+### Configuration
 
-熔断作为异常反应机制是降级策略的一部分，相关概念还有隔离和容错。三者的关系以及配置方式参见[降级策略](/users/service-configurations/#降级策略)。
+Circuit break is part of fallback policy when a service request is abnormal, relevant concept such as isolation and fault tolerance please refer to [fallback policy](/users/service-configurations/#降级策略)。
 
-## 限流策略
-### 场景描述
+## Flow Control Policy
+### Scenario
 
-用户在consumer端使用限流策略，可以限制发往指定微服务的请求的频率。
+You can limit the frequency of request send to specific microservice when flow control was enables in consumer service. 
 
-### 注意事项
+### Precaution
 
-参考服务提供者处[限流策略注意事项](/users/service-configurations/#限流策略)。
+See detail info at [Service Configurations](/users/service-configurations/#限流策略)。
 
-### 配置说明
+### Configuration
 
-限流策略配置在microservice.yaml文件中，相关配置项见下表。要开启服务消费者端的限流策略，还需要在处理链中配置消费端限流handler，配置示例如下：
+Flow control policy configuration is in microservice.yaml file. You need to configure consumer handler in chain of service. See example blow:
 
 ```yaml
 cse:
@@ -57,9 +57,10 @@ cse:
         default: qps-flowcontrol-consumer
 ```
 
-QPS流控配置项说明
+Configuration items of QPS:
 
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.flowcontrol.Consumer.qps.enabled | true | Boolean | 否 | 是否启用Consumer流控 | - |
-| cse.flowcontrol.Consumer.qps.limit.[ServiceName].[Schema].[operation] | 2147483647  (max int) | (0,2147483647]，整形 | 否 | 每秒钟允许的请求数 | 支持microservice、schema、operation三个级别的配置 |
+| Configuration Item                       | Default Value         | Value Range             | Mandatory | Description                              | Remark                                   |
+| :--------------------------------------- | :-------------------- | :---------------------- | :-------- | :--------------------------------------- | :--------------------------------------- |
+| cse.flowcontrol.Consumer.qps.enabled     | true                  | Boolean                 | No        | Specifies whether consumers flowcontrol enables. | -                                        |
+| cse.flowcontrol.Consumer.qps.limit.[ServiceName].[Schema].[operation] | 2147483647  (max int) | (0,2147483647], Integer | No        | Specifies number of requests per second. | Support three level configurations: microservice、schema、operation. |
+

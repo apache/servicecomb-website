@@ -1,9 +1,9 @@
 ---
-title: "用JAX-RS开发微服务"
+title: "Development Style-JAX-RS"
 lang: en
 ref: develop-with-jax-rs
 permalink: /users/develop-with-jax-rs/
-excerpt: "用JAX-RS开发微服务"
+excerpt: "Development Style-JAX-RS"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/
@@ -11,15 +11,13 @@ redirect_from:
 
 {% include toc %}
 
-## 概念阐述
+## Concept Description
 
-ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
+ServiceComb supports developers in developing services in JAX-RS mode by using JAX-RS.
 
-## 开发示例
+## Development Example
 
-* **步骤 1** 定义服务接口。
-
-   根据开发之前定义好的契约，编写Java业务接口，代码如下：
+* **Steps 1** Define a service API. Compile the Java API definition based on the API definition defined before development. The code is as follows:
 
    ```java
    public interface Hello {
@@ -28,12 +26,10 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
    }
    ```
 
-   > **说明**：
-   该接口的位置需要与契约中x-java-interface所指定的路径一致。
+   > **NOTE**：
+   > The location of the API must be the same as the path specified by x-java-interface in the API definition.
 
-* **步骤 2** 实现服务。
-
-   使用JAX-RS注解开发业务代码，Hello的服务实现如下：
+* **Step 2** Implement the service. JAX-RS is used to describe the development of service code. The implementation of the Hello service is as follows:
 
    ```java
    import javax.ws.rs.POST;
@@ -62,9 +58,7 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
    }
    ```
 
-* **步骤 3** 发布服务。
-
-   在服务的实现类上打上注解`@RestSchema`，指定schemaId，表示该实现作为当前微服务的一个schema发布，代码如下：
+* **Step 3** Release the service. Add ```@RestSchema``` as the annotation of the service implementation class and specify schemaID, which indicates that the implementation is released as a schema of the current microservice. The code is as follows:
 
    ```java
    import io.servicecomb.provider.rest.common.RestSchema;
@@ -75,7 +69,7 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
    }
    ```
 
-   然后在resources/META-INF/spring目录下创建jaxrsHello.bean.xml文件，配置spring进行服务扫描的base-package，文件内容如下：
+   Create the jaxrsHello.bean.xml file in the resources/META-INF/spring directory and configure base-package that performs scanning. The content of the file is as follows:
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
@@ -84,28 +78,28 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
           xmlns:cse=" http://www.huawei.com/schema/paas/cse/rpc "
           xmlns:context=" http://www.springframework.org/schema/context "
           xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
-   
+
        <context:component-scan base-package="io.servicecomb.samples.jaxrs.provider"/>
    </beans>
    ```
 
-## 涉及API
+## Involved APIs
 
-JAX-RS开发模式当前支持如下注解，所有注解的使用方法参考[JAX-RS官方文档](https://jax-rs-spec.java.net/nonav/2.0-rev-a/apidocs/index.html)。
+Currently, the JAX-RS development mode supports the following annotation. For details about how to use JAX-RS, see [JAX-RS official documentation](https://jax-rs-spec.java.net/nonav/2.0-rev-a/apidocs/index.html)。
 
-| 注解 | 位置 | 描述 |
-| :--- | :--- | :--- |
-| javax.ws.rs.Path | schema/operation | URL路径 |
-| javax.ws.rs.Produces | schema/operation | 方法支持的编解码能力 |
-| javax.ws.rs.DELETE | operation | http method |
-| javax.ws.rs.GET | operation | http method |
-| javax.ws.rs.POST | operation | http method |
-| javax.ws.rs.PUT | operation | http method |
-| javax.ws.rs.QueryParam | parameter | 从query string中获取参数 |
-| javax.ws.rs.PathParam | parameter | 从path中获取参数，必须在path中定义该参数 |
-| javax.ws.rs.HeaderParam | parameter | 从header中获取参数 |
-| javax.ws.rs.CookieParam | parameter | 从cookie中获取参数 |
+| Remarks                 | Location         | Description                              |
+| :---------------------- | :--------------- | :--------------------------------------- |
+| javax.ws.rs.Path        | schema/operation | URL path                                 |
+| javax.ws.rs.Produces    | schema/operation | Coding/decoding capability supported by the method |
+| javax.ws.rs.DELETE      | operation        | http method                              |
+| javax.ws.rs.GET         | operation        | http method                              |
+| javax.ws.rs.POST        | operation        | http method                              |
+| javax.ws.rs.PUT         | operation        | http method                              |
+| javax.ws.rs.QueryParam  | parameter        | Obtain parameters from query string      |
+| javax.ws.rs.PathParam   | parameter        | Obtain parameters from path, This parameter must be defined in path. |
+| javax.ws.rs.HeaderParam | parameter        | Obtain parameters from header.           |
+| javax.ws.rs.CookieParam | parameter        | Obtain parameters from cookie.           |
 
-> **说明**：
-- 当方法参数没有注解，且不为HttpServletRequest类型参数时，默认为body类型参数，一个方法只支持最多一个body类型参数。
-- 打在参数上面的注解建议显式定义出value值，否则将直接使用契约中的参数名，例如应该使用`@QueryParam\("name"\) String name`，而不是`@QueryParam String name`。
+> **NOTE**：
+- When the method parameter has no annotation and is not an HttpServletRequest parameter, the parameter is of the body type by default. One method supports a maximum of one body-typed parameter.
+- You are advised to explicitly define the value of the parameter. Otherwise, the parameter name in the API definition is used, such as `@QueryParam\("name"\) String name` String name instead of `@QueryParam String name`.
