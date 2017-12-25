@@ -39,6 +39,8 @@ redirect_from:
 
 ### 开发示例
 
+* **步骤1 新建servlet工程，修改web.xml文件如下：**
+
 ```xml
 <web-app>
     <context-param>
