@@ -23,14 +23,14 @@ last_modified_at: 2017-09-19T11:50:10-04:00
 
 ## 运行demo
 
-注：Demo 集成在 [ServiceComb-Saga](https://github.com/ServiceComb/ServiceComb-Saga) 项目中。
+注：Demo 集成在 [ServiceComb-Saga](https://github.com/apache/incubator-servicecomb-saga) 项目中。
 
 1. 准备环境
 - [Oracle JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 - [Maven 3.x](https://maven.apache.org/install.html)
 - [Docker](https://www.docker.com/get-docker)
 - [MySQL](https://dev.mysql.com/downloads/)
-- [Service Center](https://github.com/ServiceComb/service-center)
+- [Service Center](https://github.com/apache/incubator-servicecomb-service-center)
 - [Docker compose](https://docs.docker.com/compose/install/)
 
 2. 配置服务
@@ -145,7 +145,7 @@ last_modified_at: 2017-09-19T11:50:10-04:00
 
 ## 验证
 
-1. 参照 [Saga API](https://github.com/ServiceComb/ServiceComb-Saga/blob/master/docs/api/api.md) 说明，设定各服务的事务、补偿、依赖和恢复参数，并保存为 *request.json* 文件
+1. 参照 [Saga API](https://github.com/apache/incubator-servicecomb-saga/blob/master/docs/api/api.md) 说明，设定各服务的事务、补偿、依赖和恢复参数，并保存为 *request.json* 文件
 
 	```json
 	{

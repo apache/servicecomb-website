@@ -26,10 +26,10 @@ last_modified_at: 2017-06-24T18:48:43+08:00
    ```
 
    其中，请将\<your-user-name\>和\<your-email-address\>替换为您在Github上注册用到的用户名和邮箱信息。设置免密码提交代码可参考[Git免密码提交代码教程](https://stackoverflow.com/a/8588786){:target="_blank"}。
-3. 获取项目代码。以 [ServiceComb-Java-Chassis](https://github.com/ServiceComb/ServiceComb-Java-Chassis) 项目为例，可直接执行以下指令获取代码：
+3. 获取项目代码。以 [ServiceComb-Java-Chassis](https://github.com/apache/incubator-servicecomb-java-chassis) 项目为例，可直接执行以下指令获取代码：
 
    ```bash
-   git clone https://github.com/ServiceComb/ServiceComb-Java-Chassis
+   git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
    ```
    
 ## IDE 环境配置

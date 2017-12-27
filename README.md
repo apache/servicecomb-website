@@ -1,4 +1,4 @@
-# ServiceComb.github.io
+# ServiceComb Website
 The Web Site of ServiceComb is based on [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/).  
 
 # How to run the site locally

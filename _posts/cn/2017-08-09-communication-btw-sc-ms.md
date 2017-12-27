@@ -11,11 +11,11 @@ redirect_from:
   - /theme-setup/
 ---
 
-Service-Center([SC](https://github.com/ServiceComb/service-center)) is a service registry that allows services to register their instance information and to discover providers of a given service.
+Service-Center([SC](https://github.com/apache/incubator-servicecomb-service-center)) is a service registry that allows services to register their instance information and to discover providers of a given service.
 SC uses etcd to store all the information of micro-service and its instances. Below is the diagram stating the working principles and flow of SC.
 
 #### On StartUp
-Here we assume that micro-services are written using [java-chassis](https://github.com/ServiceComb/java-chassis) sdk. So when micro-service boots up then java-chassis sdk does the following list of tasks.
+Here we assume that micro-services are written using [java-chassis](https://github.com/apache/incubator-servicecomb-java-chassis) sdk. So when micro-service boots up then java-chassis sdk does the following list of tasks.
 
 1. On startup provider registers the micro-service to SC if not registered earlier and also register its instance information like its Ip and Port on which instance is running.
 
