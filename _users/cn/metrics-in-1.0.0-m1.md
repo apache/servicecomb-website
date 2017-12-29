@@ -66,6 +66,7 @@ Netflix Servo具有性能极高的计数器（Monitor），我们使用了四种
 | StepCounter  | 周期累加计数器       |
 | MinGauge     | 周期最小值计数器      |
 | MaxGauge     | 周期最大值计数器      |
+
 *依赖的Servo版本为0.10.1
 
 ### 周期设置
@@ -79,7 +80,7 @@ Netflix Servo具有性能极高的计数器（Monitor），我们使用了四种
 从1.0.0-m1开始，支持微服务Operation级别的Metric输出，列表如下：  
 
 | Group       | Level                    | Catalog  | Metrics         | Item           |
-| ----------- | ------------------------ | -------- | --------------- | -------------- |
+| :---------- | :----------------------- | :------- | :-------------- | :------------- |
 | servicecomb | instance                 | system   | cpu             | load           |
 | servicecomb | instance                 | system   | cpu             | runningThreads |
 | servicecomb | instance                 | system   | heap            | init           |
@@ -107,6 +108,7 @@ Netflix Servo具有性能极高的计数器（Monitor），我们使用了四种
 | servicecomb | instance/<operationName> | consumer | consumerLatency | min            |
 | servicecomb | instance/<operationName> | consumer | consumerCall    | total          |
 | servicecomb | instance/<operationName> | consumer | consumerCall    | tps            |
+
 *<operationName>代表微服务Operation的全名，使用的是Java Chassis MicroserviceQualifiedName，它是微服务名.SchemaID.操作方法名的组合。
 
 ## 如何配置
