@@ -32,6 +32,7 @@ redirect_from:
 5.由于foundation-metrics模块过于底层，用户无法以可选的方式决定是否启用；  
 
 因此，从0.5.0版本升级到1.0.0-m1版本，我们进行了一次全面的重构，重构后的Metrics将分为三个模块  
+
 | Module名             | 描述                              |
 | :------------------ | :------------------------------ |
 | metrics-core        | Metric核心模块，引入后即启用Metrics数据收集功能  |
@@ -44,7 +45,8 @@ redirect_from:
 ![MetricsDependency.png](/assets/images/MetricsDependency.png)
 
 ### 数据采集不再依赖Hystrix（handler-bizkeeper），使用事件埋点收集与调用相关的所有数据
-1.0.0-m1版本不再从Hystrix获取调用的TPS和Latency，避免了不配置Java Chassis Bizkeeper Handler就不会输出这两项数据的问题；使用foundation-common中的EventBus作为事件总线，metrics-core中的DefaultEventListenerManager初始化后会立即注入三个事件监听处理类：  
+1.0.0-m1版本不再从Hystrix获取调用的TPS和Latency，避免了不配置Java Chassis Bizkeeper Handler就不会输出这两项数据的问题；使用foundation-common中的EventBus作为事件总线，metrics-core中的DefaultEventListenerManager初始化后会立即注入三个事件监听处理类：
+  
 | 事件监听处理类名                               | 功能                        |
 | :------------------------------------- | :------------------------ |
 | InvocationStartedEventListener         | Consumer调用或Producer接收开始   |
@@ -57,6 +59,7 @@ redirect_from:
 
 ### 使用Netflix Servo作为Metric的计数器
 Netflix Servo具有性能极高的计数器（Monitor），我们使用了四种：  
+
 | Monitor名     | 描述            |
 | :----------- | :------------ |
 | BasicCounter | 基本累积计数器（永续累加） |
