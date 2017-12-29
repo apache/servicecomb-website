@@ -19,12 +19,12 @@
 
 
 
-<title>开发环境准备 - Apache ServiceComb (incubating)</title>
+<title>Setup Developing Environment - Apache ServiceComb (incubating)</title>
 
 
 
 
-<meta name="description" content="开发环境准备">
+<meta name="description" content="setup developing environment">
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="开发环境准备">
+<meta property="og:title" content="Setup Developing Environment">
 
 
   <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/developers/setup-develop-environment/">
@@ -41,13 +41,13 @@
 
 
 
-  <meta property="og:description" content="开发环境准备">
+  <meta property="og:description" content="setup developing environment">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="开发环境准备">
-  <meta name="twitter:description" content="开发环境准备">
+  <meta name="twitter:title" content="Setup Developing Environment">
+  <meta name="twitter:description" content="setup developing environment">
   <meta name="twitter:url" content="">
 
   
@@ -300,8 +300,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="开发环境准备">
-    <meta itemprop="description" content="开发环境准备">
+    <meta itemprop="headline" content="Setup Developing Environment">
+    <meta itemprop="description" content="setup developing environment">
     
     <meta itemprop="dateModified" content="June 24, 2017">
 
@@ -309,7 +309,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">开发环境准备
+            <h1 class="page__title" itemprop="headline">Setup Developing Environment
 </h1>
             
           </header>
@@ -317,32 +317,35 @@
       
 
       <section class="page__content" itemprop="text">
-        <h2 id="基本环境准备">基本环境准备</h2>
-<p>在您开始前，请确保以下应用已安装：</p>
+        <h2 id="install-required-tools">Install required tools</h2>
+<p>Before you start, make sure you have the following tools installed:</p>
 <ul>
-  <li><strong>Git</strong>，安装详情可参考<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank">Git安装教程</a></li>
-  <li><strong>JDK 1.8</strong>，安装详情可参考<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html" target="_blank">JDK安装教程</a></li>
-  <li><strong>Maven 3.x</strong>，安装详情可参考<a href="https://maven.apache.org/install.html" target="_blank">Maven安装教程</a></li>
-  <li><strong>Docker</strong>，安装详情可参考<a href="https://docs.docker.com/engine/installation/" target="_blank">Docker 安装教程</a></li>
-  <li><strong>Service Center</strong>, 安装详情可参考<a href="/users/setup-environment/#运行service-center">Service Center安装教程</a></li>
-  <li><strong>IntelliJ Idea IDE</strong>(可选，您可以使用其他心仪的IDE，如eclipse)，安装详情可参考<a href="https://www.jetbrains.com/help/idea/installing-and-launching.html" target="_blank">IntelliJ安装教程</a></li>
+  <li><strong>Git</strong>，please refer to <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank">Install Git</a></li>
+  <li><strong>JDK 1.8</strong>，please refer to <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html" target="_blank">Install JDK</a></li>
+  <li><strong>Maven 3.x</strong>，please refer to <a href="https://maven.apache.org/install.html" target="_blank">Install Maven</a></li>
+  <li><strong>Docker</strong>，please refer to <a href="https://docs.docker.com/engine/installation/" target="_blank">Install Docker</a></li>
+  <li><strong>Service Center</strong>, please refer to <a href="/users/setup-environment/#运行service-center">Install Service Center</a></li>
+  <li><strong>IntelliJ Idea IDE</strong>(optional, you can use any IDE you like, e.g. eclipse), please refer to<a href="https://www.jetbrains.com/help/idea/installing-and-launching.html" target="_blank">Install IntelliJ</a></li>
 </ul>
 
-<h2 id="git配置">Git配置</h2>
+<h2 id="setup-git">Setup git</h2>
 <ol>
-  <li>注册Github。由于ServiceComb的代码是托管在Github上的，所以您需要有一个Github的帐号，可前往 <a href="https://github.com/join?source=header-home">https://github.com/join?source=header-home</a> 进行注册，如您已有Github帐号，则可跳过此步。注册完成后直接在 <a href="https://github.com/login?return_to=%2Fjoin%3Fsource%3Dheader-home">https://github.com/login?return_to=%2Fjoin%3Fsource%3Dheader-home</a> 进行登录即可。</li>
   <li>
-    <p>配置Git。主要配置Git的个人信息和设置免密码提交代码。个人信息可通过以下指令进行配置：</p>
+    <p>Get a Github account. The ServiceComb projects is hosted on Github, so you will need a Github account. You can goto <a href="https://github.com/join?source=header-home">https://github.com/join?source=header-home</a> for signup. Skip this if you already own an Github account. You can login on <a href="https://github.com/login?return_to=%2Fjoin%3Fsource%3Dheader-home">https://github.com/login?return_to=%2Fjoin%3Fsource%3Dheader-home</a> after you finished the signup.</p>
+  </li>
+  <li>
+    <p>Configure Git. Configure personal information and setup git for push without username/password.
+Configure personal information:</p>
 
     <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git config --global user.name &lt;your-user-name&gt;
 git config --global user.email &lt;your-email-address&gt;
 </code></pre>
     </div>
 
-    <p>其中，请将&lt;your-user-name&gt;和&lt;your-email-address&gt;替换为您在Github上注册用到的用户名和邮箱信息。设置免密码提交代码可参考<a href="https://stackoverflow.com/a/8588786" target="_blank">Git免密码提交代码教程</a>。</p>
+    <p>Substitute &lt;your-user-name&gt;和&lt;your-email-address&gt; with your name and email. Refer<a href="https://stackoverflow.com/a/8588786" target="_blank">Git push without username and password</a>to setup pushing without username/password.</p>
   </li>
   <li>
-    <p>获取项目代码。以 <a href="https://github.com/apache/incubator-servicecomb-java-chassis.git">ServiceComb-Java-Chassis</a> 项目为例，可直接执行以下指令获取代码：</p>
+    <p>Get the source code. For example, to get <a href="https://github.com/apache/incubator-servicecomb-java-chassis.git">ServiceComb-Java-Chassis</a>, execute the following command:</p>
 
     <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
 </code></pre>
@@ -350,10 +353,10 @@ git config --global user.email &lt;your-email-address&gt;
   </li>
 </ol>
 
-<h2 id="ide-环境配置">IDE 环境配置</h2>
-<p>现有支持Java开发的IDE很多，如Eclipse, IntelliJ IDEA和STS等。我们在此推荐使用IntelliJ IDEA，对于日常开发，其社区版的功能已经足够了。在安装完IntelliJ IDEA后，您可以根据<a href="https://www.jetbrains.com/help/idea/installing-and-launching.html#d325787e291">初始化设置教程</a>对IntelliJ IDEA进行配置，随后可通过阅读<a href="https://www.jetbrains.com/help/idea/keyboard-shortcuts-you-cannot-miss.html">必备快捷键</a>了解常用的快捷键。</p>
+<h2 id="configure-ide">Configure IDE</h2>
+<p>There are many Java IDEs around, like Eclipse, IntelliJ IDEA and STS, etc. We suggest to use IntelliJ IDEA, it’s community edition is good enough for daily usage. After you installed IntelliJ IDEA, follow <a href="https://www.jetbrains.com/help/idea/installing-and-launching.html#d325787e291">Initial Setup</a> for basic configuration. For frequently used shortcuts, <a href="https://www.jetbrains.com/help/idea/keyboard-shortcuts-you-cannot-miss.html">Cannot Miss Shortcuts</a></p>
 
-<p>Java Chassis和Saga项目使用了<a href="https://github.com/google/styleguide">Google Code Style</a>作为代码风格，配置文件可以在本项目 <code class="highlighter-rouge">etc</code> 目录下找到。其中，目录中也有Eclipse的代码风格，读者可以直接导入使用。</p>
+<p>The Java Chassis and Saga project uses <a href="https://github.com/google/styleguide">Google Code Style</a>. You can find the settings file under <code class="highlighter-rouge">etc</code> directory which can be imported to IDEA. There is also a settings file for Eclipse under the same directory.</p>
 
 <p><img src="/assets/images/intellij.code.style.3.png" alt="code style files" class="align-center" /></p>
 
@@ -361,46 +364,48 @@ git config --global user.email &lt;your-email-address&gt;
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#基本环境准备" id="markdown-toc-基本环境准备">基本环境准备</a></li>
-  <li><a href="#git配置" id="markdown-toc-git配置">Git配置</a></li>
-  <li><a href="#ide-环境配置" id="markdown-toc-ide-环境配置">IDE 环境配置</a>    <ul>
-      <li><a href="#intellij-idea-配置" id="markdown-toc-intellij-idea-配置">IntelliJ IDEA 配置</a></li>
+  <li><a href="#install-required-tools" id="markdown-toc-install-required-tools">Install required tools</a></li>
+  <li><a href="#setup-git" id="markdown-toc-setup-git">Setup git</a></li>
+  <li><a href="#configure-ide" id="markdown-toc-configure-ide">Configure IDE</a>    <ul>
+      <li><a href="#intellij-idea-configuration" id="markdown-toc-intellij-idea-configuration">IntelliJ IDEA Configuration</a></li>
     </ul>
   </li>
-  <li><a href="#下一步" id="markdown-toc-下一步">下一步</a></li>
+  <li><a href="#next" id="markdown-toc-next">Next</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h3 id="intellij-idea-配置">IntelliJ IDEA 配置</h3>
-<p><a href="https://www.jetbrains.com/idea/download/">IntelliJ IDEA</a>的配置方法如下</p>
+<h3 id="intellij-idea-configuration">IntelliJ IDEA Configuration</h3>
+<p>Configure <a href="https://www.jetbrains.com/idea/download/">IntelliJ IDEA</a></p>
 
 <ol>
   <li>
-    <p>打开IntelliJ配置
+    <p>Open IntelliJ Settings page
 <img src="/assets/images/intellij.code.style.4.png" alt="IntelliJ Settings" class="align-center" /></p>
   </li>
   <li>
-    <p>Import 配置文件 <code class="highlighter-rouge">etc/intellij-java-google-style.xml</code>
+    <p>Import the coding style settings file <code class="highlighter-rouge">etc/intellij-java-google-style.xml</code>
 <img src="/assets/images/intellij.code.style.1.png" alt="import code style" class="align-center" /></p>
   </li>
   <li>
-    <p>打开已修改而未提交的文件，并打开格式化文件对话框
+    <p>Open a modified but uncommited file, then Choose [Code] &gt; [Show Reformat File Dialog]
 <img src="/assets/images/intellij.code.style.5.png" alt="reformat file dialog" class="align-center" /></p>
   </li>
   <li>
-    <p>选择只格式化修改部分
+    <p>Choose [Only VCS changed text], then click [Run]
 <img src="/assets/images/intellij.code.style.2.png" alt="reformat options" class="align-center" /></p>
   </li>
 </ol>
 
-<p>配置完成后，后续按快捷键 (Ctrl+Alt+i) 格式化修改文件即可。更多关于IntelliJ的使用技巧可阅读<a href="https://www.jetbrains.com/help/idea/tutorials.html">IntelliJ教程</a>。</p>
+<p>Just run [Reformat code] (Ctrl+Alt+L) afterwards to format the code.</p>
 
-<h2 id="下一步">下一步</h2>
+<p>For more IntelliJ usages, please check <a href="https://www.jetbrains.com/help/idea/tutorials.html">IntelliJ tutorial</a>。</p>
+
+<h2 id="next">Next</h2>
 
 <ul>
-  <li>阅读<a href="/developers/submit-codes/">代码提交指南</a></li>
+  <li>Read<a href="/developers/submit-codes/">Howto submit codes</a></li>
 </ul>
 
         
