@@ -75,7 +75,6 @@ Netflix Servo具有性能极高的计数器（Monitor），我们使用了四种
 2.时间相关型：只有经过一个固定的周期时间才能够获取结果值，例如最大、最小、平均值等等，固定周期一般可以称为“统计时间窗”，在Servo中，这个时间被称为[“Polling Intervals”](https://github.com/Netflix/servo/wiki/Getting-Started)。  
 从1.0.0-m1开始，通过servicecomb.metrics.window_time设置周期，效果与servo.pollers一致。
 
-
 ## Metric列表
 从1.0.0-m1开始，支持微服务Operation级别的Metric输出，列表如下：  
 
@@ -91,25 +90,25 @@ Netflix Servo具有性能极高的计数器（Monitor），我们使用了四种
 | servicecomb | instance                 | system   | nonHeap         | max            |
 | servicecomb | instance                 | system   | nonHeap         | commit         |
 | servicecomb | instance                 | system   | nonHeap         | used           |
-| servicecomb | instance/<operationName> | producer | waitInQueue     | count          |
-| servicecomb | instance/<operationName> | producer | lifeTimeInQueue | average        |
-| servicecomb | instance/<operationName> | producer | lifeTimeInQueue | max            |
-| servicecomb | instance/<operationName> | producer | lifeTimeInQueue | min            |
-| servicecomb | instance/<operationName> | producer | executionTime   | average        |
-| servicecomb | instance/<operationName> | producer | executionTime   | max            |
-| servicecomb | instance/<operationName> | producer | executionTime   | min            |
-| servicecomb | instance/<operationName> | producer | producerLatency | average        |
-| servicecomb | instance/<operationName> | producer | producerLatency | max            |
-| servicecomb | instance/<operationName> | producer | producerLatency | min            |
-| servicecomb | instance/<operationName> | producer | producerCall    | total          |
-| servicecomb | instance/<operationName> | producer | producerCall    | tps            |
-| servicecomb | instance/<operationName> | consumer | consumerLatency | average        |
-| servicecomb | instance/<operationName> | consumer | consumerLatency | max            |
-| servicecomb | instance/<operationName> | consumer | consumerLatency | min            |
-| servicecomb | instance/<operationName> | consumer | consumerCall    | total          |
-| servicecomb | instance/<operationName> | consumer | consumerCall    | tps            |
+| servicecomb | instance/operationName   | producer | waitInQueue     | count          |
+| servicecomb | instance/operationName   | producer | lifeTimeInQueue | average        |
+| servicecomb | instance/operationName   | producer | lifeTimeInQueue | max            |
+| servicecomb | instance/operationName   | producer | lifeTimeInQueue | min            |
+| servicecomb | instance/operationName   | producer | executionTime   | average        |
+| servicecomb | instance/operationName   | producer | executionTime   | max            |
+| servicecomb | instance/operationName   | producer | executionTime   | min            |
+| servicecomb | instance/operationName   | producer | producerLatency | average        |
+| servicecomb | instance/operationName   | producer | producerLatency | max            |
+| servicecomb | instance/operationName   | producer | producerLatency | min            |
+| servicecomb | instance/operationName   | producer | producerCall    | total          |
+| servicecomb | instance/operationName   | producer | producerCall    | tps            |
+| servicecomb | instance/operationName   | consumer | consumerLatency | average        |
+| servicecomb | instance/operationName   | consumer | consumerLatency | max            |
+| servicecomb | instance/operationName   | consumer | consumerLatency | min            |
+| servicecomb | instance/operationName   | consumer | consumerCall    | total          |
+| servicecomb | instance/operationName   | consumer | consumerCall    | tps            |
 
-*<operationName>代表微服务Operation的全名，使用的是Java Chassis MicroserviceQualifiedName，它是微服务名.SchemaID.操作方法名的组合。
+*operationName代表微服务Operation的全名，使用的是Java Chassis MicroserviceQualifiedName，它是微服务名.SchemaID.操作方法名的组合。
 
 ## 如何配置
 ### 全局配置
@@ -150,9 +149,14 @@ public class DefaultMetricsPublisher implements MetricsPublisher {
 
   private final DataSource dataSource;
 
-  @Autowired
   public DefaultMetricsPublisher(DataSource dataSource) {
     this.dataSource = dataSource;
+  }
+
+  @RequestMapping(path = "/appliedWindowTime", method = RequestMethod.GET)
+  @Override
+  public List<Long> getAppliedWindowTime() {
+    return dataSource.getAppliedWindowTime();
   }
 
   @RequestMapping(path = "/", method = RequestMethod.GET)
