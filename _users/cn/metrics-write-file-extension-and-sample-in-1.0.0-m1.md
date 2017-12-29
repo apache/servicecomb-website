@@ -16,12 +16,13 @@ redirect_from:
 0.5.0版本的foundation-metrics实现了将采集到的Metrics数据写入文件，在1.0.0-m1中，此功能移动到metrics-extension中；  
 从1.0.0-m1版本开始支持输出Operation级别的Metric，因此无法通过固定配置的方式配置日志输出，将采用代码的方式在运行时为每一个Metric自动创建专用的RollingFileAppender。
 功能包含如下模块：
-| Module名                          | 描述                              |
-| :------------------------------- | :------------------------------ |
+
+| Module名                         | 描述                              |
+| :------------------------------- | :------------------------------   |
 | metrics-write-file               | 定期获取Metrics数据写入文件主模块            |
-| metrics-write-file-config        | 写文件方式配置模块                       |
-| metrics-write-file-config-log4j  | 使用Log4j的RollingFileAppender写文件  |
-| metrics-write-file-config-log4j2 | 使用Log4j2的RollingFileAppender写文件 |
+| metrics-write-file-config        | 写文件方式配置模块                        |
+| metrics-write-file-config-log4j  | 使用Log4j的RollingFileAppender写文件     |
+| metrics-write-file-config-log4j2 | 使用Log4j2的RollingFileAppender写文件      |
 
 *暂未提供logback的metrics-write-file-config，参考Log4j和log4j2的例子可以很容易实现metrics-write-file-config-logback
 
