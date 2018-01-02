@@ -69,7 +69,8 @@ servicecomb_calculator_metricsEndpoint_metrics_producer_executionTime_total 0.0
 servicecomb_calculator_metricsEndpoint_metrics_producer_waitInQueue_count 0.0
 servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_count 0.0
 ```
-所以它们两个是完全独立各有用途的，取决你如何使用。
+所以它们两个是完全独立各有用途的，取决你如何使用。  
+
 *Prometheus Simple Http Server同样使用/metrics作为默认URL，metrics-prometheus会使用9696作为默认端口，因此微服务启动后你可以使用http://localhost:9696/metrics 访问它。  
 
 我们可以看到在Prometheus的Metric命名统一使用下划线代替了点，因为需要遵守它的[命名规则](https://prometheus.io/docs/practices/naming/)。
@@ -126,6 +127,8 @@ scrape_configs:
 如何在Grafana中添加Prometheus作为数据源请参考[这篇文章](https://prometheus.io/docs/visualization/grafana/)。
 ## 运行效果
 配置好并启动了微服务、Prometheus之后，就可以打开Prometheus Web界面（默认地址是http://localhost:9090/ ），在Metrics列表中看到ServiceComb开头的Java Chassis Metrics，如下图所示：
-![MetricsInPrometheus](/assets/images/MetricsInPrometheus.png)
+![MetricsInPrometheus](/assets/images/MetricsInPrometheus.png)  
+
 为了能够达到更好的查询效果，在Grafana中添加Prometheus作为数据源，通过Grafana查询数据如下图示：
-![MetricsInGrafana](/assets/images/MetricsInGrafana.png)
+
+![MetricsInGrafana](/assets/images/MetricsInGrafana.png)  
