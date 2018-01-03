@@ -47,7 +47,13 @@ cse:
 ```
 你就可以通过http://localhost:8080/metrics 直接获取到Metrics数据，它返回的是io.servicecomb.metrics.common.RegistryMetric实体对象，输出格式为：
 ```json
-{"instanceMetric":{"systemMetric":{"cpuLoad":-1.0,"cpuRunningThreads":39,"heapInit":266338304,"heapMax":3786407936,"heapCommit":626524160,"heapUsed":338280024,"nonHeapInit":2555904,"nonHeapMax":-1,"nonHeapCommit":60342272,"nonHeapUsed":58673152},"consumerMetric":{"operationName":"instance","prefix":"servicecomb.instance.consumer","consumerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"consumerCall":{"total":0,"tps":0.0}},"producerMetric":{"operationName":"instance","prefix":"servicecomb.instance.producer","waitInQueue":0,"lifeTimeInQueue":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"executionTime":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerCall":{"total":1,"tps":0.0}}},"consumerMetrics":{},"producerMetrics":{"calculator.metricsEndpoint.metrics":{"operationName":"calculator.metricsEndpoint.metrics","prefix":"servicecomb.calculator.metricsEndpoint.metrics.producer","waitInQueue":0,"lifeTimeInQueue":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"executionTime":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerCall":{"total":1,"tps":0.0}}}}
+{"instanceMetric":{
+"systemMetric":{"cpuLoad":10.0,"cpuRunningThreads":39,"heapInit":266338304,"heapMax":3786407936,"heapCommit":626524160,"heapUsed":338280024,"nonHeapInit":2555904,"nonHeapMax":-1,"nonHeapCommit":60342272,"nonHeapUsed":58673152},
+"consumerMetric":{"operationName":"instance","prefix":"servicecomb.instance.consumer","consumerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"consumerCall":{"total":0,"tps":0.0}},
+"producerMetric":{"operationName":"instance","prefix":"servicecomb.instance.producer","waitInQueue":0,"lifeTimeInQueue":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"executionTime":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerCall":{"total":1,"tps":0.0}}},
+"consumerMetrics":{},
+"producerMetrics":{"calculator.metricsEndpoint.metrics":{"operationName":"calculator.metricsEndpoint.metrics","prefix":"servicecomb.calculator.metricsEndpoint.metrics.producer","waitInQueue":0,"lifeTimeInQueue":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"executionTime":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerCall":{"total":1,"tps":0.0}}
+}}
 ```
 但使用Prometheus Simple Http Server接口发布的数据是Prometheus采集的标准格式：
 ```text
@@ -91,7 +97,7 @@ servicecomb:
       #prometheus provider的端口
       port: 9696
 ```
-*如果不做配置，默认端口为9696  
+*如果不做配置，默认端口为9696*  
 ### 依赖配置
 只需要添加metrics-prometheus依赖即可：  
 ```xml
