@@ -71,7 +71,7 @@ servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_count 0.
 ```
 所以它们两个是完全独立各有用途的，取决你如何使用。  
 
-*Prometheus Simple Http Server同样使用/metrics作为默认URL，metrics-prometheus会使用9696作为默认端口，因此微服务启动后你可以使用http://localhost:9696/metrics 访问它。  
+*Prometheus Simple Http Server同样使用/metrics作为默认URL，metrics-prometheus会使用9696作为默认端口，因此微服务启动后你可以使用http://localhost:9696/metrics 访问它。*  
 
 我们可以看到在Prometheus的Metric命名统一使用下划线代替了点，因为需要遵守它的[命名规则](https://prometheus.io/docs/practices/naming/)。
 
