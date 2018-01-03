@@ -122,8 +122,8 @@ service_description:
 servicecomb:
   metrics:
     #时间窗间隔，与servo.pollers设置效果一致，单位毫秒
-    #支持多个时间窗间隔，使用逗号（,）将多个分隔开，例如5000,10000，代表设置两个时间窗，第一个时间窗5000的windowTimeIndex为0，第二个时间窗10000的windowTimeIndex为1，依此类推
-    window_time: 5000
+    #支持多个时间窗间隔，使用逗号（,）将多个分隔开，例如5000,10000，代表设置两个时间窗
+    window_time: 5000,10000
 ```
 *时间窗设置对于统计结果获取的影响，附上代码中包含的一段注释如下：*  
 
