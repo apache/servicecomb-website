@@ -31,7 +31,7 @@ Logger名指的是LoggerFactory.getLogger后的第一个参数：
 static final Logger log = LoggerFactory.getLogger("${Logger名}");
 log.trace("${Metric数据}");
 ```
-*为不影响调试，log的输出级别为trace*
+**为不影响调试，log的输出级别为trace**
 
 以下是我们的定向Logger名以及输出的Metrics含义：   
 
@@ -75,7 +75,7 @@ servicecomb:
 ```
 
 ## 注意事项
-*需要在provider治理链中添加bizkeeper-provider，否则TPS和Latency无数据*
+**需要在provider治理链中添加bizkeeper-provider，否则TPS和Latency无数据**
 ```yaml
 APPLICATION_ID: demo
 service_description:

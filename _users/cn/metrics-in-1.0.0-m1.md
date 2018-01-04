@@ -195,6 +195,8 @@ cse:
 @Autowired
 private DataSource dataSource;
 ```
+
+## 参考示例
 我们已经开发完成了两个使用场景可以作为参考：  
 1. metrics-wirte-file：将Metrics数据写入文件，代码在metrics-extension中；  
 2. metrics-prometheus：将Metrics发布为prometheus Producer。  
