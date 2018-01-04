@@ -1,10 +1,10 @@
 ---
-title: "Metrics监控"
+title: "0.5.0版本中的监控"
 lang: cn
 ref: metrics
-permalink: /cn/users/metrics/
-excerpt: "Metrics监控"
-last_modified_at: 2017-12-20T10:01:43-04:00
+permalink: /cn/users/metrics-in-0.5.0/
+excerpt: "0.5.0版本中的监控"
+last_modified_at: 2017-12-29T14:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
@@ -29,7 +29,10 @@ redirect_from:
 Logger名指的是LoggerFactory.getLogger后的第一个参数：
 ```java
 static final Logger log = LoggerFactory.getLogger("${Logger名}");
+log.trace("${Metric数据}");
 ```
+**为不影响调试，log的输出级别为trace**
+
 以下是我们的定向Logger名以及输出的Metrics含义：   
 
 | Logger名                                  | Metric含义              |
@@ -38,9 +41,11 @@ static final Logger log = LoggerFactory.getLogger("${Logger名}");
 | averageTimeInQueue                       | Producer端调用在队列中的平均时间  |
 | countInQueue                             | Producer端在队列中等待的调用的数量 |
 | cpuLoad                                  | 实例CPU使用率              |
+| cpuRunningThreads                        | 实例运行线程数量              |
 | heapCommit，heapInit，heapMax，heapUsed     | 内存Heap使用状况            |
 | nonHeapCommit，nonHeapInit，nonHeapMax，nonHeapUsed | 内存NonHeap使用状况         |
 | latency                                  | 调用平均时延                |
+| tps                                      | 每秒调用数（Transaction per seconds）  |
 | maxLifeTimeInQueue                       | Producer端调用在队列中最大等待时间 |
 | minLifeTimeInQueue                       | Producer端调用在队列中最小等待时间 |
 | totalRequestsPerProvider                 | Producer总请求数          |
@@ -70,7 +75,7 @@ servicecomb:
 ```
 
 ## 注意事项
-* 需要在provider治理链中添加bizkeeper-provider，否则TPS和Latency无数据
+**需要在provider治理链中添加bizkeeper-provider，否则TPS和Latency无数据**
 ```yaml
 APPLICATION_ID: demo
 service_description:
@@ -88,7 +93,7 @@ cse:
 以设置averageServiceExecutionTime为例，如果是Log4j，配置如下：
 ```properties
 #指定Logger名为averageServiceExecutionTime
-log4j.category.averageServiceExecutionTime=ERROR, averageServiceExecutionTimeLogger
+log4j.category.averageServiceExecutionTime=TRACE, averageServiceExecutionTimeLogger
 #定向日志，不扩散到别的Logger中
 log4j.additivity.averageServiceExecutionTime=false
 #使用RollingFileAppender
@@ -121,7 +126,7 @@ log4j.appender.averageServiceExecutionTimeLogger.append=true
 </Appenders>
 
 <Loggers>
-  <Logger name="averageServiceExecutionTime" level="error" additivity="false">
+  <Logger name="averageServiceExecutionTime" level="trace" additivity="false">
     <AppenderRef ref="averageServiceExecutionTime"/>
   </Logger>
 </Loggers>
