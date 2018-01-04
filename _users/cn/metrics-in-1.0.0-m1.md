@@ -25,11 +25,11 @@ redirect_from:
 
 ## 1.0.00-m1版本原理
 在0.5.0版本的实现介绍[0.5.0版本中的监控](/cn/users/metrics-in-0.5.0/)中，存在一些问题：
-1.metrics在foundation-metrics模块中实现，并且包含了一些具体的定制代码；  
-2.使用ThreadLocal变量收集和汇总数据，虽然性能很高，但是存在内存泄漏的风险；  
-3.Metrics的输出为固定的文本，而不是独立的数值，数据使用起来很不方便；  
-4.没有提供通用数据发布接口，难以和更多的第三方监控系统做集成；  
-5.由于foundation-metrics模块过于底层，用户无法以可选的方式决定是否启用；  
+1. metrics在foundation-metrics模块中实现，并且包含了一些具体的定制代码；  
+2. 使用ThreadLocal变量收集和汇总数据，虽然性能很高，但是存在内存泄漏的风险；  
+3. Metrics的输出为固定的文本，而不是独立的数值，数据使用起来很不方便；  
+4. 没有提供通用数据发布接口，难以和更多的第三方监控系统做集成；  
+5. 由于foundation-metrics模块过于底层，用户无法以可选的方式决定是否启用；  
 
 因此，从0.5.0版本升级到1.0.0-m1版本，我们进行了一次全面的重构，重构后的Metrics将分为三个模块  
 
@@ -53,7 +53,7 @@ redirect_from:
 | InvocationStartProcessingEventListener | Producer从队列中取出调用开始处理      |
 | InvocationFinishedEventListener        | Consumer调用返回或Producer处理完毕 |
 
-*特别说明，Java Chassis的Reactor框架基于Vertx，微服务Producer端收到Invocation后，并不会马上同步处理请求，而是将它放入一个处理队列中，Invocation在队列中的时间称为LifeTimeInQueue，队列的长度称为waitInQueue，这是衡量微服务压力的两个重要指标，可以参考操作系统磁盘读写队列的概念；Consumer端并不会有队列，因此永远不会触发InvocationStartProcessingEvent。
+*特别说明，Java Chassis的Reactor框架基于Vertx，微服务Producer端收到Invocation后，并不会马上同步处理请求，而是将它放入一个处理队列中，Invocation在队列中的时间称为LifeTimeInQueue，队列的长度称为waitInQueue，这是衡量微服务压力的两个重要指标，可以参考操作系统磁盘读写队列的概念；Consumer端并不会有队列，因此永远不会触发InvocationStartProcessingEvent。*
 
 事件触发的代码广泛分布在Java Chassis的RestInvocation、HighwayServerInvoke、HighwayClient和VertxHttpMethod中，如果微服务没有启用Metrics，EventBus中不会注入事件监听处理类，因此对性能的影响微乎其微。
 
@@ -67,12 +67,12 @@ Netflix Servo具有性能极高的计数器（Monitor），我们使用了四种
 | MinGauge     | 周期最小值计数器      |
 | MaxGauge     | 周期最大值计数器      |
 
-*依赖的Servo版本为0.10.1
+*依赖的Servo版本为0.10.1*
 
 ### 周期设置
-总所周知，Metric可以分为两大类：  
-1.时间无关型：诸如调用总次数、资源使用状况等等，Consumer无论何时获取Metric，总返回当前最新值；
-2.时间相关型：只有经过一个固定的周期时间才能够获取结果值，例如最大、最小、平均值等等，固定周期一般可以称为“统计时间窗”，在Servo中，这个时间被称为[“Polling Intervals”](https://github.com/Netflix/servo/wiki/Getting-Started)。  
+Metric可以分为两大类：  
+1. 时间无关型（直接取值）：诸如调用总次数、资源使用状况等等，Consumer无论何时获取Metric，总返回当前最新值；
+2. 时间相关型（统计取值）：只有经过一个固定的周期时间才能够获取结果值，例如最大、最小、平均值等等，固定周期一般可以称为“统计时间窗”，在Servo中，这个时间被称为[“Polling Intervals”](https://github.com/Netflix/servo/wiki/Getting-Started)。  
 从1.0.0-m1开始，通过servicecomb.metrics.window_time设置周期，效果与servo.pollers一致。
 
 ## Metric列表
@@ -108,7 +108,7 @@ Netflix Servo具有性能极高的计数器（Monitor），我们使用了四种
 | servicecomb | instance/operationName   | consumer | consumerCall    | total          |
 | servicecomb | instance/operationName   | consumer | consumerCall    | tps            |
 
-*operationName代表微服务Operation的全名，使用的是Java Chassis MicroserviceQualifiedName，它是微服务名.SchemaID.操作方法名的组合。
+*operationName代表微服务Operation的全名，使用的是Java Chassis MicroserviceQualifiedName，它是微服务名.SchemaID.操作方法名的组合。*
 
 ## 如何配置
 ### 全局配置
@@ -122,10 +122,11 @@ service_description:
 servicecomb:
   metrics:
     #时间窗间隔，与servo.pollers设置效果一致，单位毫秒
-    #支持多个时间窗间隔，使用逗号（,）将多个分隔开，例如5000,10000，代表设置两个时间窗，第一个时间窗5000的windowTimeIndex为0，第二个时间窗10000的windowTimeIndex为1，依此类推
-    window_time: 5000
+    #支持多个时间窗间隔，使用逗号（,）将多个分隔开，例如5000,10000，代表设置两个时间窗
+    window_time: 5000,10000
 ```
-*时间窗设置对于统计结果获取的影响，附上代码中包含的一段注释如下：  
+*时间窗设置对于统计结果获取的影响，附上代码中包含的一段注释如下：*  
+
 ![TimeWindowComment.png](/assets/images/TimeWindowComment.png)
 
 ### 依赖配置
@@ -154,21 +155,27 @@ public class DefaultMetricsPublisher implements MetricsPublisher {
   }
 
   @RequestMapping(path = "/appliedWindowTime", method = RequestMethod.GET)
+  @CrossOrigin
   @Override
   public List<Long> getAppliedWindowTime() {
     return dataSource.getAppliedWindowTime();
   }
 
   @RequestMapping(path = "/", method = RequestMethod.GET)
+  @CrossOrigin
   @Override
   public RegistryMetric metrics() {
     return dataSource.getRegistryMetric();
   }
 
-  @RequestMapping(path = "/{windowTimeIndex}", method = RequestMethod.GET)
+  @ApiResponses({
+      @ApiResponse(code = 400, response = String.class, message = "illegal request content"),
+  })
+  @RequestMapping(path = "/{windowTime}", method = RequestMethod.GET)
+  @CrossOrigin
   @Override
-  public RegistryMetric metricsWithWindowTimeIndex(@PathVariable(name = "windowTimeIndex") int windowTimeIndex) {
-    return dataSource.getRegistryMetric(windowTimeIndex);
+  public RegistryMetric metricsWithWindowTime(@PathVariable(name = "windowTime") long windowTime) {
+    return dataSource.getRegistryMetric(windowTime);
   }
 }
 ```
@@ -188,7 +195,8 @@ cse:
 @Autowired
 private DataSource dataSource;
 ```
-*我们已经开发完成了两个使用场景可以作为参考：
-1.metrics-wirte-file：将Metrics数据写入文件，代码在metrics-extension中
-2.metrics-prometheus：将Metrics发布为prometheus Producer
 
+## 参考示例
+我们已经开发完成了两个使用场景可以作为参考：  
+1. metrics-wirte-file：将Metrics数据写入文件，代码在metrics-extension中；  
+2. metrics-prometheus：将Metrics发布为prometheus Producer。  
