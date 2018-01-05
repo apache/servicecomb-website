@@ -62,34 +62,20 @@ Java Chassis支持直接启动和Spring Boot Starter启动两种模式，两种�
 ##### 项目使用log4j作为日志实现
 请参考samples/metrics-write-file-sample/metrics-write-file-log4j项目：
 ```xml
-    <dependency>
-      <groupId>io.servicecomb</groupId>
-      <artifactId>metrics-write-file-config</artifactId>
-    </dependency>
+    <!--metrics write file dependency-->
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>metrics-write-file-config-log4j</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.servicecomb</groupId>
-      <artifactId>metrics-write-file</artifactId>
     </dependency>
 ```
 依赖的log4j的版本为1.2.17。
 ##### 项目使用log4j2作为日志实现
 请参考samples/metrics-write-file-sample/metrics-write-file-log4j2项目：
 ```xml
-    <dependency>
-      <groupId>io.servicecomb</groupId>
-      <artifactId>metrics-write-file-config</artifactId>
-    </dependency>
+    <!--metrics write file dependency-->
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>metrics-write-file-config-log4j2</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.servicecomb</groupId>
-      <artifactId>metrics-write-file</artifactId>
     </dependency>
 ```
 可以看到，与使用log4j唯一不同的是将metrics-write-file-config-log4j更换为metrics-write-file-config-log4j2，依赖的log4j2的版本为2.8.2。
@@ -115,21 +101,13 @@ Java Chassis支持直接启动和Spring Boot Starter启动两种模式，两种�
       <artifactId>spring-boot-starter-provider</artifactId>
     </dependency>
     
-    <!--metrics dependency-->
-    <dependency>
-      <groupId>io.servicecomb</groupId>
-      <artifactId>metrics-write-file-config</artifactId>
-    </dependency>
+    <!--metrics write file dependency-->
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>metrics-write-file-config-log4j2</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.servicecomb</groupId>
-      <artifactId>metrics-write-file</artifactId>
-    </dependency>
 ```
-spring boot starter中包含了log4j-over-slf4j，这个依赖会在运行态屏蔽掉log4j的RollingFileAppender，使我们无法动态创建它，请确定这种排除对你的系统不会有影响，关于log4j-over-slf4j的更多信息可以参考[这篇文章](https://www.slf4j.org/legacy.html)。
+Spring Boot Starter中包含了log4j-over-slf4j，这个Log Bridge并没有完全实现log4j的所有接口，包括RollingFileAppender，所以我们需要排除它让slf4j直接调用log4j而不是这个Log Bridge，请确定这种排除对你的系统不会有影响，关于log4j-over-slf4j的更多信息可以参考[这篇文章](https://www.slf4j.org/legacy.html#log4j-over-slf4j)。
 ##### 项目使用log4j2作为日志实现
 请参考samples/metrics-write-file-sample/metrics-write-file-log4j2-springboot项目：
 ```xml
@@ -144,18 +122,10 @@ spring boot starter中包含了log4j-over-slf4j，这个依赖会在运行态屏
       <artifactId>spring-boot-starter-provider</artifactId>
     </dependency>
     
-    <!--metrics dependency-->
-    <dependency>
-      <groupId>io.servicecomb</groupId>
-      <artifactId>metrics-write-file-config</artifactId>
-    </dependency>
+    <!--metrics write file dependency-->
     <dependency>
       <groupId>io.servicecomb</groupId>
       <artifactId>metrics-write-file-config-log4j2</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.servicecomb</groupId>
-      <artifactId>metrics-write-file</artifactId>
     </dependency>
 ```
 可以看到，spring boot starter默认使用的是log4j作为日志实现，无论你是否排除log4j的相关依赖，并不会对log4j2 write file造成任何影响，两者并存，因此依赖方面与直接启动是相同的。
