@@ -53,7 +53,7 @@ redirect_from:
 | InvocationStartProcessingEventListener | Producer从队列中取出调用开始处理      |
 | InvocationFinishedEventListener        | Consumer调用返回或Producer处理完毕 |
 
-*特别说明，Java Chassis的Reactor框架基于Vertx，微服务Producer端收到Invocation后，并不会马上同步处理请求，而是将它放入一个处理队列中，Invocation在队列中的时间称为**LifeTimeInQueue**，队列的长度称为**waitInQueue**，这是衡量微服务压力的两个重要指标，可以参考操作系统磁盘读写队列的概念；Consumer端并不会有队列，因此永远不会触发InvocationStartProcessingEvent。*
+*特别说明，Java Chassis的Reactor框架基于[Vertx](http://vertx.io/)，微服务Producer端收到Invocation后，并不会马上同步处理请求，而是将它放入一个处理队列中，Invocation在队列中的时间称为**LifeTimeInQueue**，队列的长度称为**waitInQueue**，这是衡量微服务压力的两个重要指标，可以参考操作系统磁盘读写队列的概念；Consumer端并不会有队列，因此永远不会触发InvocationStartProcessingEvent。*
 
 事件触发的代码分布在Java Chassis的RestInvocation、HighwayServerInvoke和InvokerUtils中，如果微服务没有启用Metrics，EventBus中就不会注册Metrics事件监听处理器，因此对性能的影响微乎其微。
 

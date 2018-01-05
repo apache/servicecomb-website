@@ -31,12 +31,12 @@ In previous version(0.5.0)，implementation of metrics had some imperfections:
 4. Not support publish,unable integration with other monitor system;
 5. Because foundation-metrics is a low level module and certainly be loaded,user can't exclude it if unnecessary.
 
-So,metrics upgrade from 0.5.0 to 1.0.0-m1,we had done a fully reconstruction,now it's include this modules:   
+So,upgrading from 0.5.0 to 1.0.0-m1,we had done a fully reconstruction,now it's include this modules:   
 
 | Module Name         | Description                              |
 | :------------------ | :--------------------------------------- |
-| metrics-core        | Metrics core module，work immediately after imported |
-| metrics-common      | Metrics common module，include DTO classes |
+| metrics-core        | Metrics core module,work immediately after imported |
+| metrics-common      | Metrics common module,include DTO classes |
 | metrics-extension   | Include some metrics extension module    |
 | metrics-integration | Include metrics Integration with other monitor system |
 | metrics-sample      | Include some samples develop with metrics |
@@ -44,7 +44,7 @@ So,metrics upgrade from 0.5.0 to 1.0.0-m1,we had done a fully reconstruction,now
 The dependency of this modules is:
 ![MetricsDependency.png](/assets/images/MetricsDependency.png)
 
-### Use event collect invocation data,not from Hystrix（handler-bizkeeper） any more
+### Use event collect invocation data,not from Hystrix(handler-bizkeeper)any more
 From 1.0.0-m1 invocation data such as TPS and latency are collected from invocation event,not from Hystrix（handler-bizkeeper） any more,so you don't need add Java Chassis Bizkeeper Handler only for metrics.we use EventBus in foundation-common,when DefaultEventListenerManager in metrics-core had initialized,three event listener class will be auto registered:
 
 | Event Listener Name                    | Description                              |
@@ -53,7 +53,7 @@ From 1.0.0-m1 invocation data such as TPS and latency are collected from invocat
 | InvocationStartProcessingEventListener | Trigger when producer fetch invocation from queue and start process |
 | InvocationFinishedEventListener        | Trigger when consumer call returned or producer process finished |
 
-*ServiceComb java chassis had used Vertx as Reactor framework,so when producer received invocation from consumer,it won't start process immediately but put it into a queue,this queue called invocation queue(like disk queue in operation system),time waiting in the queue called **LifeTimeInQueue**,the length of the queue called **waitInQueue**,this two metrics are very important for measure stress of the microservice;consumer not has this queue,so InvocationStartProcessingEvent will never be triggered at consumer side.*
+*ServiceComb java chassis had used [Vertx](http://vertx.io/) as Reactor framework,so when producer received invocation from consumer,it won't start process immediately but put it into a queue,this queue called invocation queue(like disk queue in operation system),time waiting in the queue called **LifeTimeInQueue**,the length of the queue called **waitInQueue**,this two metrics are very important for measure stress of the microservice;consumer not has this queue,so InvocationStartProcessingEvent will never be triggered at consumer side.*
 
 The code for trigger event write in RestInvocation,HighwayServerInvoke and InvokerUtils,if microservice don't import metrics,event listener of metrics won't be registered,the impact on performance is little.
 
