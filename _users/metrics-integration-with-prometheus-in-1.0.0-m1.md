@@ -1,24 +1,24 @@
 ---
-title: "1.0.0-m1版本中的监控如何集成普罗米修斯"
-lang: cn
+title: "Metrics how integration with prometheus in 1.0.0-m1"
+lang: en
 ref: metrics
-permalink: /cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/
-excerpt: "1.0.0-m1版本中的监控如何集成普罗米修斯"
+permalink: /users/metrics-integration-with-prometheus-in-1.0.0-m1/
+excerpt: "Metrics how integration with prometheus in 1.0.0-m1"
 last_modified_at: 2018-1-2T10:01:43-04:00
 redirect_from:
   - /theme-setup/
 ---
 
 {% include toc %}
-微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，我们会继续追加新特性新功能，订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)以持续获取最新信息。
+Metrics had supported from Java chassis version 0.5.0,in version 1.0.0-m1,we had reconstruction it and add some more features,please subscribe ServiceComb mail-list(dev-subscribe@servicecomb.incubator.apache.org) in order to get latest news.
 
-## 背景
-[普罗米修斯](http://www.prometheus.io/)是相似于Google Borgmon的一个开源监控系统，也是[CNCF](https://www.cncf.io/)的成员之一，目前社区非常活跃，Java Chassis Metrics在1.0.0-m1中支持对接普罗米修斯，并进一步实现使用[Grafana](https://grafana.com/)查询Metrics数据。
+## Background
+[Prometheus](http://www.prometheus.io/) is a opensource open-source monitoring solution like Google Borgmon,also member of [CNCF](https://www.cncf.io/),community is very active.Java chassis metrics support integration with prometheus in 1.0.0-m1,and can use [Grafana](https://grafana.com/) to query metrics data further.
 
-## 对接原理
-由于Java Chassis由Java语言开发，我们使用[prometheus java client](https://github.com/prometheus/client_java)中的Simple Client作为对接SDK，版本为0.1.0。  
-Prometheus推荐Pull模式拉取Metrics数据，被监控微服务作为Producer发布数据provider接口，我们采用Simple HTTP Server发布微服务采集到的Metrics数据。  
-作为一个集成（可选）模块，代码在metrics-integration/metrics-prometheus中，你可以看到它依赖：
+## Integration Principles
+We known Java chassis developed by Java,so we use Simple Client in  [prometheus java client](https://github.com/prometheus/client_java) as SDK,the version we use is 0.1.0.  
+Prometheus use pull mode collect metrics data,microservice act as producer,we use Simple HTTP Server(also in client java SDK) publish them;  
+As an integration(optional) module,the implementation code is in metrics-integration/metrics-prometheus,you can get it's dependency:  
 ```xml
   <dependency>
     <groupId>io.prometheus</groupId>
@@ -34,9 +34,9 @@ Prometheus推荐Pull模式拉取Metrics数据，被监控微服务作为Producer
     <artifactId>metrics-core</artifactId>
   </dependency>
 ```
-因此一旦集成Prometheus引入了metrics-prometheus依赖后，不再需要添加metrics-core的依赖。
-### 与metrics-core Publish的关系
-文档[1.0.0-m1版本中的监控](/cn/users/metrics-in-1.0.0-m1/)中已经提到，metrics-core会伴随微服务启动内置的数据发布，如果你在microservice.yaml中配置了rest provider，例如：  
+So if we import metrics-prometheus,no longer need to add metrics-core dependence.
+### Relation between metrics-core Publish
+[Metrics in 1.0.0-m1](/users/metrics-in-1.0.0-m1/) had already been mentioned,metrics-core will auto start up a embedded publish interface,so if you had configured rest provider in microservice.yaml like:
 ```yaml
 cse:
   service:
@@ -45,7 +45,7 @@ cse:
   rest:
     address: 0.0.0.0:8080
 ```
-你就可以通过http://localhost:8080/metrics 直接获取到Metrics数据，它返回的是io.servicecomb.metrics.common.RegistryMetric实体对象，输出格式为：
+You can direct get metrics data at http://localhost:8080/metrics ,it will return a entity of io.servicecomb.metrics.common.RegistryMetric,the output is:  
 ```json
 {"instanceMetric":{
 "systemMetric":{"cpuLoad":10.0,"cpuRunningThreads":39,"heapInit":266338304,"heapMax":3786407936,"heapCommit":626524160,"heapUsed":338280024,"nonHeapInit":2555904,"nonHeapMax":-1,"nonHeapCommit":60342272,"nonHeapUsed":58673152},
@@ -55,7 +55,7 @@ cse:
 "producerMetrics":{"calculator.metricsEndpoint.metrics":{"operationName":"calculator.metricsEndpoint.metrics","prefix":"servicecomb.calculator.metricsEndpoint.metrics.producer","waitInQueue":0,"lifeTimeInQueue":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"executionTime":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerCall":{"total":1,"tps":0.0}}
 }}
 ```
-使用Prometheus Simple HTTP Server接口发布的数据是Prometheus采集的标准格式：
+But use Prometheus Simple HTTP Server provider interface will publish the standard format which prometheus needed:
 ```text
 # HELP Instance Level Instance Level Metrics
 # TYPE Instance Level untyped
@@ -75,16 +75,15 @@ servicecomb_calculator_metricsEndpoint_metrics_producer_executionTime_total 0.0
 servicecomb_calculator_metricsEndpoint_metrics_producer_waitInQueue_count 0.0
 servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_count 0.0
 ```
-所以它们两个是完全独立各有用途的。  
+So they are two independent,different for use.   
 
-*Prometheus Simple HTTP Server同样使用/metrics作为默认URL，metrics-prometheus会使用9696作为默认端口，因此微服务启动后你可以使用http://localhost:9696/metrics 访问它。*  
+*Prometheus Simple HTTP Server also use /metrics as default URL,metrics-prometheus will use 9696 as default port,after microservice start up you can get metrics data at http://localhost:9696/metrics .*    
+The metrics name in prometheus we replace all dot with underline,because we must follow its [naming rules](https://prometheus.io/docs/practices/naming/).    
 
-我们可以看到在Prometheus的Metric命名统一使用下划线代替了点，因为需要遵守它的[命名规则](https://prometheus.io/docs/practices/naming/)。
-
-## 如何配置
-开启对接普罗米修斯非常简单：
-### 全局配置
-microservice.yaml中有如下配置项：  
+## How Configuration
+Enable prometheus integration is very easy:
+### Global Configuration
+Please add prometheus port config in microservice.yaml:  
 ```yaml 
 APPLICATION_ID: demo
 service_description:
@@ -94,12 +93,12 @@ service_description:
 servicecomb:
   metrics:
     prometheus:
-      #prometheus provider的端口
+      #prometheus provider port
       port: 9696
 ```
-*如果不做配置，默认端口为9696*  
-### 依赖配置
-只需要添加metrics-prometheus依赖即可：  
+*If do not config,default value is 9696*
+### Maven Configuration
+We just only need add metrics-prometheus dependency:   
 ```xml
     <dependency>
       <groupId>io.servicecomb</groupId>
@@ -107,8 +106,8 @@ servicecomb:
       <version>1.0.0-m1</version>
     </dependency>
 ```
-### 配置Prometheus的prometheus.yml
-你需要在prometheus.yml中配置数据采集job，例如
+### Config prometheus.yml in Prometheus
+You need add job in prometheus.yml,like:
 ```yaml 
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
@@ -128,13 +127,13 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9696']
 ```
-其中job_name: 'servicecomb'即自定义的job配置，目标是本地微服务localhost:9696，关于prometheus.yml的配置更多信息可以参考[这篇文章](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)。
-### 配置Grafana（可选）
-如何在Grafana中添加Prometheus作为数据源请参考[这篇文章](https://prometheus.io/docs/visualization/grafana/)。
-## 运行效果
-配置好Prometheus并启动了微服务之后，就可以打开Prometheus Web界面（默认地址是http://localhost:9090/ ），在Metrics列表中看到ServiceComb开头的Java Chassis Metrics，如下图所示：
+The job_name: 'servicecomb' is our custom job,it will collect metrics data from local microservice localhost:9696,more information about configuration of prometheus can found [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).  
+
+### Config Grafana(optional)
+How add prometheus as a datasource in grafana can found [here](https://prometheus.io/docs/visualization/grafana/).  
+## Effect Show
+After complete prometheus config and start up microservice,we can open prometheus web site(default address is http://localhost:9090/),in metrics list java chassis metrics with prefix 'servicecomb' can be seen:
 ![MetricsInPrometheus](/assets/images/MetricsInPrometheus.png)  
 
-为了能够达到更好的查询效果，在Grafana中添加Prometheus作为数据源，通过Grafana查询数据如下图示：
-
+For get more better data query experience,add prometheus as a datasource in grafana then query metrics data by it:  
 ![MetricsInGrafana](/assets/images/MetricsInGrafana.png)  
