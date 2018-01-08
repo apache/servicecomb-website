@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 {% include toc %}
-Metrics had supported from Java chassis version 0.5.0,in version 1.0.0-m1,we had reconstruction it and add some more features,please subscribe ServiceComb mail-list(dev-subscribe@servicecomb.incubator.apache.org) in order to get latest news.
+Metrics had supported from Java chassis version 0.5.0,in version 1.0.0-m1,we had reconstruction it and add some more features,please checkout the user guide and [release note](https://github.com/apache/incubator-servicecomb-java-chassis/releases) for more information.Also subscribe ServiceComb mail-list(dev-subscribe@servicecomb.incubator.apache.org) and join discussion is welcome.
 
 ## Background
 Microservice is trend of technology,it resolve many problems also follows new problem. 
@@ -21,7 +21,7 @@ This is traditional software architecture always called 'Monolithic',it's diffic
 
 ![MicroserviceArch](/assets/images/MicroserviceArch.png)
 
-This is microservice system architecture,after split 'Monolithic' into many small services,developer can action with CI/CD in order to keep more agility,but operation engineer need to maintenance a whole lot of microservice instances.If don't import metrics,when system  is abnormal or user experience getting worse,it's very difficult to dentifying where the problem is and make some strategy in order to prevent it.
+This is microservice system architecture,after split 'Monolithic' into many small services,developer obtain many benefits such as architecture independent and more agility etc,but operation engineer need to maintenance a whole lot of microservice instances.If don't import metrics,when system  is abnormal or user experience getting worse,it's very difficult to dentifying where the problem is and make some strategy in order to prevent it.
 
 ## 1.0.00-m1 Principles
 In previous version(0.5.0)，implementation of metrics had some imperfections:
@@ -39,7 +39,6 @@ So,upgrading from 0.5.0 to 1.0.0-m1,we had done a fully reconstruction,now it's 
 | metrics-common      | Metrics common module,include DTO classes |
 | metrics-extension   | Include some metrics extension module    |
 | metrics-integration | Include metrics Integration with other monitor system |
-| metrics-sample      | Include some samples develop with metrics |
 
 The dependency of this modules is:
 ![MetricsDependency.png](/assets/images/MetricsDependency.png)
@@ -53,12 +52,12 @@ From 1.0.0-m1 invocation data such as TPS and latency are collected from invocat
 | InvocationStartProcessingEventListener | Trigger when producer fetch invocation from queue and start process |
 | InvocationFinishedEventListener        | Trigger when consumer call returned or producer process finished |
 
-*ServiceComb java chassis had used [Vertx](http://vertx.io/) as Reactor framework,so when producer received invocation from consumer,it won't start process immediately but put it into a queue,this queue called invocation queue(like disk queue in operation system),time waiting in the queue called **LifeTimeInQueue**,the length of the queue called **waitInQueue**,this two metrics are very important for measure stress of the microservice;consumer not has this queue,so InvocationStartProcessingEvent will never be triggered at consumer side.*
+*ServiceComb java chassis had used [Vertx](http://vertx.io/) as Reactor framework,in synchronous call mode when producer received invocation from consumer,it won't start process immediately but put it into a queue,this queue called invocation queue(like disk queue in operation system),time waiting in the queue called **LifeTimeInQueue**,the length of the queue called **waitInQueue**,this two metrics are very important for measure stress of the microservice;consumer not has this queue,so InvocationStartProcessingEvent will never be triggered at consumer side.*
 
 The code for trigger event write in RestInvocation,HighwayServerInvoke and InvokerUtils,if microservice don't import metrics,event listener of metrics won't be registered,the impact on performance is little.
 
 ### Use Netflix Servo as Monitor of Metric
-Netflix Servo had implement a collection of high performance monitor,we had used four of them:
+[Netflix Servo](https://github.com/Netflix/servo) had implement a collection of high performance monitor,we had used four of them:
 
 | Monitor Name | Description                       |
 | :----------- | :-------------------------------- |

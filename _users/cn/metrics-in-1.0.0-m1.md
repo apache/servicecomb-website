@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 {% include toc %}
-微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，我们会继续追加新特性新功能，订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)以持续获取最新信息。
+微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，请通过查看用户手册和[Release Note](https://github.com/apache/incubator-servicecomb-java-chassis/releases)获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)参与讨论。
 
 ## 背景
 将系统微服务化是技术潮流和趋势，但是它解决了很多问题的同时也带来了新的问题。
@@ -21,7 +21,7 @@ redirect_from:
 
 ![MicroserviceArch](/assets/images/MicroserviceArch.png)
 
-这是微服务化后的系统架构图，经过功能切分，开发人员得到解脱，拥有了极致的CI/CD，但是运维人员却需要维护海量的微服务实例，所以如果不进行性能监控，当系统出现故障或用户体验下降时，就无法快速定位问题，也无法制定策略（例如弹性伸缩）来预防。
+这是微服务化后的系统架构图，经过功能切分，开发人员获得了架构独立、快速迭代等诸多微服务带来的好处，但是运维人员却需要维护海量的微服务实例，所以如果不进行性能监控，当系统出现故障或用户体验下降时，就无法快速定位问题，也无法制定策略（例如弹性伸缩）来预防。
 
 ## 1.0.00-m1版本原理
 在0.5.0版本的实现介绍[0.5.0版本中的监控](/cn/users/metrics-in-0.5.0/)中，存在一些问题：
@@ -39,7 +39,6 @@ redirect_from:
 | metrics-common      | Metrics通用模块，主要包含Metric DTO用于数据发布 |
 | metrics-extension   | 包含Metrics的一些扩展功能                 |
 | metrics-integration | 包含Metrics与其它三方系统集成               |
-| metrics-sample      | 包含Metrics的一些示例                   |
 
 它们的依赖关系如下图所示：
 ![MetricsDependency.png](/assets/images/MetricsDependency.png)
@@ -53,12 +52,12 @@ redirect_from:
 | InvocationStartProcessingEventListener | Producer从队列中取出调用开始处理      |
 | InvocationFinishedEventListener        | Consumer调用返回或Producer处理完毕 |
 
-*特别说明，Java Chassis的Reactor框架基于[Vertx](http://vertx.io/)，微服务Producer端收到Invocation后，并不会马上同步处理请求，而是将它放入一个处理队列中，Invocation在队列中的时间称为**LifeTimeInQueue**，队列的长度称为**waitInQueue**，这是衡量微服务压力的两个重要指标，可以参考操作系统磁盘读写队列的概念；Consumer端并不会有队列，因此永远不会触发InvocationStartProcessingEvent。*
+*特别说明，Java Chassis的Reactor框架基于[Vertx](http://vertx.io/)，在同步调用模式下，微服务Producer端收到Invocation后，并不会马上同步处理请求，而是将它放入一个处理队列中，Invocation在队列中的时间称为**LifeTimeInQueue**，队列的长度称为**waitInQueue**，这是衡量微服务压力的两个重要指标，可以参考操作系统磁盘读写队列的概念；Consumer端并不会有队列，因此永远不会触发InvocationStartProcessingEvent。*
 
 事件触发的代码分布在Java Chassis的RestInvocation、HighwayServerInvoke和InvokerUtils中，如果微服务没有启用Metrics，EventBus中就不会注册Metrics事件监听处理器，因此对性能的影响微乎其微。
 
 ### 使用Netflix Servo作为Metric的计数器
-Netflix Servo具有性能极高的计数器（Monitor），我们使用了四种：  
+[Netflix Servo](https://github.com/Netflix/servo)具有性能极高的计数器（Monitor），我们使用了四种：  
 
 | Monitor名     | 描述                               |
 | :----------- | :------------------------------- |
