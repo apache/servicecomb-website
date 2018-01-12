@@ -1,4 +1,250 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-01-04T11:26:12+08:00</updated><id>/</id><title type="html">Apache ServiceComb (incubating)</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;servicecomb-developers@googlegroups.com&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>servicecomb-developers@googlegroups.com</email></author><entry xml:lang="en"><title type="html">Proposal for refactoring service registry module in Java Chassis</title><link href="/docs/service-registry-refactor-proposal/" rel="alternate" type="text/html" title="Proposal for refactoring service registry module in Java Chassis" /><published>2017-12-19T00:00:00+08:00</published><updated>2017-12-19T09:18:43+08:00</updated><id>/docs/service-registry-refactor-proposal</id><content type="html" xml:base="/docs/service-registry-refactor-proposal/">&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-01-12T17:44:26+08:00</updated><id>/</id><title type="html">Apache ServiceComb (incubating)</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;servicecomb-developers@googlegroups.com&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>servicecomb-developers@googlegroups.com</email></author><entry xml:lang="en"><title type="html">Howto Upgrade to Zipkin2</title><link href="/docs/howto-upgrade-topzipkin2/" rel="alternate" type="text/html" title="Howto Upgrade to Zipkin2" /><published>2018-01-10T00:00:00+08:00</published><updated>2018-01-11T10:26:28+08:00</updated><id>/docs/howto-upgrade-to-zipkin-v2</id><content type="html" xml:base="/docs/howto-upgrade-topzipkin2/">&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;Java Chassis uses zipkin as the default tracing implementation.&lt;/p&gt;
+
+&lt;p&gt;Zipkin introduced &lt;a href=&quot;http://zipkin.io/zipkin-api/#/&quot;&gt;v2 http api&lt;/a&gt; in version 1.31 which simplifies data types. There are also various other improvements and new features added to the zipkin libraries, so it seems a good time for us to follow the upstream and upgrade to zipkin2.&lt;/p&gt;
+
+&lt;h3 id=&quot;version-matrix&quot;&gt;Version matrix&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;module&lt;/th&gt;
+      &lt;th&gt;current&lt;/th&gt;
+      &lt;th&gt;target&lt;/th&gt;
+      &lt;th&gt;supports v2 since&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zipkin&lt;/td&gt;
+      &lt;td&gt;1.24.0&lt;/td&gt;
+      &lt;td&gt;2.4.2&lt;/td&gt;
+      &lt;td&gt;2.0.0&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;brave&lt;/td&gt;
+      &lt;td&gt;4.13.1&lt;/td&gt;
+      &lt;td&gt;4.13.1&lt;/td&gt;
+      &lt;td&gt;4.7.1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;reporter&lt;/td&gt;
+      &lt;td&gt;0.10.0&lt;/td&gt;
+      &lt;td&gt;2.2.2&lt;/td&gt;
+      &lt;td&gt;2.0.0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;whats-changed&quot;&gt;What’s changed&lt;/h2&gt;
+
+&lt;p&gt;Zipkin did a very good job on maintaining backward compatibility. All the changes that breaks compatiblity are packaged into a new group(&lt;code class=&quot;highlighter-rouge&quot;&gt;io.zipkin.java&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;io.zipkin.zipkin2&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;io.zipkin.reporter&lt;/code&gt; -&amp;gt; &lt;code class=&quot;highlighter-rouge&quot;&gt;io.zipkin.reporter2&lt;/code&gt;). And v1/v2 libraries can coexist.&lt;/p&gt;
+
+&lt;p&gt;The zipkin2 library can use both v1 and v2 api to communicate with server.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;highlighter-rouge&quot;&gt;zipkin2.Span&lt;/code&gt; class changed a bit from the old &lt;code class=&quot;highlighter-rouge&quot;&gt;zipkin.Span&lt;/code&gt; class. The public fields are refactored to methods. And the &lt;code class=&quot;highlighter-rouge&quot;&gt;BinaryAnnotation&lt;/code&gt; class is removed along with &lt;code class=&quot;highlighter-rouge&quot;&gt;zipkin.Span.binaryAnnotaions&lt;/code&gt; field. It’s functionality is replaced by &lt;code class=&quot;highlighter-rouge&quot;&gt;zipkin2.Span.tags()&lt;/code&gt; method which return a &lt;code class=&quot;highlighter-rouge&quot;&gt;Map&amp;lt;String,String&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;upgrade-to-zipkin2-for-java-chassis&quot;&gt;Upgrade to zipkin2 for Java Chassis&lt;/h2&gt;
+
+&lt;h3 id=&quot;modify-the-maven-dependencies-to-use-the-target-version-of-related-libraries&quot;&gt;Modify the maven dependencies to use the target version of related libraries.&lt;/h3&gt;
+&lt;p&gt;Change the group &lt;code class=&quot;highlighter-rouge&quot;&gt;io.zipkin.java&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;io.zipkin.reporter&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;io.zipkin.zipkin2&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;io.zipkin.reporter2&lt;/code&gt; respectively.&lt;/p&gt;
+
+&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java-chassis-dependencies/pom.xml
+&lt;span class=&quot;gu&quot;&gt;@@ -50,8 +50,8 @@
+&lt;/span&gt;     &amp;lt;cxf.version&amp;gt;3.1.6&amp;lt;/cxf.version&amp;gt;
+     &amp;lt;logback.version&amp;gt;1.1.7&amp;lt;/logback.version&amp;gt;
+     &amp;lt;brave.version&amp;gt;4.13.1&amp;lt;/brave.version&amp;gt;
+&lt;span class=&quot;gd&quot;&gt;-    &amp;lt;zipkin.version&amp;gt;1.24.0&amp;lt;/zipkin.version&amp;gt;
+-    &amp;lt;zipkin-reporter.version&amp;gt;0.10.0&amp;lt;/zipkin-reporter.version&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+    &amp;lt;zipkin.version&amp;gt;2.4.2&amp;lt;/zipkin.version&amp;gt;
++    &amp;lt;zipkin-reporter.version&amp;gt;2.2.2&amp;lt;/zipkin-reporter.version&amp;gt;
+&lt;/span&gt;   &amp;lt;/properties&amp;gt;
+ 
+   &amp;lt;dependencyManagement&amp;gt;
+&lt;span class=&quot;gu&quot;&gt;@@ -646,7 +646,7 @@
+&lt;/span&gt; 
+       &amp;lt;!-- zipkin dependencies --&amp;gt;
+       &amp;lt;dependency&amp;gt;
+&lt;span class=&quot;gd&quot;&gt;-        &amp;lt;groupId&amp;gt;io.zipkin.java&amp;lt;/groupId&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+        &amp;lt;groupId&amp;gt;io.zipkin.zipkin2&amp;lt;/groupId&amp;gt;
+&lt;/span&gt;         &amp;lt;artifactId&amp;gt;zipkin&amp;lt;/artifactId&amp;gt;
+         &amp;lt;version&amp;gt;${zipkin.version}&amp;lt;/version&amp;gt;
+       &amp;lt;/dependency&amp;gt;
+&lt;span class=&quot;gu&quot;&gt;@@ -661,7 +661,7 @@
+&lt;/span&gt;         &amp;lt;version&amp;gt;${brave.version}&amp;lt;/version&amp;gt;
+       &amp;lt;/dependency&amp;gt;
+       &amp;lt;dependency&amp;gt;
+&lt;span class=&quot;gd&quot;&gt;-        &amp;lt;groupId&amp;gt;io.zipkin.reporter&amp;lt;/groupId&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+        &amp;lt;groupId&amp;gt;io.zipkin.reporter2&amp;lt;/groupId&amp;gt;
+&lt;/span&gt;         &amp;lt;artifactId&amp;gt;zipkin-sender-okhttp3&amp;lt;/artifactId&amp;gt;
+         &amp;lt;version&amp;gt;${zipkin-reporter.version}&amp;lt;/version&amp;gt;
+       &amp;lt;/dependency&amp;gt;
+
+handlers/handler-tracing-zipkin/pom.xml
+&lt;span class=&quot;gu&quot;&gt;@@ -50,7 +50,7 @@
+&lt;/span&gt;       &amp;lt;artifactId&amp;gt;brave&amp;lt;/artifactId&amp;gt;
+     &amp;lt;/dependency&amp;gt;
+     &amp;lt;dependency&amp;gt;
+&lt;span class=&quot;gd&quot;&gt;-      &amp;lt;groupId&amp;gt;io.zipkin.reporter&amp;lt;/groupId&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+      &amp;lt;groupId&amp;gt;io.zipkin.reporter2&amp;lt;/groupId&amp;gt;
+&lt;/span&gt;       &amp;lt;artifactId&amp;gt;zipkin-sender-okhttp3&amp;lt;/artifactId&amp;gt;
+     &amp;lt;/dependency&amp;gt;
+     &amp;lt;dependency&amp;gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;make-brave-to-use-zipkin2-instead-of-zipkin&quot;&gt;Make brave to use zipkin2 instead of zipkin&lt;/h3&gt;
+
+&lt;p&gt;Change the zipkin.xxx import to zipkin2.xxx on imports, and most importantly, use &lt;code class=&quot;highlighter-rouge&quot;&gt;spanReporter()&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;reporter()&lt;/code&gt; for generating reporter for brave, change the api path to /api/v2/xxx when creating sender.&lt;/p&gt;
+
+&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;handlers/handler-tracing-zipkin/src/main/java/io/servicecomb/tracing/zipkin/TracingConfiguration.java
+&lt;span class=&quot;gu&quot;&gt;@@ -31,11 +31,11 @@
+&lt;/span&gt; import brave.http.HttpTracing;
+ import brave.propagation.CurrentTraceContext;
+ import io.servicecomb.config.DynamicProperties;
+&lt;span class=&quot;gd&quot;&gt;-import zipkin.Span;
+-import zipkin.reporter.AsyncReporter;
+-import zipkin.reporter.Reporter;
+-import zipkin.reporter.Sender;
+-import zipkin.reporter.okhttp3.OkHttpSender;
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+import zipkin2.Span;
++import zipkin2.reporter.AsyncReporter;
++import zipkin2.reporter.Reporter;
++import zipkin2.reporter.Sender;
++import zipkin2.reporter.okhttp3.OkHttpSender;
+&lt;/span&gt; 
+ @Configuration
+ class TracingConfiguration {
+&lt;span class=&quot;gu&quot;&gt;@@ -56,14 +56,15 @@ Sender sender(DynamicProperties dynamicProperties) {
+&lt;/span&gt;     return AsyncReporter.builder(sender).build();
+   }
+ 
+&lt;span class=&quot;gi&quot;&gt;+
+&lt;/span&gt;   @Bean
+   Tracing tracing(Reporter&amp;lt;Span&amp;gt; reporter, DynamicProperties dynamicProperties,
+       CurrentTraceContext currentTraceContext) {
+     return Tracing.newBuilder()
+         .localServiceName(dynamicProperties.getStringProperty(CONFIG_QUALIFIED_MICROSERVICE_NAME_KEY,
+             DEFAULT_MICROSERVICE_NAME))
+         .currentTraceContext(currentTraceContext) // puts trace IDs into logs
+&lt;span class=&quot;gd&quot;&gt;-        .reporter(reporter)
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+        .spanReporter(reporter)
+&lt;/span&gt;         .build();
+   }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;In the &lt;a href=&quot;https://github.com/openzipkin/brave/releases/tag/4.7.1&quot;&gt;brave release notes&lt;/a&gt;, it’s stated that we need to use &lt;code class=&quot;highlighter-rouge&quot;&gt;create()&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;builder()&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+   /** Configuration for how to buffer spans into messages for Zipkin */
+&lt;span class=&quot;gd&quot;&gt;-  @Bean Reporter&amp;lt;Span&amp;gt; reporter() {
+-    return AsyncReporter.builder(sender()).build();
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+  @Bean Reporter&amp;lt;Span&amp;gt; spanReporter() {
++    return AsyncReporter.create(sender()).build();
+&lt;/span&gt;   }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;But this will not work. In &lt;code class=&quot;highlighter-rouge&quot;&gt;zipkin2.Reporter&lt;/code&gt;, the &lt;code class=&quot;highlighter-rouge&quot;&gt;create(sender)&lt;/code&gt; is actually equivalent to &lt;code class=&quot;highlighter-rouge&quot;&gt;builder(sender).build()&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AsyncReporter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Span&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sender&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AsyncReporter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AsyncReporter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Builder&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Sender&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AsyncReporter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;make-changes-according-to-the-changes-of-zipkinspan-and-zipkin2span&quot;&gt;Make changes according to the changes of zipkin.Span and zipkin2.Span.&lt;/h3&gt;
+
+&lt;p&gt;We do not use zipkin.Span in our production code, but we do use it in our tests. Those changes are quite straight forward, we just change the accessing of fields to calling methods as described in the What’s Changed section.&lt;/p&gt;
+
+&lt;div class=&quot;language-diff highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;tracing/tracing-zipkin/src/test/java/io/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
+&lt;span class=&quot;gu&quot;&gt;@@ -45,7 +45,7 @@
+&lt;/span&gt; import io.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
+ import io.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.CustomSpanTask;
+ import io.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.SomeSlowTask;
+&lt;span class=&quot;gd&quot;&gt;-import zipkin.Span;
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+import zipkin2.Span;
+&lt;/span&gt; 
+ @RunWith(SpringRunner.class)
+ @SpringBootTest(classes = {ZipkinSpanTestApplication.class, TracingConfig.class})
+&lt;span class=&quot;gu&quot;&gt;@@ -74,8 +74,8 @@ public void reportedSpanContainsAnnotatedMethodInfo() throws Exception {
+&lt;/span&gt; 
+     await().atMost(2, SECONDS).until(() -&amp;gt; !spans.isEmpty());
+ 
+&lt;span class=&quot;gd&quot;&gt;-    zipkin.Span span = spans.poll();
+-    assertThat(span.name, is(&quot;crawl&quot;));
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+    zipkin2.Span span = spans.poll();
++    assertThat(span.name(), is(&quot;crawl&quot;));
+&lt;/span&gt;     assertThat(tracedValues(span), contains(SomeSlowTask.class.getMethod(&quot;crawl&quot;).toString()));
+   }
+   
+&lt;span class=&quot;gu&quot;&gt;@@ -84,17 +84,17 @@ public void reportCustomSpanInfomation() throws Exception {
+&lt;/span&gt;     customSpanTask.invoke();
+     await().atMost(2, SECONDS).until(() -&amp;gt; !spans.isEmpty());
+   
+&lt;span class=&quot;gd&quot;&gt;-    zipkin.Span span = spans.poll();
+-    assertThat(span.name, is(&quot;transaction1&quot;));
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+    zipkin2.Span span = spans.poll();
++    assertThat(span.name(), is(&quot;transaction1&quot;));
+&lt;/span&gt;     assertThat(tracedValues(span), contains(&quot;startA&quot;));
+     
+   }
+ 
+&lt;span class=&quot;gd&quot;&gt;-  private List&amp;lt;String&amp;gt; tracedValues(zipkin.Span spans) {
+-    return spans.binaryAnnotations.stream()
+-        .filter(span -&amp;gt; CALL_PATH.equals(span.key) || &quot;error&quot;.equals(span.key))
+-        .filter(span -&amp;gt; span.value != null)
+-        .map(annotation -&amp;gt; new String(annotation.value))
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+  private List&amp;lt;String&amp;gt; tracedValues(zipkin2.Span spans) {
++    return spans.tags().entrySet().stream()
++        .filter(span -&amp;gt; CALL_PATH.equals(span.getKey()) || &quot;error&quot;.equals(span.getKey()))
++        .filter(span -&amp;gt; span.getValue() != null)
++        .map(annotation -&amp;gt; new String(annotation.getValue()))
+&lt;/span&gt;         .distinct()
+         .collect(Collectors.toList());
+   }
+&lt;span class=&quot;gu&quot;&gt;@@ -110,7 +110,7 @@ public void reportCustomSpanInfomation() throws Exception {
+&lt;/span&gt;     Tracing tracing(Queue&amp;lt;Span&amp;gt; spans) {
+       return Tracing.newBuilder()
+           .currentTraceContext(new StrictCurrentTraceContext())
+&lt;span class=&quot;gd&quot;&gt;-          .reporter(spans::add)
+&lt;/span&gt;&lt;span class=&quot;gi&quot;&gt;+          .spanReporter(spans::add)
+&lt;/span&gt;           .build();
+     }
+   }
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;support-both-v1-and-v2-api-of-zipkin-server&quot;&gt;Support both v1 and v2 api of zipkin server.&lt;/h3&gt;
+
+&lt;p&gt;Our customers may be still running a zipkin server prior to 1.31 which does not support the v2 http api. So we added an option to let them specify the server api version.&lt;/p&gt;
+
+&lt;p&gt;Supporting v1 api is built into zipkin2, so we do not need to rely on the v1 libraries. Just use the &lt;code class=&quot;highlighter-rouge&quot;&gt;SpanBytesEncoder.JSON_V1&lt;/code&gt; when building reporter and change the sender api path.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;URLConnectionSender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;create&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://localhost:9411/api/v1/spans&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;reporter&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;AsyncReporter&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sender&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+                        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;build&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;SpanBytesEncoder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;JSON_V1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;That’s all, for the complete changes, please refer the &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/pull/488&quot;&gt;pull request&lt;/a&gt; for the complete changes.&lt;/p&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/openzipkin/zipkin/releases/tag/2.0.0&quot;&gt;Zipkin 2.0.0 release notes&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/openzipkin/brave/releases/tag/4.7.1&quot;&gt;Brave 4.7.1 release notes&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/openzipkin/brave/tree/master/brave&quot;&gt;Brave API V4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Yang Bo</name><email>yangbo12@huawei.com</email></author><category term="zipkin" /><summary type="html">Changes between v1 and v2 of zipkin and how Java Chassis upgraded to zipkin2</summary></entry><entry xml:lang="en"><title type="html">Proposal for refactoring service registry module in Java Chassis</title><link href="/docs/service-registry-refactor-proposal/" rel="alternate" type="text/html" title="Proposal for refactoring service registry module in Java Chassis" /><published>2017-12-19T00:00:00+08:00</published><updated>2017-12-19T09:18:43+08:00</updated><id>/docs/service-registry-refactor-proposal</id><content type="html" xml:base="/docs/service-registry-refactor-proposal/">&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
 
 &lt;p&gt;The architecture of the &lt;code class=&quot;highlighter-rouge&quot;&gt;service registry&lt;/code&gt; module in Java Chassis is as follows.&lt;/p&gt;
 
@@ -1293,112 +1539,4 @@ Caitie McCaffrey在她的演讲&lt;a href=&quot;https://www.youtube.com/watch?v=
 &lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
 &lt;ol&gt;
   &lt;li&gt;&lt;a href=&quot;https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf&quot;&gt;Original Paper on Sagas&lt;/a&gt; by By Hector Garcia-Molina &amp;amp; Kenneth Salem&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Sean Yin</name><email>seanyinx@gmail.com</email><uri>http://seanyinx.github.io</uri></author><category term="事务一致性" /><summary type="html">ServiceComb中的分布式Saga设计</summary></entry><entry xml:lang="en"><title type="html">Eventual Data Consistency Solution in ServiceComb - part 2</title><link href="/docs/distributed_saga_2/" rel="alternate" type="text/html" title="Eventual Data Consistency Solution in ServiceComb - part 2" /><published>2017-09-16T00:00:00+08:00</published><updated>2017-09-16T16:05:00+08:00</updated><id>/docs/saga-design</id><content type="html" xml:base="/docs/distributed_saga_2/">&lt;p&gt;In my &lt;a href=&quot;/docs/distributed_saga_1/&quot;&gt;previous post&lt;/a&gt;, I talked about how &lt;a href=&quot;https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf&quot;&gt;Saga&lt;/a&gt; can 
-be used to solve the data consistency issue of our trip planning application. Now let's gather the requirements to design
-a saga.&lt;/p&gt;
-
-&lt;h2 id=&quot;saga-log&quot;&gt;Saga Log&lt;/h2&gt;
-&lt;p&gt;Saga guarantees either all sub-transactions are committed or compensated for, but the saga system itself may crash. There
-are a few states that a saga may be in on crash:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Saga received a request, but no transaction started yet. States of services involved in sub-transactions are not modified
-by saga, nothing has been done.&lt;/li&gt;
-  &lt;li&gt;Some sub-transactions were done. When restarted, saga has to resume from the last completed transaction.&lt;/li&gt;
-  &lt;li&gt;A sub-transaction was started, but not completed yet. Since we are not sure if the remote service completed the transaction, 
-failed the transaction, or the request to remote service timed out, saga has to redo the sub-transaction on restart. That also
-means sub-transactions have to be idempotent.&lt;/li&gt;
-  &lt;li&gt;A sub-transaction failed and its compensating transaction has not started yet. Saga has to resume from the compensating
-transaction on restart.&lt;/li&gt;
-  &lt;li&gt;A compensating transaction started but not completed yet. The solution is basically the same as the previous one. That means
-compensating transactions have to idempotent too.&lt;/li&gt;
-  &lt;li&gt;All sub-transactions or compensating transactions were done, which is the same as the first case.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In order for saga to recover to the states mentioned above, we have to keep track of each step of sub-transactions and
-compensating transactions. We decided to achieve that by saving the following events in a persistent store called saga log:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Saga started event&lt;/strong&gt; stores the entire saga request, which includes multiple transaction/compensation requests&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Transaction started event&lt;/strong&gt; stores individual transaction request&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Transaction ended event&lt;/strong&gt; stores individual transaction request and its response&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Transaction aborted event&lt;/strong&gt; stores individual transaction request and the cause of failure&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Transaction compensated event&lt;/strong&gt; stores individual compensation request and its response&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Saga ended event&lt;/strong&gt; marks the end of a saga request and stores nothing&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/saga.events.png&quot; alt=&quot;Events&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;By persisting these events in saga log, a crashed saga can be recovered to any states above.&lt;/p&gt;
-
-&lt;p&gt;Since saga only needs persistence of events and the event contents are stored as JSON, the implementation of the saga log 
-is very flexible. Databases (SQL or NoSQL), durable message queues, or even plain files can be used as event storage, but
-some are faster for saga to recover.&lt;/p&gt;
-
-&lt;h2 id=&quot;request-data-structure-of-saga&quot;&gt;Request Data Structure of Saga&lt;/h2&gt;
-&lt;p&gt;In our case, flight booking, car rental, and hotel reservation have no dependency among each other at all and they can be
-processed in parallel. However, it's more user friendly for our customers to only charge their credit cards once, when all 
-the bookings are done successfully. That means the transactions of the four services look like the graph below.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/saga.transactions.png&quot; alt=&quot;Transactions&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;It makes sense to implement the data structure of trip planning request as a &lt;a href=&quot;https://en.wikipedia.org/wiki/Directed_acyclic_graph&quot;&gt;Directed Acyclic Graph&lt;/a&gt;.
-The root of the graph is saga start task and the leaf is saga end task.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/saga.graph.png&quot; alt=&quot;Request Graph&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;parallel-saga&quot;&gt;Parallel Saga&lt;/h2&gt;
-&lt;p&gt;As mentioned above, flight booking, car rental, and hotel reservation can be processed in parallel. But doing so creates
-another problem: what if flight booking failed while car rental is being processed? We can't keep waiting for the response
-from car rental service, because we have no idea how long it will take.&lt;/p&gt;
-
-&lt;p&gt;THe best thing we can do is to send the car rental request again and hope we get a response so that we can continue our 
-backward recovery. If car rental service never responds, we may have to fallback with manual intervention.&lt;/p&gt;
-
-&lt;p&gt;The delayed booking request may still be received by the remote car rental service. When it does, the service has already
-processed the same booking and its cancellation request.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/saga.commutative.png&quot; alt=&quot;Network Latency&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Therefore, services have to implement transactions and compensations in such a way that transaction request received after
-its compensation request takes no effect. Caitie McCaffrey called this &lt;strong&gt;commutative compensating request&lt;/strong&gt; in her talk 
-on &lt;a href=&quot;https://www.youtube.com/watch?v=1H6tounpnG8&quot;&gt;Distributed Sagas: A Protocol for Coordinating Microservices&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;acid-and-saga&quot;&gt;ACID and Saga&lt;/h2&gt;
-&lt;p&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/ACID&quot;&gt;ACID&lt;/a&gt; is consistency model with the following properties:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Atomicity&lt;/li&gt;
-  &lt;li&gt;Consistency&lt;/li&gt;
-  &lt;li&gt;Isolation&lt;/li&gt;
-  &lt;li&gt;Durability&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Saga does not provide ACID guarantee, because atomicity and isolation are not satisfied according to the &lt;a href=&quot;https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf&quot;&gt;paper&lt;/a&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;full atomicity is not provided. That is, sagas may view the partial results of other sagas [&lt;a href=&quot;https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf&quot;&gt;1&lt;/a&gt;]&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;With durable saga log, saga guarantees consistency and durability.&lt;/p&gt;
-
-&lt;h2 id=&quot;saga-architecture&quot;&gt;Saga Architecture&lt;/h2&gt;
-&lt;p&gt;Finally, the architecture of our saga looks like this&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/saga.design.png&quot; alt=&quot;Saga Architecture&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Saga execution component parses the request JSON and builds a graph of requests&lt;/li&gt;
-  &lt;li&gt;TaskRunner ensures the execution order of requests with task queue&lt;/li&gt;
-  &lt;li&gt;TaskConsumer processes tasks to write events to saga log and send requests to remote services&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
-&lt;p&gt;In this article, we talked about how saga can be implemented with a saga log to persist transaction/compensation events 
-and request graph. A crashed saga can also be recovered from all the persisted events in saga log on restart. However,
-there are a few requirements on design of microservices to ensure saga consistency guarantee:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;transaction and compensation requests must be idempotent&lt;/li&gt;
-  &lt;li&gt;compensation requests must be commutative&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-&lt;ol&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf&quot;&gt;Original Paper on Sagas&lt;/a&gt; by By Hector Garcia-Molina &amp;amp; Kenneth Salem&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Sean Yin</name><email>seanyinx@gmail.com</email><uri>http://seanyinx.github.io</uri></author><category term="saga" /><summary type="html">The design of distributed saga in ServiceComb</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>Sean Yin</name><email>seanyinx@gmail.com</email><uri>http://seanyinx.github.io</uri></author><category term="事务一致性" /><summary type="html">ServiceComb中的分布式Saga设计</summary></entry></feed>
