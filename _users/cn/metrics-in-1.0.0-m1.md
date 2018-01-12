@@ -94,25 +94,25 @@ Metrics有很多种分类方式，在技术实现上我们偏向以取值方式�
 | servicecomb | instance               | system   | nonHeap         | max            |
 | servicecomb | instance               | system   | nonHeap         | commit         |
 | servicecomb | instance               | system   | nonHeap         | used           |
-| servicecomb | instance/operationName | producer | waitInQueue     | count          |
-| servicecomb | instance/operationName | producer | lifeTimeInQueue | average        |
-| servicecomb | instance/operationName | producer | lifeTimeInQueue | max            |
-| servicecomb | instance/operationName | producer | lifeTimeInQueue | min            |
-| servicecomb | instance/operationName | producer | executionTime   | average        |
-| servicecomb | instance/operationName | producer | executionTime   | max            |
-| servicecomb | instance/operationName | producer | executionTime   | min            |
-| servicecomb | instance/operationName | producer | producerLatency | average        |
-| servicecomb | instance/operationName | producer | producerLatency | max            |
-| servicecomb | instance/operationName | producer | producerLatency | min            |
-| servicecomb | instance/operationName | producer | producerCall    | total          |
-| servicecomb | instance/operationName | producer | producerCall    | tps            |
-| servicecomb | instance/operationName | consumer | consumerLatency | average        |
-| servicecomb | instance/operationName | consumer | consumerLatency | max            |
-| servicecomb | instance/operationName | consumer | consumerLatency | min            |
-| servicecomb | instance/operationName | consumer | consumerCall    | total          |
-| servicecomb | instance/operationName | consumer | consumerCall    | tps            |
+| servicecomb | instance &#124; operationName | producer | waitInQueue     | count          |
+| servicecomb | instance &#124; operationName | producer | lifeTimeInQueue | average        |
+| servicecomb | instance &#124; operationName | producer | lifeTimeInQueue | max            |
+| servicecomb | instance &#124; operationName | producer | lifeTimeInQueue | min            |
+| servicecomb | instance &#124; operationName | producer | executionTime   | average        |
+| servicecomb | instance &#124; operationName | producer | executionTime   | max            |
+| servicecomb | instance &#124; operationName | producer | executionTime   | min            |
+| servicecomb | instance &#124; operationName | producer | producerLatency | average        |
+| servicecomb | instance &#124; operationName | producer | producerLatency | max            |
+| servicecomb | instance &#124; operationName | producer | producerLatency | min            |
+| servicecomb | instance &#124; operationName | producer | producerCall    | total          |
+| servicecomb | instance &#124; operationName | producer | producerCall    | tps            |
+| servicecomb | instance &#124; operationName | consumer | consumerLatency | average        |
+| servicecomb | instance &#124; operationName | consumer | consumerLatency | max            |
+| servicecomb | instance &#124; operationName | consumer | consumerLatency | min            |
+| servicecomb | instance &#124; operationName | consumer | consumerCall    | total          |
+| servicecomb | instance &#124; operationName | consumer | consumerCall    | tps            |
 
-*operationName代表微服务Operation的全名，使用的是Java Chassis MicroserviceQualifiedName，它是微服务名.SchemaID.操作方法名的组合。*
+**当Level的值是“instance”的时候，代表微服务事例级别的Metric，否则代表微服务具体Operation的Metric，operationName使用的是Java Chassis MicroserviceQualifiedName，它是微服务名.SchemaID.操作方法名的组合。**
 
 ## 如何配置
 ### 全局配置
