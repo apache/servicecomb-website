@@ -31,3 +31,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb 直播第六期](http://www.itdks.com/liveevent/detail/6624), 20171221
  * [ServiceComb的数据一致性]({{ site.url }}{{ site.baseurl }}/assets/slides/20171221/data.consistency.live.pdf)
+
+## [ServiceComb 直播第七期](http://www.itdks.com/liveevent/detail/9543), 20180111
+ * [ServiceComb Metrics 介绍]({{ site.url }}{{ site.baseurl }}/assets/slides/20180111/ServiceComb_Metrics_Introduction.pdf)
