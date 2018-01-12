@@ -112,7 +112,7 @@ Metrics有很多种分类方式，在技术实现上我们偏向以取值方式�
 | servicecomb | instance &#124; operationName | consumer | consumerCall    | total          |
 | servicecomb | instance &#124; operationName | consumer | consumerCall    | tps            |
 
-**当Level的值是“instance”的时候，代表微服务事例级别的Metric，否则代表微服务具体Operation的Metric，operationName使用的是Java Chassis MicroserviceQualifiedName，它是微服务名.SchemaID.操作方法名的组合。**
+**当Level的值是“instance”的时候，代表微服务实例级别的Metric，否则代表微服务具体Operation的Metric，operationName使用的是Java Chassis MicroserviceQualifiedName，它是微服务名.SchemaID.操作方法名的组合。**
 
 ## 如何配置
 ### 全局配置
