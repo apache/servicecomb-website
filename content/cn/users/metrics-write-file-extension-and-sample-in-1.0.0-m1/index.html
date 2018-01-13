@@ -674,7 +674,7 @@
 
 <h2 id="依赖和代码使用">依赖和代码使用</h2>
 <ol>
-  <li>首先需要引入metrics-write-file模块，这个模块包括了获取Metrics数据并转化为指定格式后写文件的逻辑：
+  <li>首先需要引入metrics-write-file模块，这个模块包含了获取Metrics数据并转化为指定格式后写文件的逻辑：
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
    <span class="nt">&lt;groupId&gt;</span>io.servicecomb.samples<span class="nt">&lt;/groupId&gt;</span>
    <span class="nt">&lt;artifactId&gt;</span>metrics-write-file<span class="nt">&lt;/artifactId&gt;</span>
@@ -683,8 +683,8 @@
     </div>
     <p><em>也可以参考其中的实现修改代码或复制代码到项目中。</em></p>
   </li>
-  <li>metrics-write-file模块不包含动态生成写文件RollingFileAppender的代码，根据项目实际使用的日志实现，如果是log4j，拷贝metrics-write-file-log4j-springboot模块中的Log4JMetricsFileWriter，如果是log4j2，拷贝metrics-write-file-log4j2-springboot模块中的Log4J2MetricsFileWriter。
-  <em>也可以参考其中的实现修改代码或自己实现FileWriter。</em></li>
+  <li>metrics-write-file模块不包含动态生成写文件RollingFileAppender的代码，根据项目实际使用的日志实现，如果是log4j，拷贝metrics-write-file-log4j-springboot模块中的Log4JMetricsFileWriter，如果是log4j2，拷贝metrics-write-file-log4j2-springboot模块中的Log4J2MetricsFileWriter。  <br />
+<em>也可以参考其中的实现修改代码或自己实现FileWriter。</em></li>
 </ol>
 
 <h2 id="使用spring-boot-starter开发注意事项">使用Spring Boot Starter开发注意事项</h2>
@@ -711,7 +711,8 @@
 <p>Spring Boot Starter中包含了log4j-over-slf4j，这个Log Bridge并没有完全实现log4j的所有接口，包括RollingFileAppender，所以我们需要排除它让slf4j直接调用log4j而不是这个Log Bridge，请确定这种排除对你的系统不会有影响，关于log4j-over-slf4j的更多信息可以参考<a href="https://www.slf4j.org/legacy.html#log4j-over-slf4j">这篇文章</a>。</p>
 
 <h2 id="运行示例">运行示例</h2>
-<p>metrics-write-file-config-log4j-springboot和metrics-write-file-config-log4j2-springboot都是可以直接运行的示例项目，使用ServiceApplication启动完成后，观察输出目录target/metric/下会生成很多Metrics文件，如果在浏览器中刷新几下http://localhost:8080/f 请求，则可以看到对应的Operation级别的Metrics文件也会在目录下自动生成。</p>
+<p>metrics-write-file-config-log4j-springboot和metrics-write-file-config-log4j2-springboot都是可以直接运行的示例项目，使用ServiceApplication启动完成后，观察输出目录target/metric/下会生成很多Metrics文件，如果在浏览器中刷新几下http://localhost:8080/f 请求，则可以看到对应的Operation级别的Metrics文件也会在目录下自动生成。  <br />
+<img src="/assets/images/MetricsWriteFileResult.png" alt="MetricsWriteFileResult" /></p>
 
 <h2 id="q--a">Q &amp; A</h2>
 <ol>
