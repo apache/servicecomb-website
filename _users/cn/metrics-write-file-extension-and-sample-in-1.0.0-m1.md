@@ -55,7 +55,7 @@ servicecomb:
 4. 新版本增加了对rolling file的设置，这些配置在老版本是配置在日志的xml或properties文件里的。  
 
 ## 依赖和代码使用
-1. 首先需要引入metrics-write-file模块，这个模块包括了获取Metrics数据并转化为指定格式后写文件的逻辑：  
+1. 首先需要引入metrics-write-file模块，这个模块包含了获取Metrics数据并转化为指定格式后写文件的逻辑：  
 ```xml
     <dependency>
       <groupId>io.servicecomb.samples</groupId>
@@ -63,8 +63,8 @@ servicecomb:
     </dependency>
 ```
 *也可以参考其中的实现修改代码或复制代码到项目中。*    
-2. metrics-write-file模块不包含动态生成写文件RollingFileAppender的代码，根据项目实际使用的日志实现，如果是log4j，拷贝metrics-write-file-log4j-springboot模块中的Log4JMetricsFileWriter，如果是log4j2，拷贝metrics-write-file-log4j2-springboot模块中的Log4J2MetricsFileWriter。
-  *也可以参考其中的实现修改代码或自己实现FileWriter。*   
+2. metrics-write-file模块不包含动态生成写文件RollingFileAppender的代码，根据项目实际使用的日志实现，如果是log4j，拷贝metrics-write-file-log4j-springboot模块中的Log4JMetricsFileWriter，如果是log4j2，拷贝metrics-write-file-log4j2-springboot模块中的Log4J2MetricsFileWriter。    
+*也可以参考其中的实现修改代码或自己实现FileWriter。*   
 
 ## 使用Spring Boot Starter开发注意事项
 Java Chassis集成了Spring Boot Starter，如果使用Spring Boot Starter启动微服务同时又使用Log4j作为日志实现，则需要处理依赖问题，请参考samples/metrics-write-file-sample/metrics-write-file-log4j-springboot项目：
@@ -90,7 +90,8 @@ Java Chassis集成了Spring Boot Starter，如果使用Spring Boot Starter启动
 Spring Boot Starter中包含了log4j-over-slf4j，这个Log Bridge并没有完全实现log4j的所有接口，包括RollingFileAppender，所以我们需要排除它让slf4j直接调用log4j而不是这个Log Bridge，请确定这种排除对你的系统不会有影响，关于log4j-over-slf4j的更多信息可以参考[这篇文章](https://www.slf4j.org/legacy.html#log4j-over-slf4j)。
 
 ## 运行示例
-metrics-write-file-config-log4j-springboot和metrics-write-file-config-log4j2-springboot都是可以直接运行的示例项目，使用ServiceApplication启动完成后，观察输出目录target/metric/下会生成很多Metrics文件，如果在浏览器中刷新几下http://localhost:8080/f 请求，则可以看到对应的Operation级别的Metrics文件也会在目录下自动生成。
+metrics-write-file-config-log4j-springboot和metrics-write-file-config-log4j2-springboot都是可以直接运行的示例项目，使用ServiceApplication启动完成后，观察输出目录target/metric/下会生成很多Metrics文件，如果在浏览器中刷新几下http://localhost:8080/f 请求，则可以看到对应的Operation级别的Metrics文件也会在目录下自动生成。    
+![MetricsWriteFileResult](/assets/images/MetricsWriteFileResult.png)
 
 ## Q & A
 1. 在新的1.0.0-m1版本里，我是否还需要在日志配置文件（例如log4j2.xml） 中追加任何修改吗？  
