@@ -32,23 +32,27 @@ When your console shows `Portal started. You can visit http://localhost:8070 now
 
   Visit the address of Apollo configuration portal service , for example: `http://192.168.199.1:8070`
 
-  ![登录配置中心](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config/login.png)
+  ![登录配置中心](/assets/images/config/login.png)
 
   The default account to login to Apollo configuration center is apollo and admin for username and password respectively.
 
 * ##### Create a project
 
-  ![创建项目](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config\create_project.png)
+  ![创建项目](/assets/images/config/create_project.png)
 
   There is a demo project named SampleApp, you can create a project for your service by click the green icon `+`. The picture below is a example to create a project, fill in your application ID and service name and choose the department and owner of the project and then submit them.
 
-![项目信息](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config\create_project2.png)
+![项目信息](/assets/images/config/create_project2.png)
+
+​	Pay attention that you should release the project when it's created or client will get nothing of the project. Click the release button as below.
+
+![release_namespace](/assets/images/config/release_namespace.png)
 
 * ##### Generate a Token
 
 Visit `http://192.168.199.1:8070/open/manage.html` and fill in application ID and service name you just created at last step, then choose department and owner of the project and click the create button to generate a token. The token will be used later in project code.
 
-![生成TOKEN](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config\token.png)
+![生成TOKEN](/assets/images/config/token.png)
 
 ### Add dependency in pom.xml
 
@@ -83,7 +87,7 @@ Visit `http://192.168.199.1:8070/open/manage.html` and fill in application ID an
 
 ### Get configurations
 
-​	Creating a configuration item named `timeout` and set its value to `100` then release the configuration with some comments. Example as below:	![动态属性timeout](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config\release_config.png)
+​	Creating a configuration item named `timeout` and set its value to `100` then release the configuration with some comments. Example as below:	![动态属性timeout](/assets/images/config/release_config.png)
 
 ​	You can use`DynamicPropertyFactory.getInstance().getProperty()` to get the value of configuration items. 
 

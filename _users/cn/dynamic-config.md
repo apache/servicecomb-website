@@ -32,23 +32,27 @@ redirect_from:
 
   在浏览器中输入登录地址，地址是容器所在主机的`IP:PORT`端口默认8070，如`http://192.168.199.1:8070`
 
-  ![登录配置中心](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config/login.png)
+  ![登录配置中心](/assets/images/config/login.png)
 
   Apollo配置中心的默认登录账号是apollo/admin，点击登录后会跳转到下图中的配置中心首页。
 
 * ##### 创建项目
 
-  ![创建项目](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config\create_project.png)
+  ![创建项目](/assets/images/config/create_project.png)
 
   首页中默认展示一个示例项目SampleApp，用户可以点击创建项目自行创建一个，下图是创建项目页面，填入应用Id和应用名称，选择所在部门和应用负责人后点击提交即可。
 
-![项目信息](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config\create_project2.png)
+![项目信息](/assets/images/config/create_project2.png)
+
+​	需要注意的是，首次创建好一个项目后要发布之后客户端才能查询到该项目信息。如下图红框中的提示，点击发布即可。
+
+![release_namespace](/assets/images/config/release_namespace.png)
 
 * ##### 生成TOKEN
 
 打开地址`http://192.168.199.1:8070/open/manage.html`进入下图页面，填入刚才创建项目使的应用名选择相应的部门和项目负责人即可生成应用对应的TOKEN，保存这个TOKEN稍后配置到项目代码中即可。
 
-![生成TOKEN](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config\token.png)
+![生成TOKEN](/assets/images/config/token.png)
 
 ### 在应用中添加依赖
 
@@ -83,7 +87,7 @@ redirect_from:
 
 ### 获取动态属性
 
-​	在配置中心中创建一个`timeout`的配置项，其值设置为`100`，并发布如下图：	![动态属性timeout](E:\opensource\dynamic config\incubator-servicecomb-website\assets\images\config\release_config.png)
+​	在配置中心中创建一个`timeout`的配置项，其值设置为`100`，并发布如下图：	![动态属性timeout](/assets/images/config/release_config.png)
 
 ​	代码中可以使用`DynamicPropertyFactory.getInstance().getProperty()`方法来获取具体的配置项值，`getProperty`方法可以根据配置项具体的类型来灵活使用，比如`getIntProperty()`,`getStringProperty()`等。
 
