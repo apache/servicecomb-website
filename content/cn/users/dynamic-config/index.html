@@ -19,12 +19,12 @@
 
 
 
-<title>使用服务契约 - Apache ServiceComb (incubating)</title>
+<title>动态配置 - Apache ServiceComb (incubating)</title>
 
 
 
 
-<meta name="description" content="使用服务契约">
+<meta name="description" content="动态配置">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="使用服务契约">
+<meta property="og:title" content="动态配置">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/use-service-contract/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/use-service-contract/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/dynamic-config/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/dynamic-config/">
 
 
 
-  <meta property="og:description" content="使用服务契约">
+  <meta property="og:description" content="动态配置">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="使用服务契约">
-  <meta name="twitter:description" content="使用服务契约">
+  <meta name="twitter:title" content="动态配置">
+  <meta name="twitter:description" content="动态配置">
   <meta name="twitter:url" content="">
 
   
@@ -212,7 +212,7 @@
           
             
             
-            <a href=/users/use-service-contract/>English</a>
+            <a href=/users/dynamic-config/>English</a>
           
         </div>
       </nav>
@@ -397,7 +397,7 @@
             
             
 
-            <li><a href="/cn/users/use-service-contract/" class="active">使用服务契约</a></li>
+            <li><a href="/cn/users/use-service-contract/" class="">使用服务契约</a></li>
           
             
             
@@ -588,16 +588,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="使用服务契约">
-    <meta itemprop="description" content="使用服务契约">
+    <meta itemprop="headline" content="动态配置">
+    <meta itemprop="description" content="动态配置">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="January 11, 2018">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">使用服务契约
+            <h1 class="page__title" itemprop="headline">动态配置
 </h1>
             
           </header>
@@ -609,11 +609,13 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
-  <li><a href="#配置说明" id="markdown-toc-配置说明">配置说明</a>    <ul>
-      <li><a href="#配置依赖服务" id="markdown-toc-配置依赖服务">配置依赖服务</a></li>
-      <li><a href="#手工配置服务契约" id="markdown-toc-手工配置服务契约">手工配置服务契约</a></li>
-      <li><a href="#从服务中心自动下载契约" id="markdown-toc-从服务中心自动下载契约">从服务中心自动下载契约</a></li>
+  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
+  <li><a href="#使用步骤" id="markdown-toc-使用步骤">使用步骤:</a>    <ul>
+      <li><a href="#部署并启动apollo配置中心" id="markdown-toc-部署并启动apollo配置中心">部署并启动Apollo配置中心</a></li>
+      <li><a href="#通过apollo界面配置应用获取token" id="markdown-toc-通过apollo界面配置应用获取token">通过Apollo界面配置应用获取TOKEN</a></li>
+      <li><a href="#在应用中添加依赖" id="markdown-toc-在应用中添加依赖">在应用中添加依赖</a></li>
+      <li><a href="#添加配置项" id="markdown-toc-添加配置项">添加配置项</a></li>
+      <li><a href="#获取动态属性" id="markdown-toc-获取动态属性">获取动态属性</a></li>
     </ul>
   </li>
 </ul>
@@ -621,59 +623,112 @@
   </nav>
 </aside>
 
-<h2 id="场景描述">场景描述</h2>
+<h2 id="概念阐述">概念阐述</h2>
 
-<p>当服务消费者调用服务提供者的服务时，需要注册服务契约。消费者有两种方式获取提供者的服务契约，一种是从服务的提供方离线获取契约文件，手工配置到项目中；另一种是从服务中心自动下载契约。</p>
+<p>动态配置能够在服务运行期间对服务自身和服务依赖的配置信息进行热修改。传统的配重信息处理方式是将配置信息写入xml、properties等配置文件中和应用一起打包，每次修改配置信息都需要重新打包部署，效率极低，且由于微服务架构中应用数量，应用依赖的配置数量会使配置信息的维护非常困难。动态配置功能就是为了解决这个问题。通过配置中心对服务依赖的配置信息进行修改，服务端主动查询或者配置中心下发都可以达到不用重新部署服务而改变其配置信息的目的。Java Chassis目前支持对接配置中心Apollo，用户可以通过实现Java Chassis提供的扩展接口很简单的对接到其他配置中心。</p>
 
-<h2 id="配置说明">配置说明</h2>
+<h2 id="使用步骤">使用步骤:</h2>
 
-<blockquote>
-  <p>说明：服务契约的获取方式与服务消费者的开发方式是无关的，用户可以任意组合使用。</p>
-</blockquote>
+<h3 id="部署并启动apollo配置中心">部署并启动Apollo配置中心</h3>
 
-<h3 id="配置依赖服务">配置依赖服务</h3>
+<p>通过镜像方式启动Apollo配置中心请参考<a href="https://github.com/ctripcorp/apollo/wiki/Apollo-Quick-Start-Docker%E9%83%A8%E7%BD%B2">官方文档</a>，或者执行下面两个指令即可：</p>
 
-<p>服务消费者需要在microservice.yaml文件中配置依赖的provider，示例配置如下：</p>
-
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
-  <span class="c1"># other configurations omitted</span>
-  <span class="s">references</span><span class="pi">:</span>
-    <span class="s">springmvc</span><span class="pi">:</span>
-      <span class="s">version-rule</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>   git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
+   <span class="nb">cd </span>apollo-image-for-servicecomb <span class="o">&amp;&amp;</span> docker-compose up
 </code></pre>
 </div>
+<p>等待出现 <code class="highlighter-rouge">Portal started. You can visit http://localhost:8070 now!</code> 后表示系统启动完成，可以在浏览器中访问<code class="highlighter-rouge">http://localhost:8070</code>进入配置中心页面。 <code class="highlighter-rouge">docker-compose</code>安装请参考<a href="https://docs.docker.com/compose/install/">文档</a>。</p>
 
-<blockquote>
-  <p>version-rule是版本匹配规则，有四种格式：</p>
+<h3 id="通过apollo界面配置应用获取token">通过Apollo界面配置应用获取TOKEN</h3>
 
-  <ul>
-    <li>精确版本匹配：例如<code class="highlighter-rouge">version-rule: 0.0.1</code>，表示只匹配版本号为0.0.1的服务提供者</li>
-    <li>后续版本匹配：例如<code class="highlighter-rouge">version-rule: 1.0.0+</code>，表示匹配版本号大于或等于1.0.0的服务提供者</li>
-    <li>最新版本：<code class="highlighter-rouge">version-rule: latest</code>，表示匹配最新版本的服务提供者</li>
-    <li>版本范围：例如<code class="highlighter-rouge">1.0.0-2.0.2</code>，表示匹配版本号在1.0.0至2.0.2之间的服务提供者，包含1.0.0和2.0.2</li>
-  </ul>
+<ul>
+  <li>
+    <h5 id="登录apollo配置中心创建项目">登录Apollo配置中心创建项目</h5>
 
-  <p>此配置项默认为<code class="highlighter-rouge">latest</code></p>
-</blockquote>
+    <p>在浏览器中输入登录地址，地址是容器所在主机的<code class="highlighter-rouge">IP:PORT</code>端口默认8070，如<code class="highlighter-rouge">http://192.168.199.1:8070</code></p>
 
-<h3 id="手工配置服务契约">手工配置服务契约</h3>
+    <p><img src="/assets/images/config/login.png" alt="登录配置中心" /></p>
 
-<p>服务消费者的开发者在线下拿到服务提供者的契约，配置到消费者工程的特定目录下。服务契约在项目中的存放目录与<a href="/cn/users/service-contract/">服务契约</a>的配置说明部分相同。</p>
+    <p>Apollo配置中心的默认登录账号是apollo/admin，点击登录后会跳转到下图中的配置中心首页。</p>
+  </li>
+  <li>
+    <h5 id="创建项目">创建项目</h5>
 
-<p>microservice目录下的每一个目录代表一个微服务，微服务目录下的每一个yaml文件代表一个schema契约，文件名就是schemaId。applications目录下存放需要指明appId的服务契约，用于跨app调用等场景。目录结构如下所示：</p>
-<pre><code class="language-txt">resources
-  - microservices
-      - serviceName            # 微服务名
-          - schemaId.yaml      # schema接口的契约
-  - applications
-      - appId                  # 应用ID
-          - serviceName        # 微服务名
-              - schemaId.yaml  # schema接口的契约
+    <p><img src="/assets/images/config/create_project.png" alt="创建项目" /></p>
+
+    <p>首页中默认展示一个示例项目SampleApp，用户可以点击创建项目自行创建一个，下图是创建项目页面，填入应用Id和应用名称，选择所在部门和应用负责人后点击提交即可。</p>
+  </li>
+</ul>
+
+<p><img src="/assets/images/config/create_project2.png" alt="项目信息" /></p>
+
+<p>​	需要注意的是，首次创建好一个项目后要发布之后客户端才能查询到该项目信息。如下图红框中的提示，点击发布即可。</p>
+
+<p><img src="/assets/images/config/release_namespace.png" alt="release_namespace" /></p>
+
+<ul>
+  <li>
+    <h5 id="生成token">生成TOKEN</h5>
+  </li>
+</ul>
+
+<p>打开地址<code class="highlighter-rouge">http://192.168.199.1:8070/open/manage.html</code>进入下图页面，填入刚才创建项目使的应用名选择相应的部门和项目负责人即可生成应用对应的TOKEN，保存这个TOKEN稍后配置到项目代码中即可。</p>
+
+<p><img src="/assets/images/config/token.png" alt="生成TOKEN" /></p>
+
+<h3 id="在应用中添加依赖">在应用中添加依赖</h3>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>com.netflix.archaius<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>archaius-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>   
+    <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>config-apollo<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
+</div>
+<h3 id="添加配置项">添加配置项</h3>
 
-<h3 id="从服务中心自动下载契约">从服务中心自动下载契约</h3>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>   <span class="s">cse</span><span class="pi">:</span>
+     <span class="s">config</span><span class="pi">:</span>
+       <span class="s">client</span><span class="pi">:</span>
+       <span class="s">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span>
+   <span class="s">apollo</span><span class="pi">:</span>
+     <span class="s">config</span><span class="pi">:</span>
+       <span class="s">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span>
+       <span class="s">serviceName</span><span class="pi">:</span> <span class="s">SampleApp</span>
+       <span class="s">env</span><span class="pi">:</span> <span class="s">DEV</span>
+       <span class="s">clusters</span><span class="pi">:</span> <span class="s">default</span>
+       <span class="s">namespace</span><span class="pi">:</span> <span class="s">application</span>
+       <span class="s">token</span><span class="pi">:</span> <span class="s">testtoken</span>
+       <span class="s">refreshInterval</span><span class="pi">:</span> <span class="s">10</span>
+</code></pre>
+</div>
+<p>​	<code class="highlighter-rouge">cse.config.client.serverUri</code>配置项填写Apollo配置中心portal服务地址，只是表示对接配置中心，<code class="highlighter-rouge">apollo.config</code>下的配置项是用户创建的应用参数，包括服务地址，用户名，集群，namespace，token等参数。这些参数可以在配置中心页面项目信息栏中查到。需要注意的是<code class="highlighter-rouge">refreshInterval: 10</code>表示应用会每隔10秒去配置中心查询一次最新的配置信息，不配置此项默认刷新周期为30秒。</p>
 
-<p>服务消费者也可以不用显式地将契约存放在项目目录中，当程序启动时，ServiceComb框架会自动根据microservice.yaml文件中配置的服务提供者的微服务名称和版本号，从服务中心自动下载契约信息。</p>
+<h3 id="获取动态属性">获取动态属性</h3>
+
+<p>​	在配置中心中创建一个<code class="highlighter-rouge">timeout</code>的配置项，其值设置为<code class="highlighter-rouge">100</code>，并发布如下图：	<img src="/assets/images/config/release_config.png" alt="动态属性timeout" /></p>
+
+<p>​	代码中可以使用<code class="highlighter-rouge">DynamicPropertyFactory.getInstance().getProperty()</code>方法来获取具体的配置项值，<code class="highlighter-rouge">getProperty</code>方法可以根据配置项具体的类型来灵活使用，比如<code class="highlighter-rouge">getIntProperty()</code>,<code class="highlighter-rouge">getStringProperty()</code>等。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">XXX</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+        <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">DynamicIntProperty</span> <span class="n">timeout</span> <span class="o">=</span> <span class="n">DynamicPropertyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span>
+            <span class="n">getIntProperty</span><span class="o">(</span><span class="s">"timeout"</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">timeout</span><span class="o">);</span>
+          <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+<p>​	Apollo配置中心修改配置项并发布后，经过一个刷新周期后就会打印出最新的<code class="highlighter-rouge">timeout</code>值。</p>
+
 
         
       </section>
@@ -729,8 +784,8 @@
     <div class="col">
       <ul>
         <p class="header">贡献</p>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/use-service-contract.md">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/use-service-contract.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/dynamic-config.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/dynamic-config.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
       </ul>
     </div>

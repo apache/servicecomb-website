@@ -19,12 +19,12 @@
 
 
 
-<title>Local Development and Test - Apache ServiceComb (incubating)</title>
+<title>Dynamic Configuration - Apache ServiceComb (incubating)</title>
 
 
 
 
-<meta name="description" content="Local Development and Test">
+<meta name="description" content="Dynamic Configuration">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="Local Development and Test">
+<meta property="og:title" content="Dynamic Configuration">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/users/local-develop-test/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/users/local-develop-test/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/users/dynamic-config/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/users/dynamic-config/">
 
 
 
-  <meta property="og:description" content="Local Development and Test">
+  <meta property="og:description" content="Dynamic Configuration">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="Local Development and Test">
-  <meta name="twitter:description" content="Local Development and Test">
+  <meta name="twitter:title" content="Dynamic Configuration">
+  <meta name="twitter:description" content="Dynamic Configuration">
   <meta name="twitter:url" content="">
 
   
@@ -211,7 +211,7 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/users/local-develop-test/>中文</a>
+            <a href=/cn/users/dynamic-config/>中文</a>
           
         </div>
       </nav>
@@ -424,7 +424,7 @@
             
             
 
-            <li><a href="/users/local-develop-test/" class="active">Develop and Test in Local Environment</a></li>
+            <li><a href="/users/local-develop-test/" class="">Develop and Test in Local Environment</a></li>
           
             
             
@@ -571,16 +571,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Local Development and Test">
-    <meta itemprop="description" content="Local Development and Test">
+    <meta itemprop="headline" content="Dynamic Configuration">
+    <meta itemprop="description" content="Dynamic Configuration">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="January 15, 2018">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">Local Development and Test
+            <h1 class="page__title" itemprop="headline">Dynamic Configuration
 </h1>
             
           </header>
@@ -593,8 +593,14 @@
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
   <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
-  <li><a href="#starting-local-servicecenter" id="markdown-toc-starting-local-servicecenter">Starting Local ServiceCenter</a></li>
-  <li><a href="#enable-local-servicecenter-using-the-mock-mechanism" id="markdown-toc-enable-local-servicecenter-using-the-mock-mechanism">Enable Local ServiceCenter Using the Mock Mechanism</a></li>
+  <li><a href="#development-example" id="markdown-toc-development-example">Development Example:</a>    <ul>
+      <li><a href="#deploy-and-start-apollo-configuration-center" id="markdown-toc-deploy-and-start-apollo-configuration-center">Deploy and start Apollo configuration center</a></li>
+      <li><a href="#configure-services-and-get-a-token" id="markdown-toc-configure-services-and-get-a-token">Configure services and get a token</a></li>
+      <li><a href="#add-dependency-in-pomxml" id="markdown-toc-add-dependency-in-pomxml">Add dependency in pom.xml</a></li>
+      <li><a href="#add-configurations-in-microserviceyaml" id="markdown-toc-add-configurations-in-microserviceyaml">Add configurations in microservice.yaml</a></li>
+      <li><a href="#get-configurations" id="markdown-toc-get-configurations">Get configurations</a></li>
+    </ul>
+  </li>
 </ul>
 
   </nav>
@@ -602,78 +608,109 @@
 
 <h2 id="concept-description">Concept Description</h2>
 
-<p>This section describes how developers can locally develop and commission consumer and provider applications. Both service providers and consumers need to connect to the remote service center. Two methods of building Local  ServiceCenter for local microservice commissioning are as follows:</p>
+<p>Dynamic Configuration makes it possible to update configuration items during the life-cycle of the service without re-deploying it. Users have to deploy services with those configurations in xml or properties file in traditional way and have to redeploy and restart services to update the configurations which could be very difficult to maintain and cost lots time. This problem can be solved by importing configuration center, all configuration items can be stored and maintained by configuration center, services can get latest configuration items through a fixed time period thread without redeploying themselves. Java Chassis supports Apollo configuration center currently and it's easy to extend to other kind of configuration centers by implementing provided interfaces.</p>
+
+<h2 id="development-example">Development Example:</h2>
+
+<h3 id="deploy-and-start-apollo-configuration-center">Deploy and start Apollo configuration center</h3>
+
+<p>Apollo services can be easily deployed and started step by step following its <a href="https://github.com/ctripcorp/apollo/wiki/Apollo-Quick-Start-Docker%E9%83%A8%E7%BD%B2">official document</a>, You can also do that by following command:</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>   git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
+   <span class="nb">cd </span>apollo-image-for-servicecomb <span class="o">&amp;&amp;</span> docker-compose up
+</code></pre>
+</div>
+<p>When your console shows <code class="highlighter-rouge">Portal started. You can visit http://localhost:8070 now!</code> , it means the service is started and ready for use. Visit Apollo configuration pages at <code class="highlighter-rouge">http://localhost:8070</code> in a browser. Please refer to <a href="https://docs.docker.com/compose/install/">Docker document</a> about <code class="highlighter-rouge">docker-compose</code>.</p>
+
+<h3 id="configure-services-and-get-a-token">Configure services and get a token</h3>
 
 <ul>
   <li>
-    <p>Starting <a href="#启动本地服务中心">Local Service Center</a>。</p>
+    <h5 id="login-to-configuration-center-and-create-a-project">Login to Configuration center and create a project</h5>
+
+    <p>Visit the address of Apollo configuration portal service , for example: <code class="highlighter-rouge">http://192.168.199.1:8070</code></p>
+
+    <p><img src="/assets/images/config/login.png" alt="登录配置中心" /></p>
+
+    <p>The default account to login to Apollo configuration center is apollo and admin for username and password respectively.</p>
   </li>
   <li>
-    <p>Starting Local Service Center <a href="#mock机制启动服务中心">Mock mechanism</a>。</p>
+    <h5 id="create-a-project">Create a project</h5>
+
+    <p><img src="/assets/images/config/create_project.png" alt="创建项目" /></p>
+
+    <p>There is a demo project named SampleApp, you can create a project for your service by click the green icon <code class="highlighter-rouge">+</code>. The picture below is a example to create a project, fill in your application ID and service name and choose the department and owner of the project and then submit them.</p>
   </li>
 </ul>
 
-<p>Service center is an important component in the microservice architecture, and is used for managing, registering, and detecting metadata and instance metadata. The logic relationship between the service center and microservice provider/consumer is as follows:</p>
+<p><img src="/assets/images/config/create_project2.png" alt="项目信息" /></p>
 
-<p><img src="/assets/images/local_develop_test_en.png" alt="" /></p>
+<p>​	Pay attention that you should release the project when it’s created or client will get nothing of the project. Click the release button as below.</p>
 
-<h2 id="starting-local-servicecenter">Starting Local ServiceCenter</h2>
+<p><img src="/assets/images/config/release_namespace.png" alt="release_namespace" /></p>
 
 <ul>
   <li>
-    <p><strong>Step 1</strong> Starting local service center,  please refer to <a href="/users/setup-environment/#运行service-center">Setup Environment</a>,</p>
-  </li>
-  <li>
-    <p><strong>Step 2</strong> After local service center is started, configure the service center address in the microservice.yaml file that stores SDK configuration information, as shown in the following example:</p>
-
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">cse</span><span class="pi">:</span>
-   <span class="s">service</span><span class="pi">:</span>
-     <span class="s">registry</span><span class="pi">:</span>
-       <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#Indicates the service center address and port number</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p><strong>Step 3</strong> Develop service providers and consumers enable the microservice for local tests.</p>
+    <h5 id="generate-a-token">Generate a Token</h5>
   </li>
 </ul>
 
-<h2 id="enable-local-servicecenter-using-the-mock-mechanism">Enable Local ServiceCenter Using the Mock Mechanism</h2>
+<p>Visit <code class="highlighter-rouge">http://192.168.199.1:8070/open/manage.html</code> and fill in application ID and service name you just created at last step, then choose department and owner of the project and click the create button to generate a token. The token will be used later in project code.</p>
 
-<ul>
-  <li>
-    <p><strong>Step 1</strong> Create the registry.yaml file for Local ServiceCenter</p>
+<p><img src="/assets/images/config/token.png" alt="生成TOKEN" /></p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">springmvctest</span><span class="pi">:</span>
-   <span class="pi">-</span> <span class="s">id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">001"</span>
-     <span class="s">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
-     <span class="s">appid</span><span class="pi">:</span> <span class="s">myapp</span> <span class="c1">#Commissioning service ID</span>
-     <span class="s">instances</span><span class="pi">:</span> 
-       <span class="s">endpoints</span><span class="pi">:</span>
-         <span class="s">rest://127.0.0.1:8080</span>
+<h3 id="add-dependency-in-pomxml">Add dependency in pom.xml</h3>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>com.netflix.archaius<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>archaius-core<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>   
+    <span class="nt">&lt;dependency&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;artifactId&gt;</span>config-apollo<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
-    </div>
+</div>
+<h3 id="add-configurations-in-microserviceyaml">Add configurations in microservice.yaml</h3>
 
-    <p>NOTE: The mock mechanism needs an API definition on its own. Currently, only local commissioning for service consumers is supported.</p>
-  </li>
-  <li>
-    <p><strong>Step 2</strong> Add the following code to the end of the Main function for service consumers.</p>
-
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">xxxClient</span> <span class="o">{</span>
- <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"local.registry.file"</span><span class="o">,</span> <span class="s">"/path/registry.yaml"</span><span class="o">);</span>
-   <span class="c1">//your code</span>
-   <span class="n">System</span><span class="o">.</span><span class="na">clearProperty</span><span class="o">(</span><span class="s">"local.registry.file"</span><span class="o">);</span>
- <span class="o">}</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>   <span class="s">cse</span><span class="pi">:</span>
+     <span class="s">config</span><span class="pi">:</span>
+       <span class="s">client</span><span class="pi">:</span>
+       <span class="s">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span>
+   <span class="s">apollo</span><span class="pi">:</span>
+     <span class="s">config</span><span class="pi">:</span>
+       <span class="s">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span>
+       <span class="s">serviceName</span><span class="pi">:</span> <span class="s">SampleApp</span>
+       <span class="s">env</span><span class="pi">:</span> <span class="s">DEV</span>
+       <span class="s">clusters</span><span class="pi">:</span> <span class="s">default</span>
+       <span class="s">namespace</span><span class="pi">:</span> <span class="s">application</span>
+       <span class="s">token</span><span class="pi">:</span> <span class="s">testtoken</span>
+       <span class="s">refreshInterval</span><span class="pi">:</span> <span class="s">10</span>
 </code></pre>
-    </div>
+</div>
+<p>​	Configuration <code class="highlighter-rouge">cse.config.client.serverUri</code> is the portal address of Apollo configuration center just the same as <code class="highlighter-rouge">apollo.config.serverUri</code>. Configurations under <code class="highlighter-rouge">apollo.config</code> are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to <code class="highlighter-rouge">refreshInterval: 10</code>, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here.</p>
 
-    <p>NOTE: Set the second parameter of setProperty to the absolute path of registry.yaml file in the disk. The path separator depends on the system it is in.</p>
-  </li>
-  <li>
-    <p><strong>Step 3</strong> Develop service consumers and enable the microservice for local tests.</p>
-  </li>
-</ul>
+<h3 id="get-configurations">Get configurations</h3>
+
+<p>​	Creating a configuration item named <code class="highlighter-rouge">timeout</code> and set its value to <code class="highlighter-rouge">100</code> then release the configuration with some comments. Example as below:	<img src="/assets/images/config/release_config.png" alt="动态属性timeout" /></p>
+
+<p>​	You can use<code class="highlighter-rouge">DynamicPropertyFactory.getInstance().getProperty()</code> to get the value of configuration items.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+        <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">DynamicIntProperty</span> <span class="n">timeout</span> <span class="o">=</span> <span class="n">DynamicPropertyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span>
+            <span class="n">getIntProperty</span><span class="o">(</span><span class="s">"timeout"</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
+          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">timeout</span><span class="o">);</span>
+          <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+</code></pre>
+</div>
+<p>​	When the configuration items are modified and released in Apollo configuration center, the example code above will print latest value of <code class="highlighter-rouge">timeout</code> after a refreshing cycle.</p>
 
         
       </section>
@@ -729,8 +766,8 @@
     <div class="col">
       <ul>
         <p class="header">Contribute</p>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/local-develop-test.md">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/local-develop-test.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/dynamic-config.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/dynamic-config.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
       </ul>
     </div>
