@@ -34,3 +34,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb live streaming phase VII](http://www.itdks.com/liveevent/detail/9543), 20180111
  * [ServiceComb Metrics Introduction]({{ site.url }}{{ site.baseurl }}/assets/slides/20180111/ServiceComb_Metrics_Introduction.pdf)
+
+## [ServiceComb live streaming phase VIII](http://www.itdks.com/liveevent/detail/9558), 20180125
+ * [Service Center Introduction]({{ site.url }}{{ site.baseurl }}/assets/slides/20180125/Service_Center_Introduction.pdf)
