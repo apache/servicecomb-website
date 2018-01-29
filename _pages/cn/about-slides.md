@@ -34,3 +34,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb 直播第七期](http://www.itdks.com/liveevent/detail/9543), 20180111
  * [ServiceComb Metrics 介绍]({{ site.url }}{{ site.baseurl }}/assets/slides/20180111/ServiceComb_Metrics_Introduction.pdf)
+
+## [ServiceComb 直播第八期](http://www.itdks.com/liveevent/detail/9558), 20180125
+ * [服务中心设计揭秘]({{ site.url }}{{ site.baseurl }}/assets/slides/20180125/Service_Center_Introduction.pdf)
