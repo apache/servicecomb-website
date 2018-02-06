@@ -13,6 +13,9 @@ date: 2017-06-20T11:02:20+08:00
 
 ## Arch Submit, 20171209, 北京
  * [Service Mesh在华为公有云的实践]({{ site.url }}{{ site.baseurl }}/assets/slides/20171209/PracticeOfServiceMeshOnHuaweiPublicCloud.pdf)
+ 
+## 微服务实践技术沙龙, 20180127, 深圳
+ * [微服务框架ServiceComb]({{ site.url }}{{ site.baseurl }}/assets/slides/20180127/ServiceComb_Overview.pdf)
 
 ## [ServiceComb直播第一期](http://www.itdks.com/liveevent/detail/6618), 20171026
 * [ServiceComb开源项目介绍]({{ site.url }}{{ site.baseurl }}/assets/slides/20171026/ServiceCombIntroduce1026.pdf)
