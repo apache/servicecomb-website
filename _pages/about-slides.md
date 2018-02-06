@@ -13,6 +13,9 @@ date: 2017-06-20T11:02:20+08:00
  
 ## Arch Submit, 20171209, Beijing
  * [Practice Of Service Mesh on Huawei Public Cloud]({{ site.url }}{{ site.baseurl }}/assets/slides/20171209/PracticeOfServiceMeshOnHuaweiPublicCloud.pdf)
+ 
+## Microservice Meetup, 20180127, Shenzhen
+ * [ServiceComb Overview]({{ site.url }}{{ site.baseurl }}/assets/slides/20180127/ServiceComb_Overview.pdf)
 
 ## [ServiceComb live streaming phase I](http://www.itdks.com/liveevent/detail/6618), 20171026
 * [ServiceComb Introduction]({{ site.url }}{{ site.baseurl }}/assets/slides/20171026/ServiceCombIntroduce1026.pdf)
@@ -34,3 +37,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb live streaming phase VII](http://www.itdks.com/liveevent/detail/9543), 20180111
  * [ServiceComb Metrics Introduction]({{ site.url }}{{ site.baseurl }}/assets/slides/20180111/ServiceComb_Metrics_Introduction.pdf)
+
+## [ServiceComb live streaming phase VIII](http://www.itdks.com/liveevent/detail/9558), 20180125
+ * [Service Center Introduction]({{ site.url }}{{ site.baseurl }}/assets/slides/20180125/Service_Center_Introduction.pdf)
