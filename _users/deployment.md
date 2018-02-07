@@ -23,8 +23,8 @@ The service container is only a simple Main method, and a simple Spring containe
 * **Step 1**  Compile the Main function to initialize logs and load service configurations. The contents are as follows:
 
    ```java
-   import io.servicecomb.foundation.common.utils.BeanUtils;
-   import io.servicecomb.foundation.common.utils.Log4jUtils;
+   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
    public class MainServer {
      public static void main(String[] args) throws Exception {
      　Log4jUtils.init(); #Log initialization
@@ -55,12 +55,12 @@ If you need to load the microservice to the web container, create a sersvlet pro
         </param-value>
     </context-param>
     <listener>
-        <listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class>
+        <listener-class>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class>
     </listener>
 
     <servlet>
         <servlet-name>RestServlet</servlet-name>
-        <servlet-class>io.servicecomb.transport.rest.servlet.RestServlet</servlet-class>
+        <servlet-class>org.apache.servicecomb.transport.rest.servlet.RestServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
     </servlet>
@@ -76,7 +76,7 @@ If you need to load the microservice to the web container, create a sersvlet pro
 ```xml
 <dependencies>
     <dependency>
-        <groupId>io.servicecomb</groupId>
+        <groupId>org.apache.servicecomb</groupId>
         <artifactId>transport-rest-servlet</artifactId>
     </dependency>
 </dependencies>

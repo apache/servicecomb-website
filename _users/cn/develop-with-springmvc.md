@@ -39,8 +39,8 @@ ServiceComb支持SpringMVC注解，允许使用SpringMVC风格开发微服务。
    import org.springframework.web.bind.annotation.RequestMapping;
    import org.springframework.web.bind.annotation.RequestMethod;
    import org.springframework.web.bind.annotation.RequestParam;
-   import io.servicecomb.samples.common.schema.Hello;
-   import io.servicecomb.samples.common.schema.models.Person;
+   import org.apache.servicecomb.samples.common.schema.Hello;
+   import org.apache.servicecomb.samples.common.schema.models.Person;
    
    @RequestMapping(path = "/springmvchello", produces = MediaType.APPLICATION_JSON)
    public class SpringmvcHelloImpl implements Hello {
@@ -63,7 +63,7 @@ ServiceComb支持SpringMVC注解，允许使用SpringMVC风格开发微服务。
    在服务的实现类上打上注解@RestSchema，指定schemaId，表示该实现作为当前微服务的一个schema发布，代码如下：
 
    ```java
-   import io.servicecomb.provider.rest.common.RestSchema;
+   import org.apache.servicecomb.provider.rest.common.RestSchema;
    // other code omitted
    @RestSchema(schemaId = "springmvcHello")
    public class SpringmvcHelloImpl implements Hello {
@@ -82,7 +82,7 @@ ServiceComb支持SpringMVC注解，允许使用SpringMVC风格开发微服务。
           xsi:schemaLocation="http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
    
-       <context:component-scan base-package="io.servicecomb.samples.springmvc.provider"/>
+       <context:component-scan base-package="org.apache.servicecomb.samples.springmvc.provider"/>
    </beans>
    ```
 

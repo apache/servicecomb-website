@@ -23,7 +23,7 @@ redirect_from:
 3. **Q: What's the dependency differences between gateway and other microservices?**
 
    ```xml
-   <groupId>io.servicecomb</groupId>
+   <groupId>org.apache.servicecomb</groupId>
    <artifactId>spring-boot-starter-provider</artifactId>
    ```
 
@@ -35,7 +35,7 @@ redirect_from:
 
 5. **Q: Are there any restrictions of the return type of our API? Should it be the type of ResponseEntity?**
 
-   A: No, examples can refer to [the implementation of integration-test](https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/io/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java) in java-chassis.
+   A: No, examples can refer to [the implementation of integration-test](https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/org/apache/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java) in java-chassis.
 
 6. **Q: Our API can not be accessed after microservices are up. It just returns *404 Not Found*. The codes we use is as follows:**
 

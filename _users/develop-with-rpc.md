@@ -21,11 +21,11 @@ To call a microservice, you only need to declare a member of a service API type 
 ```java
 import org.springframework.stereotype.Component;
 
-import io.servicecomb.foundation.common.utils.BeanUtils;
-import io.servicecomb.foundation.common.utils.Log4jUtils;
-import io.servicecomb.provider.pojo.RpcReference;
-import io.servicecomb.samples.common.schema.Hello;
-import io.servicecomb.samples.common.schema.models.Person;
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+import org.apache.servicecomb.provider.pojo.RpcReference;
+import org.apache.servicecomb.samples.common.schema.Hello;
+import org.apache.servicecomb.samples.common.schema.models.Person;
 
 @Component
 public class CodeFirstConsumerMain {

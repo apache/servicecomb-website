@@ -93,7 +93,7 @@ public interface FibonacciEndpoint {
 
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-boot-starter-provider</artifactId>
     </dependency>
 
@@ -482,7 +482,7 @@ cse:
 
 ```xml
   <dependency>
-    <groupId>io.servicecomb</groupId>
+    <groupId>org.apache.servicecomb</groupId>
     <artifactId>spring-boot-starter-discovery</artifactId>
   </dependency>
 ```

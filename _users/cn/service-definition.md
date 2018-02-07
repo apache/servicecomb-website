@@ -47,9 +47,9 @@ service_description: #服务描述
     allowCrossApp: false
     key1: value1
     key2: value2
-  propertyExtentedClass: io.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
+  propertyExtentedClass: org.apache.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
 instance_description: #实例描述
   properties: #元数据
     key3: value3
-  propertyExtentedClass: io.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
+  propertyExtentedClass: org.apache.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
 ```

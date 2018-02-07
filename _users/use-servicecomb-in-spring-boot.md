@@ -186,7 +186,7 @@ This section describes advantages and procedures of integrating the Spring Boot 
    ```xml
    <dependency>
      <groupId>org.apache.servicecomb</groupId>
-     <artifactId>spring-boot-starter-provider</artifactId>
+     <artifactId>spring-boot-starter-provider</artifactId> 
    </dependency>
    ```
 

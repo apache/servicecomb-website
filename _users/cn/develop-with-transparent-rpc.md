@@ -37,8 +37,8 @@ redirect_from:
    Hello的服务实现如下：
 
    ```java
-   import io.servicecomb.samples.common.schema.Hello;
-   import io.servicecomb.samples.common.schema.models.Person;
+   import org.apache.servicecomb.samples.common.schema.Hello;
+   import org.apache.servicecomb.samples.common.schema.models.Person;
 
    public class HelloImpl implements Hello {
      @Override
@@ -65,7 +65,7 @@ redirect_from:
           xmlns:context=" http://www.springframework.org/schema/context "
           xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
    
-       <cse:rpc-schema schema-id="pojoHello" implementation="io.servicecomb.samples.pojo.provider.PojoHelloImpl"/>
+       <cse:rpc-schema schema-id="pojoHello" implementation="org.apache.servicecomb.samples.pojo.provider.PojoHelloImpl"/>
    </beans>
    ```
 
@@ -79,7 +79,7 @@ redirect_from:
 3. 发布服务。在接口Hello的实现类上使用@RpcSchema注解定义schema，代码如下：
 
    ```java
-   import io.servicecomb.provider.pojo.RpcSchema;
+   import org.apache.servicecomb.provider.pojo.RpcSchema;
    // other code omitted
    @RpcSchema(schemaId = "pojoHello")
    public class HelloImpl implements Hello {
@@ -97,7 +97,7 @@ redirect_from:
           xmlns:context=" http://www.springframework.org/schema/context "
           xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
    
-       <context:component-scan base-package="io.servicecomb.samples.pojo.provider"/>
+       <context:component-scan base-package="org.apache.servicecomb.samples.pojo.provider"/>
    </beans>
    ```
 

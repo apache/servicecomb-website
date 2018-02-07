@@ -40,8 +40,8 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
    import javax.ws.rs.Path;
    import javax.ws.rs.Produces;
    import javax.ws.rs.core.MediaType;
-   import io.servicecomb.samples.common.schema.Hello;
-   import io.servicecomb.samples.common.schema.models.Person;
+   import org.apache.servicecomb.samples.common.schema.Hello;
+   import org.apache.servicecomb.samples.common.schema.models.Person;
 
    @Path("/jaxrshello")
    @Produces(MediaType.APPLICATION_JSON)
@@ -67,7 +67,7 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
    在服务的实现类上打上注解`@RestSchema`，指定schemaId，表示该实现作为当前微服务的一个schema发布，代码如下：
 
    ```java
-   import io.servicecomb.provider.rest.common.RestSchema;
+   import org.apache.servicecomb.provider.rest.common.RestSchema;
    // other code omitted
    @RestSchema(schemaId = "jaxrsHello")
    public class JaxrsHelloImpl implements Hello {
@@ -85,7 +85,7 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
           xmlns:context=" http://www.springframework.org/schema/context "
           xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
    
-       <context:component-scan base-package="io.servicecomb.samples.jaxrs.provider"/>
+       <context:component-scan base-package="org.apache.servicecomb.samples.jaxrs.provider"/>
    </beans>
    ```
 

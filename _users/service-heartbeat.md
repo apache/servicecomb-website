@@ -16,7 +16,7 @@ After a microservice instance is registered in the service center, the microserv
 
 ## Involved APIs
 
-* `io.servicecomb.serviceregistry.client.ServiceRegistryClient` is the service client.
+* `org.apache.servicecomb.serviceregistry.client.ServiceRegistryClient` is the service client.
 
 `ServiceRegistryClient` provides heartbeat to send heartbeats. You can call it as required. The sample code is as follows:
 

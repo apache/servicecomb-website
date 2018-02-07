@@ -68,7 +68,7 @@ redirect_from:
 <dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>java-chassis-dependencies</artifactId>
       <version>0.2.0</version>
       <type>pom</type>
@@ -102,7 +102,7 @@ redirect_from:
 			<scope>import</scope>
 		  </dependency>
 		  <dependency>
-			<groupId>io.servicecomb</groupId>
+			<groupId>org.apache.servicecomb</groupId>
 			<artifactId>java-chassis-dependencies</artifactId>
 			<version>0.2.0</version>
 			<type>pom</type>

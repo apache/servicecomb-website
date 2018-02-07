@@ -20,7 +20,7 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
 
    ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>handler-flowcontrol-qps</artifactId>
     </dependency>
    ```

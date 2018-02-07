@@ -60,7 +60,7 @@ Zuul做API Gateway，即建立一个Zuul Proxy应用，在该Proxy应用中统�
      <artifactId>spring-cloud-starter-hystrix</artifactId> 
    </dependency>
    <dependency> 
-     <groupId>io.servicecomb</groupId>  
+     <groupId>org.apache.servicecomb</groupId>  
      <artifactId>spring-boot-starter-discovery</artifactId> 
    </dependency>
    ```

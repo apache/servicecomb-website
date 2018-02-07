@@ -89,11 +89,11 @@ handlers/handler-tracing-zipkin/pom.xml
 Change the zipkin.xxx import to zipkin2.xxx on imports, and most importantly, use `spanReporter()` instead of `reporter()` for generating reporter for brave, change the api path to /api/v2/xxx when creating sender.
 
 ``` diff
-handlers/handler-tracing-zipkin/src/main/java/io/servicecomb/tracing/zipkin/TracingConfiguration.java
+handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
 @@ -31,11 +31,11 @@
  import brave.http.HttpTracing;
  import brave.propagation.CurrentTraceContext;
- import io.servicecomb.config.DynamicProperties;
+ import org.apache.servicecomb.config.DynamicProperties;
 -import zipkin.Span;
 -import zipkin.reporter.AsyncReporter;
 -import zipkin.reporter.Reporter;
@@ -158,11 +158,11 @@ But this will not work. In `zipkin2.Reporter`, the `create(sender)` is actually 
 We do not use zipkin.Span in our production code, but we do use it in our tests. Those changes are quite straight forward, we just change the accessing of fields to calling methods as described in the What's Changed section.
 
 ``` diff
-tracing/tracing-zipkin/src/test/java/io/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
+tracing/tracing-zipkin/src/test/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
 @@ -45,7 +45,7 @@
- import io.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
- import io.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.CustomSpanTask;
- import io.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.SomeSlowTask;
+ import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
+ import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.CustomSpanTask;
+ import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.SomeSlowTask;
 -import zipkin.Span;
 +import zipkin2.Span;
  

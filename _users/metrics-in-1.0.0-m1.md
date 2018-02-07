@@ -139,7 +139,7 @@ servicecomb:
 We just only need add metrics-core dependency:  
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>metrics-core</artifactId>
       <version>1.0.0-m1</version>
     </dependency>
@@ -196,7 +196,7 @@ cse:
 ```
 You can open a browser and input http://localhost:8080/metrics direct get metrics data.  
 ### Direct programming get
-From above code you can known,the interface of data provider bean is io.servicecomb.metrics.core.publish.DataSource,so if you want develop your own metrics publisher,autowired it is enough.
+From above code you can known,the interface of data provider bean is org.apache.servicecomb.metrics.core.publish.DataSource,so if you want develop your own metrics publisher,autowired it is enough.
 ```java
 @Autowired
 private DataSource dataSource;

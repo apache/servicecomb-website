@@ -23,7 +23,7 @@ last_modified_at: 2017-09-04T10:01:43-04:00
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>io.servicecomb</groupId>
+        <groupId>org.apache.servicecomb</groupId>
         <artifactId>java-chassis-dependencies</artifactId>
         <version>0.5.0</version>
         <type>pom</type>
@@ -81,7 +81,7 @@ public interface CalculatorEndpoint {
 引入 **ServiceComb** 依赖：
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-boot-starter-provider</artifactId>
     </dependency>
 ```
@@ -153,15 +153,15 @@ public class CalculatorApplication {
 引入依赖：
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-boot-starter-discovery</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-boot-starter-servicecomb</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-cloud-zuul</artifactId>
     </dependency>
 ```

@@ -32,7 +32,7 @@ redirect_from:
 * **Q: 网关依赖的jar和其他微服务的一样吗？**
 
    ```xml
-   <groupId>io.servicecomb</groupId>
+   <groupId>org.apache.servicecomb</groupId>
    <artifactId>spring-boot-starter-provider</artifactId>
    ```
 
@@ -44,7 +44,7 @@ redirect_from:
 
 * **Q: 服务接口的返回类型可以是任意类型吗？还是必须是responseEntity？**
 
-   A: 可以，具体可以参考java-chassis的[integration-test的实现](https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/io/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java)。
+   A: 可以，具体可以参考java-chassis的[integration-test的实现](https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/org/apache/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java)。
 
 * **Q: 微服务启动后，无法正确调用接口，使用的代码为：**
 
@@ -312,7 +312,7 @@ redirect_from:
    3. exclude掉CSE框架引入的log4j，例如：
       ```xml
       <dependency>
-          <groupId>io.servicecomb</groupId>
+          <groupId>org.apache.servicecomb</groupId>
           <artifactId>provider-springmvc</artifactId>
           <exclusions>
               <exclusion>

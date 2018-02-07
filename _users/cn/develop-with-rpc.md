@@ -21,11 +21,11 @@ RPC开发方式允许用户通过在服务接口上标注注解来生成服务�
 ```java
 import org.springframework.stereotype.Component;
 
-import io.servicecomb.foundation.common.utils.BeanUtils;
-import io.servicecomb.foundation.common.utils.Log4jUtils;
-import io.servicecomb.provider.pojo.RpcReference;
-import io.servicecomb.samples.common.schema.Hello;
-import io.servicecomb.samples.common.schema.models.Person;
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+import org.apache.servicecomb.provider.pojo.RpcReference;
+import org.apache.servicecomb.samples.common.schema.Hello;
+import org.apache.servicecomb.samples.common.schema.models.Person;
 
 @Component
 public class CodeFirstConsumerMain {

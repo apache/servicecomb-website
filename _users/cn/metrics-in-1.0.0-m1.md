@@ -137,7 +137,7 @@ servicecomb:
 只需要添加metrics-core依赖即可：  
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>metrics-core</artifactId>
       <version>1.0.0-m1</version>
     </dependency>
@@ -194,7 +194,7 @@ cse:
 ```
 你就可以通过http://localhost:8080/metrics 直接获取到数据，打开浏览器输入此URL就可以看到返回结果。
 ### 直接代码获取
-从上面的代码可以看到，数据提供Bean接口是io.servicecomb.metrics.core.publish.DataSource，因此如果你希望自己开发数据发布程序，只需要注入它即可。
+从上面的代码可以看到，数据提供Bean接口是org.apache.servicecomb.metrics.core.publish.DataSource，因此如果你希望自己开发数据发布程序，只需要注入它即可。
 ```java
 @Autowired
 private DataSource dataSource;
