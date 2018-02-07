@@ -47,9 +47,9 @@ service_description: #Service description
     allowCrossApp: false
     key1: value1
     key2: value2
-  propertyExtentedClass: io.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
+  propertyExtentedClass: org.apache.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
 instance_description: #Instance description
   properties: #Metadata
     key3: value3
-  propertyExtentedClass: io.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
+  propertyExtentedClass: org.apache.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
 ```

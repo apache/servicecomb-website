@@ -23,7 +23,7 @@ Before we start, we need to add some common dependencies in the parent project o
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>io.servicecomb</groupId>
+        <groupId>org.apache.servicecomb</groupId>
         <artifactId>java-chassis-dependencies</artifactId>
         <version>0.5.0</version>
         <type>pom</type>
@@ -82,7 +82,7 @@ public interface CalculatorEndpoint {
 Introduce ServiceComb dependency:
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-boot-starter-provider</artifactId>
     </dependency>
 ```
@@ -153,15 +153,15 @@ The gateway service was implemented using the [Netflix Zuul](https://github.com/
 Introduce ServiceComb dependency:
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-boot-starter-discovery</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-boot-starter-servicecomb</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-cloud-zuul</artifactId>
     </dependency>
 ```

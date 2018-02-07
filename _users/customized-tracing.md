@@ -35,7 +35,7 @@ For microservices based on ServiceComb Java Chassis, add the following content t
 
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>tracing-zipkin</artifactId>
     </dependency>
 ```
@@ -89,7 +89,7 @@ The call chain reported by customized dotting contains the following pieces of d
 | key       | value                                    |
 | :-------- | :--------------------------------------- |
 | span name | crawl                                    |
-| call.path | public abstract java.lang.String io.servicecomb.tests.tracing.SlowRepo.crawl\(\) throws java.lang.InterruptedException |
+| call.path | public abstract java.lang.String org.apache.servicecomb.tests.tracing.SlowRepo.crawl\(\) throws java.lang.InterruptedException |
 
 To customize reported data, you can specify customized parameters:
 

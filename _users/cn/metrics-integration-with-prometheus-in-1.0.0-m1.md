@@ -30,7 +30,7 @@ Prometheus推荐Pull模式拉取Metrics数据，被监控微服务作为Producer
   </dependency>
 
   <dependency>
-    <groupId>io.servicecomb</groupId>
+    <groupId>org.apache.servicecomb</groupId>
     <artifactId>metrics-core</artifactId>
   </dependency>
 ```
@@ -45,7 +45,7 @@ cse:
   rest:
     address: 0.0.0.0:8080
 ```
-你就可以通过http://localhost:8080/metrics 直接获取到Metrics数据，它返回的是io.servicecomb.metrics.common.RegistryMetric实体对象，输出格式为：
+你就可以通过http://localhost:8080/metrics 直接获取到Metrics数据，它返回的是org.apache.servicecomb.metrics.common.RegistryMetric实体对象，输出格式为：
 ```json
 {"instanceMetric":{
 "systemMetric":{"cpuLoad":10.0,"cpuRunningThreads":39,"heapInit":266338304,"heapMax":3786407936,"heapCommit":626524160,"heapUsed":338280024,"nonHeapInit":2555904,"nonHeapMax":-1,"nonHeapCommit":60342272,"nonHeapUsed":58673152},
@@ -102,7 +102,7 @@ servicecomb:
 只需要添加metrics-prometheus依赖即可：  
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>metrics-prometheus</artifactId>
       <version>1.0.0-m1</version>
     </dependency>

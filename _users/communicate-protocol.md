@@ -68,11 +68,11 @@ cse:
        <param-value>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml</param-value> 
      </context-param>  
      <listener> 
-       <listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
+       <listener-class>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
      </listener>  
      <servlet> 
        <servlet-name>RestServlet</servlet-name>  
-       <servlet-class>io.servicecomb.transport.rest.servlet.RestServlet</servlet-class>  
+       <servlet-class>org.apache.servicecomb.transport.rest.servlet.RestServlet</servlet-class>  
        <load-on-startup>1</load-on-startup>  
        <async-supported>true</async-supported> 
      </servlet>  
@@ -92,7 +92,7 @@ cse:
        <param-value>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml</param-value> 
      </context-param>  
      <listener> 
-       <listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
+       <listener-class>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
      </listener> 
    </web-app>
    ```
@@ -107,7 +107,7 @@ The two method are equivalent, and they both require that the following dependen
 
 ```xml
 <dependency> 
-  <groupId>io.servicecomb</groupId>  
+  <groupId>org.apache.servicecomb</groupId>  
   <artifactId>transport-rest-servlet</artifactId> 
 </dependency>
 ```
@@ -141,8 +141,8 @@ cse:
 The REST over Vertx communication channel uses the standalone running mode that can be started using the main function. In the main function, you need to initialize logs and load service configuration. The code is as follow:
 
 ```java
-import io.servicecomb.foundation.common.utils.BeanUtils;
-import io.servicecomb.foundation.common.utils.Log4jUtils;
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
 
 public class MainServer {
   public static void main(String[] args) throws Exception {
@@ -156,7 +156,7 @@ To use the REST over Vertx communication channel, you need to add the following 
 
 ```xml
 <dependency>
-　　<groupId>io.servicecomb</groupId>
+　　<groupId>org.apache.servicecomb</groupId>
 　　<artifactId>transport-rest-vertx</artifactId>
 </dependency>
 ```
@@ -201,7 +201,7 @@ To use the Highway communication channel, you need to add the following dependen
 
 ```xml
 <dependency> 
-  <groupId>io.servicecomb</groupId>  
+  <groupId>org.apache.servicecomb</groupId>  
   <artifactId>transport-highway</artifactId> 
 </dependency>
 ```

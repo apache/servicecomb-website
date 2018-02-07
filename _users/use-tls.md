@@ -63,7 +63,7 @@ For details about the certificate configuration items, see Table 1.
 | ssl.keyStoreType    | PKCS12                                   | -                                        | No        | Specifies the type of identity certificate. | -                                        |
 | ssl.keyStoreValue   | -                                        | -                                        | No        | Specifies the password of identity certificate. | -                                        |
 | ssl.crl             | revoke.crl                               | -                                        | No        | Specifies the certificate revocation list(CRL) file. | -                                        |
-| ssl.sslCustomClass  | -                                        | io.servicecomb.foundation.ssl.SSLCustom implementation | No        | Specifies implementation of the SSLCustom class, which is used by developers to convert passwords and file paths. | -                                        |
+| ssl.sslCustomClass  | -                                        | org.apache.servicecomb.foundation.ssl.SSLCustom implementation | No        | Specifies implementation of the SSLCustom class, which is used by developers to convert passwords and file paths. | -                                        |
 
 > **NOTE:**
 >
@@ -138,5 +138,5 @@ ssl.keyStore: server.p12
 ssl.keyStoreType: PKCS12
 ssl.keyStoreValue: Changeme_123
 ssl.crl: revoke.crl
-ssl.sslCustomClass: io.servicecomb.demo.DemoSSLCustom
+ssl.sslCustomClass: org.apache.servicecomb.demo.DemoSSLCustom
 ```

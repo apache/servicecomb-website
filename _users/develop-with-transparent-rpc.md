@@ -33,8 +33,8 @@ The transparent RPC development mode supports two service release mode: Spring X
 * **Step 2** implement the service. The implementation of the Hello service is as follows:
 
    ```java
-   import io.servicecomb.samples.common.schema.Hello;
-   import io.servicecomb.samples.common.schema.models.Person;
+   import org.apache.servicecomb.samples.common.schema.Hello;
+   import org.apache.servicecomb.samples.common.schema.models.Person;
 
    public class HelloImpl implements Hello {
      @Override
@@ -59,7 +59,7 @@ The transparent RPC development mode supports two service release mode: Spring X
           xmlns:context=" http://www.springframework.org/schema/context "
           xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
 
-       <cse:rpc-schema schema-id="pojoHello" implementation="io.servicecomb.samples.pojo.provider.PojoHelloImpl"/>
+       <cse:rpc-schema schema-id="pojoHello" implementation="org.apache.servicecomb.samples.pojo.provider.PojoHelloImpl"/>
    </beans>
    ```
 
@@ -75,7 +75,7 @@ The transparent RPC development mode supports two service release mode: Spring X
 3. Release the service. @RpcSchema is used to define schema during the API Hello implementation. The code is as followss:
 
    ```java
-   import io.servicecomb.provider.pojo.RpcSchema;
+   import org.apache.servicecomb.provider.pojo.RpcSchema;
    // other code omitted
    @RpcSchema(schemaId = "pojoHello")
    public class HelloImpl implements Hello {
@@ -93,7 +93,7 @@ The transparent RPC development mode supports two service release mode: Spring X
           xmlns:context=" http://www.springframework.org/schema/context "
           xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
 
-       <context:component-scan base-package="io.servicecomb.samples.pojo.provider"/>
+       <context:component-scan base-package="org.apache.servicecomb.samples.pojo.provider"/>
    </beans>
    ```
 

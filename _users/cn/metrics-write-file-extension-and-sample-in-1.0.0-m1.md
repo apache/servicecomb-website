@@ -58,7 +58,7 @@ servicecomb:
 1. 首先需要引入metrics-write-file模块，这个模块包含了获取Metrics数据并转化为指定格式后写文件的逻辑：  
 ```xml
     <dependency>
-      <groupId>io.servicecomb.samples</groupId>
+      <groupId>org.apache.servicecomb.samples</groupId>
       <artifactId>metrics-write-file</artifactId>
     </dependency>
 ```
@@ -83,7 +83,7 @@ Java Chassis集成了Spring Boot Starter，如果使用Spring Boot Starter启动
 
     <!--servicecomb spring boot starter-->
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-boot-starter-provider</artifactId>
     </dependency>
 ```

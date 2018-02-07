@@ -36,8 +36,8 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
    import javax.ws.rs.Path;
    import javax.ws.rs.Produces;
    import javax.ws.rs.core.MediaType;
-   import io.servicecomb.samples.common.schema.Hello;
-   import io.servicecomb.samples.common.schema.models.Person;
+   import org.apache.servicecomb.samples.common.schema.Hello;
+   import org.apache.servicecomb.samples.common.schema.models.Person;
 
    @Path("/jaxrshello")
    @Produces(MediaType.APPLICATION_JSON)
@@ -61,7 +61,7 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
 * **Step 3** Release the service. Add ```@RestSchema``` as the annotation of the service implementation class and specify schemaID, which indicates that the implementation is released as a schema of the current microservice. The code is as follows:
 
    ```java
-   import io.servicecomb.provider.rest.common.RestSchema;
+   import org.apache.servicecomb.provider.rest.common.RestSchema;
    // other code omitted
    @RestSchema(schemaId = "jaxrsHello")
    public class JaxrsHelloImpl implements Hello {
@@ -79,7 +79,7 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
           xmlns:context=" http://www.springframework.org/schema/context "
           xsi:schemaLocation=" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd">
 
-       <context:component-scan base-package="io.servicecomb.samples.jaxrs.provider"/>
+       <context:component-scan base-package="org.apache.servicecomb.samples.jaxrs.provider"/>
    </beans>
    ```
 

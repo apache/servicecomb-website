@@ -34,7 +34,7 @@ ServiceComb 集成了 Zipkin 提供自动调用链追踪能力，如此一来用
 
 ```xml
 <dependency>   
-    <groupId>io.servicecomb</groupId>
+    <groupId>org.apache.servicecomb</groupId>
     <artifactId>handler-tracing-zipkin</artifactId>
 </dependency>
 ```
@@ -43,7 +43,7 @@ ServiceComb 集成了 Zipkin 提供自动调用链追踪能力，如此一来用
 
 ```xml
 <dependency>    
-    <groupId>io.servicecomb</groupId>
+    <groupId>org.apache.servicecomb</groupId>
     <artifactId>spring-cloud-zuul-zipkin</artifactId>
 </dependency>
 ```

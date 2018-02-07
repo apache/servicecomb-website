@@ -36,7 +36,7 @@ to apply distributed tracing with Zipkin.
 A microservice written with ServiceComb Java Chassis just need to add one dependency below to its pom.xml.
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>handler-tracing-zipkin</artifactId>
     </dependency>
 
@@ -46,7 +46,7 @@ If the microservice is an API gateway with Spring Cloud + Zuul like manager serv
 dependency has to be included.
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>spring-cloud-zuul-zipkin</artifactId>
     </dependency>
 ```

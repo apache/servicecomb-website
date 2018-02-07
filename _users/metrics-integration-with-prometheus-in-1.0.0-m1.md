@@ -30,7 +30,7 @@ As an integration(optional) module,the implementation code is in metrics-integra
   </dependency>
 
   <dependency>
-    <groupId>io.servicecomb</groupId>
+    <groupId>org.apache.servicecomb</groupId>
     <artifactId>metrics-core</artifactId>
   </dependency>
 ```
@@ -45,7 +45,7 @@ cse:
   rest:
     address: 0.0.0.0:8080
 ```
-You can direct get metrics data at http://localhost:8080/metrics ,it will return a entity of io.servicecomb.metrics.common.RegistryMetric,the output is:  
+You can direct get metrics data at http://localhost:8080/metrics ,it will return a entity of org.apache.servicecomb.metrics.common.RegistryMetric,the output is:  
 ```json
 {"instanceMetric":{
 "systemMetric":{"cpuLoad":10.0,"cpuRunningThreads":39,"heapInit":266338304,"heapMax":3786407936,"heapCommit":626524160,"heapUsed":338280024,"nonHeapInit":2555904,"nonHeapMax":-1,"nonHeapCommit":60342272,"nonHeapUsed":58673152},
@@ -101,7 +101,7 @@ servicecomb:
 We just only need add metrics-prometheus dependency:   
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>metrics-prometheus</artifactId>
       <version>1.0.0-m1</version>
     </dependency>

@@ -60,7 +60,7 @@ This topic describes how to start a ZuulProxy application as the API Gateway. Pe
      <artifactId>spring-cloud-starter-hystrix</artifactId> 
    </dependency>
    <dependency> 
-     <groupId>io.servicecomb</groupId>  
+     <groupId>org.apache.servicecomb</groupId>  
      <artifactId>spring-boot-starter-discovery</artifactId> 
    </dependency>
    ```

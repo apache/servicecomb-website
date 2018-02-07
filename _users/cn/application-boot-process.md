@@ -21,7 +21,7 @@ redirect_from:
 
 * 服务注册
 
-   在Spring context加载完成后，`io.servicecomb.core.CseApplicationListener`会加载handler配置、加载provider的schema信息，最后将微服务信息注册到服务中心。
+   在Spring context加载完成后，`org.apache.servicecomb.core.CseApplicationListener`会加载handler配置、加载provider的schema信息，最后将微服务信息注册到服务中心。
 
 > **说明：**
 > ServiceComb的配置项分为三个层次：配置中心、环境变量、本地文件，三者优先级依次递减，高优先级中的配置项覆盖低优先级同名配置项。存放在配置中心的配置项可以在运行时修改。

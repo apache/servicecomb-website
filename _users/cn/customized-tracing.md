@@ -35,7 +35,7 @@ redirect_from:
 
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>tracing-zipkin</artifactId>
     </dependency>
 ```
@@ -89,7 +89,7 @@ public class SlowRepoImpl implements SlowRepo {
 | key | value |
 | :--- | :--- |
 | span name | crawl |
-| call.path | public abstract java.lang.String io.servicecomb.tests.tracing.SlowRepo.crawl\(\) throws java.lang.InterruptedException |
+| call.path | public abstract java.lang.String org.apache.servicecomb.tests.tracing.SlowRepo.crawl\(\) throws java.lang.InterruptedException |
 
 如果需要定制上报的数据内容，可以传入自定义的参数：
 

@@ -19,8 +19,8 @@ redirect_from:
 * **步骤1** 编写Main函数，初始化日志和加载服务配置，内容如下：
 
    ```java
-   import io.servicecomb.foundation.common.utils.BeanUtils;
-   import io.servicecomb.foundation.common.utils.Log4jUtils;
+   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
    public class MainServer {
      public static void main(String[] args) throws Exception {
      　Log4jUtils.init(); #日志初始化
@@ -51,12 +51,12 @@ redirect_from:
         </param-value>
     </context-param>
     <listener>
-        <listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class>
+        <listener-class>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class>
     </listener>
 
     <servlet>
         <servlet-name>RestServlet</servlet-name>
-        <servlet-class>io.servicecomb.transport.rest.servlet.RestServlet</servlet-class>
+        <servlet-class>org.apache.servicecomb.transport.rest.servlet.RestServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
         <async-supported>true</async-supported>
     </servlet>
@@ -72,7 +72,7 @@ redirect_from:
 ```xml
 <dependencies>
     <dependency>
-        <groupId>io.servicecomb</groupId>
+        <groupId>org.apache.servicecomb</groupId>
         <artifactId>transport-rest-servlet</artifactId>
     </dependency>
 </dependencies>
