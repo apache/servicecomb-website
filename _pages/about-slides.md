@@ -40,3 +40,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb live streaming phase VIII](http://www.itdks.com/liveevent/detail/9558), 20180125
  * [Service Center Introduction]({{ site.url }}{{ site.baseurl }}/assets/slides/20180125/Service_Center_Introduction.pdf)
+
+## [ServiceComb live streaming phase IX](http://www.itdks.com/liveevent/detail/10012), 20180208
+ * [Communications inside Java Chassis]({{ site.url }}{{ site.baseurl }}/assets/slides/20180208/Communications_Inside_Java_Chassis.pdf)
