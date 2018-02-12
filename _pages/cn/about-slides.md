@@ -40,3 +40,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb 直播第八期](http://www.itdks.com/liveevent/detail/9558), 20180125
  * [服务中心设计揭秘]({{ site.url }}{{ site.baseurl }}/assets/slides/20180125/Service_Center_Introduction.pdf)
+
+## [ServiceComb 直播第九期](http://www.itdks.com/liveevent/detail/10012), 20180208
+ * [Java Chassis通信机制详解]({{ site.url }}{{ site.baseurl }}/assets/slides/20180208/Communications_Inside_Java_Chassis.pdf)
