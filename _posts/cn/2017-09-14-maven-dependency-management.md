@@ -70,7 +70,7 @@ redirect_from:
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>java-chassis-dependencies</artifactId>
-      <version>0.2.0</version>
+      <version>0.6.0-SNAPSHOT</version>
       <type>pom</type>
       <scope>import</scope>
       </dependency>
@@ -104,7 +104,7 @@ redirect_from:
 		  <dependency>
 			<groupId>org.apache.servicecomb</groupId>
 			<artifactId>java-chassis-dependencies</artifactId>
-			<version>0.2.0</version>
+			<version>0.6.0-SNAPSHOT</version>
 			<type>pom</type>
 			<scope>import</scope>
 		  </dependency>
