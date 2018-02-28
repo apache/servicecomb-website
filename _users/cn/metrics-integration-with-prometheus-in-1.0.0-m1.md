@@ -35,51 +35,6 @@ Prometheus推荐Pull模式拉取Metrics数据，被监控微服务作为Producer
   </dependency>
 ```
 因此一旦集成Prometheus引入了metrics-prometheus依赖后，不再需要添加metrics-core的依赖。
-### 与metrics-core Publish的关系
-文档[1.0.0-m1版本中的监控](/cn/users/metrics-in-1.0.0-m1/)中已经提到，metrics-core会伴随微服务启动内置的数据发布，如果你在microservice.yaml中配置了rest provider，例如：  
-```yaml
-cse:
-  service:
-    registry:
-      address: http://127.0.0.1:30100
-  rest:
-    address: 0.0.0.0:8080
-```
-你就可以通过http://localhost:8080/metrics 直接获取到Metrics数据，它返回的是org.apache.servicecomb.metrics.common.RegistryMetric实体对象，输出格式为：
-```json
-{"instanceMetric":{
-"systemMetric":{"cpuLoad":10.0,"cpuRunningThreads":39,"heapInit":266338304,"heapMax":3786407936,"heapCommit":626524160,"heapUsed":338280024,"nonHeapInit":2555904,"nonHeapMax":-1,"nonHeapCommit":60342272,"nonHeapUsed":58673152},
-"consumerMetric":{"operationName":"instance","prefix":"servicecomb.instance.consumer","consumerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"consumerCall":{"total":0,"tps":0.0}},
-"producerMetric":{"operationName":"instance","prefix":"servicecomb.instance.producer","waitInQueue":0,"lifeTimeInQueue":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"executionTime":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerCall":{"total":1,"tps":0.0}}},
-"consumerMetrics":{},
-"producerMetrics":{"calculator.metricsEndpoint.metrics":{"operationName":"calculator.metricsEndpoint.metrics","prefix":"servicecomb.calculator.metricsEndpoint.metrics.producer","waitInQueue":0,"lifeTimeInQueue":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"executionTime":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerCall":{"total":1,"tps":0.0}}
-}}
-```
-使用Prometheus Simple HTTP Server接口发布的数据是Prometheus采集的标准格式：
-```text
-# HELP Instance Level Instance Level Metrics
-# TYPE Instance Level untyped
-servicecomb_instance_producer_producerLatency_average 0.0
-servicecomb_instance_producer_producerLatency_total 0.0
-servicecomb_instance_consumer_producerLatency_count 0.0
-...
-servicecomb_instance_producer_producerLatency_min 0.0
-servicecomb_instance_producer_lifeTimeInQueue_average 0.0
-servicecomb_instance_producer_lifeTimeInQueue_count 0.0
-servicecomb_instance_system_heap_init 2.66338304E8
-# HELP calculator.metricsEndpoint.metrics Producer Side calculator.metricsEndpoint.metrics Producer Side Metrics
-# TYPE calculator.metricsEndpoint.metrics Producer Side untyped
-servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_average 0.0
-...
-servicecomb_calculator_metricsEndpoint_metrics_producer_executionTime_total 0.0
-servicecomb_calculator_metricsEndpoint_metrics_producer_waitInQueue_count 0.0
-servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_count 0.0
-```
-所以它们两个是完全独立各有用途的。  
-
-*Prometheus Simple HTTP Server同样使用/metrics作为默认URL，metrics-prometheus会使用9696作为默认端口，因此微服务启动后你可以使用http://localhost:9696/metrics 访问它。*  
-
-我们可以看到在Prometheus的Metric命名统一使用下划线代替了点，因为需要遵守它的[命名规则](https://prometheus.io/docs/practices/naming/)。
 
 ## 如何配置
 开启对接普罗米修斯非常简单：
@@ -129,6 +84,32 @@ scrape_configs:
       - targets: ['localhost:9696']
 ```
 其中job_name: 'servicecomb'即自定义的job配置，目标是本地微服务localhost:9696，关于prometheus.yml的配置更多信息可以参考[这篇文章](https://prometheus.io/docs/prometheus/latest/configuration/configuration/)。
+
+### 验证输出
+Prometheus Simple HTTP Server使用/metrics作为默认URL，metrics-prometheus会使用9696作为默认端口，微服务启动后你可以使用http://localhost:9696/metrics 访问它。
+使用Prometheus Simple HTTP Server接口发布的数据是Prometheus采集的标准格式：
+```text
+# HELP ServiceComb Metrics ServiceComb Metrics
+# TYPE ServiceComb Metrics untyped
+jvm{name="cpuRunningThreads",statistic="gauge",} 45.0
+jvm{name="heapMax",statistic="gauge",} 3.786407936E9
+jvm{name="heapCommit",statistic="gauge",} 6.12892672E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="max",status="200",unit="MILLISECONDS",} 1.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="tps",status="200",} 0.4
+jvm{name="nonHeapCommit",statistic="gauge",} 6.1104128E7
+jvm{name="nonHeapInit",statistic="gauge",} 2555904.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="execution",statistic="max",status="200",unit="MILLISECONDS",} 0.0
+jvm{name="heapUsed",statistic="gauge",} 2.82814088E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="latency",status="200",unit="MILLISECONDS",} 1.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="execution",statistic="latency",status="200",unit="MILLISECONDS",} 0.0
+jvm{name="heapInit",statistic="gauge",} 2.66338304E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="waitInQueue",} 0.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="count",status="200",} 39.0
+jvm{name="nonHeapUsed",statistic="gauge",} 5.9361032E7
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="latency",status="200",unit="MILLISECONDS",} 0.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="max",status="200",unit="MILLISECONDS",} 0.0
+```
+
 ### 配置Grafana（可选）
 如何在Grafana中添加Prometheus作为数据源请参考[这篇文章](https://prometheus.io/docs/visualization/grafana/)。
 ## 运行效果
