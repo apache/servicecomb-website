@@ -199,7 +199,8 @@ Metrics数据将以Map<String, Double>的形式输出，为了能够方便用户
 *demo/perf/PerfMetricsFilePublisher.java提供了MetricsLoader更详细的使用示例*
 
 ## 如何扩展
-Java Chassis Metrics支持自定义Metrics扩展，MonitorManager包含一组获取各类Monitor的方法：
+Java Chassis Metrics支持自定义Metrics扩展，MonitorManager包含一组获取各类Monitor的方法：  
+
 | 方法名       | 描述         |
 | :---------- | :---------- |
 | getCounter | 获取一个计数器类的Monitor |

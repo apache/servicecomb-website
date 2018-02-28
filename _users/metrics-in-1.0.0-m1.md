@@ -39,7 +39,8 @@ So,upgrading from 0.5.0 to 1.0.0-m1,we had done a fully reconstruction,now it's 
 | metrics-core        | Metrics core module,work immediately after imported |
 | metrics-integration | Include metrics Integration with other monitor system |
 
-The dependency of this modules is:
+The dependency of this modules is:  
+
 ![MetricsDependency.png](/assets/images/MetricsDependency.png)
 
 ### Use event collect invocation data,not from Hystrix(handler-bizkeeper)any more
@@ -84,7 +85,8 @@ Metrics had many classifications,we can divided them into two major types by how
 From 1.0.0-m1,build-in two type Metric output:   
 ### JVM Information
 ID format is : *jvm(statistic=gauge,name={name})*
-name include:
+name include:  
+
 | Name     | Description                               |
 | :----------- | :------------------------------- |
 | cpuLoad | CPU load rate                    |
@@ -94,7 +96,8 @@ name include:
 
 ### Invocation Information
 ID format is : *servicecomb.invocation(operation={operationName},role={role},stage={stage},statistic={statistic},status={status},unit={unit})*
-Tag name and value below:
+Tag name and value below:  
+
 | Tag Name       | Description                  | Options or Values |
 | :---------- | :---------- | :--------------------- |
 | operationName | Operation full name | MicroserviceQualifiedName |
@@ -196,7 +199,8 @@ Metrics data will output as Map<String,Double>,in order to let user easier fetch
 *More detail can be found in demo/perf/PerfMetricsFilePublisher.java*
 
 ## How to Extend Custom Metrics
-Java Chassis Metrics support user extend custom metrics,MonitorManager had a set of method get different type of Monitor:
+Java Chassis Metrics support user extend custom metrics,MonitorManager had a set of method get different type of Monitor:  
+
 | Method Name       | Description         |
 | :---------- | :---------- |
 | getCounter | Get a counter monitor |
