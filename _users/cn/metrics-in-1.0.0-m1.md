@@ -259,7 +259,7 @@ Map<String,Double> metrics = MonitorManager.getInstance().measure();
 //	生成订单(统计项=最大生成时间,单位=MILLISECONDS)
 ```
 
-2. MonitorManager获取Monitor的方法均为**“获取或创建”**，因此多次传递相同的name和tag数组返回的是同一个计数器：
+2. MonitorManager获取Monitor的方法均为**获取或创建**，因此多次传递相同的name和tag数组返回的是同一个计数器：
 ```java
     Counter counter1 = MonitorManager.getInstance().getCounter("订单数量", "商品名", "levis jeans", "型号", "512");
     Counter counter2 = MonitorManager.getInstance().getCounter("订单数量", "商品名", "levis jeans", "型号", "512");
@@ -271,7 +271,7 @@ Map<String,Double> metrics = MonitorManager.getInstance().measure();
     Assert.assertEquals(2,counter2.getValue());
     Assert.assertEquals(2.0,MonitorManager.getInstance().measure().get("订单数量(商品名=levis jeans,型号=512)"),0);
 ```
-**获取Monitor的方法性能较低，请在初始化阶段一次获取所需的Monitor，然后将它缓存起来，请参照前面OrderController的做法**
+**获取Monitor的方法性能较低，请在初始化阶段一次获取所需的Monitor，然后将它们缓存起来，请参照前面OrderController的做法。**
 
 ## 参考示例
 我们已经开发完成了两个使用场景可以作为参考：  

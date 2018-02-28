@@ -258,7 +258,7 @@ Map<String,Double> metrics = MonitorManager.getInstance().measure();
 //	orderGenerated(statistic=max,unit=MILLISECONDS)
 ```
 
-2. All get monitor method in MonitorManager act as **'get or new'**,so use same name and tags will return same one monitor:
+2. All get monitor method in MonitorManager act as **get or new**,so use same name and tags will return same one monitor:
 ```java
     Counter counter1 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
     Counter counter2 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
@@ -270,7 +270,7 @@ Map<String,Double> metrics = MonitorManager.getInstance().measure();
     Assert.assertEquals(2,counter2.getValue());
     Assert.assertEquals(2.0,MonitorManager.getInstance().measure().get("orderGenerated(product=levis jeans,model=512)"),0);
 ```
-**Performance of get monitor from MonitorManager is slightly lower,so please get all monitors what needed when init,then cache them for later use,like OrderController example**
+**Performance of get monitor from MonitorManager is slightly lower,so please get all monitors what needed when init,then cache them for later use,like OrderController example.**
 
 ## Other Reference 
 We had developed two use case for reference:  
