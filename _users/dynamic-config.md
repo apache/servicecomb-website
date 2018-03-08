@@ -58,21 +58,13 @@ Visit `http://192.168.199.1:8070/open/manage.html` and fill in application ID an
 
 ```xml
     <dependency>
-          <groupId>com.netflix.archaius</groupId>
-          <artifactId>archaius-core</artifactId>
-    </dependency>   
-    <dependency>
-          <groupId>io.servicecomb</groupId>
+          <groupId>org.apache.servicecomb</groupId>
           <artifactId>config-apollo</artifactId>
     </dependency>
 ```
 ### Add configurations in microservice.yaml
 
    ```yaml
-   cse:
-     config:
-       client:
-       serverUri: http://127.0.0.1:8070
    apollo:
      config:
        serverUri: http://127.0.0.1:8070
@@ -83,7 +75,7 @@ Visit `http://192.168.199.1:8070/open/manage.html` and fill in application ID an
        token: testtoken
        refreshInterval: 10
    ```
-​	Configuration `cse.config.client.serverUri` is the portal address of Apollo configuration center just the same as `apollo.config.serverUri`. Configurations under `apollo.config` are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to `refreshInterval: 10`, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here.
+​	Configurations under `apollo.config` are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to `refreshInterval: 10`, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here.
 
 ### Get configurations
 

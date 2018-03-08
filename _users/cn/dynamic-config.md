@@ -58,21 +58,13 @@ redirect_from:
 
 ```xml
     <dependency>
-          <groupId>com.netflix.archaius</groupId>
-          <artifactId>archaius-core</artifactId>
-    </dependency>   
-    <dependency>
-          <groupId>io.servicecomb</groupId>
+          <groupId>org.apache.servicecomb</groupId>
           <artifactId>config-apollo</artifactId>
     </dependency>
 ```
 ### 添加配置项
 
    ```yaml
-   cse:
-     config:
-       client:
-       serverUri: http://127.0.0.1:8070
    apollo:
      config:
        serverUri: http://127.0.0.1:8070
@@ -83,7 +75,7 @@ redirect_from:
        token: testtoken
        refreshInterval: 10
    ```
-​	`cse.config.client.serverUri`配置项填写Apollo配置中心portal服务地址，只是表示对接配置中心，`apollo.config`下的配置项是用户创建的应用参数，包括服务地址，用户名，集群，namespace，token等参数。这些参数可以在配置中心页面项目信息栏中查到。需要注意的是`refreshInterval: 10`表示应用会每隔10秒去配置中心查询一次最新的配置信息，不配置此项默认刷新周期为30秒。
+​	`apollo.config`下的配置项是用户创建的应用参数，包括服务地址，用户名，集群，namespace，token等参数。这些参数可以在配置中心页面项目信息栏中查到。需要注意的是`refreshInterval: 10`表示应用会每隔10秒去配置中心查询一次最新的配置信息，不配置此项默认刷新周期为30秒。
 
 ### 获取动态属性
 
