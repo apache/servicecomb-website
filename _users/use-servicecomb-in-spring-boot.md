@@ -35,15 +35,17 @@ You can use Spring Cloud or Spring Boot to develop applications, enable services
 
 Use Spring Boot or Spring Cloud to develop applications and perform the following steps based on the original application to interconnect with the SDK components of ServiceComb.
 
+NOTE， If your java chassis version is or below 0.5.0, please use the io.servicecomb as the groupId.  
+
 * **Step 1** Add dependencyManagement to teh POM file:
 
    ```xml
    <dependencyManagement>
      <dependencies>
        <dependency>
-         <groupId>io.servicecomb</groupId>
+         <groupId>org.apache.servicecomb</groupId>
          <artifactId>java-chassis-dependencies</artifactId>
-         <version>0.1.0</version>
+         <version>1.0.0-SNAPSHOT</version>
          <type>pom</type>
          <scope>import</scope>
        </dependency>
@@ -56,17 +58,17 @@ Use Spring Boot or Spring Cloud to develop applications and perform the followin
    ```xml
    <dependency>
      <!--let services run in the microservice SDK container.-->
-     <group>io.servicecomb</group>
+     <group>org.apache.servicecomb</group>
      <artifactId>spring-boot-starter-provider</artifactId>
    </dependency>
    <dependency>
      <!--Use Service Center.-->
-     <group>io.servicecomb</group>
+     <group>org.apache.servicecomb</group>
      <artifactId>spring-boot-starter-discovery</artifactId>
    </dependency>
    <dependency>
      <!--Let Servieces run in Spring boot embedded tomcat-->
-     <group>io.servicecomb</group>
+     <group>org.apache.servicecomb</group>
      <artifactId>spring-boot-starter-transport</artifactId>
    </dependency>
    <dependency>
@@ -106,7 +108,7 @@ Use Spring Boot or Spring Cloud to develop applications and perform the followin
    ```java
    <dependency>
      <!--Use the configuration center-->
-     <group>io.servicecomb</group>
+     <group>org.apache.servicecomb</group>
      <artifactId>spring-boot-starter-discovery</artifactId>
    </dependency>
    ```
@@ -164,12 +166,12 @@ This section describes advantages and procedures of integrating the Spring Boot 
 * **Step 1** Add the dependency Management node to the POM file.
 
    ```xml
-   <dependencyManagement> 
-     <dependencies> 
-       <dependency> 
-         <groupId>io.servicecomb</groupId>
+   <dependencyManagement>
+     <dependencies>
+       <dependency>
+         <groupId>org.apache.servicecomb</groupId>
          <artifactId>java-chassis-dependencies</artifactId>
-         <version>0.1.0</version>
+         <version>1.0.0-SNAPSHOT</version>
          <type>pom</type>
          <scope>import</scope>
        </dependency>
@@ -182,20 +184,20 @@ This section describes advantages and procedures of integrating the Spring Boot 
    Import Spring Boot dependency provided by ServiceComb
 
    ```xml
-   <dependency> 
-     <groupId>io.servicecomb</groupId>
-     <artifactId>spring-boot-starter-provider</artifactId> 
+   <dependency>
+     <groupId>org.apache.servicecomb</groupId>
+     <artifactId>spring-boot-starter-provider</artifactId>
    </dependency>
    ```
 
    ```xml
-   <dependency> 
+   <dependency>
      <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-web</artifactId> 
+     <artifactId>spring-boot-starter-web</artifactId>
    </dependency>
-   <dependency> 
+   <dependency>
      <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-actuator</artifactId> 
+     <artifactId>spring-boot-starter-actuator</artifactId>
    </dependency>
    ```
 
