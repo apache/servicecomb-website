@@ -35,15 +35,17 @@ redirect_from:
 
 使用SpringBoot/Cloud开发应用，在原有应用的基础上按照以下步骤进行操作，即可对接ServiceComb的SDK各组件：
 
+注意： 如果使用Java Chassis 0.5.0 以及以前的版本的，请使用io.servicecomb 作为依赖的groupId。
+
 * **步骤 1** 在pom中添加依赖管理dependencyManagement：
 
    ```xml
    <dependencyManagement>
      <dependencies>
        <dependency>
-         <groupId>io.servicecomb</groupId>
+         <groupId>org.apache.servicecomb</groupId>
          <artifactId>java-chassis-dependencies</artifactId>
-         <version>0.1.0</version>
+         <version>1.0.0-m1-SNAPSHOT</version>
          <type>pom</type>
          <scope>import</scope>
        </dependency>
@@ -56,17 +58,17 @@ redirect_from:
    ```xml
    <dependency>
      <!--让服务运行于微服务sdk容器中-->
-     <group>io.servicecomb</group>
+     <group>org.apache.servicecomb</group>
      <artifactId>spring-boot-starter-provider</artifactId>
    </dependency>
    <dependency>
      <!--使用服务中心-->
-     <group>io.servicecomb</group>
+     <group>org.apache.servicecomb</group>
      <artifactId>spring-boot-starter-discovery</artifactId>
    </dependency>
    <dependency>
      <!--让服务运行于Spring boot embedded tomcat中-->
-     <group>io.servicecomb</group>
+     <group>org.apache.servicecomb</group>
      <artifactId>spring-boot-starter-transport</artifactId>
    </dependency>
    <dependency>
@@ -106,7 +108,7 @@ redirect_from:
    ```java
    <dependency>
      <!--使用服务中心-->
-     <group>io.servicecomb</group>
+     <group>org.apache.servicecomb</group>
      <artifactId>spring-boot-starter-discovery</artifactId>
    </dependency>
    ```
@@ -166,12 +168,12 @@ redirect_from:
 * **步骤 1** 在工程pom文件添加&lt;dependencyManagement&gt;节点：
 
    ```xml
-   <dependencyManagement> 
-     <dependencies> 
-       <dependency> 
-         <groupId>io.servicecomb</groupId>
+   <dependencyManagement>
+     <dependencies>
+       <dependency>
+         <groupId>org.apache.servicecomb</groupId>
          <artifactId>java-chassis-dependencies</artifactId>
-         <version>0.1.0</version>
+         <version>1.0.0-m1-SNAPSHOT</version>
          <type>pom</type>
          <scope>import</scope>
        </dependency>
@@ -184,22 +186,22 @@ redirect_from:
    引入ServiceComb提供的Spring Boot依赖
 
    ```xml
-   <dependency> 
-     <groupId>io.servicecomb</groupId>
-     <artifactId>spring-boot-starter-provider</artifactId> 
+   <dependency>
+     <groupId>org.apache.servicecomb</groupId>
+     <artifactId>spring-boot-starter-provider</artifactId>
    </dependency>
    ```
 
    引入Spring Boot依赖
 
    ```xml
-   <dependency> 
+   <dependency>
      <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-web</artifactId> 
+     <artifactId>spring-boot-starter-web</artifactId>
    </dependency>
-   <dependency> 
+   <dependency>
      <groupId>org.springframework.boot</groupId>
-     <artifactId>spring-boot-starter-actuator</artifactId> 
+     <artifactId>spring-boot-starter-actuator</artifactId>
    </dependency>
    ```
 
