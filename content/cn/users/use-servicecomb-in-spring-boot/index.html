@@ -664,6 +664,8 @@
 
 <p>使用SpringBoot/Cloud开发应用，在原有应用的基础上按照以下步骤进行操作，即可对接ServiceComb的SDK各组件：</p>
 
+<p>注意： 如果使用Java Chassis 0.5.0 以及以前的版本的，请使用io.servicecomb 作为依赖的groupId。</p>
+
 <ul>
   <li>
     <p><strong>步骤 1</strong> 在pom中添加依赖管理dependencyManagement：</p>
@@ -671,9 +673,9 @@
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependencyManagement&gt;</span>
    <span class="nt">&lt;dependencies&gt;</span>
      <span class="nt">&lt;dependency&gt;</span>
-       <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
        <span class="nt">&lt;artifactId&gt;</span>java-chassis-dependencies<span class="nt">&lt;/artifactId&gt;</span>
-       <span class="nt">&lt;version&gt;</span>0.1.0<span class="nt">&lt;/version&gt;</span>
+       <span class="nt">&lt;version&gt;</span>1.0.0-m1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
        <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
        <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
      <span class="nt">&lt;/dependency&gt;</span>
@@ -687,17 +689,17 @@
 
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
    <span class="c">&lt;!--让服务运行于微服务sdk容器中--&gt;</span>
-   <span class="nt">&lt;group&gt;</span>io.servicecomb<span class="nt">&lt;/group&gt;</span>
+   <span class="nt">&lt;group&gt;</span>org.apache.servicecomb<span class="nt">&lt;/group&gt;</span>
    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
  <span class="nt">&lt;dependency&gt;</span>
    <span class="c">&lt;!--使用服务中心--&gt;</span>
-   <span class="nt">&lt;group&gt;</span>io.servicecomb<span class="nt">&lt;/group&gt;</span>
+   <span class="nt">&lt;group&gt;</span>org.apache.servicecomb<span class="nt">&lt;/group&gt;</span>
    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-discovery<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
  <span class="nt">&lt;dependency&gt;</span>
    <span class="c">&lt;!--让服务运行于Spring boot embedded tomcat中--&gt;</span>
-   <span class="nt">&lt;group&gt;</span>io.servicecomb<span class="nt">&lt;/group&gt;</span>
+   <span class="nt">&lt;group&gt;</span>org.apache.servicecomb<span class="nt">&lt;/group&gt;</span>
    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-transport<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
  <span class="nt">&lt;dependency&gt;</span>
@@ -739,7 +741,7 @@
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
    <span class="o">&lt;!--</span><span class="err">使用服务中心</span><span class="o">--&gt;</span>
-   <span class="o">&lt;</span><span class="n">group</span><span class="o">&gt;</span><span class="n">io</span><span class="o">.</span><span class="na">servicecomb</span><span class="o">&lt;/</span><span class="n">group</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="n">group</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">servicecomb</span><span class="o">&lt;/</span><span class="n">group</span><span class="o">&gt;</span>
    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">boot</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">discovery</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
  <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
 </code></pre>
@@ -805,12 +807,12 @@
   <li>
     <p><strong>步骤 1</strong> 在工程pom文件添加&lt;dependencyManagement&gt;节点：</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependencyManagement&gt;</span> 
-   <span class="nt">&lt;dependencies&gt;</span> 
-     <span class="nt">&lt;dependency&gt;</span> 
-       <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependencyManagement&gt;</span>
+   <span class="nt">&lt;dependencies&gt;</span>
+     <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
        <span class="nt">&lt;artifactId&gt;</span>java-chassis-dependencies<span class="nt">&lt;/artifactId&gt;</span>
-       <span class="nt">&lt;version&gt;</span>0.1.0<span class="nt">&lt;/version&gt;</span>
+       <span class="nt">&lt;version&gt;</span>1.0.0-m1-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
        <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
        <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
      <span class="nt">&lt;/dependency&gt;</span>
@@ -824,22 +826,22 @@
 
     <p>引入ServiceComb提供的Spring Boot依赖</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span> 
-   <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span> 
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
     </div>
 
     <p>引入Spring Boot依赖</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span> 
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span> 
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
- <span class="nt">&lt;dependency&gt;</span> 
+ <span class="nt">&lt;dependency&gt;</span>
    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span> 
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
     </div>

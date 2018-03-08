@@ -647,6 +647,8 @@
 
 <p>Use Spring Boot or Spring Cloud to develop applications and perform the following steps based on the original application to interconnect with the SDK components of ServiceComb.</p>
 
+<p>NOTE， If your java chassis version is or below 0.5.0, please use the io.servicecomb as the groupId.</p>
+
 <ul>
   <li>
     <p><strong>Step 1</strong> Add dependencyManagement to teh POM file:</p>
@@ -654,9 +656,9 @@
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependencyManagement&gt;</span>
    <span class="nt">&lt;dependencies&gt;</span>
      <span class="nt">&lt;dependency&gt;</span>
-       <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
        <span class="nt">&lt;artifactId&gt;</span>java-chassis-dependencies<span class="nt">&lt;/artifactId&gt;</span>
-       <span class="nt">&lt;version&gt;</span>0.1.0<span class="nt">&lt;/version&gt;</span>
+       <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
        <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
        <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
      <span class="nt">&lt;/dependency&gt;</span>
@@ -670,17 +672,17 @@
 
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
    <span class="c">&lt;!--let services run in the microservice SDK container.--&gt;</span>
-   <span class="nt">&lt;group&gt;</span>io.servicecomb<span class="nt">&lt;/group&gt;</span>
+   <span class="nt">&lt;group&gt;</span>org.apache.servicecomb<span class="nt">&lt;/group&gt;</span>
    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
  <span class="nt">&lt;dependency&gt;</span>
    <span class="c">&lt;!--Use Service Center.--&gt;</span>
-   <span class="nt">&lt;group&gt;</span>io.servicecomb<span class="nt">&lt;/group&gt;</span>
+   <span class="nt">&lt;group&gt;</span>org.apache.servicecomb<span class="nt">&lt;/group&gt;</span>
    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-discovery<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
  <span class="nt">&lt;dependency&gt;</span>
    <span class="c">&lt;!--Let Servieces run in Spring boot embedded tomcat--&gt;</span>
-   <span class="nt">&lt;group&gt;</span>io.servicecomb<span class="nt">&lt;/group&gt;</span>
+   <span class="nt">&lt;group&gt;</span>org.apache.servicecomb<span class="nt">&lt;/group&gt;</span>
    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-transport<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
  <span class="nt">&lt;dependency&gt;</span>
@@ -722,7 +724,7 @@
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
    <span class="o">&lt;!--</span><span class="n">Use</span> <span class="n">the</span> <span class="n">configuration</span> <span class="n">center</span><span class="o">--&gt;</span>
-   <span class="o">&lt;</span><span class="n">group</span><span class="o">&gt;</span><span class="n">io</span><span class="o">.</span><span class="na">servicecomb</span><span class="o">&lt;/</span><span class="n">group</span><span class="o">&gt;</span>
+   <span class="o">&lt;</span><span class="n">group</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">servicecomb</span><span class="o">&lt;/</span><span class="n">group</span><span class="o">&gt;</span>
    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">boot</span><span class="o">-</span><span class="n">starter</span><span class="o">-</span><span class="n">discovery</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
  <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
 </code></pre>
@@ -786,12 +788,12 @@
   <li>
     <p><strong>Step 1</strong> Add the dependency Management node to the POM file.</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependencyManagement&gt;</span> 
-   <span class="nt">&lt;dependencies&gt;</span> 
-     <span class="nt">&lt;dependency&gt;</span> 
-       <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependencyManagement&gt;</span>
+   <span class="nt">&lt;dependencies&gt;</span>
+     <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
        <span class="nt">&lt;artifactId&gt;</span>java-chassis-dependencies<span class="nt">&lt;/artifactId&gt;</span>
-       <span class="nt">&lt;version&gt;</span>0.1.0<span class="nt">&lt;/version&gt;</span>
+       <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
        <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
        <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
      <span class="nt">&lt;/dependency&gt;</span>
@@ -805,20 +807,20 @@
 
     <p>Import Spring Boot dependency provided by ServiceComb</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span> 
-   <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span> 
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+   <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
     </div>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span> 
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span> 
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
- <span class="nt">&lt;dependency&gt;</span> 
+ <span class="nt">&lt;dependency&gt;</span>
    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span> 
+   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
     </div>
