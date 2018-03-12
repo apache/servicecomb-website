@@ -76,6 +76,8 @@ redirect_from:
        refreshInterval: 10
    ```
 ​	`apollo.config`下的配置项是用户创建的应用参数，包括服务地址，用户名，集群，namespace，token等参数。这些参数可以在配置中心页面项目信息栏中查到。需要注意的是`refreshInterval: 10`表示应用会每隔10秒去配置中心查询一次最新的配置信息，不配置此项默认刷新周期为30秒。
+  
+  `serviceName`对应Apollo中的第三发应用ID: `AppId`.
 
 ### 获取动态属性
 
