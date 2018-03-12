@@ -75,7 +75,8 @@ Visit `http://192.168.199.1:8070/open/manage.html` and fill in application ID an
        token: testtoken
        refreshInterval: 10
    ```
-​	Configurations under `apollo.config` are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to `refreshInterval: 10`, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here.
+​	Configurations under `apollo.config` are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to `refreshInterval: 10`, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here. 
+  `serviceName` need to be `AppId` in apollo, please pay attention to that.
 
 ### Get configurations
 
