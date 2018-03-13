@@ -24,7 +24,7 @@ Apollo services can be easily deployed and started step by step following its [o
    git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
    cd apollo-image-for-servicecomb && docker-compose up
    ```
-When your console shows `Portal started. You can visit http://localhost:8070 now!` , it means the service is started and ready for use. Visit Apollo configuration pages at `http://localhost:8070` in a browser. Please refer to [Docker document](https://docs.docker.com/compose/install/) about `docker-compose`.
+When your console shows `Portal started. You can visit http://localhost:8070 now!` , it means the service is started and ready for use(It could take serval minutes which depends on machines). Visit Apollo configuration pages at `http://localhost:8070` in a browser. Please refer to [Docker document](https://docs.docker.com/compose/install/) about `docker-compose`.
 
 ### Configure services and get a token
 
