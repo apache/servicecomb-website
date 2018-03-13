@@ -620,7 +620,7 @@
    <span class="nb">cd </span>apollo-image-for-servicecomb <span class="o">&amp;&amp;</span> docker-compose up
 </code></pre>
 </div>
-<p>When your console shows <code class="highlighter-rouge">Portal started. You can visit http://localhost:8070 now!</code> , it means the service is started and ready for use. Visit Apollo configuration pages at <code class="highlighter-rouge">http://localhost:8070</code> in a browser. Please refer to <a href="https://docs.docker.com/compose/install/">Docker document</a> about <code class="highlighter-rouge">docker-compose</code>.</p>
+<p>When your console shows <code class="highlighter-rouge">Portal started. You can visit http://localhost:8070 now!</code> , it means the service is started and ready for use(It could take serval minutes which depends on machines). Visit Apollo configuration pages at <code class="highlighter-rouge">http://localhost:8070</code> in a browser. Please refer to <a href="https://docs.docker.com/compose/install/">Docker document</a> about <code class="highlighter-rouge">docker-compose</code>.</p>
 
 <h3 id="configure-services-and-get-a-token">Configure services and get a token</h3>
 
@@ -662,22 +662,14 @@
 <h3 id="add-dependency-in-pomxml">Add dependency in pom.xml</h3>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-          <span class="nt">&lt;groupId&gt;</span>com.netflix.archaius<span class="nt">&lt;/groupId&gt;</span>
-          <span class="nt">&lt;artifactId&gt;</span>archaius-core<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>   
-    <span class="nt">&lt;dependency&gt;</span>
-          <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+          <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
           <span class="nt">&lt;artifactId&gt;</span>config-apollo<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
 </div>
 <h3 id="add-configurations-in-microserviceyaml">Add configurations in microservice.yaml</h3>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>   <span class="s">cse</span><span class="pi">:</span>
-     <span class="s">config</span><span class="pi">:</span>
-       <span class="s">client</span><span class="pi">:</span>
-       <span class="s">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span>
-   <span class="s">apollo</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>   <span class="s">apollo</span><span class="pi">:</span>
      <span class="s">config</span><span class="pi">:</span>
        <span class="s">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span>
        <span class="s">serviceName</span><span class="pi">:</span> <span class="s">SampleApp</span>
@@ -688,7 +680,8 @@
        <span class="s">refreshInterval</span><span class="pi">:</span> <span class="s">10</span>
 </code></pre>
 </div>
-<p>​	Configuration <code class="highlighter-rouge">cse.config.client.serverUri</code> is the portal address of Apollo configuration center just the same as <code class="highlighter-rouge">apollo.config.serverUri</code>. Configurations under <code class="highlighter-rouge">apollo.config</code> are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to <code class="highlighter-rouge">refreshInterval: 10</code>, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here.</p>
+<p>​	Configurations under <code class="highlighter-rouge">apollo.config</code> are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to <code class="highlighter-rouge">refreshInterval: 10</code>, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here. 
+  <code class="highlighter-rouge">serviceName</code> need to be <code class="highlighter-rouge">AppId</code> in apollo, please pay attention to that.</p>
 
 <h3 id="get-configurations">Get configurations</h3>
 
