@@ -24,7 +24,7 @@ redirect_from:
    git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
    cd apollo-image-for-servicecomb && docker-compose up
    ```
-等待出现 `Portal started. You can visit http://localhost:8070 now!` 后表示系统启动完成，可以在浏览器中访问`http://localhost:8070`进入配置中心页面。 `docker-compose`安装请参考[文档](https://docs.docker.com/compose/install/)。
+等待出现 `Portal started. You can visit http://localhost:8070 now!` 后表示系统启动完成（启动时间基于机器性能可能需要1-3分钟），可以在浏览器中访问`http://localhost:8070`进入配置中心页面。 `docker-compose`安装请参考[文档](https://docs.docker.com/compose/install/)。
 
 ### 通过Apollo界面配置应用获取TOKEN
 
