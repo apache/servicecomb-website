@@ -1,9 +1,9 @@
 ---
-title: "1.0.0-m1版本中的监控如何集成普罗米修斯"
+title: "1.0.0-m1版本中的监控如何集成prometheus"
 lang: cn
 ref: metrics
 permalink: /cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/
-excerpt: "1.0.0-m1版本中的监控如何集成普罗米修斯"
+excerpt: "1.0.0-m1版本中的监控如何集成prometheus"
 last_modified_at: 2018-1-2T10:01:43-04:00
 redirect_from:
   - /theme-setup/
@@ -13,7 +13,7 @@ redirect_from:
 微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，请通过查看用户手册和[Release Note](https://github.com/apache/incubator-servicecomb-java-chassis/releases)获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)参与讨论。
 
 ## 背景
-[普罗米修斯](http://www.prometheus.io/)是相似于Google Borgmon的一个开源监控系统，也是[CNCF](https://www.cncf.io/)的成员之一，目前社区非常活跃，Java Chassis Metrics在1.0.0-m1中支持对接普罗米修斯，并进一步实现使用[Grafana](https://grafana.com/)查询Metrics数据。
+[prometheus](http://www.prometheus.io/)是相似于Google Borgmon的一个开源监控系统，也是[CNCF](https://www.cncf.io/)的成员之一，目前社区非常活跃，Java Chassis Metrics在1.0.0-m1中支持对接prometheus，并进一步实现使用[Grafana](https://grafana.com/)查询Metrics数据。
 
 ## 对接原理
 由于Java Chassis由Java语言开发，我们使用[prometheus java client](https://github.com/prometheus/client_java)中的Simple Client作为对接SDK，版本为0.1.0。  
@@ -82,7 +82,7 @@ servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_count 0.
 我们可以看到在Prometheus的Metric命名统一使用下划线代替了点，因为需要遵守它的[命名规则](https://prometheus.io/docs/practices/naming/)。
 
 ## 如何配置
-开启对接普罗米修斯非常简单：
+开启对接prometheus非常简单：
 ### 全局配置
 microservice.yaml中有如下配置项：  
 ```yaml 
