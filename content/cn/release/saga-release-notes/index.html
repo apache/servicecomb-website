@@ -1,0 +1,620 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Release Notes - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="Release Notes">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="Release Notes">
+
+
+  <link rel="canonical" href="http://localhost:4000/cn/release/saga-release-notes/">
+  <meta property="og:url" content="http://localhost:4000/cn/release/saga-release-notes/">
+
+
+
+  <meta property="og:description" content="Release Notes">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Release Notes">
+  <meta name="twitter:description" content="Release Notes">
+  <meta name="twitter:url" content="http://localhost:4000/cn/release/saga-release-notes/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="http://localhost:4000/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+<link rel="stylesheet" href="http://localhost:4000/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="http://localhost:4000/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="http://localhost:4000/cn"><img src="http://localhost:4000//assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="http://localhost:4000/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="http://localhost:4000/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="http://localhost:4000/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="http://localhost:4000/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="http://localhost:4000/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="http://localhost:4000/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/release/saga-release-notes/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Service-Center</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/release/sc-release-notes/" class="">发布说明</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/release/sc-binary/" class="">发布包</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Java-Chassis</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/release/java-chassis-release-notes/" class="">发布说明</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/release/java-chassis-binary/" class="">发布包</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Saga</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/release/saga-release-notes/" class="active">发布说明</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/release/saga-binary/" class="">发布包</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Release Notes">
+    <meta itemprop="description" content="Release Notes">
+    
+    <meta itemprop="dateModified" content="March 28, 2018">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Release Notes
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <div class="highlighter-rouge"><pre class="highlight"><code>    Release Notes - Apache ServiceComb - Version saga-0.1.0
+</code></pre>
+</div>
+
+<h2>        Sub-task
+</h2>
+<ul>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-237">SCB-237</a>] -         [pack] acceptance tests of success scenarios
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-278">SCB-278</a>] -         [pack] acceptance test of transaction failure and successful compensation scenario
+</li>
+</ul>
+
+<h2>        Bug
+</h2>
+<ul>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-130">SCB-130</a>] -         Update the Git PR template
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-323">SCB-323</a>] -         inconsistent port in saga demo
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-404">SCB-404</a>] -         The base folder name is the same for source and binary release
+</li>
+</ul>
+
+<h2>        New Feature
+</h2>
+<ul>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-95">SCB-95</a>] -         [pack] able to link sub-transactions as a single global transaction
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-96">SCB-96</a>] -         [pack] intercept sub-transaction commits
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-97">SCB-97</a>] -         [pack] update alpha about transaction state
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-98">SCB-98</a>] -         [pack] send compensate context from alpha to omegas
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-99">SCB-99</a>] -         [pack] compensate on transaction failure
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-100">SCB-100</a>] -         [pack] async transaction support
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-101">SCB-101</a>] -         [pack] design doc
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-138">SCB-138</a>] -         [pack] omega&#39;s callback about transaction state
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-151">SCB-151</a>] -         [pack] pack usage demo
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-152">SCB-152</a>] -         [pack] update alpha on compensation completed
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-212">SCB-212</a>] -         [pack] sub-transaction timeout support
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-227">SCB-227</a>] -         [pack] stop sub transaction from running when global tx failed
+</li>
+</ul>
+
+<h2>        Improvement
+</h2>
+<ul>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-140">SCB-140</a>] -         [pack] do not compensate duplicate transaction events
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-141">SCB-141</a>] -         [pack] support multiple sub transaction in a single service
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-149">SCB-149</a>] -         [pack] service/instance aware omega callback
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-164">SCB-164</a>] -         [pack] alpha connection recovery on crash
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-167">SCB-167</a>] -         [pack] inform alpha about omega id on connection
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-168">SCB-168</a>] -         [pack] resend events on connection loss &amp; load balance
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-169">SCB-169</a>] -         [pack] omega get notified whether events are sent successfully or not
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-173">SCB-173</a>] -         [pack] mark start of saga
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-174">SCB-174</a>] -         [pack] object serialization/deserialization
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-183">SCB-183</a>] -         [pack] omega callback cleanup on connection loss
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-211">SCB-211</a>] -         [pack] exponential backoff resending event on cluster down or network down
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-213">SCB-213</a>] -         [pack] proper timing to send out SagaEndedEvent on asynchronous compensation
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-218">SCB-218</a>] -         [pack] stateless alpha
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-220">SCB-220</a>] -         [pack] duplicate abort event filter to avoid redundant compensation
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-228">SCB-228</a>] -         Update to replace the type of TxEvent with Enum
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-232">SCB-232</a>] -         EventType should be same between omega and alpha
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-233">SCB-233</a>] -         Don&#39;t deploy if building with the PR
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-234">SCB-234</a>] -         [pack] fail fast if alpha cluster down
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-238">SCB-238</a>] -         Remove third-party dependencies which violates apache licensing policy
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-239">SCB-239</a>] -         [pack] omega recovery
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-243">SCB-243</a>] -         [pack] support to intercept java chassis
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-270">SCB-270</a>] -         [pack] in order compensation
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-305">SCB-305</a>] -         [pack] postIntercept should throw the exception when the timeout happens
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-330">SCB-330</a>] -         [pack] update documents of saga pack
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-395">SCB-395</a>] -         Add How to build into README file
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-400">SCB-400</a>] -         Add guides to run demo without docker compose 
+</li>
+</ul>
+
+<h2>        Task
+</h2>
+<ul>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-104">SCB-104</a>] -         simplify transport rest template implementation
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-122">SCB-122</a>] -         Add incubating note to website
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-123">SCB-123</a>] -         Add DISLAIMER to the ServiceComb git repo
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-154">SCB-154</a>] -         Update the package  org.apache.servicecomb
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-157">SCB-157</a>] -         Update the release setting of pom
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-193">SCB-193</a>] -         Generated the Licenses,Notice and DISCLAIMER files when building the artifact
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-231">SCB-231</a>] -         Only publish the snapshot in master branch
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-249">SCB-249</a>] -         [pack] replace hibernate with other ORM tech to avoid license issue
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-260">SCB-260</a>] -         Prepare LICENSE/NOTICE files for releasing
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-344">SCB-344</a>] -         [pack] use mysql as alpha&#39;s backend database
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-346">SCB-346</a>] -         Create the distribution kit for Saga
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-363">SCB-363</a>] -         Remove legacy code from Saga
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-378">SCB-378</a>] -         Add readme for samples so that users can run the samples code by just reading the readme doc
+</li>
+<li>[<a href="https://issues.apache.org/jira/browse/SCB-380">SCB-380</a>] -         Add incubating to file name the release kit
+</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _release/cn/saga_releaseNotes.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_release/cn/saga_releaseNotes.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="http://localhost:4000/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>
