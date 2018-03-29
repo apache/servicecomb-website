@@ -10,9 +10,9 @@ excerpt: 'ServiceComb is a microservice framework with full functionality of ser
 
 <div class="excerpt-label">Latest release:</div>
 <div class="button-group">
-<a href="https://github.com/apache/incubator-servicecomb-java-chassis/releases/tag/0.5.0" class="home-button btn--info">Java SDK v0.5.0</a>
-<a href="https://github.com/apache/incubator-servicecomb-service-center/releases/tag/0.5.0" class="home-button btn--info">Service Center v0.5.0</a>
-<a href="https://github.com/apache/incubator-servicecomb-saga/releases/tag/saga-0.0.2" class="home-button btn--info">Saga v0.0.2</a>
+<a href="https://github.com/apache/incubator-servicecomb-java-chassis/releases/tag/0.5.0/" class="home-button btn--info">Java SDK v0.5.0</a>
+<a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/" class="home-button btn--info">Service Center v1.0.0-m1</a>
+<a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/" class="home-button btn--info">Saga v0.1.0</a>
 </div>'
 
 intro:
@@ -22,9 +22,6 @@ intro:
 <ul>
   <li>
     <a href='/docs/quick-start-dataconsistency/'>ServiceComb now provides data consistency solutions(Saga) in microservice application.</a>
-  </li>
-  <li class='line-end'>
-    <a href='/docs/linuxcon-workshop-demo/'>In the recent LinuxCon Beijing 2017 conference, ServiceComb organized a workshop to demonstrate how to build a cloud application using ServiceComb.</a>
   </li>
 </ul>"
 
