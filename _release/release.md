@@ -14,8 +14,6 @@ Only current recommended releases are available on the main distribution site an
 
 **Stable Release - Latest Version:**
 
-* [Service-Center 1.0.0-m1](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/){:target="_blank"} (released on 2018-03-17)
+* [Service-Center 1.0.0-m1](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/){:target="_blank"} (released on 2018-03-27)
 
-* [Saga 0.1.0](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/){:target="_blank"} (released on 2018-03-17)
-
-Note : You can also choose the alternative mirrors for download from [here](https://www.apache.org/mirrors/){:target="_blank"}
+* [Saga 0.1.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/){:target="_blank"} (released on 2018-03-27)
