@@ -9,4 +9,4 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 
 ## Releases
 
-* Java-Chassis 1.0.0-m1 (Coming Soon)
+* Apache ServiceComb (incubating) Java-Chassis 1.0.0-m1 (Coming Soon)
