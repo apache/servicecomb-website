@@ -24,9 +24,6 @@ intro:
   <li>
     <a href='/cn/docs/quick-start-dataconsistency/'>号外： 现在ServiceComb提供了微服务场景下的数据一致性解决方案Saga！</a>
   </li>
-  <li class='line-end'>
-    <a href='/cn/docs/linuxcon-workshop-demo/'>在新近结束的LinuxCon Beijing 2017大会上，ServiceComb举办了一次 workshop向大家展示如何使用ServiceComb构建一个云化应用。</a>
-  </li>
 </ul>"
 
 feature_row:
