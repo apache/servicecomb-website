@@ -2,7 +2,7 @@
 title: "ServiceComb Service-Center Binaries"
 lang: en
 ref: release
-permalink: /release/sc-binary/
+permalink: /release/sc-downloads/
 excerpt: "ServiceComb Service-Center Binaries"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
