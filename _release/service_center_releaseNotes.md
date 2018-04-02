@@ -2,7 +2,7 @@
 title: "Release Notes"
 lang: en
 ref: release
-permalink: /release/sc-release-notes/
+permalink: /release/service-center-release-notes/
 excerpt: "Release Notes"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
