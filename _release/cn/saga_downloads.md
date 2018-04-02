@@ -1,9 +1,9 @@
 ---
-title: "ServiceComb Saga Binaries"
+title: "ServiceComb Saga Downloads"
 lang: cn
 ref: release
 permalink: /cn/release/saga-downloads/
-excerpt: "ServiceComb Saga Binaries"
+excerpt: "ServiceComb Saga Downloads"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
 

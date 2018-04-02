@@ -1,9 +1,9 @@
 ---
-title: "ServiceComb Service-Center Binaries"
+title: "ServiceComb Service-Center Downloads"
 lang: cn
 ref: release
 permalink: /cn/release/sc-downloads/
-excerpt: "ServiceComb Service-Center Binaries"
+excerpt: "ServiceComb Service-Center Downloads"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
 
