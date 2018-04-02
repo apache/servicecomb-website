@@ -24,6 +24,9 @@ intro:
   <li>
     <a href='/cn/docs/quick-start-dataconsistency/'>号外： 现在ServiceComb提供了微服务场景下的数据一致性解决方案Saga！</a>
   </li>
+  <li>
+    <a href='/release/'>ServiceComb announces it's first Apache Incubating Release to the community.</a>
+  </li>
 </ul>"
 
 feature_row:
