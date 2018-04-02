@@ -11,7 +11,7 @@ excerpt: 'ServiceComb提供了一套包含代码框架生成，服务注册发�
 
 <div class="excerpt-label">最新发布版本：</div>
 <div class="button-group">
-<a href="https://github.com/apache/incubator-servicecomb-java-chassis/releases/tag/0.5.0" class="home-button btn--info">Java 开发包 v0.5.0</a>
+<a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/" class="home-button btn--info">Java SDK v1.0.0-m1</a>
 <a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/" class="home-button btn--info">服务中心v1.0.0-m1</a>
 <a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/" class="home-button btn--info">Saga v0.1.0</a>
 </div>'

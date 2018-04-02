@@ -10,7 +10,7 @@ excerpt: 'ServiceComb is a microservice framework with full functionality of ser
 
 <div class="excerpt-label">Latest release:</div>
 <div class="button-group">
-<a href="https://github.com/apache/incubator-servicecomb-java-chassis/releases/tag/0.5.0/" class="home-button btn--info">Java SDK v0.5.0</a>
+<a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/" class="home-button btn--info">Java SDK v1.0.0-m1</a>
 <a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/" class="home-button btn--info">Service Center v1.0.0-m1</a>
 <a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/" class="home-button btn--info">Saga v0.1.0</a>
 </div>'
