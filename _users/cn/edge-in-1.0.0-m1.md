@@ -49,7 +49,23 @@ Edge Service转发Operation1的请求将允许1.0.0版本和1.1.0版本的微服
 Dispatcher向Vertx注入路由规则时的优先顺序，值越小优先级越高。
 
 #### init方法
-初始化Dispatcher的路由规则，使用的是[Vertx路由规则](https://vertx.io/docs/vertx-web/java/#_routing_by_exact_path)
+初始化Dispatcher的路由规则，使用的是[Vertx路由规则](https://vertx.io/docs/vertx-web/java/#_routing_by_exact_path)，例如我们添加两条匹配策略：
+```java
+public void init(Router router) {
+  String regex = "/([^\\\\/]+)/([^\\\\/]+)/(.*)";
+  router.routeWithRegex(regex).handler(CookieHandler.create());
+  router.routeWithRegex(regex).handler(createBodyHandler());
+  router.routeWithRegex(regex).failureHandler(this::onFailure).handler(this::onRequest);
+
+  regex = "/([^\\\\/]+)/(.*)";
+  router.routeWithRegex(regex).handler(CookieHandler.create());
+  router.routeWithRegex(regex).handler(createBodyHandler());
+  router.routeWithRegex(regex).failureHandler(this::onFailure).handler(this::onRequest);
+}
+```
+
+1. /([^\\/]+)/([^\\/]+)/(.*) : 这条策略我们希望匹配带版本的微服务请求，例如/user-service/v0/validate；
+2. /([^\\/]+)/(.*) : 这条策略用于匹配不带版本的微服务请求，例如/user-service/validate。
 
 #### onRequest方法
 转发策略，方法原型为：
