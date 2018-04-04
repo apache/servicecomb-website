@@ -81,6 +81,8 @@ Metrics had many classifications,we can divided them into two major types by how
   If get value of this type,the result returned is the last 'Step Cycle' counted.in Servo,this time called ['Polling Intervals'](https://github.com/Netflix/servo/wiki/Getting-Started).
   From 1.0.0-m1,can set **servicecomb.metrics.window_time** in microservice.yaml,it has same effect as set **servo.pollers**.   
 
+**Notice: Servo had marked with DEPRECATED by Netflix, we will use Netflix spectator instead in 1.0.0-m2, no need to set the window_time any more**
+
 ## Metrics ID Format
 From 1.0.0-m1,build-in two type Metric output:   
 ### JVM Information
@@ -169,6 +171,8 @@ MonitorManager manager = MonitorManager.getInstance();
 Map<String, Double> metrics = manager.measure();
 ```
 
+**Notice: Servo had marked with DEPRECATED by Netflix, we will use Netflix spectator instead in 1.0.0-m2, publish interface will be adjusted**
+
 ## How to Use Metrics Data
 Metrics data will output as Map<String,Double>,in order to let user easier fetch certain metric value,we provide org.apache.servicecomb.foundation.metrics.publish.MetricsLoader tool class:
 ```java
@@ -230,7 +234,7 @@ public class OrderController {
     //process order logic
     //...
     //process finished
-    long totalTime = System.nanoTime() - startTime；
+    long totalTime = System.nanoTime() - startTime;
 
     //increase order count
     this.orderCount.increment();
@@ -272,7 +276,9 @@ Map<String,Double> metrics = MonitorManager.getInstance().measure();
 ```
 **Performance of get monitor from MonitorManager is slightly lower,so please get all monitors what needed when init,then cache them for later use,like OrderController example.**
 
+**Notice: Servo had marked with DEPRECATED by Netflix, we will use Netflix spectator instead in 1.0.0-m2, the way of extending custom metrics will be adjusted**
+
 ## Other Reference 
 We had developed two use case for reference:  
-1. metrics-wirte-file:ouput metrics data into files,code is at samples\metrics-write-file-sample;  
+1. demo/perf:print Metrics in Console;  
 2. metrics-prometheus:integration with prometheus,publish metrics as prometheus producer.

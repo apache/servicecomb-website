@@ -81,6 +81,8 @@ Metrics有很多种分类方式，在技术实现上我们偏向以取值方式�
   获取此类Metrics的值，返回的是上一个周期的统计结果，具有一定的延后性。在Servo中，这个时间被称为[“Polling Intervals”](https://github.com/Netflix/servo/wiki/Getting-Started)。    
   从1.0.0-m1开始，可以通过microservice.yaml中的servicecomb.metrics.window_time配置设置周期，效果与servo.pollers一致。  
 
+**提示：Servo已经被Netflix标记为DEPRECATED，我们将在1.0.0-m2中使用Netflix spectator替换，将不需要设置周期**
+
 ## Metrics数据ID格式
 Java Chassis Metrics内置两种类型的Metric输出：
 ### JVM信息
@@ -168,6 +170,8 @@ cse:
 MonitorManager manager = MonitorManager.getInstance();
 Map<String, Double> metrics = manager.measure();
 ```
+
+**提示：Servo已经被Netflix标记为DEPRECATED，我们将在1.0.0-m2中使用Netflix spectator替换，获取数据的接口会有调整**
 
 ## 如何使用数据
 Metrics数据将以Map<String, Double>的形式输出，为了能够方便用户获取指定Metric的值，提供了org.apache.servicecomb.foundation.metrics.publish.MetricsLoader工具类：
@@ -273,7 +277,9 @@ Map<String,Double> metrics = MonitorManager.getInstance().measure();
 ```
 **获取Monitor的方法性能较低，请在初始化阶段一次获取所需的Monitor，然后将它们缓存起来，请参照前面OrderController的做法。**
 
+**提示：Servo已经被Netflix标记为DEPRECATED，我们将在1.0.0-m2中使用Netflix spectator替换，扩展自定义Metrics的方式会有调整**
+
 ## 参考示例
 我们已经开发完成了两个使用场景可以作为参考：  
-1. metrics-wirte-file：将Metrics数据写入文件，代码在samples\metrics-write-file-sample中；  
+1. demo/perf：在Console里打印Metrics；
 2. metrics-prometheus：将Metrics发布为prometheus Producer。  
