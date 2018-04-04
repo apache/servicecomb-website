@@ -253,7 +253,7 @@ public class OrderController {
 
 注意事项： 
  
-1. 通过MonitorManager获取Monitor传递name和tag数组，最终输出的ID是它们连接后的字符串，所以请保持唯一性，上面的例子输出的Metrics为：
+1.通过MonitorManager获取Monitor传递name和tag数组，最终输出的ID是它们连接后的字符串，所以请保持唯一性，上面的例子输出的Metrics为：
 
 ```java
 Map<String,Double> metrics = MonitorManager.getInstance().measure();
@@ -265,7 +265,7 @@ Map<String,Double> metrics = MonitorManager.getInstance().measure();
 //	生成订单(统计项=最大生成时间,单位=MILLISECONDS)
 ```
 
-2. MonitorManager获取Monitor的方法均为**获取或创建**，因此多次传递相同的name和tag数组返回的是同一个计数器：
+2.MonitorManager获取Monitor的方法均为**获取或创建**，因此多次传递相同的name和tag数组返回的是同一个计数器：
 
 ```java
 Counter counter1 = MonitorManager.getInstance().getCounter("订单数量", "商品名", "levis jeans", "型号", "512");
