@@ -89,3 +89,12 @@ Edge Service使用SPI机制加载用户自定义的VertxHttpDispatcher，我们�
 
 ### 扩展Handler（可选）
 由于Edge Service需要承载统一认证、集中监控等功能，我们推荐扩展Handler的方式实现，在demo-edge中的edge-service中有AuthHandler的示例。
+
+## 参考示例
+我们在Java Chassis源代码的demo/demo-edge中完整展示了如何实现Edge Service并验证它的能力：
+1. edge-service微服务：Edge Service，包含AuthHandler；
+2. authentication微服务：模拟认证微服务,处理AuthHandler的请求；
+3. business-x.x.x微服务：模拟不同版本的业务微服务，Edge Service会将请求转发给它们；
+4. consumer：模拟前端（用户）调用Edge Service，包含了指定版本的验证。
+
+
