@@ -25,7 +25,7 @@ Before we start, we need to add some common dependencies in the parent project o
       <dependency>
         <groupId>org.apache.servicecomb</groupId>
         <artifactId>java-chassis-dependencies</artifactId>
-        <version>0.6.0-SNAPSHOT</version>
+        <version>1.0.0-m1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>

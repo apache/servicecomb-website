@@ -25,7 +25,7 @@ last_modified_at: 2017-09-04T10:01:43-04:00
       <dependency>
         <groupId>org.apache.servicecomb</groupId>
         <artifactId>java-chassis-dependencies</artifactId>
-        <version>0.6.0-SNAPSHOT</version>
+        <version>1.0.0-m1</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
