@@ -19,12 +19,12 @@
 
 
 
-<title>本地开发与测试 - Apache ServiceComb (incubating)</title>
+<title>使用内置Edge模块实现边缘服务 - Apache ServiceComb (incubating)</title>
 
 
 
 
-<meta name="description" content="本地开发与测试">
+<meta name="description" content="使用内置Edge模块实现边缘服务">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="本地开发与测试">
+<meta property="og:title" content="使用内置Edge模块实现边缘服务">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/local-develop-test/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/local-develop-test/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/edge-in-1.0.0-m1/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/edge-in-1.0.0-m1/">
 
 
 
-  <meta property="og:description" content="本地开发与测试">
+  <meta property="og:description" content="使用内置Edge模块实现边缘服务">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="本地开发与测试">
-  <meta name="twitter:description" content="本地开发与测试">
+  <meta name="twitter:title" content="使用内置Edge模块实现边缘服务">
+  <meta name="twitter:description" content="使用内置Edge模块实现边缘服务">
   <meta name="twitter:url" content="">
 
   
@@ -221,7 +221,7 @@
           
             
             
-            <a href=/users/local-develop-test/>English</a>
+            <a href=/users/edge-in-1.0.0-m1/>English</a>
           
         </div>
       </nav>
@@ -434,7 +434,7 @@
             
             
 
-            <li><a href="/cn/users/local-develop-test/" class="active">本地开发与测试</a></li>
+            <li><a href="/cn/users/local-develop-test/" class="">本地开发与测试</a></li>
           
             
             
@@ -505,7 +505,7 @@
             
             
 
-            <li><a href="/cn/users/edge-in-1.0.0-m1/" class="">使用内置Edge模块实现边缘服务</a></li>
+            <li><a href="/cn/users/edge-in-1.0.0-m1/" class="active">使用内置Edge模块实现边缘服务</a></li>
           
         </ul>
         
@@ -605,16 +605,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="本地开发与测试">
-    <meta itemprop="description" content="本地开发与测试">
+    <meta itemprop="headline" content="使用内置Edge模块实现边缘服务">
+    <meta itemprop="description" content="使用内置Edge模块实现边缘服务">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="April 03, 2018">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">本地开发与测试
+            <h1 class="page__title" itemprop="headline">使用内置Edge模块实现边缘服务
 </h1>
             
           </header>
@@ -626,89 +626,121 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-  <li><a href="#启动本地服务中心" id="markdown-toc-启动本地服务中心">启动本地服务中心</a></li>
-  <li><a href="#mock机制启动服务中心" id="markdown-toc-mock机制启动服务中心">Mock机制启动服务中心</a></li>
+  <li><a href="#edge特性" id="markdown-toc-edge特性">Edge特性</a>    <ul>
+      <li><a href="#与微服务松耦合" id="markdown-toc-与微服务松耦合">与微服务松耦合</a></li>
+      <li><a href="#自动匹配版本" id="markdown-toc-自动匹配版本">自动匹配版本</a></li>
+      <li><a href="#支持consumer治理" id="markdown-toc-支持consumer治理">支持Consumer治理</a></li>
+      <li><a href="#默认使用reactive工作模式" id="markdown-toc-默认使用reactive工作模式">默认使用Reactive工作模式</a></li>
+    </ul>
+  </li>
+  <li><a href="#开发edge-service" id="markdown-toc-开发edge-service">开发Edge Service</a>    <ul>
+      <li><a href="#引入依赖" id="markdown-toc-引入依赖">引入依赖</a></li>
+      <li><a href="#开发dispatcher" id="markdown-toc-开发dispatcher">开发Dispatcher</a></li>
+      <li><a href="#加载dispatcher" id="markdown-toc-加载dispatcher">加载Dispatcher</a></li>
+      <li><a href="#扩展handler可选" id="markdown-toc-扩展handler可选">扩展Handler（可选）</a></li>
+    </ul>
+  </li>
+  <li><a href="#参考示例" id="markdown-toc-参考示例">参考示例</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="概念阐述">概念阐述</h2>
+<p>微服务框架从1.0.0-m1版本开始提供内置Edge模块，请通过查看用户手册和Release Note获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)参与讨论。</p>
 
-<p>本小节介绍如何在开发者本地进行消费者/提供者应用的开发调试。开发服务提供者请参考<a href="/cn/users/service-definition/">开发服务提供者章节</a>，开发服务消费者请参考<a href="/cn/users/develop-with-rest-template/">开发服务消费者章节</a>。服务提供者和消费提供者均需要连接到在远程的服务中心，为了本地微服务的开发和调试，本小节介绍了两种搭建本地服务中心的方法进行本地微服务调试：</p>
+<h2 id="edge特性">Edge特性</h2>
+<h3 id="与微服务松耦合">与微服务松耦合</h3>
+<p>Edge Service仅仅转发微服务请求，与目标微服务之间没有任何依赖关系。</p>
 
+<h3 id="自动匹配版本">自动匹配版本</h3>
+<p>默认情况下，Edge Service会自动匹配版本操作，例如微服务：</p>
 <ul>
-  <li>
-    <p><a href="#启动本地服务中心">启动本地服务中心</a>。</p>
-  </li>
-  <li>
-    <p><a href="#mock机制启动服务中心">通过local file模拟启动服务中心Mock机制</a>。</p>
-  </li>
+  <li>在1.0.0版本中提供了Operation1</li>
+  <li>在1.1.0版本中提供了Operation1和Operation2</li>
 </ul>
 
-<p>服务中心是微服务框架中的重要组件，用于服务元数据以及服务实例元数据的管理和处理注册、发现。服务中心与微服务提供/消费者的逻辑关系下图所示：</p>
+<p>Edge Service转发Operation1的请求将允许1.0.0版本和1.1.0版本的微服务实例，转发Operation2时，只会选择1.1.0版本的微服务实例。</p>
 
-<p><img src="/assets/images/local_develop_test.png" alt="" /></p>
+<h3 id="支持consumer治理">支持Consumer治理</h3>
+<p>支持所有Java Chassis Consumer治理Handler，也支持用户扩展Handler。</p>
 
-<h2 id="启动本地服务中心">启动本地服务中心</h2>
-
+<h3 id="默认使用reactive工作模式">默认使用Reactive工作模式</h3>
+<p>由于Edge Service转发所有API调用，对性能有较高要求，所以默认使用Reactive模式工作，请不要在转发流程代码中增加阻塞操作，例如：</p>
 <ul>
-  <li>
-    <p><strong>步骤1</strong> 启动本地服务中心，可参考<a href="/cn/users/setup-environment/#运行service-center">运行Service Center指南</a>。</p>
-  </li>
-  <li>
-    <p><strong>步骤 2</strong> 启动本地轻量服务中心后，在服务提供/消费者的microservice.yaml文件中配置ServerCenter的地址和端口，示例代码：</p>
+  <li>数据库查询、远程调用等；</li>
+  <li>sleep、wait等；</li>
+  <li>大循环或耗时操作等。</li>
+</ul>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">cse</span><span class="pi">:</span>
-   <span class="s">service</span><span class="pi">:</span>
-     <span class="s">registry</span><span class="pi">:</span>
-       <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#服务中心地址及端口</span>
+<h2 id="开发edge-service">开发Edge Service</h2>
+<h3 id="引入依赖">引入依赖</h3>
+<p>只需要引入edge-core依赖即可：</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>edge-core<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
-    </div>
-  </li>
-  <li>
-    <p><strong>步骤 3</strong> 开发服务提供/消费者，启动微服务进行本地测试。</p>
-  </li>
-</ul>
+</div>
 
-<h2 id="mock机制启动服务中心">Mock机制启动服务中心</h2>
+<h3 id="开发dispatcher">开发Dispatcher</h3>
+<p>要实现Edge Service转发功能，需要开发Dispatcher并继承接口org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher或org.apache.servicecomb.transport.rest.vertx.AbstractVertxHttpDispatcher，重写其中的三个方法：</p>
+<h4 id="getorder方法">getOrder方法</h4>
+<p>Dispatcher向Vertx注入路由规则时的优先顺序，值越小优先级越高。</p>
 
-<ul>
-  <li>
-    <p><strong>步骤 1</strong>新建本地服务中心定义文件registry.yaml，内容如下：</p>
+<h4 id="init方法">init方法</h4>
+<p>初始化Dispatcher的路由规则，使用的是<a href="https://vertx.io/docs/vertx-web/java/#_routing_by_exact_path">Vertx路由规则</a>，例如我们添加两条匹配策略：</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">Router</span> <span class="n">router</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">failureHandler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onFailure</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onRequest</span><span class="o">);</span>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">springmvctest</span><span class="pi">:</span>
-   <span class="pi">-</span> <span class="s">id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">001"</span>
-     <span class="s">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
-     <span class="s">appid</span><span class="pi">:</span> <span class="s">myapp</span> <span class="c1">#调试的服务id</span>
-     <span class="s">instances</span><span class="pi">:</span> 
-       <span class="s">endpoints</span><span class="pi">:</span>
-         <span class="s">rest://127.0.0.1:8080</span>
+  <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">failureHandler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onFailure</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onRequest</span><span class="o">);</span>
+<span class="o">}</span>
 </code></pre>
-    </div>
+</div>
 
-    <p>注意：mock机制需要自己准备契约，并且当前只支持在本地进行服务消费端(consumer)侧的调试，不支持服务提供者(provider)</p>
-  </li>
-  <li>
-    <p><strong>步骤 2</strong>在服务消费者Main函数首末添加如下代码：</p>
+<ol>
+  <li>/([^\/]+)/([^\/]+)/(.*) : 这条策略我们希望匹配带版本的微服务请求，例如/user-service/v0/validate；</li>
+  <li>/([^\/]+)/(.*) : 这条策略用于匹配不带版本的微服务请求，例如/user-service/validate。</li>
+</ol>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">xxxClient</span> <span class="o">{</span>
- <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"local.registry.file"</span><span class="o">,</span> <span class="s">"/path/registry.yaml"</span><span class="o">);</span>
-   <span class="c1">//your code</span>
-   <span class="n">System</span><span class="o">.</span><span class="na">clearProperty</span><span class="o">(</span><span class="s">"local.registry.file"</span><span class="o">);</span>
- <span class="o">}</span>
+<h4 id="onrequest方法">onRequest方法</h4>
+<p>转发策略，方法原型为：</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">onRequest</span><span class="o">(</span><span class="n">RoutingContext</span> <span class="n">context</span><span class="o">)</span>
 </code></pre>
-    </div>
-  </li>
-</ul>
+</div>
 
-<p>setProperty第二个参数填写registry.yaml的系统绝对路径，注意区分在不同系统下使用对应的路径分隔符。</p>
+<p>从context中可以获取到请求目标微服务名，path等信息，之后创建EdgeInvocation并初始化，完成调用：</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">EdgeInvocation</span> <span class="n">edgeInvocation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EdgeInvocation</span><span class="o">();</span>
+<span class="n">edgeInvocation</span><span class="o">.</span><span class="na">setVersionRule</span><span class="o">(</span><span class="n">versionRule</span><span class="o">);</span>
+<span class="n">edgeInvocation</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">serviceName</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="n">path</span><span class="o">,</span> <span class="n">httpServerFilters</span><span class="o">);</span>
+<span class="n">edgeInvocation</span><span class="o">.</span><span class="na">edgeInvoke</span><span class="o">();</span>
+</code></pre>
+</div>
 
-<ul>
-  <li><strong>步骤 3</strong>开发服务消费者，启动微服务进行本地测试。</li>
-</ul>
+<h3 id="加载dispatcher">加载Dispatcher</h3>
+<p>Edge Service使用SPI机制加载用户自定义的VertxHttpDispatcher，我们在resources文件夹下创建META-INF/services文件夹，之后添加org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher文件，在文件中，添加写好的Dispatcher即可：</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>{your-package-path}.XXXDispatcher
+</code></pre>
+</div>
+
+<h3 id="扩展handler可选">扩展Handler（可选）</h3>
+<p>由于Edge Service需要承载统一认证、集中监控等功能，我们推荐扩展Handler的方式实现，在demo-edge中的edge-service中有AuthHandler的示例。</p>
+
+<h2 id="参考示例">参考示例</h2>
+<p>我们在Java Chassis源代码的demo/demo-edge中完整展示了如何实现Edge Service并验证它的能力：</p>
+<ol>
+  <li>edge-service微服务：Edge Service，包含AuthHandler；</li>
+  <li>authentication微服务：模拟认证微服务,处理AuthHandler的请求；</li>
+  <li>business-x.x.x微服务：模拟不同版本的业务微服务，Edge Service会将请求转发给它们；</li>
+  <li>consumer：模拟前端（用户）调用Edge Service，包含了指定版本的验证。</li>
+</ol>
+
 
         
       </section>
@@ -764,8 +796,8 @@
     <div class="col">
       <ul>
         <p class="header">贡献</p>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/local-develop-test.md">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/local-develop-test.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/edge-in-1.0.0-m1.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/edge-in-1.0.0-m1.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
       </ul>
     </div>
