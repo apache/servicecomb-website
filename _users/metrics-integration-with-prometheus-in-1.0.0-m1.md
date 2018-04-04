@@ -86,7 +86,8 @@ scrape_configs:
 The job_name: 'servicecomb' is our custom job,it will collect metrics data from local microservice localhost:9696,more information about configuration of prometheus can found [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).  
 
 ### Verify Output
-Prometheus Simple HTTP Server use /metrics as default URL,metrics-prometheus will use 9696 as default port,after microservice start up you can get metrics data at http://localhost:9696/metrics . 
+Prometheus Simple HTTP Server use /metrics as default URL,metrics-prometheus will use 9696 as default port,after microservice start up you can get metrics data at http://localhost:9696/metrics.
+ 
 Prometheus Simple HTTP Server provider interface will publish the standard format which prometheus needed:
 ```text
 # HELP ServiceComb Metrics ServiceComb Metrics
@@ -114,7 +115,9 @@ servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="produce
 How add prometheus as a datasource in grafana can found [here](https://prometheus.io/docs/visualization/grafana/).  
 ## Effect Show
 After complete prometheus config and start up microservice,we can open prometheus web site(default address is http://localhost:9090/),in metrics list java chassis metrics with prefix 'servicecomb' can be seen:
+
 ![MetricsInPrometheus](/assets/images/MetricsInPrometheus.png)  
 
-For get more better data query experience,add prometheus as a datasource in grafana then query metrics data by it:  
+For get more better data query experience,add prometheus as a datasource in grafana then query metrics data by it:
+  
 ![MetricsInGrafana](/assets/images/MetricsInGrafana.png)  
