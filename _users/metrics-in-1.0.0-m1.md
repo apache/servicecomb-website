@@ -35,35 +35,36 @@ So,upgrading from 0.5.0 to 1.0.0-m1,we had done a fully reconstruction,now it's 
 
 | Module Name         | Description                              |
 | :------------------ | :--------------------------------------- |
+| foundation-metrics  | Metrics mechanism module |
 | metrics-core        | Metrics core module,work immediately after imported |
-| metrics-common      | Metrics common module,include DTO classes |
-| metrics-extension   | Include some metrics extension module    |
 | metrics-integration | Include metrics Integration with other monitor system |
 
-The dependency of this modules is:
+The dependency of this modules is:  
+
 ![MetricsDependency.png](/assets/images/MetricsDependency.png)
 
 ### Use event collect invocation data,not from Hystrix(handler-bizkeeper)any more
-From 1.0.0-m1 invocation data such as TPS and latency are collected from invocation event,not from Hystrix（handler-bizkeeper） any more,so you don't need add Java Chassis Bizkeeper Handler only for metrics.we use EventBus in foundation-common,when DefaultEventListenerManager in metrics-core had initialized,three event listener class will be auto registered:
+From 1.0.0-m1 invocation data such as TPS and latency are collected from invocation event,not from Hystrix（handler-bizkeeper） any more,so you don't need add Java Chassis Bizkeeper Handler only for metrics.we use EventBus in foundation-common,when EventBus had initialized,three build-in event listener class will be auto registered via SPI(Service Provider Interface):
 
 | Event Listener Name                    | Description                              |
 | :------------------------------------- | :--------------------------------------- |
-| InvocationStartedEventListener         | Trigger when consumer or producer called |
-| InvocationStartProcessingEventListener | Trigger when producer fetch invocation from queue and start process |
-| InvocationFinishedEventListener        | Trigger when consumer call returned or producer process finished |
+| InvocationStartedEventListener         | Process InvocationStartedEvent when consumer or producer called  |
+| InvocationStartExecutionEventListener | Process InvocationStartExecutionEvent when producer fetch invocation from queue and start process |
+| InvocationFinishedEventListener        | Process InvocationFinishedEvent when consumer call returned or producer process finished |
 
 *ServiceComb java chassis had used [Vertx](http://vertx.io/) as Reactor framework,in synchronous call mode when producer received invocation from consumer,it won't start process immediately but put it into a queue,this queue called invocation queue(like disk queue in operation system),time waiting in the queue called **LifeTimeInQueue**,the length of the queue called **waitInQueue**,this two metrics are very important for measure stress of the microservice;consumer not has this queue,so InvocationStartProcessingEvent will never be triggered at consumer side.*
 
-The code for trigger event write in RestInvocation,HighwayServerInvoke and InvokerUtils,if microservice don't import metrics,event listener of metrics won't be registered,the impact on performance is little.
+The code for trigger event write in RestInvocation,HighwayServerInvoke and InvokerUtils,if microservice don't import metrics,event listeners of metrics won't be registered,the impact on performance is little.
 
 ### Use Netflix Servo as Monitor of Metric
-[Netflix Servo](https://github.com/Netflix/servo) had implement a collection of high performance monitor,we had used four of them:
+[Netflix Servo](https://github.com/Netflix/servo) had implement a collection of high performance monitor,we had used five of them:
 
 | Monitor Name | Description                       |
 | :----------- | :-------------------------------- |
 | BasicCounter | As name of it,always increment    |
 | StepCounter  | Called 'ResettableCounter' before |
-| MinGauge     | Mark min value in step            |
+| BasicTimer   | Time (Latency) monitor            |
+| BasicGauge   | Return a Callable call result monitor  |
 | MaxGauge     | Mark max value in step            |
 
 *The version of Servo we used is 0.10.1*
@@ -80,42 +81,35 @@ Metrics had many classifications,we can divided them into two major types by how
   If get value of this type,the result returned is the last 'Step Cycle' counted.in Servo,this time called ['Polling Intervals'](https://github.com/Netflix/servo/wiki/Getting-Started).
   From 1.0.0-m1,can set **servicecomb.metrics.window_time** in microservice.yaml,it has same effect as set **servo.pollers**.   
 
-## Metric List
-From 1.0.0-m1,start support output metrics of operation level:   
+**Notice: Servo had marked with DEPRECATED by Netflix, we will use Netflix spectator instead in 1.0.0-m2, no need to set the window_time any more**
 
-| Group       | Level                  | Catalog  | Metrics         | Item           |
-| :---------- | :--------------------- | :------- | :-------------- | :------------- |
-| servicecomb | instance               | system   | cpu             | load           |
-| servicecomb | instance               | system   | cpu             | runningThreads |
-| servicecomb | instance               | system   | heap            | init           |
-| servicecomb | instance               | system   | heap            | max            |
-| servicecomb | instance               | system   | heap            | commit         |
-| servicecomb | instance               | system   | heap            | used           |
-| servicecomb | instance               | system   | nonHeap         | init           |
-| servicecomb | instance               | system   | nonHeap         | max            |
-| servicecomb | instance               | system   | nonHeap         | commit         |
-| servicecomb | instance               | system   | nonHeap         | used           |
-| servicecomb | instance &#124; operationName | producer | waitInQueue     | count          |
-| servicecomb | instance &#124; operationName | producer | lifeTimeInQueue | average        |
-| servicecomb | instance &#124; operationName | producer | lifeTimeInQueue | max            |
-| servicecomb | instance &#124; operationName | producer | lifeTimeInQueue | min            |
-| servicecomb | instance &#124; operationName | producer | executionTime   | average        |
-| servicecomb | instance &#124; operationName | producer | executionTime   | max            |
-| servicecomb | instance &#124; operationName | producer | executionTime   | min            |
-| servicecomb | instance &#124; operationName | producer | producerLatency | average        |
-| servicecomb | instance &#124; operationName | producer | producerLatency | max            |
-| servicecomb | instance &#124; operationName | producer | producerLatency | min            |
-| servicecomb | instance &#124; operationName | producer | producerCall    | total          |
-| servicecomb | instance &#124; operationName | producer | producerCall    | tps            |
-| servicecomb | instance &#124; operationName | consumer | consumerLatency | average        |
-| servicecomb | instance &#124; operationName | consumer | consumerLatency | max            |
-| servicecomb | instance &#124; operationName | consumer | consumerLatency | min            |
-| servicecomb | instance &#124; operationName | consumer | consumerCall    | total          |
-| servicecomb | instance &#124; operationName | consumer | consumerCall    | tps            |
+## Metrics ID Format
+From 1.0.0-m1,build-in two type Metric output:   
+### JVM Information
+ID format is : *jvm(statistic=gauge,name={name})*
+name include:  
 
-**When the value of Level is 'instance',it's means microservice instance metric,otherwise specific operation metric,operationName same as Java Chassis MicroserviceQualifiedName,it's joined with microservice appId.SchemaID.methodName.**
+| Name     | Description                               |
+| :----------- | :------------------------------- |
+| cpuLoad | CPU load rate                    |
+| cpuRunningThreads  | Running thread count |
+| heapInit,heapMax,heapCommit,heapUsed  | Memory heap usage |
+| nonHeapInit,nonHeapMax,nonHeapCommit,nonHeapUsed  | Memory nonHeap usage |
 
-## How Configuration
+### Invocation Information
+ID format is : *servicecomb.invocation(operation={operationName},role={role},stage={stage},statistic={statistic},status={status},unit={unit})*
+Tag name and value below:  
+
+| Tag Name       | Description                  | Options or Values |
+| :---------- | :---------- | :--------------------- |
+| operationName | Operation full name | MicroserviceQualifiedName |
+| role | Consumer side or Producer side |consume,producer |
+| stage | Stage of metrics | queue(producer only),execution(producer only,total |
+| statistic | Normally metric type | tps,count(total call count),max,waitInQueue(producer),latency |
+| status | Call result code | 200, 404 etc..|
+| unit | TimeUint of latency | MILLISECONDS，SECONDS etc.. |
+
+## How to Configuration
 ### Global Configuration
 Please add window time config in microservice.yaml:  
 ```yaml 
@@ -126,62 +120,36 @@ service_description:
 
 servicecomb:
   metrics:
-    #window time,same as servo.pollers,unit is millisecond
-    #support multi window time and use ',' split them,like 5000,10000
-    window_time: 5000,10000
+    #window time,same as servo.pollers,unit is millisecond,default value is 5000 (5 seconds)
+    window_time: 5000
 ```
-
-*The setting of window time is very important to getting value of metrics,here is a comment show how it effect*
-
-![TimeWindowComment.png](/assets/images/TimeWindowComment.png)
+**In order to decrease difficulty for understand and usage of metrics,we temporary do not support multi window time**
 
 ### Maven Configuration
 We just only need add metrics-core dependency:  
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>metrics-core</artifactId>
       <version>1.0.0-m1</version>
     </dependency>
 ```
 
-## Metrics Publish
-After configuration completed,you can get collected metrics data via this method:   
+## How to Get Metrics Data
+After configuration completed,you can get collected metrics data via this two method:   
 ### Embedded publish interface
 When microservice start-up,metrics-core will auto publish data service using Springmvc provider:  
 ```java
 @RestSchema(schemaId = "metricsEndpoint")
 @RequestMapping(path = "/metrics")
-public class DefaultMetricsPublisher implements MetricsPublisher {
-
-  private final DataSource dataSource;
-
-  public DefaultMetricsPublisher(DataSource dataSource) {
-    this.dataSource = dataSource;
-  }
-
-  @RequestMapping(path = "/appliedWindowTime", method = RequestMethod.GET)
-  @CrossOrigin
-  @Override
-  public List<Long> getAppliedWindowTime() {
-    return dataSource.getAppliedWindowTime();
-  }
-
-  @RequestMapping(path = "/", method = RequestMethod.GET)
-  @CrossOrigin
-  @Override
-  public RegistryMetric metrics() {
-    return dataSource.getRegistryMetric();
-  }
-
+public class MetricsPublisher {
   @ApiResponses({
       @ApiResponse(code = 400, response = String.class, message = "illegal request content"),
   })
-  @RequestMapping(path = "/{windowTime}", method = RequestMethod.GET)
+  @RequestMapping(path = "/", method = RequestMethod.GET)
   @CrossOrigin
-  @Override
-  public RegistryMetric metricsWithWindowTime(@PathVariable(name = "windowTime") long windowTime) {
-    return dataSource.getRegistryMetric(windowTime);
+  public Map<String, Double> measure() {
+    return MonitorManager.getInstance().measure();
   }
 }
 ```
@@ -195,14 +163,122 @@ cse:
     address: 0.0.0.0:8080
 ```
 You can open a browser and input http://localhost:8080/metrics direct get metrics data.  
+
 ### Direct programming get
-From above code you can known,the interface of data provider bean is io.servicecomb.metrics.core.publish.DataSource,so if you want develop your own metrics publisher,autowired it is enough.
+From above code you can known,the entry of data provider is org.apache.servicecomb.metrics.core.MonitorManager,so if you want develop your own metrics publisher,direct get it is enough.
 ```java
-@Autowired
-private DataSource dataSource;
+MonitorManager manager = MonitorManager.getInstance();
+Map<String, Double> metrics = manager.measure();
 ```
+
+**Notice: Servo had marked with DEPRECATED by Netflix, we will use Netflix spectator instead in 1.0.0-m2, publish interface will be adjusted**
+
+## How to Use Metrics Data
+Metrics data will output as Map<String,Double>,in order to let user easier fetch certain metric value,we provide org.apache.servicecomb.foundation.metrics.publish.MetricsLoader tool class:
+```java
+    //simulate MonitorManager.getInstance().measure() get all metrics data
+    Map<String, Double> metrics = new HashMap<>();
+    metrics.put("X(K1=1,K2=2,K3=3)", 100.0);
+    metrics.put("X(K1=1,K2=20,K3=30)", 200.0);
+    metrics.put("X(K1=2,K2=200,K3=300)", 300.0);
+    metrics.put("X(K1=2,K2=2000,K3=3000)", 400.0);
+
+    metrics.put("Y(K1=1,K2=2,K3=3)", 500.0);
+    metrics.put("Y(K1=10,K2=20,K3=30)", 600.0);
+    metrics.put("Y(K1=100,K2=200,K3=300)", 700.0);
+    metrics.put("Y(K1=1000,K2=2000,K3=3000)", 800.0);
+
+    //new MetricsLoader load all metrics data
+    MetricsLoader loader = new MetricsLoader(metrics);
+
+    //get name of 'X' Metrics then group by K1,K2
+    MetricNode node = loader.getMetricTree("X","K1","K2");
+
+    //get all Metrics of K1=1 and K2=20
+    node.getChildrenNode("1").getChildrenNode("20").getMetrics();
+
+    //get K3=30 Metric from node
+    node.getChildrenNode("1").getChildrenNode("20").getFirstMatchMetricValue("K3","30");
+```
+*More detail can be found in demo/perf/PerfMetricsFilePublisher.java*
+
+## How to Extend Custom Metrics
+Java Chassis Metrics support user extend custom metrics,MonitorManager had a set of method get different type of Monitor:  
+
+| Method Name       | Description         |
+| :---------- | :---------- |
+| getCounter | Get a counter monitor |
+| getMaxGauge | Get a max monitor |
+| getGauge | Get a gauge monitor |
+| getTimer | Get a timer monitor |
+
+Let us use Process Order make an example:
+```java
+public class OrderController {
+  private final Counter orderCount;
+  private final Counter orderTps;
+  private final Timer averageLatency;
+  private final MaxGauge maxLatency;
+
+  OrderController() {
+    MonitorManager manager = MonitorManager.getInstance();
+    //"product","levis jeans" and "model","512" are two custom Tag,support multi Tags
+    this.orderCount = manager.getCounter("orderCount", "product", "levis jeans", "model", "512");
+    this.orderTps = manager.getCounter(StepCounter::new, "orderGenerated", "statistic", "tps");
+    this.averageLatency = manager.getTimer("orderGenerated", "statistic", "latency", "unit", "MILLISECONDS");
+    this.maxLatency = manager.getMaxGauge("orderGenerated", "statistic", "max", "unit", "MILLISECONDS");
+  }
+
+  public void makeOrder() {
+    long startTime = System.nanoTime();
+    //process order logic
+    //...
+    //process finished
+    long totalTime = System.nanoTime() - startTime;
+
+    //increase order count
+    this.orderCount.increment();
+    
+    //increase tps
+    this.orderTps.increment();
+
+    //record latency for average
+    this.averageLatency.record(totalTime, TimeUnit.NANOSECONDS);
+
+    //record max latency
+    this.maxLatency.update(TimeUnit.NANOSECONDS.toMillis(totalTime));
+  }
+}
+```
+Notice:
+1. Metric ID is join name and all tags that pass to MonitorManager when getting monitor,so please keep uniqueness,metrics output of front example are:
+```java
+Map<String,Double> metrics = MonitorManager.getInstance().measure();
+
+//metrics.keySet() include：
+//	orderCount(product=levis jeans,model=512)
+//	orderGenerated(statistic=tps)
+//	orderGenerated(statistic=latency,unit=MILLISECONDS)
+//	orderGenerated(statistic=max,unit=MILLISECONDS)
+```
+
+2. All get monitor method in MonitorManager act as **get or new**,so use same name and tags will return same one monitor:
+```java
+    Counter counter1 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
+    Counter counter2 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
+
+    counter1.increment();
+    counter2.increment();
+
+    Assert.assertEquals(2,counter1.getValue());
+    Assert.assertEquals(2,counter2.getValue());
+    Assert.assertEquals(2.0,MonitorManager.getInstance().measure().get("orderGenerated(product=levis jeans,model=512)"),0);
+```
+**Performance of get monitor from MonitorManager is slightly lower,so please get all monitors what needed when init,then cache them for later use,like OrderController example.**
+
+**Notice: Servo had marked with DEPRECATED by Netflix, we will use Netflix spectator instead in 1.0.0-m2, the way of extending custom metrics will be adjusted**
 
 ## Other Reference 
 We had developed two use case for reference:  
-1. metrics-wirte-file:ouput metrics data into files,code is at metrics-extension;  
+1. demo/perf:print Metrics in Console;  
 2. metrics-prometheus:integration with prometheus,publish metrics as prometheus producer.

@@ -45,7 +45,7 @@ NOTE， If your java chassis version is or below 0.5.0, please use the io.servic
        <dependency>
          <groupId>org.apache.servicecomb</groupId>
          <artifactId>java-chassis-dependencies</artifactId>
-         <version>1.0.0-SNAPSHOT</version>
+         <version>1.0.0-m1</version>
          <type>pom</type>
          <scope>import</scope>
        </dependency>
@@ -171,7 +171,7 @@ This section describes advantages and procedures of integrating the Spring Boot 
        <dependency>
          <groupId>org.apache.servicecomb</groupId>
          <artifactId>java-chassis-dependencies</artifactId>
-         <version>1.0.0-SNAPSHOT</version>
+         <version>1.0.0-m1</version>
          <type>pom</type>
          <scope>import</scope>
        </dependency>
@@ -186,7 +186,7 @@ This section describes advantages and procedures of integrating the Spring Boot 
    ```xml
    <dependency>
      <groupId>org.apache.servicecomb</groupId>
-     <artifactId>spring-boot-starter-provider</artifactId>
+     <artifactId>spring-boot-starter-provider</artifactId> 
    </dependency>
    ```
 

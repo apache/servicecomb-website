@@ -31,19 +31,19 @@ There are two ways to start a service center service:
 
    <div class="tab-content">
      <div id="windows" class="tab-pane active" markdown="1">
-   1. Download [the installation package of ServiceCenter](https://github.com/apache/incubator-servicecomb-service-center/releases/download/0.5.0/service-center-0.5.0-windows-amd64.zip)
+   1. Download [the installation package of ServiceCenter](http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/apache-servicecomb-incubating-service-center-1.0.0-m1-windows-amd64.tar.gz)
    2. Decompress the installation package into the installation directory.
-   3. Start Local ServiceCenter from **start** file
-     </div>
-     <div id="linux" class="tab-pane fade" markdown="1">
-   4. Download and Decompress command:
+   3. Start Local ServiceCenter from **start-service-center.bat** file
+   </div>
+   <div id="linux" class="tab-pane fade" markdown="1">
+   1. Download and Decompress command:
    ```bash
-   wget https://github.com/apache/incubator-servicecomb-service-center/releases/download/0.5.0/service-center-0.5.0-linux-amd64.tar.gz
-   tar xvf service-center-0.5.0-linux-amd64.tar.gz
+   wget http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64.tar.gz
+   tar xvf apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64.tar.gz
    ```
    2. Start local service center command:
    ```bash
-   bash service-center-0.5.0-linux-amd64/start.sh
+   bash apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64/start-service-center.sh
    ```
     </div>
    </div>

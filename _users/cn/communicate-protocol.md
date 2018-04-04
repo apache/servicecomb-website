@@ -68,11 +68,11 @@ cse:
        <param-value>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml</param-value> 
      </context-param>  
      <listener> 
-       <listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
+       <listener-class>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
      </listener>  
      <servlet> 
        <servlet-name>RestServlet</servlet-name>  
-       <servlet-class>io.servicecomb.transport.rest.servlet.RestServlet</servlet-class>  
+       <servlet-class>org.apache.servicecomb.transport.rest.servlet.RestServlet</servlet-class>  
        <load-on-startup>1</load-on-startup>  
        <async-supported>true</async-supported> 
      </servlet>  
@@ -92,7 +92,7 @@ cse:
        <param-value>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml</param-value> 
      </context-param>  
      <listener> 
-       <listener-class>io.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
+       <listener-class>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener</listener-class> 
      </listener> 
    </web-app>
    ```
@@ -107,7 +107,7 @@ cse:
 
 ```xml
 <dependency> 
-  <groupId>io.servicecomb</groupId>  
+  <groupId>org.apache.servicecomb</groupId>  
   <artifactId>transport-rest-servlet</artifactId> 
 </dependency>
 ```
@@ -141,8 +141,8 @@ cse:
 REST over Vertx通信通道对应使用standalone部署运行模式，可直接通过main函数拉起。main函数中需要初始化日志和加载服务配置，代码如下：
 
 ```java
-import io.servicecomb.foundation.common.utils.BeanUtils;
-import io.servicecomb.foundation.common.utils.Log4jUtils;
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
 
 public class MainServer {
   public static void main(String[] args) throws Exception {
@@ -156,7 +156,7 @@ public class MainServer {
 
 ```xml
 <dependency>
-　　<groupId>io.servicecomb</groupId>
+　　<groupId>org.apache.servicecomb</groupId>
 　　<artifactId>transport-rest-vertx</artifactId>
 </dependency>
 ```
@@ -201,7 +201,7 @@ Highway是ServiceComb的高性能私有协议，用户可在有特殊性能需�
 
 ```xml
 <dependency> 
-  <groupId>io.servicecomb</groupId>  
+  <groupId>org.apache.servicecomb</groupId>  
   <artifactId>transport-highway</artifactId> 
 </dependency>
 ```

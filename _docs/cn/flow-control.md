@@ -20,7 +20,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 
    ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>handler-flowcontrol-qps</artifactId>
     </dependency>
    ```

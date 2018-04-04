@@ -21,7 +21,7 @@ The starup process of a service provider includes initializing Log4j, loading be
 
 * Register the microservice.
 
-   After Spring context has been loaded, `io.servicecomb.core.CseApplicationListener` will configure the handler, load the information about the provider schema, and the register microservice to service center.
+   After Spring context has been loaded, `org.apache.servicecomb.core.CseApplicationListener` will configure the handler, load the information about the provider schema, and the register microservice to service center.
 
 > **NOTE:**
 > The three level of configuration items for ServiceComb are the configuration center, environment variables, and local files, listed in a descending order by priority. If configuration items with the same name exist, the one in the highest level overwrites others. Configuration items stored in the configuration center can be modified during running.

@@ -34,7 +34,7 @@ For microservice based on ServiceComb Java Chassis, add the following content to
 
 ```xml
 <dependency>   
-    <groupId>io.servicecomb</groupId>
+    <groupId>org.apache.servicecomb</groupId>
     <artifactId>handler-tracing-zipkin</artifactId>
 </dependency>
 ```
@@ -43,7 +43,7 @@ If the microservice is based on the API of Spring Cloud Zuul, such as the manage
 
 ```xml
 <dependency>    
-    <groupId>io.servicecomb</groupId>
+    <groupId>org.apache.servicecomb</groupId>
     <artifactId>spring-cloud-zuul-zipkin</artifactId>
 </dependency>
 ```

@@ -30,55 +30,11 @@ As an integration(optional) module,the implementation code is in metrics-integra
   </dependency>
 
   <dependency>
-    <groupId>io.servicecomb</groupId>
+    <groupId>org.apache.servicecomb</groupId>
     <artifactId>metrics-core</artifactId>
   </dependency>
 ```
 So if we import metrics-prometheus,no longer need to add metrics-core dependence.
-### Relation between metrics-core Publish
-[Metrics in 1.0.0-m1](/users/metrics-in-1.0.0-m1/) had already been mentioned,metrics-core will auto start up a embedded publish interface,so if you had configured rest provider in microservice.yaml like:
-```yaml
-cse:
-  service:
-    registry:
-      address: http://127.0.0.1:30100
-  rest:
-    address: 0.0.0.0:8080
-```
-You can direct get metrics data at http://localhost:8080/metrics ,it will return a entity of io.servicecomb.metrics.common.RegistryMetric,the output is:  
-```json
-{"instanceMetric":{
-"systemMetric":{"cpuLoad":10.0,"cpuRunningThreads":39,"heapInit":266338304,"heapMax":3786407936,"heapCommit":626524160,"heapUsed":338280024,"nonHeapInit":2555904,"nonHeapMax":-1,"nonHeapCommit":60342272,"nonHeapUsed":58673152},
-"consumerMetric":{"operationName":"instance","prefix":"servicecomb.instance.consumer","consumerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"consumerCall":{"total":0,"tps":0.0}},
-"producerMetric":{"operationName":"instance","prefix":"servicecomb.instance.producer","waitInQueue":0,"lifeTimeInQueue":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"executionTime":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerCall":{"total":1,"tps":0.0}}},
-"consumerMetrics":{},
-"producerMetrics":{"calculator.metricsEndpoint.metrics":{"operationName":"calculator.metricsEndpoint.metrics","prefix":"servicecomb.calculator.metricsEndpoint.metrics.producer","waitInQueue":0,"lifeTimeInQueue":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"executionTime":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerLatency":{"total":0,"count":0,"min":0,"max":0,"average":0.0},"producerCall":{"total":1,"tps":0.0}}
-}}
-```
-But use Prometheus Simple HTTP Server provider interface will publish the standard format which prometheus needed:
-```text
-# HELP Instance Level Instance Level Metrics
-# TYPE Instance Level untyped
-servicecomb_instance_producer_producerLatency_average 0.0
-servicecomb_instance_producer_producerLatency_total 0.0
-servicecomb_instance_consumer_producerLatency_count 0.0
-...
-servicecomb_instance_producer_producerLatency_min 0.0
-servicecomb_instance_producer_lifeTimeInQueue_average 0.0
-servicecomb_instance_producer_lifeTimeInQueue_count 0.0
-servicecomb_instance_system_heap_init 2.66338304E8
-# HELP calculator.metricsEndpoint.metrics Producer Side calculator.metricsEndpoint.metrics Producer Side Metrics
-# TYPE calculator.metricsEndpoint.metrics Producer Side untyped
-servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_average 0.0
-...
-servicecomb_calculator_metricsEndpoint_metrics_producer_executionTime_total 0.0
-servicecomb_calculator_metricsEndpoint_metrics_producer_waitInQueue_count 0.0
-servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_count 0.0
-```
-So they are two independent,different for use.   
-
-*Prometheus Simple HTTP Server also use /metrics as default URL,metrics-prometheus will use 9696 as default port,after microservice start up you can get metrics data at http://localhost:9696/metrics .*    
-The metrics name in prometheus we replace all dot with underline,because we must follow its [naming rules](https://prometheus.io/docs/practices/naming/).    
 
 ## How Configuration
 Enable prometheus integration is very easy:
@@ -101,7 +57,7 @@ servicecomb:
 We just only need add metrics-prometheus dependency:   
 ```xml
     <dependency>
-      <groupId>io.servicecomb</groupId>
+      <groupId>org.apache.servicecomb</groupId>
       <artifactId>metrics-prometheus</artifactId>
       <version>1.0.0-m1</version>
     </dependency>
@@ -128,6 +84,31 @@ scrape_configs:
       - targets: ['localhost:9696']
 ```
 The job_name: 'servicecomb' is our custom job,it will collect metrics data from local microservice localhost:9696,more information about configuration of prometheus can found [here](https://prometheus.io/docs/prometheus/latest/configuration/configuration/).  
+
+### Verify Output
+Prometheus Simple HTTP Server use /metrics as default URL,metrics-prometheus will use 9696 as default port,after microservice start up you can get metrics data at http://localhost:9696/metrics . 
+Prometheus Simple HTTP Server provider interface will publish the standard format which prometheus needed:
+```text
+# HELP ServiceComb Metrics ServiceComb Metrics
+# TYPE ServiceComb Metrics untyped
+jvm{name="cpuRunningThreads",statistic="gauge",} 45.0
+jvm{name="heapMax",statistic="gauge",} 3.786407936E9
+jvm{name="heapCommit",statistic="gauge",} 6.12892672E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="max",status="200",unit="MILLISECONDS",} 1.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="tps",status="200",} 0.4
+jvm{name="nonHeapCommit",statistic="gauge",} 6.1104128E7
+jvm{name="nonHeapInit",statistic="gauge",} 2555904.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="execution",statistic="max",status="200",unit="MILLISECONDS",} 0.0
+jvm{name="heapUsed",statistic="gauge",} 2.82814088E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="latency",status="200",unit="MILLISECONDS",} 1.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="execution",statistic="latency",status="200",unit="MILLISECONDS",} 0.0
+jvm{name="heapInit",statistic="gauge",} 2.66338304E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="waitInQueue",} 0.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="count",status="200",} 39.0
+jvm{name="nonHeapUsed",statistic="gauge",} 5.9361032E7
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="latency",status="200",unit="MILLISECONDS",} 0.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="max",status="200",unit="MILLISECONDS",} 0.0
+```
 
 ### Config Grafana(optional)
 How add prometheus as a datasource in grafana can found [here](https://prometheus.io/docs/visualization/grafana/).  

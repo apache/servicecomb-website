@@ -44,7 +44,7 @@ swagger: '2.0'
 info:
   title: hello
   version: 1.0.0
-  x-java-interface: io.servicecomb.samples.common.schema.Hello
+  x-java-interface: org.apache.servicecomb.samples.common.schema.Hello
 basePath: /springmvchello
 produces:
   - application/json

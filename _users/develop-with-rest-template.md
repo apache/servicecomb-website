@@ -26,10 +26,10 @@ redirect_from:
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import io.servicecomb.foundation.common.utils.BeanUtils;
-import io.servicecomb.foundation.common.utils.Log4jUtils;
-import io.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
-import io.servicecomb.samples.common.schema.models.Person;
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+import org.apache.servicecomb.provider.springmvc.reference.RestTemplateBuilder;
+import org.apache.servicecomb.samples.common.schema.models.Person;
 
 @Component
 public class SpringmvcConsumerMain {
