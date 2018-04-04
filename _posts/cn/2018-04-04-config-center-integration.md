@@ -179,4 +179,4 @@ ServiceComb目前在Apache基金会孵化，诚挚的欢迎开发者和用户一
 
 [8] Chassis对接配置中心代码 [https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/dynamic-config/config-apollo](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/dynamic-config/config-apollo)
 
-[9] 加入ServiceComb社区 [http://mp.weixin.qq.com/s/a8dJupGGLPG0zhnhVq-Rdg](http://mp.weixin.qq.com/s/a8dJupGGLPG0zhnhVq-Rdg)
+[9] 加入ServiceComb社区 [https://servicecomb.incubator.apache.org/cn/docs/join_the_community](https://servicecomb.incubator.apache.org/cn/docs/join_the_community)
