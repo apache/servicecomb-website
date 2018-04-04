@@ -31,14 +31,14 @@ last_modified_at: 2017-09-03T10:01:43-04:00
    
    <div class="tab-content">
      <div id="windows" class="tab-pane active" markdown="1">
-   1. 下载[服务注册中心可执行文件压缩包](http://www-eu.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/apache-servicecomb-incubating-service-center-1.0.0-m1-windows-amd64.tar.gz)
+   1. 下载[服务注册中心可执行文件压缩包](http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/apache-servicecomb-incubating-service-center-1.0.0-m1-windows-amd64.tar.gz)
    2. 解压缩到当前文件夹
    3. 进入解压缩后的目录，然后双击运行**start-service-center.bat**文件
      </div>
      <div id="linux" class="tab-pane fade" markdown="1">
    1. 下载服务注册中心可执行文件压缩包并解压缩
    ```bash
-   wget http://www-eu.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64.tar.gz
+   wget http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64.tar.gz
    tar xvf apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64.tar.gz
    ```
    2. 运行服务注册中心
