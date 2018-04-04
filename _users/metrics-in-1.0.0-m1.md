@@ -254,7 +254,7 @@ public class OrderController {
 
 Notice:
 
-1. Metric ID is join name and all tags that pass to MonitorManager when getting monitor,so please keep uniqueness,metrics output of front example are:
+1.Metric ID is join name and all tags that pass to MonitorManager when getting monitor,so please keep uniqueness,metrics output of front example are:
 
 ```java
 Map<String,Double> metrics = MonitorManager.getInstance().measure();
@@ -266,7 +266,7 @@ Map<String,Double> metrics = MonitorManager.getInstance().measure();
 //	orderGenerated(statistic=max,unit=MILLISECONDS)
 ```
 
-2. All get monitor method in MonitorManager act as **get or new**,so use same name and tags will return same one monitor:
+2.All get monitor method in MonitorManager act as **get or new**,so use same name and tags will return same one monitor:
 
 ```java
 Counter counter1 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
