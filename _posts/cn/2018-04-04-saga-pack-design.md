@@ -89,7 +89,7 @@ docker run -d -e "POSTGRES_DB=saga" -e "POSTGRES_USER=saga" -e "POSTGRES_PASSWOR
 docker run -d -p 8090:8090 \
   -e "JAVA_OPTS=-Dspring.profiles.active=prd" \
   -e "spring.datasource.url=jdbc:postgresql://{docker.host.address}:5432/saga?useSSL=false" \
-  alpha-server:0.0.3-SNAPSHOT
+  alpha-server:0.1.0
 ```
 
 ### omega的使用
@@ -101,12 +101,12 @@ omega的使用很简单，以一个简化的转账业务为例，同一笔转账
    <dependency>
      <groupId>org.apache.servicecomb.saga</groupId>
      <artifactId>omega-spring-starter</artifactId>
-     <version>0.0.3-SNAPSHOT</version>
+     <version>0.1.0</version>
    </dependency>
    <dependency>
      <groupId>org.apache.servicecomb.saga</groupId>
      <artifactId>omega-transport-resttemplate</artifactId>
-     <version>0.0.3-SNAPSHOT</version>
+     <version>0.1.0</version>
    </dependency>
    ```
 
