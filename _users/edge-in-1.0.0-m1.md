@@ -92,7 +92,7 @@ Edge Service use SPI(Service Provider Interface) to load custom VertxHttpDispatc
 Edge Service always use to provide monitoring, resiliency, security, and more, not only dynamic routing. We recommend extend custom handlers, there is an example named AuthHandler in demo-edge.
 
 ## Other Reference
-In demo/demo-edge we had provided a simple demo to show abilities of Edge Service：
+In demo/demo-edge we had provided a simple demo to show abilities of Edge Service:
 1. edge-service:Edge Service, include AuthHandler;
 2. authentication:Simulate authentication, accept requests from AuthHandler;
 3. business-x.x.x:Simulate multi-version business instances;

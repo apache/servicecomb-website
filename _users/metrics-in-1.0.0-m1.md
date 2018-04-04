@@ -200,6 +200,7 @@ Metrics data will output as Map<String,Double>,in order to let user easier fetch
     //get K3=30 Metric from node
     node.getChildrenNode("1").getChildrenNode("20").getFirstMatchMetricValue("K3","30");
 ```
+
 *More detail can be found in demo/perf/PerfMetricsFilePublisher.java*
 
 ## How to Extend Custom Metrics
@@ -250,8 +251,11 @@ public class OrderController {
   }
 }
 ```
+
 Notice:
+
 1. Metric ID is join name and all tags that pass to MonitorManager when getting monitor,so please keep uniqueness,metrics output of front example are:
+
 ```java
 Map<String,Double> metrics = MonitorManager.getInstance().measure();
 
@@ -263,17 +267,19 @@ Map<String,Double> metrics = MonitorManager.getInstance().measure();
 ```
 
 2. All get monitor method in MonitorManager act as **get or new**,so use same name and tags will return same one monitor:
+
 ```java
-    Counter counter1 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
-    Counter counter2 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
+Counter counter1 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
+Counter counter2 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
 
-    counter1.increment();
-    counter2.increment();
+counter1.increment();
+counter2.increment();
 
-    Assert.assertEquals(2,counter1.getValue());
-    Assert.assertEquals(2,counter2.getValue());
-    Assert.assertEquals(2.0,MonitorManager.getInstance().measure().get("orderGenerated(product=levis jeans,model=512)"),0);
+Assert.assertEquals(2,counter1.getValue());
+Assert.assertEquals(2,counter2.getValue());
+Assert.assertEquals(2.0,MonitorManager.getInstance().measure().get("orderGenerated(product=levis jeans,model=512)"),0);
 ```
+
 **Performance of get monitor from MonitorManager is slightly lower,so please get all monitors what needed when init,then cache them for later use,like OrderController example.**
 
 **Notice: Servo had marked with DEPRECATED by Netflix, we will use Netflix spectator instead in 1.0.0-m2, the way of extending custom metrics will be adjusted**

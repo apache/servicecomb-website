@@ -87,6 +87,7 @@ scrape_configs:
 
 ### 验证输出
 Prometheus Simple HTTP Server使用/metrics作为默认URL，metrics-prometheus会使用9696作为默认端口，微服务启动后你可以使用http://localhost:9696/metrics 访问它。
+
 使用Prometheus Simple HTTP Server接口发布的数据是Prometheus采集的标准格式：
 ```text
 # HELP ServiceComb Metrics ServiceComb Metrics
@@ -114,6 +115,7 @@ servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="produce
 如何在Grafana中添加Prometheus作为数据源请参考[这篇文章](https://prometheus.io/docs/visualization/grafana/)。
 ## 运行效果
 配置好Prometheus并启动了微服务之后，就可以打开Prometheus Web界面（默认地址是http://localhost:9090/ ），在Metrics列表中看到ServiceComb开头的Java Chassis Metrics，如下图所示：
+
 ![MetricsInPrometheus](/assets/images/MetricsInPrometheus.png)  
 
 为了能够达到更好的查询效果，在Grafana中添加Prometheus作为数据源，通过Grafana查询数据如下图示：
