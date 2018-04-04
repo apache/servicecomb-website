@@ -19,12 +19,12 @@
 
 
 
-<title>Java Chassis Architecture - Apache ServiceComb (incubating)</title>
+<title>ServiceComb Java Chassis Edge Service - Apache ServiceComb (incubating)</title>
 
 
 
 
-<meta name="description" content="Java Chassis Architecture">
+<meta name="description" content="ServiceComb Java Chassis Edge Service">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="Java Chassis Architecture">
+<meta property="og:title" content="ServiceComb Java Chassis Edge Service">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/users/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/users/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/users/edge-in-1.0.0-m1/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/users/edge-in-1.0.0-m1/">
 
 
 
-  <meta property="og:description" content="Java Chassis Architecture">
+  <meta property="og:description" content="ServiceComb Java Chassis Edge Service">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="Java Chassis Architecture">
-  <meta name="twitter:description" content="Java Chassis Architecture">
+  <meta name="twitter:title" content="ServiceComb Java Chassis Edge Service">
+  <meta name="twitter:description" content="ServiceComb Java Chassis Edge Service">
   <meta name="twitter:url" content="">
 
   
@@ -220,7 +220,7 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/users/>中文</a>
+            <a href=/cn/users/edge-in-1.0.0-m1/>中文</a>
           
         </div>
       </nav>
@@ -269,7 +269,7 @@
             
             
 
-            <li><a href="/users/" class="active">Java Chassis Architecture</a></li>
+            <li><a href="/users/" class="">Java Chassis Architecture</a></li>
           
             
             
@@ -504,7 +504,7 @@
             
             
 
-            <li><a href="/users/edge-in-1.0.0-m1/" class="">ServiceComb Java Chassis Edge Service</a></li>
+            <li><a href="/users/edge-in-1.0.0-m1/" class="active">ServiceComb Java Chassis Edge Service</a></li>
           
         </ul>
         
@@ -588,16 +588,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Java Chassis Architecture">
-    <meta itemprop="description" content="Java Chassis Architecture">
+    <meta itemprop="headline" content="ServiceComb Java Chassis Edge Service">
+    <meta itemprop="description" content="ServiceComb Java Chassis Edge Service">
     
-    <meta itemprop="dateModified" content="June 14, 2017">
+    <meta itemprop="dateModified" content="April 03, 2018">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">Java Chassis Architecture
+            <h1 class="page__title" itemprop="headline">ServiceComb Java Chassis Edge Service
 </h1>
             
           </header>
@@ -609,95 +609,121 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#basic-framework" id="markdown-toc-basic-framework">Basic Framework</a></li>
-  <li><a href="#purpose" id="markdown-toc-purpose">Purpose</a></li>
-  <li><a href="#modules" id="markdown-toc-modules">Modules</a></li>
+  <li><a href="#edge-features" id="markdown-toc-edge-features">Edge Features</a>    <ul>
+      <li><a href="#loose-coupling" id="markdown-toc-loose-coupling">Loose Coupling</a></li>
+      <li><a href="#auto-match-available-version" id="markdown-toc-auto-match-available-version">Auto Match Available Version</a></li>
+      <li><a href="#support-consumer-handler" id="markdown-toc-support-consumer-handler">Support Consumer Handler</a></li>
+      <li><a href="#use-reactive-mode-as-default" id="markdown-toc-use-reactive-mode-as-default">Use Reactive Mode As Default</a></li>
+    </ul>
+  </li>
+  <li><a href="#develop-an-edge-service" id="markdown-toc-develop-an-edge-service">Develop An Edge Service</a>    <ul>
+      <li><a href="#add-dependency" id="markdown-toc-add-dependency">Add Dependency</a></li>
+      <li><a href="#develop-dispatcher" id="markdown-toc-develop-dispatcher">Develop Dispatcher</a></li>
+      <li><a href="#load-dispatcher" id="markdown-toc-load-dispatcher">Load Dispatcher</a></li>
+      <li><a href="#extend-handleroptional" id="markdown-toc-extend-handleroptional">Extend Handler(Optional)</a></li>
+    </ul>
+  </li>
+  <li><a href="#other-reference" id="markdown-toc-other-reference">Other Reference</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="basic-framework">Basic Framework</h2>
-<p><img src="/assets/images/servicecomb_mode_en.png" alt="ServiceComb Model" class="align-center" /></p>
+<p>We had provide an edge core module since 1.0.0-m1, please checkout the user guide and <a href="https://github.com/apache/incubator-servicecomb-java-chassis/releases">release note</a> for more information.Also subscribe ServiceComb mail-list(dev-subscribe@servicecomb.incubator.apache.org) and join discussion is welcome.</p>
 
-<h2 id="purpose">Purpose</h2>
+<h2 id="edge-features">Edge Features</h2>
+<h3 id="loose-coupling">Loose Coupling</h3>
+<p>Edge Service only redirect requests, no dependencies between services.</p>
 
-<p>1.To decouple the programming and communication models, so that a programming model can be combined with any communication models as needed. Application developers only need to focus on APIs during development and can flexibly switch communication models during deployment. Services can also be switched over to a legacy system. The developers simply need to modify the configuration file(or annotation) released by the service.</p>
+<h3 id="auto-match-available-version">Auto Match Available Version</h3>
+<p>Edge Service can auto match available versions, for example:</p>
+<ul>
+  <li>In version 1.0.0 provided Operation1</li>
+  <li>In version 1.1.0 provided both Operation1 and Operation2</li>
+</ul>
 
-<p>Currently, applications can be developed in Spring MVC, JAX-RS, or transparent RPC mode.</p>
+<p>If Edge Service redirect the request of Operation1,both instances of version 1.0.0 and instances of version 1.1.0 are allowed, but if Edge Service redirect the request of Operation2, only instances of version 1.1.0 will be selected.</p>
 
-<p>2.To introduce the code-first approach. This allows cross-language communication through API definition-based microservice development and supports the development of software tool chains(such as code generated based on API definitions and API definitions generated based on code) to build a complete development ecosystem.</p>
+<h3 id="support-consumer-handler">Support Consumer Handler</h3>
+<p>Edge Service support all Java Chassis Consumer Handlers, also support user extend custom handlers.</p>
 
-<p>3.To define common microservice running model, encapsulating fault tolerance methods of microservices used from discovery to interaction, The running model can be customized or extended.</p>
+<h3 id="use-reactive-mode-as-default">Use Reactive Mode As Default</h3>
+<p>Because Edge Service will proxy all requests, so high performance is required, it use reactive mode as default, please do not add any heavy cost(blocking) codes, such as:</p>
+<ul>
+  <li>Database query, remote call etc..</li>
+  <li>Sleep, wait etc..</li>
+  <li>Loop or heavy cost operation etc..</li>
+</ul>
 
-<h2 id="modules">Modules</h2>
+<h2 id="develop-an-edge-service">Develop An Edge Service</h2>
+<h3 id="add-dependency">Add Dependency</h3>
+<p>Only need import edge-core:</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>edge-core<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">Type</th>
-      <th style="text-align: left">artifact id</th>
-      <th style="text-align: left">Available or NOT</th>
-      <th style="text-align: left">Function</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">Programming model</td>
-      <td style="text-align: left">provider-pojo</td>
-      <td style="text-align: left">Yes</td>
-      <td style="text-align: left">Provides the RPC development mode.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Programming model</td>
-      <td style="text-align: left">provider-jaxrs</td>
-      <td style="text-align: left">Yes</td>
-      <td style="text-align: left">Provides the JAX-RS development mode.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Programming model</td>
-      <td style="text-align: left">provider-springmvc</td>
-      <td style="text-align: left">Yes</td>
-      <td style="text-align: left">Provides the Spring MVC development mode.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Communication on model</td>
-      <td style="text-align: left">transport-rest-vertx</td>
-      <td style="text-align: left">Yes</td>
-      <td style="text-align: left">A development framework running over HTTP, it does not depend on Web containers. Applications are packaged as executable .jar files.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Communication on model</td>
-      <td style="text-align: left">transport-rest-servlet</td>
-      <td style="text-align: left">Yes</td>
-      <td style="text-align: left">A development framework running on Web container. Applications are packaged as WAR files.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Communication on model</td>
-      <td style="text-align: left">transport-highway</td>
-      <td style="text-align: left">Yes</td>
-      <td style="text-align: left">Provides high-performance private communication protocols for Java communication.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Running model</td>
-      <td style="text-align: left">handler-loadbalance</td>
-      <td style="text-align: left">Yes</td>
-      <td style="text-align: left">A load balancing module that provides various routing policies and configurations. It is usually used for clients.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Running model</td>
-      <td style="text-align: left">handler-bizkeeper</td>
-      <td style="text-align: left">Yes</td>
-      <td style="text-align: left">Provides service governance functions, such as isolation, fallbreak, and fault tolerance.</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">Running model</td>
-      <td style="text-align: left">handler-tracing</td>
-      <td style="text-align: left">Yes</td>
-      <td style="text-align: left">Provides the capability of developing and managing TCC transactions.</td>
-    </tr>
-  </tbody>
-</table>
+<h3 id="develop-dispatcher">Develop Dispatcher</h3>
+<p>For enable Edge Service redirection, we need develop Dispatcher,implement org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher interface or extend org.apache.servicecomb.transport.rest.vertx.AbstractVertxHttpDispatcher class:</p>
+
+<h4 id="getorder-method">getOrder Method</h4>
+<p>This value returned will decide the priority of routing rules, the smaller value the higher priority.</p>
+
+<h4 id="init-method">init Method</h4>
+<p>Init routing rules of the Dispatcher, we use <a href="https://vertx.io/docs/vertx-web/java/#_routing_by_exact_path">Vertx Routing Rule</a>, for example we add two routing rules like:</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">Router</span> <span class="n">router</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">failureHandler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onFailure</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onRequest</span><span class="o">);</span>
+
+  <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">failureHandler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onFailure</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onRequest</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<ol>
+  <li>/([^\/]+)/([^\/]+)/(.*) : this rule will match certain versions of instance for request, format like /user-service/v0/validate;</li>
+  <li>/([^\/]+)/(.*) : this rule will match any versions of instance for request, format like /user-service/validate.</li>
+</ol>
+
+<h4 id="onrequest-method">onRequest Method</h4>
+<p>Implement of redirection:</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">onRequest</span><span class="o">(</span><span class="n">RoutingContext</span> <span class="n">context</span><span class="o">)</span>
+</code></pre>
+</div>
+
+<p>You can get micro-service name, path etc from context, then create and init a new EdgeInvocation for invoke:</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">EdgeInvocation</span> <span class="n">edgeInvocation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EdgeInvocation</span><span class="o">();</span>
+<span class="n">edgeInvocation</span><span class="o">.</span><span class="na">setVersionRule</span><span class="o">(</span><span class="n">versionRule</span><span class="o">);</span>
+<span class="n">edgeInvocation</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">serviceName</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="n">path</span><span class="o">,</span> <span class="n">httpServerFilters</span><span class="o">);</span>
+<span class="n">edgeInvocation</span><span class="o">.</span><span class="na">edgeInvoke</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<h3 id="load-dispatcher">Load Dispatcher</h3>
+<p>Edge Service use SPI(Service Provider Interface) to load custom VertxHttpDispatcher, create a folder named META-INF/services under resources folder, then add a file named org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher in it, in this file , add full class name of our Dispatcher:</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>{your-package-path}.XXXDispatcher
+</code></pre>
+</div>
+
+<h3 id="extend-handleroptional">Extend Handler(Optional)</h3>
+<p>Edge Service always use to provide monitoring, resiliency, security, and more, not only dynamic routing. We recommend extend custom handlers, there is an example named AuthHandler in demo-edge.</p>
+
+<h2 id="other-reference">Other Reference</h2>
+<p>In demo/demo-edge we had provided a simple demo to show abilities of Edge Service：</p>
+<ol>
+  <li>edge-service:Edge Service, include AuthHandler;</li>
+  <li>authentication:Simulate authentication, accept requests from AuthHandler;</li>
+  <li>business-x.x.x:Simulate multi-version business instances;</li>
+  <li>consumer:Simulate UI(user) request,include different version requirement.</li>
+</ol>
 
         
       </section>
@@ -753,8 +779,8 @@
     <div class="col">
       <ul>
         <p class="header">Contribute</p>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/servicecomb-introduction.md">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/servicecomb-introduction.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/edge-in-1.0.0-m1.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/edge-in-1.0.0-m1.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
       </ul>
     </div>

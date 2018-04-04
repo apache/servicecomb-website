@@ -649,8 +649,8 @@
   <li>
     <p><strong>步骤1</strong> 编写Main函数，初始化日志和加载服务配置，内容如下：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">io.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
- <span class="kn">import</span> <span class="nn">io.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+ <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainServer</span> <span class="o">{</span>
    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
    <span class="err">　</span><span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="err">#日志初始化</span>
@@ -686,12 +686,12 @@
         <span class="nt">&lt;/param-value&gt;</span>
     <span class="nt">&lt;/context-param&gt;</span>
     <span class="nt">&lt;listener&gt;</span>
-        <span class="nt">&lt;listener-class&gt;</span>io.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span>
+        <span class="nt">&lt;listener-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span>
     <span class="nt">&lt;/listener&gt;</span>
 
     <span class="nt">&lt;servlet&gt;</span>
         <span class="nt">&lt;servlet-name&gt;</span>RestServlet<span class="nt">&lt;/servlet-name&gt;</span>
-        <span class="nt">&lt;servlet-class&gt;</span>io.servicecomb.transport.rest.servlet.RestServlet<span class="nt">&lt;/servlet-class&gt;</span>
+        <span class="nt">&lt;servlet-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServlet<span class="nt">&lt;/servlet-class&gt;</span>
         <span class="nt">&lt;load-on-startup&gt;</span>1<span class="nt">&lt;/load-on-startup&gt;</span>
         <span class="nt">&lt;async-supported&gt;</span>true<span class="nt">&lt;/async-supported&gt;</span>
     <span class="nt">&lt;/servlet&gt;</span>
@@ -709,7 +709,7 @@
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependencies&gt;</span>
     <span class="nt">&lt;dependency&gt;</span>
-        <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
         <span class="nt">&lt;artifactId&gt;</span>transport-rest-servlet<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
 <span class="nt">&lt;/dependencies&gt;</span>

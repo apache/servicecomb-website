@@ -677,7 +677,7 @@
     <tr>
       <td style="text-align: left">cse.loadbalance.NFLoadBalancerRuleClassName</td>
       <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule</td>
-      <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule（轮询）com.netflix.loadbalancer.RandomRule（随机）com.netflix.loadbalancer.WeightedResponseTimeRule（服务器响应时间权值）io.servicecomb.loadbalance.SessionStickinessRule（会话保持）</td>
+      <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule（轮询）com.netflix.loadbalancer.RandomRule（随机）com.netflix.loadbalancer.WeightedResponseTimeRule（服务器响应时间权值）org.apache.servicecomb.loadbalance.SessionStickinessRule（会话保持）</td>
       <td style="text-align: left">否</td>
       <td style="text-align: left">负载均衡路由策略</td>
       <td style="text-align: left">-</td>
@@ -756,7 +756,7 @@
     </tr>
     <tr>
       <td style="text-align: left">cse.loadbalance.transactionControl.policy</td>
-      <td style="text-align: left">io.servicecomb.loadbalance.filter.SimpleTransactionControlFilter</td>
+      <td style="text-align: left">org.apache.servicecomb.loadbalance.filter.SimpleTransactionControlFilter</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
       <td style="text-align: left">动态路由分流策略</td>
@@ -806,13 +806,13 @@
 <ul>
   <li>
     <p>实现接口<code class="highlighter-rouge">com.netflix.loadbalancer.IRule</code>中定义的接口方法。
-路由选择逻辑在public Server choose(Object key)方法中实现。LoadBalancerStats是一个封装了负载均衡器当前运行状态的一个结构。通过获取stats中各个实例的运行指标，在choose方法中，判定将当前请求路由到哪个实例上进行处理。处理风格可以参照<code class="highlighter-rouge">io.servicecomb.loadbalance.SessionStickinessRule</code>。</p>
+路由选择逻辑在public Server choose(Object key)方法中实现。LoadBalancerStats是一个封装了负载均衡器当前运行状态的一个结构。通过获取stats中各个实例的运行指标，在choose方法中，判定将当前请求路由到哪个实例上进行处理。处理风格可以参照<code class="highlighter-rouge">org.apache.servicecomb.loadbalance.SessionStickinessRule</code>。</p>
   </li>
   <li>
     <p>编译开发的策略，保证生成的class在classpath下。</p>
   </li>
   <li>
-    <p>通过SDK配置该路由策略，假如是<code class="highlighter-rouge">AbcRule</code>。则配置如下：       <code class="highlighter-rouge">cse.loadbalance.NFLoadBalancerRuleClassName=io.servicecomb.ribbon.rule.AbcRule</code></p>
+    <p>通过SDK配置该路由策略，假如是<code class="highlighter-rouge">AbcRule</code>。则配置如下：       <code class="highlighter-rouge">cse.loadbalance.NFLoadBalancerRuleClassName=org.apache.servicecomb.ribbon.rule.AbcRule</code></p>
   </li>
 </ul>
 

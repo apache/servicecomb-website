@@ -488,7 +488,7 @@
             
             
 
-            <li><a href="/users/edging-service/nginx/" class="">confd and Nginx</a></li>
+            <li><a href="/users/edging-service/nginx/" class="">Confd and Nginx Edge Service</a></li>
           
             
             
@@ -496,7 +496,15 @@
             
             
 
-            <li><a href="/users/edging-service/zuul/" class="">Zuul</a></li>
+            <li><a href="/users/edging-service/zuul/" class="">Zuul Edge Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/edge-in-1.0.0-m1/" class="">ServiceComb Java Chassis Edge Service</a></li>
           
         </ul>
         
@@ -652,7 +660,7 @@
     <tr>
       <td style="text-align: left">cse.loadbalance.NFLoadBalancerRuleClassName</td>
       <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule</td>
-      <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule（polling）com.netflix.loadbalancer.RandomRule（random）com.netflix.loadbalancer.WeightedResponseTimeRule（server response time weight）io.servicecomb.loadbalance.SessionStickinessRule（session stickiness）</td>
+      <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule（polling）com.netflix.loadbalancer.RandomRule（random）com.netflix.loadbalancer.WeightedResponseTimeRule（server response time weight）org.apache.servicecomb.loadbalance.SessionStickinessRule（session stickiness）</td>
       <td style="text-align: left">No</td>
       <td style="text-align: left">Specifiles the load balancing policy</td>
       <td style="text-align: left">-</td>
@@ -731,7 +739,7 @@
     </tr>
     <tr>
       <td style="text-align: left">cse.loadbalance.transactionControl.policy</td>
-      <td style="text-align: left">io.servicecomb.loadbalance.filter.SimpleTransactionControlFilter</td>
+      <td style="text-align: left">org.apache.servicecomb.loadbalance.filter.SimpleTransactionControlFilter</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">No</td>
       <td style="text-align: left">Specifies the offload policies for dynamic routing.</td>
@@ -780,13 +788,13 @@
 
 <ul>
   <li>
-    <p>Encode using the API method defined in the <code class="highlighter-rouge">com.netflix.loadbalancer.IRule</code> API. Encode in the public Server  choose(Object key) method. LoadBalancerStats is a structure that encapsulates the running state of the load balancer. Determine on which instance the current routing request will be processed based on the running indexes of each instance by using the Server choose(Object key) method. Use method <code class="highlighter-rouge">io.servicecomb.loadbalance.SessionStickinessRule</code>for instance processing.</p>
+    <p>Encode using the API method defined in the <code class="highlighter-rouge">com.netflix.loadbalancer.IRule</code> API. Encode in the public Server  choose(Object key) method. LoadBalancerStats is a structure that encapsulates the running state of the load balancer. Determine on which instance the current routing request will be processed based on the running indexes of each instance by using the Server choose(Object key) method. Use method <code class="highlighter-rouge">org.apache.servicecomb.loadbalance.SessionStickinessRule</code>for instance processing.</p>
   </li>
   <li>
     <p>Compile the developed policy and ensure that the generated class is under classpath.</p>
   </li>
   <li>
-    <p>Use the software development kit(SDK) to configure the routing policy. Use AbcRule as a routing policy example. The configuration is as follows:        <code class="highlighter-rouge">cse.loadbalance.NFLoadBalancerRuleClassName=io.servicecomb.ribbon.rule.AbcRule</code></p>
+    <p>Use the software development kit(SDK) to configure the routing policy. Use AbcRule as a routing policy example. The configuration is as follows:        <code class="highlighter-rouge">cse.loadbalance.NFLoadBalancerRuleClassName=org.apache.servicecomb.ribbon.rule.AbcRule</code></p>
   </li>
 </ul>
 

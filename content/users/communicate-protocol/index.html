@@ -488,7 +488,7 @@
             
             
 
-            <li><a href="/users/edging-service/nginx/" class="">confd and Nginx</a></li>
+            <li><a href="/users/edging-service/nginx/" class="">Confd and Nginx Edge Service</a></li>
           
             
             
@@ -496,7 +496,15 @@
             
             
 
-            <li><a href="/users/edging-service/zuul/" class="">Zuul</a></li>
+            <li><a href="/users/edging-service/zuul/" class="">Zuul Edge Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/edge-in-1.0.0-m1/" class="">ServiceComb Java Chassis Edge Service</a></li>
           
         </ul>
         
@@ -699,11 +707,11 @@
      <span class="nt">&lt;param-value&gt;</span>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml<span class="nt">&lt;/param-value&gt;</span> 
    <span class="nt">&lt;/context-param&gt;</span>  
    <span class="nt">&lt;listener&gt;</span> 
-     <span class="nt">&lt;listener-class&gt;</span>io.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span> 
+     <span class="nt">&lt;listener-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span> 
    <span class="nt">&lt;/listener&gt;</span>  
    <span class="nt">&lt;servlet&gt;</span> 
      <span class="nt">&lt;servlet-name&gt;</span>RestServlet<span class="nt">&lt;/servlet-name&gt;</span>  
-     <span class="nt">&lt;servlet-class&gt;</span>io.servicecomb.transport.rest.servlet.RestServlet<span class="nt">&lt;/servlet-class&gt;</span>  
+     <span class="nt">&lt;servlet-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServlet<span class="nt">&lt;/servlet-class&gt;</span>  
      <span class="nt">&lt;load-on-startup&gt;</span>1<span class="nt">&lt;/load-on-startup&gt;</span>  
      <span class="nt">&lt;async-supported&gt;</span>true<span class="nt">&lt;/async-supported&gt;</span> 
    <span class="nt">&lt;/servlet&gt;</span>  
@@ -724,7 +732,7 @@
      <span class="nt">&lt;param-value&gt;</span>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml<span class="nt">&lt;/param-value&gt;</span> 
    <span class="nt">&lt;/context-param&gt;</span>  
    <span class="nt">&lt;listener&gt;</span> 
-     <span class="nt">&lt;listener-class&gt;</span>io.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span> 
+     <span class="nt">&lt;listener-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span> 
    <span class="nt">&lt;/listener&gt;</span> 
  <span class="nt">&lt;/web-app&gt;</span>
 </code></pre>
@@ -741,7 +749,7 @@
 <p>The two method are equivalent, and they both require that the following dependencies be added in the pox.xml file:</p>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
-  <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
+  <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
   <span class="nt">&lt;artifactId&gt;</span>transport-rest-servlet<span class="nt">&lt;/artifactId&gt;</span> 
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
@@ -822,8 +830,8 @@
 
 <p>The REST over Vertx communication channel uses the standalone running mode that can be started using the main function. In the main function, you need to initialize logs and load service configuration. The code is as follow:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">io.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">io.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainServer</span> <span class="o">{</span>
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
@@ -837,7 +845,7 @@
 <p>To use the REST over Vertx communication channel, you need to add the following dependencies in the maven pom.xml file:</p>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
-　　<span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+　　<span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
 　　<span class="nt">&lt;artifactId&gt;</span>transport-rest-vertx<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
@@ -943,7 +951,7 @@
 <p>To use the Highway communication channel, you need to add the following dependencies in the maven pom.xml file:</p>
 
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
-  <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
+  <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
   <span class="nt">&lt;artifactId&gt;</span>transport-highway<span class="nt">&lt;/artifactId&gt;</span> 
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>

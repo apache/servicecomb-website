@@ -488,7 +488,7 @@
             
             
 
-            <li><a href="/users/edging-service/nginx/" class="">confd and Nginx</a></li>
+            <li><a href="/users/edging-service/nginx/" class="">Confd and Nginx Edge Service</a></li>
           
             
             
@@ -496,7 +496,15 @@
             
             
 
-            <li><a href="/users/edging-service/zuul/" class="">Zuul</a></li>
+            <li><a href="/users/edging-service/zuul/" class="">Zuul Edge Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/edge-in-1.0.0-m1/" class="">ServiceComb Java Chassis Edge Service</a></li>
           
         </ul>
         
@@ -638,8 +646,8 @@ The location of the API must be the same as the path specified by x-java-interfa
  <span class="kn">import</span> <span class="nn">javax.ws.rs.Path</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">javax.ws.rs.Produces</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
- <span class="kn">import</span> <span class="nn">io.servicecomb.samples.common.schema.Hello</span><span class="o">;</span>
- <span class="kn">import</span> <span class="nn">io.servicecomb.samples.common.schema.models.Person</span><span class="o">;</span>
+ <span class="kn">import</span> <span class="nn">org.apache.servicecomb.samples.common.schema.Hello</span><span class="o">;</span>
+ <span class="kn">import</span> <span class="nn">org.apache.servicecomb.samples.common.schema.models.Person</span><span class="o">;</span>
 
  <span class="nd">@Path</span><span class="o">(</span><span class="s">"/jaxrshello"</span><span class="o">)</span>
  <span class="nd">@Produces</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
@@ -664,7 +672,7 @@ The location of the API must be the same as the path specified by x-java-interfa
   <li>
     <p><strong>Step 3</strong> Release the service. Add <code class="highlighter-rouge">@RestSchema</code> as the annotation of the service implementation class and specify schemaID, which indicates that the implementation is released as a schema of the current microservice. The code is as follows:</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">io.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
  <span class="c1">// other code omitted</span>
  <span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"jaxrsHello"</span><span class="o">)</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">JaxrsHelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
@@ -682,7 +690,7 @@ The location of the API must be the same as the path specified by x-java-interfa
         <span class="na">xmlns:context=</span><span class="s">" http://www.springframework.org/schema/context "</span>
         <span class="na">xsi:schemaLocation=</span><span class="s">" http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd"</span><span class="nt">&gt;</span>
 
-     <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"io.servicecomb.samples.jaxrs.provider"</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"org.apache.servicecomb.samples.jaxrs.provider"</span><span class="nt">/&gt;</span>
  <span class="nt">&lt;/beans&gt;</span>
 </code></pre>
     </div>

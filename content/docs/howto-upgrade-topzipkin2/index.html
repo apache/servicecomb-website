@@ -465,11 +465,11 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p>Change the zipkin.xxx import to zipkin2.xxx on imports, and most importantly, use <code class="highlighter-rouge">spanReporter()</code> instead of <code class="highlighter-rouge">reporter()</code> for generating reporter for brave, change the api path to /api/v2/xxx when creating sender.</p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>handlers/handler-tracing-zipkin/src/main/java/io/servicecomb/tracing/zipkin/TracingConfiguration.java
+<div class="language-diff highlighter-rouge"><pre class="highlight"><code>handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
 <span class="gu">@@ -31,11 +31,11 @@
 </span> import brave.http.HttpTracing;
  import brave.propagation.CurrentTraceContext;
- import io.servicecomb.config.DynamicProperties;
+ import org.apache.servicecomb.config.DynamicProperties;
 <span class="gd">-import zipkin.Span;
 -import zipkin.reporter.AsyncReporter;
 -import zipkin.reporter.Reporter;
@@ -532,11 +532,11 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p>We do not use zipkin.Span in our production code, but we do use it in our tests. Those changes are quite straight forward, we just change the accessing of fields to calling methods as described in the What’s Changed section.</p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>tracing/tracing-zipkin/src/test/java/io/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
+<div class="language-diff highlighter-rouge"><pre class="highlight"><code>tracing/tracing-zipkin/src/test/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
 <span class="gu">@@ -45,7 +45,7 @@
-</span> import io.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
- import io.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.CustomSpanTask;
- import io.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.SomeSlowTask;
+</span> import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
+ import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.CustomSpanTask;
+ import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.SomeSlowTask;
 <span class="gd">-import zipkin.Span;
 </span><span class="gi">+import zipkin2.Span;
 </span> 

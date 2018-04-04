@@ -488,7 +488,7 @@
             
             
 
-            <li><a href="/users/edging-service/nginx/" class="">confd and Nginx</a></li>
+            <li><a href="/users/edging-service/nginx/" class="">Confd and Nginx Edge Service</a></li>
           
             
             
@@ -496,7 +496,15 @@
             
             
 
-            <li><a href="/users/edging-service/zuul/" class="">Zuul</a></li>
+            <li><a href="/users/edging-service/zuul/" class="">Zuul Edge Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/edge-in-1.0.0-m1/" class="">ServiceComb Java Chassis Edge Service</a></li>
           
         </ul>
         
@@ -602,14 +610,12 @@
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
   <li><a href="#background" id="markdown-toc-background">Background</a></li>
-  <li><a href="#integration-principles" id="markdown-toc-integration-principles">Integration Principles</a>    <ul>
-      <li><a href="#relation-between-metrics-core-publish" id="markdown-toc-relation-between-metrics-core-publish">Relation between metrics-core Publish</a></li>
-    </ul>
-  </li>
+  <li><a href="#integration-principles" id="markdown-toc-integration-principles">Integration Principles</a></li>
   <li><a href="#how-configuration" id="markdown-toc-how-configuration">How Configuration</a>    <ul>
       <li><a href="#global-configuration" id="markdown-toc-global-configuration">Global Configuration</a></li>
       <li><a href="#maven-configuration" id="markdown-toc-maven-configuration">Maven Configuration</a></li>
       <li><a href="#config-prometheusyml-in-prometheus" id="markdown-toc-config-prometheusyml-in-prometheus">Config prometheus.yml in Prometheus</a></li>
+      <li><a href="#verify-output" id="markdown-toc-verify-output">Verify Output</a></li>
       <li><a href="#config-grafanaoptional" id="markdown-toc-config-grafanaoptional">Config Grafana(optional)</a></li>
     </ul>
   </li>
@@ -638,56 +644,12 @@ As an integration(optional) module,the implementation code is in metrics-integra
   <span class="nt">&lt;/dependency&gt;</span>
 
   <span class="nt">&lt;dependency&gt;</span>
-    <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>metrics-core<span class="nt">&lt;/artifactId&gt;</span>
   <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
 </div>
 <p>So if we import metrics-prometheus,no longer need to add metrics-core dependence.</p>
-<h3 id="relation-between-metrics-core-publish">Relation between metrics-core Publish</h3>
-<p><a href="/users/metrics-in-1.0.0-m1/">Metrics in 1.0.0-m1</a> had already been mentioned,metrics-core will auto start up a embedded publish interface,so if you had configured rest provider in microservice.yaml like:</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
-  <span class="s">service</span><span class="pi">:</span>
-    <span class="s">registry</span><span class="pi">:</span>
-      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
-  <span class="s">rest</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-</code></pre>
-</div>
-<p>You can direct get metrics data at http://localhost:8080/metrics ,it will return a entity of io.servicecomb.metrics.common.RegistryMetric,the output is:</p>
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="nt">"instanceMetric"</span><span class="p">:{</span><span class="w">
-</span><span class="nt">"systemMetric"</span><span class="p">:{</span><span class="nt">"cpuLoad"</span><span class="p">:</span><span class="mf">10.0</span><span class="p">,</span><span class="nt">"cpuRunningThreads"</span><span class="p">:</span><span class="mi">39</span><span class="p">,</span><span class="nt">"heapInit"</span><span class="p">:</span><span class="mi">266338304</span><span class="p">,</span><span class="nt">"heapMax"</span><span class="p">:</span><span class="mi">3786407936</span><span class="p">,</span><span class="nt">"heapCommit"</span><span class="p">:</span><span class="mi">626524160</span><span class="p">,</span><span class="nt">"heapUsed"</span><span class="p">:</span><span class="mi">338280024</span><span class="p">,</span><span class="nt">"nonHeapInit"</span><span class="p">:</span><span class="mi">2555904</span><span class="p">,</span><span class="nt">"nonHeapMax"</span><span class="p">:</span><span class="mi">-1</span><span class="p">,</span><span class="nt">"nonHeapCommit"</span><span class="p">:</span><span class="mi">60342272</span><span class="p">,</span><span class="nt">"nonHeapUsed"</span><span class="p">:</span><span class="mi">58673152</span><span class="p">},</span><span class="w">
-</span><span class="nt">"consumerMetric"</span><span class="p">:{</span><span class="nt">"operationName"</span><span class="p">:</span><span class="s2">"instance"</span><span class="p">,</span><span class="nt">"prefix"</span><span class="p">:</span><span class="s2">"servicecomb.instance.consumer"</span><span class="p">,</span><span class="nt">"consumerLatency"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"min"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"max"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"average"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span><span class="nt">"consumerCall"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"tps"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}},</span><span class="w">
-</span><span class="nt">"producerMetric"</span><span class="p">:{</span><span class="nt">"operationName"</span><span class="p">:</span><span class="s2">"instance"</span><span class="p">,</span><span class="nt">"prefix"</span><span class="p">:</span><span class="s2">"servicecomb.instance.producer"</span><span class="p">,</span><span class="nt">"waitInQueue"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"lifeTimeInQueue"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"min"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"max"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"average"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span><span class="nt">"executionTime"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"min"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"max"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"average"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span><span class="nt">"producerLatency"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"min"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"max"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"average"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span><span class="nt">"producerCall"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"tps"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}}},</span><span class="w">
-</span><span class="nt">"consumerMetrics"</span><span class="p">:{},</span><span class="w">
-</span><span class="nt">"producerMetrics"</span><span class="p">:{</span><span class="nt">"calculator.metricsEndpoint.metrics"</span><span class="p">:{</span><span class="nt">"operationName"</span><span class="p">:</span><span class="s2">"calculator.metricsEndpoint.metrics"</span><span class="p">,</span><span class="nt">"prefix"</span><span class="p">:</span><span class="s2">"servicecomb.calculator.metricsEndpoint.metrics.producer"</span><span class="p">,</span><span class="nt">"waitInQueue"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"lifeTimeInQueue"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"min"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"max"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"average"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span><span class="nt">"executionTime"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"min"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"max"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"average"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span><span class="nt">"producerLatency"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"count"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"min"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"max"</span><span class="p">:</span><span class="mi">0</span><span class="p">,</span><span class="nt">"average"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">},</span><span class="nt">"producerCall"</span><span class="p">:{</span><span class="nt">"total"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nt">"tps"</span><span class="p">:</span><span class="mf">0.0</span><span class="p">}}</span><span class="w">
-</span><span class="p">}}</span><span class="w">
-</span></code></pre>
-</div>
-<p>But use Prometheus Simple HTTP Server provider interface will publish the standard format which prometheus needed:</p>
-<div class="language-text highlighter-rouge"><pre class="highlight"><code># HELP Instance Level Instance Level Metrics
-# TYPE Instance Level untyped
-servicecomb_instance_producer_producerLatency_average 0.0
-servicecomb_instance_producer_producerLatency_total 0.0
-servicecomb_instance_consumer_producerLatency_count 0.0
-...
-servicecomb_instance_producer_producerLatency_min 0.0
-servicecomb_instance_producer_lifeTimeInQueue_average 0.0
-servicecomb_instance_producer_lifeTimeInQueue_count 0.0
-servicecomb_instance_system_heap_init 2.66338304E8
-# HELP calculator.metricsEndpoint.metrics Producer Side calculator.metricsEndpoint.metrics Producer Side Metrics
-# TYPE calculator.metricsEndpoint.metrics Producer Side untyped
-servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_average 0.0
-...
-servicecomb_calculator_metricsEndpoint_metrics_producer_executionTime_total 0.0
-servicecomb_calculator_metricsEndpoint_metrics_producer_waitInQueue_count 0.0
-servicecomb_calculator_metricsEndpoint_metrics_producer_lifeTimeInQueue_count 0.0
-</code></pre>
-</div>
-<p>So they are two independent,different for use.</p>
-
-<p><em>Prometheus Simple HTTP Server also use /metrics as default URL,metrics-prometheus will use 9696 as default port,after microservice start up you can get metrics data at http://localhost:9696/metrics .</em>  <br />
-The metrics name in prometheus we replace all dot with underline,because we must follow its <a href="https://prometheus.io/docs/practices/naming/">naming rules</a>.</p>
 
 <h2 id="how-configuration">How Configuration</h2>
 <p>Enable prometheus integration is very easy:</p>
@@ -709,7 +671,7 @@ The metrics name in prometheus we replace all dot with underline,because we must
 <h3 id="maven-configuration">Maven Configuration</h3>
 <p>We just only need add metrics-prometheus dependency:</p>
 <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>io.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>metrics-prometheus<span class="nt">&lt;/artifactId&gt;</span>
       <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
@@ -737,6 +699,31 @@ The metrics name in prometheus we replace all dot with underline,because we must
 </code></pre>
 </div>
 <p>The job_name: ‘servicecomb’ is our custom job,it will collect metrics data from local microservice localhost:9696,more information about configuration of prometheus can found <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/">here</a>.</p>
+
+<h3 id="verify-output">Verify Output</h3>
+<p>Prometheus Simple HTTP Server use /metrics as default URL,metrics-prometheus will use 9696 as default port,after microservice start up you can get metrics data at http://localhost:9696/metrics . 
+Prometheus Simple HTTP Server provider interface will publish the standard format which prometheus needed:</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code># HELP ServiceComb Metrics ServiceComb Metrics
+# TYPE ServiceComb Metrics untyped
+jvm{name="cpuRunningThreads",statistic="gauge",} 45.0
+jvm{name="heapMax",statistic="gauge",} 3.786407936E9
+jvm{name="heapCommit",statistic="gauge",} 6.12892672E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="max",status="200",unit="MILLISECONDS",} 1.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="tps",status="200",} 0.4
+jvm{name="nonHeapCommit",statistic="gauge",} 6.1104128E7
+jvm{name="nonHeapInit",statistic="gauge",} 2555904.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="execution",statistic="max",status="200",unit="MILLISECONDS",} 0.0
+jvm{name="heapUsed",statistic="gauge",} 2.82814088E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="latency",status="200",unit="MILLISECONDS",} 1.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="execution",statistic="latency",status="200",unit="MILLISECONDS",} 0.0
+jvm{name="heapInit",statistic="gauge",} 2.66338304E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="waitInQueue",} 0.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="count",status="200",} 39.0
+jvm{name="nonHeapUsed",statistic="gauge",} 5.9361032E7
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="latency",status="200",unit="MILLISECONDS",} 0.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="max",status="200",unit="MILLISECONDS",} 0.0
+</code></pre>
+</div>
 
 <h3 id="config-grafanaoptional">Config Grafana(optional)</h3>
 <p>How add prometheus as a datasource in grafana can found <a href="https://prometheus.io/docs/visualization/grafana/">here</a>.</p>
