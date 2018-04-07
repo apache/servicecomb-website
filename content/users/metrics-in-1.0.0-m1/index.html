@@ -943,6 +943,7 @@ Tag name and value below:</p>
     <span class="n">node</span><span class="o">.</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"20"</span><span class="o">).</span><span class="na">getFirstMatchMetricValue</span><span class="o">(</span><span class="s">"K3"</span><span class="o">,</span><span class="s">"30"</span><span class="o">);</span>
 </code></pre>
 </div>
+
 <p><em>More detail can be found in demo/perf/PerfMetricsFilePublisher.java</em></p>
 
 <h2 id="how-to-extend-custom-metrics">How to Extend Custom Metrics</h2>
@@ -1013,32 +1014,35 @@ Tag name and value below:</p>
 <span class="o">}</span>
 </code></pre>
 </div>
+
 <p>Notice:</p>
-<ol>
-  <li>Metric ID is join name and all tags that pass to MonitorManager when getting monitor,so please keep uniqueness,metrics output of front example are:
-```java
-Map&lt;String,Double&gt; metrics = MonitorManager.getInstance().measure();</li>
-</ol>
 
-<p>//metrics.keySet() include：
-//	orderCount(product=levis jeans,model=512)
-//	orderGenerated(statistic=tps)
-//	orderGenerated(statistic=latency,unit=MILLISECONDS)
-//	orderGenerated(statistic=max,unit=MILLISECONDS)</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>
-2. All get monitor method in MonitorManager act as **get or new**,so use same name and tags will return same one monitor:
-```java
-    Counter counter1 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
-    Counter counter2 = MonitorManager.getInstance().getCounter("orderGenerated", "product", "levis jeans", "model", "512");
+<p>1.Metric ID is join name and all tags that pass to MonitorManager when getting monitor,so please keep uniqueness,metrics output of front example are:</p>
 
-    counter1.increment();
-    counter2.increment();
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
 
-    Assert.assertEquals(2,counter1.getValue());
-    Assert.assertEquals(2,counter2.getValue());
-    Assert.assertEquals(2.0,MonitorManager.getInstance().measure().get("orderGenerated(product=levis jeans,model=512)"),0);
+<span class="c1">//metrics.keySet() include：</span>
+<span class="c1">//	orderCount(product=levis jeans,model=512)</span>
+<span class="c1">//	orderGenerated(statistic=tps)</span>
+<span class="c1">//	orderGenerated(statistic=latency,unit=MILLISECONDS)</span>
+<span class="c1">//	orderGenerated(statistic=max,unit=MILLISECONDS)</span>
 </code></pre>
 </div>
+
+<p>2.All get monitor method in MonitorManager act as <strong>get or new</strong>,so use same name and tags will return same one monitor:</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Counter</span> <span class="n">counter1</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"orderGenerated"</span><span class="o">,</span> <span class="s">"product"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"model"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
+<span class="n">Counter</span> <span class="n">counter2</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"orderGenerated"</span><span class="o">,</span> <span class="s">"product"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"model"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
+
+<span class="n">counter1</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+<span class="n">counter2</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+
+<span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter1</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter2</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mf">2.0</span><span class="o">,</span><span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"orderGenerated(product=levis jeans,model=512)"</span><span class="o">),</span><span class="mi">0</span><span class="o">);</span>
+</code></pre>
+</div>
+
 <p><strong>Performance of get monitor from MonitorManager is slightly lower,so please get all monitors what needed when init,then cache them for later use,like OrderController example.</strong></p>
 
 <p><strong>Notice: Servo had marked with DEPRECATED by Netflix, we will use Netflix spectator instead in 1.0.0-m2, the way of extending custom metrics will be adjusted</strong></p>

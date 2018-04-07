@@ -1032,31 +1032,33 @@ name包括：</p>
 </div>
 
 <p>注意事项：</p>
-<ol>
-  <li>通过MonitorManager获取Monitor传递name和tag数组，最终输出的ID是它们连接后的字符串，所以请保持唯一性，上面的例子输出的Metrics为：
-```java
-Map&lt;String,Double&gt; metrics = MonitorManager.getInstance().measure();</li>
-</ol>
 
-<p>//metrics的keySet()将包含：
-//	订单数量(商品名=levis jeans,型号=512)
-//	生成订单(统计项=事务每秒)
-//	生成订单(统计项=平均生成时间,单位=MILLISECONDS)
-//	生成订单(统计项=最大生成时间,单位=MILLISECONDS)</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>
-2. MonitorManager获取Monitor的方法均为**获取或创建**，因此多次传递相同的name和tag数组返回的是同一个计数器：
-```java
-    Counter counter1 = MonitorManager.getInstance().getCounter("订单数量", "商品名", "levis jeans", "型号", "512");
-    Counter counter2 = MonitorManager.getInstance().getCounter("订单数量", "商品名", "levis jeans", "型号", "512");
+<p>1.通过MonitorManager获取Monitor传递name和tag数组，最终输出的ID是它们连接后的字符串，所以请保持唯一性，上面的例子输出的Metrics为：</p>
 
-    counter1.increment();
-    counter2.increment();
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
 
-    Assert.assertEquals(2,counter1.getValue());
-    Assert.assertEquals(2,counter2.getValue());
-    Assert.assertEquals(2.0,MonitorManager.getInstance().measure().get("订单数量(商品名=levis jeans,型号=512)"),0);
+<span class="c1">//metrics的keySet()将包含：</span>
+<span class="c1">//	订单数量(商品名=levis jeans,型号=512)</span>
+<span class="c1">//	生成订单(统计项=事务每秒)</span>
+<span class="c1">//	生成订单(统计项=平均生成时间,单位=MILLISECONDS)</span>
+<span class="c1">//	生成订单(统计项=最大生成时间,单位=MILLISECONDS)</span>
 </code></pre>
 </div>
+
+<p>2.MonitorManager获取Monitor的方法均为<strong>获取或创建</strong>，因此多次传递相同的name和tag数组返回的是同一个计数器：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Counter</span> <span class="n">counter1</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"订单数量"</span><span class="o">,</span> <span class="s">"商品名"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"型号"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
+<span class="n">Counter</span> <span class="n">counter2</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"订单数量"</span><span class="o">,</span> <span class="s">"商品名"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"型号"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
+
+<span class="n">counter1</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+<span class="n">counter2</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+
+<span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter1</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter2</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mf">2.0</span><span class="o">,</span><span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"订单数量(商品名=levis jeans,型号=512)"</span><span class="o">),</span><span class="mi">0</span><span class="o">);</span>
+</code></pre>
+</div>
+
 <p><strong>获取Monitor的方法性能较低，请在初始化阶段一次获取所需的Monitor，然后将它们缓存起来，请参照前面OrderController的做法。</strong></p>
 
 <p><strong>提示：Servo已经被Netflix标记为DEPRECATED，我们将在1.0.0-m2中使用Netflix spectator替换，扩展自定义Metrics的方式会有调整</strong></p>

@@ -701,8 +701,9 @@ As an integration(optional) module,the implementation code is in metrics-integra
 <p>The job_name: ‘servicecomb’ is our custom job,it will collect metrics data from local microservice localhost:9696,more information about configuration of prometheus can found <a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/">here</a>.</p>
 
 <h3 id="verify-output">Verify Output</h3>
-<p>Prometheus Simple HTTP Server use /metrics as default URL,metrics-prometheus will use 9696 as default port,after microservice start up you can get metrics data at http://localhost:9696/metrics . 
-Prometheus Simple HTTP Server provider interface will publish the standard format which prometheus needed:</p>
+<p>Prometheus Simple HTTP Server use /metrics as default URL,metrics-prometheus will use 9696 as default port,after microservice start up you can get metrics data at http://localhost:9696/metrics.</p>
+
+<p>Prometheus Simple HTTP Server provider interface will publish the standard format which prometheus needed:</p>
 <div class="language-text highlighter-rouge"><pre class="highlight"><code># HELP ServiceComb Metrics ServiceComb Metrics
 # TYPE ServiceComb Metrics untyped
 jvm{name="cpuRunningThreads",statistic="gauge",} 45.0
@@ -728,11 +729,13 @@ servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="produce
 <h3 id="config-grafanaoptional">Config Grafana(optional)</h3>
 <p>How add prometheus as a datasource in grafana can found <a href="https://prometheus.io/docs/visualization/grafana/">here</a>.</p>
 <h2 id="effect-show">Effect Show</h2>
-<p>After complete prometheus config and start up microservice,we can open prometheus web site(default address is http://localhost:9090/),in metrics list java chassis metrics with prefix ‘servicecomb’ can be seen:
-<img src="/assets/images/MetricsInPrometheus.png" alt="MetricsInPrometheus" /></p>
+<p>After complete prometheus config and start up microservice,we can open prometheus web site(default address is http://localhost:9090/),in metrics list java chassis metrics with prefix ‘servicecomb’ can be seen:</p>
 
-<p>For get more better data query experience,add prometheus as a datasource in grafana then query metrics data by it:<br />
-<img src="/assets/images/MetricsInGrafana.png" alt="MetricsInGrafana" /></p>
+<p><img src="/assets/images/MetricsInPrometheus.png" alt="MetricsInPrometheus" /></p>
+
+<p>For get more better data query experience,add prometheus as a datasource in grafana then query metrics data by it:</p>
+
+<p><img src="/assets/images/MetricsInGrafana.png" alt="MetricsInGrafana" /></p>
 
         
       </section>
