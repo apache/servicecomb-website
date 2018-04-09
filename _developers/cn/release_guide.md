@@ -2,7 +2,7 @@
 title: "Release guide for ServiceComb"
 lang: en
 ref: release_guide
-permalink: /developers/release-guide/
+permalink: /cn/developers/release-guide/
 excerpt: "Release guide for doing the releases in Apache"
 last_modified_at: 2018-04-03T18:33:43+08:00
 author: Asif Siddiqui
