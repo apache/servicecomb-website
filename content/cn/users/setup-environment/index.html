@@ -608,7 +608,7 @@
     <meta itemprop="headline" content="环境配置">
     <meta itemprop="description" content="环境配置">
     
-    <meta itemprop="dateModified" content="September 03, 2017">
+    <meta itemprop="dateModified" content="April 13, 2018">
 
     <div class="page__inner-wrap">
       
@@ -627,7 +627,11 @@
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
   <li><a href="#安装java开发环境" id="markdown-toc-安装java开发环境">安装Java开发环境</a></li>
-  <li><a href="#运行service-center" id="markdown-toc-运行service-center">运行<em>Service Center</em></a></li>
+  <li><a href="#运行-service-center" id="markdown-toc-运行-service-center">运行 Service Center</a>    <ul>
+      <li><a href="#运行-stand-alone-service-center" id="markdown-toc-运行-stand-alone-service-center">运行 Stand-alone Service Center</a></li>
+      <li><a href="#运行-service-center-集群" id="markdown-toc-运行-service-center-集群">运行 Service Center 集群</a></li>
+    </ul>
+  </li>
 </ul>
 
   </nav>
@@ -650,8 +654,9 @@
   </li>
 </ul>
 
-<h2 id="运行service-center">运行<em>Service Center</em></h2>
-<p>运行Service Center有以下两种方式:</p>
+<h2 id="运行-service-center">运行 Service Center</h2>
+<h3 id="运行-stand-alone-service-center">运行 Stand-alone Service Center</h3>
+<p>运行Stand-alone Service Center有以下两种方式:</p>
 
 <ol>
   <li>
@@ -701,6 +706,141 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 
 <p class="notice--warning"><strong>注意事项：</strong> 服务注册中心运行后绑定的IP为：<em>http://127.0.0.1:30100</em>。<br />
 如使用Docker Toolbox，可通过 <code class="highlighter-rouge">docker-machine ip</code> 获取服务绑定IP地址。</p>
+
+<h3 id="运行-service-center-集群">运行 Service Center 集群</h3>
+<p>Service Center是一个无状态的应用因此它很容易以集群的模式部署提供HA。</p>
+
+<p>它依赖<a href="https://github.com/coreos/etcd">etcd</a>存储微服务的信息，etcd既支持standalone模式运行也支持<a href="https://coreos.com/etcd/docs/latest/op-guide/clustering.html">集群模式</a>运行。</p>
+
+<p>提示：我们强烈推荐etcd以集群模式运行，这样才能从整体上保证Service Center的HA能力；另外在这篇<a href="https://coreos.com/etcd/docs/latest/op-guide/runtime-configuration.html">文档</a>中我们可以了解到etcd需要部署至少三个节点才能够避免Majority Failure。</p>
+
+<p>部署了standalone或集群etcd后，你可以按下面的步骤部署Service Center集群，我们以在两台VM上各部署一个Service Center实例为例：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Name</th>
+      <th style="text-align: center">Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">VM1</td>
+      <td style="text-align: center">10.12.0.1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">VM2</td>
+      <td style="text-align: center">10.12.0.2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>我们假定你的etcd运行在http://10.12.0.4:2379 上：</p>
+
+<h5 id="第一步">第一步</h5>
+<p>在所有的VM上从<a href="https://github.com/apache/incubator-servicecomb-service-center/releases">ServiceComb官网</a>下载最新版本的Service Center并解压：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>tar -xvf service-center-X.X.X-linux-amd64.tar.gz
+</code></pre>
+</div>
+
+<p>提示：请不要按stand-alone提示的方式执行start-service-center.sh，因为这样会启动内置的etcd。</p>
+
+<h5 id="第二步">第二步</h5>
+<p>编辑ServcieComb的配置文件，修改ip/port以及etcd地址：</p>
+<h6 id="vm1">VM1</h6>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi conf/app.conf
+</code></pre>
+</div>
+
+<p>修改下面的配置 :</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>httpaddr = 10.12.0.1
+manager_cluster = "10.12.0.4:2379"
+</code></pre>
+</div>
+
+<p>然后启动Service Center :</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>./service-center
+</code></pre>
+</div>
+
+<h6 id="vm2">VM2</h6>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi conf/app.conf
+</code></pre>
+</div>
+
+<p>修改下面的配置 :</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>httpaddr = 10.12.0.2
+manager_cluster = "10.12.0.4:2379"
+</code></pre>
+</div>
+
+<p>然后启动Service Center :</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>./service-center
+</code></pre>
+</div>
+
+<p>提示：在<code class="highlighter-rouge">manger_cluster</code>配置中你可以填写多个在etcd群集中的etcd实例地址：</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>manager_cluster= "10.12.0.4:2379,10.12.0.X:2379,10.12.0.X:2379"
+</code></pre>
+</div>
+
+<h5 id="第三步">第三步</h5>
+<p>验证你部署完毕的Service Center实例 :</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>curl http://10.12.0.1:30101/v4/default/registry/health
+</code></pre>
+</div>
+<p>将会返回下面的内容 :</p>
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"instances"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e9e976f9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"rest://10.12.0.1:30100"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_1"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16d4cb35f9e011e7a58a286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"rest://10.12.0.2:30100"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_2"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>我们可以看到Service Center能够自动发现所有正在集群中运行的实例，<a href="https://github.com/apache/incubator-servicecomb-java-chassis">Java-Chassis SDK</a>将使用这个特性至少找到一个Service Center实例。</p>
+
+<p>在你的microservice.yaml中你可以填写一个或多个Service Center实例，如果<a href="https://github.com/apache/incubator-servicecomb-java-chassis">Java-Chassis SDK</a>发现配置的第一个地址（实例）失败，它将会自动使用下一个地址（实例）：</p>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://10.12.0.1:30100,http://10.12.0.2:30100"</span>
+      <span class="s">autodiscovery</span><span class="pi">:</span> <span class="s">true</span>
+</code></pre>
+</div>
+<p>上面的例子里包含了我们已经配置好的两个Service Center实例。</p>
 
         
       </section>

@@ -591,7 +591,7 @@
     <meta itemprop="headline" content="Setup Environment">
     <meta itemprop="description" content="Setup Environment">
     
-    <meta itemprop="dateModified" content="September 03, 2017">
+    <meta itemprop="dateModified" content="April 13, 2018">
 
     <div class="page__inner-wrap">
       
@@ -610,7 +610,11 @@
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
   <li><a href="#setup-local-java-develop-environment" id="markdown-toc-setup-local-java-develop-environment">Setup Local Java Develop Environment</a></li>
-  <li><a href="#starting-local-service-center" id="markdown-toc-starting-local-service-center">Starting Local <em>Service Center</em></a></li>
+  <li><a href="#starting-service-center" id="markdown-toc-starting-service-center">Starting Service Center</a>    <ul>
+      <li><a href="#starting-stand-alone-service-center" id="markdown-toc-starting-stand-alone-service-center">Starting Stand-alone Service Center</a></li>
+      <li><a href="#starting-clustered-service-center" id="markdown-toc-starting-clustered-service-center">Starting Clustered Service Center</a></li>
+    </ul>
+  </li>
 </ul>
 
   </nav>
@@ -633,8 +637,9 @@
   </li>
 </ul>
 
-<h2 id="starting-local-service-center">Starting Local <em>Service Center</em></h2>
-<p>There are two ways to start a service center service:</p>
+<h2 id="starting-service-center">Starting Service Center</h2>
+<h3 id="starting-stand-alone-service-center">Starting Stand-alone Service Center</h3>
+<p>There are two ways to start a stand-alone service center service:</p>
 
 <ol>
   <li>
@@ -653,7 +658,7 @@
           <li>Start Local ServiceCenter from <strong>start-service-center.bat</strong> file</li>
         </ol>
       </div>
-<div id="linux" class="tab-pane fade">
+ <div id="linux" class="tab-pane fade">
         <ol>
           <li>Download and Decompress command:
             <div class="language-bash highlighter-rouge"><pre class="highlight"><code>wget http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64.tar.gz
@@ -684,6 +689,142 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 
 <p class="notice--warning"><strong>NOTE：</strong> Running Service Center will bind on: <em>http://127.0.0.1:30100</em>。<br />
 If using Docker Toolbox，command <code class="highlighter-rouge">docker-machine ip</code> can be used to get binded IP address.</p>
+
+<h3 id="starting-clustered-service-center">Starting Clustered Service Center</h3>
+<p>As Service-center is a stateless application so it can be seamlessly deployed in cluster mode to achieve HA.</p>
+
+<p>SC is dependent on the <a href="https://github.com/coreos/etcd">etcd</a> to store the micro-services information so you can opt for running etcd standalone or in <a href="https://coreos.com/etcd/docs/latest/op-guide/runtime-configuration.html">cluster</a> mode.</p>
+
+<p>Notice: We strongly recommend running etcd in cluster mode in order to get the perfect HA ability. In this <a href="https://coreos.com/etcd/docs/latest/op-guide/runtime-configuration.html">document</a> we can know it is highly recommended to always have a cluster size greater than two in production in order to prevent Majority Failure.</p>
+
+<p>Once you are done with installing the etcd either in cluster or standalone mode then you can follow the below steps to run the Service-Center.</p>
+
+<p>Let’s assume you want to install 2 instances of Service-Center on VM with following details</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Name</th>
+      <th style="text-align: center">Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">VM1</td>
+      <td style="text-align: center">10.12.0.1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">VM2</td>
+      <td style="text-align: center">10.12.0.2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here we assume your etcd is running on http://10.12.0.4:2379 (you can follow <a href="https://github.com/coreos/etcd/blob/master/Documentation/op-guide/container.md">this</a> guide to install etcd in cluster mode.)</p>
+
+<h5 id="step-1">Step 1</h5>
+<p>Download the SC release from <a href="https://github.com/apache/incubator-servicecomb-service-center/releases">here</a> on all the VM’s.</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>tar -xvf service-center-X.X.X-linux-amd64.tar.gz
+</code></pre>
+</div>
+
+<p>Note: Please don’t run start-service-center.sh as it will also start the built-in etcd.</p>
+
+<h5 id="step-2">Step 2</h5>
+<p>Edit the configuration of the ip/port on which SC will run and etcd ip</p>
+<h6 id="vm1">VM1</h6>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi conf/app.conf
+</code></pre>
+</div>
+
+<p>Replace the below values :</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>httpaddr = 10.12.0.1
+manager_cluster = "10.12.0.4:2379"
+</code></pre>
+</div>
+
+<p>Then start the Service-center :</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>./service-center
+</code></pre>
+</div>
+
+<h6 id="vm2">VM2</h6>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi conf/app.conf
+</code></pre>
+</div>
+
+<p>Replace the below values :</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>httpaddr = 10.12.0.2
+manager_cluster = "10.12.0.4:2379"
+</code></pre>
+</div>
+
+<p>Then start the Service-center :</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>./service-center
+</code></pre>
+</div>
+
+<p>Note: In <code class="highlighter-rouge">manger_cluster</code> you can put the multiple instances of etcd in the cluster like :</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>manager_cluster= "10.12.0.4:2379,10.12.0.X:2379,10.12.0.X:2379"
+</code></pre>
+</div>
+
+<h5 id="step-3">Step 3</h5>
+<p>Verify your instances via :</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>curl http://10.12.0.1:30101/v4/default/registry/health
+</code></pre>
+</div>
+<p>Will return :</p>
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"instances"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e9e976f9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"rest://10.12.0.1:30100"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_1"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16d4cb35f9e011e7a58a286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"rest://10.12.0.2:30100"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nt">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_2"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>As we can see here the Service-Center can auto-discover all the instances of the Service-Center running in cluster, this auto-discovery feature is used by the <a href="https://github.com/apache/incubator-servicecomb-java-chassis">Java-Chassis SDK</a> to auto-discover all the instances of the Service-Center by knowing at least one IP of Service-Center running in cluster.</p>
+
+<p>In your microservice.yaml you can provide the SC IP of both the instance or any one instance, sdk can auto-discover other instances and use the other instances to get microservice details in case of failure of the first one.</p>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://10.12.0.1:30100,http://10.12.0.2:30100"</span>
+      <span class="s">autodiscovery</span><span class="pi">:</span> <span class="s">true</span>
+</code></pre>
+</div>
+<p>In this case sdk will be able to discover all the instances of SC in cluster.</p>
 
         
       </section>
