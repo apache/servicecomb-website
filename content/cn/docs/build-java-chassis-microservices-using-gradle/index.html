@@ -19,35 +19,35 @@
 
 
 
-<title>ServiceComb中的数据最终一致性方案 - part 2 - Apache ServiceComb (incubating)</title>
+<title>使用gradle构建基于Java Chassis开发的微服务 - Apache ServiceComb (incubating)</title>
 
 
 
 
-<meta name="description" content="ServiceComb中的分布式Saga设计">
+<meta name="description" content="The homepage of ServiceComb">
 
 
 
 
-<meta name="author" content="Sean Yin">
+<meta name="author" content="Eric Lee">
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="ServiceComb中的数据最终一致性方案 - part 2">
+<meta property="og:title" content="使用gradle构建基于Java Chassis开发的微服务">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed_saga_2/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed_saga_2/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/build-java-chassis-microservices-using-gradle/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/build-java-chassis-microservices-using-gradle/">
 
 
 
-  <meta property="og:description" content="ServiceComb中的分布式Saga设计">
+  <meta property="og:description" content="The homepage of ServiceComb">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="ServiceComb中的数据最终一致性方案 - part 2">
-  <meta name="twitter:description" content="ServiceComb中的分布式Saga设计">
+  <meta name="twitter:title" content="使用gradle构建基于Java Chassis开发的微服务">
+  <meta name="twitter:description" content="The homepage of ServiceComb">
   <meta name="twitter:url" content="">
 
   
@@ -56,7 +56,7 @@
   
 
   
-    <meta name="twitter:creator" content="@seanyinx">
+    <meta name="twitter:creator" content="@">
   
 
 
@@ -70,7 +70,7 @@
 
 
   <meta property="og:type" content="article">
-  <meta property="article:published_time" content="2017-09-16T00:00:00+08:00">
+  <meta property="article:published_time" content="2018-04-13T00:00:00+08:00">
 
 
 
@@ -226,7 +226,7 @@
           
             
             
-            <a href=/docs/distributed_saga_2/>English</a>
+            <a href=/docs/build-java-chassis-microservices-using-gradle/>English</a>
           
         </div>
       </nav>
@@ -252,12 +252,12 @@
   
 
   <div class="author__content">
-    <h3 class="author__name" itemprop="name">Sean Yin</h3>
+    <h3 class="author__name" itemprop="name">Eric Lee</h3>
     
       <p class="author__bio" itemprop="description">
 	    
 	      
-	        Nothing but speed is indestructible
+	        Winter is coming, arm ourself with code
 	      
 	    
       </p>
@@ -271,7 +271,7 @@
 
       
         <li>
-          <a href="http://seanyinx.github.io" itemprop="url">
+          <a href="https://eric-lee-ltk.github.io" itemprop="url">
             <i class="fa fa-fw fa-chain" aria-hidden="true"></i> 网站
           </a>
         </li>
@@ -279,8 +279,8 @@
 
       
         <li>
-          <a href="mailto:seanyinx@gmail.com">
-            <meta itemprop="email" content="seanyinx@gmail.com" />
+          <a href="mailto:eric.lee.ltk@gmail.com">
+            <meta itemprop="email" content="eric.lee.ltk@gmail.com" />
             <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
           </a>
         </li>
@@ -288,12 +288,6 @@
 
       
 
-      
-        <li>
-          <a href="https://twitter.com/seanyinx" itemprop="sameAs">
-            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
-          </a>
-        </li>
       
 
       
@@ -353,16 +347,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="ServiceComb中的数据最终一致性方案 - part 2">
-    <meta itemprop="description" content="ServiceComb中的分布式Saga设计">
-    <meta itemprop="datePublished" content="September 16, 2017">
-    <meta itemprop="dateModified" content="September 16, 2017">
+    <meta itemprop="headline" content="使用gradle构建基于Java Chassis开发的微服务">
+    <meta itemprop="description" content="">
+    <meta itemprop="datePublished" content="April 13, 2018">
+    <meta itemprop="dateModified" content="April 13, 2018">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">ServiceComb中的数据最终一致性方案 - part 2
+            <h1 class="page__title" itemprop="headline">使用gradle构建基于Java Chassis开发的微服务
 </h1>
             
               <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
@@ -379,101 +373,107 @@
       
 
       <section class="page__content" itemprop="text">
-        <p>在我的前一篇<a href="/cn/docs/distributed_saga_1/">文章</a>，我谈到怎么用<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">Saga</a>解决行程规划应用的数据一致性问题。
-现在让我们尝试设计实现Saga。</p>
+        <p>maven和gradle都是Java世界中常用的构建工具。在<a href="https://github.com/apache/incubator-servicecomb-java-chassis">Java Chassis</a>项目中采用了maven作为其构建工具，并在maven中心仓库定期发布其最新稳定版。然而，鉴于gradle最新发布版(4.6.0)还不支持maven的统一版本管理(BOM)功能，则在使用gradle构建基于Java Chassis开发的微服务时，需要用到Spring的<a href="https://github.com/spring-gradle-plugins/dependency-management-plugin">依赖管理插件</a>来引入Java Chassis的版本管理来统一依赖项的版本从而避免产生版本冲突。</p>
 
-<h2 id="saga-log">Saga Log</h2>
-<p>Saga保证所有的子事务都得以完成或补偿，但Saga系统本身也可能会崩溃。Saga崩溃时可能处于以下几个状态：</p>
-<ul>
-  <li>Saga收到事务请求，但尚未开始。因子事务对应的微服务状态未被Saga修改，我们什么也不需要做。</li>
-  <li>一些子事务已经完成。重启后，Saga必须接着上次完成的事务恢复。</li>
-  <li>子事务已开始，但尚未完成。由于远程服务可能已完成事务，也可能事务失败，甚至服务请求超时，saga只能重新发起之前未确认完成的子事务。这意味着子事务必须幂等。</li>
-  <li>子事务失败，其补偿事务尚未开始。Saga必须在重启后执行对应补偿事务。</li>
-  <li>补偿事务已开始但尚未完成。解决方案与上一个相同。这意味着补偿事务也必须是幂等的。</li>
-  <li>所有子事务或补偿事务均已完成，与第一种情况相同。</li>
-</ul>
+<p>在maven中，Java Chassis的依赖管理通过以下方式即可引入：</p>
 
-<p>为了恢复到上述状态，我们必须追踪子事务及补偿事务的每一步。我们决定通过事件的方式达到以上要求，并将以下事件保存在名为saga log的持久存储中：</p>
-<ul>
-  <li><strong>Saga started event</strong> 保存整个saga请求，其中包括多个事务/补偿请求</li>
-  <li><strong>Transaction started event</strong> 保存对应事务请求</li>
-  <li><strong>Transaction ended event</strong> 保存对应事务请求及其回复</li>
-  <li><strong>Transaction aborted event</strong> 保存对应事务请求和失败的原因</li>
-  <li><strong>Transaction compensated event</strong> 保存对应补偿请求及其回复</li>
-  <li><strong>Saga ended event</strong> 标志着saga事务请求的结束，不需要保存任何内容</li>
-</ul>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>   <span class="nt">&lt;dependencyManagement&gt;</span>
+     <span class="nt">&lt;dependencies&gt;</span>
+       <span class="nt">&lt;dependency&gt;</span>
+         <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+         <span class="nt">&lt;artifactId&gt;</span>java-chassis-dependencies<span class="nt">&lt;/artifactId&gt;</span>
+         <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
+         <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+         <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
+       <span class="nt">&lt;/dependency&gt;</span>
+     <span class="nt">&lt;/dependencies&gt;</span>
+   <span class="nt">&lt;/dependencyManagement&gt;</span>
+</code></pre>
+</div>
 
-<p><img src="/assets/images/saga.events.png" alt="Events" class="align-center" /></p>
+<p>在gradle中，则需要以下三步完成，具体可参考 ：<a href="https://github.com/apache/incubator-servicecomb-java-chassis/pull/640/files#diff-8d0fdb4970d74d053b6585c3d5ae4cc2R36">Java Chassis的PR-640</a>。</p>
 
-<p>通过将这些事件持久化在saga log中，我们可以将saga恢复到上述任何状态。</p>
-
-<p>由于Saga只需要做事件的持久化，而事件内容以JSON的形式存储，Saga log的实现非常灵活，数据库（SQL或NoSQL），持久消息队列，甚至普通文件可以用作事件存储，
-当然有些能更快得帮saga恢复状态。</p>
-
-<h2 id="saga请求的数据结构">Saga请求的数据结构</h2>
-<p>在我们的业务场景下，航班预订、租车、和酒店预订没有依赖关系，可以并行处理，但对于我们的客户来说，只在所有预订成功后一次付费更加友好。
-那么这四个服务的事务关系可以用下图表示：</p>
-
-<p><img src="/assets/images/saga.transactions.png" alt="Transactions" class="align-center" /></p>
-
-<p>将行程规划请求的数据结构实现为<a href="https://en.wikipedia.org/wiki/Directed_acyclic_graph">有向非循环图</a>恰好合适。
-图的根是saga启动任务，叶是saga结束任务。</p>
-
-<p><img src="/assets/images/saga.graph.png" alt="Request Graph" class="align-center" /></p>
-
-<h2 id="parallel-saga">Parallel Saga</h2>
-<p>如上所述，航班预订，租车和酒店预订可以并行处理。但是这样做会造成另一个问题：如果航班预订失败，而租车正在处理怎么办？我们不能一直等待租车服务回应，
-因为不知道需要等多久。</p>
-
-<p>最好的办法是再次发送租车请求，获得回应，以便我们能够继续补偿操作。但如果租车服务永不回应，我们可能需要采取回退措施，比如手动干预。</p>
-
-<p>超时的预订请求可能最后仍被租车服务收到，这时服务已经处理了相同的预订和取消请求。</p>
-
-<p><img src="/assets/images/saga.commutative.png" alt="Network Latency" class="align-center" /></p>
-
-<p>因此，服务的实现必须保证补偿请求执行以后，再次收到的对应事务请求无效。
-Caitie McCaffrey在她的演讲<a href="https://www.youtube.com/watch?v=1H6tounpnG8">Distributed Sagas: A Protocol for Coordinating Microservices</a>中把这个称为<strong>可交换的补偿请求 (commutative compensating request)</strong> 。</p>
-
-<h2 id="acid-and-saga">ACID and Saga</h2>
-<p><a href="https://en.wikipedia.org/wiki/ACID">ACID</a>是具有以下属性的一致性模型:</p>
-<ul>
-  <li>原子性（Atomicity）</li>
-  <li>一致性（Consistency）</li>
-  <li>隔离性（Isolation）</li>
-  <li>持久性（Durability）</li>
-</ul>
-
-<p>Saga不提供ACID保证，因为原子性和隔离性不能得到满足。原<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">论文</a>描述如下：</p>
-<blockquote>
-  <p>full atomicity is not provided. That is, sagas may view the partial results of other sagas [<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">1</a>]</p>
-</blockquote>
-
-<p>通过saga log，saga可以保证一致性和持久性。</p>
-
-<h2 id="saga-架构">Saga 架构</h2>
-<p>最后，我们的Saga架构如下</p>
-
-<p><img src="/assets/images/saga.design.png" alt="Saga Architecture" class="align-center" /></p>
-
-<ul>
-  <li>Saga Execution Component解析请求JSON并构建请求图</li>
-  <li>TaskRunner 用任务队列确保请求的执行顺序</li>
-  <li>TaskConsumer 处理Saga任务，将事件写入saga log，并将请求发送到远程服务</li>
-</ul>
-
-<h2 id="总结">总结</h2>
-<p>本文讨论了如何实现saga，通过saga log来保存事务和补偿事件。也提到如何从saga log中持久化的事件恢复崩溃的saga系统。
-为了满足saga的一致性保证，微服务的设计有以下几个要求：</p>
-<ul>
-  <li>事务和赔偿请求必须幂等</li>
-  <li>补偿请求必须可交换（commutative）</li>
-</ul>
-
-<h2 id="references">References</h2>
 <ol>
-  <li><a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">Original Paper on Sagas</a> by By Hector Garcia-Molina &amp; Kenneth Salem</li>
+  <li>
+    <p>声明使用maven仓库及依赖管理插件的依赖</p>
+
+    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
+    <span class="k">repositories</span> <span class="o">{</span>
+        <span class="n">mavenLocal</span><span class="o">()</span>
+        <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="o">}</span>
+    <span class="k">dependencies</span> <span class="o">{</span>
+        <span class="n">classpath</span><span class="o">(</span><span class="s1">'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'</span><span class="o">)</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>启用依赖管理插件</p>
+
+    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'io.spring.dependency-management'</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>声明Java Chassis的统一依赖管理</p>
+
+    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">dependencyManagement</span> <span class="o">{</span>
+    <span class="n">imports</span> <span class="o">{</span>
+        <span class="n">mavenBom</span> <span class="s1">'org.apache.servicecomb:java-chassis-dependencies:1.0.0-m1'</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+    </div>
+  </li>
 </ol>
 
+<p><strong>注意：</strong> 在每个子模块中都需要进行上述三步配置。</p>
+
+<p>对统一版本管理配置完成后，可增加程序运行入口使得命令行下也能方便的通过gradle运行应用，以便快速验证。其中，可将应用分为Spring Boot应用和非Spring Boot应用来为其添加启动入口：</p>
+
+<ol>
+  <li>
+    <p>Spring Boot应用</p>
+
+    <ol>
+      <li>
+        <p>声明使用maven仓库及Spring Boot插件的依赖</p>
+
+        <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
+    <span class="k">dependencies</span> <span class="o">{</span>
+        <span class="n">classpath</span><span class="o">(</span><span class="s2">"org.springframework.boot:spring-boot-gradle-plugin:1.4.5.RELEASE"</span><span class="o">)</span>
+    <span class="o">}</span>
+    <span class="k">repositories</span> <span class="o">{</span>
+        <span class="n">mavenLocal</span><span class="o">()</span>
+        <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>启用Spring Boot插件</p>
+
+        <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'org.springframework.boot'</span>
+</code></pre>
+        </div>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>非Spring Boot应用</p>
+
+    <p>非Spring Boot应用只需要在<code class="highlighter-rouge">build.gradle</code>文件中使用<code class="highlighter-rouge">application</code>插件并指明应用入口方法即可：</p>
+
+    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'application'</span>
+
+<span class="n">mainClassName</span> <span class="o">=</span> <span class="s1">'org.packageName.XXXMain'</span>
+</code></pre>
+    </div>
+  </li>
+</ol>
 
         
       </section>
@@ -494,7 +494,7 @@ Caitie McCaffrey在她的演讲<a href="https://www.youtube.com/watch?v=1H6tounp
     
       
       
-      <a href="/tags/#%E4%BA%8B%E5%8A%A1%E4%B8%80%E8%87%B4%E6%80%A7" class="page__taxonomy-item" rel="tag">事务一致性</a>
+      <a href="/tags/#gradle" class="page__taxonomy-item" rel="tag">gradle</a>
     
     </span>
   </p>
@@ -506,7 +506,7 @@ Caitie McCaffrey在她的演讲<a href="https://www.youtube.com/watch?v=1H6tounp
         
           
             
-              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2017-09-16">2017年9月16日</time></p>
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2018-04-13">2018年4月13日</time></p>
             
           
         
@@ -517,25 +517,24 @@ Caitie McCaffrey在她的演讲<a href="https://www.youtube.com/watch?v=1H6tounp
     <h4 class="page__share-title">分享</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=ServiceComb中的数据最终一致性方案 - part 2 /cn/docs/distributed_saga_2/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=使用gradle构建基于Java Chassis开发的微服务 /cn/docs/build-java-chassis-microservices-using-gradle/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/distributed_saga_2/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/build-java-chassis-microservices-using-gradle/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=/cn/docs/distributed_saga_2/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=/cn/docs/build-java-chassis-microservices-using-gradle/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/distributed_saga_2/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/build-java-chassis-microservices-using-gradle/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/docs/distributed_saga_2/" class="pagination--pager" title="Eventual Data Consistency Solution in ServiceComb - part 2
+      <a href="/cn/docs/saga_pack_design/" class="pagination--pager" title="ServiceComb数据一致性解决方案Saga演进介绍
 ">向前</a>
     
     
-      <a href="/docs/distributed_saga_3/" class="pagination--pager" title="Eventual Data Consistency Solution in ServiceComb - part 3
-">向后</a>
+      <a href="#" class="pagination--pager disabled">向后</a>
     
   </nav>
 
@@ -581,7 +580,7 @@ Caitie McCaffrey在她的演讲<a href="https://www.youtube.com/watch?v=1H6tounp
             <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
           </fieldset>
           <fieldset class="hidden" style="display: none;">
-            <input type="hidden" name="options[slug]" value="saga-design">
+            <input type="hidden" name="options[slug]" value="build-java-chassis-microservices-using-gradle">
             <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
             <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
           </fieldset>
@@ -618,35 +617,6 @@ Caitie McCaffrey在她的演讲<a href="https://www.youtube.com/watch?v=1H6tounp
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/cn/docs/build-java-chassis-microservices-using-gradle/" rel="permalink">使用gradle构建基于Java Chassis开发的微服务
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  少于 1 分钟 阅读
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
         <a href="/cn/docs/saga_pack_design/" rel="permalink">ServiceComb数据一致性解决方案Saga演进介绍
 </a>
       
@@ -659,7 +629,7 @@ Caitie McCaffrey在她的演讲<a href="https://www.youtube.com/watch?v=1H6tounp
 
 
 
-  1 分钟 阅读
+  少于 1 分钟 阅读
 
 </p>
     
@@ -725,6 +695,35 @@ Caitie McCaffrey在她的演讲<a href="https://www.youtube.com/watch?v=1H6tounp
 </div>
 
         
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/howto-upgrade-topzipkin2/" rel="permalink">Howto Upgrade to Zipkin2
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Changes between v1 and v2 of zipkin and how Java Chassis upgraded to zipkin2
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
       </div>
     </div>
   
@@ -760,8 +759,8 @@ Caitie McCaffrey在她的演讲<a href="https://www.youtube.com/watch?v=1H6tounp
     <div class="col">
       <ul>
         <p class="header">贡献</p>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2017-09-16-saga-design.md">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2017-09-16-saga-design.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2018-04-13-build-java-chassis-microservices-using-gradle.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2018-04-13-build-java-chassis-microservices-using-gradle.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
       </ul>
     </div>
