@@ -66,7 +66,9 @@ If using Docker Toolbox，command `docker-machine ip` can be used to get binded 
 ### Starting Clustered Service Center
 As Service-center is a stateless application so it can be seamlessly deployed in cluster mode to achieve HA.
 
-SC is dependent on the [etcd](https://github.com/coreos/etcd) to store the micro-services information so you can opt for running etcd standalone or in [cluster](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/container.md) mode.
+SC is dependent on the [etcd](https://github.com/coreos/etcd) to store the micro-services information so you can opt for running etcd standalone or in [cluster](https://coreos.com/etcd/docs/latest/op-guide/runtime-configuration.html) mode.
+
+Notice: We strongly recommend running etcd in cluster mode in order to get the perfect HA ability. In this [document](https://coreos.com/etcd/docs/latest/op-guide/runtime-configuration.html) we can know it is highly recommended to always have a cluster size greater than two in production in order to prevent Majority Failure.
 
 Once you are done with installing the etcd either in cluster or standalone mode then you can follow the below steps to run the Service-Center.
 

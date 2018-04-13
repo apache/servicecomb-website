@@ -66,7 +66,10 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 ### 运行 Service Center 集群
 Service Center是一个无状态的应用因此它很容易以集群的模式部署提供HA。
 
-它依赖[etcd](https://github.com/coreos/etcd)存储微服务的信息，etcd既支持standalone模式运行也支持[集群模式](https://github.com/coreos/etcd/blob/master/Documentation/op-guide/container.md)运行。
+它依赖[etcd](https://github.com/coreos/etcd)存储微服务的信息，etcd既支持standalone模式运行也支持[集群模式](https://coreos.com/etcd/docs/latest/op-guide/clustering.html)运行。
+
+提示：我们强烈推荐etcd以集群模式运行，这样才能从整体上保证Service Center的HA能力；另外在这篇[文档](https://coreos.com/etcd/docs/latest/op-guide/runtime-configuration.html)中我们可以了解到etcd需要部署至少三个节点才能够避免Majority Failure。
+
 
 部署了standalone或集群etcd后，你可以按下面的步骤部署Service Center集群，我们以在两台VM上各部署一个Service Center实例为例：
 
