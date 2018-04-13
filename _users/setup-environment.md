@@ -126,7 +126,7 @@ Note: In `manger_cluster` you can put the multiple instances of etcd in the clus
 manager_cluster= "10.12.0.4:2379,10.12.0.X:2379,10.12.0.X:2379"
 ```
 
-#### Step 3
+##### Step 3
 Verify your instances via :
 ```bash
 curl http://10.12.0.1:30101/v4/default/registry/health

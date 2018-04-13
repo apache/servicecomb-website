@@ -125,7 +125,7 @@ manager_cluster = "10.12.0.4:2379"
 manager_cluster= "10.12.0.4:2379,10.12.0.X:2379,10.12.0.X:2379"
 ```
 
-#### 第三步
+##### 第三步
 验证你部署完毕的Service Center实例 :
 ```bash
 curl http://10.12.0.1:30101/v4/default/registry/health
