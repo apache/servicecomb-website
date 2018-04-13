@@ -29,7 +29,7 @@ maven和gradle都是Java世界中常用的构建工具。在[Java Chassis](https
    </dependencyManagement>
    ```
 
-在gradle中，则需要以下三步完成，具体可参考：[https://github.com/apache/incubator-servicecomb-java-chassis/pull/640/files#diff-8d0fdb4970d74d053b6585c3d5ae4cc2R36](https://github.com/apache/incubator-servicecomb-java-chassis/pull/640/files#diff-8d0fdb4970d74d053b6585c3d5ae4cc2R36)。
+在gradle中，则需要以下三步完成，具体可参考 ：[Java Chassis的PR-640](https://github.com/apache/incubator-servicecomb-java-chassis/pull/640/files#diff-8d0fdb4970d74d053b6585c3d5ae4cc2R36)。
 
 1. 声明使用maven仓库及依赖管理插件的依赖
 
@@ -61,7 +61,7 @@ maven和gradle都是Java世界中常用的构建工具。在[Java Chassis](https
    }
    ```
 
-**注意：** 在每个子模块中都需要进行上述三步配置。 
+**注意：** 在每个子模块中都需要进行上述三步配置。
 
 对统一版本管理配置完成后，可增加程序运行入口使得命令行下也能方便的通过gradle运行应用，以便快速验证。其中，可将应用分为Spring Boot应用和非Spring Boot应用来为其添加启动入口：
 
@@ -90,9 +90,9 @@ maven和gradle都是Java世界中常用的构建工具。在[Java Chassis](https
 2. 非Spring Boot应用
 
    非Spring Boot应用只需要在`build.gradle`文件中使用`application`插件并指明应用入口方法即可：
-   
+
    ```gradle
    apply plugin: 'application'
-   
+
    mainClassName = 'org.packageName.XXXMain'
    ```
