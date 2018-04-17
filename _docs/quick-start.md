@@ -20,7 +20,7 @@ last_modified_at: 2017-09-06T00:50:43-55:00
 
    ```bash
    git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
-   cd ServiceComb-Java-Chassis
+   cd incubator-servicecomb-java-chassis
    mvn clean install -DskipTests
    ```
 
