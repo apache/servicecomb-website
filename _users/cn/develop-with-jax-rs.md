@@ -112,6 +112,20 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
 
    在resources目录中添加[microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/)。
 
+* **步骤 5** 添加Main启动类
+
+   ```java
+   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+
+   public class Application {
+     public static void main(String[] args) throws Exception {
+        Log4jUtils.init();
+        BeanUtils.init();
+     }
+   }
+   ```
+
 ## 涉及API
 
 JAX-RS开发模式当前支持如下注解，所有注解的使用方法参考[JAX-RS官方文档](https://jax-rs-spec.java.net/nonav/2.0-rev-a/apidocs/index.html)。

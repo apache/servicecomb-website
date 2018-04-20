@@ -105,6 +105,20 @@ ServiceComb supports Spring MVC remark and allows you to develop microservices i
 
    Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
 
+* **Step 5** Add Main class:
+
+   ```java
+   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+
+   public class Application {
+     public static void main(String[] args) throws Exception {
+        Log4jUtils.init();
+        BeanUtils.init();
+     }
+   }
+   ```
+
 ## Involved APIs
 
 Currently, the Spring MVC development mode supports the following annotations in the org.springframework.web.bind.annotation package. For details about how to use the annotations, see [Spring MVC official documentation](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)。

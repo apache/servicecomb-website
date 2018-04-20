@@ -109,6 +109,20 @@ ServiceComb支持SpringMVC注解，允许使用SpringMVC风格开发微服务。
 * **步骤 4** 添加服务定义。
 
    在resources目录中添加[microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/)。
+   
+* **步骤 5** 添加Main启动类
+
+   ```java
+   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+
+   public class Application {
+     public static void main(String[] args) throws Exception {
+        Log4jUtils.init();
+        BeanUtils.init();
+     }
+   }
+   ```
 
 ## 涉及API
 

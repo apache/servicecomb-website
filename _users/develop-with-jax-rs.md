@@ -107,6 +107,20 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
 
    Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
 
+* **Step 5** Add Main class:
+
+   ```java
+   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+
+   public class Application {
+     public static void main(String[] args) throws Exception {
+        Log4jUtils.init();
+        BeanUtils.init();
+     }
+   }
+   ```
+
 ## Involved APIs
 
 Currently, the JAX-RS development mode supports the following annotation. For details about how to use JAX-RS, see [JAX-RS official documentation](https://jax-rs-spec.java.net/nonav/2.0-rev-a/apidocs/index.html)。
