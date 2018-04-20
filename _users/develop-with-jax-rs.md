@@ -105,7 +105,7 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
 
 * **Step 4** Add service definition file:
 
-Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
+   Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
 
 ## Involved APIs
 

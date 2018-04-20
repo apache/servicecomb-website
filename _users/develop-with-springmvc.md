@@ -103,7 +103,7 @@ ServiceComb supports Spring MVC remark and allows you to develop microservices i
 
 * **Step 4** Add service definition file:
 
-Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
+   Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
 
 ## Involved APIs
 
