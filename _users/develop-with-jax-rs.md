@@ -17,17 +17,40 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
 
 ## Development Example
 
-* **Steps 1** Define a service API. Compile the Java API definition based on the API definition defined before development. The code is as follows:
+* **Step 1** Import dependencies into your maven project:
 
-   ```java
-   public interface Hello {
-    　String sayHi(String name);
-    　String sayHello(Person person);
-   }
+   ```xml
+    <dependencyManagement>
+     <dependencies>
+       <dependency>
+         <groupId>org.apache.servicecomb</groupId>
+         <artifactId>java-chassis-dependencies</artifactId>
+         <version>1.0.0-m1</version>
+         <type>pom</type>
+         <scope>import</scope>
+       </dependency>
+     </dependencies>
+    </dependencyManagement>
+    <dependencies>
+      <!--transport can optional import through endpoint setting in microservice.yaml, we import both rest and highway as example-->
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>transport-rest-vertx</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>transport-highway</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>provider-jaxrs</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+      </dependency>
+    </dependencies>
    ```
-
-   > **NOTE**：
-   > The location of the API must be the same as the path specified by x-java-interface in the API definition.
 
 * **Step 2** Implement the service. JAX-RS is used to describe the development of service code. The implementation of the Hello service is as follows:
 
@@ -36,22 +59,19 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
    import javax.ws.rs.Path;
    import javax.ws.rs.Produces;
    import javax.ws.rs.core.MediaType;
-   import org.apache.servicecomb.samples.common.schema.Hello;
    import org.apache.servicecomb.samples.common.schema.models.Person;
 
    @Path("/jaxrshello")
    @Produces(MediaType.APPLICATION_JSON)
-   public class JaxrsHelloImpl implements Hello {
+   public class JaxrsHelloImpl {
      @Path("/sayhi")
      @POST
-     @Override
      public String sayHi(String name) {
      　return "Hello " + name;
      }
 
      @Path("/sayhello")
      @POST
-     @Override
      public String sayHello(Person person) {
        return "Hello person " + person.getName();
      }
@@ -82,6 +102,10 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
        <context:component-scan base-package="org.apache.servicecomb.samples.jaxrs.provider"/>
    </beans>
    ```
+
+* **Step 4** Add service definition file:
+
+Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
 
 ## Involved APIs
 
