@@ -113,6 +113,7 @@ ServiceComb supports Spring MVC remark and allows you to develop microservices i
 
    public class Application {
      public static void main(String[] args) throws Exception {
+        //initializing log, loading bean(including its parameters), and registering service, more detail can be found here : http://servicecomb.incubator.apache.org/users/application-boot-process/
         Log4jUtils.init();
         BeanUtils.init();
      }
