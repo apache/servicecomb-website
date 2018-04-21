@@ -16,16 +16,40 @@ ServiceComb supports Spring MVC remark and allows you to develop microservices i
 
 ## Development Example
 
-* **Step 1** Define a service API., Compile the Java API definition based on the API definition defined before development. The code is as follow:
+* **Step 1** Import dependencies into your maven project:
 
-   ```java
-   public interface Hello {
-     String sayHi(String name);
-     String sayHello(Person person);
-   }
+   ```xml
+    <dependencyManagement>
+     <dependencies>
+       <dependency>
+         <groupId>org.apache.servicecomb</groupId>
+         <artifactId>java-chassis-dependencies</artifactId>
+         <version>1.0.0-m1</version>
+         <type>pom</type>
+         <scope>import</scope>
+       </dependency>
+     </dependencies>
+    </dependencyManagement>
+    <dependencies>
+      <!--transport can optional import through endpoint setting in microservice.yaml, we import both rest and highway as example-->
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>transport-rest-vertx</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>transport-highway</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>provider-springmvc</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+      </dependency>
+    </dependencies>
    ```
-
-   The location of the API must be the same as the path specified by x-java-interface in the API definition.
 
 * **Step 2** Implement the services. Spring MVC is used to describe the development of service code. The implementation of the Hello service is as follow:
 
@@ -35,18 +59,15 @@ ServiceComb supports Spring MVC remark and allows you to develop microservices i
    import org.springframework.web.bind.annotation.RequestMapping;
    import org.springframework.web.bind.annotation.RequestMethod;
    import org.springframework.web.bind.annotation.RequestParam;
-   import org.apache.servicecomb.samples.common.schema.Hello;
    import org.apache.servicecomb.samples.common.schema.models.Person;
 
    @RequestMapping(path = "/springmvchello", produces = MediaType.APPLICATION_JSON)
-   public class SpringmvcHelloImpl implements Hello {
-     @Override
+   public class SpringmvcHelloImpl {
      @RequestMapping(path = "/sayhi", method = RequestMethod.POST)
      public String sayHi(@RequestParam(name = "name") String name) {
    　  return "Hello " + name;
      }
 
-     @Override
      @RequestMapping(path = "/sayhello", method = RequestMethod.POST)
      public String sayHello(@RequestBody Person person) {
    　  return "Hello person " + person.getName();
@@ -60,7 +81,7 @@ ServiceComb supports Spring MVC remark and allows you to develop microservices i
    import org.apache.servicecomb.provider.rest.common.RestSchema;
    // other code omitted
    @RestSchema(schemaId = "springmvcHello")
-   public class SpringmvcHelloImpl implements Hello {
+   public class SpringmvcHelloImpl {
      // other code omitted
    }
    ```
@@ -78,6 +99,25 @@ ServiceComb supports Spring MVC remark and allows you to develop microservices i
 
        <context:component-scan base-package="org.apache.servicecomb.samples.springmvc.provider"/>
    </beans>
+   ```
+
+* **Step 4** Add service definition file:
+
+   Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
+
+* **Step 5** Add Main class:
+
+   ```java
+   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+
+   public class Application {
+     public static void main(String[] args) throws Exception {
+        //initializing log, loading bean(including its parameters), and registering service, more detail can be found here : http://servicecomb.incubator.apache.org/users/application-boot-process/
+        Log4jUtils.init();
+        BeanUtils.init();
+     }
+   }
    ```
 
 ## Involved APIs

@@ -16,20 +16,42 @@ redirect_from:
 ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
 
 ## 开发示例
+* **步骤 1** 添加依赖。
 
-* **步骤 1** 定义服务接口。
+   在Maven的pom.xml中添加所需的依赖：
 
-   根据开发之前定义好的契约，编写Java业务接口，代码如下：
-
-   ```java
-   public interface Hello {
-    　String sayHi(String name);
-    　String sayHello(Person person);
-   }
+   ```xml
+    <dependencyManagement>
+     <dependencies>
+       <dependency>
+         <groupId>org.apache.servicecomb</groupId>
+         <artifactId>java-chassis-dependencies</artifactId>
+         <version>1.0.0-m1</version>
+         <type>pom</type>
+         <scope>import</scope>
+       </dependency>
+     </dependencies>
+    </dependencyManagement>
+    <dependencies>
+      <!--transport根据microservice.yaml中endpoint发布需求选择，本例中两者都引入，也可以二选一-->
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>transport-rest-vertx</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>transport-highway</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>provider-jaxrs</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+      </dependency>
+    </dependencies>
    ```
-
-   > **说明**：
-   该接口的位置需要与契约中x-java-interface所指定的路径一致。
 
 * **步骤 2** 实现服务。
 
@@ -40,22 +62,19 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
    import javax.ws.rs.Path;
    import javax.ws.rs.Produces;
    import javax.ws.rs.core.MediaType;
-   import org.apache.servicecomb.samples.common.schema.Hello;
    import org.apache.servicecomb.samples.common.schema.models.Person;
 
    @Path("/jaxrshello")
    @Produces(MediaType.APPLICATION_JSON)
-   public class JaxrsHelloImpl implements Hello {
+   public class JaxrsHelloImpl {
      @Path("/sayhi")
      @POST
-     @Override
      public String sayHi(String name) {
      　return "Hello " + name;
      }
 
      @Path("/sayhello")
      @POST
-     @Override
      public String sayHello(Person person) {
        return "Hello person " + person.getName();
      }
@@ -87,6 +106,25 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
    
        <context:component-scan base-package="org.apache.servicecomb.samples.jaxrs.provider"/>
    </beans>
+   ```
+
+* **步骤 4** 添加服务定义。
+
+   在resources目录中添加[microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/)。
+
+* **步骤 5** 添加Main启动类
+
+   ```java
+   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+
+   public class Application {
+     public static void main(String[] args) throws Exception {
+        //初始化日志， 加载Bean(包括它们的参数), 以及注册Service, 更多信息可以参见文档 : http://servicecomb.incubator.apache.org/cn/users/application-boot-process/
+        Log4jUtils.init();
+        BeanUtils.init();
+     }
+   }
    ```
 
 ## 涉及API
