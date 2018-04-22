@@ -409,7 +409,7 @@
        <span class="k">default</span><span class="o">:</span>
          <span class="k">break</span><span class="o">;</span>
      <span class="o">}</span>
-   
+
    <span class="k">return</span> <span class="s">"not expected"</span><span class="o">;</span>
  <span class="o">}</span>
 </code></pre>
@@ -749,11 +749,6 @@
     </ol>
   </li>
   <li>
-    <p><strong>Q: netty版本问题</strong></p>
-
-    <p>A: netty3和netty4是完全不同的三方件，因为坐标跟package都不相同，所以可以共存，但是要注意小版本问题，小版本必须使用CSE的版本。</p>
-  </li>
-  <li>
     <p><strong>Q: 服务超时设置</strong></p>
 
     <p>A: 在微服务描述文件（microservice.yaml）中添加如下配置：</p>
@@ -788,7 +783,7 @@
   <li>
     <p><strong>Q: 框架中引入了vertx会有什么好处？</strong></p>
 
-    <p>A: 启用vertx的标准工作模式更强大，不过对业务人员要求就有些高了，目前还没开放业务接口出来。vertx标准的reactive工作模式，要求业务代码中不能有任何的block wait,sleep，大循环，总之，不能停下来。做到这一点，可以用少很多的CPU，提供更多的服务。</p>
+    <p>A: 启用vertx的标准工作模式更强大，不过对业务人员要求就有些高了，目前还没开放业务接口出来。vertx标准的reactive工作模式，要求业务代码中不能有任何的block wait,sleep，大循环，总之不能有阻塞，做到这一点，就可以用更少的CPU，提供更多的服务。</p>
   </li>
   <li>
     <p><strong>Q: 一个服务提供者里面会有多个 appid 和微服务吗？什么场景会出现这种情况？</strong></p>
@@ -809,10 +804,11 @@
     <p><strong>Q: service path怎么理解？</strong></p>
 
     <p>A: 每个微服务有一个servicePathManager，每一个schema将自己的path注册进去。</p>
+  </li>
+  <li>
+    <p><strong>Q: 浏览器能直接访问微服务Endpoint吗？</strong></p>
 
-    <p><strong>Q: 这样浏览器能访问到吗？</strong></p>
-
-    <p>A: 可以，restful的URL路由，都是由service path搞定。</p>
+    <p>A: 可以，restful发布的微服务Endpoint，可以直接在浏览器中使用HTTP加service path访问提供get方法的服务，如果是访问其他Http方法提供的服务建议安装使用<a href="https://www.sap.com/developer/tutorials/api-tools-postman-install.html">Postman</a>。</p>
   </li>
   <li>
     <p><strong>Q: 契约生成时，需要强制带上版本号和语言吗？</strong></p>
@@ -855,9 +851,9 @@
     <p>A: 检查Service Center是否老版本，如果是，则升级到最新版本。</p>
   </li>
   <li>
-    <p><strong>Q: 如何在Json序列化忽略Bean中的指定属性</strong></p>
+    <p><strong>Q: 如何在契约DTO中忽略中指定的属性？</strong></p>
 
-    <p>A: 使用@JsonIgnore注解标记需要忽略的属性，注意修改完成后需重启Service Center。例如:</p>
+    <p>A: 如果是使用rest transport，因为是Json序列化，可以使用@JsonIgnore注解标记需要忽略的属性；highway transport目前尚不支持。注意修改后需要更新微服务的version，例如:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OutputForTest</span><span class="o">{</span>
 <span class="nd">@JsonIgnore</span>
@@ -887,7 +883,7 @@
   <li>
     <p><strong>Q: 微服务运行时抛出异常：<code class="highlighter-rouge"> java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty</code>？</strong></p>
 
-    <p>A: 可将Service Center升级至0.4.0+版本来解决，<a href="https://github.com/apache/incubator-servicecomb-service-center/releases">Service Center最新版本传送门</a>。</p>
+    <p>A: 可将Service Center升级至0.4.0+版本来解决，<a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/">Service Center最新版本传送门</a>。</p>
   </li>
 </ul>
 

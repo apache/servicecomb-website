@@ -639,21 +639,44 @@
 <p>ServiceComb支持SpringMVC注解，允许使用SpringMVC风格开发微服务。</p>
 
 <h2 id="开发示例">开发示例</h2>
-
 <ul>
   <li>
-    <p><strong>步骤 1</strong> 定义服务接口。</p>
+    <p><strong>步骤 1</strong> 添加依赖。</p>
 
-    <p>根据开发之前定义好的契约，编写Java业务接口，代码如下：</p>
+    <p>在Maven的pom.xml中添加所需的依赖：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Hello</span> <span class="o">{</span>
-   <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
-   <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">);</span>
- <span class="o">}</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;dependencyManagement&gt;</span>
+   <span class="nt">&lt;dependencies&gt;</span>
+     <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>java-chassis-dependencies<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
+       <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+       <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
+     <span class="nt">&lt;/dependency&gt;</span>
+   <span class="nt">&lt;/dependencies&gt;</span>
+  <span class="nt">&lt;/dependencyManagement&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="c">&lt;!--transport根据microservice.yaml中endpoint发布需求选择，本例中两者都引入，也可以二选一--&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>transport-rest-vertx<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>transport-highway<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>provider-springmvc<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.slf4j<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>slf4j-log4j12<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
 </code></pre>
     </div>
-
-    <p>该接口的位置需要与契约中x-java-interface所指定的路径一致。</p>
   </li>
   <li>
     <p><strong>步骤 2</strong> 实现服务。</p>
@@ -665,18 +688,15 @@
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMethod</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestParam</span><span class="o">;</span>
- <span class="kn">import</span> <span class="nn">org.apache.servicecomb.samples.common.schema.Hello</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.apache.servicecomb.samples.common.schema.models.Person</span><span class="o">;</span>
    
  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/springmvchello"</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
- <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
-   <span class="nd">@Override</span>
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="o">{</span>
    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/sayhi"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
    <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"name"</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
  <span class="err">　</span>  <span class="k">return</span> <span class="s">"Hello "</span> <span class="o">+</span> <span class="n">name</span><span class="o">;</span>
    <span class="o">}</span>
 
-   <span class="nd">@Override</span>
    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/sayhello"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
    <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span>
  <span class="err">　</span>  <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
@@ -693,7 +713,7 @@
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
  <span class="c1">// other code omitted</span>
  <span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"springmvcHello"</span><span class="o">)</span>
- <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="o">{</span>
    <span class="c1">// other code omitted</span>
  <span class="o">}</span>
 </code></pre>
@@ -711,6 +731,27 @@
    
      <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"org.apache.servicecomb.samples.springmvc.provider"</span><span class="nt">/&gt;</span>
  <span class="nt">&lt;/beans&gt;</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p><strong>步骤 4</strong> 添加服务定义。</p>
+
+    <p>在resources目录中添加<a href="http://servicecomb.incubator.apache.org/cn/users/service-definition/">microservice.yaml</a>。</p>
+  </li>
+  <li>
+    <p><strong>步骤 5</strong> 添加Main启动类</p>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+ <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
+
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+      <span class="c1">//初始化日志， 加载Bean(包括它们的参数), 以及注册Service, 更多信息可以参见文档 : http://servicecomb.incubator.apache.org/cn/users/application-boot-process/</span>
+      <span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+      <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+   <span class="o">}</span>
+ <span class="o">}</span>
 </code></pre>
     </div>
   </li>

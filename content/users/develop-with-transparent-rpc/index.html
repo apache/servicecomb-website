@@ -611,7 +611,6 @@
 <ul class="toc__menu" id="markdown-toc">
   <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
   <li><a href="#development-example" id="markdown-toc-development-example">Development Example</a></li>
-  <li><a href="#the-develop-method-by-configure-remarks" id="markdown-toc-the-develop-method-by-configure-remarks">The Develop Method by Configure Remarks</a></li>
 </ul>
 
   </nav>
@@ -623,11 +622,45 @@
 
 <h2 id="development-example">Development Example</h2>
 
-<p>The transparent RPC development mode supports two service release mode: Spring XML configuration and annotation configuration. The Spring XML configuration mode is as follows:</p>
-
 <ul>
   <li>
-    <p><strong>Step 1</strong> Define a service API. Compile the Java API definition based on the API definition defined before development. The code is as follows:</p>
+    <p><strong>Step 1</strong> Import dependencies into your maven project:</p>
+
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;dependencyManagement&gt;</span>
+   <span class="nt">&lt;dependencies&gt;</span>
+     <span class="nt">&lt;dependency&gt;</span>
+       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+       <span class="nt">&lt;artifactId&gt;</span>java-chassis-dependencies<span class="nt">&lt;/artifactId&gt;</span>
+       <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
+       <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+       <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
+     <span class="nt">&lt;/dependency&gt;</span>
+   <span class="nt">&lt;/dependencies&gt;</span>
+  <span class="nt">&lt;/dependencyManagement&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="c">&lt;!--transport can optional import through endpoint setting in microservice.yaml, we import both rest and highway as example--&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>transport-rest-vertx<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>transport-highway<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>provider-pojo<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.slf4j<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>slf4j-log4j12<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p><strong>Step 2</strong> Define a service API. Compile the Java API definition based on the API definition defined before development. The code is as follows:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Hello</span> <span class="o">{</span>
    <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
@@ -635,14 +668,9 @@
  <span class="o">}</span>
 </code></pre>
     </div>
-
-    <blockquote>
-      <p><strong>NOTE</strong>：
-The location of the API must be the same as the path specified by x-java-interface in the API definition.</p>
-    </blockquote>
   </li>
   <li>
-    <p><strong>Step 2</strong> implement the service. The implementation of the Hello service is as follows:</p>
+    <p><strong>Step 3</strong> implement the service. The implementation of the Hello service is as follows:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.samples.common.schema.Hello</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.apache.servicecomb.samples.common.schema.models.Person</span><span class="o">;</span>
@@ -662,7 +690,12 @@ The location of the API must be the same as the path specified by x-java-interfa
     </div>
   </li>
   <li>
-    <p><strong>Step 3</strong> Release the service. Create the pojoHello.bean.xml file in the resources/META-INF/spring directory and declare the schema in the file. The content of the file is as follows:</p>
+    <p><strong>Step 4</strong> Release the service. 
+ The transparent RPC development mode supports two service release mode: Spring XML configuration and Annotation configuration:</p>
+    <ol>
+      <li>Spring XML configuration Mode:
+ Create the pojoHello.bean.xml file in the resources/META-INF/spring directory and declare the schema in the file. The content of the file is as follows:</li>
+    </ol>
 
     <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
  <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">" http://www.springframework.org/schema/beans "</span> <span class="na">xmlns:xsi=</span><span class="s">" http://www.w3.org/2001/XMLSchema-instance "</span>
@@ -675,25 +708,13 @@ The location of the API must be the same as the path specified by x-java-interfa
  <span class="nt">&lt;/beans&gt;</span>
 </code></pre>
     </div>
-
-    <blockquote>
-      <p><strong>NOTE</strong>：
-A schema statement must be defined for each service API.</p>
-    </blockquote>
   </li>
 </ul>
 
-<h2 id="the-develop-method-by-configure-remarks">The Develop Method by Configure Remarks</h2>
-
 <ol>
   <li>
-    <p>Define a service API, which is the same as the Spring XML mode.</p>
-  </li>
-  <li>
-    <p>Implement the service in the same way as using Spring XML.</p>
-  </li>
-  <li>
-    <p>Release the service. @RpcSchema is used to define schema during the API Hello implementation. The code is as followss:</p>
+    <p>Annotation configuration Mode:
+@RpcSchema is used to define schema during the API Hello implementation. The code is as follows:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.pojo.RpcSchema</span><span class="o">;</span>
 <span class="c1">// other code omitted</span>
@@ -721,9 +742,33 @@ A schema statement must be defined for each service API.</p>
 </ol>
 
 <blockquote>
-  <p><strong>NOTE</strong>:
+  <p><strong>NOTE</strong>：
 Different from the Spring MVC and JAX-RS development modes, the transparent RPC development mode used <code class="highlighter-rouge">@RpcSchema</code> instead of <code class="highlighter-rouge">@RestSchema</code>.</p>
 </blockquote>
+
+<ul>
+  <li>
+    <p><strong>Step 5</strong> Add service definition file:</p>
+
+    <p>Add <a href="http://servicecomb.incubator.apache.org/cn/users/service-definition/">microservice.yaml</a> file into resources folder of your project.</p>
+  </li>
+  <li>
+    <p><strong>Step 6</strong> Add Main class:</p>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+ <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
+
+ <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+      <span class="c1">//initializing log, loading bean(including its parameters), and registering service, more detail can be found here : http://servicecomb.incubator.apache.org/users/application-boot-process/</span>
+      <span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+      <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+   <span class="o">}</span>
+ <span class="o">}</span>
+</code></pre>
+    </div>
+  </li>
+</ul>
 
         
       </section>
