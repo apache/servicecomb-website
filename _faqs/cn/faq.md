@@ -10,14 +10,14 @@ redirect_from:
 ---
 
 * **Q: ServiceComb和SpringCloud是什么关系，具体的应用场景是什么？**
-  
+
    A: ServiceComb是华为基于内部多个大型IT系统实践提炼出来的一套微服务开发框架，在开发态基于最佳实践封装了一套微服务运行模型，这些能力对用户完全透明，可以通过配置引入功能和对其进行调整。在运维阶段充分考虑了微服务运维，提供了丰富的监控指标和动态治理能力。      
    B: ServiceComb的这套能力可以作为一个单独的开发框架，在需要轻量级微服务解决方案的的场景中单独使用，也可以建立在SpringCloud上，与SpringCloud提供的其他组件一起工作，在重量级场景中和SpringCloud一起产生 “1+1大于2”的效果。
 
 * **Q: 用IntelliJ的免费版开发，有什么问题？**   
-  
+
    A: 没有问题，使用IntelliJ 开发，可参考 [Setup Developer Environment](/cn/developers/setup-develop-environment/) 进行相应的环境配置。    
-   
+
 * **Q: 使用Java-Chassis这个框架时有什么需要注意的地方？**
 
    A: 使用Java-Chassis有以下这些限制：
@@ -84,9 +84,9 @@ redirect_from:
      return 100;
    }
    ```
-   
+
    对于异常的返回值，可以通过抛出自定义的InvocationException实现，例如：、
-   
+
    ```java
    public String testException(int code) {
      String strCode = String.valueOf(code);
@@ -102,7 +102,7 @@ redirect_from:
          default:
            break;
        }
-   
+
      return "not expected";
    }
    ```
@@ -117,7 +117,7 @@ redirect_from:
 
 * **Q: 当服务配置了多个transport的时候，在运行时是怎么选择使用哪个transport的？**
 
-   A: 
+   A:
    * ServiceComb的consumer、transport、handler、producer之间是解耦的，各功能之间通过契约定义联合在一起工作的，即：
       consumer使用透明rpc，还是springmvc开发与使用highway，还是RESTful在网络上传输没有关系与producer是使用透明rpc，还是jaxrs，或者是springmvc开发，也没有关系handler也不感知，业务开发方式以及传输方式
 
@@ -457,7 +457,7 @@ redirect_from:
 
 * **Q: 浏览器能直接访问微服务Endpoint吗？**
 
-   A: 可以，restful发布的微服务Endpoint，可以直接在浏览器中使用HTTP加service path访问。
+   A: 可以，restful发布的微服务Endpoint，可以直接在浏览器中使用HTTP加service path访问提供get方法的服务，如果是访问其他Http方法提供的服务建议安装使用[Postman](https://www.sap.com/developer/tutorials/api-tools-postman-install.html)。
 
 * **Q: 契约生成时，需要强制带上版本号和语言吗？**
 
