@@ -16,9 +16,42 @@ The transparent remote procedure call(RPC) development mode is a development mod
 
 ## Development Example
 
-The transparent RPC development mode supports two service release mode: Spring XML configuration and annotation configuration. The Spring XML configuration mode is as follows:
+* **Step 1** Import dependencies into your maven project:
 
-* **Step 1** Define a service API. Compile the Java API definition based on the API definition defined before development. The code is as follows:
+   ```xml
+    <dependencyManagement>
+     <dependencies>
+       <dependency>
+         <groupId>org.apache.servicecomb</groupId>
+         <artifactId>java-chassis-dependencies</artifactId>
+         <version>1.0.0-m1</version>
+         <type>pom</type>
+         <scope>import</scope>
+       </dependency>
+     </dependencies>
+    </dependencyManagement>
+    <dependencies>
+      <!--transport can optional import through endpoint setting in microservice.yaml, we import both rest and highway as example-->
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>transport-rest-vertx</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>transport-highway</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.servicecomb</groupId>
+        <artifactId>provider-pojo</artifactId>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-log4j12</artifactId>
+      </dependency>
+    </dependencies>
+   ```
+
+* **Step 2** Define a service API. Compile the Java API definition based on the API definition defined before development. The code is as follows:
 
    ```java
    public interface Hello {
@@ -27,10 +60,7 @@ The transparent RPC development mode supports two service release mode: Spring X
    }
    ```
 
-   > **NOTE**：
-   > The location of the API must be the same as the path specified by x-java-interface in the API definition.
-
-* **Step 2** implement the service. The implementation of the Hello service is as follows:
+* **Step 3** implement the service. The implementation of the Hello service is as follows:
 
    ```java
    import org.apache.servicecomb.samples.common.schema.Hello;
@@ -49,7 +79,10 @@ The transparent RPC development mode supports two service release mode: Spring X
    }
    ```
 
-* **Step 3** Release the service. Create the pojoHello.bean.xml file in the resources/META-INF/spring directory and declare the schema in the file. The content of the file is as follows:
+* **Step 4** Release the service. 
+   The transparent RPC development mode supports two service release mode: Spring XML configuration and Annotation configuration:
+1. Spring XML configuration Mode:
+   Create the pojoHello.bean.xml file in the resources/META-INF/spring directory and declare the schema in the file. The content of the file is as follows:
 
    ```xml
    <?xml version="1.0" encoding="UTF-8"?>
@@ -63,16 +96,8 @@ The transparent RPC development mode supports two service release mode: Spring X
    </beans>
    ```
 
-   > **NOTE**：
-   > A schema statement must be defined for each service API.
-
-## The Develop Method by Configure Remarks
-
-1. Define a service API, which is the same as the Spring XML mode.
-
-2. Implement the service in the same way as using Spring XML.
-
-3. Release the service. @RpcSchema is used to define schema during the API Hello implementation. The code is as followss:
+2. Annotation configuration Mode:
+   @RpcSchema is used to define schema during the API Hello implementation. The code is as follows:
 
    ```java
    import org.apache.servicecomb.provider.pojo.RpcSchema;
@@ -97,5 +122,24 @@ The transparent RPC development mode supports two service release mode: Spring X
    </beans>
    ```
 
-> **NOTE**:
-> Different from the Spring MVC and JAX-RS development modes, the transparent RPC development mode used `@RpcSchema` instead of `@RestSchema`.
+> **NOTE**：
+Different from the Spring MVC and JAX-RS development modes, the transparent RPC development mode used `@RpcSchema` instead of `@RestSchema`.
+
+* **Step 5** Add service definition file:
+
+   Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
+   
+* **Step 6** Add Main class:
+
+   ```java
+   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+
+   public class Application {
+     public static void main(String[] args) throws Exception {
+        //initializing log, loading bean(including its parameters), and registering service, more detail can be found here : http://servicecomb.incubator.apache.org/users/application-boot-process/
+        Log4jUtils.init();
+        BeanUtils.init();
+     }
+   }
+   ```

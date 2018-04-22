@@ -10,14 +10,14 @@ redirect_from:
 ---
 
 * **Q: ServiceComb和SpringCloud是什么关系，具体的应用场景是什么？**
-   
+
    A: ServiceComb是华为基于内部多个大型IT系统实践提炼出来的一套微服务开发框架，在开发态基于最佳实践封装了一套微服务运行模型，这些能力对用户完全透明，可以通过配置引入功能和对其进行调整。在运维阶段充分考虑了微服务运维，提供了丰富的监控指标和动态治理能力。      
    B: ServiceComb的这套能力可以作为一个单独的开发框架，在需要轻量级微服务解决方案的的场景中单独使用，也可以建立在SpringCloud上，与SpringCloud提供的其他组件一起工作，在重量级场景中和SpringCloud一起产生 “1+1大于2”的效果。
 
 * **Q: 用IntelliJ的免费版开发，有什么问题？**   
-    
+
    A: 没有问题，使用IntelliJ 开发，可参考 [Setup Developer Environment](/cn/developers/setup-develop-environment/) 进行相应的环境配置。    
-   
+
 * **Q: 使用Java-Chassis这个框架时有什么需要注意的地方？**
 
    A: 使用Java-Chassis有以下这些限制：
@@ -84,9 +84,9 @@ redirect_from:
      return 100;
    }
    ```
-   
+
    对于异常的返回值，可以通过抛出自定义的InvocationException实现，例如：、
-   
+
    ```java
    public String testException(int code) {
      String strCode = String.valueOf(code);
@@ -102,7 +102,7 @@ redirect_from:
          default:
            break;
        }
-   
+
      return "not expected";
    }
    ```
@@ -117,20 +117,20 @@ redirect_from:
 
 * **Q: 当服务配置了多个transport的时候，在运行时是怎么选择使用哪个transport的？**
 
-   A: 
+   A:
    * ServiceComb的consumer、transport、handler、producer之间是解耦的，各功能之间通过契约定义联合在一起工作的，即：
       consumer使用透明rpc，还是springmvc开发与使用highway，还是RESTful在网络上传输没有关系与producer是使用透明rpc，还是jaxrs，或者是springmvc开发，也没有关系handler也不感知，业务开发方式以及传输方式
-   
+
    * consumer访问producer，在运行时的transport选择上，总规则为：
       consumer的transport与producer的endpoint取交集，如果交集后，还有多个transport可选择，则轮流使用
-   
+
       分解开来，存在以下场景：
-   
+
    * 当一个微服务producer同时开放了highway以及RESTful的endpoint
       * consumer进程中只部署了highway transport jar，则只会访问producer的highway endpoint
       * consumer进程中只部署了RESTful transport jar，则只会访问producer的RESTful endpoint
       * consumer进程中，同时部署了highway和RESTful transport jar，则会轮流访问producer的highway、RESTful endpoint
-   
+
       如果，此时consumer想固定使用某个transport访问producer，可以在consumer进程的microservice.yaml中配置，指定transport的名称:
 
       ```yaml
@@ -139,12 +139,12 @@ redirect_from:
           <service_name>:
             transport: highway
       ```
-   
+
    * 当一个微服务producer只开放了highway的endpoint
       * consumer进程只部署了highway transport jar，则正常使用highway访问
       * consumer进程只部署了RESTful transport jar，则无法访问
       * consumer进程同时部署了highway和RESTful transport jar，则正常使用highway访问
-   
+
    * 当一个微服务producer只开放了RESTful的endpoint
       * consumer进程只部署了highway transport jar，则无法访问
       * consumer进程只部署了RESTful transport jar，则正常使用RESTful访问
@@ -153,9 +153,9 @@ redirect_from:
 * **Q: swagger body参数类型定义错误，导致服务中心注册的内容没有类型信息**
 
    **现象描述:**
-   
+
    定义如下接口，将参数放到body传递
-   
+
    ```yaml
    /testInherate:
        post:
@@ -171,9 +171,9 @@ redirect_from:
              schema:
                $ref: "#/definitions/ResponseImpl"
    ```
-   
+
    采用上面方式定义接口。在服务注册以后，从服务中心查询下来的接口type: string 丢失，变成了：
-   
+
    ```yaml
    /testInherate:
        post:
@@ -188,15 +188,15 @@ redirect_from:
              schema:
                $ref: "#/definitions/ResponseImpl"
    ```
-   
+
    如果客户端没有放置swagger，还会报告如下异常：
-   
+
    ```text
       Caused by: java.lang.ClassFormatError: Method "testInherate" in class ? has illegal signature "
    ```
-   
+
    A：定义body参数的类型的时候，需要使用schema，不能直接使用type。
-   
+
    ```yaml
    /testInherate:
        post:
@@ -217,7 +217,7 @@ redirect_from:
 * **Q: ServiceComb微服务框架服务调用是否使用长连接?**
 
    A: http使用的是长连接（有超时时间），highway方式使用的是长连接（一直保持）。
-   
+
 * **Q: 服务断连服务中心注册信息是否自动删除**
 
    A: 服务中心心跳检测到服务实例不可用，只会移除服务实例信息，服务的静态数据不会移除。
@@ -234,21 +234,21 @@ redirect_from:
    @path(/{context}/xxx)
    class ServiceA
    ```
-   
+
 * **Q: ServiceComb微服务框架如何实现数据多个微服务间透传**
 
    A:
    透传数据塞入：
-   
+
    ```java
    CseHttpEntity<xxxx.class> httpEntity = new CseHttpEntity<>(xxx);
    //透传内容
    httpEntity.addContext("contextKey","contextValue");
    ResponseEntity<String> responseEntity = RestTemplateBuilder.create().exchange("cse://springmvc/springmvchello/sayhello",HttpMethod.POST,httpEntity,String.class);
    ```
-   
+
    透传数据获取：
-   
+
    ```java
    @Override
    @RequestMapping(path="/sayhello",method = RequestMethod.POST)
@@ -272,15 +272,15 @@ redirect_from:
      return "Hello person "+person.getName();
    }
    ```
-   
+
 * **Q: ServiceComb body Model部分暴露**
 
    A: 一个接口对应的body对象中，可能有一些属性是内部的，不想开放出去，生成schema的时候不要带出去，使用：
-   
+
    ```java
    @ApiModelProperty(hidden = true)
    ```
-   
+
 * **Q: ServiceComb框架获取远端consumer的地址**
 
    A: 如果使用http rest方式（使用transport-rest-vertx依赖）可以用下面这种方式获取：
@@ -292,9 +292,9 @@ redirect_from:
      System.out.println(req.getRemoteHost());
    }
    ```
-   
+
    实际场景是拿最外层的地址，所以应该是LB传入到edgeservice，edgeService再放到context外下传递。
-   
+
 * **Q: ServiceComb不支持泛型**
 
    A: 明确不支持，需要修改接口，接口修改后需要修改版本号，以免consumer还是使用旧的版本。
@@ -323,7 +323,7 @@ redirect_from:
       </dependency>
       ```
    4. 引入log4j2的依赖
-   
+
       ```xml
       <dependency>    
           <groupId>org.apache.logging.log4j</groupId>
@@ -338,11 +338,11 @@ redirect_from:
           <artifactId>log4j-core</artifactId>
       </dependency>
       ```
-   
+
       如果没有版本依赖管理，还需要填写上版本号。
-   
+
    5. 加入log4j2的配置文件log4j2.xml，关于这个请查看官方说明，例如：
-   
+
       ```xml
        <?xml version="1.0" encoding="UTF-8"?>
        <!--日志级别以及优先级排序: OFF > FATAL > ERROR > WARN > INFO > DEBUG > TRACE > ALL -->
@@ -406,12 +406,8 @@ redirect_from:
            </loggers>
        </configuration>
       ```
-   
+
    6. 启动服务进行验证
-
-* **Q: netty版本问题**
-
-   A: netty3和netty4是完全不同的三方件，因为坐标跟package都不相同，所以可以共存，但是要注意小版本问题，小版本必须使用CSE的版本。
 
 * **Q: 服务超时设置**
 
@@ -441,7 +437,7 @@ redirect_from:
 
 * **Q: 框架中引入了vertx会有什么好处？**
 
-   A: 启用vertx的标准工作模式更强大，不过对业务人员要求就有些高了，目前还没开放业务接口出来。vertx标准的reactive工作模式，要求业务代码中不能有任何的block wait,sleep，大循环，总之，不能停下来。做到这一点，可以用少很多的CPU，提供更多的服务。
+   A: 启用vertx的标准工作模式更强大，不过对业务人员要求就有些高了，目前还没开放业务接口出来。vertx标准的reactive工作模式，要求业务代码中不能有任何的block wait,sleep，大循环，总之不能有阻塞，做到这一点，就可以用更少的CPU，提供更多的服务。
 
 * **Q: 一个服务提供者里面会有多个 appid 和微服务吗？什么场景会出现这种情况？**
 
@@ -459,9 +455,9 @@ redirect_from:
 
    A: 每个微服务有一个servicePathManager，每一个schema将自己的path注册进去。
 
-   **Q: 这样浏览器能访问到吗？**
+* **Q: 浏览器能直接访问微服务Endpoint吗？**
 
-   A: 可以，restful的URL路由，都是由service path搞定。
+   A: 可以，restful发布的微服务Endpoint，可以直接在浏览器中使用HTTP加service path访问提供get方法的服务，如果是访问其他Http方法提供的服务建议安装使用[Postman](https://www.sap.com/developer/tutorials/api-tools-postman-install.html)。
 
 * **Q: 契约生成时，需要强制带上版本号和语言吗？**
 
@@ -478,11 +474,11 @@ redirect_from:
 * **Q: 如果同时引入了`transport-rest-servlet`和`transport-rest-vertx`的依赖，那么它怎么决定采用哪一个？**
 
    A: 如果端口没被占用，就用vertx；如果被占用了，就用servlet。
-   
+
 * **Q: qps流控设计时是出于什么场景考虑的？**
 
    A: 限流有两个主要作用，第一通过给不同的消费者限流保证对一些重点服务的服务效果，第二防止雪崩效应。可根据服务的重要性来决定水管的粗细，ServiceComb是支持消费端限流和服务端限流两种限流方式的，消费端限流可以做到比较精细的控制。
-   
+
 * **Q: 如果服务端是链式调用，即类似a->b->c，那设置了qps 流控会不会造成水管粗细不均的事情？**
 
    A: 一般采取的模式是先测量再设置。qps设置最终是结合整体业务需求来进行调控的，而不是就单个节点来进行设置。
@@ -495,9 +491,9 @@ redirect_from:
 
    A: 检查Service Center是否老版本，如果是，则升级到最新版本。
 
-* **Q: 如何在Json序列化忽略Bean中的指定属性**
+* **Q: 如何在契约DTO中忽略中指定的属性？**
 
-   A: 使用@JsonIgnore注解标记需要忽略的属性，注意修改完成后需重启Service Center。例如:
+   A: 如果是使用rest transport，因为是Json序列化，可以使用@JsonIgnore注解标记需要忽略的属性；highway transport目前尚不支持。注意修改后需要更新微服务的version，例如:
 
   ```java
   public class OutputForTest{
@@ -522,7 +518,7 @@ redirect_from:
     }
   }
   ```
-  
+
 * **Q: 微服务运行时抛出异常：` java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty`？**
 
-   A: 可将Service Center升级至0.4.0+版本来解决，[Service Center最新版本传送门](https://github.com/apache/incubator-servicecomb-service-center/releases)。
+   A: 可将Service Center升级至0.4.0+版本来解决，[Service Center最新版本传送门](http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/)。
