@@ -22,34 +22,34 @@ Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来�
 
    在Maven的pom.xml中添加所需的依赖：
    
-   ```xml
-<dependencyManagement>
+    ```xml
+    <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.servicecomb</groupId>
+            <artifactId>java-chassis-dependencies</artifactId>
+            <version>1.0.0-m1</version>
+            <type>pom</type>
+            <scope>import</scope>
+          </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>org.apache.servicecomb</groupId>
-        <artifactId>java-chassis-dependencies</artifactId>
-        <version>${java-chassis.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
+        <dependency>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!--spring-boot-starter-provider中已经包含transport-rest-vertx和transport-highway-->
+        <dependency>
+          <groupId>org.apache.servicecomb</groupId>
+          <artifactId>spring-boot-starter-provider</artifactId>
+        </dependency>
+        <dependency>
+          <groupId>org.hibernate</groupId>
+          <artifactId>hibernate-validator</artifactId>
+        </dependency>
     </dependencies>
-</dependencyManagement>
-<dependencies>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter</artifactId>
-    </dependency>
-    <!--spring-boot-starter-provider中已经包含transport-rest-vertx和transport-highway-->
-    <dependency>
-      <groupId>org.apache.servicecomb</groupId>
-      <artifactId>spring-boot-starter-provider</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-validator</artifactId>
-    </dependency>
-</dependencies>
-   ```
+    ```
 
 * **步骤 2** 实现服务。
 

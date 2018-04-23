@@ -25,7 +25,7 @@ You need to use the native Java Chassis framework to develop microservice applic
          <dependency>
            <groupId>org.apache.servicecomb</groupId>
            <artifactId>java-chassis-dependencies</artifactId>
-           <version>${java-chassis.version}</version>
+           <version>1.0.0-m1</version>
            <type>pom</type>
            <scope>import</scope>
          </dependency>
