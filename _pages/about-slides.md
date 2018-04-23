@@ -46,3 +46,6 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb live streaming phase X](http://www.itdks.com/liveevent/detail/10301), 20180315
  * [Monitor Apache ServiceComb(incubating) using Apache SkyWalking(incubating) APM]({{ site.url }}{{ site.baseurl }}/assets/slides/20180315/Monitor_Apache_ServiceComb_using_Apache_Skywalking_APM.pdf)
+ 
+## Spring Cloud 2018 Chinese Community Salon (Shenzhen)
+ * [Introduction to ServiceComb]({{ site.url }}{{ site.baseurl }}/assets/slides/20180421/Introduction_to_ServiceComb.pdf)
