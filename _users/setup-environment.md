@@ -46,6 +46,10 @@ There are two ways to start a stand-alone service center service:
    ```bash
    bash apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64/start-service-center.sh
    ```
+   
+   NOTE：Frontend will bind ipv6 address under Linux, so browser may report error, fix method：Modify httpaddr in conf/app.conf with a reachable ip, then modify `ip : 'http://127.0.0.1'` in app/appList/apiList.js with same ip, final restart ServiceCenter.
+   {: .notice--warning}
+   
     </div>
    </div>
    
