@@ -13,7 +13,7 @@ date: 2017-06-20T11:02:20+08:00
 
 ## Arch Submit, 20171209, 北京
  * [Service Mesh在华为公有云的实践]({{ site.url }}{{ site.baseurl }}/assets/slides/20171209/PracticeOfServiceMeshOnHuaweiPublicCloud.pdf)
- 
+
 ## 微服务实践技术沙龙, 20180127, 深圳
  * [微服务框架ServiceComb]({{ site.url }}{{ site.baseurl }}/assets/slides/20180127/ServiceComb_Overview.pdf)
 
@@ -46,3 +46,12 @@ date: 2017-06-20T11:02:20+08:00
 
 ## [ServiceComb 直播第十期](http://www.itdks.com/liveevent/detail/10301), 20180315
  * [使用Apache SkyWalking(incubating) APM监控Apache ServiceComb(incubating)]({{ site.url }}{{ site.baseurl }}/assets/slides/20180315/Monitor_Apache_ServiceComb_using_Apache_Skywalking_APM.pdf)
+
+## OSCA Cloud Summit 2018
+ * [ServiceComb雄关漫道]({{ site.url }}{{ site.baseurl }}/assets/slides/20180322/ServiceComb-OSCAR.pdf)
+
+## Spring Cloud 2018 中国社区沙龙 (深圳)
+ * [介绍ServiceComb]({{ site.url }}{{ site.baseurl }}/assets/slides/20180421/Introduction_to_ServiceComb.pdf)
+
+## QConBeijing 2018
+ * [分布式事务一致性Saga设计与实现]({{ site.url }}{{ site.baseurl }}/assets/slides/20180422/QConBeijing2018-Saga.pdf)
