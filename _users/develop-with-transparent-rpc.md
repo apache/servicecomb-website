@@ -1,9 +1,9 @@
 ---
-title: "Development Style-Transparent RPC"
+title: "Develop Microservice with Transparent RPC"
 lang: en
 ref: develop-with-transparent-rpc
 permalink: /users/develop-with-transparent-rpc/
-excerpt: "Development Style-RPC"
+excerpt: "Develop Microservice with Transparent RPC"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/

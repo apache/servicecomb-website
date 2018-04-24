@@ -1,9 +1,9 @@
 ---
-title: "Development Style-JAX-RS"
+title: "Develop Microservice with JAX-RS"
 lang: en
 ref: develop-with-jax-rs
 permalink: /users/develop-with-jax-rs/
-excerpt: "Development Style-JAX-RS"
+excerpt: "Develop Microservice with JAX-RS"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/
