@@ -21,4 +21,4 @@ last_modified_at: 2017-06-24T19:18:43+08:00
 * [开发环境准备](/cn/developers/setup-develop-environment/)：主要介绍git，JDK，Maven以及IDE的安装及配置。
 * [代码提交指南](/cn/developers/submit-codes/)：主要介绍功能特性需求及现有bug的获取途径，提交代码前的测试事宜，如何提交PR以及如何解决冲突等。
 
-同时，也欢迎您订阅[ServiceComb邮件列表](mailto:dev-subscribe@servicecomb.incubator.apache.org)了解 ServiceComb 项目的开发动态以及进行话题讨论。
+同时，也欢迎您订阅[ServiceComb邮件列表](mailto:dev-subscribe@servicecomb.incubator.apache.org)了解 ServiceComb 项目的开发动态以及进行话题讨论。订阅的方法可参阅[邮件列表订阅指南](/cn/developers/subscribe-mail-list/)。
