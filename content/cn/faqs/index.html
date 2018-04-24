@@ -326,6 +326,11 @@
  (3) 方法和类必须是public的。</p>
   </li>
   <li>
+    <p><strong>Q: 契约生成会报错Caused by: java.lang.Error: OperationId must be unique，不支持函数重载？</strong></p>
+
+    <p>A: 我们是支持函数重载的， 加上<code class="highlighter-rouge">@ApiOperation</code>标签即可，demo-pojo中有示例。每个接口必须有唯一的operation id。</p>
+  </li>
+  <li>
     <p><strong>Q: 使用<em>spring-boot-starter-provider</em>这个依赖时，在<em>application.yml</em>文件中声明的<code class="highlighter-rouge">spring.main.web-application</code>属性并没有生效？</strong></p>
 
     <p>A: 使用<em>starter-provider</em>这个依赖时，如果用到了servlet这种方式时，需要在<em>application.properties</em>这个文件引入<code class="highlighter-rouge">spring.main.web-application=true</code>这样的属性或者在<em>application.yml</em>文件中声明，但是此时需要新建一个<em>application.properties</em>的文件，其内容可以为空。</p>

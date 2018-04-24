@@ -19,12 +19,12 @@
 
 
 
-<title>在Spring Boot中使用ServiceComb - Apache ServiceComb (incubating)</title>
+<title>使用Service Center和治理中心管理Spring Cloud应用 - Apache ServiceComb (incubating)</title>
 
 
 
 
-<meta name="description" content="在Spring Boot中使用ServiceComb">
+<meta name="description" content="使用Service Center和治理中心管理Spring Cloud应用">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="在Spring Boot中使用ServiceComb">
+<meta property="og:title" content="使用Service Center和治理中心管理Spring Cloud应用">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/use-servicecomb-in-spring-boot/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/use-servicecomb-in-spring-boot/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/manage_springcloud_application_using_sc_and_gs/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/manage_springcloud_application_using_sc_and_gs/">
 
 
 
-  <meta property="og:description" content="在Spring Boot中使用ServiceComb">
+  <meta property="og:description" content="使用Service Center和治理中心管理Spring Cloud应用">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="在Spring Boot中使用ServiceComb">
-  <meta name="twitter:description" content="在Spring Boot中使用ServiceComb">
+  <meta name="twitter:title" content="使用Service Center和治理中心管理Spring Cloud应用">
+  <meta name="twitter:description" content="使用Service Center和治理中心管理Spring Cloud应用">
   <meta name="twitter:url" content="">
 
   
@@ -221,7 +221,7 @@
           
             
             
-            <a href=/users/use-servicecomb-in-spring-boot/>English</a>
+            <a href=/users/manage_springcloud_application_using_sc_and_gs/>English</a>
           
         </div>
       </nav>
@@ -338,6 +338,14 @@
             
             
 
+            <li><a href="/cn/users/develop-with-spring-boot-starter/" class="">用Spring Boot Starter开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
             <li><a href="/cn/users/service-interface-constraints/" class="">服务接口约束</a></li>
           
             
@@ -442,14 +450,6 @@
             
             
 
-            <li><a href="/cn/users/use-servicecomb-in-spring-boot/" class="active">在Spring Boot中使用ServiceComb</a></li>
-          
-            
-            
-
-            
-            
-
             <li><a href="/cn/users/distributed-tracing/" class="">分布式调用链追踪</a></li>
           
             
@@ -506,6 +506,14 @@
             
 
             <li><a href="/cn/users/edge-in-1.0.0-m1/" class="">使用内置Edge模块实现边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/manage_springcloud_application_using_sc_and_gs/" class="active">使用Service Center和治理中心管理Spring Cloud应用</a></li>
           
         </ul>
         
@@ -605,16 +613,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="在Spring Boot中使用ServiceComb">
-    <meta itemprop="description" content="在Spring Boot中使用ServiceComb">
+    <meta itemprop="headline" content="使用Service Center和治理中心管理Spring Cloud应用">
+    <meta itemprop="description" content="使用Service Center和治理中心管理Spring Cloud应用">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="April 23, 2018">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">在Spring Boot中使用ServiceComb
+            <h1 class="page__title" itemprop="headline">使用Service Center和治理中心管理Spring Cloud应用
 </h1>
             
           </header>
@@ -626,16 +634,9 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#使用service-center和治理中心管理spring-cloud应用" id="markdown-toc-使用service-center和治理中心管理spring-cloud应用">使用Service Center和治理中心管理Spring Cloud应用</a>    <ul>
-      <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-      <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
+  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
+  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a>    <ul>
       <li><a href="#配置说明" id="markdown-toc-配置说明">配置说明</a></li>
-    </ul>
-  </li>
-  <li><a href="#在servicecomb框架中集成spring-boot框架" id="markdown-toc-在servicecomb框架中集成spring-boot框架">在ServiceComb框架中集成Spring Boot框架</a>    <ul>
-      <li><a href="#概念阐述-1" id="markdown-toc-概念阐述-1">概念阐述</a></li>
-      <li><a href="#场景描述-1" id="markdown-toc-场景描述-1">场景描述</a></li>
-      <li><a href="#servicecomb集成springboot" id="markdown-toc-servicecomb集成springboot">ServiceComb集成SpringBoot</a></li>
     </ul>
   </li>
 </ul>
@@ -643,12 +644,11 @@
   </nav>
 </aside>
 
-<h2 id="使用service-center和治理中心管理spring-cloud应用">使用Service Center和治理中心管理Spring Cloud应用</h2>
-<h3 id="概念阐述">概念阐述</h3>
+<h2 id="概念阐述">概念阐述</h2>
 
-<p>本小节介绍在SpringCloud原生应用中，通过改变相关配置，让SpringCloud应用使用ServiceComb微服务框架中的Service Center和治理中心。</p>
+<p>在SpringCloud原生应用中，通过改变相关配置，让SpringCloud应用使用ServiceComb微服务框架中的Service Center和治理中心。</p>
 
-<h3 id="场景描述">场景描述</h3>
+<h2 id="场景描述">场景描述</h2>
 
 <ul>
   <li>
@@ -799,100 +799,6 @@
   </li>
 </ul>
 
-<h2 id="在servicecomb框架中集成spring-boot框架">在ServiceComb框架中集成Spring Boot框架</h2>
-<h3 id="概念阐述-1">概念阐述</h3>
-
-<p>本小节介绍了在ServiceComb框架中集成SpringBoot框架的好处和操作步骤。</p>
-
-<h3 id="场景描述-1">场景描述</h3>
-
-<h4 id="springboot框架"><strong>SpringBoot框架</strong></h4>
-
-<p>　　Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。从最根本上来讲，Spring Boot就是一些库的集合，它能够被任意项目的构建系统所使用。Boot的功能是模块化的，通过导入Boot所谓的”starter”模块，可以将许多的依赖添加到工程中。</p>
-
-<h4 id="在servicecomb中集成springboot"><strong>在ServiceComb中集成SpringBoot</strong></h4>
-
-<p>　　使用原生的ServiceComb框架开发微服务应用，如若需要使用ServiceComb框架提供的各项功能服务，需要在微服务项目工程pom文件中添加相应的依赖包，例如需要使用ServiceComb框架提供的负载均衡服务，需要添加handler-loadbalance包依赖。这样可以把ServiceComb提供的能力以starter的方式插入Spring Boot中，同时使用Spring Boot中提供的其他开箱即用的starter（例如SpringCloud）一起构建微服务。</p>
-
-<h3 id="servicecomb集成springboot">ServiceComb集成SpringBoot</h3>
-
-<p>　　首先使用ServiceComb框架开发微服务应用，详细步骤请参考<a href="/cn/users/service-definition/">开发服务提供者</a>与<a href="/cn/users/develop-with-rest-template/">开发服务消费者</a>。然后在这个基础上集成SpringBoot框架。</p>
-
-<p>　　在对应用进行SpringBoot框架适配前，请确保应用能够正常运行，并且能够从中央的maven库下载依赖的资源。</p>
-
-<ul>
-  <li>
-    <p><strong>步骤 1</strong> 在工程pom文件添加&lt;dependencyManagement&gt;节点：</p>
-
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependencyManagement&gt;</span>
-   <span class="nt">&lt;dependencies&gt;</span>
-     <span class="nt">&lt;dependency&gt;</span>
-       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-       <span class="nt">&lt;artifactId&gt;</span>java-chassis-dependencies<span class="nt">&lt;/artifactId&gt;</span>
-       <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
-       <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
-       <span class="nt">&lt;scope&gt;</span>import<span class="nt">&lt;/scope&gt;</span>
-     <span class="nt">&lt;/dependency&gt;</span>
-   <span class="nt">&lt;/dependencies&gt;</span>
- <span class="nt">&lt;/dependencyManagement&gt;</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p><strong>步骤 2</strong> 添加如下依赖：</p>
-
-    <p>引入ServiceComb提供的Spring Boot依赖</p>
-
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
-   <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
- <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
-
-    <p>引入Spring Boot依赖</p>
-
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
-   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-web<span class="nt">&lt;/artifactId&gt;</span>
- <span class="nt">&lt;/dependency&gt;</span>
- <span class="nt">&lt;dependency&gt;</span>
-   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
-   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
- <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p><strong>步骤 3</strong> 在resources目录下新建application.yml文件，文件内容如下：</p>
-
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">server</span><span class="pi">:</span>
-   <span class="s">port</span><span class="pi">:</span> <span class="s">7999</span> <span class="c1">#此处的端口为springboot服务端口</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p><strong>步骤 4</strong> 为微服务启动类添加注解：</p>
-
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">package</span> <span class="n">xxx</span>
- <span class="kn">import</span> <span class="nn">xxx</span>
- <span class="nd">@SpringBootApplication</span> <span class="c1">//新增注解</span>
- <span class="nd">@EnableServiceComb</span> <span class="c1">//新增注解</span>
- <span class="kd">public</span> <span class="kd">class</span> <span class="nc">xxxServer</span><span class="o">/</span><span class="n">Client</span> <span class="o">{</span>
-   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="kd">final</span> <span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-   <span class="err">　</span> <span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
-   <span class="err">　</span><span class="c1">//BeanUtils.init();</span>
-   <span class="err">　</span><span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">xxxServerOrClient</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">)</span>
-   <span class="o">}</span>
- <span class="o">}</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p><strong>步骤 5</strong> 运行/调试应用。</p>
-  </li>
-</ul>
-
         
       </section>
 
@@ -947,8 +853,8 @@
     <div class="col">
       <ul>
         <p class="header">贡献</p>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/use-servicecomb-in-spring-boot.md">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/use-servicecomb-in-spring-boot.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/manage_springcloud_application_using_sc_and_gs.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/manage_springcloud_application_using_sc_and_gs.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
       </ul>
     </div>
