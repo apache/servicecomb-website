@@ -46,6 +46,10 @@ last_modified_at: 2018-04-13T10:01:43-04:00
    ```bash
    bash apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64/start-service-center.sh
    ```
+   
+    注意：前端（frontend）在Linux环境下默认会绑定ipv6地址，导致浏览器报错，修复办法为：先修改conf/app.conf中的httpaddr为外部可达网卡ip，之后修改app/appList/apiList.js中`ip : 'http://127.0.0.1'`为对应ip，最后重启ServiceCenter即可。
+    {: .notice--warning}
+  
     </div>
    </div>
 
