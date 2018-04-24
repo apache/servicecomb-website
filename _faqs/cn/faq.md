@@ -25,6 +25,10 @@ redirect_from:
    (2) 所用到的HTTP请求方法一样时，如GET，则方法名不能重载。这是由于生成契约时方法名会作为其Operation ID，所以要保证其唯一性。
    (3) 方法和类必须是public的。
 
+* **Q: 契约生成会报错Caused by: java.lang.Error: OperationId must be unique，不支持函数重载？**
+
+   A: 我们是支持函数重载的， 加上`@ApiOperation`标签即可，demo-pojo中有示例。每个接口必须有唯一的operation id。
+
 * **Q: 使用*spring-boot-starter-provider*这个依赖时，在*application.yml*文件中声明的`spring.main.web-application`属性并没有生效？**
 
    A: 使用*starter-provider*这个依赖时，如果用到了servlet这种方式时，需要在*application.properties*这个文件引入`spring.main.web-application=true`这样的属性或者在*application.yml*文件中声明，但是此时需要新建一个*application.properties*的文件，其内容可以为空。
