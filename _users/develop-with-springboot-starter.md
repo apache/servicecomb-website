@@ -1,9 +1,9 @@
 ---
-title: "Develop Microservice with SpringMVC"
+title: "Develop Microservice with Spring Boot Starter"
 lang: en
-ref: develop-with-springmvc
-permalink: /users/develop-with-springmvc/
-excerpt: "Develop Microservice with SpringMVC"
+ref: develop-with-spring-boot-starter
+permalink: /users/develop-with-spring-boot-starter/
+excerpt: "Develop Microservice with Spring Boot Starter"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:
   - /theme-setup/
@@ -11,44 +11,41 @@ redirect_from:
 
 {% include toc %}
 ## Concept Description
-
-ServiceComb supports Spring MVC remark and allows you to develop microservices in Spring MVC mode.
-
+### **Spring Boot framework**
+Spring Boot is a new framework provided by the Pivotal team. It is designed to simplify the initial establishment and development of new Spring applications. The framework is configured in a specific manner so that developers do not need to define the sample configuration. Spring Boot is a collection of some databases and can be used by the construction system of any projects. The Boot function is modularized. By importing the starter module of Spring Boot, you can add many dependencies to a project.
+### **Integrating Spring Boot into ServicComb**
+You need to use the native Java Chassis framework to develop microservice applications. To use the functions provided by the Java Chassis framework, add dependency packages to the POM file of microservice project. For example, to use the load balancing service provided by the Java Chassis framework, add the dependency package of the handler-loadbalance package. In this way, functions provided by ServiceComb can be inserted into Spring Boot in the manner of starter, and the microservice can be built together with the starter (such as Spring Cloud) provided by Spring Boot.
 ## Development Example
 
 * **Step 1** Import dependencies into your maven project:
 
    ```xml
-    <dependencyManagement>
-     <dependencies>
+   <dependencyManagement>
+       <dependencies>
+         <dependency>
+           <groupId>org.apache.servicecomb</groupId>
+           <artifactId>java-chassis-dependencies</artifactId>
+           <version>1.0.0-m1</version>
+           <type>pom</type>
+           <scope>import</scope>
+         </dependency>
+       </dependencies>
+   </dependencyManagement>
+   <dependencies>
+       <dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter</artifactId>
+       </dependency>
+       <!--spring-boot-starter-provider had included transport-rest-vertx and transport-highway-->
        <dependency>
          <groupId>org.apache.servicecomb</groupId>
-         <artifactId>java-chassis-dependencies</artifactId>
-         <version>1.0.0-m1</version>
-         <type>pom</type>
-         <scope>import</scope>
+         <artifactId>spring-boot-starter-provider</artifactId>
        </dependency>
-     </dependencies>
-    </dependencyManagement>
-    <dependencies>
-      <!--transport can optional import through endpoint setting in microservice.yaml, we import both rest and highway as example-->
-      <dependency>
-        <groupId>org.apache.servicecomb</groupId>
-        <artifactId>transport-rest-vertx</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.servicecomb</groupId>
-        <artifactId>transport-highway</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.servicecomb</groupId>
-        <artifactId>provider-springmvc</artifactId>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-      </dependency>
-    </dependencies>
+       <dependency>
+         <groupId>org.hibernate</groupId>
+         <artifactId>hibernate-validator</artifactId>
+       </dependency>
+   </dependencies>
    ```
 
 * **Step 2** Implement the services. Spring MVC is used to describe the development of service code. The implementation of the Hello service is as follow:
@@ -101,6 +98,9 @@ ServiceComb supports Spring MVC remark and allows you to develop microservices i
    </beans>
    ```
 
+> **NOTE**：
+Spring Boot had include a default Bean discovery policy, if Spring Boot can found our `SpringmvcHelloImpl`, `springmvcHello.bean.xml` is not necessary.
+
 * **Step 4** Add service definition file:
 
    Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
@@ -108,21 +108,23 @@ ServiceComb supports Spring MVC remark and allows you to develop microservices i
 * **Step 5** Add Main class:
 
    ```java
-   import org.apache.servicecomb.foundation.common.utils.BeanUtils;
-   import org.apache.servicecomb.foundation.common.utils.Log4jUtils;
+    import org.apache.servicecomb.springboot.starter.provider.EnableServiceComb;
+    import org.springframework.boot.SpringApplication;
+    import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-   public class Application {
-     public static void main(String[] args) throws Exception {
-        //initializing log, loading bean(including its parameters), and registering service, more detail can be found here : http://servicecomb.incubator.apache.org/users/application-boot-process/
-        Log4jUtils.init();
-        BeanUtils.init();
-     }
-   }
+    @SpringBootApplication
+    //EnableServiceComb annotation is used to init ServiceComb in Spring Boot
+    @EnableServiceComb
+    public class Application {
+      public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+      }
+    }
    ```
 
 ## Involved APIs
 
-Currently, the Spring MVC development mode supports the following annotations in the org.springframework.web.bind.annotation package. For details about how to use the annotations, see [Spring MVC official documentation](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)。
+Spring Boot Starter also use the Spring MVC development mode, supports the following annotations in the org.springframework.web.bind.annotation package. For details about how to use the annotations, see [Spring MVC official documentation](https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html)。
 
 | Remarks        | Location         | Description                              |
 | :------------- | :--------------- | :--------------------------------------- |
