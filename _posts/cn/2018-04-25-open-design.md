@@ -4,7 +4,7 @@ lang: cn
 ref: open-design   
 permalink: /cn/docs/open-design/   
 excerpt: "本文讲述了整个 开源微服务框架 Apache ServiceComb 设计形成的前因后果，尝试从理念、思想和实践结合的维度剖析一个优质的微服务框架应该具备哪些要素，包括但不限于 对开发者友好、高性能、内外部扩展性>等。"   
-author: Zen Lin   
+author: Zen Lin, Bao Liu
 tags: [设计, 开放，扩展]
 redirect_from:   
   - /theme-setup/   
@@ -53,16 +53,16 @@ Apache ServiceComb 很快在社区设计层面达成了一致，通过缺省支�
 
 ```java
 @RpcSchema(schemaId="hello")
-publicclassHelloImplimplementsHello{
-@Override
-publicStringsayHi(Stringname){
-	return"Hello"+name;
-}
+public class HelloImpl implements Hello{
+  @Override
+  public String sayHi(String name){
+    return"Hello"+name;
+  }
 
-@Override
-publicStringsayHello(Personperson){
-	return"Helloperson"+person.getName();
-	}
+  @Override
+  public String sayHello(Person person){
+    return"Helloperson"+person.getName();
+  }
 }
 ```
 
@@ -74,21 +74,21 @@ publicStringsayHello(Personperson){
 @RestSchema(schemaId="jaxrsHello")
 @Path("/jaxrshello")
 @Produces(MediaType.APPLICATION_JSON)
-publicclassJaxrsHelloImplimplementsHello{
+public class JaxrsHelloImpl implements Hello{
 
-@Path("/sayhi")
-@POST
-@Override
-publicStringsayHi(Stringname){
-	return"Hello"+name;
-}
+  @Path("/sayhi")
+  @POST
+  @Override
+  public String sayHi(String name){
+    return"Hello"+name;
+  }
 
-@Path("/sayhello")
-@POST
-@Override
-publicStringsayHello(Personperson){
-	return"Helloperson"+person.getName();
-	}
+  @Path("/sayhello")
+  @POST
+  @Override
+  public String sayHello(Person person){
+    return"Helloperson"+person.getName();
+  }
 }
 ```
 
@@ -99,19 +99,19 @@ publicStringsayHello(Personperson){
 ```java
 @RestSchema(schemaId="springmvcHello")
 @RequestMapping(path="/springmvchello",produces=MediaType.APPLICATION_JSON)
-publicclassSpringmvcHelloImplimplementsHello{
+public class SpringmvcHelloImpl implements Hello{
 
-@Override
-@RequestMapping(path="/sayhi",method=RequestMethod.POST)
-publicStringsayHi(@RequestParam(name="name")Stringname){
-	return"Hello"+name;
-}
+  @Override
+  @RequestMapping(path="/sayhi",method=RequestMethod.POST)
+  public String sayHi(@RequestParam(name="name")String name){
+    return"Hello"+name;
+  }
 
-@Override
-@RequestMapping(path="/sayhello",method=RequestMethod.POST)
-	publicStringsayHello(@RequestBodyPersonperson){
-	return"Helloperson"+person.getName();
-	}
+  @Override
+  @RequestMapping(path="/sayhello",method=RequestMethod.POST)
+  public String sayHello(@RequestBody Person person){
+    return"Helloperson"+person.getName();
+  }
 }
 ```
 
@@ -119,7 +119,7 @@ publicStringsayHi(@RequestParam(name="name")Stringname){
 
 ```java
 @RpcReference(microserviceName="hello",schemaId="hello")
-privateHellohello;
+private Hello hello;
 System.out.println(hello.sayHi("JavaChassis"));
 ```
 
@@ -145,23 +145,23 @@ Open API 首先是一个不断发展壮大中的开放的标准。Open API 能�
 
  对于 Java 开发者，下面的代码片段是日常所打交道的：
 
-```json
+```yaml
 User:
-type:object
-properties:
+  type:object
+  properties:
 age:
-type:integer
+  type:integer
 ```
 
 如果开发人员有丰富的跨语言开发经验，可以看出 Swagger 在解决跨语言编程方面API定义冲突的努力， 如 Swagger 通过 format 来定义数据类型的存储格式，以解决不同的语言在数据类型表示上的差异：
 
-```json
+```yaml
 User:
-type:object
-properties:
+  type:object
+  properties:
 age:
-type:integer
-format:int32
+  type:integer
+  format:int32
 ```
 
 [开源微服务框架 Apache SerivceComb](http://servicecomb.incubator.apache.org/cn/) 既遵循常规开发规范也特别关注开发效率。开发者可以先写接口定义后写代码， 也可直接通过自己熟悉的方式编写写代码， 两种方式都会生成 [服务契约](http://servicecomb.incubator.apache.org/cn/users/service-contract/)（Open API 描述文件），并且将内容注册到[服务中心](https://github.com/apache/incubator-servicecomb-service-center)。使用者可以从服务中心下载相关的服务契约进行开发。 Apache ServiceComb 的各种治理结构也是基于契约的，可以让开发者独立于业务实现对系统进行统一的管控治理。
@@ -198,12 +198,12 @@ REST 相较 gRPC ，最大的痛点是性能。
 
 在 Apache ServiceComb 框架中，[切换协议](http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/)非常简单，不需要修改一行业务代码。多个协议共存也是允许的。
 
-```json
+```yaml
 ServiceComb:
-	rest:
-		address:0.0.0.0:8084
-	highway:
-		address:0.0.0.0:8094
+  rest:
+    address:0.0.0.0:8084
+  highway:
+    address:0.0.0.0:8094
 ```
 
 
@@ -292,7 +292,7 @@ Consumer 编程模型的扩展，通过实现这个接口，可以适配不同�
 
 [**如何加入Apache ServiceComb 社区**](http://servicecomb.incubator.apache.org/cn/docs/join_the_community/)
 
-致谢原稿作者： 刘宝
+**致谢原稿作者： 刘宝**
 
 **参考文献**
 
