@@ -1,4 +1,305 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-04-24T17:33:52+08:00</updated><id>/</id><title type="html">Apache ServiceComb (incubating)</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;servicecomb-developers@googlegroups.com&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>servicecomb-developers@googlegroups.com</email></author><entry xml:lang="cn"><title type="html">使用gradle构建基于Java Chassis开发的微服务</title><link href="/cn/docs/build-java-chassis-microservices-using-gradle/" rel="alternate" type="text/html" title="使用gradle构建基于Java Chassis开发的微服务" /><published>2018-04-13T00:00:00+08:00</published><updated>2018-04-13T09:18:43+08:00</updated><id>/cn/docs/build-java-chassis-microservices-using-gradle</id><content type="html" xml:base="/cn/docs/build-java-chassis-microservices-using-gradle/">&lt;p&gt;maven和gradle都是Java世界中常用的构建工具。在&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis&quot;&gt;Java Chassis&lt;/a&gt;项目中采用了maven作为其构建工具，并在maven中心仓库定期发布其最新稳定版。然而，鉴于gradle最新发布版(4.6.0)还不支持maven的统一版本管理(BOM)功能，则在使用gradle构建基于Java Chassis开发的微服务时，需要用到Spring的&lt;a href=&quot;https://github.com/spring-gradle-plugins/dependency-management-plugin&quot;&gt;依赖管理插件&lt;/a&gt;来引入Java Chassis的版本管理来统一依赖项的版本从而避免产生版本冲突。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-04-26T15:24:52+08:00</updated><id>/</id><title type="html">Apache ServiceComb (incubating)</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;servicecomb-developers@googlegroups.com&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>servicecomb-developers@googlegroups.com</email></author><entry xml:lang="cn"><title type="html">如何设计一个优质的微服务框架：Apache ServiceComb 的开放性设计</title><link href="/cn/docs/open-design/" rel="alternate" type="text/html" title="如何设计一个优质的微服务框架：Apache ServiceComb 的开放性设计" /><published>2018-04-25T00:00:00+08:00</published><updated>2018-04-25T00:00:00+08:00</updated><id>/cn/docs/open-design</id><content type="html" xml:base="/cn/docs/open-design/">&lt;p&gt;【摘要】 一个优质的微服务框架需要考虑的要素众多，在满足微服务设计理念的前提下，也是一个不断实践优化的过程。  &lt;br /&gt;
+本文讲述了整个 开源微服务框架 Apache ServiceComb 设计形成的前因后果，尝试从理念、思想和实践结合的维度剖析一个优质的微服务框架应该具备哪些要素，包括但不限于 对开发者友好、高性能、内外部扩展性等。  &lt;br /&gt;
+阅读本文有利于加深对微服务理念和框架的理解，给予微服务用户或开发者以帮助，这也是 Apache ServiceComb 的前身华为云微服务引擎的智慧结晶，从细节处承载了华为云自身多年云化转型的经验。&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2 id=&quot;写在前面&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 的前身为华为云的 &lt;a href=&quot;https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html&quot;&gt;微服务引擎 CSE (Cloud Service Engine) 云服务&lt;/a&gt;,  ServiceComb 的早期版本和多数第一批做微服务或分布式框架先贤一样，为了追求高性能，做过非常多如 改善编码效率 和改进通信协议等尝试。然而，随着业务规模的递增，需求也逐渐呈现多样化，单方面通过传统手段追求高性能导致在面对多样化需求时遇到了各种挑战，遗留系统的通信、接入各种不同的终端、协议健壮性、防攻击等各种挑战迎面而来。&lt;/p&gt;
+
+&lt;p&gt;Apache ServiceComb，愿景是帮助企业快速构建云原生应用，通过一系列解决方案帮助用户快速开发微服务应用的同时实现对这些微服务应用的高效运维管理，保持中立性以避免厂商LockIn成为了关键任务。对于此， Apache ServiceComb 需要有友好的机制能够对接各微服务主流技术栈技术 或 开发框架。&lt;/p&gt;
+
+&lt;p&gt;在系列挑战的驱动下， Aapche ServiceComb 设计团队逐步形成了 “全面开放，使用标准协议，架构易于拆分和扩展，对开发人员友好，可以与业界其他主流框架互通集成” 的共识， 本文将着重分享这些共识是如何体现在Apache ServiceComb 的设计中的。&lt;/p&gt;
+
+&lt;h2 id=&quot;开放和标准&quot;&gt;开放和标准&lt;/h2&gt;
+
+&lt;p&gt;开放和标准应用到设计的不同的层面。一方面是连接组织和开发人员，一方面是连接异构系统。组织和开发人员的复杂性来源于技能的多样性，大家使用不同的开发语言，同一种开发语言存在多样的开发习惯；系统的多样性来源于系统之间的通信协议，为了实现与异构系统的通信，必须具备良好的适配不同通信协议的能力。&lt;/p&gt;
+
+&lt;h3 id=&quot;连接组织和开发人员&quot;&gt;连接组织和开发人员&lt;/h3&gt;
+
+&lt;h4 id=&quot;编程风格&quot;&gt;编程风格&lt;/h4&gt;
+
+&lt;p&gt;每位技术人员都或多或少拥有自己的 Coding 习惯或爱好的技术， 使用个人熟练的方式从事技术工作往往更加高效和舒适。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 的早期版本实现了 gRPC 协议，然而在项目演进过程中我们发现大量技术人员并不熟悉书写 IDL ， 对 IDL 具体支持哪些特性也不清楚。 大多数情况下，用户每碰到一个场景就需要翻开协议规范看一遍， 而 IDL 缺少配套的编辑或语法检查等工具也导致了开发效率的降低。&lt;/p&gt;
+
+&lt;p&gt;于是 Apache ServiceComb 设计团队开始思考是否有方法能够在确保保持用户开发习惯的前提下支持 gRPC 。&lt;/p&gt;
+
+&lt;p&gt;设计团队结合自己的 Java 编程史，分析当下主流框架，并听取社区用户的反馈找到了一些共性：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用 RPC 方式描述对外接口。gRPC 、Corba 、WebService 等技术人员谙于此道。&lt;/li&gt;
+  &lt;li&gt;使用 JAX-RS 或 Spring MVC 风格开发 REST 接口。REST 风格开发随着微服务架构兴起，JAX-RS 和 Spring MVC 已然成为 Java REST 的开发事实标准， Spring 的拥抱者都比较熟悉。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Apache ServiceComb 很快在社区设计层面达成了一致，通过缺省支持以上共性来拥抱90%的开发者， 让大多数的 Java 开发者们能够快速开始工作。&lt;/p&gt;
+
+&lt;p&gt;除以上共识外，Apache ServiceComb 还额外做了进一步的优化，以保证不同编程风格的兼容性，使用户或开发者倍感灵活及舒适。&lt;/p&gt;
+
+&lt;p&gt;在下面的例子中，展示了 Provider和Consumer 代码的各种实现，在同一个微服务中，这些编程方式可以同时出现；同一段 Consumer 代码中可以访问各种不同的编程风格的 Provider 实现。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;RPC 方式的 Provider&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RpcSchema&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schemaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Helloperson&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;JAX-RS 方式的 Provider&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;代码片段来自于 &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/jaxrs-sample&quot;&gt;Apache ServiceComb JAX-RS sample&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RestSchema&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schemaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jaxrsHello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/jaxrshello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Produces&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JaxrsHelloImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/sayhi&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@POST&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/sayhello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@POST&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Helloperson&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Spring MVC 方式的 Provider&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;代码片段来自于 &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/springmvc-sample&quot;&gt;Apache ServiceComb Spring MVC sample&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RestSchema&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schemaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;springmvcHello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/springmvchello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;produces&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SpringmvcHelloImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/sayhi&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RequestMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@RequestParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/sayhello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RequestMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@RequestBody&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Helloperson&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;RPC 方式访问上述三种服务的 Consumer&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RpcReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;microserviceName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schemaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;JavaChassis&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;以上代码片段全部出自 &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/&quot;&gt;Apache ServiceComb Samples&lt;/a&gt;，有兴趣者可阅读了解或贡献更多的智慧。&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;直至此处，或许开发者会产生疑问，既然 Consumer 可以通过一致的 API 方式访问不同的Provider，为何还需要额外的 JAX-RS 和 Spring MVC 标签？&lt;/p&gt;
+
+&lt;p&gt;原因是，这里的设计依据是 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;Apache ServiceComb&lt;/a&gt;的 Consumer考虑的不仅限于 类SDK 的 Consumer，还有浏览器等非 SDK 类的 Consumer，浏览器的 Conumer 识别的是 Http 形式的消息。 通过定义和使用这些标签， 我们可以更加精细的指定浏览器如何访问后台接口。 类似于 Web Service 的 WSDL 描述语言， Apache ServiceComb 称之为&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/service-contract/&quot;&gt;服务契约&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;服务的契约会在服务运行时通过代码定义自动生成，并注册到&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-service-center&quot;&gt;服务中心&lt;/a&gt;。契约也可在运行时用于独立的服务治理逻辑开发，生成 Consumer 代码。此外，也可作为 API 文档对外发布，供非 SDK 的 Consumer 参考。&lt;/p&gt;
+
+&lt;h4 id=&quot;服务契约&quot;&gt;&lt;strong&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/service-contract/&quot;&gt;服务契约&lt;/a&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;微服务强调服务自治，对外体现的功能全部以松耦合的接口方式提供，并且只能以通信的方式实现相互访问。此原则给团队协作带来了根本性的变革。&lt;/p&gt;
+
+&lt;p&gt;微服务的一个开发团队通常由5~6个人的全功能团队组成，端到端的完成 场景需求分析、架构功能设计、开发和运维，团队组织结构和业务系统的架构相匹配。团队建立后的核心问题就是团队之间如何进行高效的协作沟通，以决定不同微服务之间的协作通信。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;Apache ServiceComb&lt;/a&gt; 通过确保让开发人员保持自己的固有编程习惯及设计上的松耦合灵活性，让微服务团队之间可以进行高效协作，以避免在不同的微服务团队讨论编程风格受限于历史旧账而浪费宝贵的精力和时间。&lt;/p&gt;
+
+&lt;p&gt;在 RPC 的世界里，有 Corda IDL，WSDL，ProtoBuffer 等可以参考的优秀实践， REST 风格的接口让团队之间可以通过 HTTP 语义进行沟通，但却不能像 IDL 一样描述跨语言的数据格式。Open API 的出现很好地解决了这个问题。&lt;/p&gt;
+
+&lt;p&gt;Open API 首先是一个不断发展壮大中的开放的标准。Open API 能兼顾 RPC 、REST 等不同的开发方式，并且吸收了大量的跨语言经验，能够在不同的语言之间进行解析。&lt;/p&gt;
+
+&lt;p&gt;对于 Java 开发者，下面的代码片段是日常所打交道的：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type:object&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type:integer&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果开发人员有丰富的跨语言开发经验，可以看出 Swagger 在解决跨语言编程方面API定义冲突的努力， 如 Swagger 通过 format 来定义数据类型的存储格式，以解决不同的语言在数据类型表示上的差异：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type:object&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type:integer&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;format:int32&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache SerivceComb&lt;/a&gt; 既遵循常规开发规范也特别关注开发效率。开发者可以先写接口定义后写代码， 也可直接通过自己熟悉的方式编写写代码， 两种方式都会生成 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/service-contract/&quot;&gt;服务契约&lt;/a&gt;（Open API 描述文件），并且将内容注册到&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-service-center&quot;&gt;服务中心&lt;/a&gt;。使用者可以从服务中心下载相关的服务契约进行开发。 Apache ServiceComb 的各种治理结构也是基于契约的，可以让开发者独立于业务实现对系统进行统一的管控治理。&lt;/p&gt;
+
+&lt;h3 id=&quot;连接异构系统&quot;&gt;连接异构系统&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 早期版本提供了gRPC、REST、SOAP等多种协议，当前主要&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;支持 REST 和Highway 高性能私有 RPC 两种协议&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h4 id=&quot;highway-高性能私有-rpc-协议&quot;&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/#highway-rpc%E5%8D%8F%E8%AE%AE&quot;&gt;Highway 高性能私有 RPC 协议&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;gRPC 相对于 REST 的最显著优点就是性能，它采用长连接、高效的二进制序列化方式，提供多种语言支持， 提供了 IDL 语言约束开发者按照标准的方式工作， 一切看起来是那么的完美。&lt;/p&gt;
+
+&lt;p&gt;实际上，&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;Apache ServiceComb &lt;/a&gt;的第一轮重构，首选也是 gRPC 。历史第一次在&lt;a href=&quot;https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html&quot;&gt;华为云 微服务引擎 CSE&lt;/a&gt; 上线以后，面对了来自网关压力挑战。&lt;/p&gt;
+
+&lt;p&gt;网关作为业务接入端，必须高效的管理连接和保证公平，长连接容易导致拒绝服务。gRPC 程序开发完成后，开发人员无法利用系统提供的各种工具进行测试，网络包分析也变得困难，给生产环境上的开发联调造成了困难。随着业务规模的增长，gRPC 面临了诸如“其他三方系统如何与之直接通信？ 如何跨网关与它间接通信？”等更严峻的挑战。&lt;/p&gt;
+
+&lt;p&gt;解决这些问题，将需要我们扩展和改善老的协议和程序，提供 gRPC 客户端支持，开发者需自行提供一个额外的表示层用于业务接口的逻辑转换，造成大量的重复代码。同时由于 gRPC 依赖于接口定义，并根据定义生成代码，一套代码只能跑在 gRPC 协议上，如果用户希望业务应用可以使用如 REST等其他更加灵活的方式， 就需自行重新实现一套新的代码逻辑。据以上的血泪史， gRPC 最终被 Apache ServiceComb 设计团队定义为只能在中小型系统内部之间使用，并通过协议网关与外部系统进行通信。并实现了 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/#highway-rpc%E5%8D%8F%E8%AE%AE&quot;&gt;高性能私有协议 Highway&lt;/a&gt; 作为RPC首选默认协议。&lt;/p&gt;
+
+&lt;h4 id=&quot;rest-通信协议&quot;&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;REST 通信协议&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;REST 相较 gRPC ，最大的痛点是性能。&lt;/p&gt;
+
+&lt;p&gt;多数技术人员脑海里一个不成文的根深蒂固的观点：”二进制编码效率远高于文本协议，采用二进制编码的系统的性能远高于采用文本的 HTTP ”。该观点甚至会让多数决策止步于理论，多数人甚至不愿尝试去优化 REST。&lt;/p&gt;
+
+&lt;p&gt;可喜的是 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 迈出了重构 REST 底层通信实现的第一步，基于 Netty 的异步框架来替换 Tomcat 实现，实践的效果大大超出预期，部分基准测试数据结果显示比 gRPC 还好， gRPC最终输在了HTTP2 协议上的额外报文。&lt;/p&gt;
+
+&lt;p&gt;优化后的 REST 和业界开源的其他基于二进制的 RPC 实现的性能基本持平。在一个简单的提供数据库查询的代码逻辑中，优化后的REST通信框架处理时间，占比总处理时间远小于千分之一，这意味着再继续在框架层面进行大量优化也抵不上业务应用层面最简单的一个操作带来的消耗，Apache ServiceComb对 REST 的优化已经满足要求，最终也选择了 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;REST&lt;/a&gt; 作为首选和缺省协议(HTTP + json)。&lt;/p&gt;
+
+&lt;p&gt;我们并没有就此止步。&lt;/p&gt;
+
+&lt;p&gt;需要迁移到 &lt;a href=&quot;https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html&quot;&gt;华为云 微服务引擎 CSE&lt;/a&gt;  的业务日益增长，部分历史遗留系统也需进行对接。通信协议对应不同的开发者接口，每每增加通信协议，则需要对业务代码进行大量的重复构建，造成大量无谓消耗。这是当时的华为云化转型以及当下很多云化转型企业或者云原生企业必将面临的痛点。&lt;/p&gt;
+
+&lt;p&gt;于是乎，通信协议层被剥离了出来，和业务代码隔离，系统运行基于契约，&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 实现通信协议扩展机制。通信协议扩展机制，帮助用户解决与 gRPC 框架、自定义二进制框架等许多遗留系统的对接通信问题。&lt;/p&gt;
+
+&lt;p&gt;在 Apache ServiceComb 框架中，&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;切换协议&lt;/a&gt;非常简单，不需要修改一行业务代码。多个协议共存也是允许的。&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;ServiceComb&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;rest&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;address:0.0.0.0:8084&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;highway&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;address:0.0.0.0:8094&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;扩展性&quot;&gt;扩展性&lt;/h2&gt;
+
+&lt;p&gt;扩展性是系统进一步发展的基石。&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 创造性地将扩展性拓展到 Provider 和 Consumer，让开发者拥有一致的开发体验。&lt;/p&gt;
+
+&lt;h3 id=&quot;内部系统结构&quot;&gt;内部系统结构&lt;/h3&gt;
+
+&lt;p&gt;连接开发者和通信协议层面已经让系统具备了很大的扩展性。微服务化给系统解耦、团队自治带来了很大的灵活性，加快了开发生产效率，但同时带来了服务管控的复杂性，在微服务领域，不得不考虑雪崩效应、调用跟踪、性能监控与分析等实际管控治理问题。&lt;/p&gt;
+
+&lt;p&gt;基于服务契约，&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 提供了&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers&quot;&gt;动态插拔扩展的处理链机制&lt;/a&gt;，并且为这些管控治理能力提供了默认实现，用户可以灵活插拔这些处理模块，或调整它们的顺序以应对不同的处理场景，或自行实现以增加新的处理模块。Provider 和 Consumer 都会经过该处理链，这给客户端治理功能开发带来了极大的便利性。Apache ServiceComb 的运行结构如下：&lt;/p&gt;
+
+&lt;p class=&quot;figure-caption&quot;&gt;&lt;img src=&quot;/assets/images/open-design-running-arch.png&quot; alt=&quot;running-arch&quot; class=&quot;align-center&quot; /&gt;  &lt;br /&gt;
+图1 Apache ServiceComb 运行时架构&lt;/p&gt;
+
+&lt;p&gt;Apache ServiceComb 同时支持同步和异步两种编程接口，并在通信实现上采用了纯异步方式，对于运行模型的扩展，也是基于异步回调接口的。该方式提供了比同步模式（比如 Filter）更加优雅灵活的扩展方式。&lt;/p&gt;
+
+&lt;p&gt;在Apache ServiceComb 结构中，几个核心的扩展机制均在 &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/core/src/main/java/org/apache/servicecomb/core&quot;&gt;core 模块&lt;/a&gt; 进行定义：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/core/src/main/java/org/apache/servicecomb/core/provider/producer&quot;&gt;Producer Provider&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Provider 编程模型的扩展，通过实现这个接口，可以适配不同的 Provider编 程风格；默认支持 RPC、Spring MVC 和 JAX-RS 三种风格。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/core/src/main/java/org/apache/servicecomb/core/provider/consumer&quot;&gt;Consumer Provider&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Consumer 编程模型的扩展，通过实现这个接口，可以适配不同的 Consumer 编程风格；默认支持 RPC和RestTemplate 两种风格。RestTemplate 是 Spring MVC 提供的 REST 编程接口，可以在服务层解除接口依赖，只依赖数据模型。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/core/src/main/java/org/apache/servicecomb/core/handler&quot;&gt;Handler&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;处理链的接口，通过扩展该接口，可以在处理过程中插入任意的逻辑。默认已经支持&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers/handler-loadbalance&quot;&gt;负载均衡&lt;/a&gt;、&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers/handler-fault-injection&quot;&gt;错误注入&lt;/a&gt;、&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers/handler-flowcontrol-qps&quot;&gt;流量控制&lt;/a&gt;和&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers/handler-tracing-zipkin&quot;&gt;调用链跟踪&lt;/a&gt;等多个处理链。开发者可以针对 Consumer 和 Provider 定义不同的处理链，并且为访问不同的微服务定制不同的处理链。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/transports&quot;&gt;Transport&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;通信协议扩展，默认支持&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;REST over Vertx、Rest over Servlet、Highway&lt;/a&gt;协议。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Invocation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;中立的对象。所有的运行模型都面向这个中立的对象进行编程，当定义好服务接口后，对服务的治理和服务业务逻辑的开发可并行进行。在编程模型和通信模型里面，也面向这个对象进行编解码。&lt;/p&gt;
+
+&lt;h3 id=&quot;对接外部系统&quot;&gt;对接外部系统&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis&quot;&gt;Apache ServiceComb Java-chassis&lt;/a&gt; 预留了对接外部系统的接口，以让开发者或用户可以灵活快速切换使用第三方提供的服务，这里所指的外部系统包括但不限于：服务注册发现的服务中心、配置管控和治理的配置中心、运行监控和运维的治理中心等。&lt;/p&gt;
+
+&lt;p&gt;下图展示了不同的开发框架支持和运行的第三方系统情况，这些基础服务都给开发者预留了可以进行支持接入的接口。&lt;/p&gt;
+
+&lt;p class=&quot;figure-caption&quot;&gt;&lt;img src=&quot;/assets/images/open-design-third-party-plugin.png&quot; alt=&quot;third-party-plugin&quot; class=&quot;align-center&quot; /&gt;   &lt;br /&gt;
+图2 Apache ServiceComb 外部扩展接入&lt;/p&gt;
+
+&lt;p&gt;重要的扩展：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/service-registry/src/main/java/org/apache/servicecomb/serviceregistry/client&quot;&gt;ServiceRegistryClient&lt;/a&gt;:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;实现这个接口以对接不同的注册服务。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/foundations/foundation-config&quot;&gt;ConfigCenterConfigurationSource&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;实现这个接口以对接不同的配置服务。&lt;/p&gt;
+
+&lt;p&gt;此外，ServiceComb还提供了对接&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/tracing/tracing-zipkin&quot;&gt;Zipkin&lt;/a&gt;、Servo等开源系统的功能，这些可以从&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/&quot;&gt;github代码&lt;/a&gt;中查找到对应的例子。&lt;/p&gt;
+
+&lt;h3 id=&quot;运行环境集成&quot;&gt;运行环境集成&lt;/h3&gt;
+
+&lt;p&gt;一个完整的业务系统不是使用RPC框架就算完成了，它们还需要其他的计算资源。对于一般的业务系统都需要访问数据库，或者基于 J2EE 的设施进行工作。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 可以以轻量级的方式运行，也可集成到其他系统框架。下面的示意图说明了 Apache ServiceComb 的一些工作环境。&lt;/p&gt;
+
+&lt;p class=&quot;figure-caption&quot;&gt;&lt;img src=&quot;/assets/images/open-design-integrate-with-running-environment.png&quot; alt=&quot;integrate-with-running-environment&quot; class=&quot;align-center&quot; /&gt;   &lt;br /&gt;
+图3 Apache ServiceComb 运行环境集成&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;若业务只需 REST 接口，可以轻量级的方式运行 Apache ServiceComb 。所有的REST接口运行于ServiceComb 提供的 Netty HTTP 之上。&lt;/li&gt;
+  &lt;li&gt;若业务是基于 J2EE 来构建，那么 Apache ServiceComb 可以作为一个 Servlet ，运行于 Web 容器里面（如 Tomcat、Jetty 等）。&lt;/li&gt;
+  &lt;li&gt;若业务基于 Spring Boot 生态构建，Apache ServiceComb 可作为一个starter对外提供 REST 服务，开发者可以自由使用其他基于 Spring Boot 的功能。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;由于 Apache ServiceComb 使用了Spring，因此天然继承了Spring的原有优势，可和很多通用的组件很好的集成，如 mybatis、JPA 等。各种集成方式，都可以从&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;ServiceComb官网&lt;/a&gt;或者&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/demo&quot;&gt;ServiceComb 示例库&lt;/a&gt;找到对应的例子。&lt;/p&gt;
+
+&lt;h2 id=&quot;写在最后&quot;&gt;写在最后&lt;/h2&gt;
+
+&lt;p&gt;开源微服务框架 Apache ServiceComb 的主体代码是由华为云微服务引擎捐赠给 Apache 软件基金会的，愿景是帮助企业快速构建云原生应用，通过一系列解决方案帮助用户快速开发微服务应用的同时实现对这些微服务应用的高效运维管理。本次设计团队将开放性设计部分细节点点滴滴分享出来也是为了能够解放开发者和用户。&lt;/p&gt;
+
+&lt;p&gt;当前越来越多的贡献者已加入到 社区行列，Apache ServiceComb 会和这些志愿者们一起一如既往坚持这个理念，争取给业界带来更多好的技术和分享。也期望有更多有志者一起行动。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/docs/join_the_community/&quot;&gt;&lt;strong&gt;如何加入Apache ServiceComb 社区&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;致谢原稿作者： 刘宝&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] 开源微服务框架 Apache ServiceComb 官网&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;http://servicecomb.incubator.apache.org/cn/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] 开源微服务框架 Apache ServiceComb 代码&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis&quot;&gt;https://github.com/apache/incubator-servicecomb-java-chassis&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-service-center&quot;&gt;https://github.com/apache/incubator-servicecomb-service-center&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-saga&quot;&gt;https://github.com/apache/incubator-servicecomb-saga&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] 华为云微服务引擎 CSE（Cloud Service Engine）&lt;/p&gt;
+
+&lt;p&gt;入口 &lt;a href=&quot;https://www.huaweicloud.com/product/cse.html&quot;&gt;https://www.huaweicloud.com/product/cse.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;资料 &lt;a href=&quot;http://support.huaweicloud.com/cse_dld/index.html&quot;&gt;http://support.huaweicloud.com/cse_dld/index.html&lt;/a&gt;&lt;/p&gt;</content><author><name>Zen Lin, Bao Liu</name></author><category term="设计" /><category term="开放，扩展" /><summary type="html">本文讲述了整个 开源微服务框架 Apache ServiceComb 设计形成的前因后果，尝试从理念、思想和实践结合的维度剖析一个优质的微服务框架应该具备哪些要素，包括但不限于 对开发者友好、高性能、内外部扩展性&gt;等。</summary></entry><entry xml:lang="cn"><title type="html">使用gradle构建基于Java Chassis开发的微服务</title><link href="/cn/docs/build-java-chassis-microservices-using-gradle/" rel="alternate" type="text/html" title="使用gradle构建基于Java Chassis开发的微服务" /><published>2018-04-13T00:00:00+08:00</published><updated>2018-04-13T09:18:43+08:00</updated><id>/cn/docs/build-java-chassis-microservices-using-gradle</id><content type="html" xml:base="/cn/docs/build-java-chassis-microservices-using-gradle/">&lt;p&gt;maven和gradle都是Java世界中常用的构建工具。在&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis&quot;&gt;Java Chassis&lt;/a&gt;项目中采用了maven作为其构建工具，并在maven中心仓库定期发布其最新稳定版。然而，鉴于gradle最新发布版(4.6.0)还不支持maven的统一版本管理(BOM)功能，则在使用gradle构建基于Java Chassis开发的微服务时，需要用到Spring的&lt;a href=&quot;https://github.com/spring-gradle-plugins/dependency-management-plugin&quot;&gt;依赖管理插件&lt;/a&gt;来引入Java Chassis的版本管理来统一依赖项的版本从而避免产生版本冲突。&lt;/p&gt;
 
 &lt;p&gt;在maven中，Java Chassis的依赖管理通过以下方式即可引入：&lt;/p&gt;
 
@@ -1073,381 +1374,4 @@ can also download the html client for their Schemas.&lt;/p&gt;
 &lt;p&gt;Once you selected the instance then you are ready for testing the Schema, you can input the required parameters for the Schema and hit on ‘Try it Out’ Button.&lt;br /&gt;
 &lt;img src=&quot;/assets/images/Schematest.PNG&quot; alt=&quot;Schema Test&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;you-can-have-a-look-at-the-quick-start-guide-to-know-about-how-to-bring-up-the-management-console&quot;&gt;You can have a look at the &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-service-center/tree/master/frontend#quickstart-guide&quot;&gt;Quick Start Guide&lt;/a&gt; to know about how to bring up the Management Console.&lt;/h5&gt;</content><author><name>Asif Siddiqui</name><email>mohammad.asif.siddiqui1@huawei.com</email><uri>http://asifdxtreme.github.io</uri></author><category term="service center" /><summary type="html">An introduction Service-Center Management Console</summary></entry><entry xml:lang="cn"><title type="html">最头疼的遗留系统该如何改造？</title><link href="/cn/docs/how-to-reform-a-legacy-system/" rel="alternate" type="text/html" title="最头疼的遗留系统该如何改造？" /><published>2017-10-23T00:00:00+08:00</published><updated>2017-10-23T15:22:00+08:00</updated><id>/cn/docs/how-to-reform-a-legacy-system</id><content type="html" xml:base="/cn/docs/how-to-reform-a-legacy-system/">&lt;p&gt;随着RESTful、云计算、DevOps、持续交付等概念的深入人心，微服务（Microservices）逐渐成为系统架构的一个代名词。那么微服务是否是业界期待已久的架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？在该分享中，王磊将通过实际的案例，跟大家探讨使用微服务改造遗留系统的实践之路。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;什么是微服务&lt;/li&gt;
-  &lt;li&gt;微服务的诞生背景&lt;/li&gt;
-  &lt;li&gt;遗留系统的微服务改造策略&lt;/li&gt;
-  &lt;li&gt;微服务改造之路&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;背景&quot;&gt;背景&lt;/h2&gt;
-&lt;p&gt;什么是系统架构设计？&lt;/p&gt;
-
-&lt;p&gt;一直以来，系统架构设计是IT领域经久不衰的话题之一，是每个系统构建过程中极其关键的一部分，它决定了系统是否能够被正确、有效的构建。架构师们也一直在持续探索，寻找更优秀的架构设计方式来构建系统。&lt;/p&gt;
-
-&lt;p&gt;那什么是系统的架构设计？对于这个问题，我相信每个朋友都会有不同的定义，实际上，也并没有一个标准的答案来解释什么是架构设计。&lt;/p&gt;
-
-&lt;p&gt;基于我过去的经验和工作方式，我认为系统架构设计的本质，是在应用系统内部找到这样一个动态平衡：平衡业务、技术、团队的同时，考虑系统灵活性、可扩展性以及可维护性等因素，并将应用系统划分成不同的部分，使这些部分彼此之间相互分工、相互协作，从而为用户提供某种特定的价值的方式。&lt;/p&gt;
-
-&lt;p&gt;随着RESTful、云计算、DevOps、持续交付等概念的深入人心，&lt;strong&gt;微服务架构逐渐成为系统架构的一个代名词&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;h2 id=&quot;什么是微服务架构&quot;&gt;什么是微服务架构&lt;/h2&gt;
-&lt;p&gt;2015年，微服务架构这个词，以相当高的频率出现在各种演讲、文章、会议、社区上。这里，我先和大家快速回顾一下，Martin Fowler对微服务的抽象。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/microservice_definition_by_martin_folwer.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;如上所示，微服务架构的核心四要素，我用红色标注出来了。如果翻译成中文，大致如下所示：&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;微服务架构是一种架构模式，它提倡将单一应用程序划分成一组小的服务，服务之间互相协调、互相配合，为用户提供最终价值。 每个服务运行在其独立的进程中，服务与服务间采用轻量级的通信机制互相协作（通常是基于HTTP协议的RESTful API）。 每个服务都围绕着具体业务进行构建，并且能够被独立的部署到生产环境、类生产环境等。 另外，对具体的服务而言，应根据业务上下文，选择合适的语言、工具对其进行构建。&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;总结成一句话就是&lt;strong&gt;微服务是围绕业务构建的细粒度的分布式系统&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;h2 id=&quot;微服务的诞生背景&quot;&gt;微服务的诞生背景&lt;/h2&gt;
-&lt;p&gt;2015年，微服务突然火了，为什么？&lt;/p&gt;
-
-&lt;p&gt;其实微服务架构并不是技术创新，而是IT发展到现阶段对技术架构的一种阐释。&lt;/p&gt;
-
-&lt;p&gt;它要求包括&lt;strong&gt;快速和业务对齐（aligning business）、理解和抽象业务（基于领域建模）、快速开发（Lean、Agile）、快速反馈和交付（CI、CD、DevOps）&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;所以说，微服务并不是技术，而是将化整为零（或称分治）思想换了一种说法，无论是把一个大型系统分割成多个小而自治的系统，还是把一个大型团队分成多个团队，或是把一个复杂的项目分成多个交付阶段都是这种思想的运用。&lt;/p&gt;
-
-&lt;p&gt;当然，任何新事物的诞生，总会有一个推动因素。微服务的诞生也并非偶然。它是互联网高速发展，技术日新月异的变化以及传统架构无法适应快速变化等多重因素的推动下所诞生的产物。&lt;/p&gt;
-
-&lt;p&gt;基于个人的理解，我将微服务的诞生因素总结为如下几点：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/why_microservice_show_up.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;互联网行业的快速发展&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;过去的十年中，互联网对我们的生活产生了翻天覆地的变化，越来越多的传统行业公司也开始依赖互联网技术打造其核心竞争优势。&lt;/p&gt;
-
-    &lt;p&gt;在这种情况下，如何从系统架构的角度出发，构建灵活、易扩展的系统，快速应对需求的变化；同时，随着用户量的增加，如何保证系统的可伸缩性、高可用性，成为系统架构面临的挑战。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;单块架构系统面临的挑战&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;随着用户需求个性化、产品生命周期变短、市场需求不稳定等因素的出现，单块架构系统面临着越来越多的挑战。如何找到一种更有效的、更灵活、适应需求的系统架构方式，成为大家关注的焦点。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;敏捷、精益方法、持续交付的深入人心&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;在IT行业发展的过去十年，敏捷、精益、持续交付等价值观、方法论的提出以及实践，让很多组织意识到应变市场变化、提高响应力的重要性，应该构建软件交付周期的闭环（分析、开发、测试、部署、运维、监控、运营），而不仅仅是提高开发阶段的效率。&lt;/p&gt;
-
-    &lt;p&gt;&lt;strong&gt;精益创业（Lean Startup）&lt;/strong&gt;帮助组织分析并建立最小可实行产品（MinimumViableProduct），通过迭代持续改进敏捷方法帮助组织消除浪费，通过反馈不断找到正确的方向。&lt;/p&gt;
-
-    &lt;p&gt;&lt;strong&gt;持续交付&lt;/strong&gt;则帮助组织构建更快、更可靠、可频繁发布的交付机制并构建产品交付闭环。&lt;/p&gt;
-
-    &lt;p&gt;大部分组织已经基本上形成了一套可实施的交付体系。包括持续集成、自动化测试、数据管理、自动化部署机制等。&lt;/p&gt;
-
-    &lt;p&gt;这时候，大泥球式的单块架构，会逐渐成为影响交付周期进一步优化的瓶颈，因此如何找到灵活性高、扩展性好的架构方式，也成为进一步优化交付周期面临的挑战。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Docker等容器虚拟化技术的快速发展&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;同传统的虚拟化技术相比，基于容器技术的Docker，不需要复杂的Hypervisor机制支持，具有更高的虚拟化性能和效率。&lt;/p&gt;
-
-    &lt;p&gt;同时容器可以很容易的运行在任意的装有DockerEngine的系统上，使得开发人员能够用更低的成本将应用程序部署在不同平台上。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;DevOps文化&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;DevOps文化的推行打破了传统开发与运维之间的壁垒，帮助组织形成开发、运维紧密配合的、全功能化的高效团队，并尽早降低软件交付最后一公里的风险。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h2 id=&quot;遗留系统的微服务改造策略&quot;&gt;遗留系统的微服务改造策略&lt;/h2&gt;
-&lt;p&gt;聊完什么是微服务架构以及其诞生背景，接下来我们来谈谈如何改造遗留系统。&lt;/p&gt;
-
-&lt;p&gt;在过去的10多年间，大部分工作时间我都在和遗留系统打交道。我相信很多朋友也是工作在已经运转多年的遗留系统上。&lt;/p&gt;
-
-&lt;p&gt;对于这类系统，当谈论使用微服务对其进行改造时，我认为要谨记一点：&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;改造不是重做。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;在改造的过程中，要始终以保证系统为用户提供的业务价值可用作为首要目标。&lt;/strong&gt;从这个点出发，基于我的经验，对微服务改造的策略总结为如下五个步骤：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/microservice_reform_strategy.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;范围定义&lt;/p&gt;
-
-    &lt;p&gt;对于遗留系统而言，通常业务运转时间较长（譬如5~8年以上，甚至更长），因此涉及的功能繁杂，代码中存在大量无效或者过时的需求，缺陷修复成本较高。&lt;/p&gt;
-
-    &lt;p&gt;另外，系统在演进的过程中，也会持续为用户提供新的功能和价值。因此，划分出清晰的范围非常重要。&lt;/p&gt;
-
-    &lt;p&gt;实际上，范围定义主要包括两部分：&lt;/p&gt;
-
-    &lt;ol&gt;
-      &lt;li&gt;
-        &lt;p&gt;明确业务改造范围&lt;/p&gt;
-
-        &lt;p&gt;所谓改造范围，就是确定我们常说的业务试点。通常，作为初次尝试微服务实践的组织，建议选取业务范围影响较小、非关键功能的试点，这样做也是为了确保在不影响核心业务的情况下快速尝试并获得反馈。&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;明确成员责任范围&lt;/p&gt;
-
-        &lt;p&gt;明确成员责任范围，确定由谁来改造，确保改造的目标清晰。&lt;/p&gt;
-
-        &lt;p&gt;实际上，对于产品而言，遗留系统的维护和更新，包括缺陷定位、缺陷修复、数据更新、功能实现、测试、交付给运维团队等，通常已经让团队的工作处于高负荷状态。因此，需要确定成员，全身心的投入，以微服务改造作为短期目标。&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;功能剥离&lt;/p&gt;
-
-    &lt;p&gt;有了明确的业务范围，成员也有了清晰的责任，接下来就需要将部分功能点进行剥离。&lt;/p&gt;
-
-    &lt;p&gt;所谓剥离，就是将选中的功能从原有的系统中拆分出来，并构建成独立的服务。在这个阶段，主要包括两点：&lt;/p&gt;
-
-    &lt;ol&gt;
-      &lt;li&gt;
-        &lt;p&gt;将功能从原有系统拆分出来，并构建新服务&lt;/p&gt;
-
-        &lt;p&gt;一提到拆分，很多朋友会纠结，“系统复杂，如何拆分微服务才好？怎么样的拆分才合理？”。其实，从我个人的观点来看，这时候还不是纠结服务到底怎么划分合理的时候。为什么？&lt;/p&gt;
-
-        &lt;ol&gt;
-          &lt;li&gt;
-            &lt;p&gt;好的架构是动态演变和迭代出来的，业务在不断改变，技术和工具也在不会的升级换代，没有完美的架构，只有无限逼近完美的动态平衡，所以先小范围、低成本动起来，在运转中找平衡点。&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;微服务的复杂度在于分布式系统本身，以及其生态系统（开发、测试、部署、运维、监控、告警）的搭建。&lt;/p&gt;
-          &lt;/li&gt;
-          &lt;li&gt;
-            &lt;p&gt;团队文化的形成是一个相对漫长的过程，如果花很大力气关注服务怎么拆，而没有聚焦在生态系统的搭建以及团队文化的形成上，实际上是舍本逐末。即便拆分出了不同的服务，在落地的时候也会遇到诸多问题。所以，找一个功能点先拆，然后搭建持续交付流水线，快速试错，建立好有效的反馈闭环机制，再不断寻找动态平衡，拆分出更细的服务或者将不合理的服务合并。&lt;/p&gt;
-          &lt;/li&gt;
-        &lt;/ol&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;在原有的系统前端，使用代理机制，并使用遗留系统和新服务组合为用户提供价值&lt;/p&gt;
-
-        &lt;p&gt;这一步，目的是使用组合的系统（遗留系统+新的服务）为用户提供价值。&lt;/p&gt;
-
-        &lt;p&gt;对于Web系统，通常可以在前端使用直接请求新的服务。也可以在后端使用转发请求，获取新服务提供的数据。&lt;/p&gt;
-
-        &lt;p&gt;如下图所示：&lt;/p&gt;
-
-        &lt;p&gt;&lt;img src=&quot;/assets/images/microservice_reform_strategy.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;数据解耦&lt;/p&gt;
-
-    &lt;p&gt;在以前的遗留系统构建过程中，通常使用数据库作为集成点，不同功能/系统之间通过数据库完成数据交换。对于某些系统，还大量使用存储过程完成业务逻辑，开发的时候看似效率高，但几年下来，DBA成了IT团队最懂业务的人，维护成为瓶颈。&lt;/p&gt;
-
-    &lt;p&gt;而实际上，业务的数据是业务固有的组成部分，应当随着业务的变化而变化。业务拆分出来，数据也应该拆分出来。从而保证访问数据只能通过统一的相关业务API完成。便于在将来的业务和架构演进中，有效的对数据维护、管理和升级。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;数据同步&lt;/p&gt;
-
-    &lt;p&gt;数据同步，是一个价值体现的过渡过程。&lt;/p&gt;
-
-    &lt;p&gt;一方面，遗留系统的改造中存在的各种各样的挑战和我们今天认为的不合理（当时的场景也许是合理的）。另一方面，对于大部分遗留的系统，都会使用数据库作为集成点（开发成本低），导致某业务功能的数据与其他功能有着千丝万缕的联系，数据的变化容易对其他功能造成影响。&lt;/p&gt;
-
-    &lt;p&gt;因此对于大型的遗留系统，很难在短期的时间内（3~6个月）完成全系统的改造。需要一个相对漫长，循序渐进的过程来完成改造。&lt;/p&gt;
-
-    &lt;p&gt;譬如，在电商系统中，商家的后台管理系统中的产品、价格的更新，会发布到面向用户的电商搜索系统中以及其他系统中。如果我们将系统中的产品相关拆分成独立服务，则必须也要拆分数据发布机制，否则的话容易造成数据不一致。但拆分数据发布机制，又需要分析清楚不同数据之间的影响和依赖，需要更大的成本，短期内不易完成。&lt;/p&gt;
-
-    &lt;p&gt;这时候，如果将新服务的数据同步回原有的数据库，采用这样一个折中的的过程，既能保障新的服务和数据被独立，又不影响原有的遗留系统功能。&lt;/p&gt;
-
-    &lt;p&gt;说白了，这其实也是在保证系统为用户提供的业务价值不被破坏。&lt;/p&gt;
-
-    &lt;p&gt;有了之前的尝试，接下来就是通过不断的迭代，完成功能剥离，数据解耦、数据同步，从而将更多的功能拆分成独立的服务。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/legacy_system_reform_strategy.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;如上就是我对于遗留系统改造的策略。&lt;/p&gt;
-
-&lt;h2 id=&quot;遗留系统改造实践&quot;&gt;遗留系统改造实践&lt;/h2&gt;
-&lt;p&gt;接下来，我和大家分享一个我所经历的遗留系统改造的案例。首先，让我们看看这个系统的背景和一些数据。&lt;/p&gt;
-
-&lt;h3 id=&quot;客户背景&quot;&gt;客户背景&lt;/h3&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://movit-tech.com/&quot;&gt;盟拓软件&lt;/a&gt;是中国房地产行业IT服务及行业解决方案和产品的领先厂家，其依据市场变化推出全民卖房的新营销模式，正从线下的传统现场售楼模式向线上的房地产电商模式进行转变。&lt;/p&gt;
-
-&lt;h3 id=&quot;业务痛点&quot;&gt;业务痛点&lt;/h3&gt;
-
-&lt;p&gt;当今房地产行业呈现短期开盘峰值、后期零星散客的业务特性。其面临着高昂线下运营成本，营销成本占销售额&amp;gt;5%。而由此引入的线上竞价秒杀营销模式，传统IT解决方案的系统资源率、峰值扩容能力将无法满足。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/case_mengtuo_traditional_mode.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;系统概览&quot;&gt;系统概览&lt;/h3&gt;
-
-&lt;p&gt;系统为典型的三层单块架构，使用MySQL数据库存储数据。运行在服务器上的应用处理性能较低，为了应对短暂的访问高峰，额外购置了较多的服务器资源，访问高峰过后，服务器资源闲置造成较大浪费，且需要较多人员维护。&lt;/p&gt;
-
-&lt;h3 id=&quot;相关数据&quot;&gt;相关数据&lt;/h3&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;代码约&lt;strong&gt;100万&lt;/strong&gt;行，测试覆盖率为&lt;strong&gt;10%&lt;/strong&gt;，集成测试时间为&lt;strong&gt;一个月&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;代码臃肿，无效遗留代码较多，且业务间紧耦合，测试覆盖率较低，测试出问题了难以定位，导致测试耗时较长。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;营销预案需&lt;strong&gt;提前1个月&lt;/strong&gt;准备资源&lt;/p&gt;
-
-    &lt;p&gt;为应对访问高峰，每次都需要预购大量的服务资源，重新部署环境，并运行相关测试。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;业务耦合紧，新业务上线&lt;strong&gt;&amp;gt;半年&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;每次测试都要多个业务团队联合测试，问题定位较耗时，测试效率低。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;上百种业务，2-3种开发语言&lt;/p&gt;
-
-    &lt;p&gt;业务复杂，且语言不一，系统联调时耗时较多且需相互配合，时间周期较长。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;运维团队&lt;strong&gt;&amp;gt;20人&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;p&gt;臃肿的团队导致问题定位需多方配合，沟通成本高。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;基于之前定义的改造策略，我们的改造过程大致如下所示：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;范围定义：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;将原房地产CRM平台按业务类别拆分为多个微服务。&lt;/p&gt;
-
-    &lt;p&gt;&lt;img src=&quot;/assets/images/case_mengtuo_reform_before_and_after.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;功能剥离：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;从单体CRM系统中逐步拆分出业务模块（服务网关、客户服务、房源服务、机会服务、积分服务）。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;数据解耦&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;每个微服务的数据进行独立存储。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;数据同步&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;在负载较低时，将数据同步回原有的遗留系统中不断迭代，陆续完成后续的服务。&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;改造过程中，基于ServiceComb，&lt;strong&gt;通过控制请求路由，逐步架空对原单体应用的请求， 平滑过渡系统到微服务架构。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;单个服务的构建并没有那么复杂，基于ServiceComb，通过如下的简单4步，即可快速完成改造：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;引入&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis&quot;&gt;ServiceComb Java Chassis&lt;/a&gt;框架依赖&lt;/li&gt;
-  &lt;li&gt;定义服务接口端点&lt;/li&gt;
-  &lt;li&gt;添加服务配置文件&lt;/li&gt;
-  &lt;li&gt;注释服务启动入口&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;另外，通过Company Workshop中提供的Docker插件配置，10分钟内完成了服务容器化，自动生成镜像。&lt;/p&gt;
-
-&lt;p&gt;同时，利用ServiceComb开发的微服务应用，可同时无缝接入&lt;a href=&quot;https://www.huaweicloud.com/product/servicestage.html&quot;&gt;ServiceStage&lt;/a&gt;，享受到微服务治理、容器虚机混编、应用拓扑等能力。&lt;/p&gt;
-
-&lt;p&gt;为应对短暂的业务高峰，经常需要预购大量的资源来提前部署和验证环境，花费大量的人力物力，且资源利用率极低。因此，进行云化改造后的产品和解决方案需要具备随着参与人数增加而秒级伸缩，支撑业务峰值和资源利用率的能力。盟拓软件基于华为ServiceStage的核心技术容器改造、混编方案、编排调度算法等进行容器虚机混编应用云化改造，实现了应用的秒级部署和弹性伸缩能力，极大地提高了资源的利用率。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;改造后效果：&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;运维人力&lt;strong&gt;减少80%&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;资源利用率&lt;strong&gt;提升50%&lt;/strong&gt;，大幅降低运营成本&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;每秒万级&lt;/strong&gt;调用链分析能力&lt;/li&gt;
-  &lt;li&gt;传统系统和应用平滑改造上云&lt;/li&gt;
-  &lt;li&gt;互联网营销模式，天粒度业务快速创新&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/case_mengtuo_new_mode.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;理论上，经过不断地迭代，逐渐完成业务功能解耦，新服务构建。那么遗留系统就会被替换掉。&lt;/strong&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;改造要点&quot;&gt;改造要点&lt;/h2&gt;
-&lt;p&gt;在改造的整个过程中，我认为如下几个实践是非常重要的：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/best_practices_for_legacy_system_reform.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;基础设施自动化&quot;&gt;基础设施自动化&lt;/h3&gt;
-&lt;p&gt;原有的部署发生在数据中心，因此流程上相对复杂，而且存在一定弊端（譬如审批和协作上，起不到实质作用）。对于改造后的服务而言，我们使用更多的自动化方式代替复杂的审批流程。通过使用华为ServiceStage作为基础设施，团队能够更自主的对基础设施进行管理。如资源创建、销毁、更新等。随着服务的增多，基础设施自动化帮助我们节省了大量的时间。当然，从组织层面，也成立了专门的小组研究华为ServiceStage以及相关的DevOps配套工具。&lt;/p&gt;
-
-&lt;p&gt;目前，国内外有很多优秀的云平台，可以方便的为用户提供基础设施的自动化机制。&lt;/p&gt;
-
-&lt;h3 id=&quot;微服务生态系统&quot;&gt;微服务生态系统&lt;/h3&gt;
-&lt;p&gt;微服务的生态系统是指微服务实施过程相关的协作部分，涉及部分较多，譬如测试机制、持续集成、自动化部署、细粒度监控、日志聚合、告警、持续交付，以及大家非常关注的服务注册、服务发现机制等。&lt;/p&gt;
-
-&lt;p&gt;这部分的灵活性比较大，因为目前如上说的每一个领域都有很多优秀的工具。譬如日志聚合目前业界的方案通常为ELK，监控的方案如Zabbix、NewRelic、CloudWatch等，成熟的监控工具都具有告警功能，PagerDuty也提供更专业的告警服务。服务注册和发现有ServiceComb框架的Service Center，Eureka，Consul，Zookeeper。大家可以在各自的团队中自由发挥。&lt;/p&gt;
-
-&lt;h3 id=&quot;开发框架的演进&quot;&gt;开发框架的演进&lt;/h3&gt;
-&lt;p&gt;开发框架是团队在构建微服务的过程中，不断总结，梳理出的快速开发微服务的相关工具和框架。&lt;/p&gt;
-
-&lt;p&gt;我们基于ServiceComb构建了快速开发框架，主要包括四部分，如下图所示：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/rapid_development_framework.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;微服务工程示例&lt;/p&gt;
-
-    &lt;p&gt;提供微服务改造架构最佳实践参考工程Company，使能微服务改造或开发能复用其架构设计和配置，同时指导实现服务容器化和后续服务性能测试等提高服务可靠性。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;契约生成工具&lt;/p&gt;
-
-    &lt;p&gt;ServiceComb采用了基于OpenAPI的服务契约，使业务逻辑与编程语言解耦，并可使用Swagger工具定义服务契约，自动生成契约对应的代码和文档。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;持续集成&lt;/p&gt;
-
-    &lt;p&gt;持续集成使用了Jenkins，通过其配置文件定义主要的阶段：&lt;/p&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;验证：运行单元测试，集成测试&lt;/p&gt;
-
-      &lt;p&gt;构建：构建可执行的jar部署包&lt;/p&gt;
-
-      &lt;p&gt;部署：基于指定版本制作镜像，并推送到测试或生产环境下&lt;/p&gt;
-    &lt;/blockquote&gt;
-
-    &lt;p&gt;利用这样的持续集成模板工程，花费很少的时间，就可以针对新建的微服务应用，快速配置其对应的持续集成环境。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Kubernetes集群一键部署&lt;/p&gt;
-
-    &lt;p&gt;Kubernetes是谷歌开源的一个容器集群管理工具。基于Kubernetes，可实现微服务的快速部署及弹性伸缩。我们提供了一键部署脚本，部署时只需稍作修改即可通过一条命令，自动完成资源的创建、部署、弹性伸缩、金丝雀发布等。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;团队运维自管理&quot;&gt;团队运维自管理&lt;/h3&gt;
-
-&lt;p&gt;这一部分是关于团队的文化管理。也是对DevOPS的延伸，我们称为TMI（Team Managed Infrastructure）。&lt;/p&gt;
-
-&lt;p&gt;目的是将分析、开发、测试以及资源创建、销毁、自动化部署的权利交给团队，由团队按需完成部署（加上看板的流程管理，而非Scrum的固定迭代，可以做到一天部署多次）。&lt;/p&gt;
-
-&lt;p&gt;当然，这个环节非常依赖于成熟的监控以及告警机制，当出现问题时，能够有效的通知到责任人，快速反馈，快速修复。团队内部也会定期轮换Pager（出问题救火的人），培养团队以服务可用作为大家的共同目标，培养产品观念，而非项目观念。&lt;/p&gt;
-
-&lt;p&gt;再回顾一下这个图：&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/best_practices_for_legacy_system_reform.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;最后，和大家分享一下，我个人在微服务实施过程中总结的4句方针:&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;由大到小，由粗到细&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;关注运维，关注监控&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;快速反馈，快速修复&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;循序渐进，增量实现&lt;/strong&gt;&lt;/p&gt;</content><author><name>Wang Lei</name><email>wanglei177@huawei.com</email><uri>https://wldandan.github.io</uri></author><category term="系统改造" /><summary type="html">微服务是否是业界期待已久的企业架构解决方案？在对遗留系统进行微服务的改造过程中存在怎样的困难和挑战，应该注意些什么？</summary></entry></feed>
+&lt;h5 id=&quot;you-can-have-a-look-at-the-quick-start-guide-to-know-about-how-to-bring-up-the-management-console&quot;&gt;You can have a look at the &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-service-center/tree/master/frontend#quickstart-guide&quot;&gt;Quick Start Guide&lt;/a&gt; to know about how to bring up the Management Console.&lt;/h5&gt;</content><author><name>Asif Siddiqui</name><email>mohammad.asif.siddiqui1@huawei.com</email><uri>http://asifdxtreme.github.io</uri></author><category term="service center" /><summary type="html">An introduction Service-Center Management Console</summary></entry></feed>
