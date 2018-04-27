@@ -1,20 +1,25 @@
 # ServiceComb Website
-The Web Site of ServiceComb is based on [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/).  
+The Web Site of ServiceComb is based on [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/).
+
+# NOTE for PR
+As this website is using the [gitpubsub](https://www.apache.org/dev/project-site.html) and we use Jekyll to generate the site.
+We choose master branch to hold all the site source change and asf-site for apache gitpubsub.
+Please sent your PR to the master branch instead of asf-site.
 
 # How to run the site locally   
 *  Change to non-root user  
-    
+
 *  Install [Ruby](https://www.ruby-lang.org/en/downloads/) and [Gem](https://rubygems.org/)   
-    
+
 *  Install Jekyll and Bundler   
-   
+
    `sudo gem install jekyll bundler`  
 
 *  Clone the site files
 
    `git clone https://github.com/apache/incubator-servicecomb-website.git`
 
-* cd ServiceComb.github.io.git
+* cd incubator-servicecomb-website
 
 *  Install the gems with bundle
 
@@ -25,15 +30,15 @@ The Web Site of ServiceComb is based on [Minimal Mistakes Jekyll Theme](https://
    `sudo bundle exec jekyll server`
 
 *  Start web browser to access `http://localhost:4000`   
-     
+
 **Note that tested versions of the tools covered in this section are as following,**    
-   
+
 *  Ruby 2.3  
 *  Gem 2.7.6   
 *  Bundler 2.3   
-   
+
 # Multiple language support
-The website supports English now and English is used as the default language. 
+The website supports English now and English is used as the default language.
 
 Things to be **cautious**:
 
@@ -44,8 +49,8 @@ There are two language labels: *en* and *cn*.
    lang: cn
    ref: unique_post_ref_just_like_the_url
    ```
-   And remember to add the prefix **/cn** to your permalink, e.g. 
-   before: 
+   And remember to add the prefix **/cn** to your permalink, e.g.
+   before:
    ```yml
    permalink: /about/me/
    ```
@@ -53,7 +58,7 @@ There are two language labels: *en* and *cn*.
    ```yml
    permalink: /cn/about/me/
    ```
-   Besides, if contents of your post contains links to the Chinese version of pages, remember to add the 
+   Besides, if contents of your post contains links to the Chinese version of pages, remember to add the
    prefix **/cn** before the link. e.g. */about/community/* becomes */cn/about/community/*
    *Notes*: English Posts do not need to add any prefixes as it's the default language.
 2. When you add items in *_data/navigation.yml* file, remember to add both English and Chinese version of that links.
