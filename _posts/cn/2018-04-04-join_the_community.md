@@ -40,7 +40,7 @@ redirect_from:
 订阅邮件方式：
 
 - 发送任意内容到`dev-subscribe@servicecomb.incubator.apache.org`
-- 收到来自dev-help的邮件后，再回复任意内容来确认订阅邮件列表即可。
+- 收到来自`dev-help@servicecomb.apache.org`的确认邮件后，再回复dev-help任意内容来确认订阅邮件列表即可。
 
 邮件存档内容可通过https://www.mail-archive.com/搜索`ServiceComb`获取。
 
