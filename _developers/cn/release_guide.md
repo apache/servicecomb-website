@@ -1,10 +1,10 @@
 ---
 title: "Release guide for ServiceComb"
-lang: en
+lang: cn
 ref: release_guide
 permalink: /cn/developers/release-guide/
-excerpt: "Release guide for doing the releases in Apache"
-last_modified_at: 2018-04-03T18:33:43+08:00
+excerpt: "ServiceComb发版指南 介绍如何在Apache发版"
+last_modified_at: 2018-04-27T18:33:43+08:00
 author: Asif Siddiqui
 tags: [release]
 redirect_from:
@@ -12,17 +12,17 @@ redirect_from:
 ---
 
 
-This Guide helps you to do the release in Apache for ServiceComb projects.
+本文向大家介绍如何在Apache上进行ServiceComb项目发版.
 
-## Pre-Requisite
+## 前期准备
 
-1. The CI for the project should be green.
-2. Should have the version number for the project.
-3. Should have Sign Key for signing the release, the keys should be published to public key server.
+1. 项目CI应该是正常的（绿色的）。
+2. 确定相关的项目版本号。
+3. 因为发版的过程中需要签名，请确保签名用的key的公钥是发布到公开的公钥服务器上的。
 
-## Major Steps for doing Service-Center Release
+## 发布Service-Center 需要做的步骤
 
-***Make and Verify the Release***
+***版本制作以及验证版本***
 
 1. Clone the service-center code.
 ```
@@ -86,9 +86,9 @@ gvt restore
 
 
 
-## Major Steps for doing Java-Chassis Release
+## 发布Java-Chassis 需要做的步骤
 
-***Make and Verify the Release***
+***版本制作以及验证版本***
 
 1. Clone the java-chassis code.
 ```
@@ -142,7 +142,7 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase --settings .travis.
 
 20. Send the voting mail in general@incubator.apache.org
 
-21. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1. 
+21. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
 
 22. Publish the result of the vote in general@incubator.apache.org.
 
@@ -159,9 +159,10 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase --settings .travis.
 
 
 
-## Major Steps for doing Saga Release
+## 发布Saga 需要做的步骤
 
-***Make and Verify the Release***
+***版本制作以及验证版本***
+
 1. Clone the saga code.
 ```
 git@github.com:apache/incubator-servicecomb-saga.git
