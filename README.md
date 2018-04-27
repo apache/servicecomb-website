@@ -1,29 +1,37 @@
 # ServiceComb Website
 The Web Site of ServiceComb is based on [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/).  
 
-# How to run the site locally
-*  Install [Ruby](https://www.ruby-lang.org/en/downloads/) and [Gem](https://rubygems.org/) 
-
-*  Install Jekyll and Bundler
-
-   `gem install jekyll bundler`
+# How to run the site locally   
+*  Change to non-root user  
+    
+*  Install [Ruby](https://www.ruby-lang.org/en/downloads/) and [Gem](https://rubygems.org/)   
+    
+*  Install Jekyll and Bundler   
+   
+   `sudo gem install jekyll bundler`  
 
 *  Clone the site files
 
-   `git clone git@github.com:ServiceComb/ServiceComb.github.io.git`
+   `git clone https://github.com/apache/incubator-servicecomb-website.git`
 
 * cd ServiceComb.github.io.git
 
 *  Install the gems with bundle
 
-   `bundle install`
+   `sudo bundle install`
 
 *  Start the jekyll server
 
-   `bundle exec jekyll server`
+   `sudo bundle exec jekyll server`
 
 *  Start web browser to access `http://localhost:4000`   
-
+     
+**Note that tested versions of the tools covered in this section are as following,**    
+   
+*  Ruby 2.3  
+*  Gem 2.7.6   
+*  Bundler 2.3   
+   
 # Multiple language support
 The website supports English now and English is used as the default language. 
 
