@@ -6,7 +6,7 @@ permalink: /cn/docs/saga_with_cucumber/
 excerpt: "ServiceComb Saga使用Cucumber做验收测试源码分析"
 last_modified_at: 2018-04-27T19:05:00+08:00
 author: Li Bo
-tags: [Saga Cucumber]
+tags: [Saga, Cucumber]
 redirect_from:
   - /theme-setup/
 ---
