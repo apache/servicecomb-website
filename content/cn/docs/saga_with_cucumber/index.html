@@ -1,0 +1,1100 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>ServiceComb Saga使用Cucumber做验收测试源码分析 - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="ServiceComb Saga使用Cucumber做验收测试源码分析">
+
+
+
+
+<meta name="author" content="Li Bo">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="ServiceComb Saga使用Cucumber做验收测试源码分析">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/saga_with_cucumber/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/saga_with_cucumber/">
+
+
+
+  <meta property="og:description" content="ServiceComb Saga使用Cucumber做验收测试源码分析">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="ServiceComb Saga使用Cucumber做验收测试源码分析">
+  <meta name="twitter:description" content="ServiceComb Saga使用Cucumber做验收测试源码分析">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-04-28T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/saga_with_cucumber/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Li Bo</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        It works, but it hasn’t been tested.
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:libo75@huawei.com">
+            <meta itemprop="email" content="libo75@huawei.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="ServiceComb Saga使用Cucumber做验收测试源码分析">
+    <meta itemprop="description" content="ServiceComb Saga使用Cucumber做验收测试源码分析">
+    <meta itemprop="datePublished" content="April 28, 2018">
+    <meta itemprop="dateModified" content="April 27, 2018">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">ServiceComb Saga使用Cucumber做验收测试源码分析
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <h3 id="servicecomb-saga使用cucumber做验收测试源码分析">ServiceComb Saga使用Cucumber做验收测试源码分析</h3>
+
+<h4 id="cucumber-简介">Cucumber 简介</h4>
+
+<p>Cucumber 是一个能够理解用普通语言描述的测试用例的自动化测试工具，可以让人们用近似自然的语言去描述特性Feature和场景Scenario，根据Feature驱动开发，用作软件技术人员和非技术之间验收测试的桥梁。它是一个命令行工具，运行后会执行features中的内容，feature中的step会调用step definitions 可以用标签来组织场景支持40多种语言包括 Java, Ruby 等。</p>
+
+<p><img src="/assets/images/cucumber.jpg" alt="" /></p>
+
+<p>Cucumber开发过程：</p>
+
+<ul>
+  <li>创建feature文件，feature文件中描述了测试用例集（Features），测试用例(Scenarios)，创建测试所需环境(Given)，触发被测试事件(When)和结果验证(Then)</li>
+  <li>创建step_definitions，此代码根据上面创建的feature文件，映射feature中的Gherkin Step为按步骤执行的代码，类似胶水的作用。</li>
+  <li>执行cucumber执行指令，格式化输出</li>
+</ul>
+
+<p>更多关于Cucumber的介绍请参考<a href="https://cucumber.io/">官网文档[2]</a>。</p>
+
+<h4 id="saga-使用-cucumber">Saga 使用 Cucumber</h4>
+
+<p>Saga项目对其下行程预定demo做了验收测试，我们对照Cucumber的开发过程分别分析成功执行完所有事务和出现异常时的自动化测试开发，在行程预定的demo中，全局事务<code class="highlighter-rouge">booking</code>有两个子事务分别是预定酒店服务<code class="highlighter-rouge">Hotel</code>和包车服务<code class="highlighter-rouge">Car</code>，只有酒店服务和包车服务全部成功行程预定服务才算成功，否则全部失败并回滚补偿。demo中假定了房源紧张，每个用户最多只能预定2间，关于此行程规划demo细节请参考<a href="https://github.com/apache/incubator-servicecomb-saga/tree/master/saga-demo/booking">文档[3]</a>。</p>
+
+<ul>
+  <li>
+    <p>成功完成所有事务</p>
+
+    <ol>
+      <li>
+        <p>创建feature文件<code class="highlighter-rouge">pack_success_scenario.feature</code>，定义Feature，并在feature中定义step</p>
+
+        <div class="language-shell highlighter-rouge"><pre class="highlight"><code>Feature: Alpha records transaction events
+
+  Scenario: Everything is normal
+    Given Car Service is up and running
+    And Hotel Service is up and running
+    And Booking Service is up and running
+    And Alpha is up and running
+
+    When User Sean requests to book 2 cars and 1 rooms
+
+    Then Alpha records the following events
+      | serviceName  | <span class="nb">type</span>             |
+      | pack-booking | SagaStartedEvent |
+      | pack-car     | TxStartedEvent   |
+      | pack-car     | TxEndedEvent     |
+      | pack-hotel   | TxStartedEvent   |
+      | pack-hotel   | TxEndedEvent     |
+      | pack-booking | SagaEndedEvent   |
+
+    And Car Service contains the following booking orders
+      | name | amount | confirmed | cancelled |
+      | Sean | 2      | <span class="nb">true</span>      | <span class="nb">false</span>     |
+
+    And Hotel Service contains the following booking orders
+      | name | amount | confirmed | cancelled |
+      | Sean | 1      | <span class="nb">true</span>      | <span class="nb">false</span>     |
+</code></pre>
+        </div>
+
+        <p><code class="highlighter-rouge">Given</code> 定义了测试用例<code class="highlighter-rouge">Everything is normal</code>所需的4个条件分别是4个服务运行正常，<code class="highlighter-rouge">When</code>定义了触发用户<code class="highlighter-rouge">Sean</code>发起预定2辆车和1间房子的被测事件。<code class="highlighter-rouge">Then</code>中则指定了验证结果是<code class="highlighter-rouge">Alpha</code>记录的各子事务及子事务发生顺序，<code class="highlighter-rouge">Car</code>服务和<code class="highlighter-rouge">Hotel</code>服务则记录预定结果。</p>
+      </li>
+      <li>
+        <p>创建step_definitions <code class="highlighter-rouge">PackStepdefs.java</code></p>
+
+        <p>在step_definition中使用正则的方式对应feature中定义的的测试条件，触发测试并验证结果。如：</p>
+
+        <div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="n">Given</span><span class="o">(</span><span class="s">"^Car Service is up and running$"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">probe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">CAR_SERVICE_ADDRESS</span><span class="o">));</span>
+    <span class="o">});</span>
+</code></pre>
+        </div>
+
+        <p>上面代码对应feature中第一个测试前提条件<code class="highlighter-rouge">Given car service is up and running</code>，<code class="highlighter-rouge">probe</code>函数式方位<code class="highlighter-rouge">Car</code>服务的一个Rest接口验证返回状态码来判断<code class="highlighter-rouge">Car</code>是否正常启动运行。接下来四个<code class="highlighter-rouge">Given</code>与此类似。</p>
+
+        <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">When</span><span class="o">(</span><span class="s">"^User ([A-Za-z]+) requests to book ([0-9]+) cars and ([0-9]+) rooms$"</span><span class="o">,</span> <span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received request from user {} to book {} cars and {} rooms"</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">);</span>
+
+      <span class="n">given</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">pathParam</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="n">username</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">pathParam</span><span class="o">(</span><span class="s">"rooms"</span><span class="o">,</span> <span class="n">rooms</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">pathParam</span><span class="o">(</span><span class="s">"cars"</span><span class="o">,</span> <span class="n">cars</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">when</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"booking.service.address"</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/booking/{name}/{rooms}/{cars}"</span><span class="o">);</span>
+    <span class="o">});</span>
+</code></pre>
+        </div>
+
+        <p>此段代码解析feature中定义的<code class="highlighter-rouge">When User Sean requests to book 2 cars and 1 rooms</code>事件，解析出用户、预定车辆和房间数量参数并向<code class="highlighter-rouge">Booking</code>服务发出<code class="highlighter-rouge">POST</code>方法的请求，然后在下面代码的<code class="highlighter-rouge">Then</code>中验证结果：</p>
+
+        <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Then</span><span class="o">(</span><span class="s">"^Alpha records the following events$"</span><span class="o">,</span> <span class="o">(</span><span class="n">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;[]&gt;</span> <span class="n">columnStrippingConsumer</span> <span class="o">=</span> <span class="n">dataMap</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">:</span> <span class="n">dataMap</span><span class="o">)</span>
+          <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">().</span><span class="na">retainAll</span><span class="o">(</span><span class="n">dataTable</span><span class="o">.</span><span class="na">topCells</span><span class="o">());</span>
+      <span class="o">};</span>
+      <span class="n">dataMatches</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">ALPHA_REST_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/events"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="n">columnStrippingConsumer</span><span class="o">);</span>
+    <span class="o">});</span>
+
+ <span class="n">And</span><span class="o">(</span><span class="s">"^Car Service contains the following booking orders$"</span><span class="o">,</span> <span class="o">(</span><span class="n">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">dataMatches</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">CAR_SERVICE_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/bookings"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="n">NO_OP_CONSUMER</span><span class="o">);</span>
+    <span class="o">});</span>
+
+    <span class="n">And</span><span class="o">(</span><span class="s">"^Hotel Service contains the following booking orders$"</span><span class="o">,</span> <span class="o">(</span><span class="n">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">dataMatches</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">HOTEL_SERVICE_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/bookings"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="n">NO_OP_CONSUMER</span><span class="o">);</span>
+    <span class="o">});</span>
+</code></pre>
+        </div>
+
+        <p>上面代码对应feature中<code class="highlighter-rouge">Then</code>结果从三方面验证预定事件是否符合预期：<code class="highlighter-rouge">Alpha</code>服务中记录的事件顺序、<code class="highlighter-rouge">Car</code>服务的预定结果和 <code class="highlighter-rouge">Hotel</code>服务中的预定结果。<code class="highlighter-rouge">DataTable</code>解析了feature中定义的事件结果和顺序，<code class="highlighter-rouge">dataMatches</code>将此结果与各服务中查询到的结果进行比较验证是不是符合预期。</p>
+      </li>
+      <li>
+        <p>执行Command <code class="highlighter-rouge">RunCucumberIT.java</code></p>
+
+        <p><code class="highlighter-rouge">@Runwith(Cucumber.class)</code>指定使用Cucumber测试框架入口，并在<code class="highlighter-rouge">@CucumberOptions</code>中指定feature目录和输出格式。</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>有子事务出现异常测试</p>
+
+    <p>由于房源紧张，限制每个用户最多预订2间房，当用户预订超过2间时会抛出异常：</p>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Compensable</span><span class="o">(</span><span class="n">compensationMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
+  <span class="kt">void</span> <span class="nf">order</span><span class="o">(</span><span class="n">HotelBooking</span> <span class="n">booking</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">booking</span><span class="o">.</span><span class="na">getAmount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"can not order the rooms large than two"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">booking</span><span class="o">.</span><span class="na">confirm</span><span class="o">();</span>
+    <span class="n">bookings</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">booking</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">booking</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre>
+    </div>
+
+    <p>在此异常测试中我们预订事件中预订3间房，由于订房间失败，整个行程事务没有成功，对已经成功执行的订车子事务进行补偿保证原子性。</p>
+
+    <ol>
+      <li>
+        <p>创建feature文件<code class="highlighter-rouge">pack_compensation_scenario.feature</code></p>
+
+        <p>与成功的行程规划测试中不同的只有触发的预定事件和最终的结果，前提条件都是4个服务启动并运行，所以feature只要修改<code class="highlighter-rouge">When</code>和<code class="highlighter-rouge">Then</code>内容即可（Features和Scenarios名也要对应修改）</p>
+
+        <div class="language-yaml highlighter-rouge"><pre class="highlight"><code>    <span class="s">When User Sean requests to book 5 cars and 3 rooms</span>
+
+    <span class="s">Then Alpha records the following events</span>
+      <span class="s">| serviceName  | type               |</span>
+      <span class="s">| pack-booking | SagaStartedEvent   |</span>
+      <span class="s">| pack-car     | TxStartedEvent     |</span>
+      <span class="s">| pack-car     | TxEndedEvent       |</span>
+      <span class="s">| pack-hotel   | TxStartedEvent     |</span>
+      <span class="s">| pack-hotel   | TxAbortedEvent     |</span>
+      <span class="s">| pack-car     | TxCompensatedEvent |</span>
+      <span class="s">| pack-car     | SagaEndedEvent     |</span>
+
+    <span class="s">Then Car Service contains the following booking orders</span>
+      <span class="s">| name | amount | confirmed | cancelled |</span>
+      <span class="s">| Sean | 5      | false     | true      |</span>
+
+    <span class="s">Then Hotel Service contains the following booking orders</span>
+      <span class="s">| name | amount | confirmed | cancelled |</span>
+</code></pre>
+        </div>
+      </li>
+      <li>
+        <p>step_definition和Command与之前一样，不需要任何修改，触发预定超过3个房间的操作后，<code class="highlighter-rouge">Alpha</code>会记录Hotel服务的<code class="highlighter-rouge">TxAbortedEvent</code>和Car服务的<code class="highlighter-rouge">TxCompensatedEvent</code>时间，此外Car服务的预定记录中会有取消为<code class="highlighter-rouge">true</code>的记录。</p>
+      </li>
+    </ol>
+
+    <p>通过以上两个例子分析，Cucumber开发只需要在feature中定义好测试所需条件，触发事件和结果验证信息，然后在step_definition中进行解析验证即可。</p>
+  </li>
+</ul>
+
+<h4 id="byteman-规则注入">Byteman 规则注入</h4>
+
+<p><code class="highlighter-rouge">Byteman</code>可以在代码的任意位置注入代码，并可以在注入的代码中访问当前方法中变量，包括方法参数、局部变量、调用其他函数的参数值、返回值等。更多关于Byteman的介绍请参考<a href="http://byteman.jboss.org/docs.html">官方文档[4]</a>。</p>
+
+<p>Byteman开发过程：</p>
+
+<ul>
+  <li>
+    <p>创建规则脚本.btm文件</p>
+
+    <p>根据byteman语法创建规则，包括规则名，目标类，目标方法，注入位置，注入内容等，下面是一个在<code class="highlighter-rouge">main</code>函数入口注入打印语句的规则文件例子</p>
+
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">RULE trace main entry</span>
+<span class="s">CLASS AppMain</span>
+<span class="s">METHOD main</span>
+<span class="s">AT ENTRY</span>
+<span class="s">IF true</span>
+<span class="s">DO traceln("entering main")</span>
+<span class="s">ENDRULE</span>
+</code></pre>
+    </div>
+
+    <p>在安装了byteman环境的机器上用javaagent参数指定加载规则文件运行AppMain即可在main函数入口处打印出<code class="highlighter-rouge">entering main</code>。例子<a href="https://github.com/adinn/byteman-tutorial1">源码请参考[5]</a></p>
+  </li>
+  <li>
+    <p>加载规则并运行</p>
+
+    <p>除了上面例子中通过命令行指定javaagent指定byteman 规则文件的加载方式外，还可以通过Java代码的方式加载，如下</p>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Submit</span> <span class="n">bm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Submit</span><span class="o">(</span><span class="n">address</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
+<span class="n">bm</span><span class="o">.</span><span class="na">addRulesFromFiles</span><span class="o">(</span><span class="n">rules</span><span class="o">);</span>
+</code></pre>
+    </div>
+
+    <p><code class="highlighter-rouge">org.jboss.byteman.agent.submit.Submit</code>提供的加载规则的方法有通过文件加载<code class="highlighter-rouge">addRulesFromFiles</code>和<code class="highlighter-rouge">addRulesFromResources</code></p>
+
+    <p>同样，byteman提供了移除规则的方法<code class="highlighter-rouge">deleteRulesFromFiles</code>，<code class="highlighter-rouge">deleteRulesFromResources</code>和<code class="highlighter-rouge">deleteAllRules</code>。</p>
+  </li>
+</ul>
+
+<h4 id="saga-使用-cucumber-集成-byteman">Saga 使用 Cucumber 集成 Byteman</h4>
+
+<p>Saga在Cucumber中集成了byteman注入一个超时异常，测试Saga对超时处理是否符合预期。</p>
+
+<ol>
+  <li>
+    <p>创建byteman规则文件：<code class="highlighter-rouge">booking_timeout.btm</code></p>
+
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">RULE set the saga timeout to 5s</span>
+<span class="s">INTERFACE org.apache.servicecomb.saga.omega.context.annotations.SagaStart</span>
+<span class="s">METHOD timeout</span>
+<span class="s">AT EXIT</span>
+<span class="s">IF TRUE</span>
+<span class="s">DO RETURN 5</span>
+<span class="s">ENDRULE</span>
+
+<span class="s">RULE sleep when postBooking until timeout happens</span>
+<span class="s">CLASS org.apache.servicecomb.saga.demo.pack.booking.BookingController</span>
+<span class="s">METHOD postBooking</span>
+<span class="s">AT ENTRY</span>
+<span class="s">IF TRUE</span>
+<span class="s">DO debug("delay 10s until the booking timeout"),</span>
+   <span class="s">Thread.sleep(10000)</span>
+<span class="s">ENDRULE</span>
+</code></pre>
+    </div>
+
+    <p>这里定义了两个规则，第一个规则<code class="highlighter-rouge">set the saga timeout to 5s</code>在注解<code class="highlighter-rouge">@SagaStart</code>的<code class="highlighter-rouge">timeout</code>方法中返回5表示设置超时时间值为5秒。第二个规则<code class="highlighter-rouge">sleep when postBooking until timeout happens</code>在类<code class="highlighter-rouge">BookingController</code>的<code class="highlighter-rouge">postBooking</code>方法中注入<code class="highlighter-rouge">Thread.sleep(10000)</code>，让<code class="highlighter-rouge">postBooking</code>方法阻塞10秒，原来的<code class="highlighter-rouge">postBooking</code>方法是一个空方法，注入byteman的阻塞方法后会触发预定行程服务的超时异常。</p>
+  </li>
+  <li>
+    <p>创建feature文件：<code class="highlighter-rouge">pack_timeout_scenario.feature</code></p>
+
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="err"> 	</span><span class="s">Given Install the byteman script booking_timeout.btm to Booking Service</span>
+
+    <span class="s">When User Sean requests to book 1 cars and 1 rooms</span>
+
+    <span class="s">Then Alpha records the following events</span>
+      <span class="s">| serviceName  | type               |</span>
+      <span class="s">| pack-booking | SagaStartedEvent   |</span>
+      <span class="s">| pack-car     | TxStartedEvent     |</span>
+      <span class="s">| pack-car     | TxEndedEvent       |</span>
+      <span class="s">| pack-hotel   | TxStartedEvent     |</span>
+      <span class="s">| pack-hotel   | TxEndedEvent       |</span>
+      <span class="s">| pack-booking | TxAbortedEvent     |</span>
+      <span class="s">| pack-hotel   | TxCompensatedEvent |</span>
+      <span class="s">| pack-car     | TxCompensatedEvent |</span>
+      <span class="s">| pack-booking | SagaEndedEvent     |</span>
+
+    <span class="s">Then Car Service contains the following booking orders</span>
+      <span class="s">| name | amount | confirmed | cancelled |</span>
+      <span class="s">| Sean | 1      | false     | true      |</span>
+
+    <span class="s">Then Hotel Service contains the following booking orders</span>
+      <span class="s">| name | amount | confirmed | cancelled |</span>
+      <span class="s">| Sean | 1      | false     | true      |</span>
+</code></pre>
+    </div>
+
+    <p>在行程预定的例子中仍然以4个服务启动并运行为前提，然后加载上面创建的byteman规则文件和目标服务：<code class="highlighter-rouge">Booking</code>。然后触发预定一辆车和一间房的操作。</p>
+  </li>
+  <li>
+    <p>step_definition解析</p>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="n">Given</span><span class="o">(</span><span class="s">"^Install the byteman script ([A-Za-z0-9_\\.]+) to ([A-Za-z]+) Service$"</span><span class="o">,</span> <span class="o">(</span><span class="n">String</span> <span class="n">script</span><span class="o">,</span> <span class="n">String</span> <span class="n">service</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Install the byteman script {} to {} service"</span><span class="o">,</span> <span class="n">script</span><span class="o">,</span> <span class="n">service</span><span class="o">);</span>
+      <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">rules</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+      <span class="n">rules</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"target/test-classes/"</span> <span class="o">+</span> <span class="n">script</span><span class="o">);</span>
+      <span class="n">Submit</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">getBytemanSubmit</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+      <span class="n">bm</span><span class="o">.</span><span class="na">addRulesFromFiles</span><span class="o">(</span><span class="n">rules</span><span class="o">);</span>
+    <span class="o">});</span>
+</code></pre>
+    </div>
+
+    <p>在Cucumber解析文件中用正则方法获取目标规则和服务名，<code class="highlighter-rouge">getBytemanSubmit</code>根据服务名<code class="highlighter-rouge">service</code>参数来获取目标服务的地址和byteman监听端口，并将本地规则注入到目标服务中，注入原理是<code class="highlighter-rouge">Booking</code>启动时是带着byteman参数启动的：</p>
+
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>-Dorg.jboss.byteman.debug<span class="o">=</span><span class="nb">true</span> -Dorg.jboss.byteman.verbose<span class="o">=</span>tru
+-javaagent:/maven/saga/byteman.jar<span class="o">=</span>port:9091,address:0.0.0.0,listener:true
+</code></pre>
+    </div>
+
+    <p>执行<code class="highlighter-rouge">bm.addRulesFromFiles(rules);</code>时就可以把本地规则通过Socket发送到<code class="highlighter-rouge">Booking</code>服务，并由Byteman完成字节替换。</p>
+  </li>
+  <li>
+    <p>结果验证</p>
+
+    <p>注入规则后触发预定车辆和房间服务时预定服务会出现超时，Saga会对已经完成的订车和订房间子事务进行补偿，Alpha中记录了一些列事件以及他们发生的顺序，另外Car服务和Hotel服务的取消标记<code class="highlighter-rouge">cancelled</code>也为<code class="highlighter-rouge">true</code>。</p>
+  </li>
+</ol>
+
+<p>代码中使用Cucumber和Byteman要先通过pom引入相关依赖</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>	<span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>io.cucumber<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>cucumber-java8<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>${cucumber.version}<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>io.cucumber<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>cucumber-junit<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>${cucumber.version}<span class="nt">&lt;/version&gt;</span>
+      <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.jboss.byteman<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>byteman-submit<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>${byteman.version}<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<p>本地运行调试需要在启动的时候使用javaagent启动byteman，建议通过修改docker-compose.yaml文件，指定可执行jar的启动参数，并修改stepdef解析文件中各个服务地址，个服务启动运行后在IDEA中运行相应的feature文件即可进行调试测试。运行调试版代码可参考<a href="https://github.com/lijasonvip/incubator-servicecomb-saga/tree/debug-cucumber-byteman">个人分支代码[6]</a></p>
+
+<p>欢迎开发者朋友们加入ServiceComb社区，一起做些有意思的事情。<a href="http://servicecomb.incubator.apache.org/cn/docs/join_the_community/">加入社区方法[7]</a></p>
+
+<h4 id="参考资料">参考资料</h4>
+
+<p>[1] ServiceComb Saga  https://github.com/apache/incubator-servicecomb-saga</p>
+
+<p>[2] Cucumber  https://cucumber.io/</p>
+
+<p>[3] Saga booking demo  https://github.com/apache/incubator-servicecomb-saga/tree/master/saga-demo/booking</p>
+
+<p>[4] Byteman  http://byteman.jboss.org/docs.html</p>
+
+<p>[5] Byteman demo https://github.com/adinn/byteman-tutorial1</p>
+
+<p>[6] debug 分支 https://github.com/lijasonvip/incubator-servicecomb-saga/tree/debug-cucumber-byteman</p>
+
+<p>[7] 加入ServiceComb 社区  http://servicecomb.incubator.apache.org/cn/docs/join_the_community/</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#cucumber" class="page__taxonomy-item" rel="tag">Cucumber</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#saga" class="page__taxonomy-item" rel="tag">Saga</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2018-04-27">2018年4月27日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=ServiceComb Saga使用Cucumber做验收测试源码分析 /cn/docs/saga_with_cucumber/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/saga_with_cucumber/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/saga_with_cucumber/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/saga_with_cucumber/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/distributed-transactions-saga-implementation/" class="pagination--pager" title="Saga分布式事务解决方案与实践
+">向前</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="saga_with_cucumber">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/distributed-transactions-saga-implementation/" rel="permalink">Saga分布式事务解决方案与实践
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">2018年QConBeijing Saga分布式事务解决方案与实践演讲实录
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/open-design/" rel="permalink">如何设计一个优质的微服务框架：Apache ServiceComb 的开放性设计
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">本文讲述了整个 开源微服务框架 Apache ServiceComb 设计形成的前因后果，尝试从理念、思想和实践结合的维度剖析一个优质的微服务框架应该具备哪些要素，包括但不限于 对开发者友好、高性能、内外部扩展性&gt;等。
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/build-java-chassis-microservices-using-gradle/" rel="permalink">使用gradle构建基于Java Chassis开发的微服务
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/saga_pack_design/" rel="permalink">ServiceComb数据一致性解决方案Saga演进介绍
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Saga演进介绍
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2018-04-28-saga_with_cucumber.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2018-04-28-saga_with_cucumber.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>
