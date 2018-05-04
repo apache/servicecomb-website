@@ -101,10 +101,17 @@ The transparent remote procedure call(RPC) development mode is a development mod
 
    ```java
    import org.apache.servicecomb.provider.pojo.RpcSchema;
-   // other code omitted
    @RpcSchema(schemaId = "pojoHello")
    public class HelloImpl implements Hello {
-     // other code omitted
+      @Override
+      public String sayHi(String name) {
+        return "Hello " + name;
+      }
+ 
+      @Override
+      public String sayHello(Person person) {
+        return "Hello person " + person.getName();
+      }
    }
    ```
 
@@ -121,6 +128,10 @@ The transparent remote procedure call(RPC) development mode is a development mod
        <context:component-scan base-package="org.apache.servicecomb.samples.pojo.provider"/>
    </beans>
    ```
+
+**Note: THE PATH FOR REST IS `ClassName/MethodName`, AND THE METHOD IS `POST`.**
+
+In this sample the Path of sayHi is `/HelloImpl/sayHi`, and the Path of sayHello is `/HelloImpl/sayHello`.
 
 > **NOTE**：
 Different from the Spring MVC and JAX-RS development modes, the transparent RPC development mode used `@RpcSchema` instead of `@RestSchema`.
