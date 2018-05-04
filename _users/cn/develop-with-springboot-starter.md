@@ -76,6 +76,10 @@ Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来�
    　}
    }
    ```
+   
+   **注意：请一定在服务的实现类（本文档例子为SpringmvcHelloImpl）上标记@RequestMapping，否则接口发布的Path和Method将会不正确！**
+         
+   本例sayHi的访问Path为`/springmvchello/sayhi`，sayHello的访问Path为`/springmvchello/sayhello`，如果希望他们的访问路径为`/sayhi`和`/sayhello`，直接设置SpringmvcHelloImpl上的`@RequestMapping`为`@RequestMapping(path = "/")`。
 
 * **步骤 3** 发布服务
 

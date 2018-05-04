@@ -71,6 +71,10 @@ You need to use the native Java Chassis framework to develop microservice applic
    　}
    }
    ```
+   
+   **Note: PLEASE MAKE SURE TO MARK @Path ON YOUR PRODUCER(SpringmvcHelloImpl), OR THE PATH AND METHOD OF PUBLISHED WILL BE INCORRECT!**
+   
+   In this sample the Path of sayHi is `/springmvchello/sayhi`, and the Path of sayHello is `/springmvchello/sayhello`, if you wish them `/sayhi` and `/sayhello`, please change the setting of `@Path` on the SpringmvcHelloImpl to `@Path("/")`.
 
 * **Step 3** Release the service. Add @RestSchema as the annotation of the service implementation class and specify schemaId, which indicates that the implementation is released as a schema of the current microservice. The code is as follows:
 
