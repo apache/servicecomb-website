@@ -129,7 +129,7 @@ The transparent remote procedure call(RPC) development mode is a development mod
    </beans>
    ```
 
-**Note: THE PATH FOR REST IS `ClassName/MethodName`, AND THE METHOD IS `POST`.**
+**Note: THE PATH FOR RPC IS `ClassName/MethodName`, AND THE METHOD IS `POST`.**
 
 In this sample the Path of sayHi is `/HelloImpl/sayHi`, and the Path of sayHello is `/HelloImpl/sayHello`.
 

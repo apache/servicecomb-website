@@ -137,7 +137,7 @@ redirect_from:
    </beans>
    ```
 
-**注意：无论哪种发布模式，rest发布的URL都为`ClassName/MethodName`，并且Method都为`POST`。**
+**注意：无论哪种发布模式，RPC发布的URL都为`ClassName/MethodName`，并且Method都为`POST`。**
          
 本例sayHi的访问Path为`/HelloImpl/sayHi`，sayHello的访问Path为`/HelloImpl/sayHello`。
 
