@@ -109,10 +109,17 @@ redirect_from:
 
    ```java
    import org.apache.servicecomb.provider.pojo.RpcSchema;
-   // other code omitted
    @RpcSchema(schemaId = "pojoHello")
    public class HelloImpl implements Hello {
-     // other code omitted
+      @Override
+      public String sayHi(String name) {
+        return "Hello " + name;
+      }
+ 
+      @Override
+      public String sayHello(Person person) {
+        return "Hello person " + person.getName();
+      }
    }
    ```
 
@@ -129,6 +136,10 @@ redirect_from:
        <context:component-scan base-package="org.apache.servicecomb.samples.pojo.provider"/>
    </beans>
    ```
+
+**注意：无论哪种发布模式，RPC发布的URL都为`ClassName/MethodName`，并且Method都为`POST`。**
+         
+本例sayHi的访问Path为`/HelloImpl/sayHi`，sayHello的访问Path为`/HelloImpl/sayHello`。
 
 > **说明**：
 与Spring MVC开发模式和JAX-RS开发模式不同的是，透明RPC开发模式使用的注解是`@RpcSchema`而非`@RestSchema`。

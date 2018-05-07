@@ -50,29 +50,13 @@ redirect_from:
 
    A: 可以，具体可以参考java-chassis的[integration-test的实现](https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/org/apache/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java)。
 
-* **Q: 微服务启动后，无法正确调用接口，使用的代码为：**
+* **Q: 微服务启动后，无法正确调用接口，或返回不存在错误？**
 
-   ```java
-   @RestController
-   @RestSchema(schemaId = "worker")
-   public class WorkerController {
-     @RequestMapping(value="/count", method=RequestMethod.GET)
-     public int getWorkerNumbers() {
-       ...
-     }
-   }
-   ```
-
-   A: 在没有指明根路径的情况下，默认会使用类名作为其根路径，即上述代码中可访问的路径应为`/WorkerController/count`。如果想要实现`/count`这样的访问，则要指明根路径：
-
-   ```java
-   @RequestMapping(value = "/")
-   public class WorkerController {}
-   ```
-
-* **Q: 如果没有指定RequestMapping这个标注的value时，默认的基本路径是什么？**
-
-   A: 假设你的Controller类名为*HelloController*，那么基本路径就是/HelloController。
+   A: 请检查调用路径与Producer实现代码中发布的路径完全一致。Producer端的启动日志可以查看到映射路径输出，例如：
+   
+   `[INFO] Swagger mapped "{[/hello/], method=[GET], produces=[application/json]}"`
+   
+   不同编程风格（模型）实现Producer的文档和注意事项请参见：[Jaxrs](/cn/users/develop-with-jax-rs/) [SpringMVC](/cn/users/develop-with-springmvc/) [Pojo](/cn/users/develop-with-transparent-rpc/) [Spring Boot](/cn/users/develop-with-spring-boot-starter/) 。
 
 * **Q: 在eclipse下修改了microservice.yaml配置文件下的端口号，启动程序后，端口号没生效？**
 

@@ -80,6 +80,10 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
      }
    }
    ```
+   
+   **注意：请一定在服务的实现类（本文档例子为JaxrsHelloImpl）上标记@Path，否则接口发布的Path和Method将会不正确！**
+   
+   本例sayHi的访问Path为`/jaxrshello/sayhi`，sayHello的访问Path为`/jaxrshello/sayhello`，如果希望他们的访问路径为`/sayhi`和`/sayhello`，直接设置JaxrsHelloImpl上的`@Path`为`@Path("/")`。
 
 * **步骤 3** 发布服务。
 

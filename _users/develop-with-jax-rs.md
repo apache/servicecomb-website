@@ -77,6 +77,10 @@ ServiceComb supports developers in developing services in JAX-RS mode by using J
      }
    }
    ```
+   
+   **Note: PLEASE MAKE SURE TO MARK @Path ON YOUR PRODUCER(JaxrsHelloImpl), OR THE PATH AND METHOD OF PUBLISHED WILL BE INCORRECT!**
+   
+   In this sample the Path of sayHi is `/jaxrshello/sayhi`, and the Path of sayHello is `/jaxrshello/sayhello`, if you wish them `/sayhi` and `/sayhello`, please change the setting of `@Path` on the JaxrsHelloImpl to `@Path("/")`.
 
 * **Step 3** Release the service. Add ```@RestSchema``` as the annotation of the service implementation class and specify schemaID, which indicates that the implementation is released as a schema of the current microservice. The code is as follows:
 
