@@ -353,12 +353,68 @@
         <p>This Guide helps you to do the release in Apache for ServiceComb projects.</p>
 
 <h2 id="pre-requisite">Pre-Requisite</h2>
+<p>To prepare or perform a released you MUST BE at least an Apache ServiceComb committer.</p>
 
 <ol>
   <li>The CI for the project should be green.</li>
   <li>Should have the version number for the project.</li>
   <li>Should have Sign Key for signing the release, the keys should be published to public key server.</li>
+  <li>Get familiar with the release settings in the parent Apache POM</li>
 </ol>
+
+<h2 id="maven-2-setup">Maven 2 Setup</h2>
+<p>As ServiceComb Java Chassis and Saga are using maven for the release, you should do some maven 2 setup before releasing these two projects.
+Before you deploy anything to the maven repository using Maven 2, you should configure your ~/.m2/settings.xml file so that the file permissions of the deployed artifacts are group writable. If you do not do this, other developers will not able to overwrite your SNAPSHOT releases with newer versions. The settings follow the <a href="http://maven.apache.org/developers/committer-settings.html">guidelines</a> used by the Maven project. Please pay particular attention to the <a href="http://maven.apache.org/guides/mini/guide-encryption.html">password encryption recommendations</a>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;settings&gt;
+  ...
+  &lt;servers&gt;
+    &lt;!-- Per http://maven.apache.org/developers/committer-settings.html --&gt;
+
+    &lt;!-- To publish a snapshot of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.snapshots.https&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;password&gt; &lt;!-- YOUR APACHE LDAP PASSWORD --&gt; &lt;/password&gt;
+    &lt;/server&gt;
+    &lt;!-- To publish a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.website&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a release of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.releases.https&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;password&gt; &lt;!-- YOUR APACHE LDAP PASSWORD --&gt; &lt;/password&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;stagingSite&lt;/id&gt; &lt;!-- must match hard-coded repository identifier in site:stage-deploy --&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+
+  &lt;/servers&gt;
+  ...
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;apache-release&lt;/id&gt;
+      &lt;properties&gt;
+        &lt;gpg.useagent&gt;false&lt;/gpg.useagent&gt;
+        &lt;gpg.passphrase&gt;&lt;!-- YOUR GPG PASSPHRASE --&gt;&lt;/gpg.passphrase&gt;
+        &lt;test&gt;false&lt;/test&gt;
+      &lt;/properties&gt;
+    &lt;/profile&gt;
+
+  &lt;/profiles&gt;
+...
+&lt;/settings&gt;
+</code></pre>
+</div>
 
 <h2 id="major-steps-for-doing-service-center-release">Major Steps for doing Service-Center Release</h2>
 
@@ -406,7 +462,7 @@ gvt restore
     <p>Sign the 3 releases(linux, windows, src) and checksum.</p>
   </li>
   <li>
-    <p>Upload the release to dev/incubator/servicecomb Apache Svn.</p>
+    <p>Upload the release to <a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/">Apache dev released repository</a>.</p>
   </li>
   <li>
     <p>Download all the releases from SVN and verify the signature and checksum.</p>
@@ -445,7 +501,7 @@ gvt restore
 
 <ol>
   <li>
-    <p>Upload the releases to release/incubator/servicecomb Apache Svn.</p>
+    <p>Upload the releases to <a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/">Apache release repository</a>.</p>
   </li>
   <li>
     <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
@@ -468,8 +524,10 @@ gvt restore
 </code></pre>
     </div>
   </li>
-  <li>
-    <p>Cut the release using per command to replace all the versions in pom.xml files</p>
+  <li>Cut the release using perl command to replace all the versions in pom.xml files
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Create a Tag from the master branch using the version number.</p>
@@ -481,13 +539,13 @@ gvt restore
     <p>Add the keys in a reference folder.</p>
   </li>
   <li>
-    <p>Update the key path and passphrase in .travis.settings file.</p>
+    <p>Update the key path and passphrase in ~/.m2/settings.xml file.</p>
   </li>
   <li>
-    <p>Update the apache account username and password in the travis file.</p>
+    <p>Update the apache account username and password in the settings file.</p>
   </li>
   <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase --settings .travis.settings.xml
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 </code></pre>
     </div>
   </li>
@@ -513,7 +571,8 @@ gvt restore
     <p>Sign the 2 releases(distribution, src) and checksum.</p>
   </li>
   <li>
-    <p>Upload the release to dev/incubator/servicecomb Apache Svn.</p>
+    <p>Upload the release to <a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache dev released repository</a>.
+.</p>
   </li>
   <li>
     <p>Download all the releases from SVN and verify the signature and checksum.</p>
@@ -552,7 +611,7 @@ gvt restore
 
 <ol>
   <li>
-    <p>Upload the releases to release/incubator/servicecomb Apache Svn.</p>
+    <p>Upload the releases to <a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache release repository</a>.</p>
   </li>
   <li>
     <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
@@ -577,8 +636,10 @@ gvt restore
   <li>
     <p>Cut the release using per command to replace all the versions in pom.xml files</p>
   </li>
-  <li>
-    <p>Create a Tag from the master branch using the version number.</p>
+  <li>Create a Tag from the master branch using the version number.
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Clear all the redundant servicecomb releases in repository.apache.org</p>
@@ -587,13 +648,13 @@ gvt restore
     <p>Add the keys in a reference folder.</p>
   </li>
   <li>
-    <p>Update the key path and passphrase in .travis.settings file.</p>
+    <p>Update the key path and passphrase in your ~/.m2/settings.xml file.</p>
   </li>
   <li>
-    <p>Update the apache account username and password in the travis file.</p>
+    <p>Update the apache account username and password in the settings.xml file.</p>
   </li>
   <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests --settings .travis.settings.xml -Ppassphrase -Prelease
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Ppassphrase -Prelease
 </code></pre>
     </div>
   </li>
@@ -619,7 +680,7 @@ gvt restore
     <p>Sign the 2 releases(distribution, src) and checksum.</p>
   </li>
   <li>
-    <p>Upload the release to dev/incubator/servicecomb Apache Svn.</p>
+    <p>Upload the release to <a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-saga/">Apache dev released repository</a>.</p>
   </li>
   <li>
     <p>Download all the releases from SVN and verify the signature and checksum.</p>
@@ -658,7 +719,7 @@ gvt restore
 
 <ol>
   <li>
-    <p>Upload the releases to release/incubator/servicecomb Apache Svn.</p>
+    <p>Upload the releases to <a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/">Apache release repository</a>.</p>
   </li>
   <li>
     <p>Wait for 24 hours to replicate the release in all the mirrors.</p>

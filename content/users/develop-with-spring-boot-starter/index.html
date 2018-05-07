@@ -693,6 +693,10 @@
  <span class="o">}</span>
 </code></pre>
     </div>
+
+    <p><strong>Note: PLEASE MAKE SURE TO MARK @RequestMapping ON YOUR PRODUCER(SpringmvcHelloImpl), OR THE PATH AND METHOD OF PUBLISHED WILL BE INCORRECT!</strong></p>
+
+    <p>In this sample the Path of sayHi is <code class="highlighter-rouge">/springmvchello/sayhi</code>, and the Path of sayHello is <code class="highlighter-rouge">/springmvchello/sayhello</code>, if you wish them <code class="highlighter-rouge">/sayhi</code> and <code class="highlighter-rouge">/sayhello</code>, please change the setting of <code class="highlighter-rouge">@RequestMapping</code> on the SpringmvcHelloImpl to <code class="highlighter-rouge">@RequestMapping("/")</code>.</p>
   </li>
   <li>
     <p><strong>Step 3</strong> Release the service. Add @RestSchema as the annotation of the service implementation class and specify schemaId, which indicates that the implementation is released as a schema of the current microservice. The code is as follows:</p>

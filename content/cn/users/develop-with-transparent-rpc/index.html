@@ -749,10 +749,17 @@
     <p>在接口Hello的实现类上使用@RpcSchema注解定义schema，代码如下：</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.pojo.RpcSchema</span><span class="o">;</span>
-<span class="c1">// other code omitted</span>
 <span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"pojoHello"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
-  <span class="c1">// other code omitted</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">return</span> <span class="s">"Hello "</span> <span class="o">+</span> <span class="n">name</span><span class="o">;</span>
+   <span class="o">}</span>
+ 
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre>
     </div>
@@ -772,6 +779,10 @@
     </div>
   </li>
 </ol>
+
+<p><strong>注意：无论哪种发布模式，RPC发布的URL都为<code class="highlighter-rouge">ClassName/MethodName</code>，并且Method都为<code class="highlighter-rouge">POST</code>。</strong></p>
+
+<p>本例sayHi的访问Path为<code class="highlighter-rouge">/HelloImpl/sayHi</code>，sayHello的访问Path为<code class="highlighter-rouge">/HelloImpl/sayHello</code>。</p>
 
 <blockquote>
   <p><strong>说明</strong>：

@@ -725,10 +725,17 @@
 @RpcSchema is used to define schema during the API Hello implementation. The code is as follows:</p>
 
     <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.pojo.RpcSchema</span><span class="o">;</span>
-<span class="c1">// other code omitted</span>
 <span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"pojoHello"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
-  <span class="c1">// other code omitted</span>
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">return</span> <span class="s">"Hello "</span> <span class="o">+</span> <span class="n">name</span><span class="o">;</span>
+   <span class="o">}</span>
+ 
+   <span class="nd">@Override</span>
+   <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">)</span> <span class="o">{</span>
+     <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
+   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre>
     </div>
@@ -748,6 +755,10 @@
     </div>
   </li>
 </ol>
+
+<p><strong>Note: THE PATH FOR RPC IS <code class="highlighter-rouge">ClassName/MethodName</code>, AND THE METHOD IS <code class="highlighter-rouge">POST</code>.</strong></p>
+
+<p>In this sample the Path of sayHi is <code class="highlighter-rouge">/HelloImpl/sayHi</code>, and the Path of sayHello is <code class="highlighter-rouge">/HelloImpl/sayHello</code>.</p>
 
 <blockquote>
   <p><strong>NOTE</strong>：

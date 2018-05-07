@@ -712,6 +712,10 @@
  <span class="o">}</span>
 </code></pre>
     </div>
+
+    <p><strong>注意：请一定在服务的实现类（本文档例子为SpringmvcHelloImpl）上标记@RequestMapping，否则接口发布的Path和Method将会不正确！</strong></p>
+
+    <p>本例sayHi的访问Path为<code class="highlighter-rouge">/springmvchello/sayhi</code>，sayHello的访问Path为<code class="highlighter-rouge">/springmvchello/sayhello</code>，如果希望他们的访问路径为<code class="highlighter-rouge">/sayhi</code>和<code class="highlighter-rouge">/sayhello</code>，直接设置SpringmvcHelloImpl上的<code class="highlighter-rouge">@RequestMapping</code>为<code class="highlighter-rouge">@RequestMapping(path = "/")</code>。</p>
   </li>
   <li>
     <p><strong>步骤 3</strong> 发布服务</p>

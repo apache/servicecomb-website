@@ -356,30 +356,13 @@
     <p>A: 可以，具体可以参考java-chassis的<a href="https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/org/apache/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java">integration-test的实现</a>。</p>
   </li>
   <li>
-    <p><strong>Q: 微服务启动后，无法正确调用接口，使用的代码为：</strong></p>
+    <p><strong>Q: 微服务启动后，无法正确调用接口，或返回不存在错误？</strong></p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@RestController</span>
- <span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"worker"</span><span class="o">)</span>
- <span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkerController</span> <span class="o">{</span>
-   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"/count"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
-   <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getWorkerNumbers</span><span class="o">()</span> <span class="o">{</span>
-     <span class="o">...</span>
-   <span class="o">}</span>
- <span class="o">}</span>
-</code></pre>
-    </div>
+    <p>A: 请检查调用路径与Producer实现代码中发布的路径完全一致。Producer端的启动日志可以查看到映射路径输出，例如：</p>
 
-    <p>A: 在没有指明根路径的情况下，默认会使用类名作为其根路径，即上述代码中可访问的路径应为<code class="highlighter-rouge">/WorkerController/count</code>。如果想要实现<code class="highlighter-rouge">/count</code>这样的访问，则要指明根路径：</p>
+    <p><code class="highlighter-rouge">[INFO] Swagger mapped "{[/hello/], method=[GET], produces=[application/json]}"</code></p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
- <span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkerController</span> <span class="o">{}</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p><strong>Q: 如果没有指定RequestMapping这个标注的value时，默认的基本路径是什么？</strong></p>
-
-    <p>A: 假设你的Controller类名为<em>HelloController</em>，那么基本路径就是/HelloController。</p>
+    <p>不同编程风格（模型）实现Producer的文档和注意事项请参见：<a href="/cn/users/develop-with-jax-rs/">Jaxrs</a> <a href="/cn/users/develop-with-springmvc/">SpringMVC</a> <a href="/cn/users/develop-with-transparent-rpc/">Pojo</a> <a href="/cn/users/develop-with-spring-boot-starter/">Spring Boot</a> 。</p>
   </li>
   <li>
     <p><strong>Q: 在eclipse下修改了microservice.yaml配置文件下的端口号，启动程序后，端口号没生效？</strong></p>
