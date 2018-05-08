@@ -1,29 +1,29 @@
 ---
-title: "ServiceComb·¢°æÖ¸ÄÏ"
+title: "ServiceCombå‘ç‰ˆæŒ‡å—"
 lang: cn
 ref: release_guide
 permalink: /cn/developers/release-guide/
-excerpt: "ServiceComb·¢°æÖ¸ÄÏ ½éÉÜÈçºÎÔÚApache·¢°æ"
+excerpt: "ServiceCombå‘ç‰ˆæŒ‡å— ä»‹ç»å¦‚ä½•åœ¨Apacheå‘ç‰ˆ"
 last_modified_at:  2018-05-08T09:55:44+08:00
 author: Asif Siddiqui
-tags: [·¢°æ]
+tags: [å‘ç‰ˆ]
 redirect_from:
   - /theme-setup/
 ---
 
-±¾ÎÄÏò´ó¼Ò½éÉÜÈçºÎÔÚApacheÉÏ½øĞĞServiceCombÏîÄ¿·¢°æ.
+æœ¬æ–‡å‘å¤§å®¶ä»‹ç»å¦‚ä½•åœ¨Apacheä¸Šè¿›è¡ŒServiceCombé¡¹ç›®å‘ç‰ˆ.
 
-## Ç°ÆÚ×¼±¸
+## å‰æœŸå‡†å¤‡
 
-1. ÏîÄ¿CIÓ¦¸ÃÊÇÕı³£µÄ£¨ÂÌÉ«µÄ£©¡£
-2. È·¶¨Ïà¹ØµÄÏîÄ¿°æ±¾ºÅ¡£
-3. ÒòÎª·¢°æµÄ¹ı³ÌÖĞĞèÒªÇ©Ãû£¬ÇëÈ·±£Ç©ÃûÓÃÃÜÔ¿¶ÔÓ¦¹«Ô¿ÒÑ¾­·¢²¼µ½¹«¿ª¹«Ô¿·şÎñÆ÷¡£
-4. ÊìÏ¤POMÎÄ¼şÖĞ°æ±¾·¢ĞĞÏà¹ØµÄÉèÖÃ¡£
+1. é¡¹ç›®CIåº”è¯¥æ˜¯æ­£å¸¸çš„ï¼ˆç»¿è‰²çš„ï¼‰ã€‚
+2. ç¡®å®šç›¸å…³çš„é¡¹ç›®ç‰ˆæœ¬å·ã€‚
+3. å› ä¸ºå‘ç‰ˆçš„è¿‡ç¨‹ä¸­éœ€è¦ç­¾åï¼Œè¯·ç¡®ä¿ç­¾åç”¨å¯†é’¥å¯¹åº”å…¬é’¥å·²ç»å‘å¸ƒåˆ°å…¬å¼€å…¬é’¥æœåŠ¡å™¨ã€‚
+4. ç†Ÿæ‚‰POMæ–‡ä»¶ä¸­ç‰ˆæœ¬å‘è¡Œç›¸å…³çš„è®¾ç½®ã€‚
 
-## ÅäÖÃMaven
-ServiceComb Java-ChassisºÍSagaÊ¹ÓÃMaven½øĞĞ°æ±¾·¢²¼£¬ÎÒÃÇĞèÒªÔÚ·¢²¼Ç°¶ÔMaven½øĞĞÒ»Ğ©ÅäÖÃ¡£
+## é…ç½®Maven
+ServiceComb Java-Chassiså’ŒSagaä½¿ç”¨Mavenè¿›è¡Œç‰ˆæœ¬å‘å¸ƒï¼Œæˆ‘ä»¬éœ€è¦åœ¨å‘å¸ƒå‰å¯¹Mavenè¿›è¡Œä¸€äº›é…ç½®ã€‚
 
-ÔÚÊ¹ÓÃMaven°Ñ·¢ĞĞ°ü·¢²¼µ½²Ö¿âÖ®Ç°£¬ÎÒÃÇÓ¦µ±ÔÚ`~/.m2/settings.xml`ÎÄ¼şÖĞÅäÖÃÖÆÆ·Îª×éÈº¿ÉĞ´µÄ£¬·ñÔòÆäËü¿ª·¢ÈËÔ±½«ÎŞ·¨Ìá½»ÏàÍ¬ÖÆÆ·µÄĞÂSNAPSHOT°æ±¾¡£±¾ÏîÄ¿²Î¿¼ÁËMavenÏîÄ¿µÄÉè¶¨[Ö¸ÄÏ](http://maven.apache.org/developers/committer-settings.html)¡£ÇëÌØ±ğ×¢Òâ[¼ÓÃÜÃÜÂë](http://maven.apache.org/guides/mini/guide-encryption.html)¡£
+åœ¨ä½¿ç”¨MavenæŠŠå‘è¡ŒåŒ…å‘å¸ƒåˆ°ä»“åº“ä¹‹å‰ï¼Œæˆ‘ä»¬åº”å½“åœ¨`~/.m2/settings.xml`æ–‡ä»¶ä¸­é…ç½®åˆ¶å“ä¸ºç»„ç¾¤å¯å†™çš„ï¼Œå¦åˆ™å…¶å®ƒå¼€å‘äººå‘˜å°†æ— æ³•æäº¤ç›¸åŒåˆ¶å“çš„æ–°SNAPSHOTç‰ˆæœ¬ã€‚æœ¬é¡¹ç›®å‚è€ƒäº†Mavené¡¹ç›®çš„è®¾å®š[æŒ‡å—](http://maven.apache.org/developers/committer-settings.html)ã€‚è¯·ç‰¹åˆ«æ³¨æ„[åŠ å¯†å¯†ç ](http://maven.apache.org/guides/mini/guide-encryption.html)ã€‚
 
 ```
 <settings>
@@ -75,223 +75,223 @@ ServiceComb Java-ChassisºÍSagaÊ¹ÓÃMaven½øĞĞ°æ±¾·¢²¼£¬ÎÒÃÇĞèÒªÔÚ·¢²¼Ç°¶ÔMaven½øĞĞ
 </settings>
 ```
 
-## ·¢ĞĞService-Center
+## å‘è¡ŒService-Center
 
-***×¼±¸ºÍĞ£Ñé·¢ĞĞ°ü***
+***å‡†å¤‡å’Œæ ¡éªŒå‘è¡ŒåŒ…***
 
-1. ¿ËÂ¡service-center´úÂë¡£
+1. å…‹éš†service-centerä»£ç ã€‚
 ```
 git@github.com:apache/incubator-servicecomb-service-center.git
 cd incubator-servicecomb-service-center
 gvt restore
 ```
 
-2. ÔÚmaster·ÖÖ§ÉÏ´òÉÏ×¼±¸·¢²¼°æ±¾µÄ±êÇ©¡£
+2. åœ¨masteråˆ†æ”¯ä¸Šæ‰“ä¸Šå‡†å¤‡å‘å¸ƒç‰ˆæœ¬çš„æ ‡ç­¾ã€‚
 
-3. ÔËĞĞRAT¹¤¾ß£¬¼ì²éËùÓĞÔ´ÎÄ¼şÍ·¶¼ÓĞºÏ·¨µÄASFÉùÃ÷, Çë²Î¿¼[¸ÃÎÄµµ](https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release)¡£
+3. è¿è¡ŒRATå·¥å…·ï¼Œæ£€æŸ¥æ‰€æœ‰æºæ–‡ä»¶å¤´éƒ½æœ‰åˆæ³•çš„ASFå£°æ˜, è¯·å‚è€ƒ[è¯¥æ–‡æ¡£](https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release)ã€‚
 
-4. ÔËĞĞ`make_release.sh`½Å±¾£¬Çë²Î¿¼[¸ÃÎÄµµ](https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release)¡£
+4. è¿è¡Œ`make_release.sh`è„šæœ¬ï¼Œè¯·å‚è€ƒ[è¯¥æ–‡æ¡£](https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release)ã€‚
 
-5. ÉÏÒ»²½½«»áÔÚ¸ùÄ¿Â¼ÏÂÉú³É·¢ĞĞ°ü¡£
+5. ä¸Šä¸€æ­¥å°†ä¼šåœ¨æ ¹ç›®å½•ä¸‹ç”Ÿæˆå‘è¡ŒåŒ…ã€‚
 
-6. ÔÚLinuxÓëWindows»·¾³ÏÂÔËĞĞÇ°¶ËÓëservice-center¡£
+6. åœ¨Linuxä¸Windowsç¯å¢ƒä¸‹è¿è¡Œå‰ç«¯ä¸service-centerã€‚
 
-7. ½øĞĞ[¼¯³É²âÊÔ](https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration)¡£
+7. è¿›è¡Œ[é›†æˆæµ‹è¯•](https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration)ã€‚
 
-8. Èç¹ûÒÔÉÏÈ«²¿²âÊÔ¶¼Í¨¹ıÁË£¬½«·¢ĞĞ°ü·Ö·¢¸øÍ¬ÊÂÔÚ²»Í¬»úÆ÷ÉÏ½øĞĞÑéÖ¤¡£
+8. å¦‚æœä»¥ä¸Šå…¨éƒ¨æµ‹è¯•éƒ½é€šè¿‡äº†ï¼Œå°†å‘è¡ŒåŒ…åˆ†å‘ç»™åŒäº‹åœ¨ä¸åŒæœºå™¨ä¸Šè¿›è¡ŒéªŒè¯ã€‚
 
-9. ½«±êÇ©ÍÆËÍµ½Ö÷²Ö¿â¡£
+9. å°†æ ‡ç­¾æ¨é€åˆ°ä¸»ä»“åº“ã€‚
 
-***¸ø·¢ĞĞ°üÇ©Ãû***
+***ç»™å‘è¡ŒåŒ…ç­¾å***
 
-10. ´ÓGithubÏÂÔØÒª·¢ĞĞ°æ±¾[±êÇ©](https://github.com/apache/incubator-servicecomb-service-center/tags)µÄÔ´Âë°ü¡£
+10. ä»Githubä¸‹è½½è¦å‘è¡Œç‰ˆæœ¬[æ ‡ç­¾](https://github.com/apache/incubator-servicecomb-service-center/tags)çš„æºç åŒ…ã€‚
 
-11. Éú³ÉLinux·¢ĞĞ°ü£¬Windows·¢ĞĞ°üºÍÔ´Âë°üµÄÇ©ÃûºÍĞ£ÑéºÍ¡£
+11. ç”ŸæˆLinuxå‘è¡ŒåŒ…ï¼ŒWindowså‘è¡ŒåŒ…å’Œæºç åŒ…çš„ç­¾åå’Œæ ¡éªŒå’Œã€‚
 
-12. ÉÏ´«·¢ĞĞ°æµ½[Apache·¢ĞĞ¿ª·¢²Ö¿â](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/).
+12. ä¸Šä¼ å‘è¡Œç‰ˆåˆ°[Apacheå‘è¡Œå¼€å‘ä»“åº“](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/).
 
-13. ´ÓSVNÏÂÔØ·¢ĞĞ°ü£¬ÑéÖ¤Ç©ÃûºÍĞ£Ñé¡£
+13. ä»SVNä¸‹è½½å‘è¡ŒåŒ…ï¼ŒéªŒè¯ç­¾åå’Œæ ¡éªŒã€‚
 
-***PPMCÅú×¼***
+***PPMCæ‰¹å‡†***
 
-14. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ ***dev@servicecomb.apache.org***£¬ ·¢ÆğPPMCÅú×¼.
+14. å‘é€æŠ•ç¥¨é‚®ä»¶è‡³ ***dev@servicecomb.apache.org***ï¼Œ å‘èµ·PPMCæ‰¹å‡†.
 
-15. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
+15. ç­‰å¾…72å°æ—¶ï¼Œæˆ–è€…è·å¾—3ç¥¨+1å¹¶ä¸”æ²¡æœ‰-1ã€‚å¦‚æœæœ‰-1ç¥¨ï¼Œä¿®æ­£é—®é¢˜å¹¶ä»***ç¬¬1æ­¥***é‡æ–°å¼€å§‹ã€‚
 
-16. ½«Í¶Æ±½á¹û·¢²¼µ½dev@servicecomb.apache.org¡£
+16. å°†æŠ•ç¥¨ç»“æœå‘å¸ƒåˆ°dev@servicecomb.apache.orgã€‚
 
-***IPMCÅú×¼***
+***IPMCæ‰¹å‡†***
 
-17. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ***general@incubator.apache.org***£¬·¢ÆğIPMCÅú×¼¡£
+17. å‘é€æŠ•ç¥¨é‚®ä»¶è‡³***general@incubator.apache.org***ï¼Œå‘èµ·IPMCæ‰¹å‡†ã€‚
 
-18. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
+18. ç­‰å¾…72å°æ—¶ï¼Œæˆ–è€…è·å¾—3ç¥¨+1å¹¶ä¸”æ²¡æœ‰-1ã€‚å¦‚æœæœ‰-1ç¥¨ï¼Œä¿®æ­£é—®é¢˜å¹¶ä»***ç¬¬1æ­¥***é‡æ–°å¼€å§‹ã€‚
 
-19. ½«Í¶Æ±½á¹û·¢²¼µ½general@incubator.apache.org¡£
+19. å°†æŠ•ç¥¨ç»“æœå‘å¸ƒåˆ°general@incubator.apache.orgã€‚
 
-***Í¨¸æ***
+***é€šå‘Š***
 
-20. ÉÏ´«·¢ĞĞ°üÖÁ[Apache·¢ĞĞ²Ö¿â](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/)¡£
+20. ä¸Šä¼ å‘è¡ŒåŒ…è‡³[Apacheå‘è¡Œä»“åº“](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/)ã€‚
 
-21. µÈ´ı24Ğ¡Ê±£¬ÈÃËùÓĞ¾µÏñÍ¬²½¡£
+21. ç­‰å¾…24å°æ—¶ï¼Œè®©æ‰€æœ‰é•œåƒåŒæ­¥ã€‚
 
-22. ÉÏ´«·¢ĞĞÒ³ÃæÖÁServiceCombÍøÕ¾¡£
+22. ä¸Šä¼ å‘è¡Œé¡µé¢è‡³ServiceCombç½‘ç«™ã€‚
 
-23. ·¢ËÍ·¢ĞĞÍ¨¸æÓÊ¼şµ½dev@servicecomb.apache.org£¬ general@incubator.apache.org£¬ announce@apache.org¡£
-
-
+23. å‘é€å‘è¡Œé€šå‘Šé‚®ä»¶åˆ°dev@servicecomb.apache.orgï¼Œ general@incubator.apache.orgï¼Œ announce@apache.orgã€‚
 
 
-## ·¢ĞĞJava-Chassis
 
-***×¼±¸ºÍĞ£Ñé·¢ĞĞ°ü***
 
-1. ¿ËÂ¡java-chassis´úÂë¡£
+## å‘è¡ŒJava-Chassis
+
+***å‡†å¤‡å’Œæ ¡éªŒå‘è¡ŒåŒ…***
+
+1. å…‹éš†java-chassisä»£ç ã€‚
 ```
 git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
 ```
 
-2. Ê¹ÓÃÒÔÏÂperlÃüÁî£¬Ìæ»»ËùÓĞpom.xmlÎÄ¼şÖĞµÄ°æ±¾ºÅ²¢Ìá½»¸Ä¶¯ÖÁ±¾µØ¡£
+2. ä½¿ç”¨ä»¥ä¸‹perlå‘½ä»¤ï¼Œæ›¿æ¢æ‰€æœ‰pom.xmlæ–‡ä»¶ä¸­çš„ç‰ˆæœ¬å·å¹¶æäº¤æ”¹åŠ¨è‡³æœ¬åœ°ã€‚
 ```
 find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 ```
 
-3. ÔÚmaster·ÖÖ§ÉÏ´òÉÏ×¼±¸·¢²¼°æ±¾µÄ±êÇ©¡£
+3. åœ¨masteråˆ†æ”¯ä¸Šæ‰“ä¸Šå‡†å¤‡å‘å¸ƒç‰ˆæœ¬çš„æ ‡ç­¾ã€‚
 
-4. ÇåÀírepository.apache.orgÖĞËùÓĞÈßÓàµÄ·¢ĞĞ°æ¡£
+4. æ¸…ç†repository.apache.orgä¸­æ‰€æœ‰å†—ä½™çš„å‘è¡Œç‰ˆã€‚
 
-5. ½«GPGÃÜÔ¿ÎÄ¼ş¿½±´ÖÁÎÄ¼ş¼Ğ±¸ÓÃ¡£
+5. å°†GPGå¯†é’¥æ–‡ä»¶æ‹·è´è‡³æ–‡ä»¶å¤¹å¤‡ç”¨ã€‚
 
-6. ¸üĞÂ`~/.m2/settings.xml`ÎÄ¼şÖĞµÄGPGÃÜÔ¿ÎÄ¼şÂ·¾¶ºÍÃÜÂë.
+6. æ›´æ–°`~/.m2/settings.xml`æ–‡ä»¶ä¸­çš„GPGå¯†é’¥æ–‡ä»¶è·¯å¾„å’Œå¯†ç .
 
-7. ¸üĞÂÉèÖÃÄÚApacheÕÊ»§ÓÃ»§ÃûºÍÃÜÂë¡£
+7. æ›´æ–°è®¾ç½®å†…Apacheå¸æˆ·ç”¨æˆ·åå’Œå¯†ç ã€‚
 
-8. ÔËĞĞÒÔÏÂÃüÁî¡£
+8. è¿è¡Œä»¥ä¸‹å‘½ä»¤ã€‚
 ```
 mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 ```
 
-9. ÉÏÊöÃüÁîÖ´ĞĞ³É¹¦£¬ËùÓĞµÄjar°ü¶¼³É¹¦ÉÏ´«ÖÁÁÙÊ±²Ö¿âºó£¬ÔËĞĞCompany Workshop×÷»ù±¾µÄ¹¦ÄÜÑéÖ¤¡£
+9. ä¸Šè¿°å‘½ä»¤æ‰§è¡ŒæˆåŠŸï¼Œæ‰€æœ‰çš„jaråŒ…éƒ½æˆåŠŸä¸Šä¼ è‡³ä¸´æ—¶ä»“åº“åï¼Œè¿è¡ŒCompany Workshopä½œåŸºæœ¬çš„åŠŸèƒ½éªŒè¯ã€‚
 
-10. ½«ÁÙÊ±²Ö¿â¹²Ïí¸ø¶àÈË£¬ÔÚ²»Í¬µÄ»úÆ÷ºÍ»·¾³ÉÏ½øĞĞÑéÖ¤¡£
+10. å°†ä¸´æ—¶ä»“åº“å…±äº«ç»™å¤šäººï¼Œåœ¨ä¸åŒçš„æœºå™¨å’Œç¯å¢ƒä¸Šè¿›è¡ŒéªŒè¯ã€‚
 
-11. Èç¹ûÑéÖ¤È«²¿Í¨¹ı£¬½«±êÇ©Ìá½»ÖÁÖ÷²Ö¿â¡£
+11. å¦‚æœéªŒè¯å…¨éƒ¨é€šè¿‡ï¼Œå°†æ ‡ç­¾æäº¤è‡³ä¸»ä»“åº“ã€‚
 
-12. ÇåÀíApacheÁÙÊ±²Ö¿â¡£
+12. æ¸…ç†Apacheä¸´æ—¶ä»“åº“ã€‚
 
-***¸ø·¢ĞĞ°üÇ©Ãû***
+***ç»™å‘è¡ŒåŒ…ç­¾å***
 
-13. ´ÓÁÙÊ±²Ö¿âÏÂÔØ¶ş½øÖÆ°üºÍÔ´Âë°ü¡£
+13. ä»ä¸´æ—¶ä»“åº“ä¸‹è½½äºŒè¿›åˆ¶åŒ…å’Œæºç åŒ…ã€‚
 
-14. Éú³É¶ş½øÖÆ°üºÍÔ´Âë°üµÄÇ©ÃûºÍĞ£ÑéºÍ¡£
+14. ç”ŸæˆäºŒè¿›åˆ¶åŒ…å’Œæºç åŒ…çš„ç­¾åå’Œæ ¡éªŒå’Œã€‚
 
-15. ÉÏ´«·¢ĞĞ°üµ½[Apache·¢ĞĞ¿ª·¢²Ö¿â](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/).
+15. ä¸Šä¼ å‘è¡ŒåŒ…åˆ°[Apacheå‘è¡Œå¼€å‘ä»“åº“](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/).
 .
 
-16. ´ÓSVNÏÂÔØ·¢ĞĞ°ü£¬ÑéÖ¤Ç©ÃûºÍĞ£Ñé¡£
+16. ä»SVNä¸‹è½½å‘è¡ŒåŒ…ï¼ŒéªŒè¯ç­¾åå’Œæ ¡éªŒã€‚
 
-***PPMCÅú×¼***
+***PPMCæ‰¹å‡†***
 
-17. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ ***dev@servicecomb.apache.org***£¬ ·¢ÆğPPMCÅú×¼.
+17. å‘é€æŠ•ç¥¨é‚®ä»¶è‡³ ***dev@servicecomb.apache.org***ï¼Œ å‘èµ·PPMCæ‰¹å‡†.
 
-18. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
+18. ç­‰å¾…72å°æ—¶ï¼Œæˆ–è€…è·å¾—3ç¥¨+1å¹¶ä¸”æ²¡æœ‰-1ã€‚å¦‚æœæœ‰-1ç¥¨ï¼Œä¿®æ­£é—®é¢˜å¹¶ä»***ç¬¬1æ­¥***é‡æ–°å¼€å§‹ã€‚
 
-19. ½«Í¶Æ±½á¹û·¢²¼µ½dev@servicecomb.apache.org¡£
+19. å°†æŠ•ç¥¨ç»“æœå‘å¸ƒåˆ°dev@servicecomb.apache.orgã€‚
 
-***IPMCÅú×¼***
+***IPMCæ‰¹å‡†***
 
-20. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ***general@incubator.apache.org***£¬·¢ÆğIPMCÅú×¼¡£
+20. å‘é€æŠ•ç¥¨é‚®ä»¶è‡³***general@incubator.apache.org***ï¼Œå‘èµ·IPMCæ‰¹å‡†ã€‚
 
-21. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
+21. ç­‰å¾…72å°æ—¶ï¼Œæˆ–è€…è·å¾—3ç¥¨+1å¹¶ä¸”æ²¡æœ‰-1ã€‚å¦‚æœæœ‰-1ç¥¨ï¼Œä¿®æ­£é—®é¢˜å¹¶ä»***ç¬¬1æ­¥***é‡æ–°å¼€å§‹ã€‚
 
-22. ½«Í¶Æ±½á¹û·¢²¼µ½general@incubator.apache.org¡£
+22. å°†æŠ•ç¥¨ç»“æœå‘å¸ƒåˆ°general@incubator.apache.orgã€‚
 
-***Í¨¸æ***
+***é€šå‘Š***
 
-23. ÉÏ´«·¢ĞĞ°üÖÁ[Apache·¢ĞĞ²Ö¿â](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/)¡£
+23. ä¸Šä¼ å‘è¡ŒåŒ…è‡³[Apacheå‘è¡Œä»“åº“](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/)ã€‚
 
-24. µÈ´ı24Ğ¡Ê±£¬ÈÃËùÓĞ¾µÏñÍ¬²½¡£
+24. ç­‰å¾…24å°æ—¶ï¼Œè®©æ‰€æœ‰é•œåƒåŒæ­¥ã€‚
 
-25. ÉÏ´«·¢ĞĞÒ³ÃæÖÁServiceCombÍøÕ¾¡£
+25. ä¸Šä¼ å‘è¡Œé¡µé¢è‡³ServiceCombç½‘ç«™ã€‚
 
-26. ·¢ËÍ·¢ĞĞÍ¨¸æÓÊ¼şµ½dev@servicecomb.apache.org£¬ general@incubator.apache.org£¬ announce@apache.org¡£
-
-
+26. å‘é€å‘è¡Œé€šå‘Šé‚®ä»¶åˆ°dev@servicecomb.apache.orgï¼Œ general@incubator.apache.orgï¼Œ announce@apache.orgã€‚
 
 
-## ·¢ĞĞSaga
 
-***×¼±¸ºÍĞ£Ñé·¢ĞĞ°ü***
 
-1. ¿ËÂ¡Saga´úÂë¡£
+## å‘è¡ŒSaga
+
+***å‡†å¤‡å’Œæ ¡éªŒå‘è¡ŒåŒ…***
+
+1. å…‹éš†Sagaä»£ç ã€‚
 ```
 git@github.com:apache/incubator-servicecomb-saga.git
 ```
 
-2. Ê¹ÓÃÒÔÏÂperlÃüÁî£¬Ìæ»»ËùÓĞpom.xmlÎÄ¼şÖĞµÄ°æ±¾ºÅ²¢Ìá½»¸Ä¶¯ÖÁ±¾µØ¡£
+2. ä½¿ç”¨ä»¥ä¸‹perlå‘½ä»¤ï¼Œæ›¿æ¢æ‰€æœ‰pom.xmlæ–‡ä»¶ä¸­çš„ç‰ˆæœ¬å·å¹¶æäº¤æ”¹åŠ¨è‡³æœ¬åœ°ã€‚
 ```
 find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 ```
 
-3. ÔÚmaster·ÖÖ§ÉÏ´òÉÏ×¼±¸·¢²¼°æ±¾µÄ±êÇ©¡£
+3. åœ¨masteråˆ†æ”¯ä¸Šæ‰“ä¸Šå‡†å¤‡å‘å¸ƒç‰ˆæœ¬çš„æ ‡ç­¾ã€‚
 
-4. ÇåÀírepository.apache.orgÖĞËùÓĞÈßÓàµÄ·¢ĞĞ°æ¡£
+4. æ¸…ç†repository.apache.orgä¸­æ‰€æœ‰å†—ä½™çš„å‘è¡Œç‰ˆã€‚
 
-5. ½«GPGÃÜÔ¿ÎÄ¼ş¿½±´ÖÁÎÄ¼ş¼Ğ±¸ÓÃ¡£
+5. å°†GPGå¯†é’¥æ–‡ä»¶æ‹·è´è‡³æ–‡ä»¶å¤¹å¤‡ç”¨ã€‚
 
-6. ¸üĞÂ`~/.m2/settings.xml`ÎÄ¼şÖĞµÄGPGÃÜÔ¿ÎÄ¼şÂ·¾¶ºÍÃÜÂë.
+6. æ›´æ–°`~/.m2/settings.xml`æ–‡ä»¶ä¸­çš„GPGå¯†é’¥æ–‡ä»¶è·¯å¾„å’Œå¯†ç .
 
-7. ¸üĞÂÉèÖÃÄÚApacheÕÊ»§ÓÃ»§ÃûºÍÃÜÂë¡£
+7. æ›´æ–°è®¾ç½®å†…Apacheå¸æˆ·ç”¨æˆ·åå’Œå¯†ç ã€‚
 
-8. ÔËĞĞÒÔÏÂÃüÁî¡£
+8. è¿è¡Œä»¥ä¸‹å‘½ä»¤ã€‚
 ```
 mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 ```
 
-9. ÉÏÊöÃüÁîÖ´ĞĞ³É¹¦£¬ËùÓĞµÄjar°ü¶¼³É¹¦ÉÏ´«ÖÁÁÙÊ±²Ö¿âºó£¬ÔËĞĞÃÅ¼÷²âÊÔÒÔÑéÖ¤»ù±¾¹¦ÄÜ¡£
+9. ä¸Šè¿°å‘½ä»¤æ‰§è¡ŒæˆåŠŸï¼Œæ‰€æœ‰çš„jaråŒ…éƒ½æˆåŠŸä¸Šä¼ è‡³ä¸´æ—¶ä»“åº“åï¼Œè¿è¡Œé—¨æ§›æµ‹è¯•ä»¥éªŒè¯åŸºæœ¬åŠŸèƒ½ã€‚
 
-10. ½«ÁÙÊ±²Ö¿â¹²Ïí¸ø¶àÈË£¬ÔÚ²»Í¬µÄ»úÆ÷ºÍ»·¾³ÉÏ½øĞĞÑéÖ¤¡£
+10. å°†ä¸´æ—¶ä»“åº“å…±äº«ç»™å¤šäººï¼Œåœ¨ä¸åŒçš„æœºå™¨å’Œç¯å¢ƒä¸Šè¿›è¡ŒéªŒè¯ã€‚
 
-11. Èç¹ûÑéÖ¤È«²¿Í¨¹ı£¬½«±êÇ©Ìá½»ÖÁÖ÷²Ö¿â¡£
+11. å¦‚æœéªŒè¯å…¨éƒ¨é€šè¿‡ï¼Œå°†æ ‡ç­¾æäº¤è‡³ä¸»ä»“åº“ã€‚
 
-12. ÇåÀíApacheÁÙÊ±²Ö¿â¡£
+12. æ¸…ç†Apacheä¸´æ—¶ä»“åº“ã€‚
 
-***¸ø·¢ĞĞ°üÇ©Ãû***
+***ç»™å‘è¡ŒåŒ…ç­¾å***
 
-13. ´ÓÁÙÊ±²Ö¿âÏÂÔØ¶ş½øÖÆ°üºÍÔ´Âë°ü¡£
+13. ä»ä¸´æ—¶ä»“åº“ä¸‹è½½äºŒè¿›åˆ¶åŒ…å’Œæºç åŒ…ã€‚
 
-14. Éú³É¶ş½øÖÆ°üºÍÔ´Âë°üµÄÇ©ÃûºÍĞ£ÑéºÍ¡£
+14. ç”ŸæˆäºŒè¿›åˆ¶åŒ…å’Œæºç åŒ…çš„ç­¾åå’Œæ ¡éªŒå’Œã€‚
 
-15. ÉÏ´«·¢ĞĞ°üµ½[Apache·¢ĞĞ¿ª·¢²Ö¿â](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/).
+15. ä¸Šä¼ å‘è¡ŒåŒ…åˆ°[Apacheå‘è¡Œå¼€å‘ä»“åº“](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/).
 .
 
-16. ´ÓSVNÏÂÔØ·¢ĞĞ°ü£¬ÑéÖ¤Ç©ÃûºÍĞ£Ñé¡£
+16. ä»SVNä¸‹è½½å‘è¡ŒåŒ…ï¼ŒéªŒè¯ç­¾åå’Œæ ¡éªŒã€‚
 
-***PPMCÅú×¼***
+***PPMCæ‰¹å‡†***
 
-17. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ ***dev@servicecomb.apache.org***£¬ ·¢ÆğPPMCÅú×¼.
+17. å‘é€æŠ•ç¥¨é‚®ä»¶è‡³ ***dev@servicecomb.apache.org***ï¼Œ å‘èµ·PPMCæ‰¹å‡†.
 
-18. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
+18. ç­‰å¾…72å°æ—¶ï¼Œæˆ–è€…è·å¾—3ç¥¨+1å¹¶ä¸”æ²¡æœ‰-1ã€‚å¦‚æœæœ‰-1ç¥¨ï¼Œä¿®æ­£é—®é¢˜å¹¶ä»***ç¬¬1æ­¥***é‡æ–°å¼€å§‹ã€‚
 
-19. ½«Í¶Æ±½á¹û·¢²¼µ½dev@servicecomb.apache.org¡£
+19. å°†æŠ•ç¥¨ç»“æœå‘å¸ƒåˆ°dev@servicecomb.apache.orgã€‚
 
-***IPMCÅú×¼***
+***IPMCæ‰¹å‡†***
 
-20. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ***general@incubator.apache.org***£¬·¢ÆğIPMCÅú×¼¡£
+20. å‘é€æŠ•ç¥¨é‚®ä»¶è‡³***general@incubator.apache.org***ï¼Œå‘èµ·IPMCæ‰¹å‡†ã€‚
 
-21. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
+21. ç­‰å¾…72å°æ—¶ï¼Œæˆ–è€…è·å¾—3ç¥¨+1å¹¶ä¸”æ²¡æœ‰-1ã€‚å¦‚æœæœ‰-1ç¥¨ï¼Œä¿®æ­£é—®é¢˜å¹¶ä»***ç¬¬1æ­¥***é‡æ–°å¼€å§‹ã€‚
 
-22. ½«Í¶Æ±½á¹û·¢²¼µ½general@incubator.apache.org¡£
+22. å°†æŠ•ç¥¨ç»“æœå‘å¸ƒåˆ°general@incubator.apache.orgã€‚
 
-***Í¨¸æ***
+***é€šå‘Š***
 
-23. ÉÏ´«·¢ĞĞ°üÖÁ[Apache·¢ĞĞ²Ö¿â](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/)¡£
+23. ä¸Šä¼ å‘è¡ŒåŒ…è‡³[Apacheå‘è¡Œä»“åº“](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/)ã€‚
 
-24. µÈ´ı24Ğ¡Ê±£¬ÈÃËùÓĞ¾µÏñÍ¬²½¡£
+24. ç­‰å¾…24å°æ—¶ï¼Œè®©æ‰€æœ‰é•œåƒåŒæ­¥ã€‚
 
-25. ÉÏ´«·¢ĞĞÒ³ÃæÖÁServiceCombÍøÕ¾¡£
+25. ä¸Šä¼ å‘è¡Œé¡µé¢è‡³ServiceCombç½‘ç«™ã€‚
 
-26. ·¢ËÍ·¢ĞĞÍ¨¸æÓÊ¼şµ½dev@servicecomb.apache.org£¬ general@incubator.apache.org£¬ announce@apache.org¡£
+26. å‘é€å‘è¡Œé€šå‘Šé‚®ä»¶åˆ°dev@servicecomb.apache.orgï¼Œ general@incubator.apache.orgï¼Œ announce@apache.orgã€‚
 
 
-**×¢Òâ**
-Õû¸ö·¢ĞĞ¹ı³ÌÍ¨³£ĞèÒª2ÖÜÊ±¼ä£¬Èç¹ûPPMCÍ¶Æ±ºÍIPMCÈ«²¿¶¼Ò»´ÎĞÔÍ¨¹ı¡£Òò´ËÇëÌáÇ°×¼±¸·¢ĞĞ»î¶¯¡£
+**æ³¨æ„**
+æ•´ä¸ªå‘è¡Œè¿‡ç¨‹é€šå¸¸éœ€è¦2å‘¨æ—¶é—´ï¼Œå¦‚æœPPMCæŠ•ç¥¨å’ŒIPMCå…¨éƒ¨éƒ½ä¸€æ¬¡æ€§é€šè¿‡ã€‚å› æ­¤è¯·æå‰å‡†å¤‡å‘è¡Œæ´»åŠ¨ã€‚
