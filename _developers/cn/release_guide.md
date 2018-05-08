@@ -1,234 +1,297 @@
 ---
-title: "Release guide for ServiceComb"
+title: "ServiceComb·¢°æÖ¸ÄÏ"
 lang: cn
 ref: release_guide
 permalink: /cn/developers/release-guide/
-excerpt: "ServiceCombå‘ç‰ˆæŒ‡å— ä»‹ç»å¦‚ä½•åœ¨Apacheå‘ç‰ˆ"
-last_modified_at: 2018-04-27T18:33:43+08:00
+excerpt: "ServiceComb·¢°æÖ¸ÄÏ ½éÉÜÈçºÎÔÚApache·¢°æ"
+last_modified_at:  2018-05-08T09:55:44+08:00
 author: Asif Siddiqui
-tags: [release]
+tags: [·¢°æ]
 redirect_from:
   - /theme-setup/
 ---
 
+±¾ÎÄÏò´ó¼Ò½éÉÜÈçºÎÔÚApacheÉÏ½øĞĞServiceCombÏîÄ¿·¢°æ.
 
-æœ¬æ–‡å‘å¤§å®¶ä»‹ç»å¦‚ä½•åœ¨Apacheä¸Šè¿›è¡ŒServiceCombé¡¹ç›®å‘ç‰ˆ.
+## Ç°ÆÚ×¼±¸
 
-## å‰æœŸå‡†å¤‡
+1. ÏîÄ¿CIÓ¦¸ÃÊÇÕı³£µÄ£¨ÂÌÉ«µÄ£©¡£
+2. È·¶¨Ïà¹ØµÄÏîÄ¿°æ±¾ºÅ¡£
+3. ÒòÎª·¢°æµÄ¹ı³ÌÖĞĞèÒªÇ©Ãû£¬ÇëÈ·±£Ç©ÃûÓÃÃÜÔ¿¶ÔÓ¦¹«Ô¿ÒÑ¾­·¢²¼µ½¹«¿ª¹«Ô¿·şÎñÆ÷¡£
+4. ÊìÏ¤POMÎÄ¼şÖĞ°æ±¾·¢ĞĞÏà¹ØµÄÉèÖÃ¡£
 
-1. é¡¹ç›®CIåº”è¯¥æ˜¯æ­£å¸¸çš„ï¼ˆç»¿è‰²çš„ï¼‰ã€‚
-2. ç¡®å®šç›¸å…³çš„é¡¹ç›®ç‰ˆæœ¬å·ã€‚
-3. å› ä¸ºå‘ç‰ˆçš„è¿‡ç¨‹ä¸­éœ€è¦ç­¾åï¼Œè¯·ç¡®ä¿ç­¾åç”¨çš„keyçš„å…¬é’¥æ˜¯å‘å¸ƒåˆ°å…¬å¼€çš„å…¬é’¥æœåŠ¡å™¨ä¸Šçš„ã€‚
+## ÅäÖÃMaven
+ServiceComb Java-ChassisºÍSagaÊ¹ÓÃMaven½øĞĞ°æ±¾·¢²¼£¬ÎÒÃÇĞèÒªÔÚ·¢²¼Ç°¶ÔMaven½øĞĞÒ»Ğ©ÅäÖÃ¡£
 
-## å‘å¸ƒService-Center éœ€è¦åšçš„æ­¥éª¤
+ÔÚÊ¹ÓÃMaven°Ñ·¢ĞĞ°ü·¢²¼µ½²Ö¿âÖ®Ç°£¬ÎÒÃÇÓ¦µ±ÔÚ`~/.m2/settings.xml`ÎÄ¼şÖĞÅäÖÃÖÆÆ·Îª×éÈº¿ÉĞ´µÄ£¬·ñÔòÆäËü¿ª·¢ÈËÔ±½«ÎŞ·¨Ìá½»ÏàÍ¬ÖÆÆ·µÄĞÂSNAPSHOT°æ±¾¡£±¾ÏîÄ¿²Î¿¼ÁËMavenÏîÄ¿µÄÉè¶¨[Ö¸ÄÏ](http://maven.apache.org/developers/committer-settings.html)¡£ÇëÌØ±ğ×¢Òâ[¼ÓÃÜÃÜÂë](http://maven.apache.org/guides/mini/guide-encryption.html)¡£
 
-***ç‰ˆæœ¬åˆ¶ä½œä»¥åŠéªŒè¯ç‰ˆæœ¬***
+```
+<settings>
+  ...
+  <servers>
+    <!-- Per http://maven.apache.org/developers/committer-settings.html -->
 
-1. Clone the service-center code.
+    <!-- To publish a snapshot of some part of Maven -->
+    <server>
+      <id>apache.snapshots.https</id>
+      <username> <!-- YOUR APACHE LDAP USERNAME --> </username>
+      <password> <!-- YOUR APACHE LDAP PASSWORD --> </password>
+    </server>
+    <!-- To publish a website of some part of Maven -->
+    <server>
+      <id>apache.website</id>
+      <username> <!-- YOUR APACHE LDAP USERNAME --> </username>
+      <filePermissions>664</filePermissions>
+      <directoryPermissions>775</directoryPermissions>
+    </server>
+    <!-- To stage a release of some part of Maven -->
+    <server>
+      <id>apache.releases.https</id>
+      <username> <!-- YOUR APACHE LDAP USERNAME --> </username>
+      <password> <!-- YOUR APACHE LDAP PASSWORD --> </password>
+    </server>
+    <!-- To stage a website of some part of Maven -->
+    <server>
+      <id>stagingSite</id> <!-- must match hard-coded repository identifier in site:stage-deploy -->
+      <username> <!-- YOUR APACHE LDAP USERNAME --> </username>
+      <filePermissions>664</filePermissions>
+      <directoryPermissions>775</directoryPermissions>
+    </server>
+
+  </servers>
+  ...
+  <profiles>
+    <profile>
+      <id>apache-release</id>
+      <properties>
+        <gpg.useagent>false</gpg.useagent>
+        <gpg.passphrase><!-- YOUR GPG PASSPHRASE --></gpg.passphrase>
+        <test>false</test>
+      </properties>
+    </profile>
+
+  </profiles>
+...
+</settings>
+```
+
+## ·¢ĞĞService-Center
+
+***×¼±¸ºÍĞ£Ñé·¢ĞĞ°ü***
+
+1. ¿ËÂ¡service-center´úÂë¡£
 ```
 git@github.com:apache/incubator-servicecomb-service-center.git
 cd incubator-servicecomb-service-center
 gvt restore
 ```
 
-2. Create a Tag from the master branch based on the version number which needs to be released.
+2. ÔÚmaster·ÖÖ§ÉÏ´òÉÏ×¼±¸·¢²¼°æ±¾µÄ±êÇ©¡£
 
-3. Run RAT tool to ensure no license issues are there, follow the guide over [here](https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release)
+3. ÔËĞĞRAT¹¤¾ß£¬¼ì²éËùÓĞÔ´ÎÄ¼şÍ·¶¼ÓĞºÏ·¨µÄASFÉùÃ÷, Çë²Î¿¼[¸ÃÎÄµµ](https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release)¡£
 
-4. Run the make_release.sh to make the release for windows and linux following the guide over [here](https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release).
+4. ÔËĞĞ`make_release.sh`½Å±¾£¬Çë²Î¿¼[¸ÃÎÄµµ](https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release)¡£
 
-5. Last Step will make the releases in root folder.
+5. ÉÏÒ»²½½«»áÔÚ¸ùÄ¿Â¼ÏÂÉú³É·¢ĞĞ°ü¡£
 
-6. Run the releases of frontend and service-center in both linux and windows.
+6. ÔÚLinuxÓëWindows»·¾³ÏÂÔËĞĞÇ°¶ËÓëservice-center¡£
 
-7. Run the [integration test](https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration) on the release.
+7. ½øĞĞ[¼¯³É²âÊÔ](https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration)¡£
 
-8. If all the test passes then send the release candidate to peers to test in different machines.
+8. Èç¹ûÒÔÉÏÈ«²¿²âÊÔ¶¼Í¨¹ıÁË£¬½«·¢ĞĞ°ü·Ö·¢¸øÍ¬ÊÂÔÚ²»Í¬»úÆ÷ÉÏ½øĞĞÑéÖ¤¡£
 
-9. Push the tag to master.
+9. ½«±êÇ©ÍÆËÍµ½Ö÷²Ö¿â¡£
 
-***Sign the Release***
+***¸ø·¢ĞĞ°üÇ©Ãû***
 
-10. Once the tag is pushed then using the tag download the source code from git [tag](https://github.com/apache/incubator-servicecomb-service-center/tags).
+10. ´ÓGithubÏÂÔØÒª·¢ĞĞ°æ±¾[±êÇ©](https://github.com/apache/incubator-servicecomb-service-center/tags)µÄÔ´Âë°ü¡£
 
-11. Sign the 3 releases(linux, windows, src) and checksum.
+11. Éú³ÉLinux·¢ĞĞ°ü£¬Windows·¢ĞĞ°üºÍÔ´Âë°üµÄÇ©ÃûºÍĞ£ÑéºÍ¡£
 
-12. Upload the release to dev/incubator/servicecomb Apache Svn.
+12. ÉÏ´«·¢ĞĞ°æµ½[Apache·¢ĞĞ¿ª·¢²Ö¿â](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/).
 
-13. Download all the releases from SVN and verify the signature and checksum.
+13. ´ÓSVNÏÂÔØ·¢ĞĞ°ü£¬ÑéÖ¤Ç©ÃûºÍĞ£Ñé¡£
 
-***PPMC Approval***
+***PPMCÅú×¼***
 
-14. Send the voting mail in ***dev@servicecomb.apache.org*** for PPMC approval.
+14. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ ***dev@servicecomb.apache.org***£¬ ·¢ÆğPPMCÅú×¼.
 
-15. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from ***Step 1***.
+15. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
 
-16. Publish the result of the vote in dev@servicecomb.apache.org.
+16. ½«Í¶Æ±½á¹û·¢²¼µ½dev@servicecomb.apache.org¡£
 
-***IPMC approval***
+***IPMCÅú×¼***
 
-17. Send the voting mail in ***general@incubator.apache.org*** for IPMC approval.
+17. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ***general@incubator.apache.org***£¬·¢ÆğIPMCÅú×¼¡£
 
-18. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote.If you get even one -1 binding vote then fix the issue and start again from ***Step 1***
+18. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
 
-19. Publish the result of the vote in general@incubator.apache.org.
+19. ½«Í¶Æ±½á¹û·¢²¼µ½general@incubator.apache.org¡£
 
-***Announcements***
+***Í¨¸æ***
 
-20. Upload the releases to release/incubator/servicecomb Apache Svn.
+20. ÉÏ´«·¢ĞĞ°üÖÁ[Apache·¢ĞĞ²Ö¿â](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/)¡£
 
-21. Wait for 24 hours to replicate the release in all the mirrors.
+21. µÈ´ı24Ğ¡Ê±£¬ÈÃËùÓĞ¾µÏñÍ¬²½¡£
 
-22. Upload the release page of ServiceComb Website.
+22. ÉÏ´«·¢ĞĞÒ³ÃæÖÁServiceCombÍøÕ¾¡£
 
-23. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
-
-
+23. ·¢ËÍ·¢ĞĞÍ¨¸æÓÊ¼şµ½dev@servicecomb.apache.org£¬ general@incubator.apache.org£¬ announce@apache.org¡£
 
 
-## å‘å¸ƒJava-Chassis éœ€è¦åšçš„æ­¥éª¤
 
-***ç‰ˆæœ¬åˆ¶ä½œä»¥åŠéªŒè¯ç‰ˆæœ¬***
 
-1. Clone the java-chassis code.
+## ·¢ĞĞJava-Chassis
+
+***×¼±¸ºÍĞ£Ñé·¢ĞĞ°ü***
+
+1. ¿ËÂ¡java-chassis´úÂë¡£
 ```
 git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
 ```
 
-2. Cut the release using per command to replace all the versions in pom.xml files
-
-3. Create a Tag from the master branch using the version number.
-
-4. Clear all the redundant servicecomb releases in repository.apache.org
-
-5. Add the keys in a reference folder.
-
-6. Update the key path and passphrase in .travis.settings file.
-
-7. Update the apache account username and password in the travis file.
-
-8. Run the maven deploy command.
+2. Ê¹ÓÃÒÔÏÂperlÃüÁî£¬Ìæ»»ËùÓĞpom.xmlÎÄ¼şÖĞµÄ°æ±¾ºÅ²¢Ìá½»¸Ä¶¯ÖÁ±¾µØ¡£
 ```
-mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase --settings .travis.settings.xml
+find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 ```
 
-9. Once every thing is uploaded then use the staging repo to verify the build using Company workshop.
+3. ÔÚmaster·ÖÖ§ÉÏ´òÉÏ×¼±¸·¢²¼°æ±¾µÄ±êÇ©¡£
 
-10. Share the staging repo with peers to verify on different OS and machines using the demo.
+4. ÇåÀírepository.apache.orgÖĞËùÓĞÈßÓàµÄ·¢ĞĞ°æ¡£
 
-11. If everything is fine then push the tag to master.
+5. ½«GPGÃÜÔ¿ÎÄ¼ş¿½±´ÖÁÎÄ¼ş¼Ğ±¸ÓÃ¡£
 
-12. Close the staging repo is apache repositories
+6. ¸üĞÂ`~/.m2/settings.xml`ÎÄ¼şÖĞµÄGPGÃÜÔ¿ÎÄ¼şÂ·¾¶ºÍÃÜÂë.
 
-***Sign the Releases***
+7. ¸üĞÂÉèÖÃÄÚApacheÕÊ»§ÓÃ»§ÃûºÍÃÜÂë¡£
 
-13. Download the source code and distribution from the staging repo.
+8. ÔËĞĞÒÔÏÂÃüÁî¡£
+```
+mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+```
 
-14. Sign the 2 releases(distribution, src) and checksum.
+9. ÉÏÊöÃüÁîÖ´ĞĞ³É¹¦£¬ËùÓĞµÄjar°ü¶¼³É¹¦ÉÏ´«ÖÁÁÙÊ±²Ö¿âºó£¬ÔËĞĞCompany Workshop×÷»ù±¾µÄ¹¦ÄÜÑéÖ¤¡£
 
-15. Upload the release to dev/incubator/servicecomb Apache Svn.
+10. ½«ÁÙÊ±²Ö¿â¹²Ïí¸ø¶àÈË£¬ÔÚ²»Í¬µÄ»úÆ÷ºÍ»·¾³ÉÏ½øĞĞÑéÖ¤¡£
 
-16. Download all the releases from SVN and verify the signature and checksum.
+11. Èç¹ûÑéÖ¤È«²¿Í¨¹ı£¬½«±êÇ©Ìá½»ÖÁÖ÷²Ö¿â¡£
 
-***PPMC approval***
+12. ÇåÀíApacheÁÙÊ±²Ö¿â¡£
 
-17. Send the voting mail in dev@servicecomb.apache.org for PPMC approval.
+***¸ø·¢ĞĞ°üÇ©Ãû***
 
-18. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
+13. ´ÓÁÙÊ±²Ö¿âÏÂÔØ¶ş½øÖÆ°üºÍÔ´Âë°ü¡£
 
-19. Publish the result of the vote in dev@servicecomb.apache.org.
+14. Éú³É¶ş½øÖÆ°üºÍÔ´Âë°üµÄÇ©ÃûºÍĞ£ÑéºÍ¡£
 
-***IPMC approval***
+15. ÉÏ´«·¢ĞĞ°üµ½[Apache·¢ĞĞ¿ª·¢²Ö¿â](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/).
+.
 
-20. Send the voting mail in general@incubator.apache.org
+16. ´ÓSVNÏÂÔØ·¢ĞĞ°ü£¬ÑéÖ¤Ç©ÃûºÍĞ£Ñé¡£
 
-21. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
+***PPMCÅú×¼***
 
-22. Publish the result of the vote in general@incubator.apache.org.
+17. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ ***dev@servicecomb.apache.org***£¬ ·¢ÆğPPMCÅú×¼.
 
-***Announcements***
+18. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
 
-23. Upload the releases to release/incubator/servicecomb Apache Svn.
+19. ½«Í¶Æ±½á¹û·¢²¼µ½dev@servicecomb.apache.org¡£
 
-24. Wait for 24 hours to replicate the release in all the mirrors.
+***IPMCÅú×¼***
 
-25. Upload the release page of ServiceComb Website.
+20. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ***general@incubator.apache.org***£¬·¢ÆğIPMCÅú×¼¡£
 
-26. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
+21. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
+
+22. ½«Í¶Æ±½á¹û·¢²¼µ½general@incubator.apache.org¡£
+
+***Í¨¸æ***
+
+23. ÉÏ´«·¢ĞĞ°üÖÁ[Apache·¢ĞĞ²Ö¿â](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/)¡£
+
+24. µÈ´ı24Ğ¡Ê±£¬ÈÃËùÓĞ¾µÏñÍ¬²½¡£
+
+25. ÉÏ´«·¢ĞĞÒ³ÃæÖÁServiceCombÍøÕ¾¡£
+
+26. ·¢ËÍ·¢ĞĞÍ¨¸æÓÊ¼şµ½dev@servicecomb.apache.org£¬ general@incubator.apache.org£¬ announce@apache.org¡£
 
 
 
 
-## å‘å¸ƒSaga éœ€è¦åšçš„æ­¥éª¤
+## ·¢ĞĞSaga
 
-***ç‰ˆæœ¬åˆ¶ä½œä»¥åŠéªŒè¯ç‰ˆæœ¬***
+***×¼±¸ºÍĞ£Ñé·¢ĞĞ°ü***
 
-1. Clone the saga code.
+1. ¿ËÂ¡Saga´úÂë¡£
 ```
 git@github.com:apache/incubator-servicecomb-saga.git
 ```
 
-2. Cut the release using per command to replace all the versions in pom.xml files
-
-3. Create a Tag from the master branch using the version number.
-
-4. Clear all the redundant servicecomb releases in repository.apache.org
-
-5. Add the keys in a reference folder.
-
-6. Update the key path and passphrase in .travis.settings file.
-
-7. Update the apache account username and password in the travis file.
-
-8. Run the maven deploy command.
+2. Ê¹ÓÃÒÔÏÂperlÃüÁî£¬Ìæ»»ËùÓĞpom.xmlÎÄ¼şÖĞµÄ°æ±¾ºÅ²¢Ìá½»¸Ä¶¯ÖÁ±¾µØ¡£
 ```
-mvn deploy -DskipTests --settings .travis.settings.xml -Ppassphrase -Prelease
+find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 ```
 
-9. Once every thing is uploaded then use the staging repo to verify the build using Company workshop.
+3. ÔÚmaster·ÖÖ§ÉÏ´òÉÏ×¼±¸·¢²¼°æ±¾µÄ±êÇ©¡£
 
-10. Share the staging repo with peers to verify on different OS and machines using the demo.
+4. ÇåÀírepository.apache.orgÖĞËùÓĞÈßÓàµÄ·¢ĞĞ°æ¡£
 
-11. If everything is fine then push the tag to master.
+5. ½«GPGÃÜÔ¿ÎÄ¼ş¿½±´ÖÁÎÄ¼ş¼Ğ±¸ÓÃ¡£
 
-12. Close the staging repo is apache repositories.
+6. ¸üĞÂ`~/.m2/settings.xml`ÎÄ¼şÖĞµÄGPGÃÜÔ¿ÎÄ¼şÂ·¾¶ºÍÃÜÂë.
 
-***Sign the Releases***
+7. ¸üĞÂÉèÖÃÄÚApacheÕÊ»§ÓÃ»§ÃûºÍÃÜÂë¡£
 
-13. Download the source code and distribution from the staging repo.
+8. ÔËĞĞÒÔÏÂÃüÁî¡£
+```
+mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+```
 
-14. Sign the 2 releases(distribution, src) and checksum.
+9. ÉÏÊöÃüÁîÖ´ĞĞ³É¹¦£¬ËùÓĞµÄjar°ü¶¼³É¹¦ÉÏ´«ÖÁÁÙÊ±²Ö¿âºó£¬ÔËĞĞÃÅ¼÷²âÊÔÒÔÑéÖ¤»ù±¾¹¦ÄÜ¡£
 
-15. Upload the release to dev/incubator/servicecomb Apache Svn.
+10. ½«ÁÙÊ±²Ö¿â¹²Ïí¸ø¶àÈË£¬ÔÚ²»Í¬µÄ»úÆ÷ºÍ»·¾³ÉÏ½øĞĞÑéÖ¤¡£
 
-16. Download all the releases from SVN and verify the signature and checksum.
+11. Èç¹ûÑéÖ¤È«²¿Í¨¹ı£¬½«±êÇ©Ìá½»ÖÁÖ÷²Ö¿â¡£
 
-***PPMC approval***
+12. ÇåÀíApacheÁÙÊ±²Ö¿â¡£
 
-17. Send the voting mail in dev@servicecomb.apache.org.
+***¸ø·¢ĞĞ°üÇ©Ãû***
 
-18. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
+13. ´ÓÁÙÊ±²Ö¿âÏÂÔØ¶ş½øÖÆ°üºÍÔ´Âë°ü¡£
 
-19. Publish the result of the vote in dev@servicecomb.apache.org.
+14. Éú³É¶ş½øÖÆ°üºÍÔ´Âë°üµÄÇ©ÃûºÍĞ£ÑéºÍ¡£
 
-***IPMC approval***
+15. ÉÏ´«·¢ĞĞ°üµ½[Apache·¢ĞĞ¿ª·¢²Ö¿â](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/).
+.
 
-20. Send the voting mail in general@incubator.apache.org
+16. ´ÓSVNÏÂÔØ·¢ĞĞ°ü£¬ÑéÖ¤Ç©ÃûºÍĞ£Ñé¡£
 
-21. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
+***PPMCÅú×¼***
 
-22. Publish the result of the vote in general@incubator.apache.org.
+17. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ ***dev@servicecomb.apache.org***£¬ ·¢ÆğPPMCÅú×¼.
 
-***Announcements***
+18. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
 
-23. Upload the releases to release/incubator/servicecomb Apache Svn.
+19. ½«Í¶Æ±½á¹û·¢²¼µ½dev@servicecomb.apache.org¡£
 
-24. Wait for 24 hours to replicate the release in all the mirrors.
+***IPMCÅú×¼***
 
-25. Upload the release page of ServiceComb Website.
+20. ·¢ËÍÍ¶Æ±ÓÊ¼şÖÁ***general@incubator.apache.org***£¬·¢ÆğIPMCÅú×¼¡£
 
-26. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
+21. µÈ´ı72Ğ¡Ê±£¬»òÕß»ñµÃ3Æ±+1²¢ÇÒÃ»ÓĞ-1¡£Èç¹ûÓĞ-1Æ±£¬ĞŞÕıÎÊÌâ²¢´Ó***µÚ1²½***ÖØĞÂ¿ªÊ¼¡£
+
+22. ½«Í¶Æ±½á¹û·¢²¼µ½general@incubator.apache.org¡£
+
+***Í¨¸æ***
+
+23. ÉÏ´«·¢ĞĞ°üÖÁ[Apache·¢ĞĞ²Ö¿â](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/)¡£
+
+24. µÈ´ı24Ğ¡Ê±£¬ÈÃËùÓĞ¾µÏñÍ¬²½¡£
+
+25. ÉÏ´«·¢ĞĞÒ³ÃæÖÁServiceCombÍøÕ¾¡£
+
+26. ·¢ËÍ·¢ĞĞÍ¨¸æÓÊ¼şµ½dev@servicecomb.apache.org£¬ general@incubator.apache.org£¬ announce@apache.org¡£
 
 
-**NOTE**
-The whole process generally takes 2 weeks to complete assuming you don't get any -1 from PPMC and IMPC, so please plan the release activity before hand.
+**×¢Òâ**
+Õû¸ö·¢ĞĞ¹ı³ÌÍ¨³£ĞèÒª2ÖÜÊ±¼ä£¬Èç¹ûPPMCÍ¶Æ±ºÍIPMCÈ«²¿¶¼Ò»´ÎĞÔÍ¨¹ı¡£Òò´ËÇëÌáÇ°×¼±¸·¢ĞĞ»î¶¯¡£
