@@ -247,7 +247,7 @@ find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 mvn deploy -DskipTests -Ppassphrase -Prelease
 ```
 
-9. Once every thing is uploaded then use the staging repo to verify the build using Company workshop.
+9. Once every thing is uploaded then use the staging repo to verify the build using the acceptance test.
 
 10. Share the staging repo with peers to verify on different OS and machines using the demo.
 
