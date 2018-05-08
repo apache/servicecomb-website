@@ -11,6 +11,8 @@ redirect_from:
   - /theme-setup/
 ---
 
+{% include toc %}
+
 本文向大家介绍如何在Apache上进行ServiceComb项目发版.
 
 ## 前期准备
