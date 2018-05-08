@@ -19,7 +19,7 @@
 
 
 
-<title>Release guide for ServiceComb - Apache ServiceComb (incubating)</title>
+<title>ServiceComb发版指南 - Apache ServiceComb (incubating)</title>
 
 
 
@@ -33,7 +33,7 @@
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="Release guide for ServiceComb">
+<meta property="og:title" content="ServiceComb发版指南">
 
 
   <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/release-guide/">
@@ -46,7 +46,7 @@
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="Release guide for ServiceComb">
+  <meta name="twitter:title" content="ServiceComb发版指南">
   <meta name="twitter:description" content="ServiceComb发版指南 介绍如何在Apache发版">
   <meta name="twitter:url" content="">
 
@@ -345,16 +345,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Release guide for ServiceComb">
+    <meta itemprop="headline" content="ServiceComb发版指南">
     <meta itemprop="description" content="ServiceComb发版指南 介绍如何在Apache发版">
     
-    <meta itemprop="dateModified" content="April 27, 2018">
+    <meta itemprop="dateModified" content="May 08, 2018">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">Release guide for ServiceComb
+            <h1 class="page__title" itemprop="headline">ServiceComb发版指南
 </h1>
             
           </header>
@@ -369,15 +369,71 @@
 <ol>
   <li>项目CI应该是正常的（绿色的）。</li>
   <li>确定相关的项目版本号。</li>
-  <li>因为发版的过程中需要签名，请确保签名用的key的公钥是发布到公开的公钥服务器上的。</li>
+  <li>因为发版的过程中需要签名，请确保签名用密钥对应公钥已经发布到公开公钥服务器。</li>
+  <li>熟悉POM文件中版本发行相关的设置。</li>
 </ol>
 
-<h2 id="发布service-center-需要做的步骤">发布Service-Center 需要做的步骤</h2>
+<h2 id="配置maven">配置Maven</h2>
+<p>ServiceComb Java-Chassis和Saga使用Maven进行版本发布，我们需要在发布前对Maven进行一些配置。</p>
 
-<p><strong><em>版本制作以及验证版本</em></strong></p>
+<p>在使用Maven把发行包发布到仓库之前，我们应当在<code class="highlighter-rouge">~/.m2/settings.xml</code>文件中配置制品为组群可写的，否则其它开发人员将无法提交相同制品的新SNAPSHOT版本。本项目参考了Maven项目的设定<a href="http://maven.apache.org/developers/committer-settings.html">指南</a>。请特别注意<a href="http://maven.apache.org/guides/mini/guide-encryption.html">加密密码</a>。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;settings&gt;
+  ...
+  &lt;servers&gt;
+    &lt;!-- Per http://maven.apache.org/developers/committer-settings.html --&gt;
+
+    &lt;!-- To publish a snapshot of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.snapshots.https&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;password&gt; &lt;!-- YOUR APACHE LDAP PASSWORD --&gt; &lt;/password&gt;
+    &lt;/server&gt;
+    &lt;!-- To publish a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.website&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a release of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.releases.https&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;password&gt; &lt;!-- YOUR APACHE LDAP PASSWORD --&gt; &lt;/password&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;stagingSite&lt;/id&gt; &lt;!-- must match hard-coded repository identifier in site:stage-deploy --&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+
+  &lt;/servers&gt;
+  ...
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;apache-release&lt;/id&gt;
+      &lt;properties&gt;
+        &lt;gpg.useagent&gt;false&lt;/gpg.useagent&gt;
+        &lt;gpg.passphrase&gt;&lt;!-- YOUR GPG PASSPHRASE --&gt;&lt;/gpg.passphrase&gt;
+        &lt;test&gt;false&lt;/test&gt;
+      &lt;/properties&gt;
+    &lt;/profile&gt;
+
+  &lt;/profiles&gt;
+...
+&lt;/settings&gt;
+</code></pre>
+</div>
+
+<h2 id="发行service-center">发行Service-Center</h2>
+
+<p><strong><em>准备和校验发行包</em></strong></p>
 
 <ol>
-  <li>Clone the service-center code.
+  <li>克隆service-center代码。
     <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-service-center.git
 cd incubator-servicecomb-service-center
 gvt restore
@@ -385,307 +441,313 @@ gvt restore
     </div>
   </li>
   <li>
-    <p>Create a Tag from the master branch based on the version number which needs to be released.</p>
+    <p>在master分支上打上准备发布版本的标签。</p>
   </li>
   <li>
-    <p>Run RAT tool to ensure no license issues are there, follow the guide over <a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release">here</a></p>
+    <p>运行RAT工具，检查所有源文件头都有合法的ASF声明, 请参考<a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release">该文档</a>。</p>
   </li>
   <li>
-    <p>Run the make_release.sh to make the release for windows and linux following the guide over <a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release">here</a>.</p>
+    <p>运行<code class="highlighter-rouge">make_release.sh</code>脚本，请参考<a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release">该文档</a>。</p>
   </li>
   <li>
-    <p>Last Step will make the releases in root folder.</p>
+    <p>上一步将会在根目录下生成发行包。</p>
   </li>
   <li>
-    <p>Run the releases of frontend and service-center in both linux and windows.</p>
+    <p>在Linux与Windows环境下运行前端与service-center。</p>
   </li>
   <li>
-    <p>Run the <a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration">integration test</a> on the release.</p>
+    <p>进行<a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration">集成测试</a>。</p>
   </li>
   <li>
-    <p>If all the test passes then send the release candidate to peers to test in different machines.</p>
+    <p>如果以上全部测试都通过了，将发行包分发给同事在不同机器上进行验证。</p>
   </li>
-  <li>Push the tag to master.</li>
+  <li>将标签推送到主仓库。</li>
 </ol>
 
-<p><strong><em>Sign the Release</em></strong></p>
+<p><strong><em>给发行包签名</em></strong></p>
 
 <ol>
   <li>
-    <p>Once the tag is pushed then using the tag download the source code from git <a href="https://github.com/apache/incubator-servicecomb-service-center/tags">tag</a>.</p>
+    <p>从Github下载要发行版本<a href="https://github.com/apache/incubator-servicecomb-service-center/tags">标签</a>的源码包。</p>
   </li>
   <li>
-    <p>Sign the 3 releases(linux, windows, src) and checksum.</p>
+    <p>生成Linux发行包，Windows发行包和源码包的签名和校验和。</p>
   </li>
   <li>
-    <p>Upload the release to dev/incubator/servicecomb Apache Svn.</p>
+    <p>上传发行版到<a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/">Apache发行开发仓库</a>.</p>
   </li>
   <li>
-    <p>Download all the releases from SVN and verify the signature and checksum.</p>
+    <p>从SVN下载发行包，验证签名和校验。</p>
   </li>
 </ol>
 
-<p><strong><em>PPMC Approval</em></strong></p>
+<p><strong><em>PPMC批准</em></strong></p>
 
 <ol>
   <li>
-    <p>Send the voting mail in <strong><em>dev@servicecomb.apache.org</em></strong> for PPMC approval.</p>
+    <p>发送投票邮件至 <strong><em>dev@servicecomb.apache.org</em></strong>， 发起PPMC批准.</p>
   </li>
   <li>
-    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from <strong><em>Step 1</em></strong>.</p>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
   </li>
   <li>
-    <p>Publish the result of the vote in dev@servicecomb.apache.org.</p>
+    <p>将投票结果发布到dev@servicecomb.apache.org。</p>
   </li>
 </ol>
 
-<p><strong><em>IPMC approval</em></strong></p>
+<p><strong><em>IPMC批准</em></strong></p>
 
 <ol>
   <li>
-    <p>Send the voting mail in <strong><em>general@incubator.apache.org</em></strong> for IPMC approval.</p>
+    <p>发送投票邮件至<strong><em>general@incubator.apache.org</em></strong>，发起IPMC批准。</p>
   </li>
   <li>
-    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote.If you get even one -1 binding vote then fix the issue and start again from <strong><em>Step 1</em></strong></p>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
   </li>
   <li>
-    <p>Publish the result of the vote in general@incubator.apache.org.</p>
+    <p>将投票结果发布到general@incubator.apache.org。</p>
   </li>
 </ol>
 
-<p><strong><em>Announcements</em></strong></p>
+<p><strong><em>通告</em></strong></p>
 
 <ol>
   <li>
-    <p>Upload the releases to release/incubator/servicecomb Apache Svn.</p>
+    <p>上传发行包至<a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/">Apache发行仓库</a>。</p>
   </li>
   <li>
-    <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
+    <p>等待24小时，让所有镜像同步。</p>
   </li>
   <li>
-    <p>Upload the release page of ServiceComb Website.</p>
+    <p>上传发行页面至ServiceComb网站。</p>
   </li>
   <li>
-    <p>Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org</p>
+    <p>发送发行通告邮件到dev@servicecomb.apache.org， general@incubator.apache.org， announce@apache.org。</p>
   </li>
 </ol>
 
-<h2 id="发布java-chassis-需要做的步骤">发布Java-Chassis 需要做的步骤</h2>
+<h2 id="发行java-chassis">发行Java-Chassis</h2>
 
-<p><strong><em>版本制作以及验证版本</em></strong></p>
+<p><strong><em>准备和校验发行包</em></strong></p>
 
 <ol>
-  <li>Clone the java-chassis code.
+  <li>克隆java-chassis代码。
     <div class="highlighter-rouge"><pre class="highlight"><code>git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
 </code></pre>
     </div>
   </li>
-  <li>
-    <p>Cut the release using per command to replace all the versions in pom.xml files</p>
-  </li>
-  <li>
-    <p>Create a Tag from the master branch using the version number.</p>
-  </li>
-  <li>
-    <p>Clear all the redundant servicecomb releases in repository.apache.org</p>
-  </li>
-  <li>
-    <p>Add the keys in a reference folder.</p>
-  </li>
-  <li>
-    <p>Update the key path and passphrase in .travis.settings file.</p>
-  </li>
-  <li>
-    <p>Update the apache account username and password in the travis file.</p>
-  </li>
-  <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase --settings .travis.settings.xml
+  <li>使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地。
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 </code></pre>
     </div>
   </li>
   <li>
-    <p>Once every thing is uploaded then use the staging repo to verify the build using Company workshop.</p>
+    <p>在master分支上打上准备发布版本的标签。</p>
   </li>
   <li>
-    <p>Share the staging repo with peers to verify on different OS and machines using the demo.</p>
+    <p>清理repository.apache.org中所有冗余的发行版。</p>
   </li>
   <li>
-    <p>If everything is fine then push the tag to master.</p>
+    <p>将GPG密钥文件拷贝至文件夹备用。</p>
   </li>
-  <li>Close the staging repo is apache repositories</li>
+  <li>
+    <p>更新<code class="highlighter-rouge">~/.m2/settings.xml</code>文件中的GPG密钥文件路径和密码.</p>
+  </li>
+  <li>
+    <p>更新设置内Apache帐户用户名和密码。</p>
+  </li>
+  <li>运行以下命令。
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>上述命令执行成功，所有的jar包都成功上传至临时仓库后，运行Company Workshop作基本的功能验证。</p>
+  </li>
+  <li>
+    <p>将临时仓库共享给多人，在不同的机器和环境上进行验证。</p>
+  </li>
+  <li>
+    <p>如果验证全部通过，将标签提交至主仓库。</p>
+  </li>
+  <li>清理Apache临时仓库。</li>
 </ol>
 
-<p><strong><em>Sign the Releases</em></strong></p>
+<p><strong><em>给发行包签名</em></strong></p>
 
 <ol>
   <li>
-    <p>Download the source code and distribution from the staging repo.</p>
+    <p>从临时仓库下载二进制包和源码包。</p>
   </li>
   <li>
-    <p>Sign the 2 releases(distribution, src) and checksum.</p>
+    <p>生成二进制包和源码包的签名和校验和。</p>
   </li>
   <li>
-    <p>Upload the release to dev/incubator/servicecomb Apache Svn.</p>
+    <p>上传发行包到<a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache发行开发仓库</a>.
+.</p>
   </li>
   <li>
-    <p>Download all the releases from SVN and verify the signature and checksum.</p>
+    <p>从SVN下载发行包，验证签名和校验。</p>
   </li>
 </ol>
 
-<p><strong><em>PPMC approval</em></strong></p>
+<p><strong><em>PPMC批准</em></strong></p>
 
 <ol>
   <li>
-    <p>Send the voting mail in dev@servicecomb.apache.org for PPMC approval.</p>
+    <p>发送投票邮件至 <strong><em>dev@servicecomb.apache.org</em></strong>， 发起PPMC批准.</p>
   </li>
   <li>
-    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
   </li>
   <li>
-    <p>Publish the result of the vote in dev@servicecomb.apache.org.</p>
+    <p>将投票结果发布到dev@servicecomb.apache.org。</p>
   </li>
 </ol>
 
-<p><strong><em>IPMC approval</em></strong></p>
+<p><strong><em>IPMC批准</em></strong></p>
 
 <ol>
   <li>
-    <p>Send the voting mail in general@incubator.apache.org</p>
+    <p>发送投票邮件至<strong><em>general@incubator.apache.org</em></strong>，发起IPMC批准。</p>
   </li>
   <li>
-    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
   </li>
   <li>
-    <p>Publish the result of the vote in general@incubator.apache.org.</p>
+    <p>将投票结果发布到general@incubator.apache.org。</p>
   </li>
 </ol>
 
-<p><strong><em>Announcements</em></strong></p>
+<p><strong><em>通告</em></strong></p>
 
 <ol>
   <li>
-    <p>Upload the releases to release/incubator/servicecomb Apache Svn.</p>
+    <p>上传发行包至<a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache发行仓库</a>。</p>
   </li>
   <li>
-    <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
+    <p>等待24小时，让所有镜像同步。</p>
   </li>
   <li>
-    <p>Upload the release page of ServiceComb Website.</p>
+    <p>上传发行页面至ServiceComb网站。</p>
   </li>
   <li>
-    <p>Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org</p>
+    <p>发送发行通告邮件到dev@servicecomb.apache.org， general@incubator.apache.org， announce@apache.org。</p>
   </li>
 </ol>
 
-<h2 id="发布saga-需要做的步骤">发布Saga 需要做的步骤</h2>
+<h2 id="发行saga">发行Saga</h2>
 
-<p><strong><em>版本制作以及验证版本</em></strong></p>
+<p><strong><em>准备和校验发行包</em></strong></p>
 
 <ol>
-  <li>Clone the saga code.
+  <li>克隆Saga代码。
     <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-saga.git
 </code></pre>
     </div>
   </li>
-  <li>
-    <p>Cut the release using per command to replace all the versions in pom.xml files</p>
-  </li>
-  <li>
-    <p>Create a Tag from the master branch using the version number.</p>
-  </li>
-  <li>
-    <p>Clear all the redundant servicecomb releases in repository.apache.org</p>
-  </li>
-  <li>
-    <p>Add the keys in a reference folder.</p>
-  </li>
-  <li>
-    <p>Update the key path and passphrase in .travis.settings file.</p>
-  </li>
-  <li>
-    <p>Update the apache account username and password in the travis file.</p>
-  </li>
-  <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests --settings .travis.settings.xml -Ppassphrase -Prelease
+  <li>使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地。
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 </code></pre>
     </div>
   </li>
   <li>
-    <p>Once every thing is uploaded then use the staging repo to verify the build using Company workshop.</p>
+    <p>在master分支上打上准备发布版本的标签。</p>
   </li>
   <li>
-    <p>Share the staging repo with peers to verify on different OS and machines using the demo.</p>
+    <p>清理repository.apache.org中所有冗余的发行版。</p>
   </li>
   <li>
-    <p>If everything is fine then push the tag to master.</p>
+    <p>将GPG密钥文件拷贝至文件夹备用。</p>
   </li>
-  <li>Close the staging repo is apache repositories.</li>
+  <li>
+    <p>更新<code class="highlighter-rouge">~/.m2/settings.xml</code>文件中的GPG密钥文件路径和密码.</p>
+  </li>
+  <li>
+    <p>更新设置内Apache帐户用户名和密码。</p>
+  </li>
+  <li>运行以下命令。
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>上述命令执行成功，所有的jar包都成功上传至临时仓库后，运行门槛测试以验证基本功能。</p>
+  </li>
+  <li>
+    <p>将临时仓库共享给多人，在不同的机器和环境上进行验证。</p>
+  </li>
+  <li>
+    <p>如果验证全部通过，将标签提交至主仓库。</p>
+  </li>
+  <li>清理Apache临时仓库。</li>
 </ol>
 
-<p><strong><em>Sign the Releases</em></strong></p>
+<p><strong><em>给发行包签名</em></strong></p>
 
 <ol>
   <li>
-    <p>Download the source code and distribution from the staging repo.</p>
+    <p>从临时仓库下载二进制包和源码包。</p>
   </li>
   <li>
-    <p>Sign the 2 releases(distribution, src) and checksum.</p>
+    <p>生成二进制包和源码包的签名和校验和。</p>
   </li>
   <li>
-    <p>Upload the release to dev/incubator/servicecomb Apache Svn.</p>
+    <p>上传发行包到<a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache发行开发仓库</a>.
+.</p>
   </li>
   <li>
-    <p>Download all the releases from SVN and verify the signature and checksum.</p>
+    <p>从SVN下载发行包，验证签名和校验。</p>
   </li>
 </ol>
 
-<p><strong><em>PPMC approval</em></strong></p>
+<p><strong><em>PPMC批准</em></strong></p>
 
 <ol>
   <li>
-    <p>Send the voting mail in dev@servicecomb.apache.org.</p>
+    <p>发送投票邮件至 <strong><em>dev@servicecomb.apache.org</em></strong>， 发起PPMC批准.</p>
   </li>
   <li>
-    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
   </li>
   <li>
-    <p>Publish the result of the vote in dev@servicecomb.apache.org.</p>
+    <p>将投票结果发布到dev@servicecomb.apache.org。</p>
   </li>
 </ol>
 
-<p><strong><em>IPMC approval</em></strong></p>
+<p><strong><em>IPMC批准</em></strong></p>
 
 <ol>
   <li>
-    <p>Send the voting mail in general@incubator.apache.org</p>
+    <p>发送投票邮件至<strong><em>general@incubator.apache.org</em></strong>，发起IPMC批准。</p>
   </li>
   <li>
-    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
   </li>
   <li>
-    <p>Publish the result of the vote in general@incubator.apache.org.</p>
+    <p>将投票结果发布到general@incubator.apache.org。</p>
   </li>
 </ol>
 
-<p><strong><em>Announcements</em></strong></p>
+<p><strong><em>通告</em></strong></p>
 
 <ol>
   <li>
-    <p>Upload the releases to release/incubator/servicecomb Apache Svn.</p>
+    <p>上传发行包至<a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/">Apache发行仓库</a>。</p>
   </li>
   <li>
-    <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
+    <p>等待24小时，让所有镜像同步。</p>
   </li>
   <li>
-    <p>Upload the release page of ServiceComb Website.</p>
+    <p>上传发行页面至ServiceComb网站。</p>
   </li>
   <li>
-    <p>Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org</p>
+    <p>发送发行通告邮件到dev@servicecomb.apache.org， general@incubator.apache.org， announce@apache.org。</p>
   </li>
 </ol>
 
-<p><strong>NOTE</strong>
-The whole process generally takes 2 weeks to complete assuming you don’t get any -1 from PPMC and IMPC, so please plan the release activity before hand.</p>
+<p><strong>注意</strong>
+整个发行过程通常需要2周时间，如果PPMC投票和IPMC全部都一次性通过。因此请提前准备发行活动。</p>
 
         
       </section>
@@ -706,7 +768,7 @@ The whole process generally takes 2 weeks to complete assuming you don’t get a
     
       
       
-      <a href="/tags/#release" class="page__taxonomy-item" rel="tag">release</a>
+      <a href="/tags/#%E5%8F%91%E7%89%88" class="page__taxonomy-item" rel="tag">发版</a>
     
     </span>
   </p>
