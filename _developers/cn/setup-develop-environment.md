@@ -7,6 +7,8 @@ excerpt: "开发环境准备"
 last_modified_at: 2017-06-24T18:48:43+08:00
 ---
 
+{% include toc %}
+
 ## 基本环境准备
 在您开始前，请确保以下应用已安装：
 * **Git**，安装详情可参考[Git安装教程](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git){:target="_blank"}
@@ -31,7 +33,7 @@ last_modified_at: 2017-06-24T18:48:43+08:00
    ```bash
    git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
    ```
-   
+
 ## IDE 环境配置
 现有支持Java开发的IDE很多，如Eclipse, IntelliJ IDEA和STS等。我们在此推荐使用IntelliJ IDEA，对于日常开发，其社区版的功能已经足够了。在安装完IntelliJ IDEA后，您可以根据[初始化设置教程](https://www.jetbrains.com/help/idea/installing-and-launching.html#d325787e291)对IntelliJ IDEA进行配置，随后可通过阅读[必备快捷键](https://www.jetbrains.com/help/idea/keyboard-shortcuts-you-cannot-miss.html)了解常用的快捷键。
 

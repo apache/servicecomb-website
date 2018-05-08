@@ -1,6 +1,6 @@
 ---
 title: "代码提交指南"
-lang: cn 
+lang: cn
 ref: submit-codes
 permalink: /cn/developers/submit-codes/
 excerpt: "介绍如何向 ServiceComb 项目提交代码"
@@ -85,11 +85,11 @@ last_modified_at: 2017-09-08T20:26:43-20:46
 　　在浏览器切换到自己的 github 页面，切换分支到提交的分支 \<your\_branch\_name\> ，依次点击 `New pull request` 和 `Create pull request` 按钮进行创建，如下图所示：
 
 ![体质指数应用运行界面](/assets/images/new-pr.jpg){: .align-center}
-fig-1 New pull request 
+fig-1 New pull request
 {: .figure-caption}
 
 ![体质指数应用运行界面](/assets/images/create-pr.jpg){: .align-center}
-fig-2 Create pull request 
+fig-2 Create pull request
 {: .figure-caption}
 
 　　至此，您的PR创建完成，更多关于 PR 请阅读 [collaborating-with-issues-and-pull-requests](https://help.github.com/categories/collaborating-with-issues-and-pull-requests/) 。
@@ -106,7 +106,7 @@ fig-2 Create pull request
    ```
 3. 切换回刚才的分支（假设分支名为fix）
    ```bash
-   git checkout fix 
+   git checkout fix
    ```
 4. 进行rebase
    ```bash

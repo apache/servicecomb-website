@@ -10,7 +10,7 @@ tags: [release]
 redirect_from:
   - /theme-setup/
 ---
-
+{% include toc %}
 
 This Guide helps you to do the release in Apache for ServiceComb projects.
 
