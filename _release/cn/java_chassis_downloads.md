@@ -1,5 +1,5 @@
 ---
-title: "ServiceComb Java-Chassis Downloads"
+title: "ServiceComb Java-Chassis下载"
 lang: cn
 ref: release
 permalink: /cn/release/java-chassis-downloads/
@@ -7,17 +7,15 @@ excerpt: "ServiceComb Java-Chassis Downloads"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
 
-## Releases
+## 发布包
 
 * Apache ServiceComb (incubating) Service-Center 1.0.0-m1
-    - Source [[src]](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-src.zip) [[asc]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-src.zip.asc) [[sha512]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-src.zip.sha512) 
-    - Distribution [[Binary]](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-bin.zip) [[asc]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-bin.zip.asc) [[sha512]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-bin.zip.sha512)
+    - 源码 [[src]](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-src.zip) [[asc]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-src.zip.asc) [[sha512]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-src.zip.sha512) 
+    - 发布包 [[Binary]](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-bin.zip) [[asc]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-bin.zip.asc) [[sha512]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-bin.zip.sha512)
     
-**Verifying the release**
+**发布包验证**
 
-It is essential that you verify the integrity of the downloaded files using the PGP or SHA signatures.
- The PGP signatures can  be verified using GPG or PGP. 
- Please download the [KEYS](https://www.apache.org/dist/incubator/servicecomb/KEYS){:target="_blank"} as well as the asc signature files for relevant distribution. It is recommended to get these files from the main distribution [directory](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/){:target="_blank"} and not from the mirrors.
+使用PGP或SHA签名验证下载文件的完整性是很有必要的。PGP签名可以使用GPG或PGP进行验证，请下载 [KEYS](https://www.apache.org/dist/incubator/servicecomb/KEYS)以及相关发行的asc签名文件。建议从主发行[目录](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/){:target="_blank"} 中获取这些文件，而不是从镜像中获取这些文件。
  ```
  gpg -i KEYS
  
@@ -29,9 +27,9 @@ It is essential that you verify the integrity of the downloaded files using the 
  
  pgp -ka KEYS
 
-```
+ ```
 
-To verify the binaries/sources you can download the relevant asc files for it from main distribution directory and follow the below guide.
+要验证二进制文件或源代码，您可以从主发行目录下载相关的asc文件并按照以下指南进行操作。
 
 ```
 gpg --verify apache-servicecomb-incubating-java-chassis-********.asc apache-servicecomb-incubating-java-chassis-*********
@@ -47,5 +45,4 @@ pgp apache-servicecomb-incubating-java-chassis-********.asc
 
 ```
 
-Alternatively you can download the SHA signatures from main distribution [repo](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/){:target="_blank"} and verify the downloads using sha512sum.
-    
+另外，您也可以从主发行[仓库](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/){:target="_blank"}下载SHA签名并使用sha512sum验证。
