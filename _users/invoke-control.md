@@ -22,10 +22,10 @@ This instance-level fault isolation function is integrated into the load balanci
 
 | Configuration Item                       | Default Value | Value Range        | Mandatory | Description                              | Remark |
 | :--------------------------------------- | :------------ | :----------------- | :-------- | :--------------------------------------- | :----- |
-| cse.loadbalance.isolation.enabled        | false         | Boolean            | No        | Specifies whether to enable faulty instance isolation. | -      |
-| cse.loadbalance.isolation.enableRequestThreshold | 20            | Integer            | No        | Specifies the threshold number of instance calls. If this value is reached, isolation is enabled. | -      |
-| cse.loadbalance.isolation.errorThresholdPercentage | 20            | Integer, \(0,100\] | No        | Specifies the error percentage. Instance fault isolation is enabled when the set value is reached. | -      |
-| cse.loadbalance.isolation.singleTestTime | 10000         | Integer            | No        | Specifies the duration of a faulty instance test on a single node. |        |
+| servicecomb.loadbalance.isolation.enabled        | false         | Boolean            | No        | Specifies whether to enable faulty instance isolation. | -      |
+| servicecomb.loadbalance.isolation.enableRequestThreshold | 20            | Integer            | No        | Specifies the threshold number of instance calls. If this value is reached, isolation is enabled. | -      |
+| servicecomb.loadbalance.isolation.errorThresholdPercentage | 20            | Integer, \(0,100\] | No        | Specifies the error percentage. Instance fault isolation is enabled when the set value is reached. | -      |
+| servicecomb.loadbalance.isolation.singleTestTime | 10000         | Integer            | No        | Specifies the duration of a faulty instance test on a single node. |        |
 
 ## Circuit Break Policy
 ### Scenario
@@ -50,7 +50,7 @@ See detail info at [Service Configurations](/users/service-configurations/#限�
 Flow control policy configuration is in microservice.yaml file. You need to configure consumer handler in chain of service. See example blow:
 
 ```yaml
-cse:
+servicecomb:
   handler:
     chain:
       Consumer:
@@ -61,6 +61,6 @@ Configuration items of QPS:
 
 | Configuration Item                       | Default Value         | Value Range             | Mandatory | Description                              | Remark                                   |
 | :--------------------------------------- | :-------------------- | :---------------------- | :-------- | :--------------------------------------- | :--------------------------------------- |
-| cse.flowcontrol.Consumer.qps.enabled     | true                  | Boolean                 | No        | Specifies whether consumers flowcontrol enables. | -                                        |
-| cse.flowcontrol.Consumer.qps.limit.[ServiceName].[Schema].[operation] | 2147483647  (max int) | (0,2147483647], Integer | No        | Specifies number of requests per second. | Support three level configurations: microservice、schema、operation. |
+| servicecomb.flowcontrol.Consumer.qps.enabled     | true                  | Boolean                 | No        | Specifies whether consumers flowcontrol enables. | -                                        |
+| servicecomb.flowcontrol.Consumer.qps.limit.[ServiceName].[Schema].[operation] | 2147483647  (max int) | (0,2147483647], Integer | No        | Specifies number of requests per second. | Support three level configurations: microservice、schema、operation. |
 

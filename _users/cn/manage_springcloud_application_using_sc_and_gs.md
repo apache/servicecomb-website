@@ -88,7 +88,7 @@ redirect_from:
    service_description:
      name: discoveryServer
      version: 0.0.2
-   cse:
+   servicecomb:
      service:
        registry:
          address:  http://127.0.0.1:30100 #服务注册中心地址

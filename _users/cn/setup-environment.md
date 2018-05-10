@@ -182,7 +182,7 @@ curl http://10.12.0.1:30101/v4/default/registry/health
 
 在你的microservice.yaml中你可以填写一个或多个Service Center实例，如果[Java-Chassis SDK](https://github.com/apache/incubator-servicecomb-java-chassis)发现配置的第一个地址（实例）失败，它将会自动使用下一个地址（实例）：
 ```yaml
-cse:
+servicecomb:
   service:
     registry:
       address: "http://10.12.0.1:30100,http://10.12.0.2:30100"

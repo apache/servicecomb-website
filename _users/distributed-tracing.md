@@ -53,14 +53,13 @@ If the microservice is based on the API of Spring Cloud Zuul, such as the manage
 Set addresses for the tracing processor and data collection in the microservice.yaml file.
 
 ```yaml
-cse: 
+servicecomb: 
   handler: 
     chain: 
       Consumer: 
         default: tracing-consumer
       Provider: 
         default: tracing-provider
-servicecomb: 
   tracing: 
     collector: 
       address: http://zipkin.servicecomb.io:9411

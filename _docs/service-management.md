@@ -28,7 +28,7 @@ Walk through [Develop microservice application in minutes](/docs/quick-start-bmi
 2. Configure handler chain of service management and fallback strategy:
 
    ```yaml
-   cse:
+   servicecomb:
      handler:
        chain:
          Provider:

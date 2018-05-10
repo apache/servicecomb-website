@@ -21,7 +21,7 @@ The configuration related to external service  communication is set in the micro
    The connection between the microservice and the service and configuration centers can be changed from HTTP to HTTPS, enabling TLS communication. The configuration example is as below:
 
    ```yaml
-   cse:
+   servicecomb:
      service:
        registry:
          address: https://127.0.0.1:30100
@@ -31,7 +31,7 @@ The configuration related to external service  communication is set in the micro
    When configuring the service listening address, the service provider can add`?sslEnabled=true` to the end of the address to enable TLS communication. For example:
 
    ```yaml
-   cse:
+   servicecomb:
      rest:
        address: 0.0.0.0:8080?sslEnabled=true
      highway:
@@ -116,7 +116,7 @@ Table 3 Configuration file of the service center
 
 The configuration example of enabling the TLS communication in the microservicce.yaml file is as follows:
 ```yaml
-cse:
+servicecomb:
   service:
     registry:
       address: https://127.0.0.1:30100

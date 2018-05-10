@@ -54,7 +54,7 @@ dependency has to be included.
 ### Configuring Tracing Handlers And Collector
 In the configuration file `microservice.yaml` , apply tracing handlers and add tracing collector address. 
 ```yaml
-cse:
+servicecomb:
   handler:
     chain:
       Consumer:

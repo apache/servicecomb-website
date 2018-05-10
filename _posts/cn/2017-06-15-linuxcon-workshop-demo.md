@@ -152,7 +152,7 @@ service_description:
   name: worker
   version: 0.0.1
 # service center address
-cse:
+servicecomb:
   service:
     registry:
       address: http://sc.servicecomb.io:30100
@@ -321,7 +321,7 @@ service_description:
 # name of the declaring microservice
   name: beekeeper
   version: 0.0.1
-cse:
+servicecomb:
   service:
     registry:
       address: http://sc.servicecomb.io:30100
@@ -337,7 +337,7 @@ cse:
       version-rule: 0.0.1
 ```
 
-这里我们需要定义 `cse.references.worker.version-rule` ，让配置名称中指向**技工**服务名 `worker` ，并匹配其版本号。
+这里我们需要定义 `servicecomb.references.worker.version-rule` ，让配置名称中指向**技工**服务名 `worker` ，并匹配其版本号。
 
 最后定义养蜂人服务应用入口：
 
@@ -458,7 +458,7 @@ service_description:
 # name of the declaring microservice
   name: doorman
   version: 0.0.1
-cse:
+servicecomb:
   service:
     registry:
       address: http://sc.servicecomb.io:30100
@@ -681,7 +681,7 @@ APPLICATION_ID: company
 service_description:
   name: manager
   version: 0.0.1
-cse:
+servicecomb:
   service:
     registry:
       address: http://sc.servicecomb.io:30100

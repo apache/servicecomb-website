@@ -110,7 +110,7 @@ spec:
   restartPolicy: Always
 status: {}
 ```
-The yaml defines a pod with one replica (replicas: 1), which can be modified to control the number of replicas of the pod(Anyway, the flexibility of the K8S scalability to achieve on-demand dynamic horizontal expansion to reach the purpose, material of K8S scalability will be provided later in the website). We mentioned that the company-bulletin-board is a DNS name, it is used as the value of cse.service.registry.address and passed to the service within the pod, such as: -Dcse.service. Registry.address = http: // company-bulletin-board: 30100, [kube-dns](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/README.md) Automatically resolve the servicename.
+The yaml defines a pod with one replica (replicas: 1), which can be modified to control the number of replicas of the pod(Anyway, the flexibility of the K8S scalability to achieve on-demand dynamic horizontal expansion to reach the purpose, material of K8S scalability will be provided later in the website). We mentioned that the company-bulletin-board is a DNS name, it is used as the value of servicecomb.service.registry.address and passed to the service within the pod, such as: -Dcse.service. Registry.address = http: // company-bulletin-board: 30100, [kube-dns](https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/README.md) Automatically resolve the servicename.
      
 Read [connect-applications-service](https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/) to understanding the communication of services in K8S cluster.
 

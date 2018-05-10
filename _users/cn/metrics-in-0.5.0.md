@@ -81,7 +81,7 @@ APPLICATION_ID: demo
 service_description:
  name: demoService
  version: 0.0.1
-cse:
+servicecomb:
  handler:
    chain:
      Provider:

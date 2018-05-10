@@ -108,13 +108,6 @@ redirect_from:
 			<type>pom</type>
 			<scope>import</scope>
 		  </dependency>
-		  <dependency>
-			<groupId>com.huawei.paas.cse</groupId>
-			<artifactId>cse-dependency</artifactId>
-			<version>2.1.1</version>
-			<type>pom</type>
-			<scope>import</scope>
-		  </dependency>
 		</dependencies>
 	</dependencyManagement>
 ```

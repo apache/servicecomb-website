@@ -17,24 +17,24 @@ redirect_from:
 
 ### 配置说明
 
-　　负载均衡策略在microservice.yaml文件中配置，配置项为`cse.loadbalance.[MicroServiceName].[property name]`，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。
+　　负载均衡策略在microservice.yaml文件中配置，配置项为`servicecomb.loadbalance.[MicroServiceName].[property name]`，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。
 
 　　**表1 配置项说明**
 
 | 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.loadbalance.NFLoadBalancerRuleClassName | com.netflix.loadbalancer.RoundRobinRule | com.netflix.loadbalancer.RoundRobinRule（轮询）com.netflix.loadbalancer.RandomRule（随机）com.netflix.loadbalancer.WeightedResponseTimeRule（服务器响应时间权值）org.apache.servicecomb.loadbalance.SessionStickinessRule（会话保持） | 否 | 负载均衡路由策略 | - |
-| cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds | 30 | Integer | 否 | 客户端闲置时间，超过限制后选择后面的服务器。 | 暂不支持微服务配置。e.g. cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds |
-| cse.loadbalance.SessionStickinessRule.successiveFailedTimes | 5 | Integer | 否 | 客户端失败次数，超过后会切换服务器 | 暂不支持微服务配置 |
-| cse.loadbalance.retryEnabled | FALSE | Boolean | 否 | 负载均衡捕获到服务调用异常，是否进行重试 | - |
-| cse.loadbalance.retryOnNext | 0 | Integer | 否 | 尝试新的服务器的次数 | - |
-| cse.loadbalance.retryOnSame | 0 | Integer | 否 | 同一个服务器尝试的次数 | - |
-| cse.loadbalance.isolation.enabled | FALSE | Boolean | 否 | 是否开启故障实例隔离功能 | - |
-| cse.loadbalance.isolation.enableRequestThreshold | 20 | Integer | 否 | 当实例的调用总次数达到该值时开始进入隔离逻辑门槛 | - |
-| cse.loadbalance.isolation.errorThresholdPercentage | 20 | Integer，区间为\(0,100\] | 否 | 实例故障隔离错误百分比 | - |
-| cse.loadbalance.isolation.singleTestTime | 10000 | Integer | 否 | 故障实例单点测试时间 | 单位为ms |
-| cse.loadbalance.transactionControl.policy | org.apache.servicecomb.loadbalance.filter.SimpleTransactionControlFilter | - | 否 | 动态路由分流策略 | 框架提供了简单的分流机制，开发者也可以实现自定义的分流过滤策略 |
-| cse.loadbalance.transactionControl.options | - | key/value pairs | 否 | 针对SimpleTransactionControlFilter分流策略的配置项，可添加任意项过滤标签 | - |
+| servicecomb.loadbalance.NFLoadBalancerRuleClassName | com.netflix.loadbalancer.RoundRobinRule | com.netflix.loadbalancer.RoundRobinRule（轮询）com.netflix.loadbalancer.RandomRule（随机）com.netflix.loadbalancer.WeightedResponseTimeRule（服务器响应时间权值）org.apache.servicecomb.loadbalance.SessionStickinessRule（会话保持） | 否 | 负载均衡路由策略 | - |
+| servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds | 30 | Integer | 否 | 客户端闲置时间，超过限制后选择后面的服务器。 | 暂不支持微服务配置。e.g. servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds |
+| servicecomb.loadbalance.SessionStickinessRule.successiveFailedTimes | 5 | Integer | 否 | 客户端失败次数，超过后会切换服务器 | 暂不支持微服务配置 |
+| servicecomb.loadbalance.retryEnabled | FALSE | Boolean | 否 | 负载均衡捕获到服务调用异常，是否进行重试 | - |
+| servicecomb.loadbalance.retryOnNext | 0 | Integer | 否 | 尝试新的服务器的次数 | - |
+| servicecomb.loadbalance.retryOnSame | 0 | Integer | 否 | 同一个服务器尝试的次数 | - |
+| servicecomb.loadbalance.isolation.enabled | FALSE | Boolean | 否 | 是否开启故障实例隔离功能 | - |
+| servicecomb.loadbalance.isolation.enableRequestThreshold | 20 | Integer | 否 | 当实例的调用总次数达到该值时开始进入隔离逻辑门槛 | - |
+| servicecomb.loadbalance.isolation.errorThresholdPercentage | 20 | Integer，区间为\(0,100\] | 否 | 实例故障隔离错误百分比 | - |
+| servicecomb.loadbalance.isolation.singleTestTime | 10000 | Integer | 否 | 故障实例单点测试时间 | 单位为ms |
+| servicecomb.loadbalance.transactionControl.policy | org.apache.servicecomb.loadbalance.filter.SimpleTransactionControlFilter | - | 否 | 动态路由分流策略 | 框架提供了简单的分流机制，开发者也可以实现自定义的分流过滤策略 |
+| servicecomb.loadbalance.transactionControl.options | - | key/value pairs | 否 | 针对SimpleTransactionControlFilter分流策略的配置项，可添加任意项过滤标签 | - |
 
 ### 示例代码
 
@@ -43,7 +43,7 @@ redirect_from:
 　　配置处理链：
 
 ```yaml
-cse:
+servicecomb:
   # other configurations omitted
   handler:
     chain:
@@ -55,7 +55,7 @@ cse:
 　　增加路由策略：
 
 ```yaml
-cse：
+servicecomb：
   # other configurations omitted
   loadbalance:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
@@ -71,7 +71,7 @@ cse：
 
 * 编译开发的策略，保证生成的class在classpath下。
 
-* 通过SDK配置该路由策略，假如是`AbcRule`。则配置如下：       `cse.loadbalance.NFLoadBalancerRuleClassName=org.apache.servicecomb.ribbon.rule.AbcRule`
+* 通过SDK配置该路由策略，假如是`AbcRule`。则配置如下：       `servicecomb.loadbalance.NFLoadBalancerRuleClassName=org.apache.servicecomb.ribbon.rule.AbcRule`
    
 ## 限流策略
 ### 场景描述
@@ -89,7 +89,7 @@ cse：
 　　限流策略配置在microservice.yaml文件中，相关配置项见下表。要开启服务提供者端的限流策略，还需要在处理链中配置服务端限流handler，配置示例如下：
 
 ```yaml
-cse:
+servicecomb:
   handler:
     chain:
       Consumer:
@@ -100,9 +100,9 @@ cse:
 
 | 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.flowcontrol.Provider.qps.enabled | true | true/false | 否 | 是否启用Provider流控 | - |
-| cse.flowcontrol.Provider.qps.limit.\[ServiceName\] | 2147483647（max int） | \(0,2147483647\]，整形 | 否 | 每秒钟允许的请求数 | 仅支持microservice一个级别的配置 |
-| cse.flowcontrol.Provider.qps.global.limit | 2147483647（max int） | (0,2147483647\]，整形 | 否 | provider接受请求流量的全局配置 | 没有具体到微服务的配置时，此配置生效 |
+| servicecomb.flowcontrol.Provider.qps.enabled | true | true/false | 否 | 是否启用Provider流控 | - |
+| servicecomb.flowcontrol.Provider.qps.limit.\[ServiceName\] | 2147483647（max int） | \(0,2147483647\]，整形 | 否 | 每秒钟允许的请求数 | 仅支持microservice一个级别的配置 |
+| servicecomb.flowcontrol.Provider.qps.global.limit | 2147483647（max int） | (0,2147483647\]，整形 | 否 | provider接受请求流量的全局配置 | 没有具体到微服务的配置时，此配置生效 |
 
 ## 降级策略
 ### 概念阐述
@@ -128,18 +128,18 @@ cse:
 
 | 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.isolation.timeout.enabled | FALSE | - | 否 | 是否启用超时检测 |  |
-| cse.isolation.timeoutInMilliseconds | 30000 | - | 否 | 超时时间阈值 |  |
-| cse.isolation.maxConcurrentRequests | 10 | - | 否 | 最大并发数阈值 |  |
-| cse.circuitBreaker.enabled | TRUE | - | 否 | 是否启用熔断措施 |  |
-| cse.circuitBreaker.forceOpen | FALSE | - | 否 | 不管失败次数，都进行熔断 |  |
-| cse.circuitBreaker.forceClosed | FALSE | - | 否 | 任何时候都不熔断 | 当与forceOpen同时配置时，forceOpen优先。 |
-| cse.circuitBreaker.sleepWindowInMilliseconds | 15000 | - | 否 | 熔断后，多长时间恢复 | 恢复后，会重新计算失败情况。注意：如果恢复后的调用立即失败，那么会立即重新进入熔断。 |
-| cse.circuitBreaker.requestVolumeThreshold | 20 | - | 否 | 10s内统计错误发生次数阈值，超过阈值则触发熔断 | 由于10秒还会被划分为10个1秒的统计周期，经过1s中后才会开始计算错误率，因此从调用开始至少经过1s，才会发生熔断。 |
-| cse.circuitBreaker.errorThresholdPercentage | 50 | - | 否 | 错误率阈值，达到阈值则触发熔断 |  |
-| cse.fallback.enabled | TRUE | - | 否 | 是否启用出错后的故障处理措施 |  |
-| cse.fallback.maxConcurrentRequests | 10 | - | 否 | 并发调用容错处理措施（cse.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常 |  |
-| cse.fallbackpolicy.policy | throwexception | returnnulll \| throwexception | 否 | 出错后的处理策略 |  |
+| servicecomb.isolation.timeout.enabled | FALSE | - | 否 | 是否启用超时检测 |  |
+| servicecomb.isolation.timeoutInMilliseconds | 30000 | - | 否 | 超时时间阈值 |  |
+| servicecomb.isolation.maxConcurrentRequests | 10 | - | 否 | 最大并发数阈值 |  |
+| servicecomb.circuitBreaker.enabled | TRUE | - | 否 | 是否启用熔断措施 |  |
+| servicecomb.circuitBreaker.forceOpen | FALSE | - | 否 | 不管失败次数，都进行熔断 |  |
+| servicecomb.circuitBreaker.forceClosed | FALSE | - | 否 | 任何时候都不熔断 | 当与forceOpen同时配置时，forceOpen优先。 |
+| servicecomb.circuitBreaker.sleepWindowInMilliseconds | 15000 | - | 否 | 熔断后，多长时间恢复 | 恢复后，会重新计算失败情况。注意：如果恢复后的调用立即失败，那么会立即重新进入熔断。 |
+| servicecomb.circuitBreaker.requestVolumeThreshold | 20 | - | 否 | 10s内统计错误发生次数阈值，超过阈值则触发熔断 | 由于10秒还会被划分为10个1秒的统计周期，经过1s中后才会开始计算错误率，因此从调用开始至少经过1s，才会发生熔断。 |
+| servicecomb.circuitBreaker.errorThresholdPercentage | 50 | - | 否 | 错误率阈值，达到阈值则触发熔断 |  |
+| servicecomb.fallback.enabled | TRUE | - | 否 | 是否启用出错后的故障处理措施 |  |
+| servicecomb.fallback.maxConcurrentRequests | 10 | - | 否 | 并发调用容错处理措施（servicecomb.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常 |  |
+| servicecomb.fallbackpolicy.policy | throwexception | returnnulll \| throwexception | 否 | 出错后的处理策略 |  |
 
 **注意：** 谨慎使用cse.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将cse.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间cse.request.timeout=30000。
 {: .notice--warning}
@@ -147,7 +147,7 @@ cse:
 ## 示例代码
 
 ```yaml
-cse:
+servicecomb:
   handler:
     chain:
       Consumer:
