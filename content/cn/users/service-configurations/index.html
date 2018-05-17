@@ -666,7 +666,7 @@
 
 <h3 id="配置说明">配置说明</h3>
 
-<p>　　负载均衡策略在microservice.yaml文件中配置，配置项为<code class="highlighter-rouge">cse.loadbalance.[MicroServiceName].[property name]</code>，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。</p>
+<p>　　负载均衡策略在microservice.yaml文件中配置，配置项为<code class="highlighter-rouge">servicecomb.loadbalance.[MicroServiceName].[property name]</code>，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。</p>
 
 <p>　　<strong>表1 配置项说明</strong></p>
 
@@ -683,7 +683,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left">cse.loadbalance.NFLoadBalancerRuleClassName</td>
+      <td style="text-align: left">servicecomb.loadbalance.NFLoadBalancerRuleClassName</td>
       <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule</td>
       <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule（轮询）com.netflix.loadbalancer.RandomRule（随机）com.netflix.loadbalancer.WeightedResponseTimeRule（服务器响应时间权值）org.apache.servicecomb.loadbalance.SessionStickinessRule（会话保持）</td>
       <td style="text-align: left">否</td>
@@ -691,15 +691,15 @@
       <td style="text-align: left">-</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds</td>
+      <td style="text-align: left">servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds</td>
       <td style="text-align: left">30</td>
       <td style="text-align: left">Integer</td>
       <td style="text-align: left">否</td>
       <td style="text-align: left">客户端闲置时间，超过限制后选择后面的服务器。</td>
-      <td style="text-align: left">暂不支持微服务配置。e.g. cse.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds</td>
+      <td style="text-align: left">暂不支持微服务配置。e.g. servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.SessionStickinessRule.successiveFailedTimes</td>
+      <td style="text-align: left">servicecomb.loadbalance.SessionStickinessRule.successiveFailedTimes</td>
       <td style="text-align: left">5</td>
       <td style="text-align: left">Integer</td>
       <td style="text-align: left">否</td>
@@ -707,7 +707,7 @@
       <td style="text-align: left">暂不支持微服务配置</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.retryEnabled</td>
+      <td style="text-align: left">servicecomb.loadbalance.retryEnabled</td>
       <td style="text-align: left">FALSE</td>
       <td style="text-align: left">Boolean</td>
       <td style="text-align: left">否</td>
@@ -715,7 +715,7 @@
       <td style="text-align: left">-</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.retryOnNext</td>
+      <td style="text-align: left">servicecomb.loadbalance.retryOnNext</td>
       <td style="text-align: left">0</td>
       <td style="text-align: left">Integer</td>
       <td style="text-align: left">否</td>
@@ -723,7 +723,7 @@
       <td style="text-align: left">-</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.retryOnSame</td>
+      <td style="text-align: left">servicecomb.loadbalance.retryOnSame</td>
       <td style="text-align: left">0</td>
       <td style="text-align: left">Integer</td>
       <td style="text-align: left">否</td>
@@ -731,7 +731,7 @@
       <td style="text-align: left">-</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.isolation.enabled</td>
+      <td style="text-align: left">servicecomb.loadbalance.isolation.enabled</td>
       <td style="text-align: left">FALSE</td>
       <td style="text-align: left">Boolean</td>
       <td style="text-align: left">否</td>
@@ -739,7 +739,7 @@
       <td style="text-align: left">-</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.isolation.enableRequestThreshold</td>
+      <td style="text-align: left">servicecomb.loadbalance.isolation.enableRequestThreshold</td>
       <td style="text-align: left">20</td>
       <td style="text-align: left">Integer</td>
       <td style="text-align: left">否</td>
@@ -747,7 +747,7 @@
       <td style="text-align: left">-</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.isolation.errorThresholdPercentage</td>
+      <td style="text-align: left">servicecomb.loadbalance.isolation.errorThresholdPercentage</td>
       <td style="text-align: left">20</td>
       <td style="text-align: left">Integer，区间为(0,100]</td>
       <td style="text-align: left">否</td>
@@ -755,7 +755,7 @@
       <td style="text-align: left">-</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.isolation.singleTestTime</td>
+      <td style="text-align: left">servicecomb.loadbalance.isolation.singleTestTime</td>
       <td style="text-align: left">10000</td>
       <td style="text-align: left">Integer</td>
       <td style="text-align: left">否</td>
@@ -763,7 +763,7 @@
       <td style="text-align: left">单位为ms</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.transactionControl.policy</td>
+      <td style="text-align: left">servicecomb.loadbalance.transactionControl.policy</td>
       <td style="text-align: left">org.apache.servicecomb.loadbalance.filter.SimpleTransactionControlFilter</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -771,7 +771,7 @@
       <td style="text-align: left">框架提供了简单的分流机制，开发者也可以实现自定义的分流过滤策略</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.loadbalance.transactionControl.options</td>
+      <td style="text-align: left">servicecomb.loadbalance.transactionControl.options</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">key/value pairs</td>
       <td style="text-align: left">否</td>
@@ -787,7 +787,7 @@
 
 <p>　　配置处理链：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
   <span class="c1"># other configurations omitted</span>
   <span class="s">handler</span><span class="pi">:</span>
     <span class="s">chain</span><span class="pi">:</span>
@@ -799,7 +799,7 @@
 
 <p>　　增加路由策略：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse：</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb：</span>
   <span class="s"># other configurations omitted</span>
   <span class="s">loadbalance</span><span class="pi">:</span>
     <span class="s">NFLoadBalancerRuleClassName</span><span class="pi">:</span> <span class="s">com.netflix.loadbalancer.RoundRobinRule</span>
@@ -820,7 +820,7 @@
     <p>编译开发的策略，保证生成的class在classpath下。</p>
   </li>
   <li>
-    <p>通过SDK配置该路由策略，假如是<code class="highlighter-rouge">AbcRule</code>。则配置如下：       <code class="highlighter-rouge">cse.loadbalance.NFLoadBalancerRuleClassName=org.apache.servicecomb.ribbon.rule.AbcRule</code></p>
+    <p>通过SDK配置该路由策略，假如是<code class="highlighter-rouge">AbcRule</code>。则配置如下：       <code class="highlighter-rouge">servicecomb.loadbalance.NFLoadBalancerRuleClassName=org.apache.servicecomb.ribbon.rule.AbcRule</code></p>
   </li>
 </ul>
 
@@ -841,7 +841,7 @@
 
 <p>　　限流策略配置在microservice.yaml文件中，相关配置项见下表。要开启服务提供者端的限流策略，还需要在处理链中配置服务端限流handler，配置示例如下：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
   <span class="s">handler</span><span class="pi">:</span>
     <span class="s">chain</span><span class="pi">:</span>
       <span class="s">Consumer</span><span class="pi">:</span>
@@ -864,7 +864,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left">cse.flowcontrol.Provider.qps.enabled</td>
+      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.enabled</td>
       <td style="text-align: left">true</td>
       <td style="text-align: left">true/false</td>
       <td style="text-align: left">否</td>
@@ -872,7 +872,7 @@
       <td style="text-align: left">-</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.flowcontrol.Provider.qps.limit.[ServiceName]</td>
+      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.limit.[ServiceName]</td>
       <td style="text-align: left">2147483647（max int）</td>
       <td style="text-align: left">(0,2147483647]，整形</td>
       <td style="text-align: left">否</td>
@@ -880,7 +880,7 @@
       <td style="text-align: left">仅支持microservice一个级别的配置</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.flowcontrol.Provider.qps.global.limit</td>
+      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.global.limit</td>
       <td style="text-align: left">2147483647（max int）</td>
       <td style="text-align: left">(0,2147483647]，整形</td>
       <td style="text-align: left">否</td>
@@ -927,7 +927,7 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: left">cse.isolation.timeout.enabled</td>
+      <td style="text-align: left">servicecomb.isolation.timeout.enabled</td>
       <td style="text-align: left">FALSE</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -935,7 +935,7 @@
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.isolation.timeoutInMilliseconds</td>
+      <td style="text-align: left">servicecomb.isolation.timeoutInMilliseconds</td>
       <td style="text-align: left">30000</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -943,7 +943,7 @@
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.isolation.maxConcurrentRequests</td>
+      <td style="text-align: left">servicecomb.isolation.maxConcurrentRequests</td>
       <td style="text-align: left">10</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -951,7 +951,7 @@
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.circuitBreaker.enabled</td>
+      <td style="text-align: left">servicecomb.circuitBreaker.enabled</td>
       <td style="text-align: left">TRUE</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -959,7 +959,7 @@
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.circuitBreaker.forceOpen</td>
+      <td style="text-align: left">servicecomb.circuitBreaker.forceOpen</td>
       <td style="text-align: left">FALSE</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -967,7 +967,7 @@
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.circuitBreaker.forceClosed</td>
+      <td style="text-align: left">servicecomb.circuitBreaker.forceClosed</td>
       <td style="text-align: left">FALSE</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -975,7 +975,7 @@
       <td style="text-align: left">当与forceOpen同时配置时，forceOpen优先。</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.circuitBreaker.sleepWindowInMilliseconds</td>
+      <td style="text-align: left">servicecomb.circuitBreaker.sleepWindowInMilliseconds</td>
       <td style="text-align: left">15000</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -983,7 +983,7 @@
       <td style="text-align: left">恢复后，会重新计算失败情况。注意：如果恢复后的调用立即失败，那么会立即重新进入熔断。</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.circuitBreaker.requestVolumeThreshold</td>
+      <td style="text-align: left">servicecomb.circuitBreaker.requestVolumeThreshold</td>
       <td style="text-align: left">20</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -991,7 +991,7 @@
       <td style="text-align: left">由于10秒还会被划分为10个1秒的统计周期，经过1s中后才会开始计算错误率，因此从调用开始至少经过1s，才会发生熔断。</td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.circuitBreaker.errorThresholdPercentage</td>
+      <td style="text-align: left">servicecomb.circuitBreaker.errorThresholdPercentage</td>
       <td style="text-align: left">50</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -999,7 +999,7 @@
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.fallback.enabled</td>
+      <td style="text-align: left">servicecomb.fallback.enabled</td>
       <td style="text-align: left">TRUE</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
@@ -1007,15 +1007,15 @@
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.fallback.maxConcurrentRequests</td>
+      <td style="text-align: left">servicecomb.fallback.maxConcurrentRequests</td>
       <td style="text-align: left">10</td>
       <td style="text-align: left">-</td>
       <td style="text-align: left">否</td>
-      <td style="text-align: left">并发调用容错处理措施（cse.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常</td>
+      <td style="text-align: left">并发调用容错处理措施（servicecomb.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常</td>
       <td style="text-align: left"> </td>
     </tr>
     <tr>
-      <td style="text-align: left">cse.fallbackpolicy.policy</td>
+      <td style="text-align: left">servicecomb.fallbackpolicy.policy</td>
       <td style="text-align: left">throwexception</td>
       <td style="text-align: left">returnnulll | throwexception</td>
       <td style="text-align: left">否</td>
@@ -1029,7 +1029,7 @@
 
 <h2 id="示例代码-1">示例代码</h2>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">cse</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
   <span class="s">handler</span><span class="pi">:</span>
     <span class="s">chain</span><span class="pi">:</span>
       <span class="s">Consumer</span><span class="pi">:</span>
