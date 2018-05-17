@@ -23,7 +23,7 @@ redirect_from:
 服务消费者需要在microservice.yaml文件中配置依赖的provider，示例配置如下：
 
 ```yaml
-cse:
+servicecomb:
   # other configurations omitted
   references:
     springmvc:

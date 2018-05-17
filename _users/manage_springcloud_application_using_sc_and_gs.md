@@ -88,7 +88,7 @@ NOTE， If your java chassis version is or below 0.5.0, please use the io.servic
    service_description:
      name: discoveryServer
      version: 0.0.2
-   cse:
+   servicecomb:
      service:
        registry:
          address:  http://127.0.0.1:30100 #Service Center registration

@@ -112,6 +112,7 @@ name包括：
 ## 如何配置
 ### 全局配置
 请在microservice.yaml中添加如下配置项：  
+
 ```yaml 
 APPLICATION_ID: demo
 service_description:
@@ -123,6 +124,7 @@ servicecomb:
     #时间窗间隔，单位毫秒,默认为5000（5秒）
     window_time: 5000
 ```
+
 **为了降低Metrics理解和使用难度，我们暂时不支持多周期**
 
 ### 依赖配置
@@ -155,7 +157,7 @@ public class MetricsPublisher {
 ```
 因此，如果你在microservice.yaml中配置了rest provider，例如：  
 ```yaml
-cse:
+servicecomb:
   service:
     registry:
       address: http://127.0.0.1:30100

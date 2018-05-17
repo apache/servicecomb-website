@@ -97,7 +97,7 @@ This topic describes how to start a ZuulProxy application as the API Gateway. Pe
    service_description:
      name: discoveryGateway #Service Name
      version: 0.0.2 #Service Version
-   cse:
+   servicecomb:
      service:
        registry:
          address: http://127.0.0.1:30100  #Service Center registration
@@ -126,7 +126,7 @@ APPLICATION_ID: discoverytest #same as ZuulProxy
   service_description:
     name: discoveryServer #Service name, which corresponds to that of zuul.routers
     version: 0.0.2
-cse:
+servicecomb:
   service:
     registry:
       address: http://127.0.0.1:30100 #Service Center registration

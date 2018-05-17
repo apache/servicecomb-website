@@ -40,7 +40,7 @@ Note, demo is in the [ServiceComb-Saga](https://github.com/apache/incubator-serv
 	service_description:
 	  name: flight-booking-service
 	  version: 0.0.1
-	cse:
+	servicecomb:
 	  service:
 	    registry:
 	      address: http://sc.servicecomb.io:30100 #choose Service Center provided by ServiceComb

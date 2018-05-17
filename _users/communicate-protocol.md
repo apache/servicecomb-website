@@ -46,7 +46,7 @@ The complete thread model of CSE is shown in the following figure.
 Add the executors in the microservice.yaml file and configure an independent service thread pool for schemaId: operation:
 
 ```yaml
-cse: 
+servicecomb: 
   executors: 
     Provider: 
       [schemaId].[operation]
@@ -118,18 +118,18 @@ Table 1 Configuration items of REST over Servlet
 
 | Configuration Item                  | Default Value | Value Range | Mandatory | Description                              | Remark                                   |
 | :---------------------------------- | :------------ | :---------- | :-------- | :--------------------------------------- | :--------------------------------------- |
-| cse.rest.address                    | 0.0.0.0:8080  | -           | No        | Specifies the server listening IP address. | -                                        |
-| cse.rest.timeout                    | 3000          | -           | No        | Specifies the timeout duration           | The unit is ms.                          |
-| cse.request.timeout                 | 30000         | -           | No        | Specifies the request timeout duration.  | The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx. |
-| cse.references.\[服务名\].transport    | rest          |             | No        | Specifies the accessed transport type.   | The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx. |
-| cse.references.\[服务名\].version-rule | latest        | -           | No        | Specifies the version of the accessed instance. | The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx. |
+| servicecomb.rest.address                    | 0.0.0.0:8080  | -           | No        | Specifies the server listening IP address. | -                                        |
+| servicecomb.rest.timeout                    | 3000          | -           | No        | Specifies the timeout duration           | The unit is ms.                          |
+| servicecomb.request.timeout                 | 30000         | -           | No        | Specifies the request timeout duration.  | The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx. |
+| servicecomb.references.\[服务名\].transport    | rest          |             | No        | Specifies the accessed transport type.   | The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx. |
+| servicecomb.references.\[服务名\].version-rule | latest        | -           | No        | Specifies the version of the accessed instance. | The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx. |
 
 ### Sample Code
 
 The following is an example of the configuration in the microservice.yaml file for REST over Servlet:
 
 ```yaml
-cse:
+servicecomb:
   rest:
     address: 0.0.0.0:8080
     timeout: 3000
@@ -167,20 +167,20 @@ Table 2 Configuration items of REST over Vertx
 
 | Configuration Item                       | Default Value | Value Range | Mandatory | Description                              | Remark                                   |
 | :--------------------------------------- | :------------ | :---------- | :-------- | :--------------------------------------- | :--------------------------------------- |
-| cse.rest.address                         | 0.0.0.0:8080  | -           | No        | Specifies the server listening IP address. | Only service providers require this parameter. |
-| cse.rest.server.thread-count             | 1             | -           | No        | Specifies the number of server threads.  | Only service providers require this parameter. |
-| cse.rest.client.thread-count             | 1             | -           | No        | Specifies the number of client network threads. | Only service consumers require this parameter. |
-| cse.rest.client.connection-pool-per-thread | 1             | -           | No        | Specifies the number of connection pools in each client thread. | Only service consumers require this parameter. |
-| cse.request.timeout                      | 30000         | -           | No        | Specifies the request timeout duration.  |                                          |
-| cse.references.\[服务名\].transport         | rest          |             | No        | Specifies the accessed transport type.   | Only service consumers require this parameter. |
-| cse.references.\[服务名\].version-rule      | latest        | -           | No        | Specifies the version of the accessed instance. | Only service consumers require this parameter. You can set it to latest, a version range such as 1.0.0+ or 1.0.0-2.0.2, or a specific version number. For details, see the API description of the service center. |
+| servicecomb.rest.address                         | 0.0.0.0:8080  | -           | No        | Specifies the server listening IP address. | Only service providers require this parameter. |
+| servicecomb.rest.server.thread-count             | 1             | -           | No        | Specifies the number of server threads.  | Only service providers require this parameter. |
+| servicecomb.rest.client.thread-count             | 1             | -           | No        | Specifies the number of client network threads. | Only service consumers require this parameter. |
+| servicecomb.rest.client.connection-pool-per-thread | 1             | -           | No        | Specifies the number of connection pools in each client thread. | Only service consumers require this parameter. |
+| servicecomb.request.timeout                      | 30000         | -           | No        | Specifies the request timeout duration.  |                                          |
+| servicecomb.references.\[服务名\].transport         | rest          |             | No        | Specifies the accessed transport type.   | Only service consumers require this parameter. |
+| servicecomb.references.\[服务名\].version-rule      | latest        | -           | No        | Specifies the version of the accessed instance. | Only service consumers require this parameter. You can set it to latest, a version range such as 1.0.0+ or 1.0.0-2.0.2, or a specific version number. For details, see the API description of the service center. |
 
 ### Sample Code
 
 An example of the configuration in the microservice.yaml file for REST over Vertx is as follows:
 
 ```yaml
-cse:
+servicecomb:
   rest:
     address: 0.0.0.0:8080
     thread-count: 1
@@ -212,20 +212,20 @@ Table 3 Configuration items of Highway
 
 | Configuration Item                       | Default Value | Value Range | Mandatory | Description                              | Remark                                   |
 | :--------------------------------------- | :------------ | :---------- | :-------- | :--------------------------------------- | :--------------------------------------- |
-| cse.highway.address                      | 0.0.0.0:7070  | -           | No        | Specifies the server listening IP address. | -                                        |
-| cse.highway.server.thread-count          | 1             | -           | No        | Specifies the number of server network threads. | -                                        |
-| cse.highway.client.thread-count          | 1             | -           | No        | Specifies the number of client network threads. | -                                        |
-| cse.highway.client.connection-pool-per-thread | 1             | -           | No        | Specifies the number of connection pools in each client thread. | -                                        |
-| cse.request.timeout                      | 30000         | -           | No        | Specifies the request timeout duration.  | The configuration of this parameter for Highway is the same as that for REST over Vertx. |
-| cse.references.\[服务名\].transport         | rest          |             | No        | Specifies the accessed transport type.   | The configuration of this parameter for Highway is the same as that for REST over Vertx. |
-| cse.references.\[服务名\].version-rule      | latest        | -           | No        | Specifies the version of the accessed instance. | The configuration of this parameter for Highway is the same as that for REST over Vertx. |
+| servicecomb.highway.address                      | 0.0.0.0:7070  | -           | No        | Specifies the server listening IP address. | -                                        |
+| servicecomb.highway.server.thread-count          | 1             | -           | No        | Specifies the number of server network threads. | -                                        |
+| servicecomb.highway.client.thread-count          | 1             | -           | No        | Specifies the number of client network threads. | -                                        |
+| servicecomb.highway.client.connection-pool-per-thread | 1             | -           | No        | Specifies the number of connection pools in each client thread. | -                                        |
+| servicecomb.request.timeout                      | 30000         | -           | No        | Specifies the request timeout duration.  | The configuration of this parameter for Highway is the same as that for REST over Vertx. |
+| servicecomb.references.\[服务名\].transport         | rest          |             | No        | Specifies the accessed transport type.   | The configuration of this parameter for Highway is the same as that for REST over Vertx. |
+| servicecomb.references.\[服务名\].version-rule      | latest        | -           | No        | Specifies the version of the accessed instance. | The configuration of this parameter for Highway is the same as that for REST over Vertx. |
 
 ### 
 
 An example of the configuration in the microservice.yaml file for Highway is as follows:
 
 ```yaml
-cse:
+servicecomb:
   highway:
     address: 0.0.0.0:7070
 ```

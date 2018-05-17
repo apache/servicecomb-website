@@ -155,7 +155,7 @@ public class MetricsPublisher {
 ```
 So,if you had config rest provider in microservice.yaml,like:  
 ```yaml
-cse:
+servicecomb:
   service:
     registry:
       address: http://127.0.0.1:30100

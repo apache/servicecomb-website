@@ -402,7 +402,7 @@ redirect_from:
    A: 在微服务描述文件（microservice.yaml）中添加如下配置：
 
    ```yaml
-   cse:
+   servicecomb:
      request:
        timeout: 30000
    ```

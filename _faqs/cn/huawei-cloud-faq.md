@@ -22,7 +22,7 @@ redirect_from:
 * **Q: 华为公有云运行时报错：WARN com.huawei.paas.monitor.DataFactory: Upload monitor data error. 使用的配置为：**
 
    ```yaml
-   cse:
+   servicecomb:
      monitor:
        handler:
          chain:
@@ -33,7 +33,7 @@ redirect_from:
    A: 这个是配置文件的错误，handler应该是在cse的下一级而不是monitor的下一级，正确的配置是：
 
    ```yaml
-   cse:
+   servicecomb:
      handler:
        chain:
          Provider:

@@ -22,7 +22,7 @@ redirect_from:
 2. **Q: We encountered this error when using Huawei Public Cloud: *WARN com.huaewi.paas.monitor.DataFactory: Upload monitor data error.* The configuration we use is as follows:**
 
    ```yaml
-   cse:
+   servicecomb:
      monitor:
        handler:
          chain:
@@ -30,10 +30,10 @@ redirect_from:
              default: bizkeeper-provider
    ```
 
-   A: There are mistakes in your configuration files. `handler` should be the child of `cse` instead of `monitor`. The right configuration should be as follows:
+   A: There are mistakes in your configuration files. `handler` should be the child of `servicecomb` instead of `monitor`. The right configuration should be as follows:
 
    ```yaml
-   cse:
+   servicecomb:
      handler:
        chain:
          Provider:

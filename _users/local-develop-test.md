@@ -29,7 +29,7 @@ Service center is an important component in the microservice architecture, and i
 * **Step 2** After local service center is started, configure the service center address in the microservice.yaml file that stores SDK configuration information, as shown in the following example:
 
    ```yaml
-   cse:
+   servicecomb:
      service:
        registry:
          address: http://127.0.0.1:30100 #Indicates the service center address and port number
