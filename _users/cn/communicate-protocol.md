@@ -46,7 +46,7 @@ ServiceComb微服务的完整线程模型如下图所示：
 在microservice.yaml中添加executors配置，为schemaId:operation配置单独的业务线程池：
 
 ```yaml
-cse: 
+servicecomb: 
   executors: 
     Provider: 
       [schemaId].[operation]
@@ -118,18 +118,18 @@ REST over Servlet在microservice.yaml文件中的配置项见下表：
 
 | 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.rest.address | 0.0.0.0:8080 | - | 否 | 服务监听地址 | - |
-| cse.rest.timeout | 3000 | - | 否 | 超时时间 | 单位为毫秒 |
-| cse.request.timeout | 30000 | - | 否 | 请求超时时间 | 同REST over Vertx的配置 |
-| cse.references.\[服务名\].transport | rest |  | 否 | 访问的transport类型 | 同REST over Vertx的配置 |
-| cse.references.\[服务名\].version-rule | latest | - | 否 | 访问实例的版本号 | 同REST over Vertx的配置 |
+| servicecomb.rest.address | 0.0.0.0:8080 | - | 否 | 服务监听地址 | - |
+| servicecomb.rest.timeout | 3000 | - | 否 | 超时时间 | 单位为毫秒 |
+| servicecomb.request.timeout | 30000 | - | 否 | 请求超时时间 | 同REST over Vertx的配置 |
+| servicecomb.references.\[服务名\].transport | rest |  | 否 | 访问的transport类型 | 同REST over Vertx的配置 |
+| servicecomb.references.\[服务名\].version-rule | latest | - | 否 | 访问实例的版本号 | 同REST over Vertx的配置 |
 
 ### 示例代码
 
 microservice.yaml文件中的配置示例如下：
 
 ```yaml
-cse:
+servicecomb:
   rest:
     address: 0.0.0.0:8080
     timeout: 3000
@@ -167,20 +167,20 @@ REST over Vertx通道在microservice.yaml文件中有以下配置项：
 
 | 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.rest.address | 0.0.0.0:8080 | - | 否 | 服务监听地址 | 仅服务提供者需要配置 |
-| cse.rest.server.thread-count | 1 | - | 否 | 服务端线程数 | 仅服务提供者需要配置 |
-| cse.rest.client.thread-count | 1 | - | 否 | 客户端网络线程数 | 仅服务消费者需要配置 |
-| cse.rest.client.connection-pool-per-thread | 1 | - | 否 | 客户端每个网络线程中的连接池的个数 | 仅服务消费者需要配置 |
-| cse.request.timeout | 30000 | - | 否 | 请求超时时间 |  |
-| cse.references.\[服务名\].transport | rest |  | 否 | 访问的transport类型 | 仅服务消费者需要配置 |
-| cse.references.\[服务名\].version-rule | latest | - | 否 | 访问实例的版本号 | 仅服务消费者需要配置支持latest，1.0.0+，1.0.0-2.0.2，精确版本。详细参考服务中心的接口描述。 |
+| servicecomb.rest.address | 0.0.0.0:8080 | - | 否 | 服务监听地址 | 仅服务提供者需要配置 |
+| servicecomb.rest.server.thread-count | 1 | - | 否 | 服务端线程数 | 仅服务提供者需要配置 |
+| servicecomb.rest.client.thread-count | 1 | - | 否 | 客户端网络线程数 | 仅服务消费者需要配置 |
+| servicecomb.rest.client.connection-pool-per-thread | 1 | - | 否 | 客户端每个网络线程中的连接池的个数 | 仅服务消费者需要配置 |
+| servicecomb.request.timeout | 30000 | - | 否 | 请求超时时间 |  |
+| servicecomb.references.\[服务名\].transport | rest |  | 否 | 访问的transport类型 | 仅服务消费者需要配置 |
+| servicecomb.references.\[服务名\].version-rule | latest | - | 否 | 访问实例的版本号 | 仅服务消费者需要配置支持latest，1.0.0+，1.0.0-2.0.2，精确版本。详细参考服务中心的接口描述。 |
 
 ### 示例代码
 
 microservice.yaml文件中的配置示例：
 
 ```yaml
-cse:
+servicecomb:
   rest:
     address: 0.0.0.0:8080
     thread-count: 1
@@ -212,20 +212,20 @@ Highway通道在microservice.yaml文件中的配置项如下表所示：
 
 | 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| cse.highway.address | 0.0.0.0:7070 | - | 否 | 服务监听地址 | - |
-| cse.highway.server.thread-count | 1 | - | 否 | 服务端网络线程个数 | - |
-| cse.highway.client.thread-count | 1 | - | 否 | 客户端网络线程个数 | - |
-| cse.highway.client.connection-pool-per-thread | 1 | - | 否 | 客户端每个网络线程的连接池个数 | - |
-| cse.request.timeout | 30000 | - | 否 | 请求超时时间 | 同REST over Vertx的配置 |
-| cse.references.\[服务名\].transport | rest |  | 否 | 访问的transport类型 | 同REST over Vertx的配置 |
-| cse.references.\[服务名\].version-rule | latest | - | 否 | 访问实例的版本号 | 同REST over Vertx的配置 |
+| servicecomb.highway.address | 0.0.0.0:7070 | - | 否 | 服务监听地址 | - |
+| servicecomb.highway.server.thread-count | 1 | - | 否 | 服务端网络线程个数 | - |
+| servicecomb.highway.client.thread-count | 1 | - | 否 | 客户端网络线程个数 | - |
+| servicecomb.highway.client.connection-pool-per-thread | 1 | - | 否 | 客户端每个网络线程的连接池个数 | - |
+| servicecomb.request.timeout | 30000 | - | 否 | 请求超时时间 | 同REST over Vertx的配置 |
+| servicecomb.references.\[服务名\].transport | rest |  | 否 | 访问的transport类型 | 同REST over Vertx的配置 |
+| servicecomb.references.\[服务名\].version-rule | latest | - | 否 | 访问实例的版本号 | 同REST over Vertx的配置 |
 
 ### 示例代码
 
 microservice.yaml文件中的配置示例：
 
 ```yaml
-cse:
+servicecomb:
   highway:
     address: 0.0.0.0:7070
 ```

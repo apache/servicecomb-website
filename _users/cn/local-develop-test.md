@@ -29,7 +29,7 @@ redirect_from:
 * **步骤 2** 启动本地轻量服务中心后，在服务提供/消费者的microservice.yaml文件中配置ServerCenter的地址和端口，示例代码：
 
    ```yaml
-   cse:
+   servicecomb:
      service:
        registry:
          address: http://127.0.0.1:30100 #服务中心地址及端口

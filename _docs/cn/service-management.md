@@ -28,7 +28,7 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 2. 在 *体质指数计算器* 的 `microservice.yaml` 文件中指明使用服务治理的处理链及指定熔断和容错策略：
 
    ```yaml
-   cse:
+   servicecomb:
      handler:
        chain:
          Provider:

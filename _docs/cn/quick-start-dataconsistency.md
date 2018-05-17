@@ -41,7 +41,7 @@ last_modified_at: 2017-09-19T11:50:10-04:00
 	service_description:
 	  name: flight-booking-service
 	  version: 0.0.1
-	cse:
+	servicecomb:
 	  service:
 	    registry:
 	      address: http://sc.servicecomb.io:30100 #此处选择使用ServiceComb的Service Center

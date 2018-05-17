@@ -97,7 +97,7 @@ Zuul做API Gateway，即建立一个Zuul Proxy应用，在该Proxy应用中统�
    service_description:
      name: discoveryGateway #服务名称
      version: 0.0.2 #服务版本号
-   cse:
+   servicecomb:
      service:
        registry:
          address: http://127.0.0.1:30100  #服务注册中心地址
@@ -126,7 +126,7 @@ APPLICATION_ID: discoverytest #与zuul proxy一致
   service_description:
     name: discoveryServer #服务名称，与zuul.routers对应
     version: 0.0.2
-cse:
+servicecomb:
   service:
     registry:
       address: http://127.0.0.1:30100 #服务注册中心地址

@@ -21,7 +21,7 @@ When a consumer calls a service from a provider, you need to register a service 
 In the microservice.yaml file, configure a provider for the consumer. The following is an example of the configuration:
 
 ```yaml
-cse:
+servicecomb:
   # other configurations omitted
   references:
     springmvc:

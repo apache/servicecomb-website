@@ -21,7 +21,7 @@ redirect_from:
    微服务与服务中心的连接可以通过将http改为https启用TLS通信，配置示例如下：
 
    ```yaml
-   cse:
+   servicecomb:
      service:
        registry:
          address: https://127.0.0.1:30100
@@ -31,7 +31,7 @@ redirect_from:
    服务提供者在配置服务监听地址时，可以通过在地址后面追加`?sslEnabled=true`开启TLS通信，示例如下：
 
    ```yaml
-   cse:
+   servicecomb:
      rest:
        address: 0.0.0.0:8080?sslEnabled=true
      highway:
@@ -116,7 +116,7 @@ ssl.[tag].[property]
 
 microservice.yaml文件中启用TLS通信的配置示例如下：
 ```yaml
-cse:
+servicecomb:
   service:
     registry:
       address: https://127.0.0.1:30100

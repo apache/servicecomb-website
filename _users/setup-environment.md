@@ -181,7 +181,7 @@ As we can see here the Service-Center can auto-discover all the instances of the
 
 In your microservice.yaml you can provide the SC IP of both the instance or any one instance, sdk can auto-discover other instances and use the other instances to get microservice details in case of failure of the first one.
 ```yaml
-cse:
+servicecomb:
   service:
     registry:
       address: "http://10.12.0.1:30100,http://10.12.0.2:30100"

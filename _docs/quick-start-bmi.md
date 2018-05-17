@@ -116,7 +116,7 @@ APPLICATION_ID: bmi
 service_description:
   name: calculator
   version: 0.0.1
-cse:
+servicecomb:
   service:
     registry:
       address: http://127.0.0.1:30100
@@ -189,7 +189,7 @@ APPLICATION_ID: bmi
 service_description:
   name: gateway
   version: 0.0.1
-cse:
+servicecomb:
   service:
     registry:
       address: http://127.0.0.1:30100
