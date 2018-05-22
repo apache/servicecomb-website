@@ -1,9 +1,9 @@
 ---
 title: "HealthCheck"
-lang: cn
+lang: en
 ref: healthcheck
 permalink: /users/healthcheck/
-excerpt: "健康检查"
+excerpt: "HealthCheck"
 last_modified_at: 2017-12-30T10:01:43-04:00
 redirect_from:
   - /theme-setup/
