@@ -73,7 +73,7 @@ Token中文翻译为令牌，它将登录认证后的信息签名后返回，服
 
 ### 实现用户微服务
 #### 第一步：创建微服务项目
-还记得前一篇博文[《轻松微服务系列：从一键构建微服务和DDD设计开始》](/cn/docs/easy-build-microservice-system-part-I/)中一键构建微服务的命令行么？使用ServiceComb SpringMVC Archetypes创建用户微服务，在交互模式下，`groupId`输入org.apache.servicecomb.scaffold，`artifactId`输入user-service，`version`使用默认的1.0-SNAPSHOT，创建完毕后使用IDEA或Eclipse打开项目：
+还记得前一篇博文[《轻松微服务系列：从一键构建微服务和DDD设计开始》](http://servicecomb.incubator.apache.org/cn/docs/easy-build-microservice-system-part-I/)中一键构建微服务的命令行么？使用ServiceComb SpringMVC Archetypes创建用户微服务，在交互模式下，`groupId`输入org.apache.servicecomb.scaffold，`artifactId`输入user-service，`version`使用默认的1.0-SNAPSHOT，创建完毕后使用IDEA或Eclipse打开项目：
 
 ![UserServiceInit](/assets/images/scaffold/UserServiceInit.png)
 
