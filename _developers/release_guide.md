@@ -105,39 +105,41 @@ gvt restore
 
 ***Sign the Release***
 
-10. Once the tag is pushed then using the tag download the source code from git [tag](https://github.com/apache/incubator-servicecomb-service-center/tags).
+1. Once the tag is pushed then using the tag download the source code from git [tag](https://github.com/apache/incubator-servicecomb-service-center/tags). 
 
-11. Sign the 3 releases(linux, windows, src) and checksum.
+2. Sign the 3 releases(linux, windows, src) and checksum.
 
-12. Upload the release to [Apache dev released repository](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/).
+3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the second attempt of the release then the folder structure will be `1.0.0-m2/rc02`)
 
-13. Download all the releases from SVN and verify the signature and checksum.
+4. Upload the release to the directory created in last step.
+
+5. Download all the releases from SVN and verify the signature and checksum.
 
 ***PPMC Approval***
 
-14. Send the voting mail in ***dev@servicecomb.apache.org*** for PPMC approval.
+1. Send the voting mail in ***dev@servicecomb.apache.org*** for PPMC approval.
 
-15. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from ***Step 1***.
+2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from ***Step 1***.
 
-16. Publish the result of the vote in dev@servicecomb.apache.org.
+3. Publish the result of the vote in dev@servicecomb.apache.org.
 
 ***IPMC approval***
 
-17. Send the voting mail in ***general@incubator.apache.org*** for IPMC approval.
+1. Send the voting mail in ***general@incubator.apache.org*** for IPMC approval.
 
-18. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote.If you get even one -1 binding vote then fix the issue and start again from ***Step 1***
+2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote.If you get even one -1 binding vote then fix the issue and start again from ***Step 1***
 
-19. Publish the result of the vote in general@incubator.apache.org.
+3. Publish the result of the vote in general@incubator.apache.org.
 
 ***Announcements***
 
-20. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/).
+1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/).
 
-21. Wait for 24 hours to replicate the release in all the mirrors.
+2. Wait for 24 hours to replicate the release in all the mirrors.
 
-22. Upload the release page of ServiceComb Website.
+3. Upload the release page of ServiceComb Website.
 
-23. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
+4. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
 
 
 
@@ -181,40 +183,41 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 
 ***Sign the Releases***
 
-13. Download the source code and distribution from the staging repo.
+1. Download the source code and distribution from the staging repo.
 
-14. Sign the 2 releases(distribution, src) and checksum.
+2. Sign the 2 releases(distribution, src) and checksum.
 
-15. Upload the release to [Apache dev released repository](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/).
-.
+3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the first attempt of the release then the folder structure will be `1.0.0-m2/rc01`)
 
-16. Download all the releases from SVN and verify the signature and checksum.
+4. Upload the release to  directory created in last step.
+
+5. Download all the releases from SVN and verify the signature and checksum.
 
 ***PPMC approval***
 
-17. Send the voting mail in dev@servicecomb.apache.org for PPMC approval.
+1. Send the voting mail in dev@servicecomb.apache.org for PPMC approval.
 
-18. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
+2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
 
-19. Publish the result of the vote in dev@servicecomb.apache.org.
+3. Publish the result of the vote in dev@servicecomb.apache.org.
 
 ***IPMC approval***
 
-20. Send the voting mail in general@incubator.apache.org
+1. Send the voting mail in general@incubator.apache.org
 
-21. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
+2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
 
-22. Publish the result of the vote in general@incubator.apache.org.
+3. Publish the result of the vote in general@incubator.apache.org.
 
 ***Announcements***
 
-23. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/).
+1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/).
 
-24. Wait for 24 hours to replicate the release in all the mirrors.
+2. Wait for 24 hours to replicate the release in all the mirrors.
 
-25. Upload the release page of ServiceComb Website.
+3. Upload the release page of ServiceComb Website.
 
-26. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
+4. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
 
 
 
@@ -257,41 +260,45 @@ mvn deploy -DskipTests -Ppassphrase -Prelease
 
 ***Sign the Releases***
 
-13. Download the source code and distribution from the staging repo.
+1. Download the source code and distribution from the staging repo.
 
-14. Sign the 2 releases(distribution, src) and checksum.
+2. Sign the 2 releases(distribution, src) and checksum.
 
-15. Upload the release to [Apache dev released repository](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-saga/).
+3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-saga/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the third attempt of the release then the folder structure will be `1.0.0-m2/rc03`)
 
-16. Download all the releases from SVN and verify the signature and checksum.
+4. Upload the release to  directory created in last step.
+
+5. Download all the releases from SVN and verify the signature and checksum.
 
 ***PPMC approval***
 
-17. Send the voting mail in dev@servicecomb.apache.org.
+1. Send the voting mail in dev@servicecomb.apache.org.
 
-18. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
+2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
 
-19. Publish the result of the vote in dev@servicecomb.apache.org.
+3. Publish the result of the vote in dev@servicecomb.apache.org.
 
 ***IPMC approval***
 
-20. Send the voting mail in general@incubator.apache.org
+1. Send the voting mail in general@incubator.apache.org
 
-21. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
+2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
 
-22. Publish the result of the vote in general@incubator.apache.org.
+3. Publish the result of the vote in general@incubator.apache.org.
 
 ***Announcements***
 
-23. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/).
+1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/).
 
 
-24. Wait for 24 hours to replicate the release in all the mirrors.
+2. Wait for 24 hours to replicate the release in all the mirrors.
 
-25. Upload the release page of ServiceComb Website.
+3. Upload the release page of ServiceComb Website.
 
-26. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
+4. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
 
 
 **NOTE**
-The whole process generally takes 2 weeks to complete assuming you don't get any -1 from PPMC and IMPC, so please plan the release activity before hand.
+ - The whole process generally takes 2 weeks to complete assuming you don't get any -1 from PPMC and IMPC, so please plan the release activity before hand.
+ - Make sure to clear all the release candidates from the dev-svn after the publishing the releases.
+ 
