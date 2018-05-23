@@ -12,7 +12,7 @@ redirect_from:
 ---
 
 ## 轻松微服务系列：快速实现客户关系管理系统的用户服务
-在前一篇博文[《轻松微服务系列：从一键构建微服务和DDD设计开始》](/cn/docs/easy-build-microservice-system-part-I/)，我们已经详细介绍了如何快速构建微服务和DDD相关概念，并引入了一个经典场景——地产CRM。通过[Event Storming](https://en.wikipedia.org/wiki/Event_storming)实践获得了系统设计：
+在前一篇博文[《轻松微服务系列：从一键构建微服务和DDD设计开始》](http://servicecomb.incubator.apache.org/cn/docs/easy-build-microservice-system-part-I/)，我们已经详细介绍了如何快速构建微服务和DDD相关概念，并引入了一个经典场景——地产CRM。通过[Event Storming](https://en.wikipedia.org/wiki/Event_storming)实践获得了系统设计：
 
 ![MicroserviceDesign4](/assets/images/scaffold/MicroserviceDesign4.png)
 
@@ -72,12 +72,14 @@ Token中文翻译为令牌，它将登录认证后的信息签名后返回，服
 由于微服务系统的权限控制主要是接口访问控制上，并且多采用用户组方式组织用户，因此RBAC是比较流行的做法。
 
 ### 实现用户微服务
-#### 创建微服务项目
+#### 第一步：创建微服务项目
 还记得前一篇博文[《轻松微服务系列：从一键构建微服务和DDD设计开始》](/cn/docs/easy-build-microservice-system-part-I/)中一键构建微服务的命令行么？使用ServiceComb SpringMVC Archetypes创建用户微服务，在交互模式下，`groupId`输入org.apache.servicecomb.scaffold，`artifactId`输入user-service，`version`使用默认的1.0-SNAPSHOT，创建完毕后使用IDEA或Eclipse打开项目：
 
 ![UserServiceInit](/assets/images/scaffold/UserServiceInit.png)
 
-#### 使用MySQL持久化用户信息
+我们删掉HelloImpl和HelloConsumer，并添加自己的实现。
+
+#### 第二步：使用MySQL持久化用户信息
 用户微服务需要持久化用户信息，我们使用MySQL数据库，ORM使用Spring Data JPA：
 ##### 引入依赖
 ```xml
@@ -90,7 +92,7 @@ Token中文翻译为令牌，它将登录认证后的信息签名后返回，服
   <artifactId>spring-boot-starter-data-jpa</artifactId>
 </dependency>
 ```
-##### 定义存储User信息的实体UserEntity
+##### 定义存储User信息的UserEntity实体
 ```java
 @Entity
 @Table(name = "T_User")
@@ -128,7 +130,7 @@ public class UserEntity {
 
 在CodeFist模式下，Spring Data JPA会在数据库中自动创建T_User表与此实体映射。
 
-##### 实现实体UserEntity的Repository
+##### 实现UserEntity实体的Repository
 我们继承JPA的PagingAndSortingRepository来实现ORM操作
 
 ```java
@@ -151,7 +153,7 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5Dialect
 
 >提示：关于Spring Data JPA的更多资料请参见[这篇文档](https://projects.spring.io/spring-data-jpa/)，为了能够简化依赖的引入我们实际上使用的是Spring Boot JPA Starter，详细的例子请参见[这篇文档](https://spring.io/guides/gs/accessing-data-jpa/)。
 
-#### 实现JWT认证
+#### 第三步：实现JWT认证
 ##### 定义JWT接口
 
 ```java
@@ -207,7 +209,7 @@ public class JwtTokenStore implements TokenStore {
 }
 ```
 
-#### 实现用户服务
+#### 第四步：实现用户服务
 ##### 定义UserService接口
 
 ```java
@@ -304,10 +306,10 @@ public class UserServiceImpl implements UserService {
 
 登录成功后，会从TokenStore生成Token，并将其写入Key为`AUTHORIZATION`的Header。
 
-#### 实现授权
+#### 第五步：实现授权（可选）
 由于我们允许任何用户注册和登录，所以目前还没有授权的需求，基于RBAC构建授权体系将会在以后的博文中介绍。
 
-至此，具有基本注册和登录功能的用户微服务就构建好了。
+经过上面五步，具有基本注册和登录功能的用户微服务就构建好了。
 
 ### 验证实现的用户服务
 启动用户微服务，我们先注册一个账号：
@@ -318,6 +320,6 @@ public class UserServiceImpl implements UserService {
 
 ![TestLogin](/assets/images/scaffold/TestLogin.png)
 
-返回登录成功，Response中已经包含了`AUTHORIZATION`Header，后继的所有请求都将使用这个Token值认证。
+返回登录成功，Response中已经包含了`AUTHORIZATION`Header，后继的所有请求都需要使用这个Token值进行合法认证。
 
-至此，实现客户关系管理系统的用户服务工作就结束了，下一篇文章我们会将目光转移到Edge服务，通过Edge服务作为微服务调用的统一入口，在它之上构建统一认证，并讲解如何应对海量级调用的挑战！
+至此，实现客户关系管理系统的用户服务工作就结束了，下一篇文章我们会将目光转移到Edge服务，通过Edge服务作为微服务调用的统一入口，在它之上构建统一认证，并讲解如何应对海量级调用的挑战，敬请期待！
