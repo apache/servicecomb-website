@@ -22,10 +22,13 @@ intro:
 
 <ul>
   <li>
-    <a href='/cn/docs/quick-start-dataconsistency/'>号外： 现在ServiceComb提供了微服务场景下的数据一致性解决方案Saga！</a>
+     <a herf='/cn/docs/quick-start-dataconsistency/'>微服务 Meetup：Apache ServiceComb (incubating) Day</a>
+  <li>
+  <li>
+    <a href='/cn/release/'>ServiceComb 第一个Apache孵化版本发布了！</a>
   </li>
   <li>
-    <a href='/release/'>ServiceComb 第一个Apache孵化版本发布了！</a>
+    <a href='/cn/docs/quick-start-dataconsistency/'>号外：现在ServiceComb提供了微服务场景下的数据一致性解决方案Saga！</a>
   </li>
 </ul>"
 
