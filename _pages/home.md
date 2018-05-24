@@ -22,7 +22,7 @@ intro:
 <ul>
   <li>
      <a herf='/docs/apache-servicecomb-incubating-day/'>Microservice Meetup: Apache ServiceComb (incubating) Day</a>
-  <li>
+  </li>
   <li>
       <a href='/release/'>ServiceComb announces it's first Apache Incubating Release to the community.</a>
   </li>
