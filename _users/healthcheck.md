@@ -44,14 +44,14 @@ public class MySqlHealthChecker implements HealthChecker {
       connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test_db?useSSL=false", "root", "pwd");
       return new HealthCheckResult(true, "local mysql health check", "");
     } catch (SQLException e) {
-      e.printStackTrace();
+      LOG.error("Cannot connect the localhost mysql. ", e);
       return new HealthCheckResult(false, "local mysql health check", e.toString());
     } finally {
       if (connection != null) {
         try {
           connection.close();
         } catch (SQLException e) {
-          e.printStackTrace();
+          LOG.error("Close connect the localhost mysql error. ", e);
         }
       }
     }
@@ -80,5 +80,5 @@ We can get HealthCheck final result by accress http://localhost:8080/health , al
 >1. The implementation of Rest publish is in metrics-core, so need import this dependency;
 >2. The result of /health is the final result of all HealthCheckers, true or false, if healthy result of any HealthChecker return false, then this value will false.
 
-## Other Reference 
+## Other Reference
 We had provided a sample at samples/metrics-extend-healthcheck.

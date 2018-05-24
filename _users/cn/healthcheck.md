@@ -44,14 +44,14 @@ public class MySqlHealthChecker implements HealthChecker {
       connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test_db?useSSL=false", "root", "pwd");
       return new HealthCheckResult(true, "local mysql health check", "");
     } catch (SQLException e) {
-      e.printStackTrace();
+      LOG.error("Cannot connect the localhost mysql. ", e);
       return new HealthCheckResult(false, "local mysql health check", e.toString());
     } finally {
       if (connection != null) {
         try {
           connection.close();
         } catch (SQLException e) {
-          e.printStackTrace();
+          LOG.error("Close connect the localhost mysql error. ", e);
         }
       }
     }
