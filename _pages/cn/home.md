@@ -22,8 +22,8 @@ intro:
 
 <ul>
   <li>
-     <a herf='/cn/docs/quick-start-dataconsistency/'>微服务 Meetup：Apache ServiceComb (incubating) Day</a>
-  <li>
+     <a href='/cn/docs/quick-start-dataconsistency/'>微服务 Meetup：Apache ServiceComb (incubating) Day</a>
+  </li>
   <li>
     <a href='/cn/release/'>ServiceComb 第一个Apache孵化版本发布了！</a>
   </li>
