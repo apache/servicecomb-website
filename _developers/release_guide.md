@@ -300,5 +300,3 @@ mvn deploy -DskipTests -Ppassphrase -Prelease
 
 **NOTE**
  - The whole process generally takes 2 weeks to complete assuming you don't get any -1 from PPMC and IMPC, so please plan the release activity before hand.
- - Make sure to clear all the release candidates from the dev-svn after the publishing the releases.
- 
