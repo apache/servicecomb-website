@@ -61,7 +61,13 @@ Java Chassis作为一个微服务框架，支持多样化的部署模式。
   </build>
 ```
 
-之后运行`mvn package`，在`target`目录下拷贝生成的微服务jar包和`lib`（依赖jar）至任何目录，运行即可：
+之后运行：
+
+```bash
+mvn package
+```
+
+在`target`目录下拷贝生成的微服务jar包和`lib`（依赖jar）至任何目录，运行即可：
 
 ```bash
 java -jar ${project.artifactId}-${project.version}.jar
@@ -202,7 +208,13 @@ java -jar ${project.artifactId}-${project.version}.jar
 
 ![DockerPackageAssembly](/assets/images/DockerPackageAssembly.png)
 
-运行`mvn package -Pdocker`，等待打包完成。
+运行：
+
+```bash
+mvn package -Pdocker
+```
+
+等待打包完成，会有提示镜像生成成功并注册到本地镜像库的提示。
 
 >提示：
 >1. 请修改上面打包依赖配置中`<mainClass>${your-package}.Application</mainClass>`为微服务启动MainClass；
@@ -267,3 +279,44 @@ docker-compose up
 >1. docker-compose默认寻找当前文件夹下的docker-compose.yml文件作为编排配置文件，如果需要指定文件名或路径，请使用`docker-compose -f ${fullFileName}`；
 >2. 如果container无需对外发布端口则可以不设置`ports`。
 
+## Kubernetes集群部署
+Kubernetes是谷歌开源的容器集群管理系统，目前已经具备生产化成熟度，虽然Java Chassis作为一个微服务框架与Kubernetes处于不同层次，但由于Kubernetes同样拥有注册-发现、弹性伸缩、监控等方面的功能，因此很容易与Java Chassis中相关功能搞混，我们需要比较深入的理解两者的差异。
+
+### Kubernetes
+
+![K8S](/assets/images/K8S.png)
+
+上面的图中，我们省去了网络细节，关注这几个点：
+1. Service的注册和发现：应用（app）实例（container）的启动或停止由Kubernetes管理，Kubernetes会依据Node的负载状况动态调配Host它们的Pod，那么这就带来一个问题：一个app想调用另外一个app，是如何知道目标app实例的IP和端口呢？因此Kubernetes引入了一个逻辑层次——Service，Service有唯一的名字和不变的虚拟IP，Kubernetes会将Service的所有app实例在Pod上的IP和端口保存在Name Service中，app之间的调用都通过Service名，之后通过Service名映射app实例列表，这个过程类似DNS，Kubernetes启动app实例并向Name Service登记的这个过程就是Service的注册，而一个app调用另外一个app从Name Service查询目标IP和端口的过程就是Service的发现；
+2. 弹性伸缩：弹性伸缩是Kubernetes的一个重要能力，通过配置弹性伸缩策略，支持使用CPU、内存使用率、连接数，或其他第三方的Metrics作为输入；
+3. 监控：Kubernetes自带Heapster监控资源的使用。
+
+### Java Chassis
+
+![ServiceCombBasic](/assets/images/ServiceCombBasic.png)
+
+上面的图是Java Chassis基本原理，我们同样解释几个点：
+1. Java Chassis的注册和发现：ServiceCenter是一个完整独立的注册中心，不同于Kubernetes的Name Service，它存储了微服务启动后上传的Swagger契约，契约中描述了调用路径、入参和出参，即对接口进行了全面的描述。其它微服务发起调用的时候，可以通过获取Producer的契约动态生成Consumer代码，也可以做调用预检查等；
+2. 弹性伸缩：Java Chassis的弹性伸缩能力体现在负载均衡特性上，是Consumer端软负载均衡；当一个Java Chassis微服务启动后，会将获取本地IP和设置的发布端口发布至ServiceCenter，ServiceCenter会立刻通知所有的其他微服务实例信息发生了变化，更新本地缓存，调整负载分配。**Java Chassis作为一个SDK本身是无法启动微服务实例的**；
+3. 监控：Java Chassis并不带监控系统，它只可以输出Tracing、Metrics和Log数据，对接Zipkin、Prometheus等监控系统，当然Metrics也可以作为Kubernetes弹性伸缩策略的输入。
+
+综合上述，我们总结为一个表格：
+
+| 说明项 | Kubernetes       | Java Chassis                       |
+| :----------- | :--------------- | :------------------- |
+| 定位 | 容器集群管理系统    | 微服务框架 |
+| 层次 | 基础PaaS    | SDK |
+| Service的含义 | 逻辑概念，用于组织同一个app的container | 指微服务拆分后的业务 |
+| 注册和发现  | Name Service为中心，目的是container可以通过名称互联互通 | ServiceCenter为中心，目的是微服务可以互联互通且提供接口描述（契约） |
+| 弹性伸缩   | 调度资源启动或停止实例，上层应用需要有负载均衡的能力 | 动态发现实例变化并调整负载分布，下层平台需要有调度资源的能力 |
+| 监控 | 有集成的监控系统    | 只作为监控系统的数据源 |
+
+### Kubernetes + Java Chassis
+理解了上面的内容之后，我们可以如下设计 Java Chassis在Kubernetes集群中的部署：
+
+![ServiceCombInK8S](/assets/images/ServiceCombInK8S.png)
+
+- 将微服务的镜像上传至Kubernetes能够访问到的镜像仓库；
+- 将每一个 Java Chassis微服务配置为一个Kubernetes Service并配置弹性伸缩策略；
+- ServerCenter如果作为一个Kubernetes Service部署，那么保证IP固定使得VPC内均可访问，也可以将ServiceCenter部署在外部，然后使用Kubernetes外部域名解析机制能够访问到它；
+- 使用Fannel网络，Pod的IP能够互联互通， Java Chassis启动后会使用Pod的IP发布，保证能相互调用；否则配置使用`servicecomb.service.publishAddress`指定发布地址。
