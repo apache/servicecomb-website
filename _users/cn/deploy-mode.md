@@ -64,7 +64,7 @@ Java Chassis作为一个微服务框架，支持多样化的部署模式。
 之后运行`mvn package`，在`target`目录下拷贝生成的微服务jar包和`lib`（依赖jar）至任何目录，运行即可：
 
 ```bash
-java -jar xxxxx.jar
+java -jar ${project.artifactId}-${project.version}.jar
 ```
 
 >提示：
@@ -77,11 +77,10 @@ java -jar xxxxx.jar
 ![DockerDeployment](/assets/images/DockerDeployment.png)
 
 ### 如何直接打包微服务为Docker镜像
-在微服务项目的`pom.xml`中添加以下依赖：
+我们使用io.fabric8的maven插件从打包，镜像在微服务项目的`pom.xml`中添加以下依赖：
 
 ```xml
   <build>
-
     <pluginManagement>
       <plugins>
         <plugin>
@@ -175,7 +174,7 @@ java -jar xxxxx.jar
   </profiles>
 ```
 
-在项目源代码`src\main`下，创建一个`docker`目录，之后创建一个`assembly.xml`文件，填入下面的内容：
+在项目源代码`src\main`下，创建一个`docker`目录，之后在此目录中创建一个`assembly.xml`文件，填入下面的内容：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -207,8 +206,9 @@ java -jar xxxxx.jar
 
 >提示：
 >1. 请修改上面打包依赖配置中`<mainClass>${your-package}.Application</mainClass>`为微服务启动MainClass；
->2. 如果是使用windows系统，请安装docker machine，并且确保docker machine vm启动中；
->3. 打包的镜像会默认安装在本地镜像库中，如果需要上传外部镜像库例如中央库，可以使用下面的命令：
+>2. 为了保留普通打包方式，docker打包方式配置为maven profile，即``-Pdocker`；
+>3. 如果是使用windows系统，请安装docker machine，并且确保docker machine vm启动中；
+>4. 打包的镜像会默认安装在本地镜像库中，如果需要上传外部镜像库例如中央库，可以使用下面的命令：
 >```bash
 >mvn -Ddocker.registry=registry.hub.docker.com/${username} -Ddocker.username=${username} -Ddocker.password=${password} docker:push
 >```
@@ -253,7 +253,7 @@ services:
       - "8081:8081"
 ```
 
-为了能够使containers互联互通，使用`links`指定链接关系，`ports`用于映射到Docker Host的端口，如果无需对外发布则可以不设置，关于Docker Compose Yaml配置的更多信息，可以参见[这篇文档](https://docs.docker.com/compose/)。
+为了能够使containers互联互通，使用`links`指定链接关系，`ports`用于映射到Docker Host的端口，关于Docker Compose Yaml配置的更多信息，可以参见[这篇文档](https://docs.docker.com/compose/)。
 
 编写好docker-compose.yml后，切换到此文件目录，执行：
 
@@ -263,5 +263,7 @@ docker-compose up
 
 即可将所有的微服务都拉起来。
 
->提示：docker-compose默认寻找当前文件夹下的docker-compose.yml文件作为编排配置文件，如果需要指定文件名或路径，请使用`docker-compose -f ${fullFileName}`。
+>提示：
+>1. docker-compose默认寻找当前文件夹下的docker-compose.yml文件作为编排配置文件，如果需要指定文件名或路径，请使用`docker-compose -f ${fullFileName}`；
+>2. 如果container无需对外发布端口则可以不设置`ports`。
 
