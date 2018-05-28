@@ -83,7 +83,7 @@ java -jar ${project.artifactId}-${project.version}.jar
 ![DockerDeployment](/assets/images/DockerDeployment.png)
 
 ### 如何直接打包微服务为Docker镜像
-我们使用io.fabric8的maven插件从打包，镜像在微服务项目的`pom.xml`中添加以下依赖：
+我们使用io.fabric8的[maven插件](https://github.com/fabric8io/docker-maven-plugin)从打包，镜像在微服务项目的`pom.xml`中添加以下依赖：
 
 ```xml
   <build>
@@ -325,12 +325,13 @@ Kubernetes是谷歌开源的容器集群管理系统，目前已经具备生产�
 - 使用Fannel网络让Pod的IP能够互联互通， Java Chassis启动后会使用Pod的IP发布，保证能相互调用；否则配置使用`servicecomb.service.publishAddress`指定发布地址；
 - 对于需要外部访问的 Java Chassis微服务，配置Kubernetes Service。
 
->提示：请牢记 Java Chassis的负载均衡机制与Kubernetes的负载均衡机制无关，即 Java Chassis的负载均衡并不走name + selector机制，也就不需要配置Service。
-
+>提示：
+>1. 请牢记 Java Chassis的负载均衡机制与Kubernetes的负载均衡机制无关，即Java Chassis的负载均衡并不走name + selector机制，也不需要配置Service；
+>2. 上述部署细节可依据实际环境（例如网络）自行调整。 
 
 ### 在Kubernetes集群中部署Java Chassis Company演示项目
 Company是我们提供的一个有趣味性的演示项目：
 1. 源代码地址：https://github.com/ServiceComb/ServiceComb-Company-WorkShop
 2. 项目的详细讲解：http://servicecomb.incubator.apache.org/cn/docs/linuxcon-workshop-demo/
 
-如何将Company部署在Kubernetes集群中：http://servicecomb.incubator.apache.org/cn/docs/company-on-kubernetes/
+如何在Kubernetes集群中部署Company：http://servicecomb.incubator.apache.org/cn/docs/company-on-kubernetes/
