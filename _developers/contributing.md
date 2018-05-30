@@ -18,7 +18,7 @@ There are many ways that you can help make ServiceComb a better piece of solutio
 
 ## Getting in touch
 
-There are various ways of communicating with the Camel community.
+There are various ways of communicating with the ServiceComb community.
 - Join us on the [mailing list](http://servicecomb.incubator.apache.org/cn/developers/subscribe-mail-list) and take part in any conversations
 - Pop by on [Gitter](https://gitter.im/ServiceCombUsers/Lobby) and say hi
 
