@@ -1,5 +1,5 @@
 ---
-title: "Team"
+title: "ServiceComb Develop Team"
 lang: en
 ref: ServiceComb-Team
 permalink: /developers/team/
