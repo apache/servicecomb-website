@@ -20,7 +20,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | little-cui    |  Cui Yihua              |  Huawei       |  *   |
 | ningjiang     |  Jiang Ning (Willem)    |  Huawei       |  *   |
 | rvs           |  Roman Shaposhnik       |  Stealth      |  *   |
-| seanyinx      |  Yin Xiang (Sean)       |               |      |
+| seanyinx      |  Yin Xiang (Sean)       |  Syswin       |      |
 | tnachen       |  Timothy Chen           |  Hyperpilot   |  *   |
 | wujimin       |  Wu Jimin               |  Huawei       |  *   |
 | zhangqi       |  Zhang qi               |  Huawei       |      |
