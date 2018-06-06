@@ -21,7 +21,7 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | little-cui    |  Cui Yihua              |  Huawei       |  *   |
 | ningjiang     |  Jiang Ning (Willem)    |  Huawei       |  *   |
 | rvs           |  Roman Shaposhnik       |  Stealth      |  *   |
-| seanyinx      |  Yin Xiang (Sean)       |               |      |
+| seanyinx      |  Yin Xiang (Sean)       |  Syswin       |      |
 | tnachen       |  Timothy Chen           |  Hyperpilot   |  *   |
 | wujimin       |  Wu Jimin               |  Huawei       |  *   |
 | zhangqi       |  Zhang qi               |  Huawei       |      |
