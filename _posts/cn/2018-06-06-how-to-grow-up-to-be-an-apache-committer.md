@@ -33,7 +33,7 @@ Apache Way非常看重个人贡献，没有贡献，一切无从谈起，**与�
 Apache开发者来自全球，社区大多都是用英文来交流。通过阅读[英文资料](http://servicecomb.incubator.apache.org/users/)，使用英文在[Gitter](http://servicecomb.incubator.apache.org/cn/developers/use-gitter/)上与开发人员直接交流，通过英文邮件来探讨问题，在不知不觉中自己的英文水平也大大提高了。
 
 ### 协作开发（Collaborative Development） 
-这也是我极力推荐参与开源社区开发的重要原因之一，**当你提交PR后，无论代码有多么烂，你总能收获宝贵的Comments**，通过别的渠道不花钱获得编程大师的指点——教你怎么写出优秀的代码，这是多么合算的买卖！
+这也是我极力推荐参与开源社区开发的重要原因之一，**当你提交PR后，无论代码有多么烂，你总能收获宝贵的Comments**，不花钱获得编程大师的指点——教你怎么写出优秀的代码，这是多么合算的买卖！
 
 我在参与ServiceComb社区前，只知道Java基本语法，IDE不熟练（之前一直是用VS写C#，不使用Eclipse和IntelliJ IDEA），不会Git，不懂Maven，还能有更糟糕的起点吗：）
 
