@@ -392,7 +392,9 @@
 <p><img src="/assets/images/saga/Saga.001.jpeg" alt="" /></p>
 
 <p><img src="/assets/images/saga/Saga.002.jpeg" alt="" />
-我先介绍一下我自己，我叫姜宁，来自于华为开源研究中心，现在负责的是ServiceComb这个开源项目。ServiceComb这个项目已经进到Apache孵化，应该是去年11月份时进到Apache孵化的，这个月刚发了1.0M1版，但对于SAGA来说我们属于探索的阶段，我们就发了0.1.0。我参与过Apache一些项目，我也是Apache的 Member，是Apache CXF, Apache Camel 还有的PMC。还有一件事情，前一段时间帮阿里同学孵化 RocketMQ，我是以导师的身份参与的，属于见习的Mentor，这回带着ServiceComb这个项目，我感觉我把很多角色都玩了一遍。后面如果大家有兴趣，Apache孵化的事情也可以找到。还有，我之前在红帽软件、IONA、航信待过，说不定会有一些前同事，也可以找我叙旧。</p>
+我先介绍一下我自己，我叫姜宁，来自于华为开源研究中心，现在负责的是ServiceComb这个开源项目。ServiceComb这个项目已经进到Apache孵化，应该是去年11月份时进到Apache孵化的，这个月我们帮刚发了1.0M1版，但对于SAGA来说我们属于探索的阶段，发布了0.1.0。</p>
+
+<p>我参与过Apache一些项目，我也是Apache的 Member，是Apache CXF, Apache Camel 还有的PMC。还有一件事情，前一段时间帮阿里同学孵化 RocketMQ，我是以导师的身份参与的，属于见习的Mentor.这回带着ServiceComb这个项目，我感觉我把很多角色都玩了一遍。后面如果大家对开源项目进入Apache孵化感兴趣的话也可以来找到。</p>
 
 <p><img src="/assets/images/saga/Saga.003.jpeg" alt="" /></p>
 
@@ -420,7 +422,7 @@
 
 <p>由于隔离性互斥的要求，在事务执行过程中，所有的资源都是被锁定的，这种情况只适合执行时间确定的短事务。  但是为了保证分布式事务的一致性，大都是采用串行化的隔离级别来保证事务一致性，这样会降低系统的吞吐。</p>
 
-<p>但因为2PC的协议成本比较好，又有全局锁的问题，性能会比较差。 因此现在大家基本上不会采用这种强一致解决方案。我们需要做一下酸碱平衡。</p>
+<p>但因为2PC的协议成本比较高，又有全局锁的问题，性能会比较差。 因此现在大家基本上不会采用这种强一致解决方案。</p>
 
 <p><img src="/assets/images/saga/Saga.008.jpeg" alt="" /></p>
 
@@ -434,11 +436,13 @@
 
 <p>TCC名字的由来是其中包含了 try, confirm, cancel三个操作。</p>
 
-<p>与两阶段提交相比，TCC位于业务服务层， 没有单独的准备阶段，Try操作可以灵活选择业务资源锁的粒度。TCC是通过最终一致性来解决系统性能问题的这个设计，对我们设计抉择有很大的启发。 有些时候一些系统的技术问题是可以通过业务建模的方式来解决的。</p>
+<p>与两阶段提交相比，TCC位于业务服务层， 没有单独的准备阶段，Try操作可以灵活选择业务资源锁的粒度。TCC是通过最终一致性来解决系统性能问题的这个设计，对我们设计抉择有很大的启发。 有些时候<strong>系统的技术问题是可以通过业务建模的方式来解决的</strong>。</p>
 
 <p><img src="/assets/images/saga/Saga.010.jpeg" alt="" /></p>
 
-<p>​     回顾之前的酸碱平衡的示例，我们得到的启发我们可以通过业务模型的改进提升系统性能。有关领域建模，这里给大家推荐两本书，一个是《领域驱动设计》，还有一个是《实现领域驱动设计》。微服务设计目标高内聚低耦合，领域驱动设计能帮助构建一致的业务模型和系统实现模型，通过领域驱动设计可以明确微服务的界限上下文。通过在业务层面上把它们之间的强耦合关系拆开之后，带来最大的好处是，它们自身可以借助传统的数据库所提供的功能来实现一致性，只不过是在微服务与微服务之间，它们需要通过前面提到的这种柔性事务方式来做这件事情。</p>
+<p>​回顾之前的酸碱平衡的示例，我们得到的启发我们可以通过业务模型的改进提升系统性能。有关领域建模，这里给大家推荐两本书，一个是《领域驱动设计》，还有一个是《实现领域驱动设计》。</p>
+
+<p>微服务设计目标高内聚低耦合，领域驱动设计能帮助构建一致的业务模型和系统实现模型，通过领域驱动设计可以明确微服务的界限上下文。通过在业务层面上把它们之间的强耦合关系拆开之后，带来最大的好处是，它们自身可以借助传统的数据库所提供的功能来实现一致性。只不过是在微服务与微服务之间，它们需要通过前面提到的这种柔性事务方式来做这件事情。</p>
 
 <p><img src="/assets/images/saga/Saga.011.jpeg" alt="" /></p>
 
@@ -464,7 +468,7 @@
 
 <p>前面提到了超时重试的机制，现在我们再来看看重试取消的情况。补偿可交换原则是指Saga并行处理的过程中，如果发生了超时重试事件之后，并进行了补偿的操作，那么补偿操作是直接生效的。</p>
 
-<p>为了保证这个要求，需要我们在设计系统的过程中保留所有的事务数据。</p>
+<p>为了满足这个要求，需要我们在设计系统的过程中保留所有的事务数据。</p>
 
 <p><img src="/assets/images/saga/Saga.018.jpeg" alt="" /></p>
 
@@ -476,7 +480,7 @@
 
 <p><img src="/assets/images/saga/Saga.020.jpeg" alt="" /></p>
 
-<p>为了解决隔离性带来的问题，我们可以参考一下TCC的解决方案，从业务层面入手加入一Session以及锁的机制来保证能够串行化操作资源。或者是在业务层面通过预先冻结资金的方式隔离这部分资源。 最后在业务操作的过程中可以通过及时读取当前状态的方式获取到最新的贡献。</p>
+<p>为了解决隔离性带来的问题，我们可以参考一下TCC的解决方案，从业务层面入手加入一Session以及锁的机制来保证能够串行化操作资源。也可以在业务层面通过预先冻结资金的方式隔离这部分资源， 最后在业务操作的过程中可以通过及时读取当前状态的方式获取到最新的更新。</p>
 
 <p><img src="/assets/images/saga/Saga.021.jpeg" alt="" /></p>
 
@@ -493,20 +497,20 @@
 
 <p><img src="/assets/images/saga/Saga.023.jpeg" alt="" /></p>
 
-<p>布式的Saga 一般是采用事件驱动方式让参与的服务方进行相关的交互。相关的业务方只需要订阅相关的领域事件即可。 Chirs提供了基于事件溯源的实现，同时axonframework也提供了相关的实现。</p>
+<p>布式的Saga 一般是采用事件驱动方式让参与的服务方进行相关的交互。相关的业务方只需要订阅相关的领域事件即可。 Chirs提供了基于事件溯源的实现，同时axonframework也提供了相关的实现，详细的内容大家可以参考上面的链接。</p>
 
-<p>分布式saga实现的好处： 采用事件源的方式降低系统复杂程度，提升系统扩展性， 处理模块通过订阅事件的方式降低系统的耦合程度。当然这也的实现也有一些问题： saga系统会涉及大量的业务事件，对编码和调试会带来一些问题；因为处理是基于事件，相关事件处理模块可能会循环依赖的问题。</p>
+<p>分布式saga实现的好处： 采用事件源的方式降低系统复杂程度，提升系统扩展性， 处理模块通过订阅事件的方式降低系统的耦合程度。当然这也的实现也有一些问题： saga系统会涉及大量的业务事件，这样会对编码和调试会带来一些问题；还有就是相关的业务逻辑处理是基于事件，相关事件处理模块可能会有循环依赖的问题。</p>
 
 <p><img src="/assets/images/saga/Saga.024.jpeg" alt="" /></p>
 
 <p>前面理论铺垫已经做完了，现在讲一讲我们的实现。 ServiceComb是去年5月份华为开源的微服务框架，它是华为云微服务框架引擎很重要的一个组成部分。大家可以通过下面链接来访问ServiceComb官网以及相关的代码库。</p>
 
 <p>目前ServiceComb主要有三个项目组成：第一个是ServiceCenter做服务发现的，这是go语言在etcd
-基础实现的服务注册中心，另外是java的一个微服务框架，这块是基于vertx的基础上实现了全异步操作接口，框架有比较好的性能。 SAGA其实就是我们针对前面刚刚提到Saga模式的实现。</p>
+基础实现的服务注册中心，另外是java的一个微服务框架，这块是基于vertx的基础上实现了全异步操作接口，框架有比较好的性能。 Saga项目其实就是我们针对前面刚刚提到Saga模式的提供的一个实现。</p>
 
 <p><img src="/assets/images/saga/Saga.025.jpeg" alt="" /></p>
 
-<p>集中式的Saga协调器构建过程参考了Caitie的论文，实现了一个集中式Saga调用协调器。 后续我们在开发的过程中，发现如果不提供DSL的话，让用户定义Saga事件很困难，受到Zipkin的启发，我们实现了一个分布式的Saga协调器。</p>
+<p>集中式的Saga协调器构建过程参考了Caitie的论文，实现了一个集中式Saga调用协调器。 后续我们在开发的过程中，发现如果不提供DSL的话，让用户定义Saga事件很困难。后来我们受到Zipkin的启发，我们实现了一个分布式的Saga协调器。</p>
 
 <p><img src="/assets/images/saga/Saga.026.jpeg" alt="" /></p>
 
@@ -540,7 +544,7 @@
 
 <p><img src="/assets/images/saga/Saga.032.jpeg" alt="" /></p>
 
-<p>Omega会以切面编程的方式向应用程序注入相关的处理模块，这里有拦截请求的模块， 用来帮助我们构建分布式事务调用的上下文。 同时在事务处理初始阶段处理事务的相关准备的操作，例如创建Saga 起始事件，以及相关的子起始事件， 根据事务的执行的成功或者失败生产相关的事务终止或者失败事件。</p>
+<p>Omega会以切面编程的方式向应用程序注入相关的处理模块。这里有拦截请求的模块， 用来帮助我们构建分布式事务调用的上下文。 同时在事务处理初始阶段处理事务的相关准备的操作，例如创建Saga 起始事件，以及相关的子起始事件， 根据事务的执行的成功或者失败生产相关的事务终止或者失败事件。</p>
 
 <p><img src="/assets/images/saga/Saga.033.jpeg" alt="" /></p>
 
@@ -557,7 +561,11 @@
 <p>如果服务调用的过程中抛出异常，Omega会将终止事件发送到Alpha端， Alpha的后台进程会定时做扫描，扫描过程中会发现有需要恢复的事件。Alpha会向Omega发消息调用相关的恢复操作，来保证整个Saga事务的原子性。目前Omega也开始提供重试功能，也就是事务调用如果失败了， Omega会根据设置进行重试尝试。
 <img src="/assets/images/saga/Saga.036.jpeg" alt="" /></p>
 
-<p>未来的开发计划，第一个就是Alpha这边会做多租，因为这边我们可以提供线上的服务，还有为了保证系统的可达性，我们可能会用消息队列的方式的方式来做。还有就是刚刚给大家提到的TCC协调器的方式。还有就是Omega，我们要实现幂等也比较费劲，在Omega端也可以实现幂等操作。另外根据Saga的执行这个情况，也要做一些可视化的事情，这块其实也是前端，大家如果有做前端技能的话，可以跟我联系一下。最后我们要解决多线程共享调用的问题。我们问题都列在下面的JIRA上面，大家可以来找一下相关的任务。</p>
+<p>未来的开发计划，第一个就是Alpha这边会提供多租服务架构，这样可以在云上提供Saga协调服务；为了保证系统的可达性，我们可能会用消息队列的方式来做传递事件信息。还有就是刚刚给大家提到的TCC协调器也是我们下一步的工作重点。如果能在Omega端来保证幂等操作的话，可以极大减轻大家的业务编程负担。另外根据Saga的执行这个情况，也要做一些可视化的事情，这块其实也是前端，大家如果有做前端技能的话，可以跟我联系一下。</p>
+
+<p>还有Omega需要解决多线程共享调用的问题。</p>
+
+<p>我们问题都列在下面的JIRA上面，大家可以通过这个<a href="https://issues.apache.org/jira/browse/SCB-333?jql=project%20%3D%20SCB%20AND%20status%20%3D%20Open%20AND%20fixVersion%20in%20(EMPTY%2C%20java-chassis-1.0.0-m2)%20AND%20labels%20%3D%20newbie">链接</a>入门任务。</p>
 
 <p><img src="/assets/images/saga/Saga.037.jpeg" alt="" /></p>
 
@@ -716,6 +724,35 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/cn/docs/how-to-grow-up-to-be-an-apache-committer/" rel="permalink">如何从一名开源小白成长为Apache Committer
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">如何从一名开源小白成长为Apache Committer
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/cn/docs/easy-build-microservice-system-part-II/" rel="permalink">轻松微服务系列：快速实现客户关系管理系统的用户服务
 </a>
       
@@ -787,35 +824,6 @@
 
 
   3 分钟 阅读
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/cn/docs/easy-build-microservice-system-part-I/" rel="permalink">轻松微服务系列：从一键构建微服务和DDD设计开始
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：从一键构建微服务和DDD设计开始
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  少于 1 分钟 阅读
 
 </p>
     
