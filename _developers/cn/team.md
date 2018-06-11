@@ -15,6 +15,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | ------------- | ----------------------- | ------------- | ---- |
 | acsukesh      |  Sukesh A C             |  Huawei       |      |
 | asifdxtream   |  Mohammad Asif Siddiqui |  Huawei       |  *   |
+| ericlee       |  Eric Lee               |               |      |
 | jbonofre      |  Jean-Baptiste Onofre   |  Talend       |  *   |
 | liubao68      |  Liu Bao                |  Huawei       |  *   |
 | little-cui    |  Cui Yihua              |  Huawei       |  *   |
@@ -33,10 +34,10 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | ----------------- | ---------------------- | ------------ |
 | aseTo2016         |                        |              |
 | chanjarster       | Daniel Qian            | SupWisdom    |
-| eric-lee-ltk      | Eric Lee               |              |
 | imlidian          | Li Dian                | Huawei       |
 | laijianbin        | Lai Jianbin            |              |
 | lijasonvip        | Li bo                  |              |
+| liuzhenyang       |                        |              |
 | MabinGo           | Ma Bin                 | Huawei       |
 | maheshrajus       | Mahesh Raju Somalaraju |              |
 | mt-monster        |                        | Huawei       |

@@ -16,6 +16,7 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | ------------- | ----------------------- | ------------- | ---- |
 | acsukesh      |  Sukesh A C             |  Huawei       |      |
 | asifdxtream   |  Mohammad Asif Siddiqui |  Huawei       |  *   |
+| ericlee       |  Eric Lee               |               |      |
 | jbonofre      |  Jean-Baptiste Onofre   |  Talend       |  *   |
 | liubao68      |  Liu Bao                |  Huawei       |  *   |
 | little-cui    |  Cui Yihua              |  Huawei       |  *   |
@@ -34,11 +35,10 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | ----------------- | ---------------------- | ------------ |
 | aseTo2016         |                        |              |
 | chanjarster       | Daniel Qian            | SupWisdom    |
-| eric-lee-ltk      | Eric Lee               |              |
 | imlidian          | Li Dian                | Huawei       |
 | laijianbin        | Lai Jianbin            |              |
-| liuzhenyang       |                        |              |
 | lijasonvip        | Li bo                  |              |
+| liuzhenyang       |                        |              |
 | MabinGo           | Ma Bin                 | Huawei       |
 | maheshrajus       | Mahesh Raju Somalaraju |              |
 | mt-monster        |                        | Huawei       |
