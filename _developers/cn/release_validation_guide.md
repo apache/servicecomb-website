@@ -133,7 +133,7 @@ Staging Repository : https://repository.apache.org/content/repositories/orgapach
 </settings>
 ```
 
-一切就绪后，使用`cd`命令切换到源代码demo目录下，执行：
+一切就绪后，使用`cd`命令切换到**源代码demo目录**(注意不是根目录)下，执行：
 
 ```bash
 mvn clean install -Pdocker -Pstaging
@@ -182,4 +182,4 @@ mvn clean verify -Pdocker -Pstaging
 等待所有的测试通过，依据配置环境不同，约耗时5~10分钟。
 
 ### 验证Samples是否正确（可选）
-在源代码的sample下有很多例子，可以任选几个测试，例如使用BMI做验证；sample执行的方法请参见对应目录下的README.md说明。
+在源代码的sample下有很多例子，可以任选几个测试，例如使用BMI做验证；sample验证的方法请参见对应目录下README.md中的说明即可。
