@@ -19,35 +19,35 @@
 
 
 
-<title>代码提交指南 - Apache ServiceComb (incubating)</title>
+<title>ServiceComb发版验证指南 - Apache ServiceComb (incubating)</title>
 
 
 
 
-<meta name="description" content="介绍如何向 ServiceComb 项目提交代码">
+<meta name="description" content="ServiceComb发版验证指南">
 
 
 
 
-<meta name="author" content="">
+<meta name="author" content="Yangyong Zheng">
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="代码提交指南">
+<meta property="og:title" content="ServiceComb发版验证指南">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/submit-codes/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/submit-codes/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/release-validation-guide/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/release-validation-guide/">
 
 
 
-  <meta property="og:description" content="介绍如何向 ServiceComb 项目提交代码">
+  <meta property="og:description" content="ServiceComb发版验证指南">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="代码提交指南">
-  <meta name="twitter:description" content="介绍如何向 ServiceComb 项目提交代码">
+  <meta name="twitter:title" content="ServiceComb发版验证指南">
+  <meta name="twitter:description" content="ServiceComb发版验证指南">
   <meta name="twitter:url" content="">
 
   
@@ -55,6 +55,8 @@
     
   
 
+  
+    <meta name="twitter:creator" content="@">
   
 
 
@@ -221,7 +223,7 @@
           
             
             
-            <a href=/developers/submit-codes/>English</a>
+            <a href=/developers/release-validation-guide/>English</a>
           
         </div>
       </nav>
@@ -387,16 +389,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="代码提交指南">
-    <meta itemprop="description" content="介绍如何向 ServiceComb 项目提交代码">
+    <meta itemprop="headline" content="ServiceComb发版验证指南">
+    <meta itemprop="description" content="ServiceComb发版验证指南">
     
-    <meta itemprop="dateModified" content="September 08, 2017">
+    <meta itemprop="dateModified" content="June 12, 2018">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">代码提交指南
+            <h1 class="page__title" itemprop="headline">ServiceComb发版验证指南
 </h1>
             
           </header>
@@ -408,13 +410,13 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#贡献途径" id="markdown-toc-贡献途径">贡献途径</a></li>
-  <li><a href="#运行测试" id="markdown-toc-运行测试">运行测试</a></li>
-  <li><a href="#pr指南" id="markdown-toc-pr指南">PR指南</a>    <ul>
-      <li><a href="#fork仓库" id="markdown-toc-fork仓库">Fork仓库</a></li>
-      <li><a href="#配置git和提交修改" id="markdown-toc-配置git和提交修改">配置git和提交修改</a></li>
-      <li><a href="#创建pr" id="markdown-toc-创建pr">创建PR</a></li>
-      <li><a href="#冲突解决" id="markdown-toc-冲突解决">冲突解决</a></li>
+  <li><a href="#验证java-chassis" id="markdown-toc-验证java-chassis">验证Java Chassis</a>    <ul>
+      <li><a href="#环境准备" id="markdown-toc-环境准备">环境准备</a></li>
+      <li><a href="#验证源代码包hash和签名正确" id="markdown-toc-验证源代码包hash和签名正确">验证源代码包Hash和签名正确</a></li>
+      <li><a href="#验证源代码功能正确" id="markdown-toc-验证源代码功能正确">验证源代码功能正确</a></li>
+      <li><a href="#验证staging-repository内的库正确" id="markdown-toc-验证staging-repository内的库正确">验证Staging Repository内的库正确</a></li>
+      <li><a href="#验证spring-cloud集成功能正确" id="markdown-toc-验证spring-cloud集成功能正确">验证Spring Cloud集成功能正确</a></li>
+      <li><a href="#验证samples是否正确可选" id="markdown-toc-验证samples是否正确可选">验证Samples是否正确（可选）</a></li>
     </ul>
   </li>
 </ul>
@@ -422,136 +424,189 @@
   </nav>
 </aside>
 
-<h2 id="贡献途径">贡献途径</h2>
-<p>　　ServiceComb正在不断成长中，也希望能找到更多志同道合的同伴一起成长和进步。向ServiceComb 贡献的途径有多种：</p>
-<ul>
-  <li>完善文档。完善网站上的文档或者项目中的介绍文档和API说明文档。其中，网站文档的完善可通过网站最底端的<strong>报告本网页问题</strong>或<strong>在Github上编辑此页</strong>对文档内容进行完善。</li>
-  <li>
-    <p>实现功能特性需求或修复BUG。项目的功能特性需求或者已发现但未修复的BUG都会在项目中的issue处看到，以<a href="https://github.com/apache/incubator-servicecomb-saga/issues">Saga</a>项目为例，一般都会带有类似 <strong>enhancement</strong> 或类似 <strong>bug</strong> 的标签来说明这是功能需求还是BUG，读者可以结合自己的兴趣点来选择。此外，您也可以通过日常使用或阅读代码时发现BUG并以Issue的方式进行描述并针对该BUG提交PR，帮助我们进一步改进。同时，也欢迎您提出需求并在实现后提交PR。</p>
+<p>ServiceComb项目发新版本时，会发起投票邀请大家验证新版本的代码和Repo是否正确，本文向大家介绍如何进行验证工作。</p>
 
-    <p><img src="/assets/images/find-features-by-example.png" alt="寻觅功能需求示例" class="align-center" /></p>
-  </li>
-</ul>
-
-<h2 id="运行测试">运行测试</h2>
-<p>　　在您提交代码前，请先按照项目README中说明的自动测试部分对代码的功能性和实现上的正确性进行验证。</p>
-
-<h2 id="pr指南">PR指南</h2>
-<p>　　在 <a href="https://github.com/search?q=org%3Aapache+servicecomb">Github</a> 上面可以很方便地提交 <a href="https://help.github.com/articles/about-pull-requests/">Pull Request (PR)</a>，下面将以本网站项目<a href="https://github.com/apache/incubator-servicecomb-website">apache/incubator-servicecomb-website</a> 为例（如果是其他项目，请替换项目名incubator-servicecomb-website）。</p>
-
-<h3 id="fork仓库">Fork仓库</h3>
-
-<p>　　进入 apache/incubator-servicecomb-website 的 <a href="https://github.com/apache/incubator-servicecomb-website">github 页面</a> ，点击右上角按钮 <code class="highlighter-rouge">Fork</code> 进行 Fork。</p>
-
-<p><img src="/assets/images/fork-repo.jpg" alt="体质指数应用运行界面" class="align-center" /></p>
-
-<h3 id="配置git和提交修改">配置git和提交修改</h3>
-
-<ul>
-  <li>
-    <p>将代码克隆到本地：</p>
-
-    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/&lt;your_github_name&gt;/incubator-servicecomb-website.git
-</code></pre>
-    </div>
-
-    <p>注意：请将 &lt;your_github_name&gt; 替换为您的github名字。</p>
-  </li>
-</ul>
-
-<p>　　clone完成后，origin会默认指向github上的远程fork地址。</p>
-
-<ul>
-  <li>
-    <p>将 apache/incubator-servicecomb-website 添加为本地仓库的远程分支 upstream：</p>
-
-    <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">cd  </span>incubator-servicecomb-website
-git remote add upstream https://github.com/apache/incubator-servicecomb-website.git
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>检查远程仓库设置：</p>
-
-    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git remote -v
-origin https://github.com/&lt;your_github_name&gt;/incubator-servicecomb-website.git <span class="o">(</span>fetch<span class="o">)</span>
-origin    https://github.com/&lt;your_github_name&gt;/incubator-servicecomb-website.git <span class="o">(</span>push<span class="o">)</span>
-upstream  https://github.com/apache/incubator-servicecomb-website.git <span class="o">(</span>fetch<span class="o">)</span>
-upstream  https://github.com/apache/incubator-servicecomb-website.git <span class="o">(</span>push<span class="o">)</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>新建分支以便在分支上做修改：</p>
-
-    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git checkout -b &lt;your_branch_name&gt;
-</code></pre>
-    </div>
-  </li>
-</ul>
-
-<p>　　注意： &lt;your_branch_name&gt; 为您自定义的分支名字。</p>
-
-<p>　　创建完成后可进行代码更改。</p>
-
-<ul>
-  <li>
-    <p>提交代码到远程分支：</p>
-
-    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git commit -a -m <span class="s2">"&lt;you_commit_message&gt;"</span>
-git push origin &lt;your_branch_name&gt;
-</code></pre>
-    </div>
-  </li>
-</ul>
-
-<p>　　更多 git 使用方法请访问：<a href="https://www.atlassian.com/git/tutorials/setting-up-a-repository">git 使用</a>，这里不赘述。</p>
-
-<h3 id="创建pr">创建PR</h3>
-
-<p>　　在浏览器切换到自己的 github 页面，切换分支到提交的分支 &lt;your_branch_name&gt; ，依次点击 <code class="highlighter-rouge">New pull request</code> 和 <code class="highlighter-rouge">Create pull request</code> 按钮进行创建，如下图所示：</p>
-
-<p class="figure-caption"><img src="/assets/images/new-pr.jpg" alt="体质指数应用运行界面" class="align-center" />
-fig-1 New pull request</p>
-
-<p class="figure-caption"><img src="/assets/images/create-pr.jpg" alt="体质指数应用运行界面" class="align-center" />
-fig-2 Create pull request</p>
-
-<p>　　至此，您的PR创建完成，更多关于 PR 请阅读 <a href="https://help.github.com/categories/collaborating-with-issues-and-pull-requests/">collaborating-with-issues-and-pull-requests</a> 。</p>
-
-<h3 id="冲突解决">冲突解决</h3>
-<p>　　提交PR时的代码冲突一般是由于多人编辑同一个文件引起的，解决冲突主要通过以下步骤即可：</p>
+<h2 id="验证java-chassis">验证Java Chassis</h2>
+<h3 id="环境准备">环境准备</h3>
 <ol>
-  <li>切换至主分支
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git checkout master
-</code></pre>
-    </div>
-  </li>
-  <li>同步远端主分支至本地
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git pull upstream master
-</code></pre>
-    </div>
-  </li>
-  <li>切换回刚才的分支（假设分支名为fix）
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git checkout fix
-</code></pre>
-    </div>
-  </li>
-  <li>进行rebase
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git rebase -i master
-</code></pre>
-    </div>
-    <p>此时会弹出修改记录的文件，一般直接保存即可。然后会提示哪些文件出现了冲突，此时可打开冲突文件对冲突部分进行修改，将提示的所有冲突文件的冲突都解决后，执行</p>
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git add .
-git rebase --continue
-</code></pre>
-    </div>
-    <p>依此往复，直至屏幕出现类似 <em>rebase successful</em> 字样即可，此时您可以进行往提交PR的分支进行更新：</p>
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git push -f origin fix
-</code></pre>
-    </div>
+  <li>请确保网络通畅；</li>
+  <li>请检查依赖软件已经正确安装：
+    <ul>
+      <li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK1.8</a></li>
+      <li><a href="https://maven.apache.org/download.cgi">Maven 3.x</a></li>
+      <li><a href="https://www.docker.com/get-docker">Docker</a></li>
+    </ul>
   </li>
 </ol>
+
+<blockquote>
+  <p>提示：如果验证环境操作系统是Windows，需要安装<a href="https://docs.docker.com/machine/install-machine/">Docker Machine</a></p>
+</blockquote>
+
+<h3 id="验证源代码包hash和签名正确">验证源代码包Hash和签名正确</h3>
+<p>请在Vote邮件中找到<strong>Release Candidate</strong>的URL，例如：</p>
+
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/rc-01/
+</code></pre>
+</div>
+
+<p>在浏览器中打开，下载<code class="highlighter-rouge">src.zip</code>结尾的源代码压缩包，以及同名的<code class="highlighter-rouge">src.zip.asc</code>签名文件和<code class="highlighter-rouge">src.zip.sha512</code>哈希文件，保持三个文件在同一目录下。</p>
+
+<p>请在Vote邮件中找到<strong>Key</strong>的URL：</p>
+
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>Keys to verify the Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb/KEYS
+</code></pre>
+</div>
+
+<p>在浏览器中打开，保存内容为KEYS文件并导入：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>gpg --import KEYS
+</code></pre>
+</div>
+
+<p>提示<code class="highlighter-rouge">Mohammad Asif Siddiqui (ServiceComb Code Signing Key) &lt;asifdxtreme@apache.org&gt;</code>成功导入或未变化（已导入过）</p>
+
+<p>验证签名：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>gpg --verify xxx-src.zip.asc xxx-src.zip
+</code></pre>
+</div>
+
+<p>提示<code class="highlighter-rouge">Good signature from "Mohammad Asif Siddiqui (ServiceComb Code Signing Key) &lt;asifdxtreme@apache.org&gt;"</code>代表签名正确。</p>
+
+<p>验证Hash：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sha512sum -c xxx-src.zip.sha512
+</code></pre>
+</div>
+
+<p>提示<code class="highlighter-rouge">OK</code>代表Hash正确。</p>
+
+<h3 id="验证源代码功能正确">验证源代码功能正确</h3>
+<p>解压源代码：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>unzip xxx-src.zip
+</code></pre>
+</div>
+
+<p>使用<code class="highlighter-rouge">cd</code>命令切换到解压出来的源代码根目录下，执行：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean install -Pdocker -Pit
+</code></pre>
+</div>
+
+<blockquote>
+  <p>提示：如果如果验证环境操作系统是Windows：</p>
+  <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean install -Pdocker -Pit -Pdocker-machine
+</code></pre>
+  </div>
+</blockquote>
+
+<p>等待所有的测试通过，依据配置环境不同，约耗时10~30分钟。</p>
+
+<h3 id="验证staging-repository内的库正确">验证Staging Repository内的库正确</h3>
+<p>首先删除本地Repo中ServiceComb的全部缓存：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>rm -rf /root/.m2/repository/org/apache/servicecomb/
+</code></pre>
+</div>
+
+<blockquote>
+  <p>提示：如果不是root用户，请修改对应的路径</p>
+</blockquote>
+
+<p>请在Vote邮件中找到<strong>Staging Repository</strong>的URL：</p>
+
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>Staging Repository : https://repository.apache.org/content/repositories/orgapacheservicecomb-xxxx/
+</code></pre>
+</div>
+
+<p>之后在maven的<code class="highlighter-rouge">settings.xml</code>中添加Staging Repository地址配置：</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;settings&gt;</span>
+	<span class="nt">&lt;profiles&gt;</span>
+	   <span class="nt">&lt;profile&gt;</span>
+		  <span class="nt">&lt;repositories&gt;</span>
+			<span class="nt">&lt;repository&gt;</span>
+			  <span class="nt">&lt;releases</span> <span class="nt">/&gt;</span>
+			  <span class="nt">&lt;snapshots&gt;</span>
+				<span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+			  <span class="nt">&lt;/snapshots&gt;</span>
+			  <span class="nt">&lt;id&gt;</span>repo.apache.staging<span class="nt">&lt;/id&gt;</span>
+			  <span class="nt">&lt;url&gt;</span>{Vote邮件中的Staging Repository URL}<span class="nt">&lt;/url&gt;</span>
+			<span class="nt">&lt;/repository&gt;</span>
+		  <span class="nt">&lt;/repositories&gt;</span>
+		  <span class="nt">&lt;pluginRepositories&gt;</span>
+			<span class="nt">&lt;pluginRepository&gt;</span>
+			  <span class="nt">&lt;releases</span> <span class="nt">/&gt;</span>
+			  <span class="nt">&lt;snapshots&gt;</span>
+				<span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+			  <span class="nt">&lt;/snapshots&gt;</span>
+			  <span class="nt">&lt;id&gt;</span>repo.apache.staging<span class="nt">&lt;/id&gt;</span>
+			  <span class="nt">&lt;url&gt;</span>{Vote邮件中的Staging Repository URL}<span class="nt">&lt;/url&gt;</span>
+			<span class="nt">&lt;/pluginRepository&gt;</span>
+		  <span class="nt">&lt;/pluginRepositories&gt;</span>
+		  <span class="nt">&lt;id&gt;</span>staging<span class="nt">&lt;/id&gt;</span>
+		<span class="nt">&lt;/profile&gt;</span>
+	<span class="nt">&lt;/profiles&gt;</span>
+<span class="nt">&lt;/settings&gt;</span>
+</code></pre>
+</div>
+
+<p>一切就绪后，使用<code class="highlighter-rouge">cd</code>命令切换到<strong>源代码demo目录(注意不是根目录)下</strong>，执行：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean install -Pdocker -Pstaging
+</code></pre>
+</div>
+
+<blockquote>
+  <p>提示：如果如果验证环境操作系统是Windows：</p>
+  <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean install -Pdocker -Pstaging -Pdocker-machine
+</code></pre>
+  </div>
+</blockquote>
+
+<p><strong>测试过程中可以观察到Java Chassis的依赖将从我们之前指定的Apache Staging Repository下载：</strong></p>
+
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>Downloading: https://repository.apache.org/content/repositories/orgapacheservicecomb-xxxx/xxxx.pom
+</code></pre>
+</div>
+
+<p>等待所有的测试通过，依据配置环境不同，约耗时5~15分钟。</p>
+
+<h3 id="验证spring-cloud集成功能正确">验证Spring Cloud集成功能正确</h3>
+<p>从https://github.com/ServiceComb/ServiceComb-Company-WorkShop Clone最新Company示例项目代码，切换到<code class="highlighter-rouge">1.x</code>分支：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
+git checkout 1.x
+</code></pre>
+</div>
+
+<p>修改项目根目录中的<code class="highlighter-rouge">pom.xml</code>，更改其中的<code class="highlighter-rouge">&lt;java-chassis.version&gt;</code>配置为当前发版版本，例如1.0.0-m2：</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;properties&gt;</span>
+  <span class="nt">&lt;java-chassis.version&gt;</span>1.0.0-m2<span class="nt">&lt;/java-chassis.version&gt;</span>
+<span class="nt">&lt;/properties&gt;</span>
+</code></pre>
+</div>
+
+<p>在项目根目录下执行：</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean verify -Pdocker -Pstaging
+</code></pre>
+</div>
+
+<blockquote>
+  <p>提示：如果如果验证环境操作系统是Windows：</p>
+  <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean verify -Pdocker -Pstaging -Pdocker-machine
+</code></pre>
+  </div>
+</blockquote>
+
+<p>等待所有的测试通过，依据配置环境不同，约耗时5~10分钟。</p>
+
+<h3 id="验证samples是否正确可选">验证Samples是否正确（可选）</h3>
+<p>在源代码的sample下有很多例子，可以任选几个测试，例如使用BMI做验证；sample验证的方法请参见对应目录下README.md中的说明即可。</p>
 
         
       </section>
@@ -559,6 +614,30 @@ git rebase --continue
       <footer class="page__meta">
         
         
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E5%8F%91%E7%89%88" class="page__taxonomy-item" rel="tag">发版</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E9%AA%8C%E8%AF%81" class="page__taxonomy-item" rel="tag">验证</a>
+    
+    </span>
+  </p>
+
+
+
 
 
         
@@ -607,8 +686,8 @@ git rebase --continue
     <div class="col">
       <ul>
         <p class="header">贡献</p>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _developers/cn/submit-codes.md">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_developers/cn/submit-codes.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _developers/cn/release_validation_guide.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_developers/cn/release_validation_guide.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
       </ul>
     </div>
