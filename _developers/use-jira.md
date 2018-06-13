@@ -3,7 +3,7 @@ title: "Howto Use JIRA"
 lang: en
 ref: use-jira
 permalink: /developers/use-jira/
-excerpt: "Howto use JIRA"
+excerpt: "How to use JIRA"
 last_modified_at: 2018-02-28T11:26:43-20:46
 ---
 
