@@ -45,7 +45,7 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | sjh0027           |                        |              |
 | TankTian          | Tian Min               | Huawei       |
 | vibakar           |                        |              |
-| weichao666        | Wei Chao               |              |
+| weichao666        | Wei Chao               | ISoftStone   |
 | wuzunqian         | Wu Zunqian             | Yongyou      |
 | xuyiyun0929       | Xu Yiyun               |              |
 | yangbor           | Yang Bo                | Huawei       |
