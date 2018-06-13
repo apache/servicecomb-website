@@ -44,7 +44,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | sjh0027           |                        |              |
 | TankTian          | Tian Min               | Huawei       |
 | vibakar           |                        |              |
-| weichao666        | Wei Chao               |              |
+| weichao666        | Wei Chao               | ISoftStone   |
 | wuzunqian         | Wu Zunqian             | Yongyou      |
 | xuyiyun0929       | Xu Yiyun               |              |
 | yangbor           | Yang Bo                | Huawei       |
