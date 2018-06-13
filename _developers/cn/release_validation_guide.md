@@ -6,7 +6,7 @@ permalink: /cn/developers/release-validation-guide/
 excerpt: "ServiceComb发版验证指南"
 last_modified_at:  2018-06-12T00:00:00+08:00
 author: Yangyong Zheng
-tags: [发版]
+tags: [发版,验证]
 redirect_from:
   - /theme-setup/
 ---
@@ -32,7 +32,7 @@ ServiceComb项目发新版本时，会发起投票邀请大家验证新版本的
 Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/rc-01/
 ```
 
-在浏览器中打开，下载`src.zip`结尾的源代码压缩包，以及同名的`asc`签名文件和`sha512`哈希文件，保持三个文件在同一目录下。
+在浏览器中打开，下载`src.zip`结尾的源代码压缩包，以及同名的`src.zip.asc`签名文件和`src.zip.sha512`哈希文件，保持三个文件在同一目录下。
 
 请在Vote邮件中找到**Key**的URL：
 
@@ -40,9 +40,7 @@ Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb
 Keys to verify the Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb/KEYS
 ```
 
-在浏览器中打开，保存此KEYS。
-
-导入KEYS并验证签名：
+在浏览器中打开，保存内容为KEYS文件并导入：
 
 ```bash
 gpg --import KEYS
@@ -133,7 +131,7 @@ Staging Repository : https://repository.apache.org/content/repositories/orgapach
 </settings>
 ```
 
-一切就绪后，使用`cd`命令切换到**源代码demo目录**(注意不是根目录)下，执行：
+一切就绪后，使用`cd`命令切换到**源代码demo目录(注意不是根目录)下**，执行：
 
 ```bash
 mvn clean install -Pdocker -Pstaging
