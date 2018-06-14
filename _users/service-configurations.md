@@ -85,14 +85,24 @@ Users at the provider end can use the rate limiting policy to limit the maximum 
 
 ### Configuration
 
-　　Rate limiting policies are configured in the microservice.yaml file. For related configuration items, see Table 2. To enable the rate limiting policy at the provider end, you also need to configure the rate limiting handler on the server in the processing chain and add dependencies in the pom.xml file. An example of microservice.yaml file configuration is as follows:
+　　Rate limiting policies are configured in the microservice.yaml file. For related configuration items, see Table 2. To enable the rate limiting policy at the provider end, you also need to configure the rate limiting handler on the server in the processing chain and add dependencies in the pom.xml file. 
 
+* An example of microservice.yaml file configuration is as follows,
 ```yaml
 servicecomb:
   handler:
     chain:
-      Consumer:
+      Provider:
         default: qps-flowcontrol-provider
+```
+
+* Add dependencies of handler-flowcontrol-qps in the pom.xml file,
+```yaml
+<dependency>
+    <groupId>org.apache.servicecomb</groupId>
+    <artifactId>handler-flowcontrol-qps</artifactId>
+    <version>1.0.0-m1</version>
+</dependency>
 ```
 
 　　**Table2 Configuration items of the QPS rate limit**
