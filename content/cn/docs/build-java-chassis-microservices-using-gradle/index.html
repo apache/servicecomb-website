@@ -377,7 +377,7 @@
 
 <p>在maven中，Java Chassis的依赖管理通过以下方式即可引入：</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>   <span class="nt">&lt;dependencyManagement&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nt">&lt;dependencyManagement&gt;</span>
      <span class="nt">&lt;dependencies&gt;</span>
        <span class="nt">&lt;dependency&gt;</span>
          <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -388,8 +388,7 @@
        <span class="nt">&lt;/dependency&gt;</span>
      <span class="nt">&lt;/dependencies&gt;</span>
    <span class="nt">&lt;/dependencyManagement&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在gradle中，则需要以下三步完成，具体可参考 ：<a href="https://github.com/apache/incubator-servicecomb-java-chassis/pull/640/files#diff-8d0fdb4970d74d053b6585c3d5ae4cc2R36">Java Chassis的PR-640</a>。</p>
 
@@ -397,7 +396,7 @@
   <li>
     <p>声明使用maven仓库及依赖管理插件的依赖</p>
 
-    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
+    <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
     <span class="k">repositories</span> <span class="o">{</span>
         <span class="n">mavenLocal</span><span class="o">()</span>
         <span class="n">mavenCentral</span><span class="o">()</span>
@@ -406,26 +405,23 @@
         <span class="n">classpath</span><span class="o">(</span><span class="s1">'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'</span><span class="o">)</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>启用依赖管理插件</p>
 
-    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'io.spring.dependency-management'</span>
-</code></pre>
-    </div>
+    <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'io.spring.dependency-management'</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>声明Java Chassis的统一依赖管理</p>
 
-    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">dependencyManagement</span> <span class="o">{</span>
+    <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencyManagement</span> <span class="o">{</span>
     <span class="n">imports</span> <span class="o">{</span>
         <span class="n">mavenBom</span> <span class="s1">'org.apache.servicecomb:java-chassis-dependencies:1.0.0-m1'</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ol>
 
@@ -441,7 +437,7 @@
       <li>
         <p>声明使用maven仓库及Spring Boot插件的依赖</p>
 
-        <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
+        <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
     <span class="k">dependencies</span> <span class="o">{</span>
         <span class="n">classpath</span><span class="o">(</span><span class="s2">"org.springframework.boot:spring-boot-gradle-plugin:1.4.5.RELEASE"</span><span class="o">)</span>
     <span class="o">}</span>
@@ -450,15 +446,13 @@
         <span class="n">mavenCentral</span><span class="o">()</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-        </div>
+</code></pre></div>        </div>
       </li>
       <li>
         <p>启用Spring Boot插件</p>
 
-        <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'org.springframework.boot'</span>
-</code></pre>
-        </div>
+        <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'org.springframework.boot'</span>
+</code></pre></div>        </div>
       </li>
     </ol>
   </li>
@@ -467,11 +461,10 @@
 
     <p>非Spring Boot应用只需要在<code class="highlighter-rouge">build.gradle</code>文件中使用<code class="highlighter-rouge">application</code>插件并指明应用入口方法即可：</p>
 
-    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'application'</span>
+    <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'application'</span>
 
 <span class="n">mainClassName</span> <span class="o">=</span> <span class="s1">'org.packageName.XXXMain'</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ol>
 

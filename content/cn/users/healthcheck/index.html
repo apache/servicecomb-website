@@ -695,7 +695,7 @@
 </table>
 
 <p>例如：</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySqlHealthChecker</span> <span class="kd">implements</span> <span class="n">HealthChecker</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySqlHealthChecker</span> <span class="kd">implements</span> <span class="n">HealthChecker</span> <span class="o">{</span>
   <span class="nd">@Override</span>
   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="s">"mysql"</span><span class="o">;</span>
@@ -722,23 +722,20 @@
     <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>然后使用SPI的方式加载它，具体为在<code class="highlighter-rouge">resource/META-INF/services</code>下创建<code class="highlighter-rouge">org.apache.servicecomb.foundation.metrics.health.HealthChecker</code>文件，然后写入实现的HealthCheck类名即可，例如：</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>org.apache.servicecomb.samples.metrics.extendhealthcheck.MySqlHealthChecker
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.apache.servicecomb.samples.metrics.extendhealthcheck.MySqlHealthChecker
+</code></pre></div></div>
 
 <h3 id="验证实现的healthcheck">验证实现的HealthCheck</h3>
 <p>启动微服务后，HealthCheck默认以Rest方式发布，发布地址与<code class="highlighter-rouge">servicecomb.rest.address</code>一致，如果在<code class="highlighter-rouge">microservice.yaml</code>中设置的配置为：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">rest</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre></div></div>
 
 <p>那么就可以通过访问http://localhost:8080/health 获取检查结果，以及访问http://localhost:8080/health/detail 获取所有的检查项结果明细。</p>
 

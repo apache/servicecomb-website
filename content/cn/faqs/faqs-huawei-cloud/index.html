@@ -291,7 +291,7 @@
     <meta itemprop="headline" content="华为公有云常见问题">
     <meta itemprop="description" content="华为公有云常见问题">
     
-    <meta itemprop="dateModified" content="October 29, 2017">
+    <meta itemprop="dateModified" content="October 30, 2017">
 
     <div class="page__inner-wrap">
       
@@ -320,24 +320,22 @@
   <li>
     <p><strong>Q: 华为公有云运行时报错：WARN com.huawei.paas.monitor.DataFactory: Upload monitor data error. 使用的配置为：</strong></p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">monitor</span><span class="pi">:</span>
-     <span class="s">handler</span><span class="pi">:</span>
-       <span class="s">chain</span><span class="pi">:</span>
-         <span class="s">Provider</span><span class="pi">:</span>
-           <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">monitor</span><span class="pi">:</span>
+     <span class="na">handler</span><span class="pi">:</span>
+       <span class="na">chain</span><span class="pi">:</span>
+         <span class="na">Provider</span><span class="pi">:</span>
+           <span class="na">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
+</code></pre></div>    </div>
 
     <p>A: 这个是配置文件的错误，handler应该是在cse的下一级而不是monitor的下一级，正确的配置是：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">handler</span><span class="pi">:</span>
-     <span class="s">chain</span><span class="pi">:</span>
-       <span class="s">Provider</span><span class="pi">:</span>
-         <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">handler</span><span class="pi">:</span>
+     <span class="na">chain</span><span class="pi">:</span>
+       <span class="na">Provider</span><span class="pi">:</span>
+         <span class="na">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: 微服务引擎CSE和ServiceComb有什么关系？</strong></p>

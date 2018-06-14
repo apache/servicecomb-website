@@ -378,19 +378,18 @@
 
 <p><a href="https://github.com/ServiceComb/ServiceComb-Company-WorkShop/blob/master/kubernetes/README.md">Run Company on Kubernetes Cluster</a> Provides a detailed user guide, company can be deployed in the kubernetes cluster easily thourgh the following three instructions,</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
 
 <span class="nb">cd </span>ServiceComb-Company-WorkShop/kubernetes/
 
 bash start.sh
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="yaml-file-interpretation">Yaml File Interpretation</h2>
 
 <p>Take the author’s actual environment as an example:</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# </span>kubectl get pod -owide
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# kubectl get pod <span class="nt">-owide</span>
 NAME                                      READY     STATUS    RESTARTS   AGE       IP            NODE
 company-beekeeper-3737555734-48sxf        1/1       Running   0          17s       10.244.2.49   zenlinnode2
 company-bulletin-board-4113647782-th91w   1/1       Running   0          17s       10.244.1.53   zenlinnode1
@@ -398,99 +397,93 @@ company-doorman-3391375245-g0p8c          1/1       Running   0          17s    
 company-manager-454733969-0c1g8           1/1       Running   0          16s       10.244.2.50   zenlinnode2
 company-worker-1085546725-x7zl4           1/1       Running   0          17s       10.244.1.54   zenlinnode1
 zipkin-508217170-0khr3                    1/1       Running   0          17s       10.244.2.48   zenlinnode2
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Total of six pods, company manager, company-doorman, company-bulletin-board, company-worker, company-beekeeper, and zipkin, K8S cluster assigns the corresponding cluster IP to them.</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# </span>kubectl get svc -owide
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# kubectl get svc <span class="nt">-owide</span>
 NAME                     CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>          AGE       SELECTOR
 company-bulletin-board   10.99.70.46     &lt;none&gt;        30100/TCP        12m       io.kompose.service<span class="o">=</span>company-bulletin-board
 company-manager          10.100.61.227   &lt;nodes&gt;       8083:30301/TCP   12m       io.kompose.service<span class="o">=</span>company-manager
 zipkin                   10.104.92.198   &lt;none&gt;        9411/TCP         12m       io.kompose.service<span class="o">=</span>zipkin
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Only three services are started, zipkin, bulletin-board, and  company-manager, that is because the address of call chain and the bulletin-board need to be passed in the cluster to be called by other services, and the manager is the api gateway nedd to be visited outside the cluster.</p>
 
 <p>Read company-bulletin-board-service.yaml,</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>    <span class="s">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-    <span class="s">kind</span><span class="pi">:</span> <span class="s">Service</span>
-    <span class="s">metadata</span><span class="pi">:</span>
-      <span class="s">creationTimestamp</span><span class="pi">:</span> <span class="s">null</span>
-      <span class="s">labels</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+    <span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">creationTimestamp</span><span class="pi">:</span> <span class="no">null</span>
+      <span class="na">labels</span><span class="pi">:</span>
 <span class="err">    	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
       <span class="s">name</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
     <span class="s">spec</span><span class="pi">:</span>
-      <span class="s">ports</span><span class="pi">:</span>
-<span class="err">    </span><span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">30100"</span>
-      <span class="s">port</span><span class="pi">:</span> <span class="s">30100</span>
-      <span class="s">targetPort</span><span class="pi">:</span> <span class="s">30100</span>
+      <span class="na">ports</span><span class="pi">:</span>
+<span class="err">    </span><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">30100"</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="s">30100</span>
+      <span class="na">targetPort</span><span class="pi">:</span> <span class="s">30100</span>
         <span class="s">selector</span><span class="pi">:</span>
       <span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
-      <span class="s">status</span><span class="pi">:</span>
-        <span class="s">loadBalancer</span><span class="pi">:</span> <span class="pi">{}</span>
-</code></pre>
-</div>
+      <span class="na">status</span><span class="pi">:</span>
+        <span class="na">loadBalancer</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre></div></div>
 <p>The file defines the service of bulletin-board, and defines the name, port, and targetPort for the service, which is created by ‘kubectl expose’ to keep DNS capability in the cluster. Thus, other services can access the bulletin board and registry themselves.</p>
 
 <p>To the label and selector, it is useful to the situation of one-service to multiple-pods，When a pod dies, it is automatically removed from the endpoints, and new pods matching the Service’s selector will automatically get added to the endpoints.</p>
 
 <p>Read company-worker-deployment.yaml,</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
-<span class="s">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
-<span class="s">metadata</span><span class="pi">:</span>
-  <span class="s">creationTimestamp</span><span class="pi">:</span> <span class="s">null</span>
-  <span class="s">labels</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
+<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="na">metadata</span><span class="pi">:</span>
+  <span class="na">creationTimestamp</span><span class="pi">:</span> <span class="no">null</span>
+  <span class="na">labels</span><span class="pi">:</span>
 <span class="err">	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-worker</span>
   <span class="s">name</span><span class="pi">:</span> <span class="s">company-worker</span>
-<span class="s">spec</span><span class="pi">:</span>
-  <span class="s">replicas</span><span class="pi">:</span> <span class="s">1</span>
-  <span class="s">strategy</span><span class="pi">:</span> <span class="pi">{}</span>
-  <span class="s">template</span><span class="pi">:</span>
-<span class="err">	</span><span class="s">metadata</span><span class="pi">:</span>
-<span class="err">  	</span><span class="s">creationTimestamp</span><span class="pi">:</span> <span class="s">null</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="na">strategy</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="na">template</span><span class="pi">:</span>
+<span class="err">	</span><span class="na">metadata</span><span class="pi">:</span>
+<span class="err">  	</span><span class="na">creationTimestamp</span><span class="pi">:</span> <span class="no">null</span>
   <span class="err">	</span><span class="s">labels</span><span class="pi">:</span>
 <span class="err">    	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-worker</span>
-<span class="s">spec</span><span class="pi">:</span>
-  <span class="s">containers</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="s">env</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">ARTIFACT_ID</span>
-      <span class="s">value</span><span class="pi">:</span> <span class="s">worker</span>
-    <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">JAVA_OPTS</span>
-      <span class="s">value</span><span class="pi">:</span> <span class="s">-Dcse.service.registry.address=http://company-bulletin-board:30100 -Dservicecomb.tracing.collector.adress=http://zipkin:9411</span>
-    <span class="s">image</span><span class="pi">:</span> <span class="s">servicecomb/worker:0.0.1-SNAPSHOT</span>
-    <span class="s">name</span><span class="pi">:</span> <span class="s">company-worker</span>
-    <span class="s">ports</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="s">containerPort</span><span class="pi">:</span> <span class="s">7070</span>
-    <span class="pi">-</span> <span class="s">containerPort</span><span class="pi">:</span> <span class="s">8080</span>
-    <span class="s">resources</span><span class="pi">:</span> <span class="pi">{}</span>
-  <span class="s">restartPolicy</span><span class="pi">:</span> <span class="s">Always</span>
-<span class="s">status</span><span class="pi">:</span> <span class="pi">{}</span>
-</code></pre>
-</div>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">containers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">env</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">ARTIFACT_ID</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">worker</span>
+    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">JAVA_OPTS</span>
+      <span class="na">value</span><span class="pi">:</span> <span class="s">-Dcse.service.registry.address=http://company-bulletin-board:30100 -Dservicecomb.tracing.collector.adress=http://zipkin:9411</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">servicecomb/worker:0.0.1-SNAPSHOT</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">company-worker</span>
+    <span class="na">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="s">7070</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="s">8080</span>
+    <span class="na">resources</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="na">restartPolicy</span><span class="pi">:</span> <span class="s">Always</span>
+<span class="na">status</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre></div></div>
 <p>The yaml defines a pod with one replica (replicas: 1), which can be modified to control the number of replicas of the pod(Anyway, the flexibility of the K8S scalability to achieve on-demand dynamic horizontal expansion to reach the purpose, material of K8S scalability will be provided later in the website). We mentioned that the company-bulletin-board is a DNS name, it is used as the value of servicecomb.service.registry.address and passed to the service within the pod, such as: -Dcse.service. Registry.address = http: // company-bulletin-board: 30100, <a href="https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/README.md">kube-dns</a> Automatically resolve the servicename.</p>
 
 <p>Read <a href="https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/">connect-applications-service</a> to understanding the communication of services in K8S cluster.</p>
 
 <p>Other deployment.yaml and service.yaml are similar to the above except manager service, nodePort is defined in the company-manager-service.yaml to provide External-IP and Service-Port, as follows,</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spec</span><span class="pi">:</span>
-  <span class="s">ports</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8083"</span>
-<span class="err">  	</span><span class="s">port</span><span class="pi">:</span> <span class="s">8083</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8083"</span>
+<span class="err">  	</span><span class="na">port</span><span class="pi">:</span> <span class="s">8083</span>
   <span class="err">	</span><span class="s">targetPort</span><span class="pi">:</span> <span class="s">8080</span>
   <span class="err">	</span><span class="s">nodePort</span><span class="pi">:</span> <span class="s">30301</span>
   <span class="err">	</span><span class="s">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
   <span class="s">type</span><span class="pi">:</span> <span class="s">NodePort</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Get the External-IP and Service-Port by commands,</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>kubectl get svc company-manager -o yaml | grep ExternalIP -C 1
-kubectl get svc company-manager -o yaml | grep nodePort -C 1
-</code></pre>
-</div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get svc company-manager <span class="nt">-o</span> yaml | <span class="nb">grep </span>ExternalIP <span class="nt">-C</span> 1
+kubectl get svc company-manager <span class="nt">-o</span> yaml | <span class="nb">grep </span>nodePort <span class="nt">-C</span> 1
+</code></pre></div></div>
 
 <p>Now, you can use the External-IP and nodePort to visit company, Read <a href="https://github.com/ServiceComb/ServiceComb-Company-WorkShop/blob/master/kubernetes/README.md">github.com/ServiceComb/ServiceComb-Company-WorkShop/kubernetes</a> to get details about how to visit it inside or outside the cluster.</p>
 

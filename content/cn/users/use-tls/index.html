@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="使用TLS通信">
     <meta itemprop="description" content="使用TLS通信">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -659,24 +659,22 @@
     <p>服务中心TLS通信配置
  微服务与服务中心的连接可以通过将http改为https启用TLS通信，配置示例如下：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">service</span><span class="pi">:</span>
-     <span class="s">registry</span><span class="pi">:</span>
-       <span class="s">address</span><span class="pi">:</span> <span class="s">https://127.0.0.1:30100</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">service</span><span class="pi">:</span>
+     <span class="na">registry</span><span class="pi">:</span>
+       <span class="na">address</span><span class="pi">:</span> <span class="s">https://127.0.0.1:30100</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>服务提供者启用TLS通信
  服务提供者在配置服务监听地址时，可以通过在地址后面追加<code class="highlighter-rouge">?sslEnabled=true</code>开启TLS通信，示例如下：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">rest</span><span class="pi">:</span>
-     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080?sslEnabled=true</span>
-   <span class="s">highway</span><span class="pi">:</span>
-     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070?sslEnabled=true</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">rest</span><span class="pi">:</span>
+     <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080?sslEnabled=true</span>
+   <span class="na">highway</span><span class="pi">:</span>
+     <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070?sslEnabled=true</span>
+</code></pre></div>    </div>
   </li>
 </ul>
 
@@ -684,9 +682,8 @@
 
 <p>证书配置项写在microservice.yaml文件中，支持统一制定证书，也可以添加tag进行更细粒度的配置，有tag的配置会覆盖全局配置，配置格式如下：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">ssl.[tag].[property]</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">ssl.[tag].[property]</span>
+</code></pre></div></div>
 
 <p>证书配置项见下表证书配置项说明表。</p>
 
@@ -996,19 +993,19 @@
 <h2 id="示例代码">示例代码</h2>
 
 <p>microservice.yaml文件中启用TLS通信的配置示例如下：</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">service</span><span class="pi">:</span>
-    <span class="s">registry</span><span class="pi">:</span>
-      <span class="s">address</span><span class="pi">:</span> <span class="s">https://127.0.0.1:30100</span>
-  <span class="s">rest</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080?sslEnabled=true</span>
-  <span class="s">highway</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070?sslEnabled=true</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">service</span><span class="pi">:</span>
+    <span class="na">registry</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s">https://127.0.0.1:30100</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080?sslEnabled=true</span>
+  <span class="na">highway</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070?sslEnabled=true</span>
 
 <span class="c1">#########SSL options</span>
 <span class="s">ssl.protocols</span><span class="pi">:</span> <span class="s">TLSv1.2</span>
-<span class="s">ssl.authPeer</span><span class="pi">:</span> <span class="s">true</span>
-<span class="s">ssl.checkCN.host</span><span class="pi">:</span> <span class="s">true</span>
+<span class="s">ssl.authPeer</span><span class="pi">:</span> <span class="no">true</span>
+<span class="s">ssl.checkCN.host</span><span class="pi">:</span> <span class="no">true</span>
 
 <span class="c1">#########certificates config</span>
 <span class="s">ssl.trustStore</span><span class="pi">:</span> <span class="s">trust.jks</span>
@@ -1019,8 +1016,7 @@
 <span class="s">ssl.keyStoreValue</span><span class="pi">:</span> <span class="s">Changeme_123</span>
 <span class="s">ssl.crl</span><span class="pi">:</span> <span class="s">revoke.crl</span>
 <span class="s">ssl.sslCustomClass</span><span class="pi">:</span> <span class="s">org.apache.servicecomb.demo.DemoSSLCustom</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
         
       </section>

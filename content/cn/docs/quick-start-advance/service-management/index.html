@@ -388,38 +388,35 @@
   <li>
     <p>在 <em>体质指数计算器</em> 的 <code class="highlighter-rouge">pom.xml</code> 文件中添加依赖项：</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>handler-bizkeeper<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>在 <em>体质指数计算器</em> 的 <code class="highlighter-rouge">microservice.yaml</code> 文件中指明使用服务治理的处理链及指定熔断和容错策略：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Provider</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
-  <span class="s">circuitBreaker</span><span class="pi">:</span>
-    <span class="s">Provider</span><span class="pi">:</span>
-      <span class="s">calculator</span><span class="pi">:</span>
-        <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">3</span>
-  <span class="s">fallbackpolicy</span><span class="pi">:</span>
-    <span class="s">Provider</span><span class="pi">:</span>
-      <span class="s">policy</span><span class="pi">:</span> <span class="s">returnnull</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">handler</span><span class="pi">:</span>
+    <span class="na">chain</span><span class="pi">:</span>
+      <span class="na">Provider</span><span class="pi">:</span>
+        <span class="na">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
+  <span class="na">circuitBreaker</span><span class="pi">:</span>
+    <span class="na">Provider</span><span class="pi">:</span>
+      <span class="na">calculator</span><span class="pi">:</span>
+        <span class="na">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">3</span>
+  <span class="na">fallbackpolicy</span><span class="pi">:</span>
+    <span class="na">Provider</span><span class="pi">:</span>
+      <span class="na">policy</span><span class="pi">:</span> <span class="s">returnnull</span>
+</code></pre></div>    </div>
   </li>
 </ol>
 
 <p>体质指数应用中已配置好了上述配置项，您只需重新运行 <strong>体质指数计算器</strong>：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"</span>
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn spring-boot:run <span class="nt">-Drun</span>.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"</span>
+</code></pre></div></div>
 
 <h2 id="验证">验证</h2>
 

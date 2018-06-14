@@ -683,7 +683,7 @@
 <h3 id="如何打包微服务">如何打包微服务</h3>
 <p>在微服务项目的<code class="highlighter-rouge">pom.xml</code>中添加以下依赖：</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;build&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;build&gt;</span>
     <span class="nt">&lt;plugins&gt;</span>
       <span class="nt">&lt;plugin&gt;</span>
         <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
@@ -721,20 +721,17 @@
       <span class="nt">&lt;/plugin&gt;</span>
     <span class="nt">&lt;/plugins&gt;</span>
   <span class="nt">&lt;/build&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>之后运行：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn package
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn package
+</code></pre></div></div>
 
 <p>在<code class="highlighter-rouge">target</code>目录下拷贝生成的微服务jar包和<code class="highlighter-rouge">lib</code>（依赖jar）至任何目录，运行即可：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar <span class="k">${</span><span class="nv">project</span><span class="p">.artifactId</span><span class="k">}</span>-<span class="k">${</span><span class="nv">project</span><span class="p">.version</span><span class="k">}</span>.jar
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> <span class="k">${</span><span class="nv">project</span><span class="p">.artifactId</span><span class="k">}</span>-<span class="k">${</span><span class="nv">project</span><span class="p">.version</span><span class="k">}</span>.jar
+</code></pre></div></div>
 
 <blockquote>
   <p>提示：</p>
@@ -752,7 +749,7 @@
 <h3 id="如何直接打包微服务为docker镜像">如何直接打包微服务为Docker镜像</h3>
 <p>我们使用io.fabric8的<a href="https://github.com/fabric8io/docker-maven-plugin">maven插件</a>从打包，镜像在微服务项目的<code class="highlighter-rouge">pom.xml</code>中添加以下依赖：</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;build&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;build&gt;</span>
     <span class="nt">&lt;pluginManagement&gt;</span>
       <span class="nt">&lt;plugins&gt;</span>
         <span class="nt">&lt;plugin&gt;</span>
@@ -844,12 +841,11 @@
       <span class="nt">&lt;/build&gt;</span>
     <span class="nt">&lt;/profile&gt;</span>
   <span class="nt">&lt;/profiles&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在项目源代码<code class="highlighter-rouge">src\main</code>下，创建一个<code class="highlighter-rouge">docker</code>目录，之后在此目录中创建一个<code class="highlighter-rouge">assembly.xml</code>文件，填入下面的内容：</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="nt">&lt;assembly&gt;</span>
   <span class="nt">&lt;id&gt;</span>installer<span class="nt">&lt;/id&gt;</span>
   <span class="nt">&lt;fileSets&gt;</span>
@@ -868,8 +864,7 @@
     <span class="nt">&lt;/file&gt;</span>
   <span class="nt">&lt;/files&gt;</span>
 <span class="nt">&lt;/assembly&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>完成之后的项目效果：</p>
 
@@ -877,9 +872,8 @@
 
 <p>运行：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn package -Pdocker
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn package <span class="nt">-Pdocker</span>
+</code></pre></div></div>
 
 <p>等待打包完成，会有提示镜像生成成功并注册到本地镜像库的提示。</p>
 
@@ -890,60 +884,57 @@
     <li>为了保留普通打包方式，docker打包方式配置为maven profile，即``-Pdocker`；</li>
     <li>如果是使用windows系统，请安装docker machine，并且确保docker machine vm启动中；</li>
     <li>打包的镜像会默认安装在本地镜像库中，如果需要上传外部镜像库例如中央库，可以使用下面的命令：
-      <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn -Ddocker.registry<span class="o">=</span>registry.hub.docker.com/<span class="k">${</span><span class="nv">username</span><span class="k">}</span> -Ddocker.username<span class="o">=</span><span class="k">${</span><span class="nv">username</span><span class="k">}</span> -Ddocker.password<span class="o">=</span><span class="k">${</span><span class="nv">password</span><span class="k">}</span> docker:push
-</code></pre>
-      </div>
+      <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn <span class="nt">-Ddocker</span>.registry<span class="o">=</span>registry.hub.docker.com/<span class="k">${</span><span class="nv">username</span><span class="k">}</span> <span class="nt">-Ddocker</span>.username<span class="o">=</span><span class="k">${</span><span class="nv">username</span><span class="k">}</span> <span class="nt">-Ddocker</span>.password<span class="o">=</span><span class="k">${</span><span class="nv">password</span><span class="k">}</span> docker:push
+</code></pre></div>      </div>
     </li>
   </ol>
 </blockquote>
 
 <h3 id="使用docker-compose编排并拉起所有的微服务">使用Docker Compose编排并拉起所有的微服务</h3>
 <p>将所有的微服务打包为镜像后，就可以使用Docker Compose组织它们，我们给一个例子：</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.0'</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.0'</span>
 
-<span class="s">services</span><span class="pi">:</span>
-  <span class="s">service-center</span><span class="pi">:</span>
-    <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">servicecomb/service-center"</span>
-    <span class="s">hostname</span><span class="pi">:</span> <span class="s">service-center</span>
-    <span class="s">ports</span><span class="pi">:</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">service-center</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">servicecomb/service-center"</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">service-center</span>
+    <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">30100:30100"</span>
 
-  <span class="s">mysql-write-db</span><span class="pi">:</span>
-    <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mysql:latest"</span>
-    <span class="s">hostname</span><span class="pi">:</span> <span class="s">write_db_server</span>
-    <span class="s">environment</span><span class="pi">:</span>
+  <span class="na">mysql-write-db</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mysql:latest"</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">write_db_server</span>
+    <span class="na">environment</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">MYSQL_ROOT_PASSWORD=password</span>
       <span class="pi">-</span> <span class="s">MYSQL_DATABASE=seckill</span>
       <span class="pi">-</span> <span class="s">MYSQL_USER=seckill</span>
       <span class="pi">-</span> <span class="s">MYSQL_PASSWORD=password</span>
-    <span class="s">ports</span><span class="pi">:</span>
+    <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">3306"</span>
 
-  <span class="s">activemq</span><span class="pi">:</span>
-    <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">webcenter/activemq:latest"</span>
-    <span class="s">hostname</span><span class="pi">:</span> <span class="s">queue-server</span>
-    <span class="s">ports</span><span class="pi">:</span>
+  <span class="na">activemq</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">webcenter/activemq:latest"</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">queue-server</span>
+    <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">61616"</span>
 
-  <span class="s">admin-service</span><span class="pi">:</span>
-    <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">seckill-admin-service:0.2.0-SNAPSHOT"</span>
-    <span class="s">hostname</span><span class="pi">:</span> <span class="s">admin-service</span>
-    <span class="s">links</span><span class="pi">:</span>
+  <span class="na">admin-service</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">seckill-admin-service:0.2.0-SNAPSHOT"</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">admin-service</span>
+    <span class="na">links</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">mysql-write-db:write_db.servicecomb.io"</span>
-    <span class="s">environment</span><span class="pi">:</span>
+    <span class="na">environment</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">JAVA_OPTS=-Dspring.profiles.active=prd,cse -Dendpoints.shutdown.enabled=true</span>
-    <span class="s">ports</span><span class="pi">:</span>
+    <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">8081:8081"</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>为了能够使containers互联互通，使用<code class="highlighter-rouge">links</code>指定链接关系，<code class="highlighter-rouge">ports</code>用于映射到Docker Host的端口，关于Docker Compose Yaml配置的更多信息，可以参见<a href="https://docs.docker.com/compose/">这篇文档</a>。</p>
 
 <p>编写好docker-compose.yml后，切换到此文件目录，执行：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker-compose up
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker-compose up
+</code></pre></div></div>
 
 <p>即可将所有的微服务都拉起来。</p>
 

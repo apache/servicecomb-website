@@ -350,7 +350,7 @@
           
           
 
-          <a href="/developers/release-guide/"><span class="nav__sub-title nav__sub-title-with-url">How to verify Apache Release</span></a>
+          <a href="/developers/release-validation-guide/"><span class="nav__sub-title nav__sub-title-with-url">How to verify Apache Release</span></a>
         
 
         
@@ -423,60 +423,52 @@
 <h3 id="verify-the-hash-and-the-signature">Verify the Hash and the Signature</h3>
 <p>Please find the URL of <strong>Release Candidate</strong> in Vote mail, for example:</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/rc-01/
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/rc-01/
+</code></pre></div></div>
 
 <p>Open this URL in browser, download the source code end with <code class="highlighter-rouge">src.zip</code>, signature file end with <code class="highlighter-rouge">src.zip.asc</code> and hash file end with <code class="highlighter-rouge">src.zip.sha512</code>, please keep these three files in same folder.</p>
 
 <p>Please find URL of <strong>Key</strong> in Vote mail, for example:</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>Keys to verify the Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb/KEYS
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Keys to verify the Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb/KEYS
+</code></pre></div></div>
 
 <p>Open this URL in browser, copy contents into KEYS file, then import:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>gpg --import KEYS
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--import</span> KEYS
+</code></pre></div></div>
 
 <p>Then <code class="highlighter-rouge">Mohammad Asif Siddiqui (ServiceComb Code Signing Key) &lt;asifdxtreme@apache.org&gt;</code> will output if imported successfully.</p>
 
 <p>Verify the Signature:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>gpg --verify xxx-src.zip.asc xxx-src.zip
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--verify</span> xxx-src.zip.asc xxx-src.zip
+</code></pre></div></div>
 
 <p>Then <code class="highlighter-rouge">Good signature from "Mohammad Asif Siddiqui (ServiceComb Code Signing Key) &lt;asifdxtreme@apache.org&gt;"</code> will output if verified successfully.</p>
 
 <p>Verify the Hash:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>sha512sum -c xxx-src.zip.sha512
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sha512sum <span class="nt">-c</span> xxx-src.zip.sha512
+</code></pre></div></div>
 
 <p>Then <code class="highlighter-rouge">OK</code> will output if verified successfully.</p>
 
 <h3 id="verify-the-source-code">Verify the source code</h3>
 <p>Unzip the source code:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>unzip xxx-src.zip
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unzip xxx-src.zip
+</code></pre></div></div>
 
 <p>Run test case under source code root:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean install -Pdocker -Pit
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install <span class="nt">-Pdocker</span> <span class="nt">-Pit</span>
+</code></pre></div></div>
 
 <blockquote>
   <p>Hint: If the OS of environment is Windows:</p>
-  <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean install -Pdocker -Pit -Pdocker-machine
-</code></pre>
-  </div>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install <span class="nt">-Pdocker</span> <span class="nt">-Pit</span> <span class="nt">-Pdocker-machine</span>
+</code></pre></div>  </div>
 </blockquote>
 
 <p>Wait all test case check passed, may use 10~30 minutes.</p>
@@ -484,9 +476,8 @@
 <h3 id="verify-the-staging-repository">Verify the Staging Repository</h3>
 <p>First need delete all ServiceComb cache in local maven repo:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>rm -rf /root/.m2/repository/org/apache/servicecomb/
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm <span class="nt">-rf</span> /root/.m2/repository/org/apache/servicecomb/
+</code></pre></div></div>
 
 <blockquote>
   <p>Hint: If not the root, please change the path of .m2</p>
@@ -494,13 +485,12 @@
 
 <p>Please find URL of <strong>Staging Repository</strong> in Vote mail, for example:</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>Staging Repository : https://repository.apache.org/content/repositories/orgapacheservicecomb-xxxx/
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Staging Repository : https://repository.apache.org/content/repositories/orgapacheservicecomb-xxxx/
+</code></pre></div></div>
 
 <p>Then add this Staging Repository address into <code class="highlighter-rouge">settings.xml</code> of maven:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;settings&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;settings&gt;</span>
 	<span class="nt">&lt;profiles&gt;</span>
 	   <span class="nt">&lt;profile&gt;</span>
 		  <span class="nt">&lt;repositories&gt;</span>
@@ -527,57 +517,49 @@
 		<span class="nt">&lt;/profile&gt;</span>
 	<span class="nt">&lt;/profiles&gt;</span>
 <span class="nt">&lt;/settings&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>After that, enter <strong>demo folder under the source code(not root folder of source code)</strong> and run:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean install -Pdocker -Pstaging
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install <span class="nt">-Pdocker</span> <span class="nt">-Pstaging</span>
+</code></pre></div></div>
 
 <blockquote>
   <p>Hint: If the OS of environment is Windows:</p>
-  <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean install -Pdocker -Pstaging -Pdocker-machine
-</code></pre>
-  </div>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install <span class="nt">-Pdocker</span> <span class="nt">-Pstaging</span> <span class="nt">-Pdocker-machine</span>
+</code></pre></div>  </div>
 </blockquote>
 
 <p><strong>When test cases are running, we can see the Java Chassis dependencies will download from Apache Staging Repository that had configured:</strong></p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>Downloading: https://repository.apache.org/content/repositories/orgapacheservicecomb-xxxx/xxxx.pom
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Downloading: https://repository.apache.org/content/repositories/orgapacheservicecomb-xxxx/xxxx.pom
+</code></pre></div></div>
 
 <p>Wait all test case check passed, may use 5~15 minutes.</p>
 
 <h3 id="verify-integration-with-spring-cloud">Verify integration with Spring Cloud</h3>
 <p>Please clone the latest source code of Company demo project from https://github.com/ServiceComb/ServiceComb-Company-WorkShop , then checkout branch of 1.x :</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
 git checkout 1.x
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Modify the configuration of <code class="highlighter-rouge">&lt;java-chassis.version&gt;</code> in <code class="highlighter-rouge">pom.xml</code> under  source code root folder to current releasing version, such as 1.0.0-m2 :</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;properties&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;properties&gt;</span>
   <span class="nt">&lt;java-chassis.version&gt;</span>1.0.0-m2<span class="nt">&lt;/java-chassis.version&gt;</span>
 <span class="nt">&lt;/properties&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Run test case under source code root:</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean verify -Pdocker -Pstaging
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean verify <span class="nt">-Pdocker</span> <span class="nt">-Pstaging</span>
+</code></pre></div></div>
 
 <blockquote>
   <p>Hint: If the OS of environment is Windows:</p>
-  <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn clean verify -Pdocker -Pstaging -Pdocker-machine
-</code></pre>
-  </div>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean verify <span class="nt">-Pdocker</span> <span class="nt">-Pstaging</span> <span class="nt">-Pdocker-machine</span>
+</code></pre></div>  </div>
 </blockquote>
 
 <p>Wait all test case check passed, may use 5~10 minutes.</p>

@@ -607,7 +607,7 @@
     <meta itemprop="headline" content="Develop Microservice with Spring Boot Starter">
     <meta itemprop="description" content="Develop Microservice with Spring Boot Starter">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -648,7 +648,7 @@
   <li>
     <p><strong>Step 1</strong> Import dependencies into your maven project:</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependencyManagement&gt;</span>
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependencyManagement&gt;</span>
      <span class="nt">&lt;dependencies&gt;</span>
        <span class="nt">&lt;dependency&gt;</span>
          <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -674,13 +674,12 @@
        <span class="nt">&lt;artifactId&gt;</span>hibernate-validator<span class="nt">&lt;/artifactId&gt;</span>
      <span class="nt">&lt;/dependency&gt;</span>
  <span class="nt">&lt;/dependencies&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Step 2</strong> Implement the services. Spring MVC is used to describe the development of service code. The implementation of the Hello service is as follow:</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestBody</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMethod</span><span class="o">;</span>
@@ -699,8 +698,7 @@
  <span class="err">　</span>  <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
  <span class="err">　</span><span class="o">}</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p><strong>Note: PLEASE MAKE SURE TO MARK @RequestMapping ON YOUR PRODUCER(SpringmvcHelloImpl), OR THE PATH AND METHOD OF PUBLISHED WILL BE INCORRECT!</strong></p>
 
@@ -709,29 +707,27 @@
   <li>
     <p><strong>Step 3</strong> Release the service. Add @RestSchema as the annotation of the service implementation class and specify schemaId, which indicates that the implementation is released as a schema of the current microservice. The code is as follows:</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
  <span class="c1">// other code omitted</span>
  <span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"springmvcHello"</span><span class="o">)</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="o">{</span>
    <span class="c1">// other code omitted</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>Create the <code class="highlighter-rouge">springmvcHello.bean.xml</code>  file(the file name format is *.bean.xml) in the <code class="highlighter-rouge">resources/META-INF/spring</code> directory and configure base-package that performs scanning. The content of the file is as follows:</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 
  <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
         <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
         <span class="na">xmlns:context=</span><span class="s">"http://www.springframework.org/schema/context"</span>
-        <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans</span> <span class="err">classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd</span>
-        <span class="err">http://www.springframework.org/schema/context</span> <span class="err">http://www.springframework.org/schema/context/spring-context-3.0.xsd"</span><span class="nt">&gt;</span>
+        <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"</span><span class="nt">&gt;</span>
 
      <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"org.apache.servicecomb.samples.springmvc.provider"</span><span class="nt">/&gt;</span>
  <span class="nt">&lt;/beans&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ul>
 
@@ -749,7 +745,7 @@ Spring Boot had include a default Bean discovery policy, if Spring Boot can foun
   <li>
     <p><strong>Step 5</strong> Add Main class:</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">org.apache.servicecomb.springboot.starter.provider.EnableServiceComb</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kn">import</span> <span class="nn">org.apache.servicecomb.springboot.starter.provider.EnableServiceComb</span><span class="o">;</span>
   <span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
   <span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
 
@@ -761,8 +757,7 @@ Spring Boot had include a default Bean discovery policy, if Spring Boot can foun
       <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">Application</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
     <span class="o">}</span>
   <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ul>
 

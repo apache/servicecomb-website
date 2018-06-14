@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="使用Zuul做边缘服务">
     <meta itemprop="description" content="使用Zuul做边缘服务">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -705,7 +705,7 @@
   <li>
     <p><strong>步骤 1</strong>在pom文件中添加依赖：</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span> 
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span> 
    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>  
    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-zuul<span class="nt">&lt;/artifactId&gt;</span> 
  <span class="nt">&lt;/dependency&gt;</span>
@@ -720,13 +720,12 @@
    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-discovery<span class="nt">&lt;/artifactId&gt;</span> 
  <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>步骤 2</strong>在SpringBoot主类添加注解：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@SpringBootApplication</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@SpringBootApplication</span>
  <span class="nd">@EnableServiceComb</span>
  <span class="nd">@EnableZuulProxy</span><span class="c1">//新增注解</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZuulMain</span><span class="o">{</span>
@@ -734,37 +733,34 @@
      <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ZuulMain</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
    <span class="o">}</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>步骤 3</strong>在application.yml文件中定义路由策略：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">server</span><span class="pi">:</span>
-   <span class="s">port</span><span class="pi">:</span> <span class="s">8754</span> <span class="c1">#api gateway服务端口</span>
- <span class="s">zuul</span><span class="pi">:</span>
-   <span class="s">routes</span><span class="pi">:</span> <span class="c1">#路由策略</span>
-     <span class="s">discoveryServer</span><span class="pi">:</span> <span class="s">/myServer/**</span> <span class="c1">#路由规则</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">server</span><span class="pi">:</span>
+   <span class="na">port</span><span class="pi">:</span> <span class="s">8754</span> <span class="c1">#api gateway服务端口</span>
+ <span class="na">zuul</span><span class="pi">:</span>
+   <span class="na">routes</span><span class="pi">:</span> <span class="c1">#路由策略</span>
+     <span class="na">discoveryServer</span><span class="pi">:</span> <span class="s">/myServer/**</span> <span class="c1">#路由规则</span>
+</code></pre></div>    </div>
 
     <p>上述的配置项可以根据实际开发环境进行配置。关于zuul.routers的路由策略的详细定义规则，请参考官方文献：<a href="https://springcloud.cc/spring-cloud-dalston.html#_router_and_filter_zuul">路由器和过滤器：Zuul</a>，可更细粒度地对路由进行控制。</p>
   </li>
   <li>
     <p><strong>步骤 4</strong>在microservice.yaml定义微服务属性：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#服务ID</span>
- <span class="s">service_description</span><span class="pi">:</span>
-   <span class="s">name</span><span class="pi">:</span> <span class="s">discoveryGateway</span> <span class="c1">#服务名称</span>
-   <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.2</span> <span class="c1">#服务版本号</span>
- <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">service</span><span class="pi">:</span>
-     <span class="s">registry</span><span class="pi">:</span>
-       <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>  <span class="c1">#服务注册中心地址</span>
-   <span class="s">rest</span><span class="pi">:</span>
-     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8082</span> <span class="c1">#微服务端口，可不写</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#服务ID</span>
+ <span class="na">service_description</span><span class="pi">:</span>
+   <span class="na">name</span><span class="pi">:</span> <span class="s">discoveryGateway</span> <span class="c1">#服务名称</span>
+   <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.2</span> <span class="c1">#服务版本号</span>
+ <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">service</span><span class="pi">:</span>
+     <span class="na">registry</span><span class="pi">:</span>
+       <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>  <span class="c1">#服务注册中心地址</span>
+   <span class="na">rest</span><span class="pi">:</span>
+     <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8082</span> <span class="c1">#微服务端口，可不写</span>
+</code></pre></div>    </div>
   </li>
 </ul>
 
@@ -791,18 +787,17 @@
 
 <p>示例如下：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#与zuul proxy一致</span>
-  <span class="s">service_description</span><span class="pi">:</span>
-    <span class="s">name</span><span class="pi">:</span> <span class="s">discoveryServer</span> <span class="c1">#服务名称，与zuul.routers对应</span>
-    <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.2</span>
-<span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">service</span><span class="pi">:</span>
-    <span class="s">registry</span><span class="pi">:</span>
-      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#服务注册中心地址</span>
-  <span class="s">rest</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#与zuul proxy一致</span>
+  <span class="na">service_description</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">discoveryServer</span> <span class="c1">#服务名称，与zuul.routers对应</span>
+    <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.2</span>
+<span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">service</span><span class="pi">:</span>
+    <span class="na">registry</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#服务注册中心地址</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre></div></div>
 
 <p>API Gateway的访问入口为：<a href="http://127.0.0.1:8754">http://127.0.0.1:8754</a>，所有在zuul.routers中定义的服务都可通过这个访问入口进行代理访问，访问规则如下：</p>
 

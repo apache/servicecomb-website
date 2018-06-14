@@ -409,114 +409,110 @@
     <p>配置服务
  在各服务的 <em>microservice.yaml</em> 文件，设置该服务注册的服务中心</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">saga</span>
- <span class="s">service_description</span><span class="pi">:</span>
-   <span class="s">name</span><span class="pi">:</span> <span class="s">flight-booking-service</span>
-   <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
- <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">service</span><span class="pi">:</span>
-     <span class="s">registry</span><span class="pi">:</span>
-       <span class="s">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span> <span class="c1">#此处选择使用ServiceComb的Service Center</span>
-   <span class="s">rest</span><span class="pi">:</span>
-     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-   <span class="s">handler</span><span class="pi">:</span>
-     <span class="s">chain</span><span class="pi">:</span>
-       <span class="s">Consumer</span><span class="pi">:</span>
-         <span class="s">default</span><span class="pi">:</span> <span class="s">loadbalance</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">saga</span>
+ <span class="na">service_description</span><span class="pi">:</span>
+   <span class="na">name</span><span class="pi">:</span> <span class="s">flight-booking-service</span>
+   <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+ <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">service</span><span class="pi">:</span>
+     <span class="na">registry</span><span class="pi">:</span>
+       <span class="na">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span> <span class="c1">#此处选择使用ServiceComb的Service Center</span>
+   <span class="na">rest</span><span class="pi">:</span>
+     <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+   <span class="na">handler</span><span class="pi">:</span>
+     <span class="na">chain</span><span class="pi">:</span>
+       <span class="na">Consumer</span><span class="pi">:</span>
+         <span class="na">default</span><span class="pi">:</span> <span class="s">loadbalance</span>
+</code></pre></div>    </div>
 
     <p>在 <em>saga-demo/docker-compose.yaml</em> 设置部署脚本</p>
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.1'</span>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">version</span><span class="pi">:</span> <span class="s1">'</span><span class="s">2.1'</span>
 
- <span class="s">services</span><span class="pi">:</span>
-   <span class="s">service-center</span><span class="pi">:</span> <span class="c1">#此处选择使用ServiceComb的Service Center容器镜像</span>
-     <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">servicecomb/service-center"</span>
-     <span class="s">hostname</span><span class="pi">:</span> <span class="s">service-center</span>
-     <span class="s">ports</span><span class="pi">:</span>
+ <span class="na">services</span><span class="pi">:</span>
+   <span class="na">service-center</span><span class="pi">:</span> <span class="c1">#此处选择使用ServiceComb的Service Center容器镜像</span>
+     <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">servicecomb/service-center"</span>
+     <span class="na">hostname</span><span class="pi">:</span> <span class="s">service-center</span>
+     <span class="na">ports</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">30100:30100"</span>
 
-   <span class="s">mysql</span><span class="pi">:</span>  <span class="c1">#此处选择使用5.7版本的mysql镜像</span>
-     <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mysql/mysql-server:5.7"</span>
-     <span class="s">hostname</span><span class="pi">:</span> <span class="s">mysql</span>
-     <span class="s">environment</span><span class="pi">:</span>
+   <span class="na">mysql</span><span class="pi">:</span>  <span class="c1">#此处选择使用5.7版本的mysql镜像</span>
+     <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">mysql/mysql-server:5.7"</span>
+     <span class="na">hostname</span><span class="pi">:</span> <span class="s">mysql</span>
+     <span class="na">environment</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s">MYSQL_ROOT_PASSWORD=password</span>
        <span class="pi">-</span> <span class="s">MYSQL_DATABASE=saga</span>
        <span class="pi">-</span> <span class="s">MYSQL_USER=saga</span>
        <span class="pi">-</span> <span class="s">MYSQL_PASSWORD=password</span>
-     <span class="s">ports</span><span class="pi">:</span>
+     <span class="na">ports</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">3306:3306"</span>
-     <span class="s">healthcheck</span><span class="pi">:</span>
-         <span class="s">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">CMD-SHELL"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">nc</span><span class="nv"> </span><span class="s">-z</span><span class="nv"> </span><span class="s">localhost</span><span class="nv"> </span><span class="s">3306</span><span class="nv"> </span><span class="s">&amp;&gt;</span><span class="nv"> </span><span class="s">/dev/null;</span><span class="nv"> </span><span class="s">echo</span><span class="nv"> </span><span class="s">$$?"</span><span class="pi">]</span>
-         <span class="s">interval</span><span class="pi">:</span> <span class="s">30s</span>
-         <span class="s">timeout</span><span class="pi">:</span> <span class="s">10s</span>
-         <span class="s">retries</span><span class="pi">:</span> <span class="s">5</span>
+     <span class="na">healthcheck</span><span class="pi">:</span>
+         <span class="na">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">CMD-SHELL"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">nc</span><span class="nv"> </span><span class="s">-z</span><span class="nv"> </span><span class="s">localhost</span><span class="nv"> </span><span class="s">3306</span><span class="nv"> </span><span class="s">&amp;&gt;</span><span class="nv"> </span><span class="s">/dev/null;</span><span class="nv"> </span><span class="s">echo</span><span class="nv"> </span><span class="s">$$?"</span><span class="pi">]</span>
+         <span class="na">interval</span><span class="pi">:</span> <span class="s">30s</span>
+         <span class="na">timeout</span><span class="pi">:</span> <span class="s">10s</span>
+         <span class="na">retries</span><span class="pi">:</span> <span class="s">5</span>
 
-   <span class="s">car-rental-service</span><span class="pi">:</span>
-     <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">car-rental-service:0.0.2-SNAPSHOT"</span>
-     <span class="s">hostname</span><span class="pi">:</span> <span class="s">car</span>
-     <span class="s">links</span><span class="pi">:</span>
+   <span class="na">car-rental-service</span><span class="pi">:</span>
+     <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">car-rental-service:0.0.2-SNAPSHOT"</span>
+     <span class="na">hostname</span><span class="pi">:</span> <span class="s">car</span>
+     <span class="na">links</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">service-center:sc.servicecomb.io"</span>
-     <span class="s">ports</span><span class="pi">:</span>
+     <span class="na">ports</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">8080:8080"</span>
 
-   <span class="s">flight-booking-service</span><span class="pi">:</span>
-     <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">flight-booking-service:0.0.2-SNAPSHOT"</span>
-     <span class="s">hostname</span><span class="pi">:</span> <span class="s">flight</span>
-     <span class="s">links</span><span class="pi">:</span>
+   <span class="na">flight-booking-service</span><span class="pi">:</span>
+     <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">flight-booking-service:0.0.2-SNAPSHOT"</span>
+     <span class="na">hostname</span><span class="pi">:</span> <span class="s">flight</span>
+     <span class="na">links</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">service-center:sc.servicecomb.io"</span>
-     <span class="s">ports</span><span class="pi">:</span>
+     <span class="na">ports</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">8081:8080"</span>
 
-   <span class="s">hotel-reservation-service</span><span class="pi">:</span>
-     <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">hotel-reservation-service:0.0.2-SNAPSHOT"</span>
-     <span class="s">hostname</span><span class="pi">:</span> <span class="s">hotel</span>
-     <span class="s">links</span><span class="pi">:</span>
+   <span class="na">hotel-reservation-service</span><span class="pi">:</span>
+     <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">hotel-reservation-service:0.0.2-SNAPSHOT"</span>
+     <span class="na">hostname</span><span class="pi">:</span> <span class="s">hotel</span>
+     <span class="na">links</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">service-center:sc.servicecomb.io"</span>
-     <span class="s">ports</span><span class="pi">:</span>
+     <span class="na">ports</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">8082:8080"</span>
 
-   <span class="s">payment-service</span><span class="pi">:</span>
-     <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">payment-service:0.0.2-SNAPSHOT"</span>
-     <span class="s">hostname</span><span class="pi">:</span> <span class="s">payment</span>
-     <span class="s">links</span><span class="pi">:</span>
+   <span class="na">payment-service</span><span class="pi">:</span>
+     <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">payment-service:0.0.2-SNAPSHOT"</span>
+     <span class="na">hostname</span><span class="pi">:</span> <span class="s">payment</span>
+     <span class="na">links</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">service-center:sc.servicecomb.io"</span>
-     <span class="s">ports</span><span class="pi">:</span>
+     <span class="na">ports</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">8080"</span>
 
-   <span class="s">saga</span><span class="pi">:</span>
-     <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">saga-spring:0.0.2-SNAPSHOT"</span>
-     <span class="s">hostname</span><span class="pi">:</span> <span class="s">saga</span>
-     <span class="s">links</span><span class="pi">:</span>
+   <span class="na">saga</span><span class="pi">:</span>
+     <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">saga-spring:0.0.2-SNAPSHOT"</span>
+     <span class="na">hostname</span><span class="pi">:</span> <span class="s">saga</span>
+     <span class="na">links</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">mysql:mysql.servicecomb.io"</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">service-center:sc.servicecomb.io"</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">car-rental-service:car.servicecomb.io"</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">flight-booking-service:flight.servicecomb.io"</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">hotel-reservation-service:hotel.servicecomb.io"</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">payment-service:payment.servicecomb.io"</span>
-     <span class="s">environment</span><span class="pi">:</span>
+     <span class="na">environment</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s">JAVA_OPTS=-Dspring.profiles.active=prd,servicecomb -Dcse.service.registry.address=http://sc.servicecomb.io:30100</span>
-     <span class="s">ports</span><span class="pi">:</span>
+     <span class="na">ports</span><span class="pi">:</span>
        <span class="pi">-</span> <span class="s2">"</span><span class="s">8083:8080"</span>
-     <span class="s">depends_on</span><span class="pi">:</span>
-       <span class="s">mysql</span><span class="pi">:</span>
-         <span class="s">condition</span><span class="pi">:</span> <span class="s">service_healthy</span>
-</code></pre>
-    </div>
+     <span class="na">depends_on</span><span class="pi">:</span>
+       <span class="na">mysql</span><span class="pi">:</span>
+         <span class="na">condition</span><span class="pi">:</span> <span class="s">service_healthy</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>在Saga项目的根目录执行编译，制作Saga、机票预订、租车、酒店预订和支付服务镜像</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> mvn package -DskipTests -Pdocker -Pdemo
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> mvn package <span class="nt">-DskipTests</span> <span class="nt">-Pdocker</span> <span class="nt">-Pdemo</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>在Saga项目的saga-demo目录通过docker-compose一键启动Saga、机票预订、租车、酒店预订和支付服务</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> docker-compose up
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> docker-compose up
+</code></pre></div>    </div>
   </li>
 </ol>
 
@@ -526,133 +522,129 @@
   <li>
     <p>参照 <a href="https://github.com/apache/incubator-servicecomb-saga/blob/master/docs/api/api.md">Saga API</a> 说明，设定各服务的事务、补偿、依赖和恢复参数，并保存为 <em>request.json</em> 文件</p>
 
-    <div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
-   </span><span class="nt">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BackwardRecovery"</span><span class="p">,</span><span class="w">
-   </span><span class="nt">"requests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
+   </span><span class="s2">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BackwardRecovery"</span><span class="p">,</span><span class="w">
+   </span><span class="s2">"requests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
      </span><span class="p">{</span><span class="w">
-       </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-car"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"car-rental-service"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/rentals"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="nt">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-car"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"car-rental-service"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/rentals"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
-       </span><span class="nt">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/rentals"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="nt">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="s2">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/rentals"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">}</span><span class="w">
      </span><span class="p">},</span><span class="w">
      </span><span class="p">{</span><span class="w">
-       </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-hotel"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hotel-reservation-service"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/reservations"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="nt">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-hotel"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hotel-reservation-service"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/reservations"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
-       </span><span class="nt">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/reservations"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="nt">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="s2">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/reservations"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">}</span><span class="w">
      </span><span class="p">},</span><span class="w">
      </span><span class="p">{</span><span class="w">
-       </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-flight"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flight-booking-service"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/bookings"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="nt">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-flight"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flight-booking-service"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/bookings"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
-       </span><span class="nt">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/bookings"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="nt">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="s2">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/bookings"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">}</span><span class="w">
      </span><span class="p">},</span><span class="w">
      </span><span class="p">{</span><span class="w">
-       </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-payment"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-service"</span><span class="p">,</span><span class="w">
-       </span><span class="nt">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-payment"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-service"</span><span class="p">,</span><span class="w">
+       </span><span class="s2">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
          </span><span class="s2">"request-car"</span><span class="p">,</span><span class="w">
          </span><span class="s2">"request-flight"</span><span class="p">,</span><span class="w">
          </span><span class="s2">"request-hotel"</span><span class="w">
        </span><span class="p">],</span><span class="w">
-       </span><span class="nt">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/payments"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="nt">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="s2">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/payments"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
-       </span><span class="nt">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="nt">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/payments"</span><span class="p">,</span><span class="w">
-         </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="nt">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="nt">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="s2">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/payments"</span><span class="p">,</span><span class="w">
+         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">}</span><span class="w">
      </span><span class="p">}</span><span class="w">
    </span><span class="p">]</span><span class="w">
  </span><span class="p">}</span><span class="w">
-</span></code></pre>
-    </div>
+</span></code></pre></div>    </div>
   </li>
   <li>
     <p>发送请求到Saga</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> curl -XPOST -H <span class="s2">"Content-Type: text/plain"</span> -d @./request.json  http://&lt;localhost.ip:8083&gt;/requests
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> curl <span class="nt">-XPOST</span> <span class="nt">-H</span> <span class="s2">"Content-Type: text/plain"</span> <span class="nt">-d</span> @./request.json  http://&lt;localhost.ip:8083&gt;/requests
+</code></pre></div>    </div>
 
     <p>获取处理结果成功(如果失败，返回相应的错误信息)</p>
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> success
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> success
+</code></pre></div>    </div>
   </li>
   <li>
     <p>查看Saga的事务</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> curl -XGET http://&lt;localhost.ip:8083&gt;/events
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> curl <span class="nt">-XGET</span> http://&lt;localhost.ip:8083&gt;/events
+</code></pre></div>    </div>
 
     <p>查询结果</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> <span class="o">{</span>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">{</span>
      <span class="s2">"bcd27f0d-6b82-49b3-8067-b16eba970e55"</span>: <span class="o">[</span>
          <span class="o">{</span>
              <span class="s2">"id"</span>: 1,
@@ -726,13 +718,12 @@
          <span class="o">}</span>
  	<span class="o">]</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>demo中模拟了支付服务帐户余额不足场景，发送请求超过一次将触发补偿操作。再次发送请求，可以在Saga日志中找到补偿事件</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> <span class="o">{</span>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">{</span>
      <span class="s2">"bcd27f0d-6b82-49b3-8067-b16eba970e55"</span>: <span class="o">[</span>
          ...
      <span class="o">]</span>,
@@ -830,8 +821,7 @@
          <span class="o">}</span>
      <span class="o">]</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ol>
 

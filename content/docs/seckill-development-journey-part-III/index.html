@@ -402,11 +402,10 @@
 
 <h4 id="command-micro-service-message-publisher-component">Command micro-service Message Publisher component</h4>
 <p>Since the Event Sourcing was not introduced before, the PromotionEvent entity only needed to write to the database directly. Now it is necessary to publish PromotionEvent to Message Broker. Considering that future we will be replaced by Distributed Message Service (DMS) as Message Broker in order to deploy to <a href="http://www.hwclouds.com/">Huawei Cloud</a>, We defined the generic message publish interface:</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessagePublisher</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessagePublisher</span> <span class="o">{</span>
   <span class="kt">void</span> <span class="nf">publishMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">messageContent</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="event-micro-service-implement">Event micro-service implement</h4>
 <p>Event micro-service subscribe Message Broker in order to get PromotionEvent Message, then depending on the message type convert to ActivePromotion Value-Object operation or Coupon Value-Object operation in ReadDB.</p>
@@ -417,11 +416,10 @@
     <p>Coupon Grabbed Message: create Coupon Value-Object;</p>
 
     <p>Also considering that future we will be replaced by Distributed Message Service (DMS) as Message Broker in order to deploy to <a href="http://www.hwclouds.com/">Huawei Cloud</a>, We defined the generic message subscribe interface:</p>
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessageSubscriber</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessageSubscriber</span> <span class="o">{</span>
 <span class="kt">void</span> <span class="nf">subscribeMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">messageContent</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ul>
 

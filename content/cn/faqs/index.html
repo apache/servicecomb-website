@@ -291,7 +291,7 @@
     <meta itemprop="headline" content="常见问题">
     <meta itemprop="description" content="常见问题">
     
-    <meta itemprop="dateModified" content="October 29, 2017">
+    <meta itemprop="dateModified" content="October 30, 2017">
 
     <div class="page__inner-wrap">
       
@@ -338,10 +338,9 @@
   <li>
     <p><strong>Q: 网关依赖的jar和其他微服务的一样吗？</strong></p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
  <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>A: 网关除了要依赖<code class="highlighter-rouge">spring-boot-starter-provider</code>之外还要依赖<code class="highlighter-rouge">spring-boot-starter-discovery</code>，可以参考<a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">LinuxCon-Beijing-Workshop</a>中manager的实现。</p>
   </li>
@@ -374,16 +373,15 @@
 
     <p>A: 对于正常的返回值，可以通过SwaggerAnnotation实现，例如：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">code</span> <span class="o">=</span> <span class="mi">300</span><span class="o">,</span> <span class="n">response</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">message</span> <span class="o">=</span> <span class="s">""</span><span class="o">)</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">code</span> <span class="o">=</span> <span class="mi">300</span><span class="o">,</span> <span class="n">response</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">message</span> <span class="o">=</span> <span class="s">""</span><span class="o">)</span>
  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">test</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
    <span class="k">return</span> <span class="mi">100</span><span class="o">;</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>对于异常的返回值，可以通过抛出自定义的InvocationException实现，例如：、</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="n">String</span> <span class="nf">testException</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="n">String</span> <span class="nf">testException</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
    <span class="n">String</span> <span class="n">strCode</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">code</span><span class="o">);</span>
      <span class="k">switch</span> <span class="o">(</span><span class="n">code</span><span class="o">)</span> <span class="o">{</span>
        <span class="k">case</span> <span class="mi">200</span><span class="o">:</span>
@@ -400,8 +398,7 @@
 
    <span class="k">return</span> <span class="s">"not expected"</span><span class="o">;</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: 如何定制自己微服务的日志配置?</strong></p>
@@ -437,12 +434,11 @@
 
         <p>如果，此时consumer想固定使用某个transport访问producer，可以在consumer进程的microservice.yaml中配置，指定transport的名称:</p>
 
-        <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">references</span><span class="pi">:</span>
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">references</span><span class="pi">:</span>
      <span class="s">&lt;service_name&gt;</span><span class="pi">:</span>
-       <span class="s">transport</span><span class="pi">:</span> <span class="s">highway</span>
-</code></pre>
-        </div>
+       <span class="na">transport</span><span class="pi">:</span> <span class="s">highway</span>
+</code></pre></div>        </div>
       </li>
       <li>当一个微服务producer只开放了highway的endpoint
         <ul>
@@ -467,63 +463,59 @@
 
     <p>定义如下接口，将参数放到body传递</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">/testInherate</span><span class="pi">:</span>
-     <span class="s">post</span><span class="pi">:</span>
-       <span class="s">operationId</span><span class="pi">:</span> <span class="s2">"</span><span class="s">testInherate"</span>
-       <span class="s">parameters</span><span class="pi">:</span>
-       <span class="pi">-</span> <span class="s">in</span><span class="pi">:</span> <span class="s2">"</span><span class="s">body"</span>
-         <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">xxxxx"</span>
-         <span class="s">required</span><span class="pi">:</span> <span class="s">false</span>
-         <span class="s">type</span><span class="pi">:</span> <span class="s">string</span>
-       <span class="s">responses</span><span class="pi">:</span>
-         <span class="s">200</span><span class="pi">:</span>
-           <span class="s">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">response</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">200"</span>
-           <span class="s">schema</span><span class="pi">:</span>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="s">/testInherate</span><span class="pi">:</span>
+     <span class="na">post</span><span class="pi">:</span>
+       <span class="na">operationId</span><span class="pi">:</span> <span class="s2">"</span><span class="s">testInherate"</span>
+       <span class="na">parameters</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="na">in</span><span class="pi">:</span> <span class="s2">"</span><span class="s">body"</span>
+         <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">xxxxx"</span>
+         <span class="na">required</span><span class="pi">:</span> <span class="no">false</span>
+         <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+       <span class="na">responses</span><span class="pi">:</span>
+         <span class="na">200</span><span class="pi">:</span>
+           <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">response</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">200"</span>
+           <span class="na">schema</span><span class="pi">:</span>
              <span class="s">$ref</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#/definitions/ResponseImpl"</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>采用上面方式定义接口。在服务注册以后，从服务中心查询下来的接口type: string 丢失，变成了：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">/testInherate</span><span class="pi">:</span>
-     <span class="s">post</span><span class="pi">:</span>
-       <span class="s">operationId</span><span class="pi">:</span> <span class="s2">"</span><span class="s">testInherate"</span>
-       <span class="s">parameters</span><span class="pi">:</span>
-       <span class="pi">-</span> <span class="s">in</span><span class="pi">:</span> <span class="s2">"</span><span class="s">body"</span>
-         <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">xxxxx"</span>
-         <span class="s">required</span><span class="pi">:</span> <span class="s">false</span>
-       <span class="s">responses</span><span class="pi">:</span>
-         <span class="s">200</span><span class="pi">:</span>
-           <span class="s">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">response</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">200"</span>
-           <span class="s">schema</span><span class="pi">:</span>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="s">/testInherate</span><span class="pi">:</span>
+     <span class="na">post</span><span class="pi">:</span>
+       <span class="na">operationId</span><span class="pi">:</span> <span class="s2">"</span><span class="s">testInherate"</span>
+       <span class="na">parameters</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="na">in</span><span class="pi">:</span> <span class="s2">"</span><span class="s">body"</span>
+         <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">xxxxx"</span>
+         <span class="na">required</span><span class="pi">:</span> <span class="no">false</span>
+       <span class="na">responses</span><span class="pi">:</span>
+         <span class="na">200</span><span class="pi">:</span>
+           <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">response</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">200"</span>
+           <span class="na">schema</span><span class="pi">:</span>
              <span class="s">$ref</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#/definitions/ResponseImpl"</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>如果客户端没有放置swagger，还会报告如下异常：</p>
 
-    <div class="language-text highlighter-rouge"><pre class="highlight"><code>    Caused by: java.lang.ClassFormatError: Method "testInherate" in class ? has illegal signature "
-</code></pre>
-    </div>
+    <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    Caused by: java.lang.ClassFormatError: Method "testInherate" in class ? has illegal signature "
+</code></pre></div>    </div>
 
     <p>A：定义body参数的类型的时候，需要使用schema，不能直接使用type。</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">/testInherate</span><span class="pi">:</span>
-     <span class="s">post</span><span class="pi">:</span>
-       <span class="s">operationId</span><span class="pi">:</span> <span class="s2">"</span><span class="s">testInherate"</span>
-       <span class="s">parameters</span><span class="pi">:</span>
-       <span class="pi">-</span> <span class="s">in</span><span class="pi">:</span> <span class="s2">"</span><span class="s">body"</span>
-         <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">request"</span>
-         <span class="s">required</span><span class="pi">:</span> <span class="s">false</span>
-         <span class="s">schema</span><span class="pi">:</span>
-           <span class="s">type</span><span class="pi">:</span> <span class="s">string</span>
-       <span class="s">responses</span><span class="pi">:</span>
-         <span class="s">200</span><span class="pi">:</span>
-           <span class="s">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">response</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">200"</span>
-           <span class="s">schema</span><span class="pi">:</span>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="s">/testInherate</span><span class="pi">:</span>
+     <span class="na">post</span><span class="pi">:</span>
+       <span class="na">operationId</span><span class="pi">:</span> <span class="s2">"</span><span class="s">testInherate"</span>
+       <span class="na">parameters</span><span class="pi">:</span>
+       <span class="pi">-</span> <span class="na">in</span><span class="pi">:</span> <span class="s2">"</span><span class="s">body"</span>
+         <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">request"</span>
+         <span class="na">required</span><span class="pi">:</span> <span class="no">false</span>
+         <span class="na">schema</span><span class="pi">:</span>
+           <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+       <span class="na">responses</span><span class="pi">:</span>
+         <span class="na">200</span><span class="pi">:</span>
+           <span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">response</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">200"</span>
+           <span class="na">schema</span><span class="pi">:</span>
              <span class="s">$ref</span><span class="pi">:</span> <span class="s2">"</span><span class="s">#/definitions/ResponseImpl"</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: ServiceComb微服务框架服务调用是否使用长连接?</strong></p>
@@ -545,10 +537,9 @@
 
     <p>A: 发布服务接口的时候需要将war包部署的上下文（context）放在baseurl最前面，这样才能保证注册到服务中心的路径是完整的路径（包含了上下文）。实例：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@path</span><span class="o">(/{</span><span class="n">context</span><span class="o">}/</span><span class="n">xxx</span><span class="o">)</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@path</span><span class="o">(/{</span><span class="n">context</span><span class="o">}/</span><span class="n">xxx</span><span class="o">)</span>
  <span class="kd">class</span> <span class="nc">ServiceA</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: ServiceComb微服务框架如何实现数据多个微服务间透传</strong></p>
@@ -556,30 +547,28 @@
     <p>A:
  透传数据塞入：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">CseHttpEntity</span><span class="o">&lt;</span><span class="n">xxxx</span><span class="o">.</span><span class="na">class</span><span class="o">&gt;</span> <span class="n">httpEntity</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CseHttpEntity</span><span class="o">&lt;&gt;(</span><span class="n">xxx</span><span class="o">);</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">CseHttpEntity</span><span class="o">&lt;</span><span class="n">xxxx</span><span class="o">.</span><span class="na">class</span><span class="o">&gt;</span> <span class="n">httpEntity</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CseHttpEntity</span><span class="o">&lt;&gt;(</span><span class="n">xxx</span><span class="o">);</span>
  <span class="c1">//透传内容</span>
  <span class="n">httpEntity</span><span class="o">.</span><span class="na">addContext</span><span class="o">(</span><span class="s">"contextKey"</span><span class="o">,</span><span class="s">"contextValue"</span><span class="o">);</span>
  <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="n">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">().</span><span class="na">exchange</span><span class="o">(</span><span class="s">"cse://springmvc/springmvchello/sayhello"</span><span class="o">,</span><span class="n">HttpMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span><span class="n">httpEntity</span><span class="o">,</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>透传数据获取：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@Override</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Override</span>
  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/sayhello"</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
  <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">Person</span> <span class="n">person</span><span class="o">,</span><span class="n">InvocationContext</span> <span class="n">context</span><span class="o">){</span>
    <span class="c1">//透传数据获取</span>
    <span class="n">context</span><span class="o">.</span><span class="na">getContext</span><span class="o">();</span>
    <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: ServiceComb微服务框架服务如何自定义返回状态码?</strong></p>
 
     <p>A:</p>
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@Override</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Override</span>
  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/sayhello"</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
  <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">Person</span> <span class="n">person</span><span class="o">){</span>
    <span class="n">InvocationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">ContextUtils</span><span class="o">.</span><span class="na">getInvocationContext</span><span class="o">();</span>
@@ -587,30 +576,27 @@
    <span class="n">context</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">Status</span><span class="o">.</span><span class="na">CREATED</span><span class="o">);</span>
    <span class="k">return</span> <span class="s">"Hello person "</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: ServiceComb body Model部分暴露</strong></p>
 
     <p>A: 一个接口对应的body对象中，可能有一些属性是内部的，不想开放出去，生成schema的时候不要带出去，使用：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@ApiModelProperty</span><span class="o">(</span><span class="n">hidden</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
-</code></pre>
-    </div>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@ApiModelProperty</span><span class="o">(</span><span class="n">hidden</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: ServiceComb框架获取远端consumer的地址</strong></p>
 
     <p>A: 如果使用http rest方式（使用transport-rest-vertx依赖）可以用下面这种方式获取：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">AbstractProducerContextArgMapper</span> <span class="n">httpRequestCreator</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractProducerContextArgMapper</span><span class="o">)</span><span class="n">invocation</span><span class="o">.</span><span class="na">getHandlerContext</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">RestConst</span><span class="o">.</span><span class="na">HTTP_REQUEST_CREATOR</span><span class="o">);</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">AbstractProducerContextArgMapper</span> <span class="n">httpRequestCreator</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractProducerContextArgMapper</span><span class="o">)</span><span class="n">invocation</span><span class="o">.</span><span class="na">getHandlerContext</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">RestConst</span><span class="o">.</span><span class="na">HTTP_REQUEST_CREATOR</span><span class="o">);</span>
  <span class="k">if</span><span class="o">(</span><span class="n">httpRequestCreator</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
    <span class="n">HttpServletRequest</span> <span class="n">req</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span><span class="n">httpRequestCreator</span><span class="o">.</span><span class="na">createContextArg</span><span class="o">(</span><span class="n">invocation</span><span class="o">);</span>
    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">getRemoteHost</span><span class="o">());</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>实际场景是拿最外层的地址，所以应该是LB传入到edgeservice，edgeService再放到context外下传递。</p>
   </li>
@@ -633,7 +619,7 @@
       <li>在代码里面不要使用Log4jUtils.init()；</li>
       <li>去掉log4j的配置文件（不删掉也没关系，因为不会使用）；</li>
       <li>exclude掉CSE框架引入的log4j，例如：
-        <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+        <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>provider-springmvc<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;exclusions&gt;</span>
@@ -643,13 +629,12 @@
         <span class="nt">&lt;/exclusion&gt;</span>
     <span class="nt">&lt;/exclusions&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-        </div>
+</code></pre></div>        </div>
       </li>
       <li>
         <p>引入log4j2的依赖</p>
 
-        <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>    
+        <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>    
     <span class="nt">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>log4j-slf4j-impl<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
@@ -661,15 +646,14 @@
     <span class="nt">&lt;groupId&gt;</span>org.apache.logging.log4j<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>log4j-core<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-        </div>
+</code></pre></div>        </div>
 
         <p>如果没有版本依赖管理，还需要填写上版本号。</p>
       </li>
       <li>
         <p>加入log4j2的配置文件log4j2.xml，关于这个请查看官方说明，例如：</p>
 
-        <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+        <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
  <span class="c">&lt;!--日志级别以及优先级排序: OFF &gt; FATAL &gt; ERROR &gt; WARN &gt; INFO &gt; DEBUG &gt; TRACE &gt; ALL --&gt;</span>
  <span class="c">&lt;!--Configuration后面的status，这个用于设置log4j2自身内部的信息输出，可以不设置，当设置成trace时，你会看到log4j2内部各种详细输出--&gt;</span>
  <span class="c">&lt;!--monitorInterval：Log4j能够自动检测修改配置 文件和重新配置本身，设置间隔秒数--&gt;</span>
@@ -730,8 +714,7 @@
          <span class="nt">&lt;/root&gt;</span>
      <span class="nt">&lt;/loggers&gt;</span>
  <span class="nt">&lt;/configuration&gt;</span>
-</code></pre>
-        </div>
+</code></pre></div>        </div>
       </li>
       <li>启动服务进行验证</li>
     </ol>
@@ -741,11 +724,10 @@
 
     <p>A: 在微服务描述文件（microservice.yaml）中添加如下配置：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">request</span><span class="pi">:</span>
-     <span class="s">timeout</span><span class="pi">:</span> <span class="s">30000</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">request</span><span class="pi">:</span>
+     <span class="na">timeout</span><span class="pi">:</span> <span class="s">30000</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: URL 地址就可以唯一定位，为什么要加上一个schema？</strong></p>
@@ -843,21 +825,20 @@
 
     <p>A: 如果是使用rest transport，因为是Json序列化，可以使用@JsonIgnore注解标记需要忽略的属性；highway transport目前尚不支持。注意修改后需要更新微服务的version，例如:</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OutputForTest</span><span class="o">{</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OutputForTest</span><span class="o">{</span>
 <span class="nd">@JsonIgnore</span>
 <span class="kd">private</span> <span class="n">String</span> <span class="n">outputId</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 <span class="kd">private</span> <span class="n">String</span> <span class="n">inputId</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 <span class="o">...</span>
 <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: 如何在用户自定义的handler中获取header中某个字段的值</strong></p>
 
     <p>A: 在用户自定义的handler使用@ApiImplicitParams注解声明，使用invocation.getArgs()获取header的值。例如:</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyHandler</span> <span class="kd">implements</span> <span class="n">Handler</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyHandler</span> <span class="kd">implements</span> <span class="n">Handler</span> <span class="o">{</span>
   <span class="nd">@ApiImplicitParams</span><span class="o">({</span><span class="nd">@ApiImplicitParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"tester"</span><span class="o">,</span> <span class="n">dataType</span> <span class="o">=</span> <span class="s">"string"</span><span class="o">,</span> <span class="n">paramType</span> <span class="o">=</span> <span class="s">"header"</span><span class="o">)})</span>
   <span class="nd">@Override</span>
   <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Invocation</span> <span class="n">invocation</span><span class="o">,</span> <span class="n">AsyncResponse</span> <span class="n">asyncResp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
@@ -865,8 +846,7 @@
     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: 微服务运行时抛出异常：<code class="highlighter-rouge"> java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty</code>？</strong></p>

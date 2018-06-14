@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="本地开发与测试">
     <meta itemprop="description" content="本地开发与测试">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -684,12 +684,11 @@
   <li>
     <p><strong>步骤 2</strong> 启动本地轻量服务中心后，在服务提供/消费者的microservice.yaml文件中配置ServerCenter的地址和端口，示例代码：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">service</span><span class="pi">:</span>
-     <span class="s">registry</span><span class="pi">:</span>
-       <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#服务中心地址及端口</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">service</span><span class="pi">:</span>
+     <span class="na">registry</span><span class="pi">:</span>
+       <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#服务中心地址及端口</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>步骤 3</strong> 开发服务提供/消费者，启动微服务进行本地测试。</p>
@@ -702,29 +701,27 @@
   <li>
     <p><strong>步骤 1</strong>新建本地服务中心定义文件registry.yaml，内容如下：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">springmvctest</span><span class="pi">:</span>
-   <span class="pi">-</span> <span class="s">id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">001"</span>
-     <span class="s">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
-     <span class="s">appid</span><span class="pi">:</span> <span class="s">myapp</span> <span class="c1">#调试的服务id</span>
-     <span class="s">instances</span><span class="pi">:</span> 
-       <span class="s">endpoints</span><span class="pi">:</span>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">springmvctest</span><span class="pi">:</span>
+   <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">001"</span>
+     <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+     <span class="na">appid</span><span class="pi">:</span> <span class="s">myapp</span> <span class="c1">#调试的服务id</span>
+     <span class="na">instances</span><span class="pi">:</span> 
+       <span class="na">endpoints</span><span class="pi">:</span>
          <span class="s">rest://127.0.0.1:8080</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>注意：mock机制需要自己准备契约，并且当前只支持在本地进行服务消费端(consumer)侧的调试，不支持服务提供者(provider)</p>
   </li>
   <li>
     <p><strong>步骤 2</strong>在服务消费者Main函数首末添加如下代码：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">xxxClient</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">xxxClient</span> <span class="o">{</span>
  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
    <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"local.registry.file"</span><span class="o">,</span> <span class="s">"/path/registry.yaml"</span><span class="o">);</span>
    <span class="c1">//your code</span>
    <span class="n">System</span><span class="o">.</span><span class="na">clearProperty</span><span class="o">(</span><span class="s">"local.registry.file"</span><span class="o">);</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ul>
 

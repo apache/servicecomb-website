@@ -699,13 +699,12 @@
 <h2 id="开发edge-service">开发Edge Service</h2>
 <h3 id="引入依赖">引入依赖</h3>
 <p>只需要引入edge-core依赖即可：</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>edge-core<span class="nt">&lt;/artifactId&gt;</span>
   <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="开发dispatcher">开发Dispatcher</h3>
 <p>要实现Edge Service转发功能，需要开发Dispatcher并继承接口org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher或org.apache.servicecomb.transport.rest.vertx.AbstractVertxHttpDispatcher，重写其中的三个方法：</p>
@@ -714,7 +713,7 @@
 
 <h4 id="init方法">init方法</h4>
 <p>初始化Dispatcher的路由规则，使用的是<a href="https://vertx.io/docs/vertx-web/java/#_routing_by_exact_path">Vertx路由规则</a>，例如我们添加两条匹配策略：</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">Router</span> <span class="n">router</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">Router</span> <span class="n">router</span><span class="o">)</span> <span class="o">{</span>
   <span class="n">String</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
   <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
   <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
@@ -725,8 +724,7 @@
   <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
   <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">failureHandler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onFailure</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onRequest</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ol>
   <li>/([^\/]+)/([^\/]+)/(.*) : 这条策略我们希望匹配带版本的微服务请求，例如/user-service/v0/validate；</li>
@@ -735,23 +733,20 @@
 
 <h4 id="onrequest方法">onRequest方法</h4>
 <p>转发策略，方法原型为：</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">onRequest</span><span class="o">(</span><span class="n">RoutingContext</span> <span class="n">context</span><span class="o">)</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">onRequest</span><span class="o">(</span><span class="n">RoutingContext</span> <span class="n">context</span><span class="o">)</span>
+</code></pre></div></div>
 
 <p>从context中可以获取到请求目标微服务名，path等信息，之后创建EdgeInvocation并初始化，完成调用：</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">EdgeInvocation</span> <span class="n">edgeInvocation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EdgeInvocation</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EdgeInvocation</span> <span class="n">edgeInvocation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EdgeInvocation</span><span class="o">();</span>
 <span class="n">edgeInvocation</span><span class="o">.</span><span class="na">setVersionRule</span><span class="o">(</span><span class="n">versionRule</span><span class="o">);</span>
 <span class="n">edgeInvocation</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">serviceName</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="n">path</span><span class="o">,</span> <span class="n">httpServerFilters</span><span class="o">);</span>
 <span class="n">edgeInvocation</span><span class="o">.</span><span class="na">edgeInvoke</span><span class="o">();</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="加载dispatcher">加载Dispatcher</h3>
 <p>Edge Service使用SPI机制加载用户自定义的VertxHttpDispatcher，我们在resources文件夹下创建META-INF/services文件夹，之后添加org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher文件，在文件中，添加写好的Dispatcher即可：</p>
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>{your-package-path}.XXXDispatcher
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{your-package-path}.XXXDispatcher
+</code></pre></div></div>
 
 <h3 id="扩展handler可选">扩展Handler（可选）</h3>
 <p>由于Edge Service需要承载统一认证、集中监控等功能，我们推荐扩展Handler的方式实现，在demo-edge中的edge-service中有AuthHandler的示例。</p>

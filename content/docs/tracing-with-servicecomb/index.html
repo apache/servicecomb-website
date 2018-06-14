@@ -401,39 +401,36 @@ to apply distributed tracing with Zipkin.</p>
 
 <h3 id="adding-dependencies">Adding Dependencies</h3>
 <p>A microservice written with ServiceComb Java Chassis just need to add one dependency below to its pom.xml.</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>handler-tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>If the microservice is an API gateway with Spring Cloud + Zuul like manager service in the workshop demo, an additional 
 dependency has to be included.</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul-zipkin<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="configuring-tracing-handlers-and-collector">Configuring Tracing Handlers And Collector</h3>
 <p>In the configuration file <code class="highlighter-rouge">microservice.yaml</code> , apply tracing handlers and add tracing collector address.</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Consumer</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-consumer</span>
-      <span class="s">Provider</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">handler</span><span class="pi">:</span>
+    <span class="na">chain</span><span class="pi">:</span>
+      <span class="na">Consumer</span><span class="pi">:</span>
+        <span class="na">default</span><span class="pi">:</span> <span class="s">tracing-consumer</span>
+      <span class="na">Provider</span><span class="pi">:</span>
+        <span class="na">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
 
-<span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">tracing</span><span class="pi">:</span>
-    <span class="s">collector</span><span class="pi">:</span>
-      <span class="s">address</span><span class="pi">:</span> <span class="s">http://zipkin.servicecomb.io:9411</span>
-</code></pre>
-</div>
+<span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">tracing</span><span class="pi">:</span>
+    <span class="na">collector</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s">http://zipkin.servicecomb.io:9411</span>
+</code></pre></div></div>
 
 <p>That's all! After two configuration additions and no change to a single line of code, distributed tracing with Zipkin is 
 enabled for microservices written with Java chassis.</p>

@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="用JAX-RS开发微服务">
     <meta itemprop="description" content="用JAX-RS开发微服务">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -669,7 +669,7 @@
 
     <p>在Maven的pom.xml中添加所需的依赖：</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;dependencyManagement&gt;</span>
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependencyManagement&gt;</span>
    <span class="nt">&lt;dependencies&gt;</span>
      <span class="nt">&lt;dependency&gt;</span>
        <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -699,15 +699,14 @@
       <span class="nt">&lt;artifactId&gt;</span>slf4j-log4j12<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
   <span class="nt">&lt;/dependencies&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>步骤 2</strong> 实现服务。</p>
 
     <p>使用JAX-RS注解开发业务代码，Hello的服务实现如下：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">javax.ws.rs.POST</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">javax.ws.rs.POST</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">javax.ws.rs.Path</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">javax.ws.rs.Produces</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
@@ -728,8 +727,7 @@
      <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
    <span class="o">}</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p><strong>注意：请一定在服务的实现类（本文档例子为JaxrsHelloImpl）上标记@Path，否则接口发布的Path和Method将会不正确！</strong></p>
 
@@ -740,18 +738,17 @@
 
     <p>在服务的实现类上打上注解<code class="highlighter-rouge">@RestSchema</code>，指定schemaId，表示该实现作为当前微服务的一个schema发布，代码如下：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
  <span class="c1">// other code omitted</span>
  <span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"jaxrsHello"</span><span class="o">)</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">JaxrsHelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
    <span class="c1">// other code omitted</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>然后在resources/META-INF/spring目录下创建jaxrsHello.bean.xml文件，配置spring进行服务扫描的base-package，文件内容如下：</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
  <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">" http://www.springframework.org/schema/beans "</span> <span class="na">xmlns:xsi=</span><span class="s">" http://www.w3.org/2001/XMLSchema-instance "</span>
         <span class="na">xmlns:p=</span><span class="s">" http://www.springframework.org/schema/p "</span> <span class="na">xmlns:util=</span><span class="s">" http://www.springframework.org/schema/util "</span>
         <span class="na">xmlns:cse=</span><span class="s">" http://www.huawei.com/schema/paas/cse/rpc "</span>
@@ -760,8 +757,7 @@
    
      <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"org.apache.servicecomb.samples.jaxrs.provider"</span><span class="nt">/&gt;</span>
  <span class="nt">&lt;/beans&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>步骤 4</strong> 添加服务定义。</p>
@@ -771,7 +767,7 @@
   <li>
     <p><strong>步骤 5</strong> 添加Main启动类</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
 
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
@@ -781,8 +777,7 @@
       <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
    <span class="o">}</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ul>
 

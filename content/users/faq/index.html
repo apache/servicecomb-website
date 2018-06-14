@@ -640,10 +640,9 @@
   <li>
     <p><strong>Q: What’s the dependency differences between gateway and other microservices?</strong></p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
 <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>A: Gateway depends on not only the <code class="highlighter-rouge">spring-boot-starter-provider</code>, but also the <code class="highlighter-rouge">spring-boot-starter-discovery</code>. This can refer to the <em>manger</em> implementation of <a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">LinuxCon-Beijing-Workshop</a>.</p>
   </li>
@@ -660,7 +659,7 @@
   <li>
     <p><strong>Q: Our API can not be accessed after microservices are up. It just returns <em>404 Not Found</em>. The codes we use is as follows:</strong></p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestController</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
 <span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"worker"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkerController</span> <span class="o">{</span>
   <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"/count"</span><span class="o">,</span> <span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
@@ -668,14 +667,12 @@
     <span class="o">...</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>A: Without specifying the base path, ServiceComb will use the classname as the base path. Hence, the path should be <code class="highlighter-rouge">/WorkerController/count</code> in the previous code. If you want to access path like <code class="highlighter-rouge">/count</code>, you need to specify base path as <code class="highlighter-rouge">/</code> as follows:</p>
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkerController</span> <span class="o">{}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Q: What's the default base path if I have not declared the value of RequestMapping annotation?</strong></p>

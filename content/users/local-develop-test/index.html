@@ -607,7 +607,7 @@
     <meta itemprop="headline" content="Local Development and Test">
     <meta itemprop="description" content="Local Development and Test">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -659,12 +659,11 @@
   <li>
     <p><strong>Step 2</strong> After local service center is started, configure the service center address in the microservice.yaml file that stores SDK configuration information, as shown in the following example:</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
-   <span class="s">service</span><span class="pi">:</span>
-     <span class="s">registry</span><span class="pi">:</span>
-       <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#Indicates the service center address and port number</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
+   <span class="na">service</span><span class="pi">:</span>
+     <span class="na">registry</span><span class="pi">:</span>
+       <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#Indicates the service center address and port number</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p><strong>Step 3</strong> Develop service providers and consumers enable the microservice for local tests.</p>
@@ -677,29 +676,27 @@
   <li>
     <p><strong>Step 1</strong> Create the registry.yaml file for Local ServiceCenter</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">springmvctest</span><span class="pi">:</span>
-   <span class="pi">-</span> <span class="s">id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">001"</span>
-     <span class="s">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
-     <span class="s">appid</span><span class="pi">:</span> <span class="s">myapp</span> <span class="c1">#Commissioning service ID</span>
-     <span class="s">instances</span><span class="pi">:</span> 
-       <span class="s">endpoints</span><span class="pi">:</span>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">springmvctest</span><span class="pi">:</span>
+   <span class="pi">-</span> <span class="na">id</span><span class="pi">:</span> <span class="s2">"</span><span class="s">001"</span>
+     <span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">1.0"</span>
+     <span class="na">appid</span><span class="pi">:</span> <span class="s">myapp</span> <span class="c1">#Commissioning service ID</span>
+     <span class="na">instances</span><span class="pi">:</span> 
+       <span class="na">endpoints</span><span class="pi">:</span>
          <span class="s">rest://127.0.0.1:8080</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>NOTE: The mock mechanism needs an API definition on its own. Currently, only local commissioning for service consumers is supported.</p>
   </li>
   <li>
     <p><strong>Step 2</strong> Add the following code to the end of the Main function for service consumers.</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">xxxClient</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">xxxClient</span> <span class="o">{</span>
  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
    <span class="n">System</span><span class="o">.</span><span class="na">setProperty</span><span class="o">(</span><span class="s">"local.registry.file"</span><span class="o">,</span> <span class="s">"/path/registry.yaml"</span><span class="o">);</span>
    <span class="c1">//your code</span>
    <span class="n">System</span><span class="o">.</span><span class="na">clearProperty</span><span class="o">(</span><span class="s">"local.registry.file"</span><span class="o">);</span>
  <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>NOTE: Set the second parameter of setProperty to the absolute path of registry.yaml file in the disk. The path separator depends on the system it is in.</p>
   </li>

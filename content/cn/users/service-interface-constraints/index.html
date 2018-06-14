@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="服务接口约束">
     <meta itemprop="description" content="服务接口约束">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -661,21 +661,19 @@
 <h2 id="接口约束说明">接口约束说明</h2>
 <p>Java Chassis对于接口的使用约束建立在一个简单的原则上：接口定义即接口使用说明，不用通过查看代码实现，就能识别如何调用这个接口。举个例子：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">);</span>
 <span class="kd">public</span> <span class="n">Object</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">);</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span><span class="n">String</span> <span class="n">name</span><span class="o">;}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>显然如果调用接口一，我们知道要传递一个String类型的id参数，返回值是一个Person类型，Person里面存在String类型的name等参数。如果调用接口二，我们不知道怎么处理返回值，必须参考服务提供者的文档说明。可以看出，我们是站在使用者视角这边的，以更容易被使用作为参考。</p>
 
 <p>当我们要将接口发布为REST接口的时候，可以通过使用swagger文件，指定id使用RequestParam或者PathVariable或者RequestBody进行传递，也可以使用SpringMVC或者JAX RS提供的标签来描述。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span> 
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span> 
 <span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span> 
 <span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span> 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>通常，我们会将简单的数据类型，比如String, int等在RequestParam或者PathVariable传递，而把复杂的数据类型使用JSON编码以后在RequestBody传递，以减少HTTP协议限制可能给开发者带来的各种问题。</p>
 
@@ -685,23 +683,20 @@
 <ul>
   <li>比较抽象的数据结构: java.lang.Object, net.sf.json.JsonObject等</li>
   <li>接口或者抽象类
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IPerson</span> <span class="o">{...}</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IPerson</span> <span class="o">{...}</span>
  <span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractPerson</span>  <span class="o">{...}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>泛型
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonHolder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{...}</span>
-</code></pre>
-    </div>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonHolder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{...}</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>上述类型的集合类型或者没指定类型的集合，比如：<code class="highlighter-rouge">List&lt;IPerson&gt;, Map&lt;String, PersonHolder&lt;?&gt;&gt;, List, Map</code>等。 <code class="highlighter-rouge">List&lt;String&gt;, List&lt;Person&gt;</code>这些具体类型是支持的。</p>
   </li>
   <li>包含上述类型作为属性的类型
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GroupOfPerson</span> <span class="o">{</span><span class="n">IPerson</span> <span class="n">master</span> <span class="o">...}</span>
-</code></pre>
-    </div>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GroupOfPerson</span> <span class="o">{</span><span class="n">IPerson</span> <span class="n">master</span> <span class="o">...}</span>
+</code></pre></div>    </div>
   </li>
 </ul>
 

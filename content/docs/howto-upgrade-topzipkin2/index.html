@@ -416,7 +416,7 @@
 <h3 id="modify-the-maven-dependencies-to-use-the-target-version-of-related-libraries">Modify the maven dependencies to use the target version of related libraries.</h3>
 <p>Change the group <code class="highlighter-rouge">io.zipkin.java</code> and <code class="highlighter-rouge">io.zipkin.reporter</code> to <code class="highlighter-rouge">io.zipkin.zipkin2</code> and <code class="highlighter-rouge">io.zipkin.reporter2</code> respectively.</p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>java-chassis-dependencies/pom.xml
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java-chassis-dependencies/pom.xml
 <span class="gu">@@ -50,8 +50,8 @@
 </span>     &lt;cxf.version&gt;3.1.6&lt;/cxf.version&gt;
      &lt;logback.version&gt;1.1.7&lt;/logback.version&gt;
@@ -458,14 +458,13 @@ handlers/handler-tracing-zipkin/pom.xml
      &lt;/dependency&gt;
      &lt;dependency&gt;
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="make-brave-to-use-zipkin2-instead-of-zipkin">Make brave to use zipkin2 instead of zipkin</h3>
 
 <p>Change the zipkin.xxx import to zipkin2.xxx on imports, and most importantly, use <code class="highlighter-rouge">spanReporter()</code> instead of <code class="highlighter-rouge">reporter()</code> for generating reporter for brave, change the api path to /api/v2/xxx when creating sender.</p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
 <span class="gu">@@ -31,11 +31,11 @@
 </span> import brave.http.HttpTracing;
  import brave.propagation.CurrentTraceContext;
@@ -499,40 +498,37 @@ handlers/handler-tracing-zipkin/pom.xml
 </span><span class="gi">+        .spanReporter(reporter)
 </span>         .build();
    }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Note</strong>:</p>
 
 <p>In the <a href="https://github.com/openzipkin/brave/releases/tag/4.7.1">brave release notes</a>, it’s stated that we need to use <code class="highlighter-rouge">create()</code> instead of <code class="highlighter-rouge">builder()</code></p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
    /** Configuration for how to buffer spans into messages for Zipkin */
 <span class="gd">-  @Bean Reporter&lt;Span&gt; reporter() {
 -    return AsyncReporter.builder(sender()).build();
 </span><span class="gi">+  @Bean Reporter&lt;Span&gt; spanReporter() {
 +    return AsyncReporter.create(sender()).build();
 </span>   }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>But this will not work. In <code class="highlighter-rouge">zipkin2.Reporter</code>, the <code class="highlighter-rouge">create(sender)</code> is actually equivalent to <code class="highlighter-rouge">builder(sender).build()</code></p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">&lt;</span><span class="n">Span</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">&lt;</span><span class="n">Span</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="o">(</span><span class="k">new</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
   <span class="o">}</span>
   
   <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span> <span class="nf">builder</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">);</span>
   <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="make-changes-according-to-the-changes-of-zipkinspan-and-zipkin2span">Make changes according to the changes of zipkin.Span and zipkin2.Span.</h3>
 
 <p>We do not use zipkin.Span in our production code, but we do use it in our tests. Those changes are quite straight forward, we just change the accessing of fields to calling methods as described in the What’s Changed section.</p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>tracing/tracing-zipkin/src/test/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tracing/tracing-zipkin/src/test/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
 <span class="gu">@@ -45,7 +45,7 @@
 </span> import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
  import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.CustomSpanTask;
@@ -587,8 +583,7 @@ handlers/handler-tracing-zipkin/pom.xml
 </span>           .build();
      }
    }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="support-both-v1-and-v2-api-of-zipkin-server">Support both v1 and v2 api of zipkin server.</h3>
 
@@ -596,11 +591,10 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p>Supporting v1 api is built into zipkin2, so we do not need to rely on the v1 libraries. Just use the <code class="highlighter-rouge">SpanBytesEncoder.JSON_V1</code> when building reporter and change the sender api path.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">sender</span> <span class="o">=</span> <span class="n">URLConnectionSender</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"http://localhost:9411/api/v1/spans"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sender</span> <span class="o">=</span> <span class="n">URLConnectionSender</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"http://localhost:9411/api/v1/spans"</span><span class="o">)</span>
 <span class="n">reporter</span> <span class="o">=</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)</span>
                         <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">SpanBytesEncoder</span><span class="o">.</span><span class="na">JSON_V1</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>That’s all, for the complete changes, please refer the <a href="https://github.com/apache/incubator-servicecomb-java-chassis/pull/488">pull request</a> for the complete changes.</p>
 

@@ -397,7 +397,7 @@
       <li>
         <p>创建feature文件<code class="highlighter-rouge">pack_success_scenario.feature</code>，定义Feature，并在feature中定义step</p>
 
-        <div class="language-shell highlighter-rouge"><pre class="highlight"><code>Feature: Alpha records transaction events
+        <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Feature: Alpha records transaction events
 
   Scenario: Everything is normal
     Given Car Service is up and running
@@ -423,8 +423,7 @@
     And Hotel Service contains the following booking orders
       | name | amount | confirmed | cancelled |
       | Sean | 1      | <span class="nb">true</span>      | <span class="nb">false</span>     |
-</code></pre>
-        </div>
+</code></pre></div>        </div>
 
         <p><code class="highlighter-rouge">Given</code> 定义了测试用例<code class="highlighter-rouge">Everything is normal</code>所需的4个条件分别是4个服务运行正常，<code class="highlighter-rouge">When</code>定义了触发用户<code class="highlighter-rouge">Sean</code>发起预定2辆车和1间房子的被测事件。<code class="highlighter-rouge">Then</code>中则指定了验证结果是<code class="highlighter-rouge">Alpha</code>记录的各子事务及子事务发生顺序，<code class="highlighter-rouge">Car</code>服务和<code class="highlighter-rouge">Hotel</code>服务则记录预定结果。</p>
       </li>
@@ -433,15 +432,14 @@
 
         <p>在step_definition中使用正则的方式对应feature中定义的的测试条件，触发测试并验证结果。如：</p>
 
-        <div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="n">Given</span><span class="o">(</span><span class="s">"^Car Service is up and running$"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">Given</span><span class="o">(</span><span class="s">"^Car Service is up and running$"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="n">probe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">CAR_SERVICE_ADDRESS</span><span class="o">));</span>
     <span class="o">});</span>
-</code></pre>
-        </div>
+</code></pre></div>        </div>
 
         <p>上面代码对应feature中第一个测试前提条件<code class="highlighter-rouge">Given car service is up and running</code>，<code class="highlighter-rouge">probe</code>函数式方位<code class="highlighter-rouge">Car</code>服务的一个Rest接口验证返回状态码来判断<code class="highlighter-rouge">Car</code>是否正常启动运行。接下来四个<code class="highlighter-rouge">Given</code>与此类似。</p>
 
-        <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">When</span><span class="o">(</span><span class="s">"^User ([A-Za-z]+) requests to book ([0-9]+) cars and ([0-9]+) rooms$"</span><span class="o">,</span> <span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">When</span><span class="o">(</span><span class="s">"^User ([A-Za-z]+) requests to book ([0-9]+) cars and ([0-9]+) rooms$"</span><span class="o">,</span> <span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received request from user {} to book {} cars and {} rooms"</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">);</span>
 
       <span class="n">given</span><span class="o">()</span>
@@ -451,12 +449,11 @@
           <span class="o">.</span><span class="na">when</span><span class="o">()</span>
           <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"booking.service.address"</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/booking/{name}/{rooms}/{cars}"</span><span class="o">);</span>
     <span class="o">});</span>
-</code></pre>
-        </div>
+</code></pre></div>        </div>
 
         <p>此段代码解析feature中定义的<code class="highlighter-rouge">When User Sean requests to book 2 cars and 1 rooms</code>事件，解析出用户、预定车辆和房间数量参数并向<code class="highlighter-rouge">Booking</code>服务发出<code class="highlighter-rouge">POST</code>方法的请求，然后在下面代码的<code class="highlighter-rouge">Then</code>中验证结果：</p>
 
-        <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Then</span><span class="o">(</span><span class="s">"^Alpha records the following events$"</span><span class="o">,</span> <span class="o">(</span><span class="n">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Then</span><span class="o">(</span><span class="s">"^Alpha records the following events$"</span><span class="o">,</span> <span class="o">(</span><span class="n">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;[]&gt;</span> <span class="n">columnStrippingConsumer</span> <span class="o">=</span> <span class="n">dataMap</span> <span class="o">-&gt;</span> <span class="o">{</span>
         <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">:</span> <span class="n">dataMap</span><span class="o">)</span>
           <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">().</span><span class="na">retainAll</span><span class="o">(</span><span class="n">dataTable</span><span class="o">.</span><span class="na">topCells</span><span class="o">());</span>
@@ -471,8 +468,7 @@
     <span class="n">And</span><span class="o">(</span><span class="s">"^Hotel Service contains the following booking orders$"</span><span class="o">,</span> <span class="o">(</span><span class="n">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="n">dataMatches</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">HOTEL_SERVICE_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/bookings"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="n">NO_OP_CONSUMER</span><span class="o">);</span>
     <span class="o">});</span>
-</code></pre>
-        </div>
+</code></pre></div>        </div>
 
         <p>上面代码对应feature中<code class="highlighter-rouge">Then</code>结果从三方面验证预定事件是否符合预期：<code class="highlighter-rouge">Alpha</code>服务中记录的事件顺序、<code class="highlighter-rouge">Car</code>服务的预定结果和 <code class="highlighter-rouge">Hotel</code>服务中的预定结果。<code class="highlighter-rouge">DataTable</code>解析了feature中定义的事件结果和顺序，<code class="highlighter-rouge">dataMatches</code>将此结果与各服务中查询到的结果进行比较验证是不是符合预期。</p>
       </li>
@@ -488,7 +484,7 @@
 
     <p>由于房源紧张，限制每个用户最多预订2间房，当用户预订超过2间时会抛出异常：</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Compensable</span><span class="o">(</span><span class="n">compensationMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Compensable</span><span class="o">(</span><span class="n">compensationMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
   <span class="kt">void</span> <span class="nf">order</span><span class="o">(</span><span class="n">HotelBooking</span> <span class="n">booking</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">booking</span><span class="o">.</span><span class="na">getAmount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"can not order the rooms large than two"</span><span class="o">);</span>
@@ -496,8 +492,7 @@
     <span class="n">booking</span><span class="o">.</span><span class="na">confirm</span><span class="o">();</span>
     <span class="n">bookings</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">booking</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">booking</span><span class="o">);</span>
   <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>在此异常测试中我们预订事件中预订3间房，由于订房间失败，整个行程事务没有成功，对已经成功执行的订车子事务进行补偿保证原子性。</p>
 
@@ -507,7 +502,7 @@
 
         <p>与成功的行程规划测试中不同的只有触发的预定事件和最终的结果，前提条件都是4个服务启动并运行，所以feature只要修改<code class="highlighter-rouge">When</code>和<code class="highlighter-rouge">Then</code>内容即可（Features和Scenarios名也要对应修改）</p>
 
-        <div class="language-yaml highlighter-rouge"><pre class="highlight"><code>    <span class="s">When User Sean requests to book 5 cars and 3 rooms</span>
+        <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="s">When User Sean requests to book 5 cars and 3 rooms</span>
 
     <span class="s">Then Alpha records the following events</span>
       <span class="s">| serviceName  | type               |</span>
@@ -521,12 +516,11 @@
 
     <span class="s">Then Car Service contains the following booking orders</span>
       <span class="s">| name | amount | confirmed | cancelled |</span>
-      <span class="s">| Sean | 5      | false     | true      |</span>
+      <span class="s">| Sean | 5      | </span><span class="no">false</span><span class="s">     | </span><span class="no">true</span><span class="s">      |</span>
 
     <span class="s">Then Hotel Service contains the following booking orders</span>
       <span class="s">| name | amount | confirmed | cancelled |</span>
-</code></pre>
-        </div>
+</code></pre></div>        </div>
       </li>
       <li>
         <p>step_definition和Command与之前一样，不需要任何修改，触发预定超过3个房间的操作后，<code class="highlighter-rouge">Alpha</code>会记录Hotel服务的<code class="highlighter-rouge">TxAbortedEvent</code>和Car服务的<code class="highlighter-rouge">TxCompensatedEvent</code>时间，此外Car服务的预定记录中会有取消为<code class="highlighter-rouge">true</code>的记录。</p>
@@ -549,15 +543,14 @@
 
     <p>根据byteman语法创建规则，包括规则名，目标类，目标方法，注入位置，注入内容等，下面是一个在<code class="highlighter-rouge">main</code>函数入口注入打印语句的规则文件例子</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">RULE trace main entry</span>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">RULE trace main entry</span>
 <span class="s">CLASS AppMain</span>
 <span class="s">METHOD main</span>
 <span class="s">AT ENTRY</span>
-<span class="s">IF true</span>
+<span class="s">IF </span><span class="no">true</span>
 <span class="s">DO traceln("entering main")</span>
 <span class="s">ENDRULE</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>在安装了byteman环境的机器上用javaagent参数指定加载规则文件运行AppMain即可在main函数入口处打印出<code class="highlighter-rouge">entering main</code>。例子<a href="https://github.com/adinn/byteman-tutorial1">源码请参考[5]</a></p>
   </li>
@@ -566,10 +559,9 @@
 
     <p>除了上面例子中通过命令行指定javaagent指定byteman 规则文件的加载方式外，还可以通过Java代码的方式加载，如下</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Submit</span> <span class="n">bm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Submit</span><span class="o">(</span><span class="n">address</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Submit</span> <span class="n">bm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Submit</span><span class="o">(</span><span class="n">address</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
 <span class="n">bm</span><span class="o">.</span><span class="na">addRulesFromFiles</span><span class="o">(</span><span class="n">rules</span><span class="o">);</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p><code class="highlighter-rouge">org.jboss.byteman.agent.submit.Submit</code>提供的加载规则的方法有通过文件加载<code class="highlighter-rouge">addRulesFromFiles</code>和<code class="highlighter-rouge">addRulesFromResources</code></p>
 
@@ -585,7 +577,7 @@
   <li>
     <p>创建byteman规则文件：<code class="highlighter-rouge">booking_timeout.btm</code></p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">RULE set the saga timeout to 5s</span>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">RULE set the saga timeout to 5s</span>
 <span class="s">INTERFACE org.apache.servicecomb.saga.omega.context.annotations.SagaStart</span>
 <span class="s">METHOD timeout</span>
 <span class="s">AT EXIT</span>
@@ -601,15 +593,14 @@
 <span class="s">DO debug("delay 10s until the booking timeout"),</span>
    <span class="s">Thread.sleep(10000)</span>
 <span class="s">ENDRULE</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>这里定义了两个规则，第一个规则<code class="highlighter-rouge">set the saga timeout to 5s</code>在注解<code class="highlighter-rouge">@SagaStart</code>的<code class="highlighter-rouge">timeout</code>方法中返回5表示设置超时时间值为5秒。第二个规则<code class="highlighter-rouge">sleep when postBooking until timeout happens</code>在类<code class="highlighter-rouge">BookingController</code>的<code class="highlighter-rouge">postBooking</code>方法中注入<code class="highlighter-rouge">Thread.sleep(10000)</code>，让<code class="highlighter-rouge">postBooking</code>方法阻塞10秒，原来的<code class="highlighter-rouge">postBooking</code>方法是一个空方法，注入byteman的阻塞方法后会触发预定行程服务的超时异常。</p>
   </li>
   <li>
     <p>创建feature文件：<code class="highlighter-rouge">pack_timeout_scenario.feature</code></p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="err"> 	</span><span class="s">Given Install the byteman script booking_timeout.btm to Booking Service</span>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> 	</span><span class="s">Given Install the byteman script booking_timeout.btm to Booking Service</span>
 
     <span class="s">When User Sean requests to book 1 cars and 1 rooms</span>
 
@@ -627,35 +618,32 @@
 
     <span class="s">Then Car Service contains the following booking orders</span>
       <span class="s">| name | amount | confirmed | cancelled |</span>
-      <span class="s">| Sean | 1      | false     | true      |</span>
+      <span class="s">| Sean | 1      | </span><span class="no">false</span><span class="s">     | </span><span class="no">true</span><span class="s">      |</span>
 
     <span class="s">Then Hotel Service contains the following booking orders</span>
       <span class="s">| name | amount | confirmed | cancelled |</span>
-      <span class="s">| Sean | 1      | false     | true      |</span>
-</code></pre>
-    </div>
+      <span class="s">| Sean | 1      | </span><span class="no">false</span><span class="s">     | </span><span class="no">true</span><span class="s">      |</span>
+</code></pre></div>    </div>
 
     <p>在行程预定的例子中仍然以4个服务启动并运行为前提，然后加载上面创建的byteman规则文件和目标服务：<code class="highlighter-rouge">Booking</code>。然后触发预定一辆车和一间房的操作。</p>
   </li>
   <li>
     <p>step_definition解析</p>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="n">Given</span><span class="o">(</span><span class="s">"^Install the byteman script ([A-Za-z0-9_\\.]+) to ([A-Za-z]+) Service$"</span><span class="o">,</span> <span class="o">(</span><span class="n">String</span> <span class="n">script</span><span class="o">,</span> <span class="n">String</span> <span class="n">service</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">Given</span><span class="o">(</span><span class="s">"^Install the byteman script ([A-Za-z0-9_\\.]+) to ([A-Za-z]+) Service$"</span><span class="o">,</span> <span class="o">(</span><span class="n">String</span> <span class="n">script</span><span class="o">,</span> <span class="n">String</span> <span class="n">service</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Install the byteman script {} to {} service"</span><span class="o">,</span> <span class="n">script</span><span class="o">,</span> <span class="n">service</span><span class="o">);</span>
       <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">rules</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
       <span class="n">rules</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"target/test-classes/"</span> <span class="o">+</span> <span class="n">script</span><span class="o">);</span>
       <span class="n">Submit</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">getBytemanSubmit</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
       <span class="n">bm</span><span class="o">.</span><span class="na">addRulesFromFiles</span><span class="o">(</span><span class="n">rules</span><span class="o">);</span>
     <span class="o">});</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>在Cucumber解析文件中用正则方法获取目标规则和服务名，<code class="highlighter-rouge">getBytemanSubmit</code>根据服务名<code class="highlighter-rouge">service</code>参数来获取目标服务的地址和byteman监听端口，并将本地规则注入到目标服务中，注入原理是<code class="highlighter-rouge">Booking</code>启动时是带着byteman参数启动的：</p>
 
-    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>-Dorg.jboss.byteman.debug<span class="o">=</span><span class="nb">true</span> -Dorg.jboss.byteman.verbose<span class="o">=</span>tru
--javaagent:/maven/saga/byteman.jar<span class="o">=</span>port:9091,address:0.0.0.0,listener:true
-</code></pre>
-    </div>
+    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-Dorg</span>.jboss.byteman.debug<span class="o">=</span><span class="nb">true</span> <span class="nt">-Dorg</span>.jboss.byteman.verbose<span class="o">=</span>tru
+<span class="nt">-javaagent</span>:/maven/saga/byteman.jar<span class="o">=</span>port:9091,address:0.0.0.0,listener:true
+</code></pre></div>    </div>
 
     <p>执行<code class="highlighter-rouge">bm.addRulesFromFiles(rules);</code>时就可以把本地规则通过Socket发送到<code class="highlighter-rouge">Booking</code>服务，并由Byteman完成字节替换。</p>
   </li>
@@ -668,7 +656,7 @@
 
 <p>代码中使用Cucumber和Byteman要先通过pom引入相关依赖</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>	<span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>io.cucumber<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>cucumber-java8<span class="nt">&lt;/artifactId&gt;</span>
       <span class="nt">&lt;version&gt;</span>${cucumber.version}<span class="nt">&lt;/version&gt;</span>
@@ -685,8 +673,7 @@
       <span class="nt">&lt;artifactId&gt;</span>byteman-submit<span class="nt">&lt;/artifactId&gt;</span>
       <span class="nt">&lt;version&gt;</span>${byteman.version}<span class="nt">&lt;/version&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>本地运行调试需要在启动的时候使用javaagent启动byteman，建议通过修改docker-compose.yaml文件，指定可执行jar的启动参数，并修改stepdef解析文件中各个服务地址，个服务启动运行后在IDEA中运行相应的feature文件即可进行调试测试。运行调试版代码可参考<a href="https://github.com/lijasonvip/incubator-servicecomb-saga/tree/debug-cucumber-byteman">个人分支代码[6]</a></p>
 

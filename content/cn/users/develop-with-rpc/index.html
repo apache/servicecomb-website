@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="使用RPC方式开发">
     <meta itemprop="description" content="使用RPC方式开发">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -668,7 +668,7 @@
 
 <p>只需要声明一个服务接口类型的成员，并且使用<code class="highlighter-rouge">@RpcReference</code>标注该成员，声明依赖的微服务及schemaId，即可进行服务调用，示例代码如下：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
@@ -694,8 +694,7 @@
         <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在以上代码中，服务消费者已经取得了服务提供者的服务接口<code class="highlighter-rouge">Hello</code>，并在代码中声明一个<code class="highlighter-rouge">Hello</code>类型的成员。通过在<code class="highlighter-rouge">hello</code>上使用<code class="highlighter-rouge">@RPCReference</code>注解指明微服务名称和schemaId，ServiceComb框架可以在程序启动时从服务中心获取到对应的服务提供者实例信息，并且生成一个代理注入到hello中，用户可以像调用本地类一样调用远程服务。</p>
 
@@ -704,36 +703,31 @@
 <h4 id="方式1通过cserpc-reference定义">方式1：通过cse:rpc-reference定义</h4>
 <p>在你的bean.xml中添加cse:rpc-reference的配置项：</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;cse:rpc-reference</span> <span class="na">id=</span><span class="s">"hello"</span> <span class="na">microservice-name=</span><span class="s">"codefirst"</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;cse:rpc-reference</span> <span class="na">id=</span><span class="s">"hello"</span> <span class="na">microservice-name=</span><span class="s">"codefirst"</span>
     <span class="na">schema-id=</span><span class="s">"codeFirstHello"</span> <span class="na">interface=</span><span class="s">"org.apache.servicecomb.samples.common.schema.Hello"</span><span class="nt">&gt;&lt;/cse:rpc-reference&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>然后就可以使用<code class="highlighter-rouge">BeanUtils.getBean</code>直接获取服务提供者的服务接口<code class="highlighter-rouge">Hello</code>：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">BeanUtils</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">BeanUtils</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+</code></pre></div></div>
 
 <h4 id="方式2获取bean再获取接口">方式2：获取Bean，再获取接口</h4>
 <p>先使用<code class="highlighter-rouge">BeanUtils.getBean</code>获取到CodeFirstConsumerMain这个Bean：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">//Spring Bean 实例默认名为类名的小写</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Spring Bean 实例默认名为类名的小写</span>
 <span class="n">CodeFirstConsumerMain</span> <span class="n">consumer</span> <span class="o">=</span> <span class="n">BeanUtils</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"codeFirstConsumerMain"</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>然后按Getter的方式获取hello：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Hello</span> <span class="nf">getHello</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Hello</span> <span class="nf">getHello</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">hello</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">getHello</span><span class="o">()</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">getHello</span><span class="o">()</span>
+</code></pre></div></div>
 
 <blockquote>
   <p>说明：

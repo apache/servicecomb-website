@@ -391,20 +391,18 @@
   <li>
     <p>Install ServiceComb Java Chassis(SDK) by executing the following commands.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
  <span class="nb">cd </span>incubator-servicecomb-java-chassis
- mvn clean install -DskipTests
-</code></pre>
-    </div>
+ mvn clean install <span class="nt">-DskipTests</span>
+</code></pre></div>    </div>
   </li>
 </ul>
 
 <h2 id="run-service-center">Run Service Center</h2>
 <p><strong>Service Center</strong> enables capabilities of service registration and service discovery in <strong>ServiceComb</strong>. It can run inside docker.</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker pull servicecomb/service-center
-docker run -d -p 30100:30100 servicecomb/service-center:latest
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
+docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
+</code></pre></div></div>
 <p><em>Reference to <a href="/users/setup-environment/#运行service-center">service center deployment</a> to learn deploying Service Center as a local binary.</em></p>
 
 <h2 id="create-your-first-microservice-application">Create your first microservice application</h2>
@@ -430,19 +428,17 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
   <li>
     <p>Enter BMI codes directory.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd </span>samples/bmi
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>samples/bmi
+</code></pre></div>    </div>
 
     <p><strong>Note</strong>: In windows development environment, the docker runs inside the virtual machine. The IP address of <strong>Service Center</strong> needs to be modified as the virtual machine's IP address. Modify the 2 configuration files [calculator|webapp]/src/main/resources/microservice.yaml, changed <a>http://127.0.0.1:30100</a> to <a>http://192.168.99.100:30100</a> , where 192.168.99.100 is the virtual machine's IP address.</p>
   </li>
   <li>
     <p>Run microservices.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd </span>calculator; mvn spring-boot:run
-<span class="nb">cd </span>webapp; mvn spring-boot:run
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>calculator<span class="p">;</span> mvn spring-boot:run
+<span class="nb">cd </span>webapp<span class="p">;</span> mvn spring-boot:run
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Verify the application. Visit <a>http://localhost:8889</a> in browser. Then input your height and weight to verify.</p>

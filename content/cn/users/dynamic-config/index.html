@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="动态配置">
     <meta itemprop="description" content="动态配置">
     
-    <meta itemprop="dateModified" content="January 11, 2018">
+    <meta itemprop="dateModified" content="January 12, 2018">
 
     <div class="page__inner-wrap">
       
@@ -674,10 +674,9 @@
 
 <p>通过镜像方式启动Apollo配置中心请参考<a href="https://github.com/ctripcorp/apollo/wiki/Apollo-Quick-Start-Docker%E9%83%A8%E7%BD%B2">官方文档</a>，或者执行下面两个指令即可：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>   git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
    <span class="nb">cd </span>apollo-image-for-servicecomb <span class="o">&amp;&amp;</span> docker-compose up
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>等待出现 <code class="highlighter-rouge">Portal started. You can visit http://localhost:8070 now!</code> 后表示系统启动完成（启动时间基于机器性能可能需要1-3分钟），可以在浏览器中访问<code class="highlighter-rouge">http://localhost:8070</code>进入配置中心页面。 <code class="highlighter-rouge">docker-compose</code>安装请参考<a href="https://docs.docker.com/compose/install/">文档</a>。</p>
 
 <h3 id="通过apollo界面配置应用获取token">通过Apollo界面配置应用获取TOKEN</h3>
@@ -719,25 +718,23 @@
 
 <h3 id="在应用中添加依赖">在应用中添加依赖</h3>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
           <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
           <span class="nt">&lt;artifactId&gt;</span>config-apollo<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <h3 id="添加配置项">添加配置项</h3>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>   <span class="s">apollo</span><span class="pi">:</span>
-     <span class="s">config</span><span class="pi">:</span>
-       <span class="s">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span>
-       <span class="s">serviceName</span><span class="pi">:</span> <span class="s">SampleApp</span>
-       <span class="s">env</span><span class="pi">:</span> <span class="s">DEV</span>
-       <span class="s">clusters</span><span class="pi">:</span> <span class="s">default</span>
-       <span class="s">namespace</span><span class="pi">:</span> <span class="s">application</span>
-       <span class="s">token</span><span class="pi">:</span> <span class="s">testtoken</span>
-       <span class="s">refreshInterval</span><span class="pi">:</span> <span class="s">10</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="na">apollo</span><span class="pi">:</span>
+     <span class="na">config</span><span class="pi">:</span>
+       <span class="na">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span>
+       <span class="na">serviceName</span><span class="pi">:</span> <span class="s">SampleApp</span>
+       <span class="na">env</span><span class="pi">:</span> <span class="s">DEV</span>
+       <span class="na">clusters</span><span class="pi">:</span> <span class="s">default</span>
+       <span class="na">namespace</span><span class="pi">:</span> <span class="s">application</span>
+       <span class="na">token</span><span class="pi">:</span> <span class="s">testtoken</span>
+       <span class="na">refreshInterval</span><span class="pi">:</span> <span class="s">10</span>
+</code></pre></div></div>
 <p>​	<code class="highlighter-rouge">apollo.config</code>下的配置项是用户创建的应用参数，包括服务地址，用户名，集群，namespace，token等参数。这些参数可以在配置中心页面项目信息栏中查到。需要注意的是<code class="highlighter-rouge">refreshInterval: 10</code>表示应用会每隔10秒去配置中心查询一次最新的配置信息，不配置此项默认刷新周期为30秒。
   <code class="highlighter-rouge">serviceName</code>对应Apollo中的第三发应用ID: <code class="highlighter-rouge">AppId</code>.</p>
 
@@ -747,7 +744,7 @@
 
 <p>​	代码中可以使用<code class="highlighter-rouge">DynamicPropertyFactory.getInstance().getProperty()</code>方法来获取具体的配置项值，<code class="highlighter-rouge">getProperty</code>方法可以根据配置项具体的类型来灵活使用，比如<code class="highlighter-rouge">getIntProperty()</code>,<code class="highlighter-rouge">getStringProperty()</code>等。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">XXX</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">XXX</span> <span class="o">{</span>
       <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
         <span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
         <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
@@ -759,8 +756,7 @@
         <span class="o">}</span>
       <span class="o">}</span>
     <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>​	Apollo配置中心修改配置项并发布后，经过一个刷新周期后就会打印出最新的<code class="highlighter-rouge">timeout</code>值。</p>
 
 

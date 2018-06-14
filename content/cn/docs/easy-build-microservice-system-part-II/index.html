@@ -402,24 +402,22 @@
   <li>Header： 声明Token的类型也就是JWT，以及加密算法，例如：</li>
 </ol>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <ol>
   <li>Playload：存放有效信息，既包含标准签发者、用户、签发时间、过期时间，唯一标识等信息；也可以存放用户自定义的声明信息，例如权限控制相关的内容，例如：</li>
 </ol>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YangYong Zheng"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1516239022</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YangYong Zheng"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1516239022</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <ol>
   <li>Signature：签名信息，包含Header和Playload的原始信息（Base64编码过）以及签名过后的信息。</li>
@@ -458,7 +456,7 @@
 <h4 id="第二步使用mysql持久化用户信息">第二步：使用MySQL持久化用户信息</h4>
 <p>用户微服务需要持久化用户信息，我们使用MySQL数据库，ORM使用Spring Data JPA：</p>
 <h5 id="引入依赖">引入依赖</h5>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>mysql<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
@@ -466,10 +464,9 @@
   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <h5 id="定义存储user信息的userentity实体">定义存储User信息的UserEntity实体</h5>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Entity</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
 <span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"T_User"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserEntity</span> <span class="o">{</span>
   <span class="nd">@Id</span>
@@ -501,31 +498,28 @@
     <span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在CodeFist模式下，Spring Data JPA会在数据库中自动创建T_User表与此实体映射。</p>
 
 <h5 id="实现userentity实体的repository">实现UserEntity实体的Repository</h5>
 <p>我们继承JPA的PagingAndSortingRepository来实现ORM操作</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Repository</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserRepository</span> <span class="kd">extends</span> <span class="n">PagingAndSortingRepository</span><span class="o">&lt;</span><span class="n">UserEntity</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="o">{</span>
   <span class="n">UserEntity</span> <span class="nf">findByName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="配置数据库连接">配置数据库连接</h5>
 <p>在项目的<code class="highlighter-rouge">resources</code>目录下新增<code class="highlighter-rouge">application.properties</code>文件，写入数据库连接信息：</p>
 
-<div class="language-properties highlighter-rouge"><pre class="highlight"><code><span class="py">spring.datasource.url</span><span class="p">=</span><span class="s">jdbc:mysql://localhost:3306/user_db?useSSL=false</span>
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">spring.datasource.url</span><span class="p">=</span><span class="s">jdbc:mysql://localhost:3306/user_db?useSSL=false</span>
 <span class="py">spring.datasource.username</span><span class="p">=</span><span class="s">root</span>
 <span class="py">spring.datasource.password</span><span class="p">=</span><span class="s">pwd</span>
-<span class="err">spring.jpa.hibernate.ddl-</span><span class="py">auto</span><span class="p">=</span><span class="s">update</span>
+<span class="py">spring.jpa.hibernate.ddl-auto</span><span class="p">=</span><span class="s">update</span>
 <span class="py">spring.jpa.properties.hibernate.dialect</span><span class="p">=</span><span class="s">org.hibernate.dialect.MySQL5Dialect</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <blockquote>
   <p>提示：关于Spring Data JPA的更多资料请参见<a href="https://projects.spring.io/spring-data-jpa/">这篇文档</a>，为了能够简化依赖的引入我们实际上使用的是Spring Boot JPA Starter，详细的例子请参见<a href="https://spring.io/guides/gs/accessing-data-jpa/">这篇文档</a>。</p>
@@ -534,20 +528,19 @@
 <h4 id="第三步实现jwt认证">第三步：实现JWT认证</h4>
 <h5 id="定义jwt接口">定义JWT接口</h5>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">TokenStore</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">TokenStore</span> <span class="o">{</span>
   <span class="n">String</span> <span class="nf">generate</span><span class="o">(</span><span class="n">String</span> <span class="n">userName</span><span class="o">);</span>
 
   <span class="kt">boolean</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>generate用于生成Token，validate用于验证Token是否正确。</p>
 
 <h5 id="实现tokenstore">实现TokenStore</h5>
 <p>我们使用<a href="https://github.com/jwtk/jjwt">jjwt</a>提供的JWT实现，创建JwtTokenStore类，继承TokenStore接口，并重写方法：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Component</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
 <span class="nd">@Component</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtTokenStore</span> <span class="kd">implements</span> <span class="n">TokenStore</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">JwtTokenStore</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
@@ -584,23 +577,21 @@
     <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h4 id="第四步实现用户服务">第四步：实现用户服务</h4>
 <h5 id="定义userservice接口">定义UserService接口</h5>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="o">{</span>
   <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">logon</span><span class="o">(</span><span class="n">UserDTO</span> <span class="n">user</span><span class="o">);</span>
   <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">login</span><span class="o">(</span><span class="n">UserDTO</span> <span class="n">user</span><span class="o">);</span>
 <span class="o">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>logon用于新用户注册，login用于用户登录验证，UserDTO用于参数传递：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDTO</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDTO</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
   <span class="kd">private</span> <span class="n">String</span> <span class="n">password</span><span class="o">;</span>
   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
@@ -616,13 +607,12 @@
     <span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="实现并发布userservice">实现并发布UserService</h5>
 <p>创建UserServiceImpl，继承<code class="highlighter-rouge">UserService</code>接口：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"user"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"user"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserServiceImpl</span> <span class="kd">implements</span> <span class="n">UserService</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">UserRepository</span> <span class="n">repository</span><span class="o">;</span>
@@ -679,8 +669,7 @@
     <span class="k">return</span> <span class="n">headers</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>登录成功后，会从TokenStore生成Token，并将其写入Key为<code class="highlighter-rouge">AUTHORIZATION</code>的Header。</p>
 

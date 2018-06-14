@@ -607,7 +607,7 @@
     <meta itemprop="headline" content="Develop with RPC">
     <meta itemprop="description" content="Develop with RPC">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -643,7 +643,7 @@
 
 <p>To call a microservice, you only need to declare a member of a service API type and add the @RpcReference annotation for the member, the microservice that depends on the declaration, and the schemaID. The sample code is as follows.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
@@ -669,8 +669,7 @@
         <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In the preceding code, the microservice consumers have obtained the microservice API Hello of the microservice provider and declared a member of the Hello type. The annotation <code class="highlighter-rouge">@RPCReference</code> on <code class="highlighter-rouge">Hello</code> specifies the microservice name and schemaId, The ServiceComb framework can obtain information about isntances from a certain provider during program startup and generate an agent to insert to Hello. This allows you to call a remote service in the same way as you call a local class.</p>
 
@@ -680,36 +679,31 @@
 <h4 id="first-way-define-cserpc-reference">First way: define cse:rpc-reference</h4>
 <p>In your bean.xml, add <code class="highlighter-rouge">cse:rpc-reference</code> configuration:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;cse:rpc-reference</span> <span class="na">id=</span><span class="s">"hello"</span> <span class="na">microservice-name=</span><span class="s">"codefirst"</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;cse:rpc-reference</span> <span class="na">id=</span><span class="s">"hello"</span> <span class="na">microservice-name=</span><span class="s">"codefirst"</span>
     <span class="na">schema-id=</span><span class="s">"codeFirstHello"</span> <span class="na">interface=</span><span class="s">"org.apache.servicecomb.samples.common.schema.Hello"</span><span class="nt">&gt;&lt;/cse:rpc-reference&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Then use <code class="highlighter-rouge">BeanUtils.getBean</code> to get <code class="highlighter-rouge">Hello</code> provider:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">BeanUtils</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">BeanUtils</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
+</code></pre></div></div>
 
 <h4 id="second-way-get-bean-then-use-field">Second way: get Bean, then use field</h4>
 <p>First use <code class="highlighter-rouge">BeanUtils.getBean</code> to get Bean of <code class="highlighter-rouge">CodeFirstConsumerMain</code>:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="c1">//Default instance name of Spring Bean is same as class name with first char low-cased</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Default instance name of Spring Bean is same as class name with first char low-cased</span>
 <span class="n">CodeFirstConsumerMain</span> <span class="n">consumer</span> <span class="o">=</span> <span class="n">BeanUtils</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"codeFirstConsumerMain"</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Then get <code class="highlighter-rouge">hello</code> via Getter：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Hello</span> <span class="nf">getHello</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Hello</span> <span class="nf">getHello</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">hello</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">getHello</span><span class="o">()</span>
-</code></pre>
-</div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">getHello</span><span class="o">()</span>
+</code></pre></div></div>
 
 <blockquote>
   <p>NOTE:

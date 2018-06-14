@@ -607,7 +607,7 @@
     <meta itemprop="headline" content="Communication Protocol">
     <meta itemprop="description" content="Communication Protocol">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -699,12 +699,11 @@
 
 <p>Add the executors in the microservice.yaml file and configure an independent service thread pool for schemaId: operation:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span> 
-  <span class="s">executors</span><span class="pi">:</span> 
-    <span class="s">Provider</span><span class="pi">:</span> 
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span> 
+  <span class="na">executors</span><span class="pi">:</span> 
+    <span class="na">Provider</span><span class="pi">:</span> 
       <span class="pi">[</span><span class="nv">schemaId</span><span class="pi">]</span><span class="s">.[operation]</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="rest-over-servlet">REST over Servlet</h2>
 <h3 id="configuration">Configuration</h3>
@@ -717,7 +716,7 @@
 
     <p>The web.xml file is under the src/main/webapp/WEB_INF directory of the project, and its content is as follows:</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
    <span class="nt">&lt;context-param&gt;</span> 
      <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>  
      <span class="nt">&lt;param-value&gt;</span>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml<span class="nt">&lt;/param-value&gt;</span> 
@@ -736,13 +735,12 @@
      <span class="nt">&lt;url-pattern&gt;</span>/rest/*<span class="nt">&lt;/url-pattern&gt;</span> 
    <span class="nt">&lt;/servlet-mapping&gt;</span> 
  <span class="nt">&lt;/web-app&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Configure the listener in the web.xml file and urlPattern in the microservice.yaml file.</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
    <span class="nt">&lt;context-param&gt;</span> 
      <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>  
      <span class="nt">&lt;param-value&gt;</span>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml<span class="nt">&lt;/param-value&gt;</span> 
@@ -751,25 +749,22 @@
      <span class="nt">&lt;listener-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span> 
    <span class="nt">&lt;/listener&gt;</span> 
  <span class="nt">&lt;/web-app&gt;</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
     <p>In the microservice.yaml file, add a row to specify the urlPattern：</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb.rest.servlet.urlPattern</span><span class="pi">:</span> <span class="s">/rest/*</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="s">servicecomb.rest.servlet.urlPattern</span><span class="pi">:</span> <span class="s">/rest/*</span>
+</code></pre></div>    </div>
   </li>
 </ul>
 
 <p>The two method are equivalent, and they both require that the following dependencies be added in the pox.xml file:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
   <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
   <span class="nt">&lt;artifactId&gt;</span>transport-rest-servlet<span class="nt">&lt;/artifactId&gt;</span> 
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Configuration items that need to be set in the microservice.yaml file are described in Table 1:</p>
 
@@ -834,19 +829,18 @@
 
 <p>The following is an example of the configuration in the microservice.yaml file for REST over Servlet:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">rest</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-    <span class="s">timeout</span><span class="pi">:</span> <span class="s">3000</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+    <span class="na">timeout</span><span class="pi">:</span> <span class="s">3000</span>
+</code></pre></div></div>
 
 <h2 id="rest-over-vertx">REST over Vertx</h2>
 <h3 id="configuration-1">Configuration</h3>
 
 <p>The REST over Vertx communication channel uses the standalone running mode that can be started using the main function. In the main function, you need to initialize logs and load service configuration. The code is as follow:</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainServer</span> <span class="o">{</span>
@@ -855,17 +849,15 @@
   <span class="err">　</span><span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="c1">// Spring bean initialization</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>To use the REST over Vertx communication channel, you need to add the following dependencies in the maven pom.xml file:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
 　　<span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
 　　<span class="nt">&lt;artifactId&gt;</span>transport-rest-vertx<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Configuration items that need to be set in the microservice.yaml file are described as follows:</p>
 
@@ -946,16 +938,15 @@
 
 <p>An example of the configuration in the microservice.yaml file for REST over Vertx is as follows:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">rest</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-    <span class="s">thread-count</span><span class="pi">:</span> <span class="s">1</span>
-  <span class="s">references</span><span class="pi">:</span>
-    <span class="s">hello</span><span class="pi">:</span>
-      <span class="s">transport</span><span class="pi">:</span> <span class="s">rest</span>
-      <span class="s">version-rule</span><span class="pi">:</span> <span class="s">0.0.1</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+    <span class="na">thread-count</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="na">references</span><span class="pi">:</span>
+    <span class="na">hello</span><span class="pi">:</span>
+      <span class="na">transport</span><span class="pi">:</span> <span class="s">rest</span>
+      <span class="na">version-rule</span><span class="pi">:</span> <span class="s">0.0.1</span>
+</code></pre></div></div>
 
 <h2 id="highway-rpc-protocol">Highway RPC Protocol</h2>
 <h3 id="concept-description-2">Concept Description</h3>
@@ -966,12 +957,11 @@
 
 <p>To use the Highway communication channel, you need to add the following dependencies in the maven pom.xml file:</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
   <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
   <span class="nt">&lt;artifactId&gt;</span>transport-highway<span class="nt">&lt;/artifactId&gt;</span> 
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Configuration items that need to be set in the microservice.yaml file are described as follows:</p>
 
@@ -1052,11 +1042,10 @@
 
 <p>An example of the configuration in the microservice.yaml file for Highway is as follows:</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">highway</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">highway</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070</span>
+</code></pre></div></div>
 
         
       </section>

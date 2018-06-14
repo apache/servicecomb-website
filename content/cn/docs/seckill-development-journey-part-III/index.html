@@ -403,11 +403,10 @@
 <h3 id="command微服务message-publisher组件">Command微服务Message Publisher组件</h3>
 <p>　　之前的版本由于没有引入Event Sourcing，Event实体只需要直接写入数据库即可，现在需要将Event发布给Message Broker，为了支持云服务（<a href="http://www.hwclouds.com/">华为云</a>）提供的分布式消息服务，我们定义了通用消息发布接口：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessagePublisher</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessagePublisher</span> <span class="o">{</span>
   <span class="kt">void</span> <span class="nf">publishMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">messageContent</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="event微服务的实现">Event微服务的实现</h3>
 <p>　　Event微服务订阅Message Broker获取Event Message，然后根据不同的Event类型，转化为对ReadDB中的值对象操作或Coupon值对象操作：</p>
@@ -419,11 +418,10 @@
 
 <p>　　同样，为了支持云服务（<a href="http://www.hwclouds.com/">华为云</a>）提供的分布式消息服务，我们定义了通用消息订阅接口：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessageSubscriber</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessageSubscriber</span> <span class="o">{</span>
   <span class="kt">void</span> <span class="nf">subscribeMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">messageContent</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="query微服务的重构">Query微服务的重构</h3>
 <p>　　经过了读写分离的改造，现在所有活跃的Promotion都保存在ActivePromotion值对象表中，而客户成功秒杀的Coupon都保存在Coupon值对象表中，因此直接查询即可，不再需要Replay Event。</p>

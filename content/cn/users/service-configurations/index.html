@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="服务配置">
     <meta itemprop="description" content="服务配置">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -663,13 +663,6 @@
       <li><a href="#配置说明-1" id="markdown-toc-配置说明-1">配置说明</a></li>
     </ul>
   </li>
-  <li><a href="#降级策略" id="markdown-toc-降级策略">降级策略</a>    <ul>
-      <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
-      <li><a href="#场景描述-2" id="markdown-toc-场景描述-2">场景描述</a></li>
-      <li><a href="#配置说明-2" id="markdown-toc-配置说明-2">配置说明</a></li>
-    </ul>
-  </li>
-  <li><a href="#示例代码-1" id="markdown-toc-示例代码-1">示例代码</a></li>
 </ul>
 
   </nav>
@@ -803,25 +796,23 @@
 
 <p>　　配置处理链：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
   <span class="c1"># other configurations omitted</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Consumer</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">loadbalance</span>
+  <span class="na">handler</span><span class="pi">:</span>
+    <span class="na">chain</span><span class="pi">:</span>
+      <span class="na">Consumer</span><span class="pi">:</span>
+        <span class="na">default</span><span class="pi">:</span> <span class="s">loadbalance</span>
   <span class="c1"># other configurations omitted</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>　　增加路由策略：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb：</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">servicecomb：</span>
   <span class="s"># other configurations omitted</span>
   <span class="s">loadbalance</span><span class="pi">:</span>
-    <span class="s">NFLoadBalancerRuleClassName</span><span class="pi">:</span> <span class="s">com.netflix.loadbalancer.RoundRobinRule</span>
+    <span class="na">NFLoadBalancerRuleClassName</span><span class="pi">:</span> <span class="s">com.netflix.loadbalancer.RoundRobinRule</span>
   <span class="c1"># other configurations omitted</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="自定义路由策略">自定义路由策略</h2>
 
@@ -855,214 +846,94 @@
 
 <h3 id="配置说明-1">配置说明</h3>
 
-<p>　　限流策略配置在microservice.yaml文件中，相关配置项见下表。要开启服务提供者端的限流策略，还需要在处理链中配置服务端限流handler，配置示例如下：</p>
+<p>　　限流策略配置在microservice.yaml文件中，相关配置项见表2。要开启服务提供者端的限流策略，还需要在处理链中配置服务端限流handler，并添加pom依赖。</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Consumer</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
-</code></pre>
-</div>
-
-<p>　　<strong>表2 QPS流控配置项说明</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">配置项</th>
-      <th style="text-align: left">默认值</th>
-      <th style="text-align: left">取值范围</th>
-      <th style="text-align: left">是否必选</th>
-      <th style="text-align: left">含义</th>
-      <th style="text-align: left">注意</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.enabled</td>
-      <td style="text-align: left">true</td>
-      <td style="text-align: left">true/false</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">是否启用Provider流控</td>
-      <td style="text-align: left">-</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.limit.[ServiceName]</td>
-      <td style="text-align: left">2147483647（max int）</td>
-      <td style="text-align: left">(0,2147483647]，整形</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">每秒钟允许的请求数</td>
-      <td style="text-align: left">仅支持microservice一个级别的配置</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.global.limit</td>
-      <td style="text-align: left">2147483647（max int）</td>
-      <td style="text-align: left">(0,2147483647]，整形</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">provider接受请求流量的全局配置</td>
-      <td style="text-align: left">没有具体到微服务的配置时，此配置生效</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="降级策略">降级策略</h2>
-<h3 id="概念阐述">概念阐述</h3>
-
-<p>降级策略是当服务请求异常时，微服务所采用的异常处理策略。降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：</p>
-
-<p>降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：</p>
 <ul>
-  <li>“隔离”是一种异常检测机制，常用的检测方法是请求超时、流量过大等。一般的设置参数包括超时时间、同时并发请求个数等。</li>
-  <li>“熔断”是一种异常反应机制，“熔断”依赖于“隔离”。熔断通常基于错误率来实现。一般的设置参数包括统计请求的个数、错误率等。</li>
-  <li>“容错”是一种异常处理机制，“容错”依赖于“熔断”。熔断以后，会调用“容错”的方法。一般的设置参数包括调用容错方法的次数等。</li>
+  <li>microservice.yaml配置示例如下：
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+<span class="na">handler</span><span class="pi">:</span>
+  <span class="na">chain</span><span class="pi">:</span>
+    <span class="na">Provider</span><span class="pi">:</span>
+      <span class="na">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
+</code></pre></div>    </div>
+  </li>
+  <li>添加handler-flowcontrol-qps的pom依赖：
+```yaml</li>
 </ul>
+<dependency>
+    <groupId>org.apache.servicecomb</groupId>
+    <artifactId>handler-flowcontrol-qps</artifactId>
+    <version>1.0.0-m1</version>
+</dependency>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+　　**表2 QPS流控配置项说明**
 
-<p>把这些概念联系起来：当”隔离”措施检测到N次请求中共有M次错误的时候，”熔断”不再发送后续请求，调用”容错”处理函数。这个技术上的定义，是和Netflix Hystrix一致的，通过这个定义，非常容易理解它提供的配置项，参考：<a href="https://github.com/Netflix/Hystrix/wiki/Configuration">https://github.com/Netflix/Hystrix/wiki/Configuration</a>。当前ServiceComb提供两种容错方式，分别为返回null值和抛出异常。</p>
+| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| servicecomb.flowcontrol.Provider.qps.enabled | true | true/false | 否 | 是否启用Provider流控 | - |
+| servicecomb.flowcontrol.Provider.qps.limit.\[ServiceName\] | 2147483647（max int） | \(0,2147483647\]，整形 | 否 | 每秒钟允许的请求数 | 仅支持microservice一个级别的配置 |
+| servicecomb.flowcontrol.Provider.qps.global.limit | 2147483647（max int） | (0,2147483647\]，整形 | 否 | provider接受请求流量的全局配置 | 没有具体到微服务的配置时，此配置生效 |
 
-<h3 id="场景描述-2">场景描述</h3>
+## 降级策略
+### 概念阐述
 
-<p>用户通过配置降级策略，可以设置微服务的异常处理策略。</p>
+降级策略是当服务请求异常时，微服务所采用的异常处理策略。降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：
 
-<h3 id="配置说明-2">配置说明</h3>
+降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：
+* “隔离”是一种异常检测机制，常用的检测方法是请求超时、流量过大等。一般的设置参数包括超时时间、同时并发请求个数等。
+* “熔断”是一种异常反应机制，“熔断”依赖于“隔离”。熔断通常基于错误率来实现。一般的设置参数包括统计请求的个数、错误率等。
+* “容错”是一种异常处理机制，“容错”依赖于“熔断”。熔断以后，会调用“容错”的方法。一般的设置参数包括调用容错方法的次数等。
 
-<p>　　配置项如表所示。</p>
+把这些概念联系起来：当"隔离"措施检测到N次请求中共有M次错误的时候，"熔断"不再发送后续请求，调用"容错"处理函数。这个技术上的定义，是和Netflix Hystrix一致的，通过这个定义，非常容易理解它提供的配置项，参考：[https://github.com/Netflix/Hystrix/wiki/Configuration](https://github.com/Netflix/Hystrix/wiki/Configuration)。当前ServiceComb提供两种容错方式，分别为返回null值和抛出异常。
 
-<p>　　<strong>表3 降级策略相关配置项说明</strong></p>
+### 场景描述
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: left">配置项</th>
-      <th style="text-align: left">默认值</th>
-      <th style="text-align: left">取值范围</th>
-      <th style="text-align: left">是否必选</th>
-      <th style="text-align: left">含义</th>
-      <th style="text-align: left">注意</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: left">servicecomb.isolation.timeout.enabled</td>
-      <td style="text-align: left">FALSE</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">是否启用超时检测</td>
-      <td style="text-align: left"> </td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.isolation.timeoutInMilliseconds</td>
-      <td style="text-align: left">30000</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">超时时间阈值</td>
-      <td style="text-align: left"> </td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.isolation.maxConcurrentRequests</td>
-      <td style="text-align: left">10</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">最大并发数阈值</td>
-      <td style="text-align: left"> </td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.circuitBreaker.enabled</td>
-      <td style="text-align: left">TRUE</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">是否启用熔断措施</td>
-      <td style="text-align: left"> </td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.circuitBreaker.forceOpen</td>
-      <td style="text-align: left">FALSE</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">不管失败次数，都进行熔断</td>
-      <td style="text-align: left"> </td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.circuitBreaker.forceClosed</td>
-      <td style="text-align: left">FALSE</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">任何时候都不熔断</td>
-      <td style="text-align: left">当与forceOpen同时配置时，forceOpen优先。</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.circuitBreaker.sleepWindowInMilliseconds</td>
-      <td style="text-align: left">15000</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">熔断后，多长时间恢复</td>
-      <td style="text-align: left">恢复后，会重新计算失败情况。注意：如果恢复后的调用立即失败，那么会立即重新进入熔断。</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.circuitBreaker.requestVolumeThreshold</td>
-      <td style="text-align: left">20</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">10s内统计错误发生次数阈值，超过阈值则触发熔断</td>
-      <td style="text-align: left">由于10秒还会被划分为10个1秒的统计周期，经过1s中后才会开始计算错误率，因此从调用开始至少经过1s，才会发生熔断。</td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.circuitBreaker.errorThresholdPercentage</td>
-      <td style="text-align: left">50</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">错误率阈值，达到阈值则触发熔断</td>
-      <td style="text-align: left"> </td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.fallback.enabled</td>
-      <td style="text-align: left">TRUE</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">是否启用出错后的故障处理措施</td>
-      <td style="text-align: left"> </td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.fallback.maxConcurrentRequests</td>
-      <td style="text-align: left">10</td>
-      <td style="text-align: left">-</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">并发调用容错处理措施（servicecomb.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常</td>
-      <td style="text-align: left"> </td>
-    </tr>
-    <tr>
-      <td style="text-align: left">servicecomb.fallbackpolicy.policy</td>
-      <td style="text-align: left">throwexception</td>
-      <td style="text-align: left">returnnulll | throwexception</td>
-      <td style="text-align: left">否</td>
-      <td style="text-align: left">出错后的处理策略</td>
-      <td style="text-align: left"> </td>
-    </tr>
-  </tbody>
-</table>
+用户通过配置降级策略，可以设置微服务的异常处理策略。
 
-<p class="notice--warning"><strong>注意：</strong> 谨慎使用cse.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将cse.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间cse.request.timeout=30000。</p>
+### 配置说明
 
-<h2 id="示例代码-1">示例代码</h2>
+　　配置项如表所示。
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Consumer</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-consumer</span>
-  <span class="s">isolation</span><span class="pi">:</span>
-    <span class="s">Consumer</span><span class="pi">:</span>
-      <span class="s">timeout</span><span class="pi">:</span>
-        <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
-      <span class="s">timeoutInMilliseconds</span><span class="pi">:</span> <span class="s">30000</span>
-  <span class="s">circuitBreaker</span><span class="pi">:</span>
-    <span class="s">sleepWindowInMilliseconds</span><span class="pi">:</span> <span class="s">15000</span>
-    <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">20</span>
-  <span class="s">fallback</span><span class="pi">:</span>
-    <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
-    <span class="s">policy</span><span class="pi">:</span> <span class="s">throwexception</span>
-</code></pre>
-</div>
+　　**表3 降级策略相关配置项说明**
+
+| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| servicecomb.isolation.timeout.enabled | FALSE | - | 否 | 是否启用超时检测 |  |
+| servicecomb.isolation.timeoutInMilliseconds | 30000 | - | 否 | 超时时间阈值 |  |
+| servicecomb.isolation.maxConcurrentRequests | 10 | - | 否 | 最大并发数阈值 |  |
+| servicecomb.circuitBreaker.enabled | TRUE | - | 否 | 是否启用熔断措施 |  |
+| servicecomb.circuitBreaker.forceOpen | FALSE | - | 否 | 不管失败次数，都进行熔断 |  |
+| servicecomb.circuitBreaker.forceClosed | FALSE | - | 否 | 任何时候都不熔断 | 当与forceOpen同时配置时，forceOpen优先。 |
+| servicecomb.circuitBreaker.sleepWindowInMilliseconds | 15000 | - | 否 | 熔断后，多长时间恢复 | 恢复后，会重新计算失败情况。注意：如果恢复后的调用立即失败，那么会立即重新进入熔断。 |
+| servicecomb.circuitBreaker.requestVolumeThreshold | 20 | - | 否 | 10s内统计错误发生次数阈值，超过阈值则触发熔断 | 由于10秒还会被划分为10个1秒的统计周期，经过1s中后才会开始计算错误率，因此从调用开始至少经过1s，才会发生熔断。 |
+| servicecomb.circuitBreaker.errorThresholdPercentage | 50 | - | 否 | 错误率阈值，达到阈值则触发熔断 |  |
+| servicecomb.fallback.enabled | TRUE | - | 否 | 是否启用出错后的故障处理措施 |  |
+| servicecomb.fallback.maxConcurrentRequests | 10 | - | 否 | 并发调用容错处理措施（servicecomb.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常 |  |
+| servicecomb.fallbackpolicy.policy | throwexception | returnnulll \| throwexception | 否 | 出错后的处理策略 |  |
+
+**注意：** 谨慎使用cse.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将cse.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间cse.request.timeout=30000。
+{: .notice--warning}
+
+## 示例代码
+
+```yaml
+servicecomb:
+  handler:
+    chain:
+      Consumer:
+        default: bizkeeper-consumer
+  isolation:
+    Consumer:
+      timeout:
+        enabled: true
+      timeoutInMilliseconds: 30000
+  circuitBreaker:
+    sleepWindowInMilliseconds: 15000
+    requestVolumeThreshold: 20
+  fallback:
+    enabled: true
+    policy: throwexception
+</code></pre></div></div>
 
 <blockquote>
   <p><strong>说明：</strong>
