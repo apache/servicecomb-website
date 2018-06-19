@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="通信协议">
     <meta itemprop="description" content="通信协议">
     
-    <meta itemprop="dateModified" content="August 16, 2017">
+    <meta itemprop="dateModified" content="August 15, 2017">
 
     <div class="page__inner-wrap">
       
@@ -725,11 +725,12 @@
 
 <p>在microservice.yaml中添加executors配置，为schemaId:operation配置单独的业务线程池：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span> 
-  <span class="na">executors</span><span class="pi">:</span> 
-    <span class="na">Provider</span><span class="pi">:</span> 
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span> 
+  <span class="s">executors</span><span class="pi">:</span> 
+    <span class="s">Provider</span><span class="pi">:</span> 
       <span class="pi">[</span><span class="nv">schemaId</span><span class="pi">]</span><span class="s">.[operation]</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="rest-over-servlet">REST over Servlet</h2>
 <h3 id="配置说明">配置说明</h3>
@@ -742,7 +743,7 @@
 
     <p>web.xml文件配置在项目的src/main/webapp/WEB_INF目录，配置内容如下：</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
    <span class="nt">&lt;context-param&gt;</span> 
      <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>  
      <span class="nt">&lt;param-value&gt;</span>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml<span class="nt">&lt;/param-value&gt;</span> 
@@ -761,12 +762,13 @@
      <span class="nt">&lt;url-pattern&gt;</span>/rest/*<span class="nt">&lt;/url-pattern&gt;</span> 
    <span class="nt">&lt;/servlet-mapping&gt;</span> 
  <span class="nt">&lt;/web-app&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>在web.xml文件中仅配置listener，在microservice.yaml文件中配置urlPattern</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
    <span class="nt">&lt;context-param&gt;</span> 
      <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>  
      <span class="nt">&lt;param-value&gt;</span>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml<span class="nt">&lt;/param-value&gt;</span> 
@@ -775,22 +777,25 @@
      <span class="nt">&lt;listener-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span> 
    <span class="nt">&lt;/listener&gt;</span> 
  <span class="nt">&lt;/web-app&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
 
     <p>在microservice.yaml文件中需要增加一行配置来指定urlPattern：</p>
 
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="s">servicecomb.rest.servlet.urlPattern</span><span class="pi">:</span> <span class="s">/rest/*</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb.rest.servlet.urlPattern</span><span class="pi">:</span> <span class="s">/rest/*</span>
+</code></pre>
+    </div>
   </li>
 </ul>
 
 <p>以上两种方式是等效的，两种方式都需要在maven pom文件中添加如下依赖：</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
   <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
   <span class="nt">&lt;artifactId&gt;</span>transport-rest-servlet<span class="nt">&lt;/artifactId&gt;</span> 
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>REST over Servlet在microservice.yaml文件中的配置项见下表：</p>
 
@@ -855,18 +860,19 @@
 
 <p>microservice.yaml文件中的配置示例如下：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-    <span class="na">timeout</span><span class="pi">:</span> <span class="s">3000</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+    <span class="s">timeout</span><span class="pi">:</span> <span class="s">3000</span>
+</code></pre>
+</div>
 
 <h2 id="rest-over-vertx">REST over Vertx</h2>
 <h3 id="配置说明-1">配置说明</h3>
 
 <p>REST over Vertx通信通道对应使用standalone部署运行模式，可直接通过main函数拉起。main函数中需要初始化日志和加载服务配置，代码如下：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainServer</span> <span class="o">{</span>
@@ -875,15 +881,17 @@
   <span class="err">　</span><span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="c1">// Spring bean初始化</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>使用REST over Vertx网络通道需要在maven pom文件中添加如下依赖：</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
 　　<span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
 　　<span class="nt">&lt;artifactId&gt;</span>transport-rest-vertx<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>REST over Vertx通道在microservice.yaml文件中有以下配置项：</p>
 
@@ -964,15 +972,16 @@
 
 <p>microservice.yaml文件中的配置示例：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-    <span class="na">thread-count</span><span class="pi">:</span> <span class="s">1</span>
-  <span class="na">references</span><span class="pi">:</span>
-    <span class="na">hello</span><span class="pi">:</span>
-      <span class="na">transport</span><span class="pi">:</span> <span class="s">rest</span>
-      <span class="na">version-rule</span><span class="pi">:</span> <span class="s">0.0.1</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+    <span class="s">thread-count</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="s">references</span><span class="pi">:</span>
+    <span class="s">hello</span><span class="pi">:</span>
+      <span class="s">transport</span><span class="pi">:</span> <span class="s">rest</span>
+      <span class="s">version-rule</span><span class="pi">:</span> <span class="s">0.0.1</span>
+</code></pre>
+</div>
 
 <h2 id="highway-rpc协议">Highway RPC协议</h2>
 <h3 id="概念阐述-2">概念阐述</h3>
@@ -983,11 +992,12 @@
 
 <p>使用Highway网络通道需要在maven pom文件中添加如下依赖：</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
   <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
   <span class="nt">&lt;artifactId&gt;</span>transport-highway<span class="nt">&lt;/artifactId&gt;</span> 
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>Highway通道在microservice.yaml文件中的配置项如下表所示：</p>
 
@@ -1068,10 +1078,11 @@
 
 <p>microservice.yaml文件中的配置示例：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">highway</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">highway</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070</span>
+</code></pre>
+</div>
 
         
       </section>
@@ -1130,6 +1141,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/communicate-protocol.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/communicate-protocol.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

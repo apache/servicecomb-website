@@ -388,30 +388,33 @@
   <li>
     <p>在 <em>体质指数计算器</em> 的 <code class="highlighter-rouge">pom.xml</code> 文件中添加依赖项：</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>handler-tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>在 <em>体质指数计算器</em> 的 <code class="highlighter-rouge">microservice.yaml</code> 文件中添加分布式追踪的处理链：</p>
 
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">handler</span><span class="pi">:</span>
-    <span class="na">chain</span><span class="pi">:</span>
-      <span class="na">Provider</span><span class="pi">:</span>
-        <span class="na">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Provider</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>在 <em>体质指数界面</em> 的 <code class="highlighter-rouge">pom.xml</code> 文件中添加依赖项：</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul-zipkin<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
 </ol>
 
@@ -421,20 +424,23 @@
   <li>
     <p>使用 Docker 运行 <em>Zipkin</em> 分布式追踪服务：</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="nt">-p</span> 9411:9411 openzipkin/zipkin
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker run -d -p 9411:9411 openzipkin/zipkin
+</code></pre>
+    </div>
   </li>
   <li>
     <p>重启 <em>体质指数计算器</em> 微服务：</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn spring-boot:run <span class="nt">-Drun</span>.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>重启 <em>体质指数界面</em> 微服务：</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn spring-boot:run <span class="nt">-Drun</span>.jvmArguments<span class="o">=</span><span class="s2">"-Dservicecomb.tracing.enabled=true"</span>
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dservicecomb.tracing.enabled=true"</span>
+</code></pre>
+    </div>
   </li>
 </ol>
 
@@ -525,6 +531,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _docs/cn/distributed-tracing.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_docs/cn/distributed-tracing.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

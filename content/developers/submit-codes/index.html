@@ -293,6 +293,17 @@
           
           
 
+          <a href="/developers/becomming-a-commiter"><span class="nav__sub-title nav__sub-title-with-url">Becoming A Committer of Apache ServiceComb</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
           <a href="/developers/setup-develop-environment/"><span class="nav__sub-title nav__sub-title-with-url">Develop Environment Setup</span></a>
         
 
@@ -367,7 +378,7 @@
     <meta itemprop="headline" content="Howto Submit Code">
     <meta itemprop="description" content="Howto submit code for SerivceComb">
     
-    <meta itemprop="dateModified" content="September 10, 2017">
+    <meta itemprop="dateModified" content="September 08, 2017">
 
     <div class="page__inner-wrap">
       
@@ -411,8 +422,9 @@
 </ul>
 
 <h2 id="run-tests">Run tests</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Before submitting code, make sure that you have properly tested the functionality and verified the implementation according to the auto test section in README.
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>Before submitting code, make sure that you have properly tested the functionality and verified the implementation according to the auto test section in README.
+</code></pre>
+</div>
 
 <h2 id="how-to-submit-a-pr">How to submit a PR</h2>
 <p>　　It’s quite convenient to submit a <a href="https://help.github.com/articles/about-pull-requests/">Pull Request(PR)</a> on <a href="https://github.com/search?q=org%3Aapache+servicecomb">Github</a>. Take the <a href="https://github.com/apache/incubator-servicecomb-website">apache/incubator-servicecomb-website</a> as an example:</p>
@@ -429,8 +441,9 @@
   <li>
     <p>Clone the source code to local machine:</p>
 
-    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/&lt;your_github_name&gt;/incubator-servicecomb-website.git
-</code></pre></div>    </div>
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/&lt;your_github_name&gt;/incubator-servicecomb-website.git
+</code></pre>
+    </div>
 
     <p>Note: substitute &lt;your_github_name&gt; with your github username.</p>
 
@@ -439,25 +452,28 @@
   <li>
     <p>Add apache/incubator-servicecomb-website as upstream remote:</p>
 
-    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd  </span>incubator-servicecomb-website
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">cd  </span>incubator-servicecomb-website
 git remote add upstream https://github.com/apache/incubator-servicecomb-website.git
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Check the local repository’s remotes</p>
 
-    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git remote <span class="nt">-v</span>
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git remote -v
 origin https://github.com/&lt;your_github_name&gt;/incubator-servicecomb-website.git <span class="o">(</span>fetch<span class="o">)</span>
 origin    https://github.com/&lt;your_github_name&gt;/incubator-servicecomb-website.git <span class="o">(</span>push<span class="o">)</span>
 upstream  https://github.com/apache/incubator-servicecomb-website.git <span class="o">(</span>fetch<span class="o">)</span>
 upstream  https://github.com/apache/incubator-servicecomb-website.git <span class="o">(</span>push<span class="o">)</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Create a new branch to start working</p>
 
-    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout <span class="nt">-b</span> &lt;your_branch_name&gt;
-</code></pre></div>    </div>
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git checkout -b &lt;your_branch_name&gt;
+</code></pre>
+    </div>
 
     <p>Note: replace &lt;your_branch_name&gt; with an actual branch name at your choice, like feature-foo/bugfix-bar
 Now you can start coding.</p>
@@ -465,9 +481,10 @@ Now you can start coding.</p>
   <li>
     <p>Push the changes to a remote repository</p>
 
-    <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git commit <span class="nt">-a</span> <span class="nt">-m</span> <span class="s2">"&lt;you_commit_message&gt;"</span>
+    <div class="language-shell highlighter-rouge"><pre class="highlight"><code>git commit -a -m <span class="s2">"&lt;you_commit_message&gt;"</span>
 git push origin &lt;your_branch_name&gt;
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
 </ul>
 
@@ -489,28 +506,34 @@ fig-2 Create pull request</p>
 
 <ol>
   <li>Switch to the master branch
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout master
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git checkout master
+</code></pre>
+    </div>
   </li>
   <li>Pull the upstream’s master branch
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git pull upstream master
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git pull upstream master
+</code></pre>
+    </div>
   </li>
   <li>Switch back to the branch we are working on(e.g. fix)
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git checkout fix 
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git checkout fix 
+</code></pre>
+    </div>
   </li>
   <li>Rebase the working branch onto the master branch
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git rebase <span class="nt">-i</span> master
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git rebase -i master
+</code></pre>
+    </div>
     <p>A list of commits will be listed on your text editor. Normally we can just save and exit.
 Git will now apply the commits one by one onto the master branch until it encounters a conflict. When this happens, the rebase process is paused. We need to resolve the conflicts, then execute</p>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git add <span class="nb">.</span>
-git rebase <span class="nt">--continue</span>
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git add .
+git rebase --continue
+</code></pre>
+    </div>
     <p>Repeat this process until all commits are successfully applied. And finally run</p>
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git push <span class="nt">-f</span> origin fix
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git push -f origin fix
+</code></pre>
+    </div>
     <p>to push the resolved branch to remote origin</p>
   </li>
 </ol>
@@ -572,6 +595,7 @@ git rebase <span class="nt">--continue</span>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _developers/submit-codes.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_developers/submit-codes.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

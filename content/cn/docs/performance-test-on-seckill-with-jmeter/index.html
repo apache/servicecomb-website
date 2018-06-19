@@ -392,9 +392,10 @@
 
 <p>　　脚本文件已经托管至秒杀项目中，可直接获取：</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/seckill
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/seckill
 <span class="nb">cd </span>seckill/performance-test/script
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="性能测试环境">性能测试环境</h2>
 <p>　　我们调来了两台云服务器进行性能测试，角色和配置如下：</p>
@@ -426,19 +427,20 @@
 
 <p>　　为了能够便于配置和启动示例系统，我们采用《秒杀开发历程（三）》中的一键启动模式拉起所有的服务，因此Docker升级为当前最新版17.06.2-ce，能够支持配置Container使用CPU和内存的大小限制，以Admin微服务为例：
 　　</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">admin-service</span><span class="pi">:</span>
-    <span class="na">mem_limit</span><span class="pi">:</span> <span class="s">4096m</span>
-    <span class="na">cpu_count</span><span class="pi">:</span> <span class="s">4</span>
-    <span class="na">cpu_percent</span><span class="pi">:</span> <span class="s">50</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">seckill-admin-service:0.2.0-SNAPSHOT"</span>
-    <span class="na">hostname</span><span class="pi">:</span> <span class="s">admin-service</span>
-    <span class="na">links</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>  <span class="s">admin-service</span><span class="pi">:</span>
+    <span class="s">mem_limit</span><span class="pi">:</span> <span class="s">4096m</span>
+    <span class="s">cpu_count</span><span class="pi">:</span> <span class="s">4</span>
+    <span class="s">cpu_percent</span><span class="pi">:</span> <span class="s">50</span>
+    <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">seckill-admin-service:0.2.0-SNAPSHOT"</span>
+    <span class="s">hostname</span><span class="pi">:</span> <span class="s">admin-service</span>
+    <span class="s">links</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">mysql-write-db:write_db.servicecomb.io"</span>
-    <span class="na">environment</span><span class="pi">:</span>
+    <span class="s">environment</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">JAVA_OPTS=-Dspring.profiles.active=prd -Dendpoints.shutdown.enabled=true</span>
-    <span class="na">ports</span><span class="pi">:</span>
+    <span class="s">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">8081:8081"</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="加压机配置">加压机配置</h3>
 <p>　　加压机与秒杀服务器处于同一网络环境中，配置如下：
@@ -454,14 +456,16 @@
 　　
 　　现在，我们切换到性能测试脚本目录下，执行下面的命令启动测试：
 　　</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter <span class="nt">-n</span> <span class="nt">-t</span> seckill.jmx <span class="nt">-l</span> log.jtl
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter -n -t seckill.jmx -l log.jtl
+</code></pre>
+</div>
 
 <h2 id="测试结果">测试结果</h2>
 <p>　　测试完毕后通过下面的命令分析测试结果日志数据，请将<report folder="">替换为你的本地目录：</report></p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter <span class="nt">-g</span> log.jtl <span class="nt">-o</span> &lt;report folder&gt;
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter -g log.jtl -o &lt;report folder&gt;
+</code></pre>
+</div>
 
 <p>　　我们需要先验证测试结果的正确性，查看数据统计图：</p>
 
@@ -789,6 +793,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2017-09-15-performance-test-on-seckill-with-jmeter.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2017-09-15-performance-test-on-seckill-with-jmeter.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

@@ -478,11 +478,12 @@
 <p>技工的主要工作时提供黄金分割数列计算服务，当用户需要知道第n个黄金分割数时，技工以最快的速度计算出数值并返回给用户。
 我们可以把这个工作简化为如下数学方程:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>value = fibo(n)
-</code></pre></div></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>value = fibo(n)
+</code></pre>
+</div>
 
 <p>在暂时不考虑性能的情况下，我们可以迅速实现黄金分割数列的计算。</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">FibonacciService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">FibonacciService</span> <span class="o">{</span>
   <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">);</span>
 <span class="o">}</span>
 
@@ -499,28 +500,31 @@
     <span class="k">return</span> <span class="nf">term</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">term</span><span class="o">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">2</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="技工服务端点">技工服务端点</h3>
 <p>黄金分割数量运算已经实现，现在我们需要将服务提供给用户，首先我们定义端点接口：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FibonacciEndpoint</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FibonacciEndpoint</span> <span class="o">{</span>
   <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>引入 <code class="highlighter-rouge">ServiceComb</code> 依赖：</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>接下来我们同时暴露黄金分割运算服务的<strong>Restful</strong>和<strong>RPC</strong>端点：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRestEndpoint"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRestEndpoint"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/fibonacci"</span><span class="o">)</span>
 <span class="nd">@Controller</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciRestEndpoint</span> <span class="kd">implements</span> <span class="n">FibonacciEndpoint</span> <span class="o">{</span>
@@ -539,9 +543,10 @@
     <span class="k">return</span> <span class="n">fibonacciService</span><span class="o">.</span><span class="na">term</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRpcEndpoint"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRpcEndpoint"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciRpcEndpoint</span> <span class="kd">implements</span> <span class="n">FibonacciEndpoint</span> <span class="o">{</span>
 
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">;</span>
@@ -556,31 +561,33 @@
     <span class="k">return</span> <span class="n">fibonacciService</span><span class="o">.</span><span class="na">term</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>这里用 <code class="highlighter-rouge">@RestSchema</code> 和 <code class="highlighter-rouge">@RpcSchema</code> 注释两个端点后，<code class="highlighter-rouge">ServiceComb</code> 会自动生成对应的服务端点契约，根据如下
 <code class="highlighter-rouge">microsevice.yaml</code> 配置端点端口，并将契约和服务一起注册到<a href="https://github.com/apache/incubator-servicecomb-service-center">Service Center</a>：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># all interconnected microservices must belong to an application wth the same ID</span>
-<span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
-<span class="na">service_description</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="c1"># all interconnected microservices must belong to an application wth the same ID</span>
+<span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
+<span class="s">service_description</span><span class="pi">:</span>
 <span class="c1"># name of the declaring microservice</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">worker</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">worker</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
 <span class="c1"># service center address</span>
-<span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">service</span><span class="pi">:</span>
-    <span class="na">registry</span><span class="pi">:</span>
-      <span class="na">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
-  <span class="na">highway</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-</code></pre></div></div>
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
+  <span class="s">highway</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre>
+</div>
 
 <p>最后，提供技工服务应用启动入口，并加上 <code class="highlighter-rouge">@EnableServiceComb</code> 注释启用 <code class="highlighter-rouge">ServiceComb</code> ：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkerApplication</span> <span class="o">{</span>
 
@@ -588,7 +595,8 @@
     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">WorkerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="告示栏-bulletin-board">告示栏 (Bulletin Board)</h2>
 <p><strong>告示栏</strong>提供为<strong>门卫</strong>、<strong>技工</strong>和<strong>养蜂人</strong>注册联系方式的设施，同时<strong>经理</strong>和<strong>养蜂人</strong>可通过此设施查询注册方的联系方式，以方便匹配能力的提供和消费。</p>
@@ -608,14 +616,15 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <h3 id="蜜蜂繁殖规律研究服务">蜜蜂繁殖规律研究服务</h3>
 <p>首先我们定义黄金数列运算接口：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FibonacciCalculator</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">FibonacciCalculator</span> <span class="o">{</span>
 
   <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>接下来定义并实现蜜蜂繁殖规律研究服务:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">BeekeeperService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">BeekeeperService</span> <span class="o">{</span>
   <span class="kt">long</span> <span class="nf">ancestorsOfDroneAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">generation</span><span class="o">);</span>
 
   <span class="kt">long</span> <span class="nf">ancestorsOfQueenAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">generation</span><span class="o">);</span>
@@ -645,14 +654,15 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="k">return</span> <span class="n">fibonacciCalculator</span><span class="o">.</span><span class="na">term</span><span class="o">(</span><span class="n">generation</span> <span class="o">+</span> <span class="mi">2</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>这里我们用到之前定义的 <code class="highlighter-rouge">FibonacciCalculator</code> 接口，并希望通过这个接口远程调用<strong>技工</strong>服务端点。<code class="highlighter-rouge">@RpcReference</code>
 注释能帮助我们自动从<a href="https://github.com/apache/incubator-servicecomb-service-center">Service Center</a>中获取
 <code class="highlighter-rouge">microserviceName = "worker", schemaId = "fibonacciRpcEndpoint"</code> ， 即服务名为 <code class="highlighter-rouge">worker</code> 已经schema ID为
 <code class="highlighter-rouge">fibonacciRpcEndpoint</code>的端点：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Configuration</span>
 <span class="kd">class</span> <span class="nc">BeekeeperConfig</span> <span class="o">{</span>
 
   <span class="nd">@RpcReference</span><span class="o">(</span><span class="n">microserviceName</span> <span class="o">=</span> <span class="s">"worker"</span><span class="o">,</span> <span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRpcEndpoint"</span><span class="o">)</span>
@@ -663,7 +673,8 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="k">return</span> <span class="k">new</span> <span class="nf">BeekeeperServiceImpl</span><span class="o">(</span><span class="n">fibonacciCalculator</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>我们在<strong>技工</strong>一节已定义好对应的服务名和schema ID端点，通过上面的配置，<code class="highlighter-rouge">ServiceComb</code> 会自动将远程<strong>技工</strong>服务
 实例和 <code class="highlighter-rouge">FibonacciCalculator</code> 绑定在一起。</p>
@@ -671,7 +682,7 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <h3 id="养蜂人服务端点">养蜂人服务端点</h3>
 <p>与上一节<strong>技工</strong>服务相似，我们在这里也需要提供养蜂人服务端点，让用户可以进行调用：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"beekeeperRestEndpoint"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"beekeeperRestEndpoint"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/rest"</span><span class="o">)</span>
 <span class="nd">@Controller</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeekeeperController</span> <span class="o">{</span>
@@ -720,37 +731,39 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="k">return</span> <span class="n">ancestors</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>因为<strong>养蜂人</strong>需要消费<strong>技工</strong>提供的服务，所以其 <code class="highlighter-rouge">microservice.yaml</code> 配置稍有不同：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># all interconnected microservices must belong to an application wth the same ID</span>
-<span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
-<span class="na">service_description</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="c1"># all interconnected microservices must belong to an application wth the same ID</span>
+<span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
+<span class="s">service_description</span><span class="pi">:</span>
 <span class="c1"># name of the declaring microservice</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">beekeeper</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
-<span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">service</span><span class="pi">:</span>
-    <span class="na">registry</span><span class="pi">:</span>
-      <span class="na">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8090</span>
-  <span class="na">handler</span><span class="pi">:</span>
-    <span class="na">chain</span><span class="pi">:</span>
-      <span class="na">Consumer</span><span class="pi">:</span>
-        <span class="na">default</span><span class="pi">:</span> <span class="s">bizkeeper-consumer,loadbalance</span>
-  <span class="na">references</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">beekeeper</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8090</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Consumer</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-consumer,loadbalance</span>
+  <span class="s">references</span><span class="pi">:</span>
 <span class="c1">#  this one below must refer to the microservice name it communicates with</span>
-    <span class="na">worker</span><span class="pi">:</span>
-      <span class="na">version-rule</span><span class="pi">:</span> <span class="s">0.0.1</span>
-</code></pre></div></div>
+    <span class="s">worker</span><span class="pi">:</span>
+      <span class="s">version-rule</span><span class="pi">:</span> <span class="s">0.0.1</span>
+</code></pre>
+</div>
 
 <p>这里我们需要定义 <code class="highlighter-rouge">servicecomb.references.worker.version-rule</code> ，让配置名称中指向<strong>技工</strong>服务名 <code class="highlighter-rouge">worker</code> ，并匹配其版本号。</p>
 
 <p>最后定义养蜂人服务应用入口：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeekeeperApplication</span> <span class="o">{</span>
 
@@ -758,7 +771,8 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">BeekeeperApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="门卫-doorman">门卫 (Doorman)</h2>
 <p><strong>门卫</strong>为公司提供安全保障，屏蔽非合法用户，防止其骗取免费服务，甚至伤害<strong>技工</strong>和<strong>养蜂人</strong>。</p>
@@ -770,18 +784,19 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <p>认证服务的接口如下，<code class="highlighter-rouge">authenticate</code> 方法根据用户名和密码查询确认用户存在，并返回对应JWT token。用户登录后的每次
 请求都需要带上返回的JWT token，而 <code class="highlighter-rouge">validate</code> 方法将验证token以确认其有效。</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
   <span class="n">String</span> <span class="nf">authenticate</span><span class="o">(</span><span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">);</span>
 
   <span class="n">String</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="门卫认证服务端点">门卫认证服务端点</h3>
 
 <p>与前两节的Rest服务端点相似，我们加上 <code class="highlighter-rouge">@RestSchema</code> 注释，以便 <code class="highlighter-rouge">ServiceComb</code> 自动配置端点、生成契约并注册服务。</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"authenticationRestEndpoint"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"authenticationRestEndpoint"</span><span class="o">)</span>
 <span class="nd">@Controller</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/rest"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationController</span> <span class="o">{</span>
@@ -842,11 +857,12 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
         <span class="sc">'}'</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>同样，我们需要提供服务应用启动入口以及 <code class="highlighter-rouge">microservice.yaml</code>：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DoormanApplication</span> <span class="o">{</span>
 
@@ -854,21 +870,23 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">DoormanApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># all interconnected microservices must belong to an application wth the same ID</span>
-<span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
-<span class="na">service_description</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="c1"># all interconnected microservices must belong to an application wth the same ID</span>
+<span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
+<span class="s">service_description</span><span class="pi">:</span>
 <span class="c1"># name of the declaring microservice</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">doorman</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
-<span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">service</span><span class="pi">:</span>
-    <span class="na">registry</span><span class="pi">:</span>
-      <span class="na">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:9090</span>
-</code></pre></div></div>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">doorman</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:9090</span>
+</code></pre>
+</div>
 
 <h2 id="经理-manager">经理 (Manager)</h2>
 <p>为了管理所有人员和设施，<strong>经理</strong>作为用户唯一接口人，主要功能有：</p>
@@ -890,11 +908,12 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 
 <p>首先我们引入依赖：</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-discovery<span class="nt">&lt;/artifactId&gt;</span>
   <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="用户认证服务">用户认证服务</h3>
 <p>当用户发送非登录请求时，我们首先需要验证用户合法，在如下服务中，我们通过<strong>告示栏</strong>获取<strong>门卫</strong>联系方式，
@@ -903,12 +922,13 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <p><code class="highlighter-rouge">ServiceComb</code> 提供了相应 <code class="highlighter-rouge">RestTemplate</code> 实现查询<a href="https://github.com/apache/incubator-servicecomb-service-center">Service Center</a>
 中的服务注册信息，只需在地址中以如下格式包含被调用的服务名</p>
 
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cse://doorman/path/to/rest/endpoint
-</code></pre></div></div>
+<div class="language-html highlighter-rouge"><pre class="highlight"><code>cse://doorman/path/to/rest/endpoint
+</code></pre>
+</div>
 
 <p><code class="highlighter-rouge">ServiceComb</code> 将自动查询对应服务并发送请求到地址中的服务端点。</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Service</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
 
   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">AuthenticationService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
@@ -959,13 +979,14 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="k">return</span> <span class="k">new</span> <span class="n">HttpEntity</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="n">Token</span><span class="o">(</span><span class="n">token</span><span class="o">),</span> <span class="n">headers</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="请求过滤">请求过滤</h3>
 <p>接下来我们提供 <code class="highlighter-rouge">ZuulFilter</code> 实现过滤用户请求，调用 <code class="highlighter-rouge">authenticationService.validate(token)</code> 认证用户token。
 若用户合法则路由用户请求到对应服务，否则返回 <code class="highlighter-rouge">403 forbidden</code>。</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Component</span>
 <span class="kd">class</span> <span class="nc">AuthenticationAwareFilter</span> <span class="kd">extends</span> <span class="n">ZuulFilter</span> <span class="o">{</span>
 
   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">AuthenticationAwareFilter</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
@@ -1043,11 +1064,12 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">getHeader</span><span class="o">(</span><span class="n">AUTHORIZATION</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>最后提供服务应用入口：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableCircuitBreaker</span>
 <span class="nd">@EnableZuulProxy</span>
 <span class="nd">@EnableDiscoveryClient</span>
@@ -1058,37 +1080,40 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ManagerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><code class="highlighter-rouge">application.yaml</code> 中定义路由规则：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">zuul</span><span class="pi">:</span>
-  <span class="na">routes</span><span class="pi">:</span>
-    <span class="na">doorman</span><span class="pi">:</span>
-      <span class="na">serviceId</span><span class="pi">:</span> <span class="s">doorman</span>
-      <span class="na">sensitiveHeaders</span><span class="pi">:</span>
-    <span class="na">worker</span><span class="pi">:</span>
-      <span class="na">serviceId</span><span class="pi">:</span> <span class="s">worker</span>
-    <span class="na">beekeeper</span><span class="pi">:</span>
-      <span class="na">serviceId</span><span class="pi">:</span> <span class="s">beekeeper</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">zuul</span><span class="pi">:</span>
+  <span class="s">routes</span><span class="pi">:</span>
+    <span class="s">doorman</span><span class="pi">:</span>
+      <span class="s">serviceId</span><span class="pi">:</span> <span class="s">doorman</span>
+      <span class="s">sensitiveHeaders</span><span class="pi">:</span>
+    <span class="s">worker</span><span class="pi">:</span>
+      <span class="s">serviceId</span><span class="pi">:</span> <span class="s">worker</span>
+    <span class="s">beekeeper</span><span class="pi">:</span>
+      <span class="s">serviceId</span><span class="pi">:</span> <span class="s">beekeeper</span>
 
 <span class="c1"># disable netflix eurkea since it's not used for service discovery</span>
-<span class="na">ribbon</span><span class="pi">:</span>
-  <span class="na">eureka</span><span class="pi">:</span>
-    <span class="na">enabled</span><span class="pi">:</span> <span class="no">false</span>
-</code></pre></div></div>
+<span class="s">ribbon</span><span class="pi">:</span>
+  <span class="s">eureka</span><span class="pi">:</span>
+    <span class="s">enabled</span><span class="pi">:</span> <span class="s">false</span>
+</code></pre>
+</div>
 
 <p><code class="highlighter-rouge">microservice.yaml</code> 中定义服务中心地址：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
-<span class="na">service_description</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">manager</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
-<span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">service</span><span class="pi">:</span>
-    <span class="na">registry</span><span class="pi">:</span>
-      <span class="na">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">company</span>
+<span class="s">service_description</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">manager</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://sc.servicecomb.io:30100</span>
+</code></pre>
+</div>
 
 <h2 id="项目归档-project-archive">项目归档 (Project Archive)</h2>
 <p><strong>经理</strong>在每次用户请求后将项目进行归档，如果将来有内容相同的请求到达，<strong>经理</strong>可以就近获取结果，不必再购买
@@ -1410,6 +1435,7 @@ DevOps在微服务开发中的实践。希望能对大家有所帮助。</p>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2017-06-15-linuxcon-workshop-demo.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2017-06-15-linuxcon-workshop-demo.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

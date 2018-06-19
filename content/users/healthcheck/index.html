@@ -670,7 +670,7 @@
 </table>
 
 <p>Example:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySqlHealthChecker</span> <span class="kd">implements</span> <span class="n">HealthChecker</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySqlHealthChecker</span> <span class="kd">implements</span> <span class="n">HealthChecker</span> <span class="o">{</span>
   <span class="nd">@Override</span>
   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="s">"mysql"</span><span class="o">;</span>
@@ -697,20 +697,23 @@
     <span class="o">}</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>We use SPI to load it, create an new file named <code class="highlighter-rouge">org.apache.servicecomb.foundation.metrics.health.HealthChecker</code> under <code class="highlighter-rouge">esource/META-INF/services</code> folder, write class name of your HealthChecker into it, like:</p>
 
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.apache.servicecomb.samples.metrics.extendhealthcheck.MySqlHealthChecker
-</code></pre></div></div>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>org.apache.servicecomb.samples.metrics.extendhealthcheck.MySqlHealthChecker
+</code></pre>
+</div>
 
 <h3 id="verify-healthcheck">Verify HealthCheck</h3>
 <p>After microservice startup, HealthCheck will publish use Rest endpoint, the publish address is same as <code class="highlighter-rouge">servicecomb.rest.address</code>, if had configure in <code class="highlighter-rouge">microservice.yaml</code> like:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre>
+</div>
 
 <p>We can get HealthCheck final result by accress http://localhost:8080/health , also can get detail results by accress http://localhost:8080/health/detail .</p>
 
@@ -782,6 +785,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/healthcheck.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/healthcheck.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

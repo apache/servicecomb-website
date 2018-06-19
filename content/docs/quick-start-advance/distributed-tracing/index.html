@@ -387,30 +387,33 @@
   <li>
     <p>Add distributed tracing dependency in <code class="highlighter-rouge">pom.xml</code> of <em>BMI calculator service</em>:</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>handler-tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Add handler chain of distributed tracing in <code class="highlighter-rouge">microservice.yaml</code> of <em>BMI calculator service</em>:</p>
 
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">handler</span><span class="pi">:</span>
-    <span class="na">chain</span><span class="pi">:</span>
-      <span class="na">Provider</span><span class="pi">:</span>
-        <span class="na">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Provider</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Add distributed tracing dependency in <code class="highlighter-rouge">pom.xml</code> of <em>BMI web service</em>:</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul-zipkin<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
 </ol>
 
@@ -420,20 +423,23 @@
   <li>
     <p>Run <em>Zipkin</em> distributed service inside Docker.</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="nt">-p</span> 9411:9411 openzipkin/zipkin
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker run -d -p 9411:9411 openzipkin/zipkin
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Restart <em>BMI calculator service</em> with the following command:</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn spring-boot:run <span class="nt">-Drun</span>.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Restart <em>BMI web service</em> with the following command:</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn spring-boot:run <span class="nt">-Drun</span>.jvmArguments<span class="o">=</span><span class="s2">"-Dservicecomb.tracing.enabled=true"</span>
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dservicecomb.tracing.enabled=true"</span>
+</code></pre>
+    </div>
   </li>
 </ol>
 
@@ -524,6 +530,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _docs/distributed-tracing.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_docs/distributed-tracing.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

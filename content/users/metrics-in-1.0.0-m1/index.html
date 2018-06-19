@@ -871,32 +871,34 @@ Tag name and value below:</p>
 <h2 id="how-to-configuration">How to Configuration</h2>
 <h3 id="global-configuration">Global Configuration</h3>
 <p>Please add window time config in microservice.yaml:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
-<span class="na">service_description</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">demoService</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
+<span class="s">service_description</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">demoService</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
 
-<span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">metrics</span><span class="pi">:</span>
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">metrics</span><span class="pi">:</span>
     <span class="c1">#window time,same as servo.pollers,unit is millisecond,default value is 5000 (5 seconds)</span>
-    <span class="na">window_time</span><span class="pi">:</span> <span class="s">5000</span>
-</code></pre></div></div>
+    <span class="s">window_time</span><span class="pi">:</span> <span class="s">5000</span>
+</code></pre>
+</div>
 <p><strong>In order to decrease difficulty for understand and usage of metrics,we temporary do not support multi window time</strong></p>
 
 <h3 id="maven-configuration">Maven Configuration</h3>
 <p>We just only need add metrics-core dependency:</p>
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>metrics-core<span class="nt">&lt;/artifactId&gt;</span>
       <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="how-to-get-metrics-data">How to Get Metrics Data</h2>
 <p>After configuration completed,you can get collected metrics data via this two method:</p>
 <h3 id="embedded-publish-interface">Embedded publish interface</h3>
 <p>When microservice start-up,metrics-core will auto publish data service using Springmvc provider:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"metricsEndpoint"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"metricsEndpoint"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/metrics"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MetricsPublisher</span> <span class="o">{</span>
   <span class="nd">@ApiResponses</span><span class="o">({</span>
@@ -908,28 +910,31 @@ Tag name and value below:</p>
     <span class="k">return</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>So,if you had config rest provider in microservice.yaml,like:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">service</span><span class="pi">:</span>
-    <span class="na">registry</span><span class="pi">:</span>
-      <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre>
+</div>
 <p>You can open a browser and input http://localhost:8080/metrics direct get metrics data.</p>
 
 <h3 id="direct-programming-get">Direct programming get</h3>
 <p>From above code you can known,the entry of data provider is org.apache.servicecomb.metrics.core.MonitorManager,so if you want develop your own metrics publisher,direct get it is enough.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MonitorManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">MonitorManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
 <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">measure</span><span class="o">();</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><strong>Notice: Servo had marked with DEPRECATED by Netflix, we will use Netflix spectator instead in 1.0.0-m2, publish interface will be adjusted</strong></p>
 
 <h2 id="how-to-use-metrics-data">How to Use Metrics Data</h2>
 <p>Metrics data will output as Map&lt;String,Double&gt;,in order to let user easier fetch certain metric value,we provide org.apache.servicecomb.foundation.metrics.publish.MetricsLoader tool class:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//simulate MonitorManager.getInstance().measure() get all metrics data</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="c1">//simulate MonitorManager.getInstance().measure() get all metrics data</span>
     <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
     <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"X(K1=1,K2=2,K3=3)"</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">);</span>
     <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"X(K1=1,K2=20,K3=30)"</span><span class="o">,</span> <span class="mf">200.0</span><span class="o">);</span>
@@ -952,7 +957,8 @@ Tag name and value below:</p>
 
     <span class="c1">//get K3=30 Metric from node</span>
     <span class="n">node</span><span class="o">.</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"20"</span><span class="o">).</span><span class="na">getFirstMatchMetricValue</span><span class="o">(</span><span class="s">"K3"</span><span class="o">,</span><span class="s">"30"</span><span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><em>More detail can be found in demo/perf/PerfMetricsFilePublisher.java</em></p>
 
@@ -987,7 +993,7 @@ Tag name and value below:</p>
 </table>
 
 <p>Let us use Process Order make an example:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderController</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderController</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">Counter</span> <span class="n">orderCount</span><span class="o">;</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">Counter</span> <span class="n">orderTps</span><span class="o">;</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">Timer</span> <span class="n">averageLatency</span><span class="o">;</span>
@@ -1022,24 +1028,26 @@ Tag name and value below:</p>
     <span class="k">this</span><span class="o">.</span><span class="na">maxLatency</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">TimeUnit</span><span class="o">.</span><span class="na">NANOSECONDS</span><span class="o">.</span><span class="na">toMillis</span><span class="o">(</span><span class="n">totalTime</span><span class="o">));</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>Notice:</p>
 
 <p>1.Metric ID is join name and all tags that pass to MonitorManager when getting monitor,so please keep uniqueness,metrics output of front example are:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
 
 <span class="c1">//metrics.keySet() include：</span>
 <span class="c1">//	orderCount(product=levis jeans,model=512)</span>
 <span class="c1">//	orderGenerated(statistic=tps)</span>
 <span class="c1">//	orderGenerated(statistic=latency,unit=MILLISECONDS)</span>
 <span class="c1">//	orderGenerated(statistic=max,unit=MILLISECONDS)</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>2.All get monitor method in MonitorManager act as <strong>get or new</strong>,so use same name and tags will return same one monitor:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Counter</span> <span class="n">counter1</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"orderGenerated"</span><span class="o">,</span> <span class="s">"product"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"model"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Counter</span> <span class="n">counter1</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"orderGenerated"</span><span class="o">,</span> <span class="s">"product"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"model"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
 <span class="n">Counter</span> <span class="n">counter2</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"orderGenerated"</span><span class="o">,</span> <span class="s">"product"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"model"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
 
 <span class="n">counter1</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
@@ -1048,7 +1056,8 @@ Tag name and value below:</p>
 <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter1</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
 <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter2</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
 <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mf">2.0</span><span class="o">,</span><span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"orderGenerated(product=levis jeans,model=512)"</span><span class="o">),</span><span class="mi">0</span><span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p><strong>Performance of get monitor from MonitorManager is slightly lower,so please get all monitors what needed when init,then cache them for later use,like OrderController example.</strong></p>
 
@@ -1118,6 +1127,7 @@ Tag name and value below:</p>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/metrics-in-1.0.0-m1.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/metrics-in-1.0.0-m1.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

@@ -371,7 +371,7 @@
 
 <p>项目代码中经常会用到各种配置项，比如下面的代码中是从系统环境变量中获取<code class="highlighter-rouge">prop</code> :</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">prop</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">myProperty</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">String</span> <span class="n">prop</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">myProperty</span><span class="o">);</span>
 <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">DEFAULT_VALUE</span><span class="o">;</span>
 <span class="k">try</span> <span class="o">{</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">prop</span><span class="o">);</span>
@@ -379,7 +379,8 @@
     <span class="c1">// handle format issues</span>
 <span class="o">}</span>
 <span class="n">myMethod</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>类似使用环境变量或者<code class="highlighter-rouge">properties</code>和<code class="highlighter-rouge">xml</code>等文件方式传入配置进而控制应用表现的方法广泛应用于开发过程中，这样做可以将外部配置与业务代码解耦，若有变动只需修改配置参数而不需要重新编译构建项目。但是这种将配置和代码放在一起的方式可能会泄露隐私信息（比如密码），因为代码可能会公开，出于安全的考虑，配置和代码分离管理的方式开始广泛使用，常见的方法比如将配置放在CI服务器上通过打包脚本打入应用包中，或者直接放到运行应用的服务器的特定目录下，或者存储到数据库中。这种方式在传统的单体应用中简单有效，但也带来一些新的挑战：</p>
 
@@ -526,9 +527,10 @@
 
 <p>Apollo服务可以通过docker或二进制启动，方法参考官网文档[3]，推荐使用docker启动。</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
 <span class="nb">cd </span>apollo-image-for-servicecomb <span class="o">&amp;&amp;</span> docker-compose up
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>出现<code class="highlighter-rouge">apollo-quick-start | Portal started. You can visit http://localhost:8070 now!</code>后表示Apollo已经启动成功，浏览器访问<code class="highlighter-rouge">http://localhost:8070</code>即可访问<code class="highlighter-rouge">portal</code>服务，默认登录账号为<code class="highlighter-rouge">apollo/admin</code>。</p>
 
@@ -552,26 +554,28 @@
 
 <p>在Chassis应用的pom文件中引入依赖<code class="highlighter-rouge">config-apollo</code>：</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
        <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
        <span class="nt">&lt;artifactId&gt;</span>config-apollo<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h5 id="添加配置">添加配置</h5>
 
 <p>在Chassis应用的配置文件<code class="highlighter-rouge">microservice.yaml</code>中增加以下配置：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="na">apollo</span><span class="pi">:</span>
-     <span class="na">config</span><span class="pi">:</span>
-       <span class="na">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span><span class="err">		</span><span class="s">#Apollo portal服务地址</span>
-       <span class="na">serviceName</span><span class="pi">:</span> <span class="s">SampleApp</span><span class="err">				</span><span class="s">#创建应用时的AppID</span>
-       <span class="na">env</span><span class="pi">:</span> <span class="s">DEV</span><span class="err">								</span><span class="s">#env默认是DEV</span>
-       <span class="na">clusters</span><span class="pi">:</span> <span class="s">default</span><span class="err">					</span><span class="s">#cluster默认default</span>
-       <span class="na">namespace</span><span class="pi">:</span> <span class="s">application</span><span class="err">				</span><span class="s">#namespace默认application</span>
-       <span class="na">token</span><span class="pi">:</span> <span class="s">de3c5b2e6d8535b96</span><span class="err">				</span><span class="s">#第一步中生成的TOKEN</span>
-       <span class="na">refreshInterval</span><span class="pi">:</span> <span class="s">10</span><span class="err">					</span><span class="s">#自动拉取配置的时间间隔</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>   <span class="s">apollo</span><span class="pi">:</span>
+     <span class="s">config</span><span class="pi">:</span>
+       <span class="s">serverUri</span><span class="pi">:</span> <span class="s">http://127.0.0.1:8070</span><span class="err">		</span><span class="s">#Apollo portal服务地址</span>
+       <span class="s">serviceName</span><span class="pi">:</span> <span class="s">SampleApp</span><span class="err">				</span><span class="s">#创建应用时的AppID</span>
+       <span class="s">env</span><span class="pi">:</span> <span class="s">DEV</span><span class="err">								</span><span class="s">#env默认是DEV</span>
+       <span class="s">clusters</span><span class="pi">:</span> <span class="s">default</span><span class="err">					</span><span class="s">#cluster默认default</span>
+       <span class="s">namespace</span><span class="pi">:</span> <span class="s">application</span><span class="err">				</span><span class="s">#namespace默认application</span>
+       <span class="s">token</span><span class="pi">:</span> <span class="s">de3c5b2e6d8535b96</span><span class="err">				</span><span class="s">#第一步中生成的TOKEN</span>
+       <span class="s">refreshInterval</span><span class="pi">:</span> <span class="s">10</span><span class="err">					</span><span class="s">#自动拉取配置的时间间隔</span>
+</code></pre>
+</div>
 
 <p>至此，通过简单的4步应用已经成功的对接到了Apollo配置中心，启动应用后可以在Apollo页面通过对配置项的新增、更新、回滚等操作进行服务治理啦！Demo参考[4]。</p>
 
@@ -594,14 +598,15 @@
 
     <p>init函数实现固定时间间隔或实时获取配置中心的配置项逻辑。<code class="highlighter-rouge">ApolloClient</code>中<code class="highlighter-rouge">refreshApolloConfig</code>函数启动了一个定时执行的线程刷新配置项：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">refreshApolloConfig</span><span class="o">()</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">refreshApolloConfig</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">EXECUTOR</span>
         <span class="o">.</span><span class="na">scheduleWithFixedDelay</span><span class="o">(</span><span class="k">new</span> <span class="n">ConfigRefresh</span><span class="o">(</span><span class="n">serviceUri</span><span class="o">),</span> 
                                 <span class="n">firstRefreshInterval</span><span class="o">,</span> 
                                 <span class="n">refreshInterval</span><span class="o">,</span> 
                                 <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
   <span class="o">}</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
 
     <p><code class="highlighter-rouge">ConfigRefresh</code>线程的<code class="highlighter-rouge">run</code>中会从Apollo配置中心获取最新配置项并和之前的配置项对比分析出新增、修改和删除的配置参数，然后去执行对应的更新操作。对配置项的修改更新都是基于Archaius的<code class="highlighter-rouge">WatchedUpdateListener</code> 进而实现应用内参数的动态更新。</p>
   </li>
@@ -921,6 +926,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2018-04-04-config-center-integration.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2018-04-04-config-center-integration.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

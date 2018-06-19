@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="用SpringMVC开发微服务">
     <meta itemprop="description" content="用SpringMVC开发微服务">
     
-    <meta itemprop="dateModified" content="August 16, 2017">
+    <meta itemprop="dateModified" content="August 15, 2017">
 
     <div class="page__inner-wrap">
       
@@ -669,7 +669,7 @@
 
     <p>在Maven的pom.xml中添加所需的依赖：</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependencyManagement&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;dependencyManagement&gt;</span>
    <span class="nt">&lt;dependencies&gt;</span>
      <span class="nt">&lt;dependency&gt;</span>
        <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -699,14 +699,15 @@
       <span class="nt">&lt;artifactId&gt;</span>slf4j-log4j12<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
   <span class="nt">&lt;/dependencies&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p><strong>步骤 2</strong> 实现服务。</p>
 
     <p>使用Spring MVC注解开发业务代码，Hello的服务实现如下：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">javax.ws.rs.core.MediaType</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestBody</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMapping</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.springframework.web.bind.annotation.RequestMethod</span><span class="o">;</span>
@@ -725,7 +726,8 @@
  <span class="err">　</span>  <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
  <span class="err">　</span><span class="o">}</span>
  <span class="o">}</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
 
     <p><strong>注意：请一定在服务的实现类（本文档例子为SpringmvcHelloImpl）上标记@RequestMapping，否则接口发布的Path和Method将会不正确！</strong></p>
 
@@ -736,27 +738,29 @@
 
     <p>在服务的实现类上打上注解@RestSchema，指定schemaId，表示该实现作为当前微服务的一个schema发布，代码如下：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.rest.common.RestSchema</span><span class="o">;</span>
  <span class="c1">// other code omitted</span>
  <span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"springmvcHello"</span><span class="o">)</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="o">{</span>
    <span class="c1">// other code omitted</span>
  <span class="o">}</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
 
     <p>然后在<code class="highlighter-rouge">resources/META-INF/spring</code>目录下创建<code class="highlighter-rouge">springmvcHello.bean.xml</code>文件，命名规则为<code class="highlighter-rouge">\*.bean.xml</code>，配置spring进行服务扫描的base-package，文件内容如下：</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
    
  <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
         <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
         <span class="na">xmlns:context=</span><span class="s">"http://www.springframework.org/schema/context"</span>
-        <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"</span><span class="nt">&gt;</span>
+        <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans</span> <span class="err">classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd</span>
+        <span class="err">http://www.springframework.org/schema/context</span> <span class="err">http://www.springframework.org/schema/context/spring-context-3.0.xsd"</span><span class="nt">&gt;</span>
    
      <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"org.apache.servicecomb.samples.springmvc.provider"</span><span class="nt">/&gt;</span>
  <span class="nt">&lt;/beans&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p><strong>步骤 4</strong> 添加服务定义。</p>
@@ -766,7 +770,7 @@
   <li>
     <p><strong>步骤 5</strong> 添加Main启动类</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
 
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
@@ -776,7 +780,8 @@
       <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
    <span class="o">}</span>
  <span class="o">}</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
 </ul>
 
@@ -903,6 +908,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/develop-with-springmvc.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/develop-with-springmvc.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

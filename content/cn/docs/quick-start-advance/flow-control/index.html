@@ -388,33 +388,36 @@
   <li>
     <p>在 <em>体质指数计算器</em> 的 <code class="highlighter-rouge">pom.xml</code> 文件中添加依赖项：</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
    <span class="nt">&lt;artifactId&gt;</span>handler-flowcontrol-qps<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>在 <em>体质指数计算器</em> 的 <code class="highlighter-rouge">microservice.yaml</code> 文件中指明使用流量控制的处理链及指定流控策略：</p>
 
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">handler</span><span class="pi">:</span>
-    <span class="na">chain</span><span class="pi">:</span>
-      <span class="na">Provider</span><span class="pi">:</span>
-        <span class="na">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
-  <span class="na">flowcontrol</span><span class="pi">:</span>
-    <span class="na">Provider</span><span class="pi">:</span>
-      <span class="na">qps</span><span class="pi">:</span>
-        <span class="na">limit</span><span class="pi">:</span>
-          <span class="na">gateway</span><span class="pi">:</span> <span class="s">1</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Provider</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
+  <span class="s">flowcontrol</span><span class="pi">:</span>
+    <span class="s">Provider</span><span class="pi">:</span>
+      <span class="s">qps</span><span class="pi">:</span>
+        <span class="s">limit</span><span class="pi">:</span>
+          <span class="s">gateway</span><span class="pi">:</span> <span class="s">1</span>
+</code></pre>
+    </div>
   </li>
 </ol>
 
 <p>体质指数应用中已配置好了上述配置项，您只需关闭之前运行的 <strong>体质指数计算器</strong>，然后再用以下指令重新运行即可：</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn spring-boot:run <span class="nt">-Drun</span>.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=qps-flowcontrol-provider -Dcse.flowcontrol.Provider.qps.limit.gateway=1"</span>
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=qps-flowcontrol-provider -Dcse.flowcontrol.Provider.qps.limit.gateway=1"</span>
+</code></pre>
+</div>
 
 <h2 id="验证">验证</h2>
 
@@ -490,6 +493,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _docs/cn/flow-control.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_docs/cn/flow-control.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

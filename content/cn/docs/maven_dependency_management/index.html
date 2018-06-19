@@ -394,7 +394,7 @@
   <li>项目X的pom:</li>
 </ul>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
 	<span class="nt">&lt;groupId&gt;</span>groupA<span class="nt">&lt;/groupId&gt;</span>
 	<span class="nt">&lt;artifactId&gt;</span>artifactA<span class="nt">&lt;/artifactId&gt;</span>
         <span class="nt">&lt;version&gt;</span>0.1.0<span class="nt">&lt;/version&gt;</span>   
@@ -404,29 +404,32 @@
 	<span class="nt">&lt;artifactId&gt;</span>artifactB<span class="nt">&lt;/artifactId&gt;</span>
         <span class="nt">&lt;version&gt;</span>0.1.0<span class="nt">&lt;/version&gt;</span>   
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <ul>
   <li>项目A的pom:</li>
 </ul>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
 	<span class="nt">&lt;groupId&gt;</span>groupC<span class="nt">&lt;/groupId&gt;</span>
 	<span class="nt">&lt;artifactId&gt;</span>artifactC<span class="nt">&lt;/artifactId&gt;</span>
         <span class="nt">&lt;version&gt;</span>0.1.0<span class="nt">&lt;/version&gt;</span>   
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <ul>
   <li>项目B的pom:</li>
 </ul>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>groupC<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>artifactC<span class="nt">&lt;/artifactId&gt;</span>
   <span class="nt">&lt;version&gt;</span>0.2.0<span class="nt">&lt;/version&gt;</span>   
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>项目X在最终发布的时候，会出现如下几种情况：</p>
 
@@ -443,7 +446,7 @@
 管理，其他的子模块都不配置三方件的版本号，从而每个子模块依赖的三方件版本都是同一个版本，即使他们依赖的模块间接依赖了不同的三方件版本。<br />
 这种机制给使用者也带来了一定的好处，使用者可以采用dependencyManagement来定义自己的三方组件依赖关系，定义的时候，通过import方式继承。比如使用ServiceComb的微服务，可以采用如下方式管理依赖关系：</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependencyManagement&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependencyManagement&gt;</span>
   <span class="nt">&lt;dependencies&gt;</span>
     <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -454,7 +457,8 @@
       <span class="nt">&lt;/dependency&gt;</span>
     <span class="nt">&lt;/dependencies&gt;</span>
 <span class="nt">&lt;/dependencyManagement&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="一个复杂的例子">一个复杂的例子</h2>
 <p>这个例子是在业务代码中使用Spring Boot、Spring Cloud、ServiceComb开源组件和ServiceComb商用组件的复杂场景。业务使用Spring Boot开发，并且启用了ServiceComb功能。可以通过下面的配置管理依赖关系。通过调整3个组件的顺序，决定优先使用哪些三方件。常见的业务场景有：</p>
@@ -464,7 +468,7 @@
   <li>Spring Cloud发现了bug，但是修复该bug的版本同时升级了Spring Boot，业务当前有其他原因不能使用Spring Boot的新版本，这个时候，可以将Spring Boot的依赖放到前面，保证了不会由于升级Spring Cloud，而引入Spring Boot新的版本。</li>
 </ul>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependencyManagement&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependencyManagement&gt;</span>
 		<span class="nt">&lt;dependencies&gt;</span>
 		  <span class="nt">&lt;dependency&gt;</span>
 			<span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
@@ -489,7 +493,8 @@
 		  <span class="nt">&lt;/dependency&gt;</span>
 		<span class="nt">&lt;/dependencies&gt;</span>
 	<span class="nt">&lt;/dependencyManagement&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="总结">总结</h2>
 <p>上面列举了依赖关系管理的最佳实践。在配套不同组件进行业务代码开发时，如果碰到ClassNotFoundException、NoSuchMethodException等异常，可以通过IDE（比如eclipse）或者mvn dependency:tree命令来分析是否由于依赖关系错误，引入了某些三方件较老的版本，然后都可以利用dependencyManagement机制来强制约束三方件的版本号。正如最开始指出的，任何的三方件升级都可能存在风险，并且有些时候会出现无法解决，需要修改依赖组件代码的情况。一个好的实践是进行持续的集成，并增加适当的测试用例，尽早发现问题和解决依赖关系管理引入的接口不兼容问题。我们建议开发者能够结合上面的例子，适当调整下各个组件的顺序，观察一个项目实际使用的三方件版本的变化，深刻理解dependencyManagement的作用原理，这样能够帮助快速解决开发过程中碰到的ClassNotFoundException、NoSuchMethodException等问题。</p>
@@ -783,6 +788,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2017-09-14-maven-dependency-management.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2017-09-14-maven-dependency-management.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

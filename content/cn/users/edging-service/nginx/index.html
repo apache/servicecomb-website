@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="使用confd和Nginx做边缘服务">
     <meta itemprop="description" content="使用confd和Nginx做边缘服务">
     
-    <meta itemprop="dateModified" content="August 16, 2017">
+    <meta itemprop="dateModified" content="August 15, 2017">
 
     <div class="page__inner-wrap">
       
@@ -694,14 +694,16 @@
   <li>
     <p>检查服务中心健康状态</p>
 
-    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/health
-</span></code></pre></div>    </div>
+    <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/health
+</span></code></pre>
+    </div>
   </li>
   <li>
     <p>获取所有微服务信息</p>
 
-    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/microservices
-</span></code></pre></div>    </div>
+    <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/microservices
+</span></code></pre>
+    </div>
   </li>
   <li>
     <p>获取指定id的微服务信息</p>
@@ -713,14 +715,16 @@
     <li>
       <p>首先根据微服务信息获取serviceId</p>
 
-      <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">GET 127.0.0.1:9980/registry/v3/existence?type=microservice&amp;appId={appId}&amp;serviceName={serviceName}&amp;version={version}
-</span></code></pre></div>      </div>
+      <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err">GET 127.0.0.1:9980/registry/v3/existence?type=microservice&amp;appId={appId}&amp;serviceName={serviceName}&amp;version={version}
+</span></code></pre>
+      </div>
     </li>
     <li>
       <p>根据上述接口返回的serviceId获取微服务完整信息</p>
 
-      <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">GET 127.0.0.1:9980/registry/v3/microservices/{serviceId}
-</span></code></pre></div>      </div>
+      <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err">GET 127.0.0.1:9980/registry/v3/microservices/{serviceId}
+</span></code></pre>
+      </div>
     </li>
   </ol>
 </blockquote>
@@ -729,15 +733,17 @@
   <li>
     <p>获取指定微服务的所有实例信息</p>
 
-    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/microservices/{serviceId}/instances
-</span></code></pre></div>    </div>
+    <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/microservices/{serviceId}/instances
+</span></code></pre>
+    </div>
     <p>需要在header中添加：”X-ConsumerId:{serviceId}”。</p>
   </li>
   <li>
     <p>查找微服务实例信息</p>
 
-    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/instances?appId={appId}&amp;serviceName={serviceName}&amp;version={version}
-</span></code></pre></div>    </div>
+    <div class="language-http highlighter-rouge"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/instances?appId={appId}&amp;serviceName={serviceName}&amp;version={version}
+</span></code></pre>
+    </div>
     <p>需要在header中添加”X-ConsumerId:{serviceId}”。</p>
   </li>
 </ul>
@@ -750,24 +756,29 @@
 
 <ul>
   <li>获取所有微服务信息
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">Microservice</span><span class="o">&gt;</span> <span class="nf">getAllMicroservices</span><span class="o">();</span>
-</code></pre></div>    </div>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">Microservice</span><span class="o">&gt;</span> <span class="nf">getAllMicroservices</span><span class="o">();</span>
+</code></pre>
+    </div>
   </li>
   <li>获取微服务唯一标识
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">String</span> <span class="nf">getMicroserviceId</span><span class="o">(</span><span class="n">String</span> <span class="n">appId</span><span class="o">,</span> <span class="n">String</span> <span class="n">microserviceName</span><span class="o">,</span> <span class="n">String</span> <span class="n">versionRule</span><span class="o">);</span>
-</code></pre></div>    </div>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">String</span> <span class="nf">getMicroserviceId</span><span class="o">(</span><span class="n">String</span> <span class="n">appId</span><span class="o">,</span> <span class="n">String</span> <span class="n">microserviceName</span><span class="o">,</span> <span class="n">String</span> <span class="n">versionRule</span><span class="o">);</span>
+</code></pre>
+    </div>
   </li>
   <li>根据微服务唯一标识查询微服务静态信息
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">Microservice</span> <span class="nf">getMicroservice</span><span class="o">(</span><span class="n">String</span> <span class="n">microserviceId</span><span class="o">);</span>
-</code></pre></div>    </div>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">Microservice</span> <span class="nf">getMicroservice</span><span class="o">(</span><span class="n">String</span> <span class="n">microserviceId</span><span class="o">);</span>
+</code></pre>
+    </div>
   </li>
   <li>根据多个微服务唯一标识查询所有微服务实例信息
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">MicroserviceInstance</span><span class="o">&gt;</span> <span class="nf">getMicroserviceInstance</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerId</span><span class="o">,</span> <span class="n">String</span> <span class="n">providerId</span><span class="o">);</span>
-</code></pre></div>    </div>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">MicroserviceInstance</span><span class="o">&gt;</span> <span class="nf">getMicroserviceInstance</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerId</span><span class="o">,</span> <span class="n">String</span> <span class="n">providerId</span><span class="o">);</span>
+</code></pre>
+    </div>
   </li>
   <li>按照app+interface+version查询实例endpoints信息
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">MicroserviceInstance</span><span class="o">&gt;</span> <span class="nf">findServiceInstance</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerId</span><span class="o">,</span> <span class="n">String</span> <span class="n">appId</span><span class="o">,</span> <span class="n">String</span> <span class="n">serviceName</span><span class="o">,</span><span class="n">String</span> <span class="n">versionRule</span><span class="o">);</span>
-</code></pre></div>    </div>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">MicroserviceInstance</span><span class="o">&gt;</span> <span class="nf">findServiceInstance</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerId</span><span class="o">,</span> <span class="n">String</span> <span class="n">appId</span><span class="o">,</span> <span class="n">String</span> <span class="n">serviceName</span><span class="o">,</span><span class="n">String</span> <span class="n">versionRule</span><span class="o">);</span>
+</code></pre>
+    </div>
   </li>
 </ul>
 
@@ -830,6 +841,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/nginx.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/nginx.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

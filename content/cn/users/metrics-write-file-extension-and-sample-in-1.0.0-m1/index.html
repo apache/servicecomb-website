@@ -695,26 +695,27 @@
 
 <h2 id="全局配置">全局配置</h2>
 <p>与0.5.0类似，需要在microservice.yaml中添加如下配置项：</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
-<span class="na">service_description</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">demoService</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
+<span class="s">service_description</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">demoService</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
 
-<span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">metrics</span><span class="pi">:</span>
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">metrics</span><span class="pi">:</span>
     <span class="c1">#1.0.0-m1日志输出间隔配置项，单位毫秒</span>
-    <span class="na">window_time</span><span class="pi">:</span> <span class="s">5000</span>
+    <span class="s">window_time</span><span class="pi">:</span> <span class="s">5000</span>
     <span class="c1">#如果metric是浮点数，输出结果保留几位小数，默认为1</span>
-    <span class="na">round_places</span><span class="pi">:</span> <span class="s">1</span>
-    <span class="na">file</span><span class="pi">:</span>
+    <span class="s">round_places</span><span class="pi">:</span> <span class="s">1</span>
+    <span class="s">file</span><span class="pi">:</span>
       <span class="c1">#日志根目录</span>
-      <span class="na">root_path</span><span class="pi">:</span> <span class="s">./log/metric/</span>
-      <span class="na">rolling</span><span class="pi">:</span>
+      <span class="s">root_path</span><span class="pi">:</span> <span class="s">./log/metric/</span>
+      <span class="s">rolling</span><span class="pi">:</span>
         <span class="c1">#最大保留文件数</span>
-        <span class="na">max_file_count</span><span class="pi">:</span> <span class="s">10</span>
+        <span class="s">max_file_count</span><span class="pi">:</span> <span class="s">10</span>
         <span class="c1">#文件最大大小，单位可以是KB，MB和GB</span>
-        <span class="na">max_file_size </span><span class="pi">:</span> <span class="s">10MB</span>
-</code></pre></div></div>
+        <span class="s">max_file_size</span> <span class="pi">:</span> <span class="s">10MB</span>
+</code></pre>
+</div>
 <p>与0.5.0版本配置的比较：</p>
 <ol>
   <li>旧版本使用servicecomb.metrics.polltime(单位秒)配置文件输出间隔，1.0.0-m1版本中旧版本功能仍然存在；</li>
@@ -726,11 +727,12 @@
 <h2 id="依赖和代码使用">依赖和代码使用</h2>
 <ol>
   <li>首先需要引入metrics-write-file模块，这个模块包含了获取Metrics数据并转化为指定格式后写文件的逻辑：
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb.samples<span class="nt">&lt;/groupId&gt;</span>
    <span class="nt">&lt;artifactId&gt;</span>metrics-write-file<span class="nt">&lt;/artifactId&gt;</span>
  <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
     <p><em>也可以参考其中的实现修改代码或复制代码到项目中。</em></p>
   </li>
   <li>metrics-write-file模块不包含动态生成写文件RollingFileAppender的代码，根据项目实际使用的日志实现，如果是log4j，拷贝metrics-write-file-log4j-springboot模块中的Log4JMetricsFileWriter，如果是log4j2，拷贝metrics-write-file-log4j2-springboot模块中的Log4J2MetricsFileWriter。  <br />
@@ -739,7 +741,7 @@
 
 <h2 id="使用spring-boot-starter开发注意事项">使用Spring Boot Starter开发注意事项</h2>
 <p>Java Chassis集成了Spring Boot Starter，如果使用Spring Boot Starter启动微服务同时又使用Log4j作为日志实现，则需要处理依赖问题，请参考samples/metrics-write-file-sample/metrics-write-file-log4j-springboot项目：</p>
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c">&lt;!--need exclusion log4j-over-slf4j--&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="c">&lt;!--need exclusion log4j-over-slf4j--&gt;</span>
     <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter<span class="nt">&lt;/artifactId&gt;</span>
@@ -756,7 +758,8 @@
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>Spring Boot Starter中包含了log4j-over-slf4j，这个Log Bridge并没有完全实现log4j的所有接口，包括RollingFileAppender，所以我们需要排除它让slf4j直接调用log4j而不是这个Log Bridge，请确定这种排除对你的系统不会有影响，关于log4j-over-slf4j的更多信息可以参考<a href="https://www.slf4j.org/legacy.html#log4j-over-slf4j">这篇文章</a>。</p>
 
 <h2 id="运行示例">运行示例</h2>
@@ -838,6 +841,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/metrics-write-file-extension-and-sample-in-1.0.0-m1.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/metrics-write-file-extension-and-sample-in-1.0.0-m1.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

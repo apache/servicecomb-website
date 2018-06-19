@@ -381,18 +381,19 @@
 
 <p>　　<a href="https://github.com/ServiceComb/ServiceComb-Company-WorkShop/blob/master/kubernetes/README.md">Run Company on Kubernetes Cluster</a> 提供了详细的使用方法，读者只需通过以下3条指令，就可将company在kubernetes集群上部署起来，</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
 
 <span class="nb">cd </span>ServiceComb-Company-WorkShop/kubernetes/
 
 bash start.sh
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="yaml文件解读">Yaml文件解读</h2>
 
 <p>　　以作者的实际环境为例：</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# kubectl get pod <span class="nt">-owide</span>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# </span>kubectl get pod -owide
 NAME                                      READY     STATUS    RESTARTS   AGE       IP            NODE
 company-beekeeper-3737555734-48sxf        1/1       Running   0          17s       10.244.2.49   zenlinnode2
 company-bulletin-board-4113647782-th91w   1/1       Running   0          17s       10.244.1.53   zenlinnode1
@@ -400,38 +401,41 @@ company-doorman-3391375245-g0p8c          1/1       Running   0          17s    
 company-manager-454733969-0c1g8           1/1       Running   0          16s       10.244.2.50   zenlinnode2
 company-worker-1085546725-x7zl4           1/1       Running   0          17s       10.244.1.54   zenlinnode1
 zipkin-508217170-0khr3                    1/1       Running   0          17s       10.244.2.48   zenlinnode2
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>　　可以看到，一共启动了6个pod，分别为，公司经理（company-manager）、门卫（company-doorman）、公告栏（company-bulletin-board）、技工（company-worker）、养蜂人（company-beekeeper）、调用链跟踪（zipkin），K8S集群分别为他们分配对应的集群IP。</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# kubectl get svc <span class="nt">-owide</span>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# </span>kubectl get svc -owide
 NAME                     CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>          AGE       SELECTOR
 company-bulletin-board   10.99.70.46     &lt;none&gt;        30100/TCP        12m       io.kompose.service<span class="o">=</span>company-bulletin-board
 company-manager          10.100.61.227   &lt;nodes&gt;       8083:30301/TCP   12m       io.kompose.service<span class="o">=</span>company-manager
 zipkin                   10.104.92.198   &lt;none&gt;        9411/TCP         12m       io.kompose.service<span class="o">=</span>zipkin
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>　　仅启动了3个service，调用链跟踪（zipkin）、公告栏（company-bulletin-board）以及经理（company-manager），这是因为，调用链跟踪和公告栏需要在集群内被其他服务通过域名来调用，而经理需要作为对外作为网关，统一暴露服务端口。</p>
 
 <p>　　查看company-bulletin-board-service.yaml文件，</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="na">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
-    <span class="na">kind</span><span class="pi">:</span> <span class="s">Service</span>
-    <span class="na">metadata</span><span class="pi">:</span>
-      <span class="na">creationTimestamp</span><span class="pi">:</span> <span class="no">null</span>
-      <span class="na">labels</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>    <span class="s">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+    <span class="s">kind</span><span class="pi">:</span> <span class="s">Service</span>
+    <span class="s">metadata</span><span class="pi">:</span>
+      <span class="s">creationTimestamp</span><span class="pi">:</span> <span class="s">null</span>
+      <span class="s">labels</span><span class="pi">:</span>
 <span class="err">    	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
       <span class="s">name</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
     <span class="s">spec</span><span class="pi">:</span>
-      <span class="na">ports</span><span class="pi">:</span>
-<span class="err">    </span><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">30100"</span>
-      <span class="na">port</span><span class="pi">:</span> <span class="s">30100</span>
-      <span class="na">targetPort</span><span class="pi">:</span> <span class="s">30100</span>
+      <span class="s">ports</span><span class="pi">:</span>
+<span class="err">    </span><span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">30100"</span>
+      <span class="s">port</span><span class="pi">:</span> <span class="s">30100</span>
+      <span class="s">targetPort</span><span class="pi">:</span> <span class="s">30100</span>
         <span class="s">selector</span><span class="pi">:</span>
       <span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
-      <span class="na">status</span><span class="pi">:</span>
-        <span class="na">loadBalancer</span><span class="pi">:</span> <span class="pi">{}</span>
-</code></pre></div></div>
+      <span class="s">status</span><span class="pi">:</span>
+        <span class="s">loadBalancer</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre>
+</div>
 
 <p>　　该文件定义了公告栏对应的service，给service定义了name、port和targetPort，这样通过kubectl expose创建的service会在集群内具备DNS能力，在其他服务刚启动还未注册到公告栏（服务注册发现中心）时，就是使用该能力来访问到公告栏并注册服务的。</p>
 
@@ -439,37 +443,38 @@ zipkin                   10.104.92.198   &lt;none&gt;        9411/TCP         12
 
 <p>　　查看company-worker-deployment.yaml 文件，</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
-<span class="na">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
-<span class="na">metadata</span><span class="pi">:</span>
-  <span class="na">creationTimestamp</span><span class="pi">:</span> <span class="no">null</span>
-  <span class="na">labels</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
+<span class="s">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="s">metadata</span><span class="pi">:</span>
+  <span class="s">creationTimestamp</span><span class="pi">:</span> <span class="s">null</span>
+  <span class="s">labels</span><span class="pi">:</span>
 <span class="err">	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-worker</span>
   <span class="s">name</span><span class="pi">:</span> <span class="s">company-worker</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">replicas</span><span class="pi">:</span> <span class="s">1</span>
-  <span class="na">strategy</span><span class="pi">:</span> <span class="pi">{}</span>
-  <span class="na">template</span><span class="pi">:</span>
-<span class="err">	</span><span class="na">metadata</span><span class="pi">:</span>
-<span class="err">  	</span><span class="na">creationTimestamp</span><span class="pi">:</span> <span class="no">null</span>
+<span class="s">spec</span><span class="pi">:</span>
+  <span class="s">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="s">strategy</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="s">template</span><span class="pi">:</span>
+<span class="err">	</span><span class="s">metadata</span><span class="pi">:</span>
+<span class="err">  	</span><span class="s">creationTimestamp</span><span class="pi">:</span> <span class="s">null</span>
   <span class="err">	</span><span class="s">labels</span><span class="pi">:</span>
 <span class="err">    	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-worker</span>
-<span class="na">spec</span><span class="pi">:</span>
-  <span class="na">containers</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">env</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">ARTIFACT_ID</span>
-      <span class="na">value</span><span class="pi">:</span> <span class="s">worker</span>
-    <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">JAVA_OPTS</span>
-      <span class="na">value</span><span class="pi">:</span> <span class="s">-Dcse.service.registry.address=http://company-bulletin-board:30100 -Dservicecomb.tracing.collector.adress=http://zipkin:9411</span>
-    <span class="na">image</span><span class="pi">:</span> <span class="s">servicecomb/worker:0.0.1-SNAPSHOT</span>
-    <span class="na">name</span><span class="pi">:</span> <span class="s">company-worker</span>
-    <span class="na">ports</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="s">7070</span>
-    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="s">8080</span>
-    <span class="na">resources</span><span class="pi">:</span> <span class="pi">{}</span>
-  <span class="na">restartPolicy</span><span class="pi">:</span> <span class="s">Always</span>
-<span class="na">status</span><span class="pi">:</span> <span class="pi">{}</span>
-</code></pre></div></div>
+<span class="s">spec</span><span class="pi">:</span>
+  <span class="s">containers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">env</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">ARTIFACT_ID</span>
+      <span class="s">value</span><span class="pi">:</span> <span class="s">worker</span>
+    <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">JAVA_OPTS</span>
+      <span class="s">value</span><span class="pi">:</span> <span class="s">-Dcse.service.registry.address=http://company-bulletin-board:30100 -Dservicecomb.tracing.collector.adress=http://zipkin:9411</span>
+    <span class="s">image</span><span class="pi">:</span> <span class="s">servicecomb/worker:0.0.1-SNAPSHOT</span>
+    <span class="s">name</span><span class="pi">:</span> <span class="s">company-worker</span>
+    <span class="s">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">containerPort</span><span class="pi">:</span> <span class="s">7070</span>
+    <span class="pi">-</span> <span class="s">containerPort</span><span class="pi">:</span> <span class="s">8080</span>
+    <span class="s">resources</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="s">restartPolicy</span><span class="pi">:</span> <span class="s">Always</span>
+<span class="s">status</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre>
+</div>
 
 <p>　　该yaml文件定义了副本数为1（replicas: 1）的pod，可以通过修改该副本数控制所需启动的pod的副本数量（当然也可以使用K8S的弹性伸缩能力去实现按需动态水平伸缩，弹性伸缩部分将在后面的博文中提供）。前面我们提到过company-bulletin-board具备了DNS的能力，故现在可以通过该Deployment中的env传递cse.service.registry.address的值给pod内的服务使用，如： -Dcse.service.registry.address=http://company-bulletin-board:30100，<a href="https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/README.md">kube-dns</a>将会自动解析该servicename。</p>
 
@@ -477,21 +482,23 @@ zipkin                   10.104.92.198   &lt;none&gt;        9411/TCP         12
 
 <p>　　其他的deployment.yaml以及service.yaml都跟以上大同小异，唯一例外的是company-manager服务，我们可以看到在company-manager-service.yaml中看到定义了nodePort，这将使能company-manager对集群外部提供公网IP和服务端口，如下：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spec</span><span class="pi">:</span>
-  <span class="na">ports</span><span class="pi">:</span>
-  <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8083"</span>
-<span class="err">  	</span><span class="na">port</span><span class="pi">:</span> <span class="s">8083</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spec</span><span class="pi">:</span>
+  <span class="s">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8083"</span>
+<span class="err">  	</span><span class="s">port</span><span class="pi">:</span> <span class="s">8083</span>
   <span class="err">	</span><span class="s">targetPort</span><span class="pi">:</span> <span class="s">8080</span>
   <span class="err">	</span><span class="s">nodePort</span><span class="pi">:</span> <span class="s">30301</span>
   <span class="err">	</span><span class="s">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
   <span class="s">type</span><span class="pi">:</span> <span class="s">NodePort</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>　　可以通过以下方法获得公网IP和服务端口：</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get svc company-manager <span class="nt">-o</span> yaml | <span class="nb">grep </span>ExternalIP <span class="nt">-C</span> 1
-kubectl get svc company-manager <span class="nt">-o</span> yaml | <span class="nb">grep </span>nodePort <span class="nt">-C</span> 1
-</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>kubectl get svc company-manager -o yaml | grep ExternalIP -C 1
+kubectl get svc company-manager -o yaml | grep nodePort -C 1
+</code></pre>
+</div>
 
 <p>　　接下来你就可以使用公网IP和服务端口访问已经部署好的company了，在<a href="https://github.com/ServiceComb/ServiceComb-Company-WorkShop/blob/master/kubernetes/README.md">github.com/ServiceComb/ServiceComb-Company-WorkShop/kubernetes</a>上详细提供了通过在集群内访问和集群外访问的方法。</p>
 
@@ -795,6 +802,7 @@ kubectl get svc company-manager <span class="nt">-o</span> yaml | <span class="n
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2017-08-21-company-on-kubernetes.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2017-08-21-company-on-kubernetes.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

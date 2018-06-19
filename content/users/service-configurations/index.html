@@ -607,7 +607,7 @@
     <meta itemprop="headline" content="Service Configurations">
     <meta itemprop="description" content="Service Configurations">
     
-    <meta itemprop="dateModified" content="August 16, 2017">
+    <meta itemprop="dateModified" content="August 15, 2017">
 
     <div class="page__inner-wrap">
       
@@ -771,23 +771,25 @@
 
 <p>　　Configure a processing link：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
   <span class="c1"># other configurations omitted</span>
-  <span class="na">handler</span><span class="pi">:</span>
-    <span class="na">chain</span><span class="pi">:</span>
-      <span class="na">Consumer</span><span class="pi">:</span>
-        <span class="na">default</span><span class="pi">:</span> <span class="s">loadbalance</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Consumer</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">loadbalance</span>
   <span class="c1"># other configurations omitted</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>　　Add a routing policy:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">servicecomb：</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb：</span>
   <span class="s"># other configurations omitted</span>
   <span class="s">loadbalance</span><span class="pi">:</span>
-    <span class="na">NFLoadBalancerRuleClassName</span><span class="pi">:</span> <span class="s">com.netflix.loadbalancer.RoundRobinRule</span>
+    <span class="s">NFLoadBalancerRuleClassName</span><span class="pi">:</span> <span class="s">com.netflix.loadbalancer.RoundRobinRule</span>
   <span class="c1"># other configurations omitted</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="customizing-routing-policies">Customizing Routing Policies</h2>
 
@@ -824,12 +826,13 @@
 
 <ul>
   <li>An example of microservice.yaml file configuration is as follows,
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-<span class="na">handler</span><span class="pi">:</span>
-  <span class="na">chain</span><span class="pi">:</span>
-    <span class="na">Provider</span><span class="pi">:</span>
-      <span class="na">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+<span class="s">handler</span><span class="pi">:</span>
+  <span class="s">chain</span><span class="pi">:</span>
+    <span class="s">Provider</span><span class="pi">:</span>
+      <span class="s">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
+</code></pre>
+    </div>
   </li>
   <li>Add dependencies of handler-flowcontrol-qps in the pom.xml file,
 ```yaml</li>
@@ -839,7 +842,7 @@
     <artifactId>handler-flowcontrol-qps</artifactId>
     <version>1.0.0-m1</version>
 </dependency>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="highlighter-rouge"><pre class="highlight"><code>
 　　**Table2 Configuration items of the QPS rate limit**
 
 | Configuration Item                       | Default Value       | Value Range              | Mandatory | Description                              | Remarks                                  |
@@ -910,7 +913,8 @@ servicecomb:
   fallback:
     enabled: true
     policy: throwexception
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <blockquote>
   <p><strong>NOTE:</strong></p>
@@ -975,6 +979,7 @@ servicecomb:
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/service-configurations.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/service-configurations.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

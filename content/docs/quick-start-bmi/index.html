@@ -394,7 +394,7 @@
 </ul>
 
 <p>Before we start, we need to add some common dependencies in the parent project of the services’.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">&lt;</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="o">&lt;</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
       <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">servicecomb</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
@@ -412,7 +412,8 @@
       <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hibernate</span><span class="o">-</span><span class="n">validator</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
     <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
   <span class="o">&lt;/</span><span class="n">dependencies</span><span class="o">&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 <p><strong>Notice</strong>: The <code class="highlighter-rouge">java-chassis-dependencies</code> is imported as pom to unify version management of dependencies.</p>
 
 <p>Now we will introduce the detailed implementation of these two microservices. The full code is on <a href="https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/bmi">github</a>.</p>
@@ -434,7 +435,7 @@
 <h4 id="detailed-calculation-implementation">Detailed calculation implementation</h4>
 <p>Implement detailed calculation according to the formula \(BMI=\frac{weight}{height^2}\).</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CalculatorService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CalculatorService</span> <span class="o">{</span>
   <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">);</span>
 <span class="o">}</span>
 
@@ -449,22 +450,25 @@
     <span class="k">return</span> <span class="n">weight</span> <span class="o">/</span> <span class="o">(</span><span class="n">heightInMeter</span> <span class="o">*</span> <span class="n">heightInMeter</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h4 id="service-endpoint-definition">Service endpoint definition</h4>
 <p>Service endpoint is defined to generate service contact. First of all, define the endpoint interface:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CalculatorEndpoint</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CalculatorEndpoint</span> <span class="o">{</span>
   <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>Introduce ServiceComb dependency:</p>
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>Expose calculator service’s restful endpoint:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"calculatorRestEndpoint"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"calculatorRestEndpoint"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorRestEndpoint</span> <span class="kd">implements</span> <span class="n">CalculatorEndpoint</span> <span class="o">{</span>
 
@@ -481,33 +485,36 @@
     <span class="k">return</span> <span class="n">calculatorService</span><span class="o">.</span><span class="na">calculate</span><span class="o">(</span><span class="n">height</span><span class="o">,</span> <span class="n">weight</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p class="notice--info">ServiceComb supports SpringMvc simplified annotations, e.g. <code class="highlighter-rouge">GetMapping</code>, since version 0.3.0.</p>
 
 <p>Note that ServiceComb can auto-generate service contract when annotating endpoints with <code class="highlighter-rouge">@RestSchema</code>. Then configure the endpoint in  <code class="highlighter-rouge">microservice.yaml</code> as follows to register the contact and microservice to service center.</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">bmi</span>
-<span class="na">service_description</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">calculator</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
-<span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">service</span><span class="pi">:</span>
-    <span class="na">registry</span><span class="pi">:</span>
-      <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7777</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">bmi</span>
+<span class="s">service_description</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">calculator</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7777</span>
+</code></pre>
+</div>
 
 <h4 id="service-startup-entry">Service startup entry</h4>
 <p>Enable <em>ServiceComb</em> microservice framework by adding <code class="highlighter-rouge">@EnableServiceComb</code> annotation.</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorApplication</span> <span class="o">{</span>
   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">CalculatorApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="implementation-of-webapp-service">Implementation of webapp service</h3>
 <p>The web service provides both the user interface and gateway service. It contains three parts:</p>
@@ -530,7 +537,7 @@
 <p>The gateway service was implemented using the <a href="https://github.com/Netflix/zuul/wiki">Netflix Zuul</a>.</p>
 
 <p>Introduce ServiceComb dependency:</p>
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-discovery<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
@@ -542,36 +549,39 @@
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p class="notice--info">ServiceComb added <code class="highlighter-rouge">spring-cloud-zuul</code> module to provide better compatibility with zuul since version 0.4.0-SNAPSHOT.</p>
 
 <p>Configure routing rules and service endpoint in <code class="highlighter-rouge">application.yaml</code>.</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">zuul</span><span class="pi">:</span>
-  <span class="na">routes</span><span class="pi">:</span>
-    <span class="na">calculator</span><span class="pi">:</span> <span class="s">/calculator/**</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">zuul</span><span class="pi">:</span>
+  <span class="s">routes</span><span class="pi">:</span>
+    <span class="s">calculator</span><span class="pi">:</span> <span class="s">/calculator/**</span>
 
 <span class="c1"># disable netflix eurkea since it's not used for service discovery</span>
-<span class="na">ribbon</span><span class="pi">:</span>
-  <span class="na">eureka</span><span class="pi">:</span>
-    <span class="na">enabled</span><span class="pi">:</span> <span class="no">false</span>
+<span class="s">ribbon</span><span class="pi">:</span>
+  <span class="s">eureka</span><span class="pi">:</span>
+    <span class="s">enabled</span><span class="pi">:</span> <span class="s">false</span>
 
-<span class="na">server</span><span class="pi">:</span>
-  <span class="na">port</span><span class="pi">:</span> <span class="s">8889</span>
-</code></pre></div></div>
+<span class="s">server</span><span class="pi">:</span>
+  <span class="s">port</span><span class="pi">:</span> <span class="s">8889</span>
+</code></pre>
+</div>
 <p>Enable service discovery with zuul by putting the application information and service center address in <code class="highlighter-rouge">microservice.yaml</code>.</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">bmi</span>
-<span class="na">service_description</span><span class="pi">:</span>
-  <span class="na">name</span><span class="pi">:</span> <span class="s">gateway</span>
-  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
-<span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">service</span><span class="pi">:</span>
-    <span class="na">registry</span><span class="pi">:</span>
-      <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">bmi</span>
+<span class="s">service_description</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">gateway</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
+</code></pre>
+</div>
 <h4 id="service-startup-entry-1">Service startup entry</h4>
 <p>Add annotations to enable <code class="highlighter-rouge">ServiceComb</code> and <code class="highlighter-rouge">Zuul</code>:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableZuulProxy</span>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GatewayApplication</span> <span class="o">{</span>
@@ -579,7 +589,8 @@
     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">GatewayApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>Now you can refer to <a href="/docs/quick-start/#Run microservice application">quick start</a> to verify the services.</p>
 
@@ -646,6 +657,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _docs/quick-start-bmi.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_docs/quick-start-bmi.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

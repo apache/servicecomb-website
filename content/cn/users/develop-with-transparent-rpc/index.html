@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="用透明RPC开发微服务">
     <meta itemprop="description" content="用透明RPC开发微服务">
     
-    <meta itemprop="dateModified" content="August 16, 2017">
+    <meta itemprop="dateModified" content="August 15, 2017">
 
     <div class="page__inner-wrap">
       
@@ -668,7 +668,7 @@
 
     <p>在Maven的pom.xml中添加所需的依赖：</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependencyManagement&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;dependencyManagement&gt;</span>
    <span class="nt">&lt;dependencies&gt;</span>
      <span class="nt">&lt;dependency&gt;</span>
        <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -698,25 +698,27 @@
       <span class="nt">&lt;artifactId&gt;</span>slf4j-log4j12<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
   <span class="nt">&lt;/dependencies&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p><strong>步骤 2</strong> 定义服务接口：</p>
 
     <p>根据开发之前定义好的契约，编写Java业务接口，代码如下：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Hello</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Hello</span> <span class="o">{</span>
    <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
    <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">);</span>
  <span class="o">}</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p><strong>步骤 3</strong> 实现服务：</p>
 
     <p>Hello的服务实现如下：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.samples.common.schema.Hello</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.samples.common.schema.Hello</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.apache.servicecomb.samples.common.schema.models.Person</span><span class="o">;</span>
 
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
@@ -730,7 +732,8 @@
      <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
    <span class="o">}</span>
  <span class="o">}</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p><strong>步骤 4</strong> 发布服务</p>
@@ -744,7 +747,7 @@
     <p>使用Spring xml配置方式：
 在resources/META-INF/spring目录下创建pojoHello.bean.xml文件，在文件中声明schema，文件内容如下：</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">" http://www.springframework.org/schema/beans "</span> <span class="na">xmlns:xsi=</span><span class="s">" http://www.w3.org/2001/XMLSchema-instance "</span>
        <span class="na">xmlns:p=</span><span class="s">" http://www.springframework.org/schema/p "</span> <span class="na">xmlns:util=</span><span class="s">" http://www.springframework.org/schema/util "</span>
        <span class="na">xmlns:cse=</span><span class="s">" http://www.huawei.com/schema/paas/cse/rpc "</span>
@@ -753,14 +756,15 @@
 
     <span class="nt">&lt;cse:rpc-schema</span> <span class="na">schema-id=</span><span class="s">"pojoHello"</span> <span class="na">implementation=</span><span class="s">"org.apache.servicecomb.samples.pojo.provider.PojoHelloImpl"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/beans&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>使用注解配置方式：</p>
 
     <p>在接口Hello的实现类上使用@RpcSchema注解定义schema，代码如下：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.pojo.RpcSchema</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.provider.pojo.RpcSchema</span><span class="o">;</span>
 <span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"pojoHello"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span> <span class="o">{</span>
    <span class="nd">@Override</span>
@@ -773,11 +777,12 @@
      <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
    <span class="o">}</span>
 <span class="o">}</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
 
     <p>在resources/META-INF/spring目录下的pojoHello.bean.xml文件中，配置Spring进行服务扫描的base-package，文件内容如下：</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
 <span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">" http://www.springframework.org/schema/beans "</span> <span class="na">xmlns:xsi=</span><span class="s">" http://www.w3.org/2001/XMLSchema-instance "</span>
        <span class="na">xmlns:p=</span><span class="s">" http://www.springframework.org/schema/p "</span> <span class="na">xmlns:util=</span><span class="s">" http://www.springframework.org/schema/util "</span>
        <span class="na">xmlns:cse=</span><span class="s">" http://www.huawei.com/schema/paas/cse/rpc "</span>
@@ -786,7 +791,8 @@
    
     <span class="nt">&lt;context:component-scan</span> <span class="na">base-package=</span><span class="s">"org.apache.servicecomb.samples.pojo.provider"</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/beans&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
 </ol>
 
@@ -808,7 +814,7 @@
   <li>
     <p><strong>步骤 6</strong> 添加Main启动类</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
  <span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
 
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
@@ -818,7 +824,8 @@
       <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
    <span class="o">}</span>
  <span class="o">}</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
 </ul>
 
@@ -879,6 +886,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/develop-with-transparent-rpc.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/develop-with-transparent-rpc.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

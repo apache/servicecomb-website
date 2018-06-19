@@ -607,7 +607,7 @@
     <meta itemprop="headline" content="Using TLS for Communication">
     <meta itemprop="description" content="Using TLS for Communication">
     
-    <meta itemprop="dateModified" content="August 16, 2017">
+    <meta itemprop="dateModified" content="August 15, 2017">
 
     <div class="page__inner-wrap">
       
@@ -634,22 +634,24 @@
     <p>TLS communication configuration of the service center and configuration center
  The connection between the microservice and the service and configuration centers can be changed from HTTP to HTTPS, enabling TLS communication. The configuration example is as below:</p>
 
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
-   <span class="na">service</span><span class="pi">:</span>
-     <span class="na">registry</span><span class="pi">:</span>
-       <span class="na">address</span><span class="pi">:</span> <span class="s">https://127.0.0.1:30100</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
+   <span class="s">service</span><span class="pi">:</span>
+     <span class="s">registry</span><span class="pi">:</span>
+       <span class="s">address</span><span class="pi">:</span> <span class="s">https://127.0.0.1:30100</span>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>TLS communication enabled by the service provider
  When configuring the service listening address, the service provider can add<code class="highlighter-rouge">?sslEnabled=true</code> to the end of the address to enable TLS communication. For example:</p>
 
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
-   <span class="na">rest</span><span class="pi">:</span>
-     <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080?sslEnabled=true</span>
-   <span class="na">highway</span><span class="pi">:</span>
-     <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070?sslEnabled=true</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">servicecomb</span><span class="pi">:</span>
+   <span class="s">rest</span><span class="pi">:</span>
+     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080?sslEnabled=true</span>
+   <span class="s">highway</span><span class="pi">:</span>
+     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070?sslEnabled=true</span>
+</code></pre>
+    </div>
   </li>
 </ul>
 
@@ -657,8 +659,9 @@
 
 <p>The certificate configuration items are set in the microservice.yaml file. You can customize certificates in a unified manner or add tags for configuration in a small granularity. The tag configuration overwrites the global configuration, and the configuration format is as follows:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">ssl.[tag].[property]</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">ssl.[tag].[property]</span>
+</code></pre>
+</div>
 
 <p>For details about the certificate configuration items, see Table 1.</p>
 
@@ -968,19 +971,19 @@
 <h2 id="sample-code">Sample Code</h2>
 
 <p>The configuration example of enabling the TLS communication in the microservicce.yaml file is as follows:</p>
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">service</span><span class="pi">:</span>
-    <span class="na">registry</span><span class="pi">:</span>
-      <span class="na">address</span><span class="pi">:</span> <span class="s">https://127.0.0.1:30100</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080?sslEnabled=true</span>
-  <span class="na">highway</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070?sslEnabled=true</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">https://127.0.0.1:30100</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080?sslEnabled=true</span>
+  <span class="s">highway</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070?sslEnabled=true</span>
 
 <span class="c1">#########SSL options</span>
 <span class="s">ssl.protocols</span><span class="pi">:</span> <span class="s">TLSv1.2</span>
-<span class="s">ssl.authPeer</span><span class="pi">:</span> <span class="no">true</span>
-<span class="s">ssl.checkCN.host</span><span class="pi">:</span> <span class="no">true</span>
+<span class="s">ssl.authPeer</span><span class="pi">:</span> <span class="s">true</span>
+<span class="s">ssl.checkCN.host</span><span class="pi">:</span> <span class="s">true</span>
 
 <span class="c1">#########certificates config</span>
 <span class="s">ssl.trustStore</span><span class="pi">:</span> <span class="s">trust.jks</span>
@@ -991,7 +994,8 @@
 <span class="s">ssl.keyStoreValue</span><span class="pi">:</span> <span class="s">Changeme_123</span>
 <span class="s">ssl.crl</span><span class="pi">:</span> <span class="s">revoke.crl</span>
 <span class="s">ssl.sslCustomClass</span><span class="pi">:</span> <span class="s">org.apache.servicecomb.demo.DemoSSLCustom</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
         
       </section>
@@ -1050,6 +1054,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/use-tls.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/use-tls.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

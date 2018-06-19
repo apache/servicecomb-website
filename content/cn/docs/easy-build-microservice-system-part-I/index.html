@@ -378,8 +378,9 @@
 
 <h3 id="牛刀小试">牛刀小试</h3>
 <p>打开命令行，输入下面的命令：</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate <span class="nt">-DarchetypeGroupId</span><span class="o">=</span>org.apache.servicecomb.archetypes <span class="nt">-DarchetypeArtifactId</span><span class="o">=</span>business-service-jaxrs-archetype <span class="nt">-DarchetypeVersion</span><span class="o">=</span>1.0.0-m2-SNAPSHOT <span class="nt">-DarchetypeRepository</span><span class="o">=</span>https://repository.apache.org/content/groups/snapshots-group
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate -DarchetypeGroupId<span class="o">=</span>org.apache.servicecomb.archetypes -DarchetypeArtifactId<span class="o">=</span>business-service-jaxrs-archetype -DarchetypeVersion<span class="o">=</span>1.0.0-m2-SNAPSHOT -DarchetypeRepository<span class="o">=</span>https://repository.apache.org/content/groups/snapshots-group
+</code></pre>
+</div>
 
 <blockquote>
   <p>提示：由于Java Chassis Archetypes还处于SNAPSHOT阶段，Repository托管在Apache Snapshots库中，仅用于测试，所以下载速度会稍慢。</p>
@@ -391,13 +392,14 @@
 
 <p>运行它也很简单，使用IDE打开项目，DEBUG -&gt; Application.java，或在命令行：</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#编译打包</span>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#编译打包</span>
 mvn package
 <span class="c">#切换到输出目录</span>
 <span class="nb">cd </span>target
 <span class="c">#启动可执行jar包</span>
-java <span class="nt">-jar</span> xxxx.jar
-</code></pre></div></div>
+java -jar xxxx.jar
+</code></pre>
+</div>
 
 <p>稍等微服务启动就绪，打开浏览器输入<code class="highlighter-rouge">http://localhost:8080/hello</code>验证一下：</p>
 
@@ -816,6 +818,7 @@ java <span class="nt">-jar</span> xxxx.jar
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2018-05-17-easy-build-microservice-system-part-I.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2018-05-17-easy-build-microservice-system-part-I.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

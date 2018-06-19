@@ -295,6 +295,17 @@
           
           
 
+          <a href="/developers/becomming-a-commiter"><span class="nav__sub-title nav__sub-title-with-url">Becoming A Committer of Apache ServiceComb</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
           <a href="/developers/setup-develop-environment/"><span class="nav__sub-title nav__sub-title-with-url">Develop Environment Setup</span></a>
         
 
@@ -413,7 +424,7 @@
 <p>As ServiceComb Java Chassis and Saga are using maven for the release, you should do some maven 2 setup before releasing these two projects.
 Before you deploy anything to the maven repository using Maven 2, you should configure your ~/.m2/settings.xml file so that the file permissions of the deployed artifacts are group writable. If you do not do this, other developers will not able to overwrite your SNAPSHOT releases with newer versions. The settings follow the <a href="http://maven.apache.org/developers/committer-settings.html">guidelines</a> used by the Maven project. Please pay particular attention to the <a href="http://maven.apache.org/guides/mini/guide-encryption.html">password encryption recommendations</a>.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;settings&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;settings&gt;
   ...
   &lt;servers&gt;
     &lt;!-- Per http://maven.apache.org/developers/committer-settings.html --&gt;
@@ -460,7 +471,8 @@ Before you deploy anything to the maven repository using Maven 2, you should con
   &lt;/profiles&gt;
 ...
 &lt;/settings&gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="major-steps-for-doing-service-center-release">Major Steps for doing Service-Center Release</h2>
 
@@ -468,10 +480,11 @@ Before you deploy anything to the maven repository using Maven 2, you should con
 
 <ol>
   <li>Clone the service-center code.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-service-center.git
+    <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-service-center.git
 cd incubator-servicecomb-service-center
 gvt restore
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Create a Tag from the master branch based on the version number which needs to be released.</p>
@@ -568,12 +581,14 @@ gvt restore
 
 <ol>
   <li>Clone the java-chassis code.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
+</code></pre>
+    </div>
   </li>
   <li>Cut the release using perl command to replace all the versions in pom.xml files
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Create a Tag from the master branch using the version number.</p>
@@ -591,8 +606,9 @@ gvt restore
     <p>Update the apache account username and password in the settings file.</p>
   </li>
   <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Once every thing is uploaded then use the staging repo to verify the build using Company workshop.</p>
@@ -676,15 +692,17 @@ gvt restore
 <p><strong><em>Make and Verify the Release</em></strong></p>
 <ol>
   <li>Clone the saga code.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-saga.git
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-saga.git
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Cut the release using per command to replace all the versions in pom.xml files</p>
   </li>
   <li>Create a Tag from the master branch using the version number.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Clear all the redundant servicecomb releases in repository.apache.org</p>
@@ -699,8 +717,9 @@ gvt restore
     <p>Update the apache account username and password in the settings.xml file.</p>
   </li>
   <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Ppassphrase -Prelease
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Ppassphrase -Prelease
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Once every thing is uploaded then use the staging repo to verify the build using the acceptance test.</p>
@@ -861,6 +880,7 @@ gvt restore
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _developers/release_guide.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_developers/release_guide.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

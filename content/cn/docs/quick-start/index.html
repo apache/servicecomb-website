@@ -392,18 +392,20 @@
   <li>
     <p>安装 ServiceComb Java Chassis(SDK)，执行以下指令：</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
  <span class="nb">cd </span>incubator-servicecomb-java-chassis
- mvn clean install <span class="nt">-DskipTests</span>
-</code></pre></div>    </div>
+ mvn clean install -DskipTests
+</code></pre>
+    </div>
   </li>
 </ul>
 
 <h2 id="运行-service-center">运行 Service Center</h2>
 <p>在 <strong>ServiceComb</strong> 微服务框架中，<strong>Service Center</strong> 提供服务注册及服务发现功能，可直接使用 Docker 运行。</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
-docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker pull servicecomb/service-center
+docker run -d -p 30100:30100 servicecomb/service-center:latest
+</code></pre>
+</div>
 <p><em>您可以通过阅读<a href="/cn/users/setup-environment/#运行service-center">环境配置</a>获取在本地以二进制方式运行Service Center的方法。</em></p>
 
 <h2 id="创建第一个微服务">创建第一个微服务</h2>
@@ -429,16 +431,18 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 ser
   <li>
     <p>进入 <strong>体质指数</strong> 应用代码目录。</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>samples/bmi
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd </span>samples/bmi
+</code></pre>
+    </div>
     <p><strong>注意</strong>：在windows开发环境下，docker是在虚拟机中启动，因此需要修改微服务的 <strong>Service Center</strong> IP地址为虚拟机IP地址。修改2个配置文件[calculator|webapp]/src/main/resources/microservice.yaml，将其中<a>http://127.0.0.1:30100</a>修改为<a>http://192.168.99.100:30100</a>，其中192.168.99.100是虚拟机IP，需要与开发环境中的虚拟机IP保持一致。</p>
   </li>
   <li>
     <p>启动 <strong>体质指数计算器</strong> 和 <strong>体质指数界面</strong> 微服务，分别执行以下指令：</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>calculator<span class="p">;</span> mvn spring-boot:run
-<span class="nb">cd </span>webapp<span class="p">;</span> mvn spring-boot:run
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd </span>calculator; mvn spring-boot:run
+<span class="nb">cd </span>webapp; mvn spring-boot:run
+</code></pre>
+    </div>
   </li>
   <li>
     <p>验证服务。微服务启动完毕后，即可通过 <a>http://localhost:8889</a> 访问 <strong>体质指数</strong> 应用，届时将能看到如下界面，并可输入您的身高和体重信息验证服务是否正常运行。</p>
@@ -510,6 +514,7 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 ser
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _docs/cn/quick-start.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_docs/cn/quick-start.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

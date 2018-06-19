@@ -380,74 +380,82 @@
 
 <p>Get one-click installing scripts in the <a href="https://github.com/zenlinTechnofreak/LinuxCon-Beijing-WorkShop/tree/autoscal/kubernetes/heapster/deploy">author’s repo</a>，update value of api-server as following and run kube.sh to start,</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi LinuxCon-Beijing-WorkShop/kubernetes/heapster/deploy/kube-config/influxdb/heapster.yaml
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi LinuxCon-Beijing-WorkShop/kubernetes/heapster/deploy/kube-config/influxdb/heapster.yaml
+</code></pre>
+</div>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spec</span><span class="pi">:</span>
-  <span class="na">replicas</span><span class="pi">:</span> <span class="s">1</span>
-  <span class="na">template</span><span class="pi">:</span>
-    <span class="na">metadata</span><span class="pi">:</span>
-      <span class="na">labels</span><span class="pi">:</span>
-        <span class="na">task</span><span class="pi">:</span> <span class="s">monitoring</span>
-        <span class="na">k8s-app</span><span class="pi">:</span> <span class="s">heapster</span>
-    <span class="na">spec</span><span class="pi">:</span>
-      <span class="na">serviceAccountName</span><span class="pi">:</span> <span class="s">heapster</span>
-      <span class="na">containers</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">heapster</span>
-        <span class="na">image</span><span class="pi">:</span> <span class="s">gcr.io/google_containers/heapster-amd64:v1.4.1</span>
-        <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
-        <span class="na">command</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spec</span><span class="pi">:</span>
+  <span class="s">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="s">template</span><span class="pi">:</span>
+    <span class="s">metadata</span><span class="pi">:</span>
+      <span class="s">labels</span><span class="pi">:</span>
+        <span class="s">task</span><span class="pi">:</span> <span class="s">monitoring</span>
+        <span class="s">k8s-app</span><span class="pi">:</span> <span class="s">heapster</span>
+    <span class="s">spec</span><span class="pi">:</span>
+      <span class="s">serviceAccountName</span><span class="pi">:</span> <span class="s">heapster</span>
+      <span class="s">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">heapster</span>
+        <span class="s">image</span><span class="pi">:</span> <span class="s">gcr.io/google_containers/heapster-amd64:v1.4.1</span>
+        <span class="s">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
+        <span class="s">command</span><span class="pi">:</span>
         <span class="pi">-</span> <span class="s">/heapster</span>
 <span class="c1">#use 'kubernetes' directly if installed inside the cluster</span>
         <span class="pi">-</span> <span class="s">--source=kubernetes</span>
 <span class="c1">#use the practical api-server address if installed outside the cluster</span>
 <span class="c1">#        - --source=kubernetes:http://10.229.43.65:6443?inClusterConfig=false</span>
          <span class="pi">-</span> <span class="s">--sink=influxdb:http://monitoring-influxdb:8086</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h3 id="start-company-demo">Start Company Demo</h3>
 
 <p>Download Company source code, restricted resources, creating auto-scaller,</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
 
 <span class="nb">cd </span>LinuxCon-Beijing-WorkShop/kubernetes/
 
 bash start-autoscale.sh 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>In Company’s deployment script, filed of resources is added to limit  200 milli-cores to each pod(1000 milli-cores equal to 1 core),</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="na">resources</span><span class="pi">:</span>
-      <span class="na">limits</span><span class="pi">:</span>
-        <span class="na">cpu</span><span class="pi">:</span> <span class="s">200m</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>    <span class="s">resources</span><span class="pi">:</span>
+      <span class="s">limits</span><span class="pi">:</span>
+        <span class="s">cpu</span><span class="pi">:</span> <span class="s">200m</span>
+</code></pre>
+</div>
 <p>In script start-autoscale.sh, each command create a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods controlled by its deployment created. HPA will increase and decrease the number of replicas (via the deployment) to maintain an average CPU utilization across all Pods of 50%(this means average CPU usage of 100 milli-cores),</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create Horizontal Pod Autoscaler</span>
-kubectl autoscale deployment zipkin <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-bulletin-board <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-worker <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-doorman <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-manager <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-beekeeper <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="c"># Create Horizontal Pod Autoscaler</span>
+kubectl autoscale deployment zipkin --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-bulletin-board --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-worker --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-doorman --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-manager --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-beekeeper --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+</code></pre>
+</div>
 
 <p>HPA can be created after running start-autoscale.sh, get HPA status by the following command,</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code> kubectl get hpa
-</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code> kubectl get hpa
+</code></pre>
+</div>
 
 <h3 id="start-pressure-testing">Start Pressure Testing</h3>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export</span> <span class="nv">$HOST</span><span class="o">=</span>&lt;heapster-ip&gt;:&lt;heapster-port&gt;
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">export</span> <span class="nv">$HOST</span><span class="o">=</span>&lt;heapster-ip&gt;:&lt;heapster-port&gt;
 bash LinuxCon-Beijing-WorkShop/kubernetes/stress-test.sh
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>The script enable a dead loop, request to Company to calculate fibonacci number 200 times in each second, causing pressure on Company,</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">FIBONA_NUM</span><span class="o">=</span><span class="sb">`</span>curl <span class="nt">-s</span> <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$Authorization</span><span class="s2">"</span> <span class="nt">-XGET</span> <span class="s2">"http://</span><span class="nv">$HOST</span><span class="s2">/worker/fibonacci/term?n=6"</span><span class="sb">`</span>
-</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nv">FIBONA_NUM</span><span class="o">=</span><span class="sb">`</span>curl -s -H <span class="s2">"Authorization: </span><span class="nv">$Authorization</span><span class="s2">"</span> -XGET <span class="s2">"http://</span><span class="nv">$HOST</span><span class="s2">/worker/fibonacci/term?n=6"</span><span class="sb">`</span>
+</code></pre>
+</div>
 
 <h2 id="testing-result">Testing Result</h2>
 
@@ -789,6 +797,7 @@ Fig 5    HPA Data of The End</p>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/2017-08-24-autoscale-on-company.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/2017-08-24-autoscale-on-company.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

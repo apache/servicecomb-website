@@ -632,7 +632,7 @@
     <meta itemprop="headline" content="服务配置">
     <meta itemprop="description" content="服务配置">
     
-    <meta itemprop="dateModified" content="August 16, 2017">
+    <meta itemprop="dateModified" content="August 15, 2017">
 
     <div class="page__inner-wrap">
       
@@ -796,23 +796,25 @@
 
 <p>　　配置处理链：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
   <span class="c1"># other configurations omitted</span>
-  <span class="na">handler</span><span class="pi">:</span>
-    <span class="na">chain</span><span class="pi">:</span>
-      <span class="na">Consumer</span><span class="pi">:</span>
-        <span class="na">default</span><span class="pi">:</span> <span class="s">loadbalance</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Consumer</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">loadbalance</span>
   <span class="c1"># other configurations omitted</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>　　增加路由策略：</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">servicecomb：</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb：</span>
   <span class="s"># other configurations omitted</span>
   <span class="s">loadbalance</span><span class="pi">:</span>
-    <span class="na">NFLoadBalancerRuleClassName</span><span class="pi">:</span> <span class="s">com.netflix.loadbalancer.RoundRobinRule</span>
+    <span class="s">NFLoadBalancerRuleClassName</span><span class="pi">:</span> <span class="s">com.netflix.loadbalancer.RoundRobinRule</span>
   <span class="c1"># other configurations omitted</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="自定义路由策略">自定义路由策略</h2>
 
@@ -850,12 +852,13 @@
 
 <ul>
   <li>microservice.yaml配置示例如下：
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-<span class="na">handler</span><span class="pi">:</span>
-  <span class="na">chain</span><span class="pi">:</span>
-    <span class="na">Provider</span><span class="pi">:</span>
-      <span class="na">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+<span class="s">handler</span><span class="pi">:</span>
+  <span class="s">chain</span><span class="pi">:</span>
+    <span class="s">Provider</span><span class="pi">:</span>
+      <span class="s">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
+</code></pre>
+    </div>
   </li>
   <li>添加handler-flowcontrol-qps的pom依赖：
 ```yaml</li>
@@ -865,7 +868,7 @@
     <artifactId>handler-flowcontrol-qps</artifactId>
     <version>1.0.0-m1</version>
 </dependency>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="highlighter-rouge"><pre class="highlight"><code>
 　　**表2 QPS流控配置项说明**
 
 | 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
@@ -933,7 +936,8 @@ servicecomb:
   fallback:
     enabled: true
     policy: throwexception
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <blockquote>
   <p><strong>说明：</strong>
@@ -997,6 +1001,7 @@ servicecomb:
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/service-configurations.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/service-configurations.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

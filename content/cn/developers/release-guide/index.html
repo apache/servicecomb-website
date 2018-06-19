@@ -296,6 +296,17 @@
           
           
 
+          <a href="/developers/becomming-a-commiter"><span class="nav__sub-title nav__sub-title-with-url">成为Committer</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
           <a href="/cn/developers/setup-develop-environment/"><span class="nav__sub-title nav__sub-title-with-url">开发环境准备</span></a>
         
 
@@ -436,7 +447,7 @@
 
 <p>在使用Maven把发行包发布到仓库之前，我们应当在<code class="highlighter-rouge">~/.m2/settings.xml</code>文件中配置制品为组群可写的，否则其它开发人员将无法提交相同制品的新SNAPSHOT版本。本项目参考了Maven项目的设定<a href="http://maven.apache.org/developers/committer-settings.html">指南</a>。请特别注意<a href="http://maven.apache.org/guides/mini/guide-encryption.html">加密密码</a>。</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;settings&gt;
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;settings&gt;
   ...
   &lt;servers&gt;
     &lt;!-- Per http://maven.apache.org/developers/committer-settings.html --&gt;
@@ -483,7 +494,8 @@
   &lt;/profiles&gt;
 ...
 &lt;/settings&gt;
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h2 id="发行service-center">发行Service-Center</h2>
 
@@ -491,10 +503,11 @@
 
 <ol>
   <li>克隆service-center代码。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-service-center.git
+    <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-service-center.git
 cd incubator-servicecomb-service-center
 gvt restore
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>在master分支上打上准备发布版本的标签。</p>
@@ -588,12 +601,14 @@ gvt restore
 
 <ol>
   <li>克隆java-chassis代码。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
+</code></pre>
+    </div>
   </li>
   <li>使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
   </li>
   <li>
     <p>在master分支上打上准备发布版本的标签。</p>
@@ -611,8 +626,9 @@ gvt restore
     <p>更新设置内Apache帐户用户名和密码。</p>
   </li>
   <li>运行以下命令。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+</code></pre>
+    </div>
   </li>
   <li>
     <p>上述命令执行成功，所有的jar包都成功上传至临时仓库后，运行Company Workshop作基本的功能验证。</p>
@@ -695,12 +711,14 @@ gvt restore
 
 <ol>
   <li>克隆Saga代码。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-saga.git
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-saga.git
+</code></pre>
+    </div>
   </li>
   <li>使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
   </li>
   <li>
     <p>在master分支上打上准备发布版本的标签。</p>
@@ -718,8 +736,9 @@ gvt restore
     <p>更新设置内Apache帐户用户名和密码。</p>
   </li>
   <li>运行以下命令。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
-</code></pre></div>    </div>
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+</code></pre>
+    </div>
   </li>
   <li>
     <p>上述命令执行成功，所有的jar包都成功上传至临时仓库后，运行门槛测试以验证基本功能。</p>
@@ -876,6 +895,7 @@ gvt restore
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _developers/cn/release_guide.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_developers/cn/release_guide.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

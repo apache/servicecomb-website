@@ -607,7 +607,7 @@
     <meta itemprop="headline" content="Using Zuul for Edge Service">
     <meta itemprop="description" content="Using Zuul for Edge Service">
     
-    <meta itemprop="dateModified" content="August 16, 2017">
+    <meta itemprop="dateModified" content="August 15, 2017">
 
     <div class="page__inner-wrap">
       
@@ -680,7 +680,7 @@
   <li>
     <p><strong>Step 1</strong> Add the following dependency to the POM file.</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span> 
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span> 
    <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>  
    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-zuul<span class="nt">&lt;/artifactId&gt;</span> 
  <span class="nt">&lt;/dependency&gt;</span>
@@ -695,12 +695,13 @@
    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
    <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-discovery<span class="nt">&lt;/artifactId&gt;</span> 
  <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p><strong>Step 2</strong> Add annotations to the main Spring Boot category:</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@SpringBootApplication</span>
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="nd">@SpringBootApplication</span>
  <span class="nd">@EnableServiceComb</span>
  <span class="nd">@EnableZuulProxy</span><span class="c1">//new Annotation</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZuulMain</span><span class="o">{</span>
@@ -708,34 +709,37 @@
      <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ZuulMain</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
    <span class="o">}</span>
  <span class="o">}</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p><strong>Step 3</strong> Define a routing policy in the application.yaml file</p>
 
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">server</span><span class="pi">:</span>
-   <span class="na">port</span><span class="pi">:</span> <span class="s">8754</span> <span class="c1">#api gateway service port number</span>
- <span class="na">zuul</span><span class="pi">:</span>
-   <span class="na">routes</span><span class="pi">:</span> <span class="c1">#Routing policy</span>
-     <span class="na">discoveryServer</span><span class="pi">:</span> <span class="s">/myServer/**</span> <span class="c1">#Routing rule</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">server</span><span class="pi">:</span>
+   <span class="s">port</span><span class="pi">:</span> <span class="s">8754</span> <span class="c1">#api gateway service port number</span>
+ <span class="s">zuul</span><span class="pi">:</span>
+   <span class="s">routes</span><span class="pi">:</span> <span class="c1">#Routing policy</span>
+     <span class="s">discoveryServer</span><span class="pi">:</span> <span class="s">/myServer/**</span> <span class="c1">#Routing rule</span>
+</code></pre>
+    </div>
 
     <p>The configuration item in ted indicates that the configuration can be performed based on the actual development environment. For details about the rules for defining routing policies of zuul.routers, see：<a href="https://springcloud.cc/spring-cloud-dalston.html#_router_and_filter_zuul">Router and Fillter: Zuul</a> to control routes in a finer granularity.</p>
   </li>
   <li>
     <p><strong>Step 4</strong> Define the microservice attributes in the microservice.yaml fiel.</p>
 
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#Service ID</span>
- <span class="na">service_description</span><span class="pi">:</span>
-   <span class="na">name</span><span class="pi">:</span> <span class="s">discoveryGateway</span> <span class="c1">#Service Name</span>
-   <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.2</span> <span class="c1">#Service Version</span>
- <span class="na">servicecomb</span><span class="pi">:</span>
-   <span class="na">service</span><span class="pi">:</span>
-     <span class="na">registry</span><span class="pi">:</span>
-       <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>  <span class="c1">#Service Center registration</span>
-   <span class="na">rest</span><span class="pi">:</span>
-     <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8082</span> <span class="c1">#(Optional) microservice port number</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code> <span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#Service ID</span>
+ <span class="s">service_description</span><span class="pi">:</span>
+   <span class="s">name</span><span class="pi">:</span> <span class="s">discoveryGateway</span> <span class="c1">#Service Name</span>
+   <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.2</span> <span class="c1">#Service Version</span>
+ <span class="s">servicecomb</span><span class="pi">:</span>
+   <span class="s">service</span><span class="pi">:</span>
+     <span class="s">registry</span><span class="pi">:</span>
+       <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>  <span class="c1">#Service Center registration</span>
+   <span class="s">rest</span><span class="pi">:</span>
+     <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8082</span> <span class="c1">#(Optional) microservice port number</span>
+</code></pre>
+    </div>
   </li>
 </ul>
 
@@ -762,17 +766,18 @@
 
 <p>An example is as follows:</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#same as ZuulProxy</span>
-  <span class="na">service_description</span><span class="pi">:</span>
-    <span class="na">name</span><span class="pi">:</span> <span class="s">discoveryServer</span> <span class="c1">#Service name, which corresponds to that of zuul.routers</span>
-    <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.2</span>
-<span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">service</span><span class="pi">:</span>
-    <span class="na">registry</span><span class="pi">:</span>
-      <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#Service Center registration</span>
-  <span class="na">rest</span><span class="pi">:</span>
-    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">discoverytest</span> <span class="c1">#same as ZuulProxy</span>
+  <span class="s">service_description</span><span class="pi">:</span>
+    <span class="s">name</span><span class="pi">:</span> <span class="s">discoveryServer</span> <span class="c1">#Service name, which corresponds to that of zuul.routers</span>
+    <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.2</span>
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span> <span class="c1">#Service Center registration</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre>
+</div>
 
 <p>The portal for API Gateway is: <a href="http://127.0.0.1:8754">http://127.0.0.1:8754</a>. All services defined in zuul.routers can be accessed through this portal. The access rule are as follows:</p>
 
@@ -841,6 +846,7 @@
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/zuul.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/zuul.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

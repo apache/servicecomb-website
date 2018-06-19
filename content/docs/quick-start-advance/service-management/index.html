@@ -387,35 +387,38 @@
   <li>
     <p>Add service management dependency in <code class="highlighter-rouge">pom.xml</code> of <em>BMI calculator service</em>:</p>
 
-    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>handler-bizkeeper<span class="nt">&lt;/artifactId&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div>    </div>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Configure handler chain of service management and fallback strategy:</p>
 
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
-  <span class="na">handler</span><span class="pi">:</span>
-    <span class="na">chain</span><span class="pi">:</span>
-      <span class="na">Provider</span><span class="pi">:</span>
-        <span class="na">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
-  <span class="na">circuitBreaker</span><span class="pi">:</span>
-    <span class="na">Provider</span><span class="pi">:</span>
-      <span class="na">calculator</span><span class="pi">:</span>
-        <span class="na">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">3</span>
-  <span class="na">fallbackpolicy</span><span class="pi">:</span>
-    <span class="na">Provider</span><span class="pi">:</span>
-      <span class="na">policy</span><span class="pi">:</span> <span class="s">returnnull</span>
-</code></pre></div>    </div>
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Provider</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
+  <span class="s">circuitBreaker</span><span class="pi">:</span>
+    <span class="s">Provider</span><span class="pi">:</span>
+      <span class="s">calculator</span><span class="pi">:</span>
+        <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">3</span>
+  <span class="s">fallbackpolicy</span><span class="pi">:</span>
+    <span class="s">Provider</span><span class="pi">:</span>
+      <span class="s">policy</span><span class="pi">:</span> <span class="s">returnnull</span>
+</code></pre>
+    </div>
   </li>
 </ol>
 
 <p>The above configurations have already set up in the code. All you need to do is to restart the <em>BMI calculator services</em> with the following command:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn spring-boot:run <span class="nt">-Drun</span>.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"</span>
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"</span>
+</code></pre>
+</div>
 
 <h2 id="verification">Verification</h2>
 
@@ -502,6 +505,7 @@ fig-1 Service management result</p>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _docs/service-management.md">Report a Doc Issue</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_docs/service-management.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="http://www.apache.org/security">Security</a></li>
       </ul>
     </div>
     <div class="col">

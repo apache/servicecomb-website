@@ -395,9 +395,10 @@
 
 <p>　　测试方案文件笔者已托管于github上，可直接获取：</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop
 <span class="nb">cd </span>ServiceComb-Company-WorkShop/stress-tests
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p class="figure-caption"><img src="/assets/images/company_test_plan.png" alt="图1 测试计划" /><br />
 图1 测试计划</p>
@@ -405,12 +406,14 @@
 <p>　　在我们测试计划的开始，我们设置了一些在所有线程组都能共享的全局配置。其中，<em>CSV Data Set Config</em>组件从本地csv文件中加载测试服务器的信息。<em>HTTP Request Defaults</em>组件则为每个请求预设了默认的请求服务器信息，如IP和端口。<em>User Defined Variables</em>组件定义了全局共享的变量。<em>HTTP Header Manager</em>组件自动为每个请求添加HTTP的请求头部。</p>
 
 <p>　　接着就是<em>setUp</em>线程组了。其作用主要是处理用户认证。由于Cookie在网络应用中得到较广泛的应用，因此JMeter中内置的认证方式是通过<em>HTTP Cookie Manager</em>组件来完成的。然而，我们的Company示例采用的是基于Token的认证方式而不是基于Cookie的认证方式。因此，这给我们在JMeter中处理认证添加了一点难度。<em>Remove header pre processor</em>组件使用了以下的脚本来去掉登录时请求中带有默认的请求头部，即登录请求时并不需要带有鉴权的请求头部。</p>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import org.apache.jmeter.protocol.http.control.Header<span class="p">;</span>
-sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="o">(</span><span class="s2">"Authorization"</span><span class="o">)</span><span class="p">;</span>
-</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>import org.apache.jmeter.protocol.http.control.Header;
+sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="o">(</span><span class="s2">"Authorization"</span><span class="o">)</span>;
+</code></pre>
+</div>
 <p>　　然后我们通过<em>Set up Login</em>组件发起一次登录请求来获取用户登录鉴权信息。之后再通过正则表达式提取组件<em>authorization_extractor</em>来提取响应头部中的<em>Authorization</em>对应的值。由于变量无法在不同的线程组中共享和传递，这时候<em>BeanShell PostProcessor</em>组件就派上用场了，它主要工作就是将当前线程组中的目标变量转换为全局属性。</p>
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">${</span><span class="nv">__setProperty</span><span class="p">(Authorization,</span><span class="k">${</span><span class="nv">Authorization</span><span class="k">}</span><span class="p">,)</span><span class="k">}</span>
-</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="k">${</span><span class="nv">__setProperty</span><span class="p">(Authorization,</span><span class="k">${</span><span class="nv">Authorization</span><span class="k">}</span><span class="p">,)</span><span class="k">}</span>
+</code></pre>
+</div>
 <p>　　在测试计划的最后部分就是我们要在Company示例上进行的压力测试。测试所选取的三个接口都是通过经理服务路由至其他两个服务的，即技工服务和养蜂人服务。在我们测试开始之前，我们通过打开<em>StressTest</em>的开关来禁用经理服务提供的缓存能力，从而使得技工服务和养蜂人服务能够处理到用户请求的计算任务。此外，我们通过将请求参数设置为1来简化技工服务和养蜂人服务的计算任务。</p>
 
 <h2 id="启动测试">启动测试</h2>
@@ -428,8 +431,9 @@ sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="
   <li>
     <p>运行测试，启动200个并发线程发起请求压力，并设置测试时常为600秒。</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> jmeter <span class="nt">-n</span> <span class="nt">-t</span> workshop.jmx <span class="nt">-j</span> workshop.log <span class="nt">-l</span> workshop.jtl <span class="nt">-Jthreads</span><span class="o">=</span>200 <span class="nt">-Jduration</span><span class="o">=</span>600
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads<span class="o">=</span>200 -Jduration<span class="o">=</span>600
+</code></pre>
+    </div>
   </li>
 </ul>
 
@@ -453,7 +457,7 @@ sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="
 
 <p>　　由于经理服务的日志是直接输出到stdout上的，且JMeter的测试端以单机模式运行时可能并不能同时模拟出足够的并发量。依此对在同一并发度（200）下不同log的设置（log4j1 stdout, log4j2 stdout，log4j2 异步，无日志输出）进行测试。其中，异步log在<em>log4j2.xml</em>文件中的设置如下所示：</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
 <span class="nt">&lt;Configuration</span> <span class="na">status=</span><span class="s">"INFO"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;Appenders&gt;</span>
     <span class="nt">&lt;RandomAccessFile</span> <span class="na">name=</span><span class="s">"RandomAccessFile"</span> <span class="na">fileName=</span><span class="s">"manager.log"</span> <span class="na">immediateFlush=</span><span class="s">"false"</span> <span class="na">append=</span><span class="s">"false"</span><span class="nt">&gt;</span>
@@ -466,29 +470,33 @@ sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="
     <span class="nt">&lt;/asyncRoot&gt;</span>
   <span class="nt">&lt;/Loggers&gt;</span>
 <span class="nt">&lt;/Configuration&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>此外，还需要添加如下<em>disruptor</em>的依赖项使异步的设置生效：</p>
 
-<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>com.lmax<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>disruptor<span class="nt">&lt;/artifactId&gt;</span>
   <span class="nt">&lt;version&gt;</span>3.3.6<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 <p>没有日志输出的设置仅仅是将上述<em>log4j2.xml</em>文件中的日志输出级别从<em>info</em>改为<em>off</em>即可。此外，我们还使用JMeter分布式的模式进行了相关的测试。JMeter中使用分布式的模式来运行主要分两步：</p>
 
 <ol>
   <li>
     <p>在每个测试从节点上运行<em>jmeter-server</em>，其运行指令如下：</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter-server <span class="nt">-Djava</span>.rmi.server.hostname<span class="o">=</span><span class="k">$(</span>ifconfig eth0 | <span class="nb">grep</span> <span class="s2">"inet addr"</span> | awk <span class="s1">'{print $2}'</span> | cut <span class="nt">-d</span> <span class="s2">":"</span> <span class="nt">-f2</span><span class="k">)</span>
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter-server -Djava.rmi.server.hostname<span class="o">=</span><span class="k">$(</span>ifconfig eth0 | grep <span class="s2">"inet addr"</span> | awk <span class="s1">'{print $2}'</span> | cut -d <span class="s2">":"</span> -f2<span class="k">)</span>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>在测试主节点上运行<em>jmeter</em>，指令如下：</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter <span class="nt">-n</span> <span class="nt">-R</span> host1,host2 <span class="nt">-t</span> workshop.jmx <span class="nt">-j</span> workshop.log <span class="nt">-l</span> workshop.jtl <span class="nt">-Gmin</span><span class="o">=</span>1 <span class="nt">-Gmax</span><span class="o">=</span>2 <span class="nt">-Gthreads</span><span class="o">=</span>200 <span class="nt">-Gduration</span><span class="o">=</span>600
-</code></pre></div>    </div>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin<span class="o">=</span>1 -Gmax<span class="o">=</span>2 -Gthreads<span class="o">=</span>200 -Gduration<span class="o">=</span>600
+</code></pre>
+    </div>
 
     <p class="notice--warning"><em>注意事项</em>：JMeter属性在分布式模式下并不能生效，需要将其声明为全局的属性。因此，此处我们用的是<em>-G</em>的选项而不是之前的<em>-J</em>的选项。</p>
   </li>
@@ -820,6 +828,7 @@ sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2017-08-25-stress-test-on-company-with-jmeter-in-k8s.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2017-08-25-stress-test-on-company-with-jmeter-in-k8s.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">

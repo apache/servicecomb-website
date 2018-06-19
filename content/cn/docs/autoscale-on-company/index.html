@@ -383,74 +383,82 @@
 
 <p>　　具体读者踩了坑后更新的heapster的安装脚本作者放在：<a href="https://github.com/zenlinTechnofreak/LinuxCon-Beijing-WorkShop/tree/autoscal/kubernetes/heapster/deploy">heapster</a>，可直接获取下载获取，需要调整一个参数，后直接运行kube.sh脚本进行安装。</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi LinuxCon-Beijing-WorkShop/kubernetes/heapster/deploy/kube-config/influxdb/heapster.yaml
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi LinuxCon-Beijing-WorkShop/kubernetes/heapster/deploy/kube-config/influxdb/heapster.yaml
+</code></pre>
+</div>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spec</span><span class="pi">:</span>
-  <span class="na">replicas</span><span class="pi">:</span> <span class="s">1</span>
-  <span class="na">template</span><span class="pi">:</span>
-    <span class="na">metadata</span><span class="pi">:</span>
-      <span class="na">labels</span><span class="pi">:</span>
-        <span class="na">task</span><span class="pi">:</span> <span class="s">monitoring</span>
-        <span class="na">k8s-app</span><span class="pi">:</span> <span class="s">heapster</span>
-    <span class="na">spec</span><span class="pi">:</span>
-      <span class="na">serviceAccountName</span><span class="pi">:</span> <span class="s">heapster</span>
-      <span class="na">containers</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">heapster</span>
-        <span class="na">image</span><span class="pi">:</span> <span class="s">gcr.io/google_containers/heapster-amd64:v1.4.1</span>
-        <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
-        <span class="na">command</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spec</span><span class="pi">:</span>
+  <span class="s">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="s">template</span><span class="pi">:</span>
+    <span class="s">metadata</span><span class="pi">:</span>
+      <span class="s">labels</span><span class="pi">:</span>
+        <span class="s">task</span><span class="pi">:</span> <span class="s">monitoring</span>
+        <span class="s">k8s-app</span><span class="pi">:</span> <span class="s">heapster</span>
+    <span class="s">spec</span><span class="pi">:</span>
+      <span class="s">serviceAccountName</span><span class="pi">:</span> <span class="s">heapster</span>
+      <span class="s">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">heapster</span>
+        <span class="s">image</span><span class="pi">:</span> <span class="s">gcr.io/google_containers/heapster-amd64:v1.4.1</span>
+        <span class="s">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
+        <span class="s">command</span><span class="pi">:</span>
         <span class="pi">-</span> <span class="s">/heapster</span>
 <span class="c1">#集群内安装直接使用kubernetes</span>
         <span class="pi">-</span> <span class="s">--source=kubernetes</span>
 <span class="c1">#集群外安装请直接将下面的服务地址替换为k8s api server地址</span>
 <span class="c1">#        - --source=kubernetes:http://10.229.43.65:6443?inClusterConfig=false</span>
          <span class="pi">-</span> <span class="s">--sink=influxdb:http://monitoring-influxdb:8086</span>
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <h5 id="启动company">启动Company：</h5>
 
 <p>　　下载Comany支持弹性伸缩的代码：</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
 
 <span class="nb">cd </span>LinuxCon-Beijing-WorkShop/kubernetes/
 
 bash start-autoscale.sh 
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>　　在Company的deployment.yaml中， 增加了如下限定资源的字段，这将限制每个pod被限制在200mill-core(1000毫core == 1 core)的cpu使用率以内。</p>
 
-<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="na">resources</span><span class="pi">:</span>
-      <span class="na">limits</span><span class="pi">:</span>
-        <span class="na">cpu</span><span class="pi">:</span> <span class="s">200m</span>
-</code></pre></div></div>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>    <span class="s">resources</span><span class="pi">:</span>
+      <span class="s">limits</span><span class="pi">:</span>
+        <span class="s">cpu</span><span class="pi">:</span> <span class="s">200m</span>
+</code></pre>
+</div>
 <p>　　在 start-autoscale.sh 中，对每个deployment创建HPA(pod水平弹性伸缩器)资源，限定每个pod的副本数弹性伸缩时控制在1到10之间，并限定每个pod的cpu占用率小于50%，结合前面限定了200mcore，故，每个pod的的平均cpu占用率会被HPA通过弹性伸缩能力控制在100mcore以内。</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create Horizontal Pod Autoscaler</span>
-kubectl autoscale deployment zipkin <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-bulletin-board <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-worker <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-doorman <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-manager <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-kubectl autoscale deployment company-beekeeper <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
-</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="c"># Create Horizontal Pod Autoscaler</span>
+kubectl autoscale deployment zipkin --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-bulletin-board --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-worker --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-doorman --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-manager --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-beekeeper --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+</code></pre>
+</div>
 
 <p>　　当运行start-autoscale.sh之后，具备弹性伸缩器的company已经被创建，可通过下面指令进行HPA的查询：</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code> kubectl get hpa
-</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code> kubectl get hpa
+</code></pre>
+</div>
 
 <h5 id="启动压测">启动压测：</h5>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export</span> <span class="nv">$HOST</span><span class="o">=</span>&lt;heapster-ip&gt;:&lt;heapster-port&gt;
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">export</span> <span class="nv">$HOST</span><span class="o">=</span>&lt;heapster-ip&gt;:&lt;heapster-port&gt;
 bash LinuxCon-Beijing-WorkShop/kubernetes/stress-test.sh
-</code></pre></div></div>
+</code></pre>
+</div>
 
 <p>　　该脚本不断循环执行 1s内向Company请求计算 fibonacci 数值200次，对Company造成请求压力：</p>
 
-<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">FIBONA_NUM</span><span class="o">=</span><span class="sb">`</span>curl <span class="nt">-s</span> <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$Authorization</span><span class="s2">"</span> <span class="nt">-XGET</span> <span class="s2">"http://</span><span class="nv">$HOST</span><span class="s2">/worker/fibonacci/term?n=6"</span><span class="sb">`</span>
-</code></pre></div></div>
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nv">FIBONA_NUM</span><span class="o">=</span><span class="sb">`</span>curl -s -H <span class="s2">"Authorization: </span><span class="nv">$Authorization</span><span class="s2">"</span> -XGET <span class="s2">"http://</span><span class="nv">$HOST</span><span class="s2">/worker/fibonacci/term?n=6"</span><span class="sb">`</span>
+</code></pre>
+</div>
 
 <h2 id="测试过程与结果">测试过程与结果</h2>
 
@@ -784,6 +792,7 @@ bash LinuxCon-Beijing-WorkShop/kubernetes/stress-test.sh
         <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2017-08-24-autoscale-on-company.md">报告本网页问题</a></li>
         <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2017-08-24-autoscale-on-company.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="http://www.apache.org/security">安全</a></li>
       </ul>
     </div>
     <div class="col">
