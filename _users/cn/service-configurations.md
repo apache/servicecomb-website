@@ -88,7 +88,8 @@ servicecomb：
 
 　　限流策略配置在microservice.yaml文件中，相关配置项见表2。要开启服务提供者端的限流策略，还需要在处理链中配置服务端限流handler，并添加pom依赖。
 
-* microservice.yaml配置示例如下：
+　　microservice.yaml配置示例如下：
+
 ```yaml
 servicecomb:
   handler:
@@ -97,8 +98,9 @@ servicecomb:
         default: qps-flowcontrol-provider
 ```
 
-* 添加handler-flowcontrol-qps的pom依赖：
-```yaml
+　　添加handler-flowcontrol-qps的pom依赖：
+
+```xml
 <dependency>
     <groupId>org.apache.servicecomb</groupId>
     <artifactId>handler-flowcontrol-qps</artifactId>
