@@ -43,7 +43,9 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | maheshrajus       | Mahesh Raju Somalaraju |              |
 | mt-monster        |                        | Huawei       |
 | sjh0027           |                        |              |
+| SingleX           | Gao Xing               | CaiNiao      |
 | TankTian          | Tian Min               | Huawei       |
+| tuohai666         | Zhang Yonglun          | JD.com       |
 | vibakar           |                        |              |
 | weichao666        | Wei Chao               | ISoftStone   |
 | wuzunqian         | Wu Zunqian             | Yongyou      |
