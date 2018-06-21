@@ -41,8 +41,10 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | MabinGo           | Ma Bin                 | Huawei       |
 | maheshrajus       | Mahesh Raju Somalaraju |              |
 | mt-monster        |                        | Huawei       |
+| SingleX           | Gao Xing               | CaiNiao      |
 | sjh0027           |                        |              |
 | TankTian          | Tian Min               | Huawei       |
+| tuohai666         | Zhang Yonglun          | JD.com       |
 | vibakar           |                        |              |
 | weichao666        | Wei Chao               | ISoftStone   |
 | wuzunqian         | Wu Zunqian             | Yongyou      |
