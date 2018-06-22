@@ -12,7 +12,7 @@ redirect_from:
 ---
 
 ## 轻松微服务系列：开发高性能边缘服务
-在前一篇博文[《轻松微服务系列：快速实现客户关系管理系统的用户服务》](http://servicecomb.incubator.apache.org/cn/docs/easy-build-microservice-system-part-II/)，我们已经详细演示了从Archetype创建微服务后如何填充业务逻辑，快速构建包含JWT认证的用户服务。这篇博文我们将目光聚焦在Edge服务上，介绍如何构建高性能边缘服务应对百万量级API网关的挑战。
+在前一篇博文[《轻松微服务系列：快速实现客户关系管理系统的用户服务》](http://servicecomb.incubator.apache.org/cn/docs/easy-build-microservice-system-part-II/)，我们已经详细演示了从Archetype创建微服务后如何填充业务逻辑，快速构建包含JWT认证的用户服务。这篇博文我们将目光聚焦在Edge服务上，介绍如何构建高性能边缘服务应对高吞吐API网关的挑战。
 
 ### 什么是边缘服务（Edge Service）
 边缘服务也是一个微服务，微服务化系统通常使用边缘服务（Edge Service）作为所有其它微服务的统一入口，因此它也常常会被称为API Gateway，使用边缘服务的好处有如下几点：
