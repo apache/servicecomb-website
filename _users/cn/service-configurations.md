@@ -24,7 +24,7 @@ redirect_from:
 | 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | servicecomb.loadbalance.NFLoadBalancerRuleClassName | com.netflix.loadbalancer.RoundRobinRule | com.netflix.loadbalancer.RoundRobinRule（轮询）com.netflix.loadbalancer.RandomRule（随机）com.netflix.loadbalancer.WeightedResponseTimeRule（服务器响应时间权值）org.apache.servicecomb.loadbalance.SessionStickinessRule（会话保持） | 否 | 负载均衡路由策略 | - |
-| servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds | 30 | Integer | 否 | 客户端闲置时间，超过限制后选择后面的服务器。 | 暂不支持微服务配置。e.g. servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds |
+| servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds | 30 | Integer | 否 | 客户端闲置时间，超过限制后选择后面的服务器。 | 暂不支持微服务配置。e.g. servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为servicecomb.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds |
 | servicecomb.loadbalance.SessionStickinessRule.successiveFailedTimes | 5 | Integer | 否 | 客户端失败次数，超过后会切换服务器 | 暂不支持微服务配置 |
 | servicecomb.loadbalance.retryEnabled | FALSE | Boolean | 否 | 负载均衡捕获到服务调用异常，是否进行重试 | - |
 | servicecomb.loadbalance.retryOnNext | 0 | Integer | 否 | 尝试新的服务器的次数 | - |
@@ -110,7 +110,7 @@ servicecomb:
 降级策略是当服务请求异常时，微服务所采用的异常处理策略。降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：
 
 降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：
-* “隔离”是一种异常检测机制，常用的检测方法是请求超时、流量过大等。一般的设置参数包括超时时间、同时并发请求个数等。
+* “隔离”是一种异常检测机制，常用的检测方法是请求超时、并发量过大等。一般的设置参数包括超时时间、同时并发请求个数等。
 * “熔断”是一种异常反应机制，“熔断”依赖于“隔离”。熔断通常基于错误率来实现。一般的设置参数包括统计请求的个数、错误率等。
 * “容错”是一种异常处理机制，“容错”依赖于“熔断”。熔断以后，会调用“容错”的方法。一般的设置参数包括调用容错方法的次数等。
 
@@ -141,7 +141,7 @@ servicecomb:
 | servicecomb.fallback.maxConcurrentRequests | 10 | - | 否 | 并发调用容错处理措施（servicecomb.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常 |  |
 | servicecomb.fallbackpolicy.policy | throwexception | returnnulll \| throwexception | 否 | 出错后的处理策略 |  |
 
-**注意：** 谨慎使用cse.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将cse.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间cse.request.timeout=30000。
+**注意：** 谨慎使用servicecomb.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将servicecomb.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间servicecomb.request.timeout=30000。
 {: .notice--warning}
 
 ## 示例代码
@@ -158,12 +158,17 @@ servicecomb:
         enabled: true
       timeoutInMilliseconds: 30000
   circuitBreaker:
-    sleepWindowInMilliseconds: 15000
-    requestVolumeThreshold: 20
+    Consumer:
+      sleepWindowInMilliseconds: 15000
+      requestVolumeThreshold: 20
   fallback:
-    enabled: true
-    policy: throwexception
+    Consumer:
+      enabled: true
+  fallbackpolicy:
+    Consumer:
+      policy: throwexception
 ```
 
 > **说明：**
-> 降级策略需要启用服务治理能力，对应的服务提供者的handler是`bizkeeper-provider`，服务消费者的handler是`bizkeeper-consumer`。
+> 
+> 降级策略需要启用服务治理能力，对应的服务提供者的handler是`bizkeeper-provider`，服务消费者的handler是`bizkeeper-consumer`。如果省略了`Consumer:`/`Provider:`，策略将无法配置成功，此时服务治理将以默认配置生效。
