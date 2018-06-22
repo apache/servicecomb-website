@@ -175,7 +175,7 @@ zuul:
   routes:
     calculator: /calculator/**
 
-# disable netflix eurkea since it's not used for service discovery
+# disable netflix eureka since it's not used for service discovery
 ribbon:
   eureka:
     enabled: false
