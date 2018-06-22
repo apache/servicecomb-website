@@ -1,9 +1,9 @@
 ---
-title: "轻松微服务系列：如何构建高性能边缘服务应对百万量级API网关的挑战"
+title: "轻松微服务系列：如何构建高性能边缘服务应对百万量级API调用挑战"
 lang: cn
 ref: easy-build-microservice-system-part-III
 permalink: /cn/docs/easy-build-microservice-system-part-III/
-excerpt: "轻松微服务系列：如何构建高性能边缘服务应对百万量级API网关的挑战"
+excerpt: "轻松微服务系列：如何构建高性能边缘服务应对百万量级API调用挑战"
 last_modified_at: 2018-06-07T19:00:00+08:00
 author: Yangyong Zheng
 tags: [Edge Service,API Gateway]
@@ -11,7 +11,7 @@ redirect_from:
   - /theme-setup/
 ---
 
-## 轻松微服务系列：如何构建高性能边缘服务应对百万量级API网关的挑战
+## 轻松微服务系列：开发高性能边缘服务
 在前一篇博文[《轻松微服务系列：快速实现客户关系管理系统的用户服务》](http://servicecomb.incubator.apache.org/cn/docs/easy-build-microservice-system-part-II/)，我们已经详细演示了从Archetype创建微服务后如何填充业务逻辑，快速构建包含JWT认证的用户服务。这篇博文我们将目光聚焦在Edge服务上，介绍如何构建高性能边缘服务应对百万量级API网关的挑战。
 
 ### 什么是边缘服务（Edge Service）
@@ -142,16 +142,36 @@ edge:
 >1. 除了配置Rest Endpoint，我们也支持配置Highway Endpoint，但Highway Endpoint只支持ServiceComb开发的微服务调用；
 >2. microservice.yaml中没有配置Handler，Edge支持所有Consumer端Handler，不支持Producer端Handler，调用链原理如下：
 >
->[EdgeOnlySupportConsumerHandler](/assets/images/scaffold/EdgeOnlySupportConsumerHandler.png)
+>![EdgeOnlySupportConsumerHandler](/assets/images/scaffold/EdgeOnlySupportConsumerHandler.png)
 >
 
 ### 验证边缘服务
 启动用户微服务和Edge服务，使用[Postman](https://www.getpostman.com/)注册一个用户：
 
-[LogonViaEdge](/assets/images/scaffold/LogonViaEdge.png)
+![LogonViaEdge](/assets/images/scaffold/LogonViaEdge.png)
 
 成功，现在我们使用新注册的用户名`ldg`登录：
 
-[LoginViaEdge](/assets/images/scaffold/LoginViaEdge.png)
+![LoginViaEdge](/assets/images/scaffold/LoginViaEdge.png)
 
 同样成功，并在Response中已经包含了正确的`AUTHORIZATION`Header。
+
+### 性能比拼
+ServiceComb Java Chassis同样支持集成Netflix Zuul作为网关服务，因此我们做了一次性能比较。
+
+场景以及部署如下：
+
+![PerformanceTestDeploy](/assets/images/scaffold/PerformanceTestDeploy.png)
+
+第一次启动Edge作为网关，测试5分钟，之后停止Edge，启动Zuul，测试5分钟，测试结果如下：
+
+|     | CPU使用率  | TPS（吞吐能力）  |
+| :------- | :-------- | :--------- |
+| Zuul    | ≈1000%  | ≈20000  |
+| Edge    | ≈1000%  | ≈55000  |
+
+可以看出在接近的资源使用情况下，Edge相比Zuul有更优秀的吞吐能力。
+
+>提示：
+>1. 性能测试项目源代码在[这里](https://github.com/zhengyangyong/gateway-perf)；
+>2. 两台物理机使用万兆内网直连，两者的时延（Latency）均在1ms以内。
