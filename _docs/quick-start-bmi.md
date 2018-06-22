@@ -73,7 +73,7 @@ public class CalculatorServiceImpl implements CalculatorService {
 ```
 
 #### Service endpoint definition
-Service endpoint is defined to generate service contact. First of all, define the endpoint interface:
+Service endpoint is defined to generate service contract. First of all, define the endpoint interface:
 ```java
 public interface CalculatorEndpoint {
   double calculate(double height, double weight);
@@ -110,7 +110,7 @@ public class CalculatorRestEndpoint implements CalculatorEndpoint {
 ServiceComb supports SpringMvc simplified annotations, e.g. `GetMapping`, since version 0.3.0.
 {: .notice--info}
 
-Note that ServiceComb can auto-generate service contract when annotating endpoints with `@RestSchema`. Then configure the endpoint in  `microservice.yaml` as follows to register the contact and microservice to service center.
+Note that ServiceComb can auto-generate service contract when annotating endpoints with `@RestSchema`. Then configure the endpoint in  `microservice.yaml` as follows to register the contract and microservice to service center.
 ```yaml
 APPLICATION_ID: bmi
 service_description:
