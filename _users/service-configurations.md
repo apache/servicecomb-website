@@ -143,7 +143,7 @@ By configuring a fallback policy, you can handler microservice exceptions.
 | servicecomb.fallback.maxConcurrentRequests       | 10             | -                             | No        | Specifies the number of fault tolerance(servicecomb.fallbackpolicy.policy) requests concurrently called. If the value exceeds 10, the measures will no longer be called, and exception are returned. |                                          |
 | servicecomb.fallbackpolicy.policy                | throwexception | returnnulll \| throwexception | No        | Specifies the error handling policies after an error occurred. |                                          |
 
-**NOTE:** Be cautions when setting servicecomb.isolation.timeout.enabled to TRUE, All processes are asynchronously processed in the system, and any error value returned by an intermediate process because the set timeout duration is reached can cause failure of the follow-up processes. Therefore, you are advised to keep the default value FALSE for servicecomb.isolation.timeout.enabled. For timeout duration from the network aspect, you are advised to set servicecomb.request.timeout=30000.
+**Caution:** Be cautious when setting servicecomb.isolation.timeout.enabled to TRUE, All processes are asynchronously processed in the system, and any error value returned by an intermediate process because the set timeout duration is reached can cause failure of the follow-up processes. Therefore, you are advised to keep the default value FALSE for servicecomb.isolation.timeout.enabled. For timeout duration from the network aspect, you are advised to set servicecomb.request.timeout=30000.
 {: .notice--warning}
 
 ## Sample Code
@@ -160,13 +160,17 @@ servicecomb:
         enabled: true
       timeoutInMilliseconds: 30000
   circuitBreaker:
-    sleepWindowInMilliseconds: 15000
-    requestVolumeThreshold: 20
+    Consumer:
+      sleepWindowInMilliseconds: 15000
+      requestVolumeThreshold: 20
   fallback:
-    enabled: true
-    policy: throwexception
+    Consumer:
+      enabled: true
+  fallbackpolicy:
+    Consumer:
+      policy: throwexception
 ```
 
 > **NOTE:**
 >
-> You need to enable service governance for fallback, The provider handler is bizkeeper-provider, and the consumer handler is bizkeeper-consumer.
+> You need to enable service governance for fallback, The provider handler is `bizkeeper-provider`, and the consumer handler is `bizkeeper-consumer`. If `Consumer:`/`Provider:` was omitted, your configuration would not work, and service governance would be enabled with default configuration. 
