@@ -985,7 +985,7 @@
       <td style="text-align: left">-</td>
       <td style="text-align: left">No</td>
       <td style="text-align: left">Specifies the duration needed to recover from fallbreak.</td>
-      <td style="text-align: left">After the recovery, the number of failed requests will be recalculated. Not: If the consumer fails to send a request to the provider after the recovery, fallbreak is enabled again.</td>
+      <td style="text-align: left">After the recovery, the number of failed requests will be recalculated. Note: If the consumer fails to send a request to the provider after the recovery, fallbreak is enabled again.</td>
     </tr>
     <tr>
       <td style="text-align: left">servicecomb.circuitBreaker.requestVolumeThreshold</td>
@@ -1030,7 +1030,7 @@
   </tbody>
 </table>
 
-<p class="notice--warning"><strong>NOTE:</strong> Be cautions when setting servicecomb.isolation.timeout.enabled to TRUE, All processes are asynchronously processed in the system, and any error value returned by an intermediate process because the set timeout duration is reached can cause failure of the follow-up processes. Therefore, you are advised to keep the default value FALSE for servicecomb.isolation.timeout.enabled. For timeout duration from the network aspect, you are advised to set servicecomb.request.timeout=30000.</p>
+<p class="notice--warning"><strong>Caution:</strong> Be cautious when setting servicecomb.isolation.timeout.enabled to TRUE, All processes are asynchronously processed in the system, and any error value returned by an intermediate process because the set timeout duration is reached can cause failure of the follow-up processes. Therefore, you are advised to keep the default value FALSE for servicecomb.isolation.timeout.enabled. For timeout duration from the network aspect, you are advised to set servicecomb.request.timeout=30000.</p>
 
 <h2 id="sample-code-1">Sample Code</h2>
 
@@ -1045,18 +1045,22 @@
         <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
       <span class="s">timeoutInMilliseconds</span><span class="pi">:</span> <span class="s">30000</span>
   <span class="s">circuitBreaker</span><span class="pi">:</span>
-    <span class="s">sleepWindowInMilliseconds</span><span class="pi">:</span> <span class="s">15000</span>
-    <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">20</span>
+    <span class="s">Consumer</span><span class="pi">:</span>
+      <span class="s">sleepWindowInMilliseconds</span><span class="pi">:</span> <span class="s">15000</span>
+      <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">20</span>
   <span class="s">fallback</span><span class="pi">:</span>
-    <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
-    <span class="s">policy</span><span class="pi">:</span> <span class="s">throwexception</span>
+    <span class="s">Consumer</span><span class="pi">:</span>
+      <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
+  <span class="s">fallbackpolicy</span><span class="pi">:</span>
+    <span class="s">Consumer</span><span class="pi">:</span>
+      <span class="s">policy</span><span class="pi">:</span> <span class="s">throwexception</span>
 </code></pre>
 </div>
 
 <blockquote>
   <p><strong>NOTE:</strong></p>
 
-  <p>You need to enable service governance for fallback, The provider handler is bizkeeper-provider, and the consumer handler is bizkeeper-consumer.</p>
+  <p>You need to enable service governance for fallback, The provider handler is <code class="highlighter-rouge">bizkeeper-provider</code>, and the consumer handler is <code class="highlighter-rouge">bizkeeper-consumer</code>. If <code class="highlighter-rouge">Consumer:</code>/<code class="highlighter-rouge">Provider:</code> was omitted, your configuration would not work, and service governance would be enabled with default configuration.</p>
 </blockquote>
 
         

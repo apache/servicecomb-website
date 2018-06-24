@@ -454,7 +454,7 @@
 </div>
 
 <h4 id="service-endpoint-definition">Service endpoint definition</h4>
-<p>Service endpoint is defined to generate service contact. First of all, define the endpoint interface:</p>
+<p>Service endpoint is defined to generate service contract. First of all, define the endpoint interface:</p>
 <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CalculatorEndpoint</span> <span class="o">{</span>
   <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">);</span>
 <span class="o">}</span>
@@ -490,7 +490,7 @@
 
 <p class="notice--info">ServiceComb supports SpringMvc simplified annotations, e.g. <code class="highlighter-rouge">GetMapping</code>, since version 0.3.0.</p>
 
-<p>Note that ServiceComb can auto-generate service contract when annotating endpoints with <code class="highlighter-rouge">@RestSchema</code>. Then configure the endpoint in  <code class="highlighter-rouge">microservice.yaml</code> as follows to register the contact and microservice to service center.</p>
+<p>Note that ServiceComb can auto-generate service contract when annotating endpoints with <code class="highlighter-rouge">@RestSchema</code>. Then configure the endpoint in  <code class="highlighter-rouge">microservice.yaml</code> as follows to register the contract and microservice to service center.</p>
 <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">bmi</span>
 <span class="s">service_description</span><span class="pi">:</span>
   <span class="s">name</span><span class="pi">:</span> <span class="s">calculator</span>
@@ -559,7 +559,7 @@
   <span class="s">routes</span><span class="pi">:</span>
     <span class="s">calculator</span><span class="pi">:</span> <span class="s">/calculator/**</span>
 
-<span class="c1"># disable netflix eurkea since it's not used for service discovery</span>
+<span class="c1"># disable netflix eureka since it's not used for service discovery</span>
 <span class="s">ribbon</span><span class="pi">:</span>
   <span class="s">eureka</span><span class="pi">:</span>
     <span class="s">enabled</span><span class="pi">:</span> <span class="s">false</span>

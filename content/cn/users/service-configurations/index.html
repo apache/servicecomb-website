@@ -712,7 +712,7 @@
       <td style="text-align: left">Integer</td>
       <td style="text-align: left">否</td>
       <td style="text-align: left">客户端闲置时间，超过限制后选择后面的服务器。</td>
-      <td style="text-align: left">暂不支持微服务配置。e.g. servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds</td>
+      <td style="text-align: left">暂不支持微服务配置。e.g. servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为servicecomb.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds</td>
     </tr>
     <tr>
       <td style="text-align: left">servicecomb.loadbalance.SessionStickinessRule.successiveFailedTimes</td>
@@ -925,7 +925,7 @@
 
 <p>降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：</p>
 <ul>
-  <li>“隔离”是一种异常检测机制，常用的检测方法是请求超时、流量过大等。一般的设置参数包括超时时间、同时并发请求个数等。</li>
+  <li>“隔离”是一种异常检测机制，常用的检测方法是请求超时、并发量过大等。一般的设置参数包括超时时间、同时并发请求个数等。</li>
   <li>“熔断”是一种异常反应机制，“熔断”依赖于“隔离”。熔断通常基于错误率来实现。一般的设置参数包括统计请求的个数、错误率等。</li>
   <li>“容错”是一种异常处理机制，“容错”依赖于“熔断”。熔断以后，会调用“容错”的方法。一般的设置参数包括调用容错方法的次数等。</li>
 </ul>
@@ -1053,7 +1053,7 @@
   </tbody>
 </table>
 
-<p class="notice--warning"><strong>注意：</strong> 谨慎使用cse.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将cse.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间cse.request.timeout=30000。</p>
+<p class="notice--warning"><strong>注意：</strong> 谨慎使用servicecomb.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将servicecomb.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间servicecomb.request.timeout=30000。</p>
 
 <h2 id="示例代码-1">示例代码</h2>
 
@@ -1068,17 +1068,22 @@
         <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
       <span class="s">timeoutInMilliseconds</span><span class="pi">:</span> <span class="s">30000</span>
   <span class="s">circuitBreaker</span><span class="pi">:</span>
-    <span class="s">sleepWindowInMilliseconds</span><span class="pi">:</span> <span class="s">15000</span>
-    <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">20</span>
+    <span class="s">Consumer</span><span class="pi">:</span>
+      <span class="s">sleepWindowInMilliseconds</span><span class="pi">:</span> <span class="s">15000</span>
+      <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">20</span>
   <span class="s">fallback</span><span class="pi">:</span>
-    <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
-    <span class="s">policy</span><span class="pi">:</span> <span class="s">throwexception</span>
+    <span class="s">Consumer</span><span class="pi">:</span>
+      <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
+  <span class="s">fallbackpolicy</span><span class="pi">:</span>
+    <span class="s">Consumer</span><span class="pi">:</span>
+      <span class="s">policy</span><span class="pi">:</span> <span class="s">throwexception</span>
 </code></pre>
 </div>
 
 <blockquote>
-  <p><strong>说明：</strong>
-降级策略需要启用服务治理能力，对应的服务提供者的handler是<code class="highlighter-rouge">bizkeeper-provider</code>，服务消费者的handler是<code class="highlighter-rouge">bizkeeper-consumer</code>。</p>
+  <p><strong>说明：</strong></p>
+
+  <p>降级策略需要启用服务治理能力，对应的服务提供者的handler是<code class="highlighter-rouge">bizkeeper-provider</code>，服务消费者的handler是<code class="highlighter-rouge">bizkeeper-consumer</code>。如果省略了<code class="highlighter-rouge">Consumer:</code>/<code class="highlighter-rouge">Provider:</code>，策略将无法配置成功，此时服务治理将以默认配置生效。</p>
 </blockquote>
 
         
