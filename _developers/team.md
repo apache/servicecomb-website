@@ -57,3 +57,4 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | zhang2014         | Zhang Jian             | oneAPM       |
 | zhfeng            | Feng Zheng             | Redhat       |
 | zhuhoudong        | Zhu Houdong            |              |
+| jyseanl           | Sean Li                | Pactera      |
