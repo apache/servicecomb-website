@@ -37,16 +37,16 @@ intro:
 
 <ul>
   <li>
-    <a href='/release/java-chassis-downloads/'>Java-Chassis releases a new version 1.0.0-m2</a>
+    <a href='/release/java-chassis-downloads/'>Java-Chassis 发布最新版 1.0.0-m2</a>
   </li>
   <li>
-    <a href='/release/service-center-downloads/'>Service-Center releases a new version 1.0.0-m2</a>
+    <a href='/release/service-center-downloads/'>Service-Center 发布最新版 1.0.0-m2</a>
   </li>
   <li>
-    <a href='/release/saga-downloads/'>Saga releases a new version 0.2.0</a>
+    <a href='/release/saga-downloads/'>Saga releases 发布最新版 0.2.0</a>
   </li>
   <li>
-    <a href='https://www.youtube.com/watch?v=yrAneJvVC7A'>Service-Center Frontend can be used to test microservices schema directly from web.</a>
+    <a href='https://www.youtube.com/watch?v=yrAneJvVC7A'>这个视频演示了如何Service-Center前端直接从浏览器测试已注册的微服务</a>
   </li>
 </ul>
 "
@@ -65,7 +65,7 @@ feature_row:
   - image_path: /assets/images/servicecomb-feature-multiLanguage.png
     alt: "多语言"
     title: "多语言"
-    excerpt: "Java/Go框架级别支持。"
+    excerpt: "Java/Go等框架级别支持。"
 ---
 
 {% include feature_row id="intro" type="center" %}
