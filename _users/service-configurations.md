@@ -148,14 +148,14 @@ By configuring a fallback policy, you can handler microservice exceptions.
 | servicecomb.circuitBreaker.enabled               | TRUE           | -                             | No        | Specifies whether to enable fallbreak.   |                                          |
 | servicecomb.circuitBreaker.forceOpen             | FALSE          | -                             | No        | Specifies that fallbreak is enable regardless of the number of failed requests or the error rate. |                                          |
 | servicecomb.circuitBreaker.forceClosed           | FALSE          | -                             | No        | Specifies that fallbreak can be implemented at any time. | If this parameter and servicecomb.circuitBreaker.forceOpen both need to be configured, servicecomb.circuitBreaker.forceOpen has priority. |
-| servicecomb.circuitBreaker.sleepWindowInMilliseconds | 15000          | -                             | No        | Specifies the duration needed to recover from fallbreak. | After the recovery, the number of failed requests will be recalculated. Not: If the consumer fails to send a request to the provider after the recovery, fallbreak is enabled again. |
+| servicecomb.circuitBreaker.sleepWindowInMilliseconds | 15000          | -                             | No        | Specifies the duration needed to recover from fallbreak. | After the recovery, the number of failed requests will be recalculated. Note: If the consumer fails to send a request to the provider after the recovery, fallbreak is enabled again. |
 | servicecomb.circuitBreaker.requestVolumeThreshold | 20             | -                             | No        | Specifies the threshold of failed requests sent within 10 seconds. If the threshold is reached, fallbreak is triggered. | Ten seconds will be divided into ten 1 seconds, and the error rate is calculated 1 second later after an error occurred. Therefore, fallbreak can be implemented at least 1 second after the call. |
 | servicecomb.circuitBreaker.errorThresholdPercentage | 50             | -                             | No        | Specifies the threshold of error rate. If the threshold is reached, fallbreak is triggered. |                                          |
 | servicecomb.fallback.enabled                     | TRUE           | -                             | No        | Specifies whether to enable troubleshooting measures after an error occurred. |                                          |
 | servicecomb.fallback.maxConcurrentRequests       | 10             | -                             | No        | Specifies the number of fault tolerance(servicecomb.fallbackpolicy.policy) requests concurrently called. If the value exceeds 10, the measures will no longer be called, and exception are returned. |                                          |
 | servicecomb.fallbackpolicy.policy                | throwexception | returnnulll \| throwexception | No        | Specifies the error handling policies after an error occurred. |                                          |
 
-**NOTE:** Be cautions when setting servicecomb.isolation.timeout.enabled to TRUE, All processes are asynchronously processed in the system, and any error value returned by an intermediate process because the set timeout duration is reached can cause failure of the follow-up processes. Therefore, you are advised to keep the default value FALSE for servicecomb.isolation.timeout.enabled. For timeout duration from the network aspect, you are advised to set servicecomb.request.timeout=30000.
+**Caution:** Be cautious when setting servicecomb.isolation.timeout.enabled to TRUE, All processes are asynchronously processed in the system, and any error value returned by an intermediate process because the set timeout duration is reached can cause failure of the follow-up processes. Therefore, you are advised to keep the default value FALSE for servicecomb.isolation.timeout.enabled. For timeout duration from the network aspect, you are advised to set servicecomb.request.timeout=30000.
 {: .notice--warning}
 
 ## Sample Code
@@ -172,13 +172,17 @@ servicecomb:
         enabled: true
       timeoutInMilliseconds: 30000
   circuitBreaker:
-    sleepWindowInMilliseconds: 15000
-    requestVolumeThreshold: 20
+    Consumer:
+      sleepWindowInMilliseconds: 15000
+      requestVolumeThreshold: 20
   fallback:
-    enabled: true
-    policy: throwexception
+    Consumer:
+      enabled: true
+  fallbackpolicy:
+    Consumer:
+      policy: throwexception
 ```
 
 > **NOTE:**
 >
-> You need to enable service governance for fallback, The provider handler is bizkeeper-provider, and the consumer handler is bizkeeper-consumer.
+> You need to enable service governance for fallback, The provider handler is `bizkeeper-provider`, and the consumer handler is `bizkeeper-consumer`. If `Consumer:`/`Provider:` was omitted, your configuration would not work, and service governance would be enabled with default configuration. 
