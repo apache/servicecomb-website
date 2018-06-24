@@ -175,7 +175,7 @@ zuul:
   routes:
     calculator: /calculator/**
 
-# disable netflix eurkea since it's not used for service discovery
+# disable netflix eureka since it's not used for service discovery
 ribbon:
   eureka:
     enabled: false
@@ -194,7 +194,7 @@ servicecomb:
     registry:
       address: http://127.0.0.1:30100
 ```
-此处将服务注册中心和Zuul相结合使能服务发现。
+此处将服务注册中心和Zuul相结合使其能发现服务。
 
 #### 服务启动入口
 服务启动入口也只需要声明启用 `ServiceComb` 和 `Zuul` 即可。

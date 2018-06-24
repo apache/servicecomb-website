@@ -22,7 +22,7 @@ The API definition decouples providers and consumers, which allows the two parti
 
 ### Configuration
 
-ServiceComb defines API in a .yaml faile. You are advised to use [Swagger Editor](http://editor.swagger.io/#/) to write an API definition. This tool can check syntax and automaticlly generate an API document. For details about the API definition file format, see [ Official OpenAPI documentation](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md)。
+ServiceComb defines API in a .yaml file. You are advised to use [Swagger Editor](http://editor.swagger.io/#/) to write an API definition. This tool can check syntax and automaticlly generate an API document. For details about the API definition file format, see [ Official OpenAPI documentation](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md)。
 
 The API definition file is located in "resources/microservices" or "resources/applications" directory. The directory structure is as follows:
 
