@@ -7,7 +7,7 @@ excerpt: "ServiceComb 开发团队"
 last_modified_at: 2018-06-01T19:18:43+08:00
 ---
 
-本页面展示了ServiceComb的开发团队。大家可以把自己的信息添加到列表上。注：名字是按照字母顺序进行排列的。
+本页面展示了ServiceComb的开发团队。大家可以通过提PR的方式把自己的信息添加到列表上。注：名字是按照字母顺序进行排列的。
 
 * Committers
 
@@ -15,7 +15,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | ------------- | ----------------------- | ------------- | ---- |
 | acsukesh      |  Sukesh A C             |  Huawei       |      |
 | asifdxtream   |  Mohammad Asif Siddiqui |  Huawei       |  *   |
-| ericlee       |  Eric Lee               |               |      |
+| ericlee       |  Li Dagang (Eric)       |  Tencent      |      |
 | jbonofre      |  Jean-Baptiste Onofre   |  Talend       |  *   |
 | liubao68      |  Liu Bao                |  Huawei       |  *   |
 | little-cui    |  Cui Yihua              |  Huawei       |  *   |
@@ -35,6 +35,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | aseTo2016         |                        |              |
 | chanjarster       | Daniel Qian            | SupWisdom    |
 | imlidian          | Li Dian                | Huawei       |
+| jyseanl           | Sean Li                | Pactera      |
 | laijianbin        | Lai Jianbin            |              |
 | lijasonvip        | Li bo                  |              |
 | liuzhenyang       |                        |              |
