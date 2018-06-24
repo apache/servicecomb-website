@@ -1,0 +1,903 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>在kubernetes上一键式部署company - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="本篇将介绍在kubernetes集群中一键式部署基于ServiceComb开发的company示例">
+
+
+
+
+<meta name="author" content="Zen Lin">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="在kubernetes上一键式部署company">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/company-on-kubernetes/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/company-on-kubernetes/">
+
+
+
+  <meta property="og:description" content="本篇将介绍在kubernetes集群中一键式部署基于ServiceComb开发的company示例">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="在kubernetes上一键式部署company">
+  <meta name="twitter:description" content="本篇将介绍在kubernetes集群中一键式部署基于ServiceComb开发的company示例">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-08-21T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/company-on-kubernetes/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Zen Lin</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        To enjoy in opensource community.
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="http://zenlintechnofreak.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> 网站
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:zenlintechnofreak@gmail.com">
+            <meta itemprop="email" content="zenlintechnofreak@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="在kubernetes上一键式部署company">
+    <meta itemprop="description" content="本篇将介绍在kubernetes集群中一键式部署基于ServiceComb开发的company示例">
+    <meta itemprop="datePublished" content="August 21, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">在kubernetes上一键式部署company
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <p>　　<a href="/cn/docs/linuxcon-workshop-demo/">Linux Con Workshop Demo</a> 博文介绍了如何使用微服务开源开发框架ServiceComb快速开发company示例，将典型的企业级应用company示例进行快速微服务化。</p>
+
+<p>　　现在，<a href="https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git">github</a>上已经提供了在kubernetes集群上一键式部署的功能。本文将着重讲解相应的yaml文件和服务间通信，这对于开发者基于Company 模型进行微服务开发并且部署到云上将会有所帮助。</p>
+
+<h2 id="一键部署">一键部署</h2>
+
+<p>　　<a href="https://github.com/ServiceComb/ServiceComb-Company-WorkShop/blob/master/kubernetes/README.md">Run Company on Kubernetes Cluster</a> 提供了详细的使用方法，读者只需通过以下3条指令，就可将company在kubernetes集群上部署起来，</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
+
+<span class="nb">cd </span>ServiceComb-Company-WorkShop/kubernetes/
+
+bash start.sh
+</code></pre>
+</div>
+
+<h2 id="yaml文件解读">Yaml文件解读</h2>
+
+<p>　　以作者的实际环境为例：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="gp">root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# </span>kubectl get pod -owide
+NAME                                      READY     STATUS    RESTARTS   AGE       IP            NODE
+company-beekeeper-3737555734-48sxf        1/1       Running   0          17s       10.244.2.49   zenlinnode2
+company-bulletin-board-4113647782-th91w   1/1       Running   0          17s       10.244.1.53   zenlinnode1
+company-doorman-3391375245-g0p8c          1/1       Running   0          17s       10.244.1.55   zenlinnode1
+company-manager-454733969-0c1g8           1/1       Running   0          16s       10.244.2.50   zenlinnode2
+company-worker-1085546725-x7zl4           1/1       Running   0          17s       10.244.1.54   zenlinnode1
+zipkin-508217170-0khr3                    1/1       Running   0          17s       10.244.2.48   zenlinnode2
+</code></pre>
+</div>
+
+<p>　　可以看到，一共启动了6个pod，分别为，公司经理（company-manager）、门卫（company-doorman）、公告栏（company-bulletin-board）、技工（company-worker）、养蜂人（company-beekeeper）、调用链跟踪（zipkin），K8S集群分别为他们分配对应的集群IP。</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">root@zenlin:~/src/LinuxCon-Beijing-WorkShop/kubernetes# </span>kubectl get svc -owide
+NAME                     CLUSTER-IP      EXTERNAL-IP   PORT<span class="o">(</span>S<span class="o">)</span>          AGE       SELECTOR
+company-bulletin-board   10.99.70.46     &lt;none&gt;        30100/TCP        12m       io.kompose.service<span class="o">=</span>company-bulletin-board
+company-manager          10.100.61.227   &lt;nodes&gt;       8083:30301/TCP   12m       io.kompose.service<span class="o">=</span>company-manager
+zipkin                   10.104.92.198   &lt;none&gt;        9411/TCP         12m       io.kompose.service<span class="o">=</span>zipkin
+</code></pre>
+</div>
+
+<p>　　仅启动了3个service，调用链跟踪（zipkin）、公告栏（company-bulletin-board）以及经理（company-manager），这是因为，调用链跟踪和公告栏需要在集群内被其他服务通过域名来调用，而经理需要作为对外作为网关，统一暴露服务端口。</p>
+
+<p>　　查看company-bulletin-board-service.yaml文件，</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>    <span class="s">apiVersion</span><span class="pi">:</span> <span class="s">v1</span>
+    <span class="s">kind</span><span class="pi">:</span> <span class="s">Service</span>
+    <span class="s">metadata</span><span class="pi">:</span>
+      <span class="s">creationTimestamp</span><span class="pi">:</span> <span class="s">null</span>
+      <span class="s">labels</span><span class="pi">:</span>
+<span class="err">    	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
+      <span class="s">name</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
+    <span class="s">spec</span><span class="pi">:</span>
+      <span class="s">ports</span><span class="pi">:</span>
+<span class="err">    </span><span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">30100"</span>
+      <span class="s">port</span><span class="pi">:</span> <span class="s">30100</span>
+      <span class="s">targetPort</span><span class="pi">:</span> <span class="s">30100</span>
+        <span class="s">selector</span><span class="pi">:</span>
+      <span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
+      <span class="s">status</span><span class="pi">:</span>
+        <span class="s">loadBalancer</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre>
+</div>
+
+<p>　　该文件定义了公告栏对应的service，给service定义了name、port和targetPort，这样通过kubectl expose创建的service会在集群内具备DNS能力，在其他服务刚启动还未注册到公告栏（服务注册发现中心）时，就是使用该能力来访问到公告栏并注册服务的。</p>
+
+<p>　　对于label和selector的作用，在一个service启动多个pod的场景下将会非常有用，当某个pod崩溃时，服务的selector将会自动将死亡的pod从endpoints中移除，并且选择新的pod加入到endpoints中。</p>
+
+<p>　　查看company-worker-deployment.yaml 文件，</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">apiVersion</span><span class="pi">:</span> <span class="s">extensions/v1beta1</span>
+<span class="s">kind</span><span class="pi">:</span> <span class="s">Deployment</span>
+<span class="s">metadata</span><span class="pi">:</span>
+  <span class="s">creationTimestamp</span><span class="pi">:</span> <span class="s">null</span>
+  <span class="s">labels</span><span class="pi">:</span>
+<span class="err">	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-worker</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">company-worker</span>
+<span class="s">spec</span><span class="pi">:</span>
+  <span class="s">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="s">strategy</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="s">template</span><span class="pi">:</span>
+<span class="err">	</span><span class="s">metadata</span><span class="pi">:</span>
+<span class="err">  	</span><span class="s">creationTimestamp</span><span class="pi">:</span> <span class="s">null</span>
+  <span class="err">	</span><span class="s">labels</span><span class="pi">:</span>
+<span class="err">    	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-worker</span>
+<span class="s">spec</span><span class="pi">:</span>
+  <span class="s">containers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">env</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">ARTIFACT_ID</span>
+      <span class="s">value</span><span class="pi">:</span> <span class="s">worker</span>
+    <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">JAVA_OPTS</span>
+      <span class="s">value</span><span class="pi">:</span> <span class="s">-Dcse.service.registry.address=http://company-bulletin-board:30100 -Dservicecomb.tracing.collector.adress=http://zipkin:9411</span>
+    <span class="s">image</span><span class="pi">:</span> <span class="s">servicecomb/worker:0.0.1-SNAPSHOT</span>
+    <span class="s">name</span><span class="pi">:</span> <span class="s">company-worker</span>
+    <span class="s">ports</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s">containerPort</span><span class="pi">:</span> <span class="s">7070</span>
+    <span class="pi">-</span> <span class="s">containerPort</span><span class="pi">:</span> <span class="s">8080</span>
+    <span class="s">resources</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="s">restartPolicy</span><span class="pi">:</span> <span class="s">Always</span>
+<span class="s">status</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre>
+</div>
+
+<p>　　该yaml文件定义了副本数为1（replicas: 1）的pod，可以通过修改该副本数控制所需启动的pod的副本数量（当然也可以使用K8S的弹性伸缩能力去实现按需动态水平伸缩，弹性伸缩部分将在后面的博文中提供）。前面我们提到过company-bulletin-board具备了DNS的能力，故现在可以通过该Deployment中的env传递cse.service.registry.address的值给pod内的服务使用，如： -Dcse.service.registry.address=http://company-bulletin-board:30100，<a href="https://github.com/kubernetes/kubernetes/blob/master/cluster/addons/dns/README.md">kube-dns</a>将会自动解析该servicename。</p>
+
+<p>　　对于kubernetes如何实现服务间通信，可以阅读<a href="https://kubernetes.io/docs/concepts/services-networking/connect-applications-service/">connect-applications-service</a>。</p>
+
+<p>　　其他的deployment.yaml以及service.yaml都跟以上大同小异，唯一例外的是company-manager服务，我们可以看到在company-manager-service.yaml中看到定义了nodePort，这将使能company-manager对集群外部提供公网IP和服务端口，如下：</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spec</span><span class="pi">:</span>
+  <span class="s">ports</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8083"</span>
+<span class="err">  	</span><span class="s">port</span><span class="pi">:</span> <span class="s">8083</span>
+  <span class="err">	</span><span class="s">targetPort</span><span class="pi">:</span> <span class="s">8080</span>
+  <span class="err">	</span><span class="s">nodePort</span><span class="pi">:</span> <span class="s">30301</span>
+  <span class="err">	</span><span class="s">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+  <span class="s">type</span><span class="pi">:</span> <span class="s">NodePort</span>
+</code></pre>
+</div>
+
+<p>　　可以通过以下方法获得公网IP和服务端口：</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>kubectl get svc company-manager -o yaml | grep ExternalIP -C 1
+kubectl get svc company-manager -o yaml | grep nodePort -C 1
+</code></pre>
+</div>
+
+<p>　　接下来你就可以使用公网IP和服务端口访问已经部署好的company了，在<a href="https://github.com/ServiceComb/ServiceComb-Company-WorkShop/blob/master/kubernetes/README.md">github.com/ServiceComb/ServiceComb-Company-WorkShop/kubernetes</a>上详细提供了通过在集群内访问和集群外访问的方法。</p>
+
+<h2 id="模型归纳">模型归纳</h2>
+
+<p>　　通过详细阅读所有的deployment.yaml和service.yaml，可以整理出以下的模型：</p>
+
+<p><img src="/assets/images/kubernetes-company-cn.PNG" alt="kubernetes-company" class="align-center" /></p>
+
+<p>　　另外，经典的航空订票系统Acmeair也已经支持在kubernetes上一键式部署基于ServiceComb框架开发的版本，点击访问<a href="https://github.com/WillemJiang/acmeair/tree/master/kubernetes">Run Acmeair on Kubernetes</a>获取 。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#kubernetes" class="page__taxonomy-item" rel="tag">kubernetes</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E9%83%A8%E7%BD%B2" class="page__taxonomy-item" rel="tag">部署</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2017-08-21T00:00:00+08:00">2017年8月21日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=在kubernetes上一键式部署company /cn/docs/company-on-kubernetes/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/company-on-kubernetes/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/company-on-kubernetes/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/company-on-kubernetes/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/docs/company-on-kubernetes/" class="pagination--pager" title="One-click Deployment at Kubernetes
+">向前</a>
+    
+    
+      <a href="/docs/autoscale-on-company/" class="pagination--pager" title="On-demand Resource Control for Micro-serviced Company by Autoscale
+">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="company-on-kubernetes">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-II/" rel="permalink">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/apache-servicecomb-incubating-day/" rel="permalink">微服务 Meetup：Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/apache-servicecomb-incubating-day/" rel="permalink">Microservice Meetup: Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-I/" rel="permalink">轻松微服务系列：从一键构建微服务和DDD设计开始
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：从一键构建微服务和DDD设计开始
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2017-08-21-company-on-kubernetes.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2017-08-21-company-on-kubernetes.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

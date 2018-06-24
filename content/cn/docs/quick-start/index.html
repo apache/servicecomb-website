@@ -1,0 +1,567 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>快速入门 - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="介绍如何使用Java Chassis框架快速运行微服务应用">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="快速入门">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/quick-start/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/quick-start/">
+
+
+
+  <meta property="og:description" content="介绍如何使用Java Chassis框架快速运行微服务应用">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="快速入门">
+  <meta name="twitter:description" content="介绍如何使用Java Chassis框架快速运行微服务应用">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/quick-start/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/docs/quick-start/"><span class="nav__sub-title nav__sub-title-with-url">快速入门</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/docs/quick-start-bmi/"><span class="nav__sub-title nav__sub-title-with-url">微服务应用快速开发</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/docs/quick-start-advance/"><span class="nav__sub-title nav__sub-title-with-url">微服务开发进阶</span></a>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/quick-start-advance/load-balance/" class="">负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/quick-start-advance/flow-control/" class="">流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/quick-start-advance/service-management/" class="">服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/quick-start-advance/distributed-tracing/" class="">分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/docs/quick-start-dataconsistency/"><span class="nav__sub-title nav__sub-title-with-url">数据一致性解决方案</span></a>
+        
+
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="快速入门">
+    <meta itemprop="description" content="介绍如何使用Java Chassis框架快速运行微服务应用">
+    
+    <meta itemprop="dateModified" content="September 03, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">快速入门
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#安装-java-开发环境" id="markdown-toc-安装-java-开发环境">安装 Java 开发环境</a></li>
+  <li><a href="#运行-service-center" id="markdown-toc-运行-service-center">运行 Service Center</a></li>
+  <li><a href="#创建第一个微服务" id="markdown-toc-创建第一个微服务">创建第一个微服务</a></li>
+  <li><a href="#运行微服务应用" id="markdown-toc-运行微服务应用">运行微服务应用</a></li>
+  <li><a href="#下一步" id="markdown-toc-下一步">下一步</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="安装-java-开发环境">安装 Java 开发环境</h2>
+
+<ul>
+  <li>
+    <p>安装<strong>git</strong>，详情可参考<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank">git安装教程</a>。</p>
+  </li>
+  <li>
+    <p>安装JDK 1.8，详情可参考<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html" target="_blank">JDK安装教程</a>。</p>
+  </li>
+  <li>
+    <p>安装Maven 3.x，详情可参考<a href="https://maven.apache.org/install.html" target="_blank">Maven安装教程</a>。</p>
+  </li>
+  <li>
+    <p>安装 ServiceComb Java Chassis(SDK)，执行以下指令：</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
+ <span class="nb">cd </span>incubator-servicecomb-java-chassis
+ mvn clean install -DskipTests
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h2 id="运行-service-center">运行 Service Center</h2>
+<p>在 <strong>ServiceComb</strong> 微服务框架中，<strong>Service Center</strong> 提供服务注册及服务发现功能，可直接使用 Docker 运行。</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker pull servicecomb/service-center
+docker run -d -p 30100:30100 servicecomb/service-center:latest
+</code></pre>
+</div>
+<p><em>您可以通过阅读<a href="/cn/users/setup-environment/#运行service-center">环境配置</a>获取在本地以二进制方式运行Service Center的方法。</em></p>
+
+<h2 id="创建第一个微服务">创建第一个微服务</h2>
+<p>本指南将以一个简单的 <strong>体质指数(BMI)</strong> 应用开展微服务之旅。<a href="https://baike.baidu.com/item/BMI%E6%8C%87%E6%95%B0" target="_blank">体质指数</a>主要用于衡量人体胖瘦程度。该应用主要包含两个微服务：</p>
+
+<ul>
+  <li>
+    <p><strong>体质指数计算器</strong>：负责处理运算事务。</p>
+  </li>
+  <li>
+    <p><strong>体质指数界面</strong>：提供用户界面及网关服务。</p>
+  </li>
+</ul>
+
+<p>其运行流程为：<br />
+<img src="/assets/images/quick-start-sample-workflow.png" alt="体质指数应用运行流程" class="align-center" /></p>
+
+<p>其中，虚线表示服务注册及服务发现的过程。</p>
+
+<h2 id="运行微服务应用">运行微服务应用</h2>
+
+<ol>
+  <li>
+    <p>进入 <strong>体质指数</strong> 应用代码目录。</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd </span>samples/bmi
+</code></pre>
+    </div>
+    <p><strong>注意</strong>：在windows开发环境下，docker是在虚拟机中启动，因此需要修改微服务的 <strong>Service Center</strong> IP地址为虚拟机IP地址。修改2个配置文件[calculator|webapp]/src/main/resources/microservice.yaml，将其中<a>http://127.0.0.1:30100</a>修改为<a>http://192.168.99.100:30100</a>，其中192.168.99.100是虚拟机IP，需要与开发环境中的虚拟机IP保持一致。</p>
+  </li>
+  <li>
+    <p>启动 <strong>体质指数计算器</strong> 和 <strong>体质指数界面</strong> 微服务，分别执行以下指令：</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd </span>calculator; mvn spring-boot:run
+<span class="nb">cd </span>webapp; mvn spring-boot:run
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>验证服务。微服务启动完毕后，即可通过 <a>http://localhost:8889</a> 访问 <strong>体质指数</strong> 应用，届时将能看到如下界面，并可输入您的身高和体重信息验证服务是否正常运行。</p>
+
+    <p><img src="/assets/images/bmi-interface.png" alt="体质指数应用运行界面" class="align-center" /></p>
+  </li>
+</ol>
+
+<h2 id="下一步">下一步</h2>
+
+<ul>
+  <li>阅读<a href="/cn/docs/quick-start-bmi/"><strong>体质指数</strong>微服务应用快速开发</a>。</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _docs/cn/quick-start.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_docs/cn/quick-start.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

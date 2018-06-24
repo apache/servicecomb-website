@@ -1,0 +1,900 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Release guide for ServiceComb - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="Release guide for doing the releases in Apache">
+
+
+
+
+<meta name="author" content="Asif Siddiqui">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="Release guide for ServiceComb">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/developers/release-guide/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/developers/release-guide/">
+
+
+
+  <meta property="og:description" content="Release guide for doing the releases in Apache">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Release guide for ServiceComb">
+  <meta name="twitter:description" content="Release guide for doing the releases in Apache">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@asif_diatm">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/release/">Downloads</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/developers/release-guide/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/"><span class="nav__sub-title nav__sub-title-with-url">Developer Guide</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/contributing"><span class="nav__sub-title nav__sub-title-with-url">Contributing to Apache ServiceComb</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/setup-develop-environment/"><span class="nav__sub-title nav__sub-title-with-url">Develop Environment Setup</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/submit-codes/"><span class="nav__sub-title nav__sub-title-with-url">Code Submit Guide</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/use-jira/"><span class="nav__sub-title nav__sub-title-with-url">Howto Use JIRA</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/setup-committer-rights/"><span class="nav__sub-title nav__sub-title-with-url">Set Up Write Access for Committer</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/developers/release-guide/"><span class="nav__sub-title nav__sub-title-with-url">How to Release in Apache</span></a>
+        
+
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Release guide for ServiceComb">
+    <meta itemprop="description" content="Release guide for doing the releases in Apache">
+    
+    <meta itemprop="dateModified" content="April 03, 2018">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Release guide for ServiceComb
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#pre-requisite" id="markdown-toc-pre-requisite">Pre-Requisite</a></li>
+  <li><a href="#maven-2-setup" id="markdown-toc-maven-2-setup">Maven 2 Setup</a></li>
+  <li><a href="#major-steps-for-doing-service-center-release" id="markdown-toc-major-steps-for-doing-service-center-release">Major Steps for doing Service-Center Release</a></li>
+  <li><a href="#major-steps-for-doing-java-chassis-release" id="markdown-toc-major-steps-for-doing-java-chassis-release">Major Steps for doing Java-Chassis Release</a></li>
+  <li><a href="#major-steps-for-doing-saga-release" id="markdown-toc-major-steps-for-doing-saga-release">Major Steps for doing Saga Release</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p>This Guide helps you to do the release in Apache for ServiceComb projects.</p>
+
+<h2 id="pre-requisite">Pre-Requisite</h2>
+<p>To prepare or perform a released you MUST BE at least an Apache ServiceComb committer.</p>
+
+<ol>
+  <li>The CI for the project should be green.</li>
+  <li>Should have the version number for the project.</li>
+  <li>Should have Sign Key for signing the release, the keys should be published to public key server.</li>
+  <li>Get familiar with the release settings in the parent Apache POM</li>
+</ol>
+
+<h2 id="maven-2-setup">Maven 2 Setup</h2>
+<p>As ServiceComb Java Chassis and Saga are using maven for the release, you should do some maven 2 setup before releasing these two projects.
+Before you deploy anything to the maven repository using Maven 2, you should configure your ~/.m2/settings.xml file so that the file permissions of the deployed artifacts are group writable. If you do not do this, other developers will not able to overwrite your SNAPSHOT releases with newer versions. The settings follow the <a href="http://maven.apache.org/developers/committer-settings.html">guidelines</a> used by the Maven project. Please pay particular attention to the <a href="http://maven.apache.org/guides/mini/guide-encryption.html">password encryption recommendations</a>.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;settings&gt;
+  ...
+  &lt;servers&gt;
+    &lt;!-- Per http://maven.apache.org/developers/committer-settings.html --&gt;
+
+    &lt;!-- To publish a snapshot of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.snapshots.https&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;password&gt; &lt;!-- YOUR APACHE LDAP PASSWORD --&gt; &lt;/password&gt;
+    &lt;/server&gt;
+    &lt;!-- To publish a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.website&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a release of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.releases.https&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;password&gt; &lt;!-- YOUR APACHE LDAP PASSWORD --&gt; &lt;/password&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;stagingSite&lt;/id&gt; &lt;!-- must match hard-coded repository identifier in site:stage-deploy --&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+
+  &lt;/servers&gt;
+  ...
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;apache-release&lt;/id&gt;
+      &lt;properties&gt;
+        &lt;gpg.useagent&gt;false&lt;/gpg.useagent&gt;
+        &lt;gpg.passphrase&gt;&lt;!-- YOUR GPG PASSPHRASE --&gt;&lt;/gpg.passphrase&gt;
+        &lt;test&gt;false&lt;/test&gt;
+      &lt;/properties&gt;
+    &lt;/profile&gt;
+
+  &lt;/profiles&gt;
+...
+&lt;/settings&gt;
+</code></pre>
+</div>
+
+<h2 id="major-steps-for-doing-service-center-release">Major Steps for doing Service-Center Release</h2>
+
+<p><strong><em>Make and Verify the Release</em></strong></p>
+
+<ol>
+  <li>Clone the service-center code.
+    <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-service-center.git
+cd incubator-servicecomb-service-center
+gvt restore
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Create a Tag from the master branch based on the version number which needs to be released.</p>
+  </li>
+  <li>
+    <p>Run RAT tool to ensure no license issues are there, follow the guide over <a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release">here</a></p>
+  </li>
+  <li>
+    <p>Run the make_release.sh to make the release for windows and linux following the guide over <a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release">here</a>.</p>
+  </li>
+  <li>
+    <p>Last Step will make the releases in root folder.</p>
+  </li>
+  <li>
+    <p>Run the releases of frontend and service-center in both linux and windows.</p>
+  </li>
+  <li>
+    <p>Run the <a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration">integration test</a> on the release.</p>
+  </li>
+  <li>
+    <p>If all the test passes then send the release candidate to peers to test in different machines.</p>
+  </li>
+  <li>Push the tag to master.</li>
+</ol>
+
+<p><strong><em>Sign the Release</em></strong></p>
+
+<ol>
+  <li>
+    <p>Once the tag is pushed then using the tag download the source code from git <a href="https://github.com/apache/incubator-servicecomb-service-center/tags">tag</a>.</p>
+  </li>
+  <li>
+    <p>Sign the 3 releases(linux, windows, src) and checksum.</p>
+  </li>
+  <li>
+    <p>Create a new directory <a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/">Apache dev Release SVN</a> with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the second attempt of the release then the folder structure will be <code class="highlighter-rouge">1.0.0-m2/rc02</code>)</p>
+  </li>
+  <li>
+    <p>Upload the release to the directory created in last step.</p>
+  </li>
+  <li>
+    <p>Download all the releases from SVN and verify the signature and checksum.</p>
+  </li>
+</ol>
+
+<p><strong><em>PPMC Approval</em></strong></p>
+
+<ol>
+  <li>
+    <p>Send the voting mail in <strong><em>dev@servicecomb.apache.org</em></strong> for PPMC approval.</p>
+  </li>
+  <li>
+    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from <strong><em>Step 1</em></strong>.</p>
+  </li>
+  <li>
+    <p>Publish the result of the vote in dev@servicecomb.apache.org.</p>
+  </li>
+</ol>
+
+<p><strong><em>IPMC approval</em></strong></p>
+
+<ol>
+  <li>
+    <p>Send the voting mail in <strong><em>general@incubator.apache.org</em></strong> for IPMC approval.</p>
+  </li>
+  <li>
+    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote.If you get even one -1 binding vote then fix the issue and start again from <strong><em>Step 1</em></strong></p>
+  </li>
+  <li>
+    <p>Publish the result of the vote in general@incubator.apache.org.</p>
+  </li>
+</ol>
+
+<p><strong><em>Announcements</em></strong></p>
+
+<ol>
+  <li>
+    <p>Upload the releases to <a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/">Apache release repository</a>.</p>
+  </li>
+  <li>
+    <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
+  </li>
+  <li>
+    <p>Upload the release page of ServiceComb Website.</p>
+  </li>
+  <li>
+    <p>Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org</p>
+  </li>
+</ol>
+
+<h2 id="major-steps-for-doing-java-chassis-release">Major Steps for doing Java-Chassis Release</h2>
+
+<p><strong><em>Make and Verify the Release</em></strong></p>
+
+<ol>
+  <li>Clone the java-chassis code.
+    <div class="highlighter-rouge"><pre class="highlight"><code>git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
+</code></pre>
+    </div>
+  </li>
+  <li>Cut the release using perl command to replace all the versions in pom.xml files
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Create a Tag from the master branch using the version number.</p>
+  </li>
+  <li>
+    <p>Clear all the redundant servicecomb releases in repository.apache.org</p>
+  </li>
+  <li>
+    <p>Add the keys in a reference folder.</p>
+  </li>
+  <li>
+    <p>Update the key path and passphrase in ~/.m2/settings.xml file.</p>
+  </li>
+  <li>
+    <p>Update the apache account username and password in the settings file.</p>
+  </li>
+  <li>Run the maven deploy command.
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Once every thing is uploaded then use the staging repo to verify the build using Company workshop.</p>
+  </li>
+  <li>
+    <p>Share the staging repo with peers to verify on different OS and machines using the demo.</p>
+  </li>
+  <li>
+    <p>If everything is fine then push the tag to master.</p>
+  </li>
+  <li>Close the staging repo is apache repositories</li>
+</ol>
+
+<p><strong><em>Sign the Releases</em></strong></p>
+
+<ol>
+  <li>
+    <p>Download the source code and distribution from the staging repo.</p>
+  </li>
+  <li>
+    <p>Sign the 2 releases(distribution, src) and checksum.</p>
+  </li>
+  <li>
+    <p>Create a new directory <a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache dev Release SVN</a> with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the first attempt of the release then the folder structure will be <code class="highlighter-rouge">1.0.0-m2/rc01</code>)</p>
+  </li>
+  <li>
+    <p>Upload the release to  directory created in last step.</p>
+  </li>
+  <li>
+    <p>Download all the releases from SVN and verify the signature and checksum.</p>
+  </li>
+</ol>
+
+<p><strong><em>PPMC approval</em></strong></p>
+
+<ol>
+  <li>
+    <p>Send the voting mail in dev@servicecomb.apache.org for PPMC approval.</p>
+  </li>
+  <li>
+    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
+  </li>
+  <li>
+    <p>Publish the result of the vote in dev@servicecomb.apache.org.</p>
+  </li>
+</ol>
+
+<p><strong><em>IPMC approval</em></strong></p>
+
+<ol>
+  <li>
+    <p>Send the voting mail in general@incubator.apache.org</p>
+  </li>
+  <li>
+    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
+  </li>
+  <li>
+    <p>Publish the result of the vote in general@incubator.apache.org.</p>
+  </li>
+</ol>
+
+<p><strong><em>Announcements</em></strong></p>
+
+<ol>
+  <li>
+    <p>Upload the releases to <a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache release repository</a>.</p>
+  </li>
+  <li>
+    <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
+  </li>
+  <li>
+    <p>Upload the release page of ServiceComb Website.</p>
+  </li>
+  <li>
+    <p>Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org</p>
+  </li>
+</ol>
+
+<h2 id="major-steps-for-doing-saga-release">Major Steps for doing Saga Release</h2>
+
+<p><strong><em>Make and Verify the Release</em></strong></p>
+<ol>
+  <li>Clone the saga code.
+    <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-saga.git
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Cut the release using per command to replace all the versions in pom.xml files</p>
+  </li>
+  <li>Create a Tag from the master branch using the version number.
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Clear all the redundant servicecomb releases in repository.apache.org</p>
+  </li>
+  <li>
+    <p>Add the keys in a reference folder.</p>
+  </li>
+  <li>
+    <p>Update the key path and passphrase in your ~/.m2/settings.xml file.</p>
+  </li>
+  <li>
+    <p>Update the apache account username and password in the settings.xml file.</p>
+  </li>
+  <li>Run the maven deploy command.
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Ppassphrase -Prelease
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>Once every thing is uploaded then use the staging repo to verify the build using the acceptance test.</p>
+  </li>
+  <li>
+    <p>Share the staging repo with peers to verify on different OS and machines using the demo.</p>
+  </li>
+  <li>
+    <p>If everything is fine then push the tag to master.</p>
+  </li>
+  <li>Close the staging repo is apache repositories.</li>
+</ol>
+
+<p><strong><em>Sign the Releases</em></strong></p>
+
+<ol>
+  <li>
+    <p>Download the source code and distribution from the staging repo.</p>
+  </li>
+  <li>
+    <p>Sign the 2 releases(distribution, src) and checksum.</p>
+  </li>
+  <li>
+    <p>Create a new directory <a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-saga/">Apache dev Release SVN</a> with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the third attempt of the release then the folder structure will be <code class="highlighter-rouge">1.0.0-m2/rc03</code>)</p>
+  </li>
+  <li>
+    <p>Upload the release to  directory created in last step.</p>
+  </li>
+  <li>
+    <p>Download all the releases from SVN and verify the signature and checksum.</p>
+  </li>
+</ol>
+
+<p><strong><em>PPMC approval</em></strong></p>
+
+<ol>
+  <li>
+    <p>Send the voting mail in dev@servicecomb.apache.org.</p>
+  </li>
+  <li>
+    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
+  </li>
+  <li>
+    <p>Publish the result of the vote in dev@servicecomb.apache.org.</p>
+  </li>
+</ol>
+
+<p><strong><em>IPMC approval</em></strong></p>
+
+<ol>
+  <li>
+    <p>Send the voting mail in general@incubator.apache.org</p>
+  </li>
+  <li>
+    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
+  </li>
+  <li>
+    <p>Publish the result of the vote in general@incubator.apache.org.</p>
+  </li>
+</ol>
+
+<p><strong><em>Announcements</em></strong></p>
+
+<ol>
+  <li>
+    <p>Upload the releases to <a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/">Apache release repository</a>.</p>
+  </li>
+  <li>
+    <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
+  </li>
+  <li>
+    <p>Upload the release page of ServiceComb Website.</p>
+  </li>
+  <li>
+    <p>Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org</p>
+  </li>
+</ol>
+
+<p><strong>NOTE</strong></p>
+<ul>
+  <li>The whole process generally takes 2 weeks to complete assuming you don’t get any -1 from PPMC and IMPC, so please plan the release activity before hand.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#release" class="page__taxonomy-item" rel="tag">release</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _developers/release_guide.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_developers/release_guide.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

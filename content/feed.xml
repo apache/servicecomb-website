@@ -1,0 +1,1782 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-05-30T20:30:38+08:00</updated><id>/</id><title type="html">Apache ServiceComb (incubating)</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;servicecomb-developers@googlegroups.com&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>servicecomb-developers@googlegroups.com</email></author><entry xml:lang="cn"><title type="html">轻松微服务系列：快速实现客户关系管理系统的用户服务</title><link href="/cn/docs/easy-build-microservice-system-part-II/" rel="alternate" type="text/html" title="轻松微服务系列：快速实现客户关系管理系统的用户服务" /><published>2018-05-23T00:00:00+08:00</published><updated>2018-05-23T19:05:00+08:00</updated><id>/cn/docs/easy-build-microservice-system-part-II</id><content type="html" xml:base="/cn/docs/easy-build-microservice-system-part-II/">&lt;h2 id=&quot;轻松微服务系列快速实现客户关系管理系统的用户服务&quot;&gt;轻松微服务系列：快速实现客户关系管理系统的用户服务&lt;/h2&gt;
+&lt;p&gt;在前一篇博文&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/docs/easy-build-microservice-system-part-I/&quot;&gt;《轻松微服务系列：从一键构建微服务和DDD设计开始》&lt;/a&gt;，我们已经详细介绍了如何快速构建微服务和DDD相关概念，并引入了一个经典场景——地产CRM。通过&lt;a href=&quot;https://en.wikipedia.org/wiki/Event_storming&quot;&gt;Event Storming&lt;/a&gt;实践获得了系统设计：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/MicroserviceDesign4.png&quot; alt=&quot;MicroserviceDesign4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;现在，我们将从“用户微服务”入手，探索微服务实现过程中即将面对的细节，并轻松处理这些难点。&lt;/p&gt;
+
+&lt;h3 id=&quot;用户微服务并不简单&quot;&gt;用户微服务并不简单&lt;/h3&gt;
+&lt;p&gt;用户微服务是所有系统中不可或缺的部分，它承载了认证和授权等核心功能——无论是登录一个网站、还是打开一个APP，当涉及到需要身份识别后才能够执行的操作，都需要用户微服务把关。例如观看视频网站上的视频，匿名用户会插播广告，如果希望屏蔽广告，则需要登录并购买VIP会员，登录即是身份认证的过程，而VIP屏蔽广告即是授权的过程。&lt;/p&gt;
+
+&lt;h4 id=&quot;认证&quot;&gt;认证&lt;/h4&gt;
+&lt;p&gt;认证不仅仅是一次性验证用户名和密码的过程，还需要能反复使用认证的结果，确保后继所有操作都是合法的，这就涉及到“有状态”，但HTTP是一个无状态协议，如何能够将登录成功后的认证信息与后继的请求关联起来呢？&lt;/p&gt;
+
+&lt;p&gt;我们非常熟悉的做法是使用Session或Cookie：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Session存储在服务端，因此具备良好的防篡改能力，但弊端是使服务有状态，微服务系统中，同一个微服务会依据系统压力的大小弹性伸缩出多个运行实例负载均衡，跨实例访问会状态丢失。&lt;/li&gt;
+  &lt;li&gt;Cookie存储在客户端，它正好与Session相反，优势是服务不必保持状态，但弊端是客户比较容易的篡改Cookie信息，例如修改过期时间以逃避验证，而且浏览器对Cookie也有较多限制。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;那么，如何兼顾这两方面的需求呢？Token就是一个比较好的解决方案。&lt;/p&gt;
+
+&lt;p&gt;Token中文翻译为令牌，它将登录认证后的信息签名后返回，服务端不保存，客户端请求的时候将认证的完整信息附带上提供给服务端验签，签名可以保证信息不被篡改。了解了了解Token的原理，自然要关注Token的格式，JWT就是这样一个基于JSON的开放标准&lt;a href=&quot;https://tools.ietf.org/html/rfc7519&quot;&gt;RFC-7519&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h5 id=&quot;jwt-java-web-token规范&quot;&gt;JWT （Java Web Token）规范&lt;/h5&gt;
+&lt;p&gt;简而言之JWT规范由三部分构成：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;Header： 声明Token的类型也就是JWT，以及加密算法，例如：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;typ&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;JWT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;alg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;HS256&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Playload：存放有效信息，既包含标准签发者、用户、签发时间、过期时间，唯一标识等信息；也可以存放用户自定义的声明信息，例如权限控制相关的内容，例如：&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;sub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;1234567890&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;YangYong Zheng&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;iat&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1516239022&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Signature：签名信息，包含Header和Playload的原始信息（Base64编码过）以及签名过后的信息。&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提示：JWT IO提供了&lt;a href=&quot;https://jwt.io/&quot;&gt;在线编码和解码工具&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;授权&quot;&gt;授权&lt;/h4&gt;
+&lt;p&gt;授权的本意是指将完成某项工作所必须的权力授给下属人员，在软件系统中往往引申为使人或角色具备访问特定资源或更改行为的许可。例如之前提到的VIP屏蔽广告，即是视频网站允许播放终端在特定的帐号登录后跳过广告播放环节（行为）的许可。&lt;/p&gt;
+
+&lt;p&gt;授权系统比较常见的做法有ACL和RBAC：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;ACL：ACL全称Access Control List，它是以受控资源为核心，每一个受控资源，都有一个权限控制列表记录哪些用户或角色对这项资源执行具体操作（也被称为授权点）的权限设置，例如查询（可见）、修改、删除等等。Windows中的文件系统安全即是一个经典的ACL实现案例：&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/ACL.png&quot; alt=&quot;ACL&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;RBAC：RBAC全称Role Based Access Control，与ACL相比，它以角色为核心，权限落地在角色上，不为特定用户授权。它的优势是大幅简化了用户与权限的管理，在受控对象不多或控制粒度要求不高（例如接口访问控制）的场景下非常适用。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/RBAC.png&quot; alt=&quot;RBAC&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由于微服务系统的权限控制主要是接口访问控制上，并且多采用用户组方式组织用户，因此RBAC是比较流行的做法。&lt;/p&gt;
+
+&lt;h3 id=&quot;实现用户微服务&quot;&gt;实现用户微服务&lt;/h3&gt;
+&lt;h4 id=&quot;第一步创建微服务项目&quot;&gt;第一步：创建微服务项目&lt;/h4&gt;
+&lt;p&gt;还记得前一篇博文&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/docs/easy-build-microservice-system-part-I/&quot;&gt;《轻松微服务系列：从一键构建微服务和DDD设计开始》&lt;/a&gt;中一键构建微服务的命令行么？使用ServiceComb SpringMVC Archetypes创建用户微服务，在交互模式下，&lt;code class=&quot;highlighter-rouge&quot;&gt;groupId&lt;/code&gt;输入org.apache.servicecomb.scaffold，&lt;code class=&quot;highlighter-rouge&quot;&gt;artifactId&lt;/code&gt;输入user-service，&lt;code class=&quot;highlighter-rouge&quot;&gt;version&lt;/code&gt;使用默认的1.0-SNAPSHOT，创建完毕后使用IDEA或Eclipse打开项目：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/UserServiceInit.png&quot; alt=&quot;UserServiceInit&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们删掉HelloImpl和HelloConsumer，并添加自己的实现。&lt;/p&gt;
+
+&lt;h4 id=&quot;第二步使用mysql持久化用户信息&quot;&gt;第二步：使用MySQL持久化用户信息&lt;/h4&gt;
+&lt;p&gt;用户微服务需要持久化用户信息，我们使用MySQL数据库，ORM使用Spring Data JPA：&lt;/p&gt;
+&lt;h5 id=&quot;引入依赖&quot;&gt;引入依赖&lt;/h5&gt;
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;mysql&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;mysql-connector-java&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.springframework.boot&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;spring-boot-starter-data-jpa&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h5 id=&quot;定义存储user信息的userentity实体&quot;&gt;定义存储User信息的UserEntity实体&lt;/h5&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Entity&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Table&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;T_User&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserEntity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Id&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;setPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UserEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UserEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在CodeFist模式下，Spring Data JPA会在数据库中自动创建T_User表与此实体映射。&lt;/p&gt;
+
+&lt;h5 id=&quot;实现userentity实体的repository&quot;&gt;实现UserEntity实体的Repository&lt;/h5&gt;
+&lt;p&gt;我们继承JPA的PagingAndSortingRepository来实现ORM操作&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Repository&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserRepository&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PagingAndSortingRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UserEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Long&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;UserEntity&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;findByName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;配置数据库连接&quot;&gt;配置数据库连接&lt;/h5&gt;
+&lt;p&gt;在项目的&lt;code class=&quot;highlighter-rouge&quot;&gt;resources&lt;/code&gt;目录下新增&lt;code class=&quot;highlighter-rouge&quot;&gt;application.properties&lt;/code&gt;文件，写入数据库连接信息：&lt;/p&gt;
+
+&lt;div class=&quot;language-properties highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;py&quot;&gt;spring.datasource.url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;jdbc:mysql://localhost:3306/user_db?useSSL=false&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.datasource.username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;root&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.datasource.password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;pwd&lt;/span&gt;
+&lt;span class=&quot;err&quot;&gt;spring.jpa.hibernate.ddl-&lt;/span&gt;&lt;span class=&quot;py&quot;&gt;auto&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;update&lt;/span&gt;
+&lt;span class=&quot;py&quot;&gt;spring.jpa.properties.hibernate.dialect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;org.hibernate.dialect.MySQL5Dialect&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提示：关于Spring Data JPA的更多资料请参见&lt;a href=&quot;https://projects.spring.io/spring-data-jpa/&quot;&gt;这篇文档&lt;/a&gt;，为了能够简化依赖的引入我们实际上使用的是Spring Boot JPA Starter，详细的例子请参见&lt;a href=&quot;https://spring.io/guides/gs/accessing-data-jpa/&quot;&gt;这篇文档&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;第三步实现jwt认证&quot;&gt;第三步：实现JWT认证&lt;/h4&gt;
+&lt;h5 id=&quot;定义jwt接口&quot;&gt;定义JWT接口&lt;/h5&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;TokenStore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;generate用于生成Token，validate用于验证Token是否正确。&lt;/p&gt;
+
+&lt;h5 id=&quot;实现tokenstore&quot;&gt;实现TokenStore&lt;/h5&gt;
+&lt;p&gt;我们使用&lt;a href=&quot;https://github.com/jwtk/jjwt&quot;&gt;jjwt&lt;/a&gt;提供的JWT实现，创建JwtTokenStore类，继承TokenStore接口，并重写方法：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Component&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JwtTokenStore&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TokenStore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Logger&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LOGGER&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;LoggerFactory&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getLogger&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JwtTokenStore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secretKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secondsToExpire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;JwtTokenStore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;secretKey&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;someSecretKeyForAuthentication&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;secondsToExpire&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;JwtTokenStore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secretKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secondsToExpire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;secretKey&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secretKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;secondsToExpire&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secondsToExpire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Jwts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;builder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setSubject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;userName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setExpiration&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ZonedDateTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;now&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;plusSeconds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;secondsToExpire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;toInstant&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()))&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;signWith&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HS512&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;secretKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;compact&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;validate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringUtils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isNotEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Jwts&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;parser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setSigningKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;secretKey&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;parseClaimsJws&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBody&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getSubject&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;JwtException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IllegalArgumentException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;LOGGER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;validateToken token : &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot; failed&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h4 id=&quot;第四步实现用户服务&quot;&gt;第四步：实现用户服务&lt;/h4&gt;
+&lt;h5 id=&quot;定义userservice接口&quot;&gt;定义UserService接口&lt;/h5&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;interface&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ResponseEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;logon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UserDTO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ResponseEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UserDTO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;logon用于新用户注册，login用于用户登录验证，UserDTO用于参数传递：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserDTO&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UserDTO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UserDTO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;password&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h5 id=&quot;实现并发布userservice&quot;&gt;实现并发布UserService&lt;/h5&gt;
+&lt;p&gt;创建UserServiceImpl，继承&lt;code class=&quot;highlighter-rouge&quot;&gt;UserService&lt;/code&gt;接口：&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RestSchema&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schemaId&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;user&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;UserServiceImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UserService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UserRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TokenStore&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenStore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;UserServiceImpl&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UserRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TokenStore&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenStore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;repository&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;tokenStore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenStore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@PostMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;logon&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResponseEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;logon&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@RequestBody&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UserDTO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validateUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;UserEntity&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dbUser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findByName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dbUser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;UserEntity&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;entity&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UserEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;save&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;entity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResponseEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;InvocationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BAD_REQUEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;user name had exist&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;InvocationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BAD_REQUEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;incorrect user&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@PostMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;login&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResponseEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Boolean&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;login&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@RequestBody&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;UserDTO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;validateUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;UserEntity&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dbUser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;repository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;findByName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dbUser&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dbUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;equals&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tokenStore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;generate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;HttpHeaders&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generateAuthenticationHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+          &lt;span class=&quot;c1&quot;&gt;//add authentication header&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ResponseEntity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;OK&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;InvocationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BAD_REQUEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;wrong password&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;InvocationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BAD_REQUEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;user name not exist&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;InvocationException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BAD_REQUEST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;incorrect user&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;validateUser&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UserDTO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;null&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringUtils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isNotEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;StringUtils&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isNotEmpty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getPassword&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpHeaders&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;generateAuthenticationHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;HttpHeaders&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;HttpHeaders&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;AUTHORIZATION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;token&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;headers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;登录成功后，会从TokenStore生成Token，并将其写入Key为&lt;code class=&quot;highlighter-rouge&quot;&gt;AUTHORIZATION&lt;/code&gt;的Header。&lt;/p&gt;
+
+&lt;h4 id=&quot;第五步实现授权可选&quot;&gt;第五步：实现授权（可选）&lt;/h4&gt;
+&lt;p&gt;由于我们允许任何用户注册和登录，所以目前还没有授权的需求，基于RBAC构建授权体系将会在以后的博文中介绍。&lt;/p&gt;
+
+&lt;p&gt;经过上面五步，具有基本注册和登录功能的用户微服务就构建好了。&lt;/p&gt;
+
+&lt;h3 id=&quot;验证实现的用户服务&quot;&gt;验证实现的用户服务&lt;/h3&gt;
+&lt;p&gt;启动用户微服务，我们先注册一个账号：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/TestLogon.png&quot; alt=&quot;TestLogon&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;显示注册成功，现在我们使用这个账号登录：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/TestLogin.png&quot; alt=&quot;TestLogin&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;返回登录成功，Response中已经包含了&lt;code class=&quot;highlighter-rouge&quot;&gt;AUTHORIZATION&lt;/code&gt;Header，后继的所有请求都需要使用这个Token值进行合法认证。&lt;/p&gt;
+
+&lt;p&gt;至此，实现客户关系管理系统的用户服务工作就结束了，下一篇文章我们会将目光转移到Edge服务，通过Edge服务作为微服务调用的统一入口，在它之上构建统一认证，并讲解如何应对海量级调用的挑战，敬请期待！&lt;/p&gt;</content><author><name>Yangyong Zheng</name><email>yangyong.zheng@huawei.com</email><uri>https://zhengyangyong.github.io</uri></author><category term="Archetypes" /><category term="Scaffold" /><category term="Authentication" /><category term="JWT" /><summary type="html">轻松微服务系列：快速实现客户关系管理系统的用户服务</summary></entry><entry xml:lang="cn"><title type="html">微服务 Meetup：Apache ServiceComb (incubating) Day</title><link href="/cn/docs/apache-servicecomb-incubating-day/" rel="alternate" type="text/html" title="微服务 Meetup：Apache ServiceComb (incubating) Day" /><published>2018-05-23T00:00:00+08:00</published><updated>2018-05-23T10:26:28+08:00</updated><id>/cn/docs/apache-servicecomb-incubating-day</id><content type="html" xml:base="/cn/docs/apache-servicecomb-incubating-day/">&lt;p&gt;&lt;strong&gt;Apache ServiceComb (incubating) Day&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;微服务开源  ServiceComb  Apache基金会孵化项目将于6月27日（星期三）上午9点30分至下午16点30分在国家会议中心举办为期一天的开放日Meetup活动。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;本次开放日将主要聚焦在以下几个方面，和企业、用户及开发者一同探讨微服务技术及方向。&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Apache 社区解读&lt;/li&gt;
+  &lt;li&gt;企业微服务商用案例实践分享&lt;/li&gt;
+  &lt;li&gt;微服务开源领域社区现状及未来&lt;/li&gt;
+  &lt;li&gt;ServiceComb的社区概况和技术分享&lt;/li&gt;
+  &lt;li&gt;微服务领域驱动设计方法&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;会议日期/时间&lt;/strong&gt;：2018 年 6 月 27 日，星期三，9:30 – 16:30
+&lt;strong&gt;会议地址&lt;/strong&gt;：中国国家会议中心，北京
+&lt;strong&gt;会议费用&lt;/strong&gt;： 免费&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;关于Apache ServiceComb (incubating) 项目&lt;/strong&gt;：&lt;/p&gt;
+
+&lt;p&gt;ServiceComb Apahce 软件基金会孵化项目的主体代码由华为云捐赠，致力于帮助企业轻松构建云原生应用及传统企业业务快速微服务化，通过系列解决方案帮助用户快速开发微服务的同时实现对这些微服务应用的高效运维管理。它具有完整的微服务生态栈，无厂商锁定，当前遵循Apache Way进行孵化，已拥有如消费者云、云EI、云安全、云核等华为业务之外的一批非华为商用用户，且社区和开发者也日趋多样化。&lt;/p&gt;
+
+&lt;p&gt;这是一个免费的开放日Meetup活动，由Apache ServiceComb (incubating)社区组织，华为云赞助主办，我们邀请到了来自商用企业、Apache、ServiceComb社区及华为的多位专家和工程师，与大家进行分享和探讨，部分议题如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;《深度解读Apache软件基金会》&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;主讲人：Jean-Baptiste Onofré   Apache Member，Talend的Fellow, 04年开始从事Apache软件基金会相关工作，Karaf、Camel、Carbondata等超过20个Apache项目的PMC member。&lt;/p&gt;
+
+&lt;p&gt;摘要：深度解读全球最大的开源软件基金会Apache，诠释什么是Apache Way，及Apache的吸引开源项目之处，结合实际项目讲述从开源到孵化再到毕业的全过程，介绍当前ServiceComb的Apache孵化状态。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;《软通动力基于ServiceComb的智能城市微服务改造历程》&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;主讲人：鲍永伟 软通动力智慧城市业务副总裁，聚焦于云计算与大数据相关的创新技术在智慧城市的应用。&lt;/p&gt;
+
+&lt;p&gt;摘要：软通动力智慧城市业务涉及系统繁多并交互复杂，在进行微服务化时面临微服务粒度设计不合理、代码重复率高、大型应用微服务部署困难等阵痛，本分享介绍软通动力如何使用ServiceComb，特别是ServiceComb的Swagger API，解决阵痛的微服务化历程，使能烟囱系统互通、系统松耦合，以应对智慧城市的微服务多样性挑战。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;《ServiceComb在华为消费者云的亿级用户微服务实践》&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;主讲人：李林锋     华为消费者云应用市场微服务架构师，多年平台中间件、云平台、微服务框架设计和开发经验。工作之余爱好技术写作，《Netty权威指南》和《分布式服务框架原理与实践》作者&lt;/p&gt;
+
+&lt;p&gt;摘要： 华为消费者云服务为全球100多个国家数亿华为终端用户提供精品云服务，为了支撑业务的快速发展，需要通过微服务架构驱动价值需求更敏捷和高效的交付。利用ServiceComb对SpringMVC、透明RPC开发模式的支持，业务已有的代码可以低成本的迁移到新的微服务架构，同时利用ServiceComb对Reactive异步编程模型的支持，业务实现了全栈异步化改造，相比于传统的同步阻塞式服务调用，性能提升数倍，但是资源损耗却大幅降低…更多实践案例，尽在ServiceComb在华为消费者云的亿级用户实践分享中。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;《微服务的领域驱动设计》&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;主讲人： 王磊    微服务国内先驱，《微服务架构与实践》作者，华为微服务专家，前ThoughtWorks首席咨询师。&lt;/p&gt;
+
+&lt;p&gt;摘要：微服务作为新时代架构方式被业界广泛采纳，也顺理成章成为DDD领域驱动设计的理念的落地工具。本议题分享DDD领域驱动设计理念是如何与微服务友好结合和实践的。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;更有 华为微服务开源专家、前红帽首席软件工程师、 ServiceComb项目负责人姜宁携同社区孵化项目PMC们为大家详解ServiceComb社区及技术。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;请关注本博客以保持及时获取关于本活动的及时更新信息，或者也可以通过我们的Gitter聊天室更加即时地咨询活动的相关信息：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://gitter.im/ServiceCombUsers/Lobby&quot;&gt;ServiceComb Gitter 聊天室&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</content><author><name>Zen Lin</name><email>zenlintechnofreak@gmail.com</email><uri>http://zenlintechnofreak.github.io</uri></author><category term="微服务" /><category term="Meetup" /><summary type="html">Real time updated information of Apache ServiceComb (incubating) Day</summary></entry><entry xml:lang="en"><title type="html">Microservice Meetup: Apache ServiceComb (incubating) Day</title><link href="/docs/apache-servicecomb-incubating-day/" rel="alternate" type="text/html" title="Microservice Meetup: Apache ServiceComb (incubating) Day" /><published>2018-05-23T00:00:00+08:00</published><updated>2018-05-23T10:26:28+08:00</updated><id>/docs/apache-servicecomb-incubating-day</id><content type="html" xml:base="/docs/apache-servicecomb-incubating-day/">&lt;p&gt;&lt;strong&gt;Apache ServiceComb (incubating) Day&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The microservice open source project - Apache ServiceComb (incubating) will host a Open Day Meetup at the China National Convention Center (Beijing, China) from 9.30am to 16.30pm on Wednesday, June 27th.&lt;/p&gt;
+
+&lt;p&gt;The Open Day will focus on the following aspects and discuss the technology and direction of microservices with enterprises, users and developers.&lt;/p&gt;
+
+&lt;p&gt;- Interpretation of the Apache community&lt;/p&gt;
+
+&lt;p&gt;- Business Microservices Commercial Case Sharing&lt;/p&gt;
+
+&lt;p&gt;- State of affairs and Future of Microservice Open Source Community&lt;/p&gt;
+
+&lt;p&gt;- Overview of ServiceComb Community and Technology Sharing&lt;/p&gt;
+
+&lt;p&gt;- Domain-Driven Design (DDD) in Microservices&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Event Date/Time&lt;/strong&gt;: Wednesday, June 27, 2018, 9:30 – 16:30&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Event Location&lt;/strong&gt;: China National Convention Center, Beijing, China&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Event Cost&lt;/strong&gt;: Complimentary&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;About Apache ServiceComb (incubating) project:&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;​         &lt;em&gt;The main code of the Apache ServiceComb (incubating) Project was donated by Huawei Cloud. The project is dedicated to help enterprises easily build cloud native applications and help build microservices from traditional enterprise business. By providing a series of solutions, Apache ServiceComb (incubating) helps users to develop microservices quickly and operate maintenance efficiently of these microservices applications, with a full microservices technology stack, without vendor lock-in. Currently, ServiceComb is following the “Apache Way”. It is used in HUAWEI businesses such as Consumer Cloud, Cloud EI, Cloud Security, Cloud Core Network, also popular in non-HUAWEI users. The developers are also increasingly diversified.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;This is a free Open Meetup organized by the Apache ServiceComb (incubating) community and sponsored by Huawei Cloud. We have invited several experts and engineers from commercial enterprises, Apache Foundation, ServiceComb community and HUAWEI to share their experiences. Some of the topics as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How Apache Works&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Speaker&lt;/strong&gt;: Jean-Baptiste Onofré; Apache Member, fellow of Talend, who started work on the Apache Software Foundation in 2004, and PMC member of 20+ Apache projects such as Karaf, Camel, and Carbondata.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Abstract:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In-depth interpretation of the world’s largest open source software foundation – Apache Software Foundation. Introduce what is the “Apache Way” and its attraction, the whole process from open source to incubation and then graduated combined with actual project. Besides, it will introduce the current incubating status of ServiceComb.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How Smart City Microserviced Based on ServiceComb from iSoftStone&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Speaker&lt;/strong&gt;: Bao Yongwei; VP of iSoftStone Smart City Business, focusing on implementation and innovations in smart city related to cloud computing and big data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;iSoftStone Smart City Business involves a large number of systems with complex interactions. During the process of microservices implementation, it faced inappropriate microservices granularity, high code duplication rate, and difficulty in deployment of large application microservices. This speech will introduce how iSoftStone use ServiceComb, especially ServiceComb’s Swagger API, to resolve the pain points of microservices process, enable interoperability and decoupled chimney  systems to meet the challenges of microservices diversity in smart city.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Millions Users Solution Based on ServiceComb Microservices from Huawei Consumer Cloud&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Speaker&lt;/strong&gt;: Li Linfeng, microservices architect for Huawei’s Consumer Cloud application market, who has years of experience in designing and developing platform middleware, cloud platforms, and microservices. Author of “Netty authoritative guide” and “The principle and practice of distributed service framework”.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;Huawei Consumer Cloud services provide high-quality cloud services for hundreds of millions of Huawei end users in more than 100 countries. In order to support the rapid development of the business, it is necessary to drive delivery of value requirements efficiently and agilely through the microservices architecture. By using SpringMVC and transparent RPC development model from ServiceComb, the existing business code can be migrated to the new microservices architecture at a low cost. Besides, the business implements full-stack asynchronous transformation using the Reactive asynchronous programming model from ServiceComb. Compared with the traditional synchronous blocking service call, the performance is improved several times, but the resource loss is greatly reduced. More practical cases will be shown on this topic.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Domain Driven Design (DDD) in Microservices&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Speaker&lt;/strong&gt;: Wang Lei, pioneer of microservices in China, author of “Microservices Architecture and Practice”, Huawei Microservices Expert, and former ThoughtWorks Chief Consultant.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;p&gt;As a new architecture style, microservice has been widely adopted by the industry. It has become a fulfillment tool for the concept of DDD-driven design. This topic shares how to practice microservice with Domain Driven Design philosophy friendly.&lt;/p&gt;
+
+&lt;p&gt;Besides, Huawei Microservices open source expert, former Red Hat chief software engineer, and ServiceComb project leader - Jiang Ning is going to introduce the details about ServiceComb community and technology together with PMCs.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Please keep up-to-date on this blog to get the latest information about the event, such as topic details update.&lt;/strong&gt;   &lt;br /&gt;
+&lt;strong&gt;If you want to get timely information about the event, please go to our gitter to require:&lt;/strong&gt; &lt;br /&gt;
+&lt;a href=&quot;https://gitter.im/ServiceCombUsers/Lobby&quot;&gt;ServiceComb Gitter Room&lt;/a&gt;&lt;/p&gt;</content><author><name>Zen Lin</name><email>zenlintechnofreak@gmail.com</email><uri>http://zenlintechnofreak.github.io</uri></author><category term="microservice" /><category term="Meetup" /><summary type="html">Real time updated information of Apache ServiceComb (incubating) Day</summary></entry><entry xml:lang="cn"><title type="html">轻松微服务系列：从一键构建微服务和DDD设计开始</title><link href="/cn/docs/easy-build-microservice-system-part-I/" rel="alternate" type="text/html" title="轻松微服务系列：从一键构建微服务和DDD设计开始" /><published>2018-05-17T00:00:00+08:00</published><updated>2018-05-17T19:05:00+08:00</updated><id>/cn/docs/easy-build-microservice-system-part-I</id><content type="html" xml:base="/cn/docs/easy-build-microservice-system-part-I/">&lt;h2 id=&quot;轻松微服务系列从一键构建微服务和ddd设计开始&quot;&gt;轻松微服务系列：从一键构建微服务和DDD设计开始&lt;/h2&gt;
+&lt;p&gt;提到微服务，相信“程序猿”们已经不再陌生，估计大家都多少尝试过微服务框架，也遇到了不少“坑”直呼坑爹吧？其实微服务完全可以使用脚手架功能一键构建出来，开箱即用，而DDD（Domain-Driven Design），也是有章可循。这个“轻松微服务”系列，将为大家开启“轻松”愉快之旅。&lt;/p&gt;
+
+&lt;h3 id=&quot;牛刀小试&quot;&gt;牛刀小试&lt;/h3&gt;
+&lt;p&gt;打开命令行，输入下面的命令：&lt;/p&gt;
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mvn org.apache.maven.plugins:maven-archetype-plugin:2.4:generate -DarchetypeGroupId&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;org.apache.servicecomb.archetypes -DarchetypeArtifactId&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;business-service-jaxrs-archetype -DarchetypeVersion&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1.0.0-m2-SNAPSHOT -DarchetypeRepository&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;https://repository.apache.org/content/groups/snapshots-group
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提示：由于Java Chassis Archetypes还处于SNAPSHOT阶段，Repository托管在Apache Snapshots库中，仅用于测试，所以下载速度会稍慢。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;之后按提示指定微服务的&lt;code class=&quot;highlighter-rouge&quot;&gt;groupId&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;artifactId&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;version&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;package&lt;/code&gt;等信息，回车，一个新的微服务就创建好了：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/ArchetypesCreate.png&quot; alt=&quot;Archetypes创建&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;运行它也很简单，使用IDE打开项目，DEBUG -&amp;gt; Application.java，或在命令行：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c&quot;&gt;#编译打包&lt;/span&gt;
+mvn package
+&lt;span class=&quot;c&quot;&gt;#切换到输出目录&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;target
+&lt;span class=&quot;c&quot;&gt;#启动可执行jar包&lt;/span&gt;
+java -jar xxxx.jar
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;稍等微服务启动就绪，打开浏览器输入&lt;code class=&quot;highlighter-rouge&quot;&gt;http://localhost:8080/hello&lt;/code&gt;验证一下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/OutputHello.png&quot; alt=&quot;输出hello&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;是不是非常轻松呢？这份轻松来源我们使用Archetypes优化了构建过程，它是脚手架的基础。&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提示：如果想了解更多Archetypes的原理，请参考&lt;a href=&quot;https://maven.apache.org/archetype-archives/archetype-2.3/maven-archetype-plugin/&quot;&gt;这篇文档&lt;/a&gt;，希望理解命令行中使用到的参数，请参考&lt;a href=&quot;https://maven.apache.org/archetype-archives/archetype-2.3/maven-archetype-plugin/generate-mojo.html&quot;&gt;这篇文档&lt;/a&gt;。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;脚手架&quot;&gt;脚手架&lt;/h3&gt;
+&lt;p&gt;在建筑领域，脚手架是施工现场为方便工人操作并解决垂直和水平运输而搭设的各种支架以及平台。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/Scaffold.jpg&quot; alt=&quot;scaffold&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在软件开发领域，它引申为预提供一些基础框架代码加速开发过程，避免从零开始构建项目。用户只需要依据需求场景选择合适的脚手架，然后填充定制的业务逻辑即可，不必再去处理一些基础功能，例如数据库连接、日志实现、RPC传输等。&lt;/p&gt;
+
+&lt;p&gt;微服务框架一般都会提供脚手架功能，例如Spring，提供了Spring initializr：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/SpringInitializr.png&quot; alt=&quot;SpringInitializr&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;它集成了Spring Boot和Spring Cloud丰富的组件，创建出来的项目POM中将自动包含用户选中的依赖。&lt;/p&gt;
+
+&lt;p&gt;ServiceComb Java Chassis提供的脚手架具备更明显的优势：&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;对每一种编程模型都提供了对应的&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/archetypes&quot;&gt;Archetypes项目&lt;/a&gt;，包括SpringMVC、JAXRS、POJO和Spring Boot Starter；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;生成的项目除了在POM中自动添加必要的依赖，还会提供Producer和Consumer示例代码（Hello World）；&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;不久后会进一步提供&lt;strong&gt;Edge Server&lt;/strong&gt;、&lt;strong&gt;Authcation Server&lt;/strong&gt;等更贴近业务的脚手架项目，让用户能快速构建体系完整的微服务系统。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;前面牛刀小试中展示的一键构建微服务，正是基于它们：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/ArchetypeProjects.png&quot; alt=&quot;ArchetypeProjects&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;那么什么叫一个完整的微服务系统呢？我们可以拿一个具体的场景做例子，会更有感觉：&lt;/p&gt;
+
+&lt;h3 id=&quot;场景地产crm&quot;&gt;场景：地产CRM&lt;/h3&gt;
+&lt;p&gt;您经营着一家房地产开发商，销售房产，迫切需要一套销售系统，考虑到微服务的优势，您决定使用微服务的方式构建系统；主要的业务流程也非常简单：用户前来购买购买产品（房产），首先需要登记用户信息，并缴纳一定数量的定金，待交易当日，挑选心仪的产品（房产），支付尾款，完成交易。&lt;/p&gt;
+
+&lt;h4 id=&quot;使用ddd指导地产crm系统的设计&quot;&gt;使用DDD指导地产CRM系统的设计&lt;/h4&gt;
+&lt;p&gt;微服务系统的设计自然离不开DDD（Domain-Driven Design），它由Eric Evans提出，是一种全新的系统设计和建模方法，这里的模型指的就是领域模型（Domain Model）。领域模型通过聚合（Aggregate）组织在一起，聚合间有明显的业务边界，这些边界将领域划分为一个个限界上下文（Bounded Context）。Martin Fowler对它们都有详细的&lt;a href=&quot;https://martinfowler.com/tags/domain%20driven%20design.html&quot;&gt;解读&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;理论概念都搞清楚了，那么怎么来找模型和聚合呢？一个非常流行的方法就是&lt;a href=&quot;https://en.wikipedia.org/wiki/Event_storming&quot;&gt;Event Storming&lt;/a&gt;，它是由Alberto Brandolini发明，经历了DDD社区和很多团队的实践，也是一种非常有参与感的团队活动：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/EventStorming.png&quot; alt=&quot;EventStorming&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;上图就是我们对地产CRM这个场景使用Event Storming探索的结果，现在我们能够将限界上下文清晰的梳理出来：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/BoundedContext.png&quot; alt=&quot;BoundedContext&quot; /&gt;&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提示：Event Storming是一项非常有创造性的活动，也是一个持续讨论和反复改进的过程，不同的团队关注的核心域（Core Domain）不同，得到的最终结果也会有差异。我们的目的是为了演示完整的微服务系统构建的过程，并不涉及商业核心竞争力方面的探讨，因此没有Core Domain和Sub Domain之类的偏重。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;将分析成果转化为方案域设计&quot;&gt;将分析成果转化为方案域设计&lt;/h4&gt;
+&lt;p&gt;当我们完成所有的限界上下文的识别后，可以直接将它们落地为微服务：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/MicroserviceDesign1.png&quot; alt=&quot;MicroserviceDesign1&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;用户服务：提供用户信息管理服务，这里保存这用户的账号和密码，负责登录和认证；&lt;/li&gt;
+  &lt;li&gt;产品（房产）服务：提供产品管理服务，保存着房产的信息诸如价格、是否已售出等信息；&lt;/li&gt;
+  &lt;li&gt;支付服务：提供交易时支付服务，模拟对接银行支付定金，以及购房时支付尾款；&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;由于完成一笔交易是一个复杂的流程，与这三个微服务都有关联，因此我们引入了一个复合服务——交易服务：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/MicroserviceDesign2.png&quot; alt=&quot;MicroserviceDesign2&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;交易服务：提供产品交易服务，它通过编排调用将整个交易流程串起来,交易服务中有两个流程：
+    &lt;ul&gt;
+      &lt;li&gt;定金支付&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;p&gt;Step1：通过用户服务验证用户身份；&lt;/p&gt;
+
+    &lt;p&gt;Step2：通过支付服务请求银行扣款，增加定金账号内的定金；&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;购房交易&lt;/p&gt;
+
+    &lt;p&gt;Step1：通过用户服务验证用户身份；&lt;/p&gt;
+
+    &lt;p&gt;Step2：通过资源服务确定用户希望购买的资源（房产）尚未售出；&lt;/p&gt;
+
+    &lt;p&gt;Step3：通过资源服务标记目标资源（房产）已售出；&lt;/p&gt;
+
+    &lt;p&gt;Step4：通过支付服务请求扣减定金账号内的定金，以及银行扣剩下的尾款；&lt;/p&gt;
+
+    &lt;p&gt;最后两个步骤需要保证事务一致性，其中Step4包含两个扣款操作。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;之后，我们引入Edge服务提供统一入口：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/MicroserviceDesign3.png&quot; alt=&quot;MicroserviceDesign3&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Edge服务：很多时候也被称为API网关（API Gateway），负责集中认证、动态路由等等；&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;提示：Edge服务需要依赖服务注册-发现机制，因此同时导入了ServiceCenter。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;最后还需要提供UI：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/scaffold/MicroserviceDesign4.png&quot; alt=&quot;MicroserviceDesign4&quot; /&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;前端UI（同样以微服务方式提供）：用户交互界面；&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;至此，DDD设计地产CRM的工作就结束了，从下一篇文章开始，我们将和您一起轻松愉快的开启代码构建之旅，敬请期待！&lt;/p&gt;</content><author><name>Yangyong Zheng</name><email>yangyong.zheng@huawei.com</email><uri>https://zhengyangyong.github.io</uri></author><category term="Archetypes" /><category term="Scaffold" /><summary type="html">轻松微服务系列：从一键构建微服务和DDD设计开始</summary></entry><entry xml:lang="cn"><title type="html">ServiceComb Saga使用Cucumber做验收测试源码分析</title><link href="/cn/docs/saga_with_cucumber/" rel="alternate" type="text/html" title="ServiceComb Saga使用Cucumber做验收测试源码分析" /><published>2018-04-28T00:00:00+08:00</published><updated>2018-04-27T19:05:00+08:00</updated><id>/cn/docs/saga_with_cucumber</id><content type="html" xml:base="/cn/docs/saga_with_cucumber/">&lt;h3 id=&quot;servicecomb-saga使用cucumber做验收测试源码分析&quot;&gt;ServiceComb Saga使用Cucumber做验收测试源码分析&lt;/h3&gt;
+
+&lt;h4 id=&quot;cucumber-简介&quot;&gt;Cucumber 简介&lt;/h4&gt;
+
+&lt;p&gt;Cucumber 是一个能够理解用普通语言描述的测试用例的自动化测试工具，可以让人们用近似自然的语言去描述特性Feature和场景Scenario，根据Feature驱动开发，用作软件技术人员和非技术之间验收测试的桥梁。它是一个命令行工具，运行后会执行features中的内容，feature中的step会调用step definitions 可以用标签来组织场景支持40多种语言包括 Java, Ruby 等。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/cucumber.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Cucumber开发过程：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;创建feature文件，feature文件中描述了测试用例集（Features），测试用例(Scenarios)，创建测试所需环境(Given)，触发被测试事件(When)和结果验证(Then)&lt;/li&gt;
+  &lt;li&gt;创建step_definitions，此代码根据上面创建的feature文件，映射feature中的Gherkin Step为按步骤执行的代码，类似胶水的作用。&lt;/li&gt;
+  &lt;li&gt;执行cucumber执行指令，格式化输出&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;更多关于Cucumber的介绍请参考&lt;a href=&quot;https://cucumber.io/&quot;&gt;官网文档[2]&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h4 id=&quot;saga-使用-cucumber&quot;&gt;Saga 使用 Cucumber&lt;/h4&gt;
+
+&lt;p&gt;Saga项目对其下行程预定demo做了验收测试，我们对照Cucumber的开发过程分别分析成功执行完所有事务和出现异常时的自动化测试开发，在行程预定的demo中，全局事务&lt;code class=&quot;highlighter-rouge&quot;&gt;booking&lt;/code&gt;有两个子事务分别是预定酒店服务&lt;code class=&quot;highlighter-rouge&quot;&gt;Hotel&lt;/code&gt;和包车服务&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;，只有酒店服务和包车服务全部成功行程预定服务才算成功，否则全部失败并回滚补偿。demo中假定了房源紧张，每个用户最多只能预定2间，关于此行程规划demo细节请参考&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-saga/tree/master/saga-demo/booking&quot;&gt;文档[3]&lt;/a&gt;。&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;成功完成所有事务&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;p&gt;创建feature文件&lt;code class=&quot;highlighter-rouge&quot;&gt;pack_success_scenario.feature&lt;/code&gt;，定义Feature，并在feature中定义step&lt;/p&gt;
+
+        &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Feature: Alpha records transaction events
+
+  Scenario: Everything is normal
+    Given Car Service is up and running
+    And Hotel Service is up and running
+    And Booking Service is up and running
+    And Alpha is up and running
+
+    When User Sean requests to book 2 cars and 1 rooms
+
+    Then Alpha records the following events
+      | serviceName  | &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;             |
+      | pack-booking | SagaStartedEvent |
+      | pack-car     | TxStartedEvent   |
+      | pack-car     | TxEndedEvent     |
+      | pack-hotel   | TxStartedEvent   |
+      | pack-hotel   | TxEndedEvent     |
+      | pack-booking | SagaEndedEvent   |
+
+    And Car Service contains the following booking orders
+      | name | amount | confirmed | cancelled |
+      | Sean | 2      | &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;      | &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;     |
+
+    And Hotel Service contains the following booking orders
+      | name | amount | confirmed | cancelled |
+      | Sean | 1      | &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;      | &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;     |
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+
+        &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Given&lt;/code&gt; 定义了测试用例&lt;code class=&quot;highlighter-rouge&quot;&gt;Everything is normal&lt;/code&gt;所需的4个条件分别是4个服务运行正常，&lt;code class=&quot;highlighter-rouge&quot;&gt;When&lt;/code&gt;定义了触发用户&lt;code class=&quot;highlighter-rouge&quot;&gt;Sean&lt;/code&gt;发起预定2辆车和1间房子的被测事件。&lt;code class=&quot;highlighter-rouge&quot;&gt;Then&lt;/code&gt;中则指定了验证结果是&lt;code class=&quot;highlighter-rouge&quot;&gt;Alpha&lt;/code&gt;记录的各子事务及子事务发生顺序，&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;服务和&lt;code class=&quot;highlighter-rouge&quot;&gt;Hotel&lt;/code&gt;服务则记录预定结果。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;创建step_definitions &lt;code class=&quot;highlighter-rouge&quot;&gt;PackStepdefs.java&lt;/code&gt;&lt;/p&gt;
+
+        &lt;p&gt;在step_definition中使用正则的方式对应feature中定义的的测试条件，触发测试并验证结果。如：&lt;/p&gt;
+
+        &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;Given&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Car Service is up and running$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;probe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CAR_SERVICE_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+
+        &lt;p&gt;上面代码对应feature中第一个测试前提条件&lt;code class=&quot;highlighter-rouge&quot;&gt;Given car service is up and running&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;probe&lt;/code&gt;函数式方位&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;服务的一个Rest接口验证返回状态码来判断&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;是否正常启动运行。接下来四个&lt;code class=&quot;highlighter-rouge&quot;&gt;Given&lt;/code&gt;与此类似。&lt;/p&gt;
+
+        &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;When&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^User ([A-Za-z]+) requests to book ([0-9]+) cars and ([0-9]+) rooms$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rooms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Received request from user {} to book {} cars and {} rooms&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rooms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+
+      &lt;span class=&quot;n&quot;&gt;given&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rooms&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rooms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;cars&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;booking.service.address&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/booking/{name}/{rooms}/{cars}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+
+        &lt;p&gt;此段代码解析feature中定义的&lt;code class=&quot;highlighter-rouge&quot;&gt;When User Sean requests to book 2 cars and 1 rooms&lt;/code&gt;事件，解析出用户、预定车辆和房间数量参数并向&lt;code class=&quot;highlighter-rouge&quot;&gt;Booking&lt;/code&gt;服务发出&lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;方法的请求，然后在下面代码的&lt;code class=&quot;highlighter-rouge&quot;&gt;Then&lt;/code&gt;中验证结果：&lt;/p&gt;
+
+        &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Then&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Alpha records the following events$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataTable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;[]&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columnStrippingConsumer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataMap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;keySet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;retainAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;topCells&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;dataMatches&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ALPHA_REST_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/events&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columnStrippingConsumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+
+ &lt;span class=&quot;n&quot;&gt;And&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Car Service contains the following booking orders$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataTable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;dataMatches&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CAR_SERVICE_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/bookings&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NO_OP_CONSUMER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+
+    &lt;span class=&quot;n&quot;&gt;And&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Hotel Service contains the following booking orders$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataTable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;dataMatches&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HOTEL_SERVICE_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/bookings&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NO_OP_CONSUMER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+
+        &lt;p&gt;上面代码对应feature中&lt;code class=&quot;highlighter-rouge&quot;&gt;Then&lt;/code&gt;结果从三方面验证预定事件是否符合预期：&lt;code class=&quot;highlighter-rouge&quot;&gt;Alpha&lt;/code&gt;服务中记录的事件顺序、&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;服务的预定结果和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Hotel&lt;/code&gt;服务中的预定结果。&lt;code class=&quot;highlighter-rouge&quot;&gt;DataTable&lt;/code&gt;解析了feature中定义的事件结果和顺序，&lt;code class=&quot;highlighter-rouge&quot;&gt;dataMatches&lt;/code&gt;将此结果与各服务中查询到的结果进行比较验证是不是符合预期。&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;执行Command &lt;code class=&quot;highlighter-rouge&quot;&gt;RunCucumberIT.java&lt;/code&gt;&lt;/p&gt;
+
+        &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Runwith(Cucumber.class)&lt;/code&gt;指定使用Cucumber测试框架入口，并在&lt;code class=&quot;highlighter-rouge&quot;&gt;@CucumberOptions&lt;/code&gt;中指定feature目录和输出格式。&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;有子事务出现异常测试&lt;/p&gt;
+
+    &lt;p&gt;由于房源紧张，限制每个用户最多预订2间房，当用户预订超过2间时会抛出异常：&lt;/p&gt;
+
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Compensable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compensationMethod&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;cancel&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HotelBooking&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAmount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;can not order the rooms large than two&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;confirm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;bookings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;在此异常测试中我们预订事件中预订3间房，由于订房间失败，整个行程事务没有成功，对已经成功执行的订车子事务进行补偿保证原子性。&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;p&gt;创建feature文件&lt;code class=&quot;highlighter-rouge&quot;&gt;pack_compensation_scenario.feature&lt;/code&gt;&lt;/p&gt;
+
+        &lt;p&gt;与成功的行程规划测试中不同的只有触发的预定事件和最终的结果，前提条件都是4个服务启动并运行，所以feature只要修改&lt;code class=&quot;highlighter-rouge&quot;&gt;When&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Then&lt;/code&gt;内容即可（Features和Scenarios名也要对应修改）&lt;/p&gt;
+
+        &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;s&quot;&gt;When User Sean requests to book 5 cars and 3 rooms&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;Then Alpha records the following events&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| serviceName  | type               |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-booking | SagaStartedEvent   |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxStartedEvent     |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxEndedEvent       |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxStartedEvent     |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxAbortedEvent     |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxCompensatedEvent |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-car     | SagaEndedEvent     |&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;Then Car Service contains the following booking orders&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| name | amount | confirmed | cancelled |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| Sean | 5      | false     | true      |&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;Then Hotel Service contains the following booking orders&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| name | amount | confirmed | cancelled |&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;step_definition和Command与之前一样，不需要任何修改，触发预定超过3个房间的操作后，&lt;code class=&quot;highlighter-rouge&quot;&gt;Alpha&lt;/code&gt;会记录Hotel服务的&lt;code class=&quot;highlighter-rouge&quot;&gt;TxAbortedEvent&lt;/code&gt;和Car服务的&lt;code class=&quot;highlighter-rouge&quot;&gt;TxCompensatedEvent&lt;/code&gt;时间，此外Car服务的预定记录中会有取消为&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;的记录。&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+
+    &lt;p&gt;通过以上两个例子分析，Cucumber开发只需要在feature中定义好测试所需条件，触发事件和结果验证信息，然后在step_definition中进行解析验证即可。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;byteman-规则注入&quot;&gt;Byteman 规则注入&lt;/h4&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Byteman&lt;/code&gt;可以在代码的任意位置注入代码，并可以在注入的代码中访问当前方法中变量，包括方法参数、局部变量、调用其他函数的参数值、返回值等。更多关于Byteman的介绍请参考&lt;a href=&quot;http://byteman.jboss.org/docs.html&quot;&gt;官方文档[4]&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;Byteman开发过程：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;创建规则脚本.btm文件&lt;/p&gt;
+
+    &lt;p&gt;根据byteman语法创建规则，包括规则名，目标类，目标方法，注入位置，注入内容等，下面是一个在&lt;code class=&quot;highlighter-rouge&quot;&gt;main&lt;/code&gt;函数入口注入打印语句的规则文件例子&lt;/p&gt;
+
+    &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;RULE trace main entry&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;CLASS AppMain&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;METHOD main&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;AT ENTRY&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;IF true&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;DO traceln(&quot;entering main&quot;)&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;ENDRULE&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;在安装了byteman环境的机器上用javaagent参数指定加载规则文件运行AppMain即可在main函数入口处打印出&lt;code class=&quot;highlighter-rouge&quot;&gt;entering main&lt;/code&gt;。例子&lt;a href=&quot;https://github.com/adinn/byteman-tutorial1&quot;&gt;源码请参考[5]&lt;/a&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;加载规则并运行&lt;/p&gt;
+
+    &lt;p&gt;除了上面例子中通过命令行指定javaagent指定byteman 规则文件的加载方式外，还可以通过Java代码的方式加载，如下&lt;/p&gt;
+
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Submit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Submit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addRulesFromFiles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;org.jboss.byteman.agent.submit.Submit&lt;/code&gt;提供的加载规则的方法有通过文件加载&lt;code class=&quot;highlighter-rouge&quot;&gt;addRulesFromFiles&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;addRulesFromResources&lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;同样，byteman提供了移除规则的方法&lt;code class=&quot;highlighter-rouge&quot;&gt;deleteRulesFromFiles&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;deleteRulesFromResources&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;deleteAllRules&lt;/code&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;saga-使用-cucumber-集成-byteman&quot;&gt;Saga 使用 Cucumber 集成 Byteman&lt;/h4&gt;
+
+&lt;p&gt;Saga在Cucumber中集成了byteman注入一个超时异常，测试Saga对超时处理是否符合预期。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;创建byteman规则文件：&lt;code class=&quot;highlighter-rouge&quot;&gt;booking_timeout.btm&lt;/code&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;RULE set the saga timeout to 5s&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;INTERFACE org.apache.servicecomb.saga.omega.context.annotations.SagaStart&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;METHOD timeout&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;AT EXIT&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;IF TRUE&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;DO RETURN 5&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;ENDRULE&lt;/span&gt;
+
+&lt;span class=&quot;s&quot;&gt;RULE sleep when postBooking until timeout happens&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;CLASS org.apache.servicecomb.saga.demo.pack.booking.BookingController&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;METHOD postBooking&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;AT ENTRY&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;IF TRUE&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;DO debug(&quot;delay 10s until the booking timeout&quot;),&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;Thread.sleep(10000)&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;ENDRULE&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;这里定义了两个规则，第一个规则&lt;code class=&quot;highlighter-rouge&quot;&gt;set the saga timeout to 5s&lt;/code&gt;在注解&lt;code class=&quot;highlighter-rouge&quot;&gt;@SagaStart&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;timeout&lt;/code&gt;方法中返回5表示设置超时时间值为5秒。第二个规则&lt;code class=&quot;highlighter-rouge&quot;&gt;sleep when postBooking until timeout happens&lt;/code&gt;在类&lt;code class=&quot;highlighter-rouge&quot;&gt;BookingController&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;postBooking&lt;/code&gt;方法中注入&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.sleep(10000)&lt;/code&gt;，让&lt;code class=&quot;highlighter-rouge&quot;&gt;postBooking&lt;/code&gt;方法阻塞10秒，原来的&lt;code class=&quot;highlighter-rouge&quot;&gt;postBooking&lt;/code&gt;方法是一个空方法，注入byteman的阻塞方法后会触发预定行程服务的超时异常。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;创建feature文件：&lt;code class=&quot;highlighter-rouge&quot;&gt;pack_timeout_scenario.feature&lt;/code&gt;&lt;/p&gt;
+
+    &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt; 	&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Given Install the byteman script booking_timeout.btm to Booking Service&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;When User Sean requests to book 1 cars and 1 rooms&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;Then Alpha records the following events&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| serviceName  | type               |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-booking | SagaStartedEvent   |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxStartedEvent     |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxEndedEvent       |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxStartedEvent     |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxEndedEvent       |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-booking | TxAbortedEvent     |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxCompensatedEvent |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxCompensatedEvent |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| pack-booking | SagaEndedEvent     |&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;Then Car Service contains the following booking orders&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| name | amount | confirmed | cancelled |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| Sean | 1      | false     | true      |&lt;/span&gt;
+
+    &lt;span class=&quot;s&quot;&gt;Then Hotel Service contains the following booking orders&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| name | amount | confirmed | cancelled |&lt;/span&gt;
+      &lt;span class=&quot;s&quot;&gt;| Sean | 1      | false     | true      |&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;在行程预定的例子中仍然以4个服务启动并运行为前提，然后加载上面创建的byteman规则文件和目标服务：&lt;code class=&quot;highlighter-rouge&quot;&gt;Booking&lt;/code&gt;。然后触发预定一辆车和一间房的操作。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;step_definition解析&lt;/p&gt;
+
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;Given&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Install the byteman script ([A-Za-z0-9_\\.]+) to ([A-Za-z]+) Service$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Install the byteman script {} to {} service&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;target/test-classes/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;Submit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getBytemanSubmit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addRulesFromFiles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;在Cucumber解析文件中用正则方法获取目标规则和服务名，&lt;code class=&quot;highlighter-rouge&quot;&gt;getBytemanSubmit&lt;/code&gt;根据服务名&lt;code class=&quot;highlighter-rouge&quot;&gt;service&lt;/code&gt;参数来获取目标服务的地址和byteman监听端口，并将本地规则注入到目标服务中，注入原理是&lt;code class=&quot;highlighter-rouge&quot;&gt;Booking&lt;/code&gt;启动时是带着byteman参数启动的：&lt;/p&gt;
+
+    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-Dorg.jboss.byteman.debug&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; -Dorg.jboss.byteman.verbose&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;tru
+-javaagent:/maven/saga/byteman.jar&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;port:9091,address:0.0.0.0,listener:true
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+
+    &lt;p&gt;执行&lt;code class=&quot;highlighter-rouge&quot;&gt;bm.addRulesFromFiles(rules);&lt;/code&gt;时就可以把本地规则通过Socket发送到&lt;code class=&quot;highlighter-rouge&quot;&gt;Booking&lt;/code&gt;服务，并由Byteman完成字节替换。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;结果验证&lt;/p&gt;
+
+    &lt;p&gt;注入规则后触发预定车辆和房间服务时预定服务会出现超时，Saga会对已经完成的订车和订房间子事务进行补偿，Alpha中记录了一些列事件以及他们发生的顺序，另外Car服务和Hotel服务的取消标记&lt;code class=&quot;highlighter-rouge&quot;&gt;cancelled&lt;/code&gt;也为&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;代码中使用Cucumber和Byteman要先通过pom引入相关依赖&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.cucumber&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;cucumber-java8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;${cucumber.version}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;test&lt;span class=&quot;nt&quot;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.cucumber&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;cucumber-junit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;${cucumber.version}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;test&lt;span class=&quot;nt&quot;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.jboss.byteman&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;byteman-submit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+      &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;${byteman.version}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;本地运行调试需要在启动的时候使用javaagent启动byteman，建议通过修改docker-compose.yaml文件，指定可执行jar的启动参数，并修改stepdef解析文件中各个服务地址，个服务启动运行后在IDEA中运行相应的feature文件即可进行调试测试。运行调试版代码可参考&lt;a href=&quot;https://github.com/lijasonvip/incubator-servicecomb-saga/tree/debug-cucumber-byteman&quot;&gt;个人分支代码[6]&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;欢迎开发者朋友们加入ServiceComb社区，一起做些有意思的事情。&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/docs/join_the_community/&quot;&gt;加入社区方法[7]&lt;/a&gt;&lt;/p&gt;
+
+&lt;h4 id=&quot;参考资料&quot;&gt;参考资料&lt;/h4&gt;
+
+&lt;p&gt;[1] ServiceComb Saga  https://github.com/apache/incubator-servicecomb-saga&lt;/p&gt;
+
+&lt;p&gt;[2] Cucumber  https://cucumber.io/&lt;/p&gt;
+
+&lt;p&gt;[3] Saga booking demo  https://github.com/apache/incubator-servicecomb-saga/tree/master/saga-demo/booking&lt;/p&gt;
+
+&lt;p&gt;[4] Byteman  http://byteman.jboss.org/docs.html&lt;/p&gt;
+
+&lt;p&gt;[5] Byteman demo https://github.com/adinn/byteman-tutorial1&lt;/p&gt;
+
+&lt;p&gt;[6] debug 分支 https://github.com/lijasonvip/incubator-servicecomb-saga/tree/debug-cucumber-byteman&lt;/p&gt;
+
+&lt;p&gt;[7] 加入ServiceComb 社区  http://servicecomb.incubator.apache.org/cn/docs/join_the_community/&lt;/p&gt;</content><author><name>Li Bo</name><email>libo75@huawei.com</email></author><category term="Saga" /><category term="Cucumber" /><summary type="html">ServiceComb Saga使用Cucumber做验收测试源码分析</summary></entry><entry xml:lang="cn"><title type="html">Saga分布式事务解决方案与实践</title><link href="/cn/docs/distributed-transactions-saga-implementation/" rel="alternate" type="text/html" title="Saga分布式事务解决方案与实践" /><published>2018-04-26T00:00:00+08:00</published><updated>2018-04-26T17:18:43+08:00</updated><id>/cn/docs/distributed-transactions-saga</id><content type="html" xml:base="/cn/docs/distributed-transactions-saga-implementation/">&lt;h2 id=&quot;saga分布式事务解决方案与实践&quot;&gt;Saga分布式事务解决方案与实践&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.001.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.002.jpeg&quot; alt=&quot;&quot; /&gt;
+我先介绍一下我自己，我叫姜宁，来自于华为开源研究中心，现在负责的是ServiceComb这个开源项目。ServiceComb这个项目已经进到Apache孵化，应该是去年11月份时进到Apache孵化的，这个月刚发了1.0M1版，但对于SAGA来说我们属于探索的阶段，我们就发了0.1.0。我参与过Apache一些项目，我也是Apache的 Member，是Apache CXF, Apache Camel 还有的PMC。还有一件事情，前一段时间帮阿里同学孵化 RocketMQ，我是以导师的身份参与的，属于见习的Mentor，这回带着ServiceComb这个项目，我感觉我把很多角色都玩了一遍。后面如果大家有兴趣，Apache孵化的事情也可以找到。还有，我之前在红帽软件、IONA、航信待过，说不定会有一些前同事，也可以找我叙旧。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.003.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;今天的议题围绕几个方面来展开，一个是微服务事务一致性的问题，然后讲一讲业界的SAGA解决方案，我们在ServiceComb里也提供了SAGA的实现。另外一件事情，我项目这边也在招新，欢迎广大感兴趣的同学一会儿加我微信。我们现在项目其实架子也都搭得不错了，就是等着大家跳到碗里面，一起来解决微服务事务一致性问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.004.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;微服务架构强调的服务能够独立开发，独立演进，独立部署， 独立团队。&lt;/p&gt;
+
+&lt;p&gt;那微服务相关的数据是采用什么方式进行存储的呢？&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.005.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;传统的单体应用一般采用的是数据库提供的事务一致性，通过数据库提供的提交以及回滚机制来保证相关操作的ACID，这些操作要么同时成功，要么同时失败。各个服务看到数据库中的数据是一致的，同时数据库的操作也是相互隔离的，最后数据也是在数据库中持久存储的。这样的架构不具备横向扩展能力，服务之间的耦合程度也比较高，会存在单点故障。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.006.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在微服务架构中， 有一个database per service的模式， 这个模式就是每一个服务一个数据库。 这样可以保证微服务独立开发，独立演进，独立部署， 独立团队。&lt;/p&gt;
+
+&lt;p&gt;由于一个应用是由一组相互协作的微服务所组成，在分布式环境下由于各个服务访问的数据是相互分离的， 服务之间不能靠数据库来保证事务一致性。   这就需要在应用层面提供一个协调机制，来保证一组事务执行要么成功，要么失败。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.007.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;两阶段提交其实比较简单，这边有两个资源提供准备和提交两个接口。&lt;/p&gt;
+
+&lt;p&gt;由于隔离性互斥的要求，在事务执行过程中，所有的资源都是被锁定的，这种情况只适合执行时间确定的短事务。  但是为了保证分布式事务的一致性，大都是采用串行化的隔离级别来保证事务一致性，这样会降低系统的吞吐。&lt;/p&gt;
+
+&lt;p&gt;但因为2PC的协议成本比较好，又有全局锁的问题，性能会比较差。 因此现在大家基本上不会采用这种强一致解决方案。我们需要做一下酸碱平衡。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.008.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里先简单介绍一下酸碱平衡中的酸 ACID。 原子性 事务作为整体来执行，要么全部执行，要么都不执行。一致性 事务应确保数据从一个一致的状态转变为另一个一致的状态。隔离性 多个事务并发执行时，一个事务的执行不应影响其他事务的执行。持久性 已提交的事务修改数据会被持久保持&lt;/p&gt;
+
+&lt;p&gt;酸碱平衡中的碱 BASE。 基本可用 可以保证分布式事务参与方不一定同时在线。柔性状态 允许系统状态更新有一定的延时，这个延时对客户来说不一定能察觉。最终一致性 通常是通过消息可达的方式保证系统的最终一致性。&lt;/p&gt;
+
+&lt;p&gt;这是分布式事务的一些基础理论数据库以及分布式的两阶段提交都提供了ACID的保证。 由于隔离性互斥的要求，在事务执行过程中，所有的资源都是被锁定的，这种情况只适合执行时间确定的短事务。后续大家开始通过业务逻辑将互斥锁操作从资源层面上移到业务层面，这并不是完全放弃了ACID，而是通过放宽一致性要求，借助本地事务来实现最终分布式事务一致性的同时也保证系统的吞吐。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.009.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;TCC名字的由来是其中包含了 try, confirm, cancel三个操作。&lt;/p&gt;
+
+&lt;p&gt;与两阶段提交相比，TCC位于业务服务层， 没有单独的准备阶段，Try操作可以灵活选择业务资源锁的粒度。TCC是通过最终一致性来解决系统性能问题的这个设计，对我们设计抉择有很大的启发。 有些时候一些系统的技术问题是可以通过业务建模的方式来解决的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.010.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;​     回顾之前的酸碱平衡的示例，我们得到的启发我们可以通过业务模型的改进提升系统性能。有关领域建模，这里给大家推荐两本书，一个是《领域驱动设计》，还有一个是《实现领域驱动设计》。微服务设计目标高内聚低耦合，领域驱动设计能帮助构建一致的业务模型和系统实现模型，通过领域驱动设计可以明确微服务的界限上下文。通过在业务层面上把它们之间的强耦合关系拆开之后，带来最大的好处是，它们自身可以借助传统的数据库所提供的功能来实现一致性，只不过是在微服务与微服务之间，它们需要通过前面提到的这种柔性事务方式来做这件事情。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.011.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;微服务架构是一个在限定界限上下文内的松耦合的服务架构。微服务事务一致性的建议是什么呢？就是内刚外柔。在限定上下文内容借助数据库提供事务一致性来做强一致。在限定上下文之间依靠最终一致性方案来解决服务间协同问题。&lt;/p&gt;
+
+&lt;p&gt;对于柔性事务来常见的实现方式有TCC，和Saga，今天我们主要向大家介绍Saga的实现。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.012.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Saga其实是30年前的一篇数据库论文里提到的一个概念。在论文中一个Saga事务是由多个本地事务所组成， 每个本地事务有相应的执行模块和补偿模块，当saga事务中的任意一个本地事务出错了， 可以通过调用相关的补充方法恢复之前的事务，达到事务的最终一致性。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.013.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Saga概念虽然提出来快30年了， 随着微服务的复杂，引出了分布式Saga问题近些年也逐步受到大家的关注。&lt;/p&gt;
+
+&lt;p&gt;我们在实现Saga模型的时候，主要是参考了Caitie McCaffrey 在分布式Saga论文，以及Chris Richardson的研究。 大家可以通过下面的链接获取相关的信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.016.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在分布式系统中由于网络请求可能的延时，在Caitie的论文中对被Saga调用的服务提出两点要求，我们需要Saga调用的服务支持幂等。 在服务请求的过程中，可能会出现超时重试的情况，我们需要通过幂等来避免多次请求所带来的问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.017.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;前面提到了超时重试的机制，现在我们再来看看重试取消的情况。补偿可交换原则是指Saga并行处理的过程中，如果发生了超时重试事件之后，并进行了补偿的操作，那么补偿操作是直接生效的。&lt;/p&gt;
+
+&lt;p&gt;为了保证这个要求，需要我们在设计系统的过程中保留所有的事务数据。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.018.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;由此我们可以知道Saga模型只支持ACD，不提供隔离性的保证。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.019.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;因为saga事务没有准备阶段，事务没有隔离，如果两个saga事务同时操作同一资源就会遇到我们操作多线程临界资源的的情况。因此会产生更新丢失，脏数据读取等问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.020.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;为了解决隔离性带来的问题，我们可以参考一下TCC的解决方案，从业务层面入手加入一Session以及锁的机制来保证能够串行化操作资源。或者是在业务层面通过预先冻结资金的方式隔离这部分资源。 最后在业务操作的过程中可以通过及时读取当前状态的方式获取到最新的贡献。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.021.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;目前业界提供了两类Saga的实现方式。 一个是集中式协调器的实现方式，一个分布式的实现方式。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.022.1.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;集中式的Saga实现一般是通过一个Saga对象来追踪所有的Saga子任务的调用情况， 根据调用情况来决定是否需要调用对应的补偿方面，协调器和调用方是在一个进程中的。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.022.2.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里附上的是Camel最近实现的Saga EIP， 通过这个DSL可以很方便地实现执行操作和取消操作。
+集中式的Saga实现方式比较直观并且容易控制，问题是业务耦合程度会比较高。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.023.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;布式的Saga 一般是采用事件驱动方式让参与的服务方进行相关的交互。相关的业务方只需要订阅相关的领域事件即可。 Chirs提供了基于事件溯源的实现，同时axonframework也提供了相关的实现。&lt;/p&gt;
+
+&lt;p&gt;分布式saga实现的好处： 采用事件源的方式降低系统复杂程度，提升系统扩展性， 处理模块通过订阅事件的方式降低系统的耦合程度。当然这也的实现也有一些问题： saga系统会涉及大量的业务事件，对编码和调试会带来一些问题；因为处理是基于事件，相关事件处理模块可能会循环依赖的问题。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.024.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;前面理论铺垫已经做完了，现在讲一讲我们的实现。 ServiceComb是去年5月份华为开源的微服务框架，它是华为云微服务框架引擎很重要的一个组成部分。大家可以通过下面链接来访问ServiceComb官网以及相关的代码库。&lt;/p&gt;
+
+&lt;p&gt;目前ServiceComb主要有三个项目组成：第一个是ServiceCenter做服务发现的，这是go语言在etcd
+基础实现的服务注册中心，另外是java的一个微服务框架，这块是基于vertx的基础上实现了全异步操作接口，框架有比较好的性能。 SAGA其实就是我们针对前面刚刚提到Saga模式的实现。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.025.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;集中式的Saga协调器构建过程参考了Caitie的论文，实现了一个集中式Saga调用协调器。 后续我们在开发的过程中，发现如果不提供DSL的话，让用户定义Saga事件很困难，受到Zipkin的启发，我们实现了一个分布式的Saga协调器。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.026.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;集中式的协调器，包含了Saga调用请求接收，分析，以及执行和结果查询这部分的内容。任务代理模块需要预先知道Saga事务调用关系图。执行模块根据生成的调用图产生调用任务，调用相关微服务服务接口。如果服务调用执行出错，会调用服务的相关的补偿方法回滚。&lt;/p&gt;
+
+&lt;p&gt;下面是我们实现的两个不同的调度模型。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.027.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这里Saga执行模块通过分析请求的Json数据，构建一个调用关系图，这里我们是通过JSon来描述Saga事务串行调用子事务或者并行调用子事务。关系调用图被Saga实现中的任务运行模块分解成为一个一个执行任务，执行任务由任务消费者获取并生成相关的调用 （这里同时支持串行和并行调用）。&lt;/p&gt;
+
+&lt;p&gt;Saga任务会根据执行的情况向Saga log中记录对应的Saga事务的关键事件，同时我们的事件查看器查看到Saga事务相关的执行情况。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.028.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;后续我们采用了Actor模型对任务的调度模块进行了重构，在不进行调优的情况下，系统性能提升一倍。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.029.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;集中式Saga的实现的好处是易于监控和协调， 但是坏处就是需要依赖工具对Saga调用进行相关的描述。那我们有没有一个好的方式自动获取Saga事务的定义呢？ 为了解决这一问题，我们对内部的Saga实现进行新的改进。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.030.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;正如前面提到的，Zipkin通过在服务调用双方传递上下文的方式可以构建出完整的调用链， 这个调用链和我们需要的Saga子事务调用信息很类似。 因此我们借助Zipkin实现了一套Saga调用关系追踪的模块。&lt;/p&gt;
+
+&lt;p&gt;为了实现这个事务追踪模型，就需要我们在应用端部署相关的监控模块，同时监控模块需要和后台进行协同交互，于是我们设计了Pack狼群架构。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.031.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;狼群架构有两个参与者， 一个是Alpha， 一个是Omega。Alpha是狼群首领，负责协调事务执行情况，Omega是狼群成员，负责收集事务，向狼群首领上报情况，并执行相关指令。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.032.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Omega会以切面编程的方式向应用程序注入相关的处理模块，这里有拦截请求的模块， 用来帮助我们构建分布式事务调用的上下文。 同时在事务处理初始阶段处理事务的相关准备的操作，例如创建Saga 起始事件，以及相关的子起始事件， 根据事务的执行的成功或者失败生产相关的事务终止或者失败事件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.033.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Omega会与Alpha进行链接会把这些事件通知给Alpha。 Alpha可以在后台进行分析，根据Saga事务执行的情况给Omega下达相关的指令进行相关的回滚恢复。&lt;/p&gt;
+
+&lt;p&gt;这样设计的好处是Saga实现代码与用户的代码分离， 用户只需要添加几个annotation，Saga实现就能Saga事件的执行情况并进行相关的处理。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.034.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这是Omega和Alpha之间的正常业务逻辑的交互图，这里Omega通过分析调用上下文决定是否发生Saga事务的起始事件到Alpha，后续ServiceA在调用ServiceB，会将相关的调用上下文传递给ServiceB。ServiceB的Omega模块会截取这个调用上下文生成相关子事务事件信息。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.035.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;如果服务调用的过程中抛出异常，Omega会将终止事件发送到Alpha端， Alpha的后台进程会定时做扫描，扫描过程中会发现有需要恢复的事件。Alpha会向Omega发消息调用相关的恢复操作，来保证整个Saga事务的原子性。目前Omega也开始提供重试功能，也就是事务调用如果失败了， Omega会根据设置进行重试尝试。
+&lt;img src=&quot;/assets/images/saga/Saga.036.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;未来的开发计划，第一个就是Alpha这边会做多租，因为这边我们可以提供线上的服务，还有为了保证系统的可达性，我们可能会用消息队列的方式的方式来做。还有就是刚刚给大家提到的TCC协调器的方式。还有就是Omega，我们要实现幂等也比较费劲，在Omega端也可以实现幂等操作。另外根据Saga的执行这个情况，也要做一些可视化的事情，这块其实也是前端，大家如果有做前端技能的话，可以跟我联系一下。最后我们要解决多线程共享调用的问题。我们问题都列在下面的JIRA上面，大家可以来找一下相关的任务。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.037.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;简单小节一下，我们对事务一致性做了简单的回顾，业界的SAGA解决方案也提了一下，简单介绍一下ServiceComb的Saga实现，以及我们后续的开发计划。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.038.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这个最关键了，大家扫码，上面是ServiceComb小助手，可以帮你拉到微信群里，如果大家有兴趣想加入到我们SAGA项目开发可以与ServiceComb小助手联系。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/saga/Saga.039.jpeg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;</content><author><name>Willem Jiang</name></author><category term="Saga" /><category term="QCon" /><summary type="html">2018年QConBeijing Saga分布式事务解决方案与实践演讲实录</summary></entry><entry xml:lang="cn"><title type="html">如何设计一个优质的微服务框架：Apache ServiceComb 的开放性设计</title><link href="/cn/docs/open-design/" rel="alternate" type="text/html" title="如何设计一个优质的微服务框架：Apache ServiceComb 的开放性设计" /><published>2018-04-25T00:00:00+08:00</published><updated>2018-04-25T00:00:00+08:00</updated><id>/cn/docs/open-design</id><content type="html" xml:base="/cn/docs/open-design/">&lt;p&gt;【摘要】 一个优质的微服务框架需要考虑的要素众多，在满足微服务设计理念的前提下，也是一个不断实践优化的过程。  &lt;br /&gt;
+本文讲述了整个 开源微服务框架 Apache ServiceComb 设计形成的前因后果，尝试从理念、思想和实践结合的维度剖析一个优质的微服务框架应该具备哪些要素，包括但不限于 对开发者友好、高性能、内外部扩展性等。  &lt;br /&gt;
+阅读本文有利于加深对微服务理念和框架的理解，给予微服务用户或开发者以帮助，这也是 Apache ServiceComb 的前身华为云微服务引擎的智慧结晶，从细节处承载了华为云自身多年云化转型的经验。&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2 id=&quot;写在前面&quot;&gt;写在前面&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 的前身为华为云的 &lt;a href=&quot;https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html&quot;&gt;微服务引擎 CSE (Cloud Service Engine) 云服务&lt;/a&gt;,  ServiceComb 的早期版本和多数第一批做微服务或分布式框架先贤一样，为了追求高性能，做过非常多如 改善编码效率 和改进通信协议等尝试。然而，随着业务规模的递增，需求也逐渐呈现多样化，单方面通过传统手段追求高性能导致在面对多样化需求时遇到了各种挑战，遗留系统的通信、接入各种不同的终端、协议健壮性、防攻击等各种挑战迎面而来。&lt;/p&gt;
+
+&lt;p&gt;Apache ServiceComb，愿景是帮助企业快速构建云原生应用，通过一系列解决方案帮助用户快速开发微服务应用的同时实现对这些微服务应用的高效运维管理，保持中立性以避免厂商LockIn成为了关键任务。对于此， Apache ServiceComb 需要有友好的机制能够对接各微服务主流技术栈技术 或 开发框架。&lt;/p&gt;
+
+&lt;p&gt;在系列挑战的驱动下， Aapche ServiceComb 设计团队逐步形成了 “全面开放，使用标准协议，架构易于拆分和扩展，对开发人员友好，可以与业界其他主流框架互通集成” 的共识， 本文将着重分享这些共识是如何体现在Apache ServiceComb 的设计中的。&lt;/p&gt;
+
+&lt;h2 id=&quot;开放和标准&quot;&gt;开放和标准&lt;/h2&gt;
+
+&lt;p&gt;开放和标准应用到设计的不同的层面。一方面是连接组织和开发人员，一方面是连接异构系统。组织和开发人员的复杂性来源于技能的多样性，大家使用不同的开发语言，同一种开发语言存在多样的开发习惯；系统的多样性来源于系统之间的通信协议，为了实现与异构系统的通信，必须具备良好的适配不同通信协议的能力。&lt;/p&gt;
+
+&lt;h3 id=&quot;连接组织和开发人员&quot;&gt;连接组织和开发人员&lt;/h3&gt;
+
+&lt;h4 id=&quot;编程风格&quot;&gt;编程风格&lt;/h4&gt;
+
+&lt;p&gt;每位技术人员都或多或少拥有自己的 Coding 习惯或爱好的技术， 使用个人熟练的方式从事技术工作往往更加高效和舒适。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 的早期版本实现了 gRPC 协议，然而在项目演进过程中我们发现大量技术人员并不熟悉书写 IDL ， 对 IDL 具体支持哪些特性也不清楚。 大多数情况下，用户每碰到一个场景就需要翻开协议规范看一遍， 而 IDL 缺少配套的编辑或语法检查等工具也导致了开发效率的降低。&lt;/p&gt;
+
+&lt;p&gt;于是 Apache ServiceComb 设计团队开始思考是否有方法能够在确保保持用户开发习惯的前提下支持 gRPC 。&lt;/p&gt;
+
+&lt;p&gt;设计团队结合自己的 Java 编程史，分析当下主流框架，并听取社区用户的反馈找到了一些共性：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;使用 RPC 方式描述对外接口。gRPC 、Corba 、WebService 等技术人员谙于此道。&lt;/li&gt;
+  &lt;li&gt;使用 JAX-RS 或 Spring MVC 风格开发 REST 接口。REST 风格开发随着微服务架构兴起，JAX-RS 和 Spring MVC 已然成为 Java REST 的开发事实标准， Spring 的拥抱者都比较熟悉。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Apache ServiceComb 很快在社区设计层面达成了一致，通过缺省支持以上共性来拥抱90%的开发者， 让大多数的 Java 开发者们能够快速开始工作。&lt;/p&gt;
+
+&lt;p&gt;除以上共识外，Apache ServiceComb 还额外做了进一步的优化，以保证不同编程风格的兼容性，使用户或开发者倍感灵活及舒适。&lt;/p&gt;
+
+&lt;p&gt;在下面的例子中，展示了 Provider和Consumer 代码的各种实现，在同一个微服务中，这些编程方式可以同时出现；同一段 Consumer 代码中可以访问各种不同的编程风格的 Provider 实现。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;RPC 方式的 Provider&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RpcSchema&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schemaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;HelloImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Helloperson&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;JAX-RS 方式的 Provider&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;代码片段来自于 &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/jaxrs-sample&quot;&gt;Apache ServiceComb JAX-RS sample&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RestSchema&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schemaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jaxrsHello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/jaxrshello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Produces&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;JaxrsHelloImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/sayhi&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@POST&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/sayhello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@POST&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Helloperson&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Spring MVC 方式的 Provider&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;代码片段来自于 &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/springmvc-sample&quot;&gt;Apache ServiceComb Spring MVC sample&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RestSchema&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schemaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;springmvcHello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/springmvchello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;produces&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MediaType&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;APPLICATION_JSON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;SpringmvcHelloImpl&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;implements&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/sayhi&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RequestMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@RequestParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Override&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@RequestMapping&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;/sayhello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;method&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RequestMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;POST&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nd&quot;&gt;@RequestBody&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Person&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Helloperson&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;RPC 方式访问上述三种服务的 Consumer&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@RpcReference&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;microserviceName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;schemaId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Hello&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;sayHi&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;JavaChassis&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;以上代码片段全部出自 &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/&quot;&gt;Apache ServiceComb Samples&lt;/a&gt;，有兴趣者可阅读了解或贡献更多的智慧。&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;直至此处，或许开发者会产生疑问，既然 Consumer 可以通过一致的 API 方式访问不同的Provider，为何还需要额外的 JAX-RS 和 Spring MVC 标签？&lt;/p&gt;
+
+&lt;p&gt;原因是，这里的设计依据是 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;Apache ServiceComb&lt;/a&gt;的 Consumer考虑的不仅限于 类SDK 的 Consumer，还有浏览器等非 SDK 类的 Consumer，浏览器的 Conumer 识别的是 Http 形式的消息。 通过定义和使用这些标签， 我们可以更加精细的指定浏览器如何访问后台接口。 类似于 Web Service 的 WSDL 描述语言， Apache ServiceComb 称之为&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/service-contract/&quot;&gt;服务契约&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;服务的契约会在服务运行时通过代码定义自动生成，并注册到&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-service-center&quot;&gt;服务中心&lt;/a&gt;。契约也可在运行时用于独立的服务治理逻辑开发，生成 Consumer 代码。此外，也可作为 API 文档对外发布，供非 SDK 的 Consumer 参考。&lt;/p&gt;
+
+&lt;h4 id=&quot;服务契约&quot;&gt;&lt;strong&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/service-contract/&quot;&gt;服务契约&lt;/a&gt;&lt;/strong&gt;&lt;/h4&gt;
+
+&lt;p&gt;微服务强调服务自治，对外体现的功能全部以松耦合的接口方式提供，并且只能以通信的方式实现相互访问。此原则给团队协作带来了根本性的变革。&lt;/p&gt;
+
+&lt;p&gt;微服务的一个开发团队通常由5~6个人的全功能团队组成，端到端的完成 场景需求分析、架构功能设计、开发和运维，团队组织结构和业务系统的架构相匹配。团队建立后的核心问题就是团队之间如何进行高效的协作沟通，以决定不同微服务之间的协作通信。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;Apache ServiceComb&lt;/a&gt; 通过确保让开发人员保持自己的固有编程习惯及设计上的松耦合灵活性，让微服务团队之间可以进行高效协作，以避免在不同的微服务团队讨论编程风格受限于历史旧账而浪费宝贵的精力和时间。&lt;/p&gt;
+
+&lt;p&gt;在 RPC 的世界里，有 Corda IDL，WSDL，ProtoBuffer 等可以参考的优秀实践， REST 风格的接口让团队之间可以通过 HTTP 语义进行沟通，但却不能像 IDL 一样描述跨语言的数据格式。Open API 的出现很好地解决了这个问题。&lt;/p&gt;
+
+&lt;p&gt;Open API 首先是一个不断发展壮大中的开放的标准。Open API 能兼顾 RPC 、REST 等不同的开发方式，并且吸收了大量的跨语言经验，能够在不同的语言之间进行解析。&lt;/p&gt;
+
+&lt;p&gt;对于 Java 开发者，下面的代码片段是日常所打交道的：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type:object&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type:integer&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;如果开发人员有丰富的跨语言开发经验，可以看出 Swagger 在解决跨语言编程方面API定义冲突的努力， 如 Swagger 通过 format 来定义数据类型的存储格式，以解决不同的语言在数据类型表示上的差异：&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type:object&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;s&quot;&gt;age&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;type:integer&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;format:int32&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache SerivceComb&lt;/a&gt; 既遵循常规开发规范也特别关注开发效率。开发者可以先写接口定义后写代码， 也可直接通过自己熟悉的方式编写写代码， 两种方式都会生成 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/service-contract/&quot;&gt;服务契约&lt;/a&gt;（Open API 描述文件），并且将内容注册到&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-service-center&quot;&gt;服务中心&lt;/a&gt;。使用者可以从服务中心下载相关的服务契约进行开发。 Apache ServiceComb 的各种治理结构也是基于契约的，可以让开发者独立于业务实现对系统进行统一的管控治理。&lt;/p&gt;
+
+&lt;h3 id=&quot;连接异构系统&quot;&gt;连接异构系统&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 早期版本提供了gRPC、REST、SOAP等多种协议，当前主要&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;支持 REST 和Highway 高性能私有 RPC 两种协议&lt;/a&gt;。&lt;/p&gt;
+
+&lt;h4 id=&quot;highway-高性能私有-rpc-协议&quot;&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/#highway-rpc%E5%8D%8F%E8%AE%AE&quot;&gt;Highway 高性能私有 RPC 协议&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;gRPC 相对于 REST 的最显著优点就是性能，它采用长连接、高效的二进制序列化方式，提供多种语言支持， 提供了 IDL 语言约束开发者按照标准的方式工作， 一切看起来是那么的完美。&lt;/p&gt;
+
+&lt;p&gt;实际上，&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;Apache ServiceComb &lt;/a&gt;的第一轮重构，首选也是 gRPC 。历史第一次在&lt;a href=&quot;https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html&quot;&gt;华为云 微服务引擎 CSE&lt;/a&gt; 上线以后，面对了来自网关压力挑战。&lt;/p&gt;
+
+&lt;p&gt;网关作为业务接入端，必须高效的管理连接和保证公平，长连接容易导致拒绝服务。gRPC 程序开发完成后，开发人员无法利用系统提供的各种工具进行测试，网络包分析也变得困难，给生产环境上的开发联调造成了困难。随着业务规模的增长，gRPC 面临了诸如“其他三方系统如何与之直接通信？ 如何跨网关与它间接通信？”等更严峻的挑战。&lt;/p&gt;
+
+&lt;p&gt;解决这些问题，将需要我们扩展和改善老的协议和程序，提供 gRPC 客户端支持，开发者需自行提供一个额外的表示层用于业务接口的逻辑转换，造成大量的重复代码。同时由于 gRPC 依赖于接口定义，并根据定义生成代码，一套代码只能跑在 gRPC 协议上，如果用户希望业务应用可以使用如 REST等其他更加灵活的方式， 就需自行重新实现一套新的代码逻辑。据以上的血泪史， gRPC 最终被 Apache ServiceComb 设计团队定义为只能在中小型系统内部之间使用，并通过协议网关与外部系统进行通信。并实现了 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/#highway-rpc%E5%8D%8F%E8%AE%AE&quot;&gt;高性能私有协议 Highway&lt;/a&gt; 作为RPC首选默认协议。&lt;/p&gt;
+
+&lt;h4 id=&quot;rest-通信协议&quot;&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;REST 通信协议&lt;/a&gt;&lt;/h4&gt;
+
+&lt;p&gt;REST 相较 gRPC ，最大的痛点是性能。&lt;/p&gt;
+
+&lt;p&gt;多数技术人员脑海里一个不成文的根深蒂固的观点：”二进制编码效率远高于文本协议，采用二进制编码的系统的性能远高于采用文本的 HTTP ”。该观点甚至会让多数决策止步于理论，多数人甚至不愿尝试去优化 REST。&lt;/p&gt;
+
+&lt;p&gt;可喜的是 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 迈出了重构 REST 底层通信实现的第一步，基于 Netty 的异步框架来替换 Tomcat 实现，实践的效果大大超出预期，部分基准测试数据结果显示比 gRPC 还好， gRPC最终输在了HTTP2 协议上的额外报文。&lt;/p&gt;
+
+&lt;p&gt;优化后的 REST 和业界开源的其他基于二进制的 RPC 实现的性能基本持平。在一个简单的提供数据库查询的代码逻辑中，优化后的REST通信框架处理时间，占比总处理时间远小于千分之一，这意味着再继续在框架层面进行大量优化也抵不上业务应用层面最简单的一个操作带来的消耗，Apache ServiceComb对 REST 的优化已经满足要求，最终也选择了 &lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;REST&lt;/a&gt; 作为首选和缺省协议(HTTP + json)。&lt;/p&gt;
+
+&lt;p&gt;我们并没有就此止步。&lt;/p&gt;
+
+&lt;p&gt;需要迁移到 &lt;a href=&quot;https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html&quot;&gt;华为云 微服务引擎 CSE&lt;/a&gt;  的业务日益增长，部分历史遗留系统也需进行对接。通信协议对应不同的开发者接口，每每增加通信协议，则需要对业务代码进行大量的重复构建，造成大量无谓消耗。这是当时的华为云化转型以及当下很多云化转型企业或者云原生企业必将面临的痛点。&lt;/p&gt;
+
+&lt;p&gt;于是乎，通信协议层被剥离了出来，和业务代码隔离，系统运行基于契约，&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 实现通信协议扩展机制。通信协议扩展机制，帮助用户解决与 gRPC 框架、自定义二进制框架等许多遗留系统的对接通信问题。&lt;/p&gt;
+
+&lt;p&gt;在 Apache ServiceComb 框架中，&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;切换协议&lt;/a&gt;非常简单，不需要修改一行业务代码。多个协议共存也是允许的。&lt;/p&gt;
+
+&lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;ServiceComb&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;rest&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;address:0.0.0.0:8084&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;highway&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;address:0.0.0.0:8094&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;扩展性&quot;&gt;扩展性&lt;/h2&gt;
+
+&lt;p&gt;扩展性是系统进一步发展的基石。&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 创造性地将扩展性拓展到 Provider 和 Consumer，让开发者拥有一致的开发体验。&lt;/p&gt;
+
+&lt;h3 id=&quot;内部系统结构&quot;&gt;内部系统结构&lt;/h3&gt;
+
+&lt;p&gt;连接开发者和通信协议层面已经让系统具备了很大的扩展性。微服务化给系统解耦、团队自治带来了很大的灵活性，加快了开发生产效率，但同时带来了服务管控的复杂性，在微服务领域，不得不考虑雪崩效应、调用跟踪、性能监控与分析等实际管控治理问题。&lt;/p&gt;
+
+&lt;p&gt;基于服务契约，&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 提供了&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers&quot;&gt;动态插拔扩展的处理链机制&lt;/a&gt;，并且为这些管控治理能力提供了默认实现，用户可以灵活插拔这些处理模块，或调整它们的顺序以应对不同的处理场景，或自行实现以增加新的处理模块。Provider 和 Consumer 都会经过该处理链，这给客户端治理功能开发带来了极大的便利性。Apache ServiceComb 的运行结构如下：&lt;/p&gt;
+
+&lt;p class=&quot;figure-caption&quot;&gt;&lt;img src=&quot;/assets/images/open-design-running-arch.png&quot; alt=&quot;running-arch&quot; class=&quot;align-center&quot; /&gt;  &lt;br /&gt;
+图1 Apache ServiceComb 运行时架构&lt;/p&gt;
+
+&lt;p&gt;Apache ServiceComb 同时支持同步和异步两种编程接口，并在通信实现上采用了纯异步方式，对于运行模型的扩展，也是基于异步回调接口的。该方式提供了比同步模式（比如 Filter）更加优雅灵活的扩展方式。&lt;/p&gt;
+
+&lt;p&gt;在Apache ServiceComb 结构中，几个核心的扩展机制均在 &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/core/src/main/java/org/apache/servicecomb/core&quot;&gt;core 模块&lt;/a&gt; 进行定义：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/core/src/main/java/org/apache/servicecomb/core/provider/producer&quot;&gt;Producer Provider&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Provider 编程模型的扩展，通过实现这个接口，可以适配不同的 Provider编 程风格；默认支持 RPC、Spring MVC 和 JAX-RS 三种风格。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/core/src/main/java/org/apache/servicecomb/core/provider/consumer&quot;&gt;Consumer Provider&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Consumer 编程模型的扩展，通过实现这个接口，可以适配不同的 Consumer 编程风格；默认支持 RPC和RestTemplate 两种风格。RestTemplate 是 Spring MVC 提供的 REST 编程接口，可以在服务层解除接口依赖，只依赖数据模型。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/core/src/main/java/org/apache/servicecomb/core/handler&quot;&gt;Handler&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;处理链的接口，通过扩展该接口，可以在处理过程中插入任意的逻辑。默认已经支持&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers/handler-loadbalance&quot;&gt;负载均衡&lt;/a&gt;、&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers/handler-fault-injection&quot;&gt;错误注入&lt;/a&gt;、&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers/handler-flowcontrol-qps&quot;&gt;流量控制&lt;/a&gt;和&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers/handler-tracing-zipkin&quot;&gt;调用链跟踪&lt;/a&gt;等多个处理链。开发者可以针对 Consumer 和 Provider 定义不同的处理链，并且为访问不同的微服务定制不同的处理链。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/transports&quot;&gt;Transport&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;通信协议扩展，默认支持&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/&quot;&gt;REST over Vertx、Rest over Servlet、Highway&lt;/a&gt;协议。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Invocation&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;中立的对象。所有的运行模型都面向这个中立的对象进行编程，当定义好服务接口后，对服务的治理和服务业务逻辑的开发可并行进行。在编程模型和通信模型里面，也面向这个对象进行编解码。&lt;/p&gt;
+
+&lt;h3 id=&quot;对接外部系统&quot;&gt;对接外部系统&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis&quot;&gt;Apache ServiceComb Java-chassis&lt;/a&gt; 预留了对接外部系统的接口，以让开发者或用户可以灵活快速切换使用第三方提供的服务，这里所指的外部系统包括但不限于：服务注册发现的服务中心、配置管控和治理的配置中心、运行监控和运维的治理中心等。&lt;/p&gt;
+
+&lt;p&gt;下图展示了不同的开发框架支持和运行的第三方系统情况，这些基础服务都给开发者预留了可以进行支持接入的接口。&lt;/p&gt;
+
+&lt;p class=&quot;figure-caption&quot;&gt;&lt;img src=&quot;/assets/images/open-design-third-party-plugin.png&quot; alt=&quot;third-party-plugin&quot; class=&quot;align-center&quot; /&gt;   &lt;br /&gt;
+图2 Apache ServiceComb 外部扩展接入&lt;/p&gt;
+
+&lt;p&gt;重要的扩展：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/service-registry/src/main/java/org/apache/servicecomb/serviceregistry/client&quot;&gt;ServiceRegistryClient&lt;/a&gt;:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;实现这个接口以对接不同的注册服务。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/foundations/foundation-config&quot;&gt;ConfigCenterConfigurationSource&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;实现这个接口以对接不同的配置服务。&lt;/p&gt;
+
+&lt;p&gt;此外，ServiceComb还提供了对接&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/tracing/tracing-zipkin&quot;&gt;Zipkin&lt;/a&gt;、Servo等开源系统的功能，这些可以从&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/&quot;&gt;github代码&lt;/a&gt;中查找到对应的例子。&lt;/p&gt;
+
+&lt;h3 id=&quot;运行环境集成&quot;&gt;运行环境集成&lt;/h3&gt;
+
+&lt;p&gt;一个完整的业务系统不是使用RPC框架就算完成了，它们还需要其他的计算资源。对于一般的业务系统都需要访问数据库，或者基于 J2EE 的设施进行工作。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;开源微服务框架 Apache ServiceComb&lt;/a&gt; 可以以轻量级的方式运行，也可集成到其他系统框架。下面的示意图说明了 Apache ServiceComb 的一些工作环境。&lt;/p&gt;
+
+&lt;p class=&quot;figure-caption&quot;&gt;&lt;img src=&quot;/assets/images/open-design-integrate-with-running-environment.png&quot; alt=&quot;integrate-with-running-environment&quot; class=&quot;align-center&quot; /&gt;   &lt;br /&gt;
+图3 Apache ServiceComb 运行环境集成&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;若业务只需 REST 接口，可以轻量级的方式运行 Apache ServiceComb 。所有的REST接口运行于ServiceComb 提供的 Netty HTTP 之上。&lt;/li&gt;
+  &lt;li&gt;若业务是基于 J2EE 来构建，那么 Apache ServiceComb 可以作为一个 Servlet ，运行于 Web 容器里面（如 Tomcat、Jetty 等）。&lt;/li&gt;
+  &lt;li&gt;若业务基于 Spring Boot 生态构建，Apache ServiceComb 可作为一个starter对外提供 REST 服务，开发者可以自由使用其他基于 Spring Boot 的功能。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;由于 Apache ServiceComb 使用了Spring，因此天然继承了Spring的原有优势，可和很多通用的组件很好的集成，如 mybatis、JPA 等。各种集成方式，都可以从&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;ServiceComb官网&lt;/a&gt;或者&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/demo&quot;&gt;ServiceComb 示例库&lt;/a&gt;找到对应的例子。&lt;/p&gt;
+
+&lt;h2 id=&quot;写在最后&quot;&gt;写在最后&lt;/h2&gt;
+
+&lt;p&gt;开源微服务框架 Apache ServiceComb 的主体代码是由华为云微服务引擎捐赠给 Apache 软件基金会的，愿景是帮助企业快速构建云原生应用，通过一系列解决方案帮助用户快速开发微服务应用的同时实现对这些微服务应用的高效运维管理。本次设计团队将开放性设计部分细节点点滴滴分享出来也是为了能够解放开发者和用户。&lt;/p&gt;
+
+&lt;p&gt;当前越来越多的贡献者已加入到 社区行列，Apache ServiceComb 会和这些志愿者们一起一如既往坚持这个理念，争取给业界带来更多好的技术和分享。也期望有更多有志者一起行动。&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/docs/join_the_community/&quot;&gt;&lt;strong&gt;如何加入Apache ServiceComb 社区&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;致谢原稿作者： 刘宝&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;参考文献&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;[1] 开源微服务框架 Apache ServiceComb 官网&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/&quot;&gt;http://servicecomb.incubator.apache.org/cn/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] 开源微服务框架 Apache ServiceComb 代码&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis&quot;&gt;https://github.com/apache/incubator-servicecomb-java-chassis&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-service-center&quot;&gt;https://github.com/apache/incubator-servicecomb-service-center&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-saga&quot;&gt;https://github.com/apache/incubator-servicecomb-saga&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] 华为云微服务引擎 CSE（Cloud Service Engine）&lt;/p&gt;
+
+&lt;p&gt;入口 &lt;a href=&quot;https://www.huaweicloud.com/product/cse.html&quot;&gt;https://www.huaweicloud.com/product/cse.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;资料 &lt;a href=&quot;http://support.huaweicloud.com/cse_dld/index.html&quot;&gt;http://support.huaweicloud.com/cse_dld/index.html&lt;/a&gt;&lt;/p&gt;</content><author><name>Zen Lin, Bao Liu</name></author><category term="设计" /><category term="开放，扩展" /><summary type="html">本文讲述了整个 开源微服务框架 Apache ServiceComb 设计形成的前因后果，尝试从理念、思想和实践结合的维度剖析一个优质的微服务框架应该具备哪些要素，包括但不限于 对开发者友好、高性能、内外部扩展性&gt;等。</summary></entry><entry xml:lang="cn"><title type="html">使用gradle构建基于Java Chassis开发的微服务</title><link href="/cn/docs/build-java-chassis-microservices-using-gradle/" rel="alternate" type="text/html" title="使用gradle构建基于Java Chassis开发的微服务" /><published>2018-04-13T00:00:00+08:00</published><updated>2018-04-13T09:18:43+08:00</updated><id>/cn/docs/build-java-chassis-microservices-using-gradle</id><content type="html" xml:base="/cn/docs/build-java-chassis-microservices-using-gradle/">&lt;p&gt;maven和gradle都是Java世界中常用的构建工具。在&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis&quot;&gt;Java Chassis&lt;/a&gt;项目中采用了maven作为其构建工具，并在maven中心仓库定期发布其最新稳定版。然而，鉴于gradle最新发布版(4.6.0)还不支持maven的统一版本管理(BOM)功能，则在使用gradle构建基于Java Chassis开发的微服务时，需要用到Spring的&lt;a href=&quot;https://github.com/spring-gradle-plugins/dependency-management-plugin&quot;&gt;依赖管理插件&lt;/a&gt;来引入Java Chassis的版本管理来统一依赖项的版本从而避免产生版本冲突。&lt;/p&gt;
+
+&lt;p&gt;在maven中，Java Chassis的依赖管理通过以下方式即可引入：&lt;/p&gt;
+
+&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencyManagement&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependencies&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.servicecomb&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;java-chassis-dependencies&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;1.0.0-m1&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;type&amp;gt;&lt;/span&gt;pom&lt;span class=&quot;nt&quot;&gt;&amp;lt;/type&amp;gt;&lt;/span&gt;
+         &lt;span class=&quot;nt&quot;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;import&lt;span class=&quot;nt&quot;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
+       &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+     &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencies&amp;gt;&lt;/span&gt;
+   &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependencyManagement&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在gradle中，则需要以下三步完成，具体可参考 ：&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-java-chassis/pull/640/files#diff-8d0fdb4970d74d053b6585c3d5ae4cc2R36&quot;&gt;Java Chassis的PR-640&lt;/a&gt;。&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;声明使用maven仓库及依赖管理插件的依赖&lt;/p&gt;
+
+    &lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;buildscript&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenLocal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenCentral&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;classpath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;启用依赖管理插件&lt;/p&gt;
+
+    &lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'io.spring.dependency-management'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;声明Java Chassis的统一依赖管理&lt;/p&gt;
+
+    &lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dependencyManagement&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;imports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenBom&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.apache.servicecomb:java-chassis-dependencies:1.0.0-m1'&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;strong&gt;注意：&lt;/strong&gt; 在每个子模块中都需要进行上述三步配置。&lt;/p&gt;
+
+&lt;p&gt;对统一版本管理配置完成后，可增加程序运行入口使得命令行下也能方便的通过gradle运行应用，以便快速验证。其中，可将应用分为Spring Boot应用和非Spring Boot应用来为其添加启动入口：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Spring Boot应用&lt;/p&gt;
+
+    &lt;ol&gt;
+      &lt;li&gt;
+        &lt;p&gt;声明使用maven仓库及Spring Boot插件的依赖&lt;/p&gt;
+
+        &lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;buildscript&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;dependencies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;classpath&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;org.springframework.boot:spring-boot-gradle-plugin:1.4.5.RELEASE&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;repositories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenLocal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;mavenCentral&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;p&gt;启用Spring Boot插件&lt;/p&gt;
+
+        &lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.springframework.boot'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ol&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;非Spring Boot应用&lt;/p&gt;
+
+    &lt;p&gt;非Spring Boot应用只需要在&lt;code class=&quot;highlighter-rouge&quot;&gt;build.gradle&lt;/code&gt;文件中使用&lt;code class=&quot;highlighter-rouge&quot;&gt;application&lt;/code&gt;插件并指明应用入口方法即可：&lt;/p&gt;
+
+    &lt;div class=&quot;language-gradle highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;apply&lt;/span&gt; &lt;span class=&quot;nl&quot;&gt;plugin:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'application'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;mainClassName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'org.packageName.XXXMain'&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Eric Lee</name><email>eric.lee.ltk@gmail.com</email><uri>https://eric-lee-ltk.github.io</uri></author><category term="gradle" /></entry><entry xml:lang="cn"><title type="html">ServiceComb数据一致性解决方案Saga演进介绍</title><link href="/cn/docs/saga_pack_design/" rel="alternate" type="text/html" title="ServiceComb数据一致性解决方案Saga演进介绍" /><published>2018-04-04T00:00:00+08:00</published><updated>2018-04-04T09:18:43+08:00</updated><id>/cn/docs/saga-pack-design</id><content type="html" xml:base="/cn/docs/saga_pack_design/">&lt;p&gt;传统的单体应用的微服务化改造过程中大多会面临数据库拆分，故而原来由数据库保证的数据一致性也一定面临重新设计和实现，此时需要引入分布式数据一致性方案来解决。常见的解决方案主要有2PC，TCC，事件驱动等，而在微服务开源项目 ServiceComb中提出并实现了使用Saga&lt;a href=&quot;https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf&quot;&gt;[1]&lt;/a&gt;来解决微服务的数据一致性难题，不同方案的对比可参考《ServiceComb中的数据最终一致性方案》&lt;a href=&quot;http://blog.csdn.net/fl63zv9zou86950w/article/details/78393439&quot;&gt;[2]&lt;/a&gt;一文。Saga是一个数据最终一致性的解决方案，它允许我们成功地执行所有事务，或在任何事务失败的情况下，补偿已成功的事务，并提供了ACID&lt;a href=&quot;https://en.wikipedia.org/wiki/ACID&quot;&gt;[3]&lt;/a&gt;中ACD的保证（由于事务是交错执行的，可能会看到其他事务的部分结果，因此不能满足隔离性要求）。因此，Saga适用于以下跨服务的事务场景：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;嵌套调用&lt;/strong&gt;。如网上购物时，会依次经过下单、支付服务和第三方支付这几个子事务，其中，下单依赖于支付服务的返回状态，而支付服务也包含了多种可选的支付方式，并依赖于具体支付方式返回的结果。通过Saga，可以清晰地看到一个完整事务中各个服务之间的关系，在异常时也能快速定位出现问题的子事务。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;高并发&lt;/strong&gt;。如秒杀场景下，在成功扣除库存和完成支付后方可认为秒杀成功，若成功扣除库存但支付失败则自动进行补偿（即恢复库存）。鉴于Saga只有提交和补偿两种状态，成功场景下只需对每个子事务进行一次调用即可，因此可以在高并发下保持高性能。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;调用时间长&lt;/strong&gt;。如线上购买电影票，选好座位后一般会有15分钟的支付时间。Saga仅在子事务的提交阶段对资源进行短暂的锁定，且通过超时机制确保事务超时后能自动补偿，即在规定时间内没有支付成功的话就自动释放锁定的座位，极大地简化了业务出现异常时的处理逻辑。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;saga新版本演进&quot;&gt;Saga新版本演进&lt;/h2&gt;
+
+&lt;p&gt;新年新气象，Apache ServiceComb(incubating) Saga&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-saga&quot;&gt;[4]&lt;/a&gt;（以下简称Saga）进行了演进。相对于上一版&lt;a href=&quot;http://blog.csdn.net/fl63zv9zou86950w/article/details/78393439&quot;&gt;[2]&lt;/a&gt;，新演进的设计主要有以下优势：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;极大提升易用性&lt;/strong&gt;。开发者只需使用2-3个注解（即启用事务服务：EnableOmega、全局事务标记：SagaStart和子事务标记：Compensable）。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;更方便扩展&lt;/strong&gt;。对微服务框架的支持更友好。&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;数据一致性与业务逻辑解耦&lt;/strong&gt;。在演进后的设计中，通过服务侧omega的引入，saga协调器的职责更为单一（只需负责协调事务的完整性），与具体业务无关，因此，开发人员可以聚焦在具体业务的开发。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Saga演进后的架构，如下图所示，主要包含两个组件，即alpha和omega，其中：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;alpha充当协调者的角色，主要负责对事务的事件进行持久化存储以及协调子事务的状态，使其最终得以与全局事务的状态保持一致，即保证事务中的子事务要么全执行，要么全不执行。&lt;/li&gt;
+  &lt;li&gt;omega是微服务中内嵌的一个agent，负责对网络请求进行拦截并向alpha上报事务事件，并在异常情况下根据alpha下发的指令执行相应的补偿或重试操作。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/pack/pack.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;omega内部运行机制&quot;&gt;omega内部运行机制&lt;/h2&gt;
+
+&lt;p&gt;omega是微服务中内嵌的一个agent，负责向alpha上报事务状态并与其它omega直接传递事务上下文信息。其中，每个服务的事务上下文包括：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;全局事务id(Global Tx Id)：用于唯一标识全局事务，一般在全局事务入口生成，并在整个事务过程中传递。&lt;/li&gt;
+  &lt;li&gt;本地事务id(Local Tx Id)：用于唯一标识本地事务，一般由本地事务生成。&lt;/li&gt;
+  &lt;li&gt;父事务id(Parent Tx Id)：用于构建子事务间的关系，可由请求上下文中构建。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;如下图所示，分布式事务与用于分布式调用链追踪的zipkin&lt;a href=&quot;https://github.com/openzipkin/zipkin&quot;&gt;[5]&lt;/a&gt;的处理流程很类似，在服务提供方，omega会将请求拦截并从中提取请求信息中的全局事务id作为其自身的全局事务id（即Saga事件id），并将请求中的本地事务id作为其父事务id，且使用新生成的id作为本地事务id；在服务消费方，omega会将请求拦截并往其中添加当前的全局事务id和本地事务id。通过服务提供方和服务消费方的这种协作处理，子事务能连接起来形成一个完整的全局事务。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/pack/id_flow.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;omega在预处理阶段会先向alpha发送事务开始的事件，在后处理阶段会再向alpha发送事务结束的事件。alpha在收到事件后会进行持久化的存储。因此，每个成功的子事务都有一一对应的开始及结束事件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/pack/omega_internal.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在omega启动时会向alpha注册，使得异常或者超时场景下，alpha能通过回调向omega发送重试或补偿的命令和相应的调用参数，从而确保全局事务的一致性。&lt;/p&gt;
+
+&lt;h2 id=&quot;具体处理流程&quot;&gt;具体处理流程&lt;/h2&gt;
+
+&lt;h3 id=&quot;成功场景&quot;&gt;成功场景&lt;/h3&gt;
+
+&lt;p&gt;全局事务开始前omega会先向alpha发送全局事务开始的事件，并在所有子事务完成时向alpha发送全局事务结束的事件。而每个子事务在执行前也会向alpha发送事务开始的事件，在成功执行后，会向alpha发送事务结束的事件。子事务间通过全局事务id连接在一起，但也因本地事务id而有所区分。因此，在成功场景下，每个开始的事件都会有对应的结束事件。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/pack/successful_scenario.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;异常场景&quot;&gt;异常场景&lt;/h3&gt;
+
+&lt;p&gt;在子事务执行期间抛出异常时，omega会向alpha上报aborted事件，然后alpha会向该全局事务的其它已完成的子事务发送补偿指令，确保最终同一全局事务下的所有子事务要么都成功，要么都回滚。由于事务中没有明确指定全局事务中的参与者，因此，alpha的扫描器会定期查询事件表并找出已完成所有补偿子事务的全局事务，然后对这些全局事务添加全局事务结束事件以保证事务的完整性。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/pack/exception_scenario.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;超时场景&quot;&gt;超时场景&lt;/h3&gt;
+
+&lt;p&gt;alpha的扫描器会定期扫描正在处理的事件状态，若发现事件超时，则会记录相应的aborted事件，然后alpha会向该全局事务的其它已完成的子事务发送补偿指令来恢复至事务开始前的状态。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/pack/timeout_scenario.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;如何使用&quot;&gt;如何使用？&lt;/h2&gt;
+
+&lt;p&gt;Saga的使用主要涵盖两方面，alpha的启动及omega的使用。&lt;/p&gt;
+
+&lt;h3 id=&quot;alpha的启动&quot;&gt;alpha的启动&lt;/h3&gt;
+
+&lt;p&gt;alpha启动前需要先运行数据库PostgreSQL：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d -e &lt;span class=&quot;s2&quot;&gt;&quot;POSTGRES_DB=saga&quot;&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;POSTGRES_USER=saga&quot;&lt;/span&gt; -e &lt;span class=&quot;s2&quot;&gt;&quot;POSTGRES_PASSWORD=password&quot;&lt;/span&gt; -p 5432:5432 postgres
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在确保数据库正常启动后，即可运行alpha：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;docker run -d -p 8090:8090 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -e &lt;span class=&quot;s2&quot;&gt;&quot;JAVA_OPTS=-Dspring.profiles.active=prd&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  -e &lt;span class=&quot;s2&quot;&gt;&quot;spring.datasource.url=jdbc:postgresql://{docker.host.address}:5432/saga?useSSL=false&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  alpha-server:0.1.0
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;omega的使用&quot;&gt;omega的使用&lt;/h3&gt;
+
+&lt;p&gt;omega的使用很简单，以一个简化的转账业务为例，同一笔转账要么转入和转出都成功，要么都失败。在这样一个业务中引入Saga，只需简单几步即可：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;引入依赖
+    &lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.servicecomb.saga&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;omega-spring-starter&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;0.1.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.apache.servicecomb.saga&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;omega-transport-resttemplate&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;0.1.0&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;添加Saga的注解及相应的补偿方法
+2.1 在应用入口添加 &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableOmega&lt;/code&gt; 的注解来初始化omega的配置并与alpha建立连接。
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nd&quot;&gt;@SpringBootApplication&lt;/span&gt;
+ &lt;span class=&quot;nd&quot;&gt;@EnableOmega&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Application&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+     &lt;span class=&quot;n&quot;&gt;SpringApplication&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Application&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;class&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;p&gt;2.2 在全局事务的起点添加 &lt;code class=&quot;highlighter-rouge&quot;&gt;@SagaStart&lt;/code&gt; 的注解。&lt;/p&gt;
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nd&quot;&gt;@SagaStart&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;transferMoney&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;transferOut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;transferIn&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;to&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;p&gt;2.3 在子事务处添加 &lt;code class=&quot;highlighter-rouge&quot;&gt;@Compensable&lt;/code&gt; 的注解并指明其对应的补偿方法。其中，补偿方法的形参列表需与子事务方法的形参列表保持一致。&lt;/p&gt;
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;nd&quot;&gt;@Compensable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;compensationMethod&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;cancel&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;transferOut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;reduceBalanceByUsername&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    
+ &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;cancel&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;repo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addBalanceByUsername&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;p&gt;2.4 对转入服务重复第2.3步即可。&lt;/p&gt;
+
+    &lt;p&gt;2.5 在每个服务的application.yaml中添加配置项，指明服务信息和alpha的地址信息：&lt;/p&gt;
+    &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;s&quot;&gt;spring&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;application&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+     &lt;span class=&quot;s&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;application.name&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;alpha&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt;
+     &lt;span class=&quot;s&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;pi&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;alpha.cluster.addresses&lt;/span&gt;&lt;span class=&quot;pi&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;目前Saga的实现还存在着很多有意思且有挑战性的课题，如alpha的协调调度实现、幂等的实现及自动补偿的实现等，欢迎有志之士与我们携手一起解决数据一致性的难题，共同为完善微服务生态贡献自己的力量。&lt;/p&gt;
+
+&lt;h2 id=&quot;参考文献&quot;&gt;参考文献&lt;/h2&gt;
+
+&lt;p&gt;[1] Sagas, Hector Garcia-Molina &amp;amp; Kenneth Salem, &lt;a href=&quot;https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf&quot;&gt;https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[2] ServiceComb中的数据最终一致性方案，殷湘，&lt;a href=&quot;http://blog.csdn.net/fl63zv9zou86950w/article/details/78393439&quot;&gt;http://blog.csdn.net/fl63zv9zou86950w/article/details/78393439&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[3] ACID, Wikipedia, &lt;a href=&quot;https://en.wikipedia.org/wiki/ACID&quot;&gt;https://en.wikipedia.org/wiki/ACID&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[4] Apache ServiceComb(incubating) Saga, Apache, &lt;a href=&quot;https://github.com/apache/incubator-servicecomb-saga&quot;&gt;https://github.com/apache/incubator-servicecomb-saga&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;[5] zipkin, zipkin, &lt;a href=&quot;https://github.com/openzipkin/zipkin&quot;&gt;https://github.com/openzipkin/zipkin&lt;/a&gt;&lt;/p&gt;</content><author><name>Eric Lee</name><email>eric.lee.ltk@gmail.com</email><uri>https://eric-lee-ltk.github.io</uri></author><category term="saga" /><summary type="html">Saga演进介绍</summary></entry><entry xml:lang="cn"><title type="html">如何加入ServiceComb社区</title><link href="/cn/docs/join_the_community/" rel="alternate" type="text/html" title="如何加入ServiceComb社区" /><published>2018-04-04T00:00:00+08:00</published><updated>2017-09-16T19:05:00+08:00</updated><id>/cn/docs/join_the_community</id><content type="html" xml:base="/cn/docs/join_the_community/">&lt;p&gt;近期，热衷开源和微服务的伙伴们非常关注如何加入到ServiceComb社区。ServiceComb作为开源的Apache 孵化项目，加入方式和常规的加入开源社区的方式大体一致，一般为三个阶段：1. 订阅并关注社区动态；2. 开始在开源社区提交第一份代码；3. 深度加入社区讨论并贡献，以下将详细向大家讲述如何一步步加入ServiceComb社区。&lt;/p&gt;
+
+&lt;h3 id=&quot;step-1-订阅并关注servicecomb社区动态&quot;&gt;Step 1 订阅并关注ServiceComb社区动态&lt;/h3&gt;
+
+&lt;p&gt;订阅和关注社区动态的途径有：即时通讯工具（社区微信群、gitter）、社区公众号、开发者邮件列表、门户网站。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;即时通讯工具&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;扫描下方二维码或搜索&lt;code class=&quot;highlighter-rouge&quot;&gt;ServiceComb小助手&lt;/code&gt;加入微信群，加入后可以在微信群中咨询和求助，会有热心的伙伴和committer 及时的响应回复。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/jira/assist.png&quot; alt=&quot;&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;也可使用Github账号登录gitter（地址 https://gitter.im/ServiceCombUsers/Lobby）进行在线讨论，国内的伙伴们更习惯于使用微信群进行在线交流，但为了更方便后来加入的人可以检索并查阅前期的讨论内容存档，所以ServiceComb社区推荐使用gitter。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;社区公众号&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;扫描下方二维码关注公众号或微信公众号中搜索&lt;code class=&quot;highlighter-rouge&quot;&gt;ServiceComb&lt;/code&gt;进行关注，公众号会定期的发布和推送ServiceComb近期相应资讯（干货资料、学习资源、线上活动、线下活动等）。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/jira/public.png&quot; alt=&quot;&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;邮件列表&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;通过订阅开发者邮件可以及时获取到社区开发者的邮件讨论内容，可发起讨论，也可通过回复感兴趣的讨论题目参与到讨论中（邮件内容均使用英文），另外邮件的存档功能可以方便开发者查阅历史问题的讨论过程。&lt;/p&gt;
+
+&lt;p&gt;订阅邮件方式：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;发送任意内容到&lt;code class=&quot;highlighter-rouge&quot;&gt;dev-subscribe@servicecomb.incubator.apache.org&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;收到来自&lt;code class=&quot;highlighter-rouge&quot;&gt;dev-help@servicecomb.apache.org&lt;/code&gt;的确认邮件后，再回复dev-help任意内容来确认订阅邮件列表即可。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;邮件存档内容可通过https://www.mail-archive.com/搜索&lt;code class=&quot;highlighter-rouge&quot;&gt;ServiceComb&lt;/code&gt;获取。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;门户网站&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;ServiceComb门户网站是社区的官方入口，包括快速入门指南、用户手册、开发者手册、常见问题和开发博文等。&lt;/p&gt;
+
+&lt;p&gt;网站地址: http://servicecomb.incubator.apache.org/cn/&lt;/p&gt;
+
+&lt;h3 id=&quot;step-2-在-servicecomb-社区提交第一份代码pr&quot;&gt;Step 2 在 ServiceComb 社区提交第一份代码（PR）&lt;/h3&gt;
+
+&lt;p&gt;当关注社区并尝试调试使用后，会发现一些简单的bug（如文档或代码格式问题等），可以通过fix简单的bug来熟悉ServiceComb社区的开发流程。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;发现问题并提交Issue：&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;由于ServiceComb的任务管理是在Apache JIRA上进行的，所以需要先注册并登录到JIRA。关于JIRA详细使用方法请参考JIRA使用帮助：http://servicecomb.incubator.apache.org/cn/developers/use-jira/&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;注册并登陆到 https://issues.apache.org/jira/projects/SCB，点击左侧Kanban可以看到当前待处理、处理中和已经完成的任务列表。&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/images/jira/jira-kanban.png&quot; alt=&quot;kanabn&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;点击&lt;strong&gt;新建&lt;/strong&gt;创建新的issue或者task进行问题或任务跟踪，选择相应的模块并添加描述信息。&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/images/jira/create-issue.png&quot; alt=&quot;create&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;任务提交到JIRA后，需要在本地进行代码开发，进行第一份代码的提交。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;提交第一份代码（PR）&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;开发者在GitHub上fork仓库后clone到本地进行代码修改，修改完成并测试通过后可以创建PR提交代码，提交PR后系统会自动运行CI进行代码测试。测试通过后会有其他开发者或者maintainer进行review，没有问题后会被approve并merge到主干分支。具体可参考门户网站上开发者手册中的代码提交指南：&lt;/p&gt;
+
+&lt;p&gt;http://servicecomb.incubator.apache.org/cn/developers/submit-codes/&lt;/p&gt;
+
+&lt;p&gt;需要&lt;strong&gt;注意&lt;/strong&gt;的是，创建PR的时候，PR的title要以JIRA中对应的问题编号开头，如下图中 [SCB-327]，这样系统就会自动关联本次提交到相应JIRA任务下，方便进度跟踪。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/jira/pr.png&quot; alt=&quot;&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;刚才提交的代码经过committer的review后，如果有问题committer会进行comment，继续修改后push最新代码即可。如果没有问题会approve并merge。&lt;/p&gt;
+
+&lt;p&gt;至此，您已经熟悉了ServiceComb社区的初级的开发流程，也是常规的社区开发方法（不同的社区承载体会有细微差异，如kubernetes的问题跟踪是直接承载github的issue上）。下一步就可以深度参与到ServiceComb的讨论并进行贡献。&lt;/p&gt;
+
+&lt;h3 id=&quot;step-3-深度参与到servicecomb讨论并贡献&quot;&gt;Step 3 深度参与到ServiceComb讨论并贡献&lt;/h3&gt;
+
+&lt;p&gt;由于开源社区强调开放性，当开发者想在社区里做一些较大或中长期的特性时，则需在ServiceComb社区发起特性的讨论。&lt;/p&gt;
+
+&lt;h4 id=&quot;如何发起特性讨论&quot;&gt;如何发起特性讨论&lt;/h4&gt;
+
+&lt;p&gt;通过邮件发Proposal到社区进行讨论，Proposal中有贴图或附加文档时可先创建好文件链接，将链接贴到邮件里即可，创建文件可以有一下两种方式：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;在JIRA上创建一个对应的特性任务，并将Proposal文档添加到该任务的附件中，拷贝链接。&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;通过github向servicecomb.io网站以blog的形式提交文件，将该blog地址拷贝到邮件中。&lt;/p&gt;
+
+    &lt;p&gt;文档附件可参考：&lt;/p&gt;
+
+    &lt;p&gt;http://servicecomb.incubator.apache.org/docs/service-registry-refactor-proposal/&lt;/p&gt;
+
+    &lt;p&gt;Proposal邮件参考：&lt;/p&gt;
+
+    &lt;p&gt;&lt;img src=&quot;/assets/images/jira/proposal-pack.png&quot; alt=&quot;proposal-pack&quot; class=&quot;align-center&quot; /&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;当在邮件中讨论清楚特性设计后，就可以开始对应的代码开发，或对于部分小的任务（如代码bug修复、文档完善、网站优化等），其本身不需要过多讨论，则可参考上一步骤 Step 2 中的开发流程进行代码贡献。&lt;/p&gt;
+
+&lt;p&gt;遇到其他本文章未解决的问题（如用户业务准备进行微服务技术选型或ServiceComb的概念性问题等）时，建议直接到微信群或者gitter里进行咨询并寻求帮助。&lt;/p&gt;
+
+&lt;p&gt;社区鼓励多劳多得和技术沉淀，坚持贡献社区可以收获来自社区的礼品激励惊喜，坚持长期使用和参与社区项目的伙伴，将可能被选举成 Apache committer 或者取得更高的荣誉，希望本文能对热衷开源及ServiceComb社区的伙伴们有所帮助，也欢迎积极参加ServiceComb的线上及线下活动。&lt;/p&gt;</content><author><name>Li Bo</name><email>libo75@huawei.com</email></author><category term="加入社区" /><summary type="html">如何加入ServiceComb社区</summary></entry></feed>

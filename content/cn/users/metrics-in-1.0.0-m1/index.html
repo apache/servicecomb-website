@@ -1,0 +1,1206 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>1.0.0-m1版本中的监控 - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="1.0.0-m1版本中的监控">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="1.0.0-m1版本中的监控">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-in-1.0.0-m1/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-in-1.0.0-m1/">
+
+
+
+  <meta property="og:description" content="1.0.0-m1版本中的监控">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="1.0.0-m1版本中的监控">
+  <meta name="twitter:description" content="1.0.0-m1版本中的监控">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/users/metrics-in-1.0.0-m1/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/" class="">Java Chassis系统架构</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/setup-environment/" class="">环境配置</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">开发服务提供者</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-definition/" class="">服务定义</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-contract/" class="">服务契约</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-springmvc/" class="">用SpringMVC开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-jax-rs/" class="">用JAX-RS开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-transparent-rpc/" class="">用透明RPC开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-spring-boot-starter/" class="">用Spring Boot Starter开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-interface-constraints/" class="">服务接口约束</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-configurations/" class="">服务配置</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/communicate-protocol/" class="">通信协议</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/application-boot-process/" class="">程序启动逻辑</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-heartbeat/" class="">服务心跳</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">开发服务消费者</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-rest-template/" class="">使用Rest Template方式开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-rpc/" class="">使用RPC方式开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/use-service-contract/" class="">使用服务契约</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/invoke-control/" class="">调用控制</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">通用开发</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/local-develop-test/" class="">本地开发与测试</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/distributed-tracing/" class="">分布式调用链追踪</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/customized-tracing/" class="">自定义调用链打点</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/users/dynamic-config/"><span class="nav__sub-title nav__sub-title-with-url">动态配置</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">服务能力开放</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/edging-service/nginx/" class="">使用confd和Nginx做边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/edging-service/zuul/" class="">使用Zuul做边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/edge-in-1.0.0-m1/" class="">使用内置Edge模块实现边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/manage_springcloud_application_using_sc_and_gs/" class="">使用Service Center和治理中心管理Spring Cloud应用</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">监控</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-in-0.5.0/" class="">0.5.0版本中的监控</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-in-1.0.0-m1/" class="active">1.0.0-m1版本中的监控</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-write-file-extension-and-sample-in-1.0.0-m1/" class="">1.0.0-m1版本写文件扩展和示例</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/" class="">1.0.0-m1版本中的监控如何集成prometheus</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/healthcheck/" class="">健康检查</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">部署</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/run-mode/" class="">运行模式</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/deploy-mode/" class="">部署模式</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">微服务安全</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/use-tls/" class="">使用TLS通信</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="1.0.0-m1版本中的监控">
+    <meta itemprop="description" content="1.0.0-m1版本中的监控">
+    
+    <meta itemprop="dateModified" content="December 30, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">1.0.0-m1版本中的监控
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#背景" id="markdown-toc-背景">背景</a></li>
+  <li><a href="#1000-m1版本原理" id="markdown-toc-1000-m1版本原理">1.0.00-m1版本原理</a>    <ul>
+      <li><a href="#数据采集不再依赖hystrixhandler-bizkeeper使用事件埋点收集与调用相关的所有数据" id="markdown-toc-数据采集不再依赖hystrixhandler-bizkeeper使用事件埋点收集与调用相关的所有数据">数据采集不再依赖Hystrix（handler-bizkeeper），使用事件埋点收集与调用相关的所有数据</a></li>
+      <li><a href="#使用netflix-servo作为metric的计数器" id="markdown-toc-使用netflix-servo作为metric的计数器">使用Netflix Servo作为Metric的计数器</a></li>
+      <li><a href="#周期设置" id="markdown-toc-周期设置">周期设置</a></li>
+    </ul>
+  </li>
+  <li><a href="#metrics数据id格式" id="markdown-toc-metrics数据id格式">Metrics数据ID格式</a>    <ul>
+      <li><a href="#jvm信息" id="markdown-toc-jvm信息">JVM信息</a></li>
+      <li><a href="#invocation信息" id="markdown-toc-invocation信息">Invocation信息</a></li>
+    </ul>
+  </li>
+  <li><a href="#如何配置" id="markdown-toc-如何配置">如何配置</a>    <ul>
+      <li><a href="#全局配置" id="markdown-toc-全局配置">全局配置</a></li>
+      <li><a href="#依赖配置" id="markdown-toc-依赖配置">依赖配置</a></li>
+    </ul>
+  </li>
+  <li><a href="#如何获取数据" id="markdown-toc-如何获取数据">如何获取数据</a>    <ul>
+      <li><a href="#通过发布接口获取" id="markdown-toc-通过发布接口获取">通过发布接口获取</a></li>
+      <li><a href="#直接获取" id="markdown-toc-直接获取">直接获取</a></li>
+    </ul>
+  </li>
+  <li><a href="#如何使用数据" id="markdown-toc-如何使用数据">如何使用数据</a></li>
+  <li><a href="#如何扩展" id="markdown-toc-如何扩展">如何扩展</a></li>
+  <li><a href="#参考示例" id="markdown-toc-参考示例">参考示例</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p>微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，请通过查看用户手册和<a href="https://github.com/apache/incubator-servicecomb-java-chassis/releases">Release Note</a>获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)参与讨论。</p>
+
+<h2 id="背景">背景</h2>
+<p>将系统微服务化是技术潮流和趋势，但是它解决了很多问题的同时也带来了新的问题。</p>
+
+<p><img src="/assets/images/MonolithicArch.png" alt="MonolithicArch" /></p>
+
+<p>这是传统单体系统架构图，对运维人员友好，但是对开发人员不友好，系统维护升级困难。</p>
+
+<p><img src="/assets/images/MicroserviceArch.png" alt="MicroserviceArch" /></p>
+
+<p>这是微服务化后的系统架构图，经过功能切分，开发人员获得了架构独立、快速迭代等诸多微服务带来的好处，但是运维人员却需要维护海量的微服务实例，所以如果不进行性能监控，当系统出现故障或用户体验下降时，就无法快速定位问题，也无法制定策略（例如弹性伸缩）来预防。</p>
+
+<h2 id="1000-m1版本原理">1.0.00-m1版本原理</h2>
+<p>在0.5.0版本的实现介绍<a href="/cn/users/metrics-in-0.5.0/">0.5.0版本中的监控</a>中，存在一些问题：</p>
+<ol>
+  <li>metrics在foundation-metrics模块中实现，并且包含了一些具体的定制代码；</li>
+  <li>使用ThreadLocal变量收集和汇总数据，虽然性能很高，但是存在内存泄漏的风险；</li>
+  <li>Metrics的输出为固定的文本，而不是独立的数值，数据使用起来很不方便；</li>
+  <li>没有提供通用数据发布接口，难以和更多的第三方监控系统做集成；</li>
+  <li>由于foundation-metrics模块过于底层，用户无法以可选的方式决定是否启用；</li>
+</ol>
+
+<p>因此，从0.5.0版本升级到1.0.0-m1版本，我们进行了一次全面的重构，重构后的Metrics将分为如下两个个模块</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Module名</th>
+      <th style="text-align: left">描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">foundation-metrics</td>
+      <td style="text-align: left">Metrics机制层模块，提供Metrics基础能力</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">metrics-core</td>
+      <td style="text-align: left">Metrics核心模块，引入后即启用Metrics数据收集功能</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">metrics-integration</td>
+      <td style="text-align: left">包含Metrics与其它三方系统集成</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>它们的依赖关系如下图所示：</p>
+
+<p><img src="/assets/images/MetricsDependency.png" alt="MetricsDependency.png" /></p>
+
+<h3 id="数据采集不再依赖hystrixhandler-bizkeeper使用事件埋点收集与调用相关的所有数据">数据采集不再依赖Hystrix（handler-bizkeeper），使用事件埋点收集与调用相关的所有数据</h3>
+<p>1.0.0-m1版本不再从Hystrix获取调用的TPS和Latency，避免了不配置Java Chassis Bizkeeper Handler就不会输出这两项数据的问题；使用foundation-common中的EventBus作为事件总线，EventBus初始化的时候会通过SPI（Service Provider Interface）的机制将所有的EventListener注册进来，已实现的EventListener包括：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">事件监听处理类名</th>
+      <th style="text-align: left">功能</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">InvocationStartedEventListener</td>
+      <td style="text-align: left">处理Consumer调用或Producer接收开始时触发的InvocationStartedEvent</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">InvocationStartExecutionEventListener</td>
+      <td style="text-align: left">处理Producer从队列中取出调用开始处理时触发的InvocationStartExecutionEvent</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">InvocationFinishedEventListener</td>
+      <td style="text-align: left">处理Consumer调用返回或Producer处理完毕触发的InvocationFinishedEvent</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>特别说明，Java Chassis的Reactor框架基于<a href="http://vertx.io/">Vertx</a>，在同步调用模式下，微服务Producer端收到Invocation后，并不会马上同步处理请求，而是将它放入一个处理队列中，Invocation在队列中的时间称为<strong>LifeTimeInQueue</strong>，队列的长度称为<strong>waitInQueue</strong>，这是衡量微服务压力的两个重要指标，可以参考操作系统磁盘读写队列的概念；Consumer端并不会有队列，因此永远不会触发InvocationStartExecutionEvent。</em></p>
+
+<p>事件触发的代码分布在Java Chassis的RestInvocation、HighwayServerInvoke和InvokerUtils中，如果微服务没有启用Metrics，EventBus中就不会注册Metrics事件监听处理器，因此对性能的影响微乎其微。</p>
+
+<h3 id="使用netflix-servo作为metric的计数器">使用Netflix Servo作为Metric的计数器</h3>
+<p><a href="https://github.com/Netflix/servo">Netflix Servo</a>具有性能极高的计数器（Monitor），我们使用了五种：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Monitor名</th>
+      <th style="text-align: left">描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">BasicCounter</td>
+      <td style="text-align: left">基本累加计数器（永续累加）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">StepCounter</td>
+      <td style="text-align: left">周期累加计数器（以前曾经称为ResettableCounter）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">BasicTimer</td>
+      <td style="text-align: left">时间计数器</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">BasicGauge</td>
+      <td style="text-align: left">基本计量器</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">MaxGauge</td>
+      <td style="text-align: left">周期最大值计数器</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>依赖的Servo版本为0.10.1</em></p>
+
+<h3 id="周期设置">周期设置</h3>
+<p>Metrics有很多种分类方式，在技术实现上我们偏向以取值方式区分为两种：</p>
+<ol>
+  <li>直接取值
+  任何时候都能够立刻获取到最新值，例如资源使用率，包括CPU使用率，线程数，Heap使用数据等等，还有调用累加次数，当前队列长度等等。</li>
+  <li>统计取值
+  经过一个特定的时间周期才能够统计出值，这个时间间隔我们可以称为窗口周期（Window Time）或统计周期，例如：<br />
+  a) 多值取其一的，比如Max、Min、Median（中位值）;  <br />
+  b) 与时间相关的，比如TPS（transaction per second）；  <br />
+  c) 与个数相关的，比如累加平均值、方差等等；  <br />
+  获取此类Metrics的值，返回的是上一个周期的统计结果，具有一定的延后性。在Servo中，这个时间被称为<a href="https://github.com/Netflix/servo/wiki/Getting-Started">“Polling Intervals”</a>。  <br />
+  从1.0.0-m1开始，可以通过microservice.yaml中的servicecomb.metrics.window_time配置设置周期，效果与servo.pollers一致。</li>
+</ol>
+
+<p><strong>提示：Servo已经被Netflix标记为DEPRECATED，我们将在1.0.0-m2中使用Netflix spectator替换，将不需要设置周期</strong></p>
+
+<h2 id="metrics数据id格式">Metrics数据ID格式</h2>
+<p>Java Chassis Metrics内置两种类型的Metric输出：</p>
+<h3 id="jvm信息">JVM信息</h3>
+<p>输出ID格式为：<em>jvm(statistic=gauge,name={name})</em>
+name包括：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">name</th>
+      <th style="text-align: left">描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">cpuLoad</td>
+      <td style="text-align: left">CPU使用率</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">cpuRunningThreads</td>
+      <td style="text-align: left">线程数</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">heapInit,heapMax,heapCommit,heapUsed</td>
+      <td style="text-align: left">内存heap使用情况</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">nonHeapInit,nonHeapMax,nonHeapCommit,nonHeapUsed</td>
+      <td style="text-align: left">内存nonHeap使用情况</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="invocation信息">Invocation信息</h3>
+<p>输出ID格式为：<em>servicecomb.invocation(operation={operationName},role={role},stage={stage},statistic={statistic},status={status},unit={unit})</em>
+标签含义及值如下：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Tag名</th>
+      <th style="text-align: left">描述</th>
+      <th style="text-align: left">值</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">operationName</td>
+      <td style="text-align: left">Operation全名</td>
+      <td style="text-align: left">MicroserviceQualifiedName</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">role</td>
+      <td style="text-align: left">Consumer端统计还是Producer端统计</td>
+      <td style="text-align: left">consume,producer</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">stage</td>
+      <td style="text-align: left">统计的阶段</td>
+      <td style="text-align: left">queue（在队列中，仅producer）,execution（执行阶段，仅producer）,total（整体）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">statistic</td>
+      <td style="text-align: left">统计项</td>
+      <td style="text-align: left">tps,count（总调用次数）,max,waitInQueue（在队列中等待数，仅producer）,latency</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">status</td>
+      <td style="text-align: left">调用结果状态值</td>
+      <td style="text-align: left">200, 404等等</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">unit</td>
+      <td style="text-align: left">如果是时延统计，单位</td>
+      <td style="text-align: left">MILLISECONDS，SECONDS等等</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="如何配置">如何配置</h2>
+<h3 id="全局配置">全局配置</h3>
+<p>请在microservice.yaml中添加如下配置项：</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
+<span class="s">service_description</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">demoService</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">metrics</span><span class="pi">:</span>
+    <span class="c1">#时间窗间隔，单位毫秒,默认为5000（5秒）</span>
+    <span class="s">window_time</span><span class="pi">:</span> <span class="s">5000</span>
+</code></pre>
+</div>
+
+<p><strong>为了降低Metrics理解和使用难度，我们暂时不支持多周期</strong></p>
+
+<h3 id="依赖配置">依赖配置</h3>
+<p>只需要添加metrics-core依赖即可：</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>metrics-core<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="如何获取数据">如何获取数据</h2>
+<p>配置好Metrics后，你可以通过如下两种方式获取Metrics数据：</p>
+<h3 id="通过发布接口获取">通过发布接口获取</h3>
+<p>当微服务启动后，metrics-core会自动以Springmvc的方式发布服务：</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"metricsEndpoint"</span><span class="o">)</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/metrics"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MetricsPublisher</span> <span class="o">{</span>
+  <span class="nd">@ApiResponses</span><span class="o">({</span>
+      <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">code</span> <span class="o">=</span> <span class="mi">400</span><span class="o">,</span> <span class="n">response</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">message</span> <span class="o">=</span> <span class="s">"illegal request content"</span><span class="o">),</span>
+  <span class="o">})</span>
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+  <span class="nd">@CrossOrigin</span>
+  <span class="kd">public</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="nf">measure</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<p>因此，如果你在microservice.yaml中配置了rest provider，例如：</p>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">service</span><span class="pi">:</span>
+    <span class="s">registry</span><span class="pi">:</span>
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
+  <span class="s">rest</span><span class="pi">:</span>
+    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre>
+</div>
+<p>你就可以通过http://localhost:8080/metrics 直接获取到数据，打开浏览器输入此URL就可以看到返回结果。</p>
+
+<h3 id="直接获取">直接获取</h3>
+<p>从上面的代码可以看到，数据提供的入口是org.apache.servicecomb.metrics.core.MonitorManager，因此如果你希望自己开发数据发布程序，只需要获取它即可。</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">MonitorManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">measure</span><span class="o">();</span>
+</code></pre>
+</div>
+
+<p><strong>提示：Servo已经被Netflix标记为DEPRECATED，我们将在1.0.0-m2中使用Netflix spectator替换，获取数据的接口会有调整</strong></p>
+
+<h2 id="如何使用数据">如何使用数据</h2>
+<p>Metrics数据将以Map&lt;String, Double&gt;的形式输出，为了能够方便用户获取指定Metric的值，提供了org.apache.servicecomb.foundation.metrics.publish.MetricsLoader工具类：</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="c1">//模拟MonitorManager.getInstance().measure()获取所有的Metrics值</span>
+    <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"X(K1=1,K2=2,K3=3)"</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">);</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"X(K1=1,K2=20,K3=30)"</span><span class="o">,</span> <span class="mf">200.0</span><span class="o">);</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"X(K1=2,K2=200,K3=300)"</span><span class="o">,</span> <span class="mf">300.0</span><span class="o">);</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"X(K1=2,K2=2000,K3=3000)"</span><span class="o">,</span> <span class="mf">400.0</span><span class="o">);</span>
+
+    <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"Y(K1=1,K2=2,K3=3)"</span><span class="o">,</span> <span class="mf">500.0</span><span class="o">);</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"Y(K1=10,K2=20,K3=30)"</span><span class="o">,</span> <span class="mf">600.0</span><span class="o">);</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"Y(K1=100,K2=200,K3=300)"</span><span class="o">,</span> <span class="mf">700.0</span><span class="o">);</span>
+    <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"Y(K1=1000,K2=2000,K3=3000)"</span><span class="o">,</span> <span class="mf">800.0</span><span class="o">);</span>
+
+    <span class="c1">//创建一个MetricsLoader加载所有的Metrics值</span>
+    <span class="n">MetricsLoader</span> <span class="n">loader</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MetricsLoader</span><span class="o">(</span><span class="n">metrics</span><span class="o">);</span>
+
+    <span class="c1">//获取name为X的所有Metrics并且按K1,K2两个Tag层次分组</span>
+    <span class="n">MetricNode</span> <span class="n">node</span> <span class="o">=</span> <span class="n">loader</span><span class="o">.</span><span class="na">getMetricTree</span><span class="o">(</span><span class="s">"X"</span><span class="o">,</span><span class="s">"K1"</span><span class="o">,</span><span class="s">"K2"</span><span class="o">);</span>
+
+    <span class="c1">//获取K1=1且K2=20的所有Metrics，因为node是按K1和K2的层次分组的</span>
+    <span class="n">node</span><span class="o">.</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"20"</span><span class="o">).</span><span class="na">getMetrics</span><span class="o">();</span>
+
+    <span class="c1">//从层次结构中通过Tag匹配获取Metric的值</span>
+    <span class="n">node</span><span class="o">.</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"20"</span><span class="o">).</span><span class="na">getFirstMatchMetricValue</span><span class="o">(</span><span class="s">"K3"</span><span class="o">,</span><span class="s">"30"</span><span class="o">);</span>
+</code></pre>
+</div>
+<p><em>demo/perf/PerfMetricsFilePublisher.java提供了MetricsLoader更详细的使用示例</em></p>
+
+<h2 id="如何扩展">如何扩展</h2>
+<p>Java Chassis Metrics支持自定义Metrics扩展，MonitorManager包含一组获取各类Monitor的方法：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">方法名</th>
+      <th style="text-align: left">描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">getCounter</td>
+      <td style="text-align: left">获取一个计数器类的Monitor</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">getMaxGauge</td>
+      <td style="text-align: left">获取一个最大值统计Monitor</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">getGauge</td>
+      <td style="text-align: left">获取基本计量Monitor</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">getTimer</td>
+      <td style="text-align: left">获取一个时间计数器类的Monitor</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>以处理订单这个场景为例：</p>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderController</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Counter</span> <span class="n">orderCount</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Counter</span> <span class="n">orderTps</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Timer</span> <span class="n">averageLatency</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">MaxGauge</span> <span class="n">maxLatency</span><span class="o">;</span>
+
+  <span class="n">OrderController</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">MonitorManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+    <span class="c1">//"商品名","levis jeans"与"型号","512" 是两个自定义Tag的name和value，支持定义多Tag</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">orderCount</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"订单数量"</span><span class="o">,</span> <span class="s">"商品名"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"型号"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">orderTps</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">getCounter</span><span class="o">(</span><span class="nl">StepCounter:</span><span class="o">:</span><span class="k">new</span><span class="o">,</span> <span class="s">"生成订单"</span><span class="o">,</span> <span class="s">"统计项"</span><span class="o">,</span> <span class="s">"事务每秒"</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">averageLatency</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">getTimer</span><span class="o">(</span><span class="s">"生成订单"</span><span class="o">,</span> <span class="s">"统计项"</span><span class="o">,</span> <span class="s">"平均生成时间"</span><span class="o">,</span> <span class="s">"单位"</span><span class="o">,</span> <span class="s">"MILLISECONDS"</span><span class="o">);</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">maxLatency</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">getMaxGauge</span><span class="o">(</span><span class="s">"生成订单"</span><span class="o">,</span> <span class="s">"统计项"</span><span class="o">,</span> <span class="s">"最大生成时间"</span><span class="o">,</span> <span class="s">"单位"</span><span class="o">,</span> <span class="s">"MILLISECONDS"</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">makeOrder</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kt">long</span> <span class="n">startTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">();</span>
+    <span class="c1">//处理订单逻辑</span>
+    <span class="c1">//...</span>
+    <span class="c1">//处理完毕</span>
+    <span class="kt">long</span> <span class="n">totalTime</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">nanoTime</span><span class="o">()</span> <span class="o">-</span> <span class="n">startTime</span><span class="err">；</span>
+
+    <span class="c1">//增加订单数量</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">orderCount</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+    
+    <span class="c1">//更新Tps</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">orderTps</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+
+    <span class="c1">//记录订单生成处理时间</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">averageLatency</span><span class="o">.</span><span class="na">record</span><span class="o">(</span><span class="n">totalTime</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">NANOSECONDS</span><span class="o">);</span>
+
+    <span class="c1">//记录最大订单生成时间，因为惯用毫秒作为最终输出，因此我们转换一下单位</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">maxLatency</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">TimeUnit</span><span class="o">.</span><span class="na">NANOSECONDS</span><span class="o">.</span><span class="na">toMillis</span><span class="o">(</span><span class="n">totalTime</span><span class="o">));</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>注意事项：</p>
+
+<p>1.通过MonitorManager获取Monitor传递name和tag数组，最终输出的ID是它们连接后的字符串，所以请保持唯一性，上面的例子输出的Metrics为：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
+
+<span class="c1">//metrics的keySet()将包含：</span>
+<span class="c1">//	订单数量(商品名=levis jeans,型号=512)</span>
+<span class="c1">//	生成订单(统计项=事务每秒)</span>
+<span class="c1">//	生成订单(统计项=平均生成时间,单位=MILLISECONDS)</span>
+<span class="c1">//	生成订单(统计项=最大生成时间,单位=MILLISECONDS)</span>
+</code></pre>
+</div>
+
+<p>2.MonitorManager获取Monitor的方法均为<strong>获取或创建</strong>，因此多次传递相同的name和tag数组返回的是同一个计数器：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Counter</span> <span class="n">counter1</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"订单数量"</span><span class="o">,</span> <span class="s">"商品名"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"型号"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
+<span class="n">Counter</span> <span class="n">counter2</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"订单数量"</span><span class="o">,</span> <span class="s">"商品名"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"型号"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
+
+<span class="n">counter1</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+<span class="n">counter2</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
+
+<span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter1</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter2</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+<span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mf">2.0</span><span class="o">,</span><span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"订单数量(商品名=levis jeans,型号=512)"</span><span class="o">),</span><span class="mi">0</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p><strong>获取Monitor的方法性能较低，请在初始化阶段一次获取所需的Monitor，然后将它们缓存起来，请参照前面OrderController的做法。</strong></p>
+
+<p><strong>提示：Servo已经被Netflix标记为DEPRECATED，我们将在1.0.0-m2中使用Netflix spectator替换，扩展自定义Metrics的方式会有调整</strong></p>
+
+<h2 id="参考示例">参考示例</h2>
+<p>我们已经开发完成了两个使用场景可以作为参考：</p>
+<ol>
+  <li>demo/perf：在Console里打印Metrics；</li>
+  <li>metrics-prometheus：将Metrics发布为prometheus Producer。</li>
+</ol>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/metrics-in-1.0.0-m1.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/metrics-in-1.0.0-m1.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

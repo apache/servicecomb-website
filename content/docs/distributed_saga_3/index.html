@@ -1,0 +1,909 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Eventual Data Consistency Solution in ServiceComb - part 3 - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="How is distributed saga in ServiceComb comparing with other consistency solutions?">
+
+
+
+
+<meta name="author" content="Sean Yin">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="Eventual Data Consistency Solution in ServiceComb - part 3">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/distributed_saga_3/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/distributed_saga_3/">
+
+
+
+  <meta property="og:description" content="How is distributed saga in ServiceComb comparing with other consistency solutions?">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Eventual Data Consistency Solution in ServiceComb - part 3">
+  <meta name="twitter:description" content="How is distributed saga in ServiceComb comparing with other consistency solutions?">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@seanyinx">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-09-18T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/release/">Downloads</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/distributed_saga_3/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Sean Yin</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+        Nothing but speed is indestructible
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="http://seanyinx.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:seanyinx@gmail.com">
+            <meta itemprop="email" content="seanyinx@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/seanyinx" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Eventual Data Consistency Solution in ServiceComb - part 3">
+    <meta itemprop="description" content="How is distributed saga in ServiceComb comparing with other consistency solutions?">
+    <meta itemprop="datePublished" content="September 18, 2017">
+    <meta itemprop="dateModified" content="September 18, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Eventual Data Consistency Solution in ServiceComb - part 3
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <p>In my <a href="/docs/distributed_saga_2/">previous post</a>, I talked about how <a href="https://en.wikipedia.org/wiki/Two-phase_commit_protocol">Saga</a> in
+ServiceComb is designed. However, there are quite a few data consistency solutions such as Two-Phase Commit (2PC) 
+and Try-Confirm/Cancel (TCC). What makes saga special?</p>
+
+<h2 id="two-phase-commit-2pc">Two-Phase Commit (2PC)</h2>
+<blockquote>
+  <p>Two-phase commit protocol is a distributed algorithm that coordinates all the processes that participate in a distributed 
+atomic transaction on whether to commit or abort (roll back) the transaction. <a href="https://en.wikipedia.org/wiki/Two-phase_commit_protocol">1</a></p>
+</blockquote>
+
+<p>It has two phases:</p>
+<ul>
+  <li><strong>voting phase</strong> coordinator sends vote request to all services and services respond with either yes or no. If any service
+refuse with no or timeout, coordinator sends abort message in the next phase.</li>
+</ul>
+
+<p><img src="/assets/images/saga.2pc.phase1.png" alt="voting phase" class="align-center" /></p>
+
+<ul>
+  <li><strong>decision phase</strong> if all services say yes, coordinator sends commit message to services and services acknowledge either
+transaction done or failed. If any service fails to commit, coordinator will initiate additional rounds to abort the transaction.</li>
+</ul>
+
+<p><img src="/assets/images/saga.2pc.phase2.png" alt="decision phase" class="align-center" /></p>
+
+<p>Between the end of voting phase and the end of decision phase, services are in <strong>uncertain</strong> state, because they are not sure
+if the transaction is going to proceed or not. When a service is in uncertain state and loses connection with coordinator,
+it may either wait for coordinator's recovery, or consult other services in certain state for coordinator's decision.
+In the worst case, n uncertain services broadcasting messages to other n - 1 services will incur <strong>O(n<sup>2</sup>)</strong> messages.</p>
+
+<p>Another disadvantage of 2PC is that it is a blocking protocol. A service will block and lock resources, while waiting for
+decision from coordinator after voting. 2PC does not scale well when the number of services involved in a transaction grows,
+because of its blocking mechanism and worst case time complexity.</p>
+
+<p>More details on implementation of 2PC can be found at <a href="https://cs.nyu.edu/courses/spring03/G22.2631-001/lecture8.pdf">2</a> and <a href="http://courses.cs.vt.edu/~cs5204/fall00/distributedDBMS/duckett/tpcp.html">3</a>.</p>
+
+<h2 id="try-confirmcancel-tcc">Try-Confirm/Cancel (TCC)</h2>
+<p>TCC is a compensating transaction pattern for business model that is two-phased.</p>
+<ul>
+  <li><strong>try phase</strong> puts a service in pending state. For example, a try request in our flight booking service will reserve a
+seat for the customer and insert a customer reservation record with reserved state into database. If any service fails to
+make a reservation or times out, the coordinator will send a cancel request in the next phase.</li>
+</ul>
+
+<p><img src="/assets/images/saga.tcc.try.png" alt="try phase" class="align-center" /></p>
+
+<ul>
+  <li><strong>confirm phase</strong> moves the service to confirmed state. A confirm request will confirm that a seat is booked for the 
+customer and he or she will be billed. The customer reservation record in database will be updated to confirmed state.
+If any service fails to confirm or times out, the coordinator will either retry confirmation until success or involve manual
+intervention after it retries a certain number of times.</li>
+</ul>
+
+<p><img src="/assets/images/saga.tcc.confirm.png" alt="confirm phase" class="align-center" /></p>
+
+<p>Comparing with saga, TCC has an advantage in that try phase transitions services into pending state instead of final
+state, which makes cancellation trivial to design.</p>
+
+<p>For example, a try request for an email service may mark an email as ready to send and the email is only sent on confirm 
+request. Its corresponding cancel request needs only to mark the email as obsolete. However, in case of using saga, a transaction
+will send the email and its corresponding compensating transaction may have to send another email to explain the problem.</p>
+
+<p>The disadvantage of TCC, comparing with saga, is that its two-phased protocol requires services to be designed with additional
+pending state and interface to handle try request. And it may take twice the time to complete a TCC request than a saga request,
+because TCC communicates with each service twice and the confirm phase can only be started when responses of try request
+are received from all services.</p>
+
+<p>More detailed explanation of TCC can be found at <a href="https://www.infoq.com/presentations/Transactions-HTTP-REST">Transactions for the REST of Us</a>.</p>
+
+<h2 id="event-driven-architecture">Event Driven Architecture</h2>
+<p>In event driven architecture, just like TCC, an extra pending status is required for each service involved in a long live transaction.
+Services receiving transaction request insert a new record into its database with pending status and send a new event to
+the next service in the transaction sequence.</p>
+
+<p>Because it's possible that a service crashes after inserting the record and we are not sure if the new event is sent,
+an extra event table is required for each service to keep track of which step the current long live transaction is in.</p>
+
+<p><img src="/assets/images/saga.event.driven.request.png" alt="event driven architecture - request" class="align-center" /></p>
+
+<p>Once the last service in the long live transaction completes its job, it notifies the previous service in the transaction.
+Services receiving completion event set its record status to done in its database.</p>
+
+<p><img src="/assets/images/saga.event.driven.response.png" alt="event driven architecture - response" class="align-center" /></p>
+
+<p>If you look closer, event driven architecture is just like a decentralized implementation of event driven TCC. If we remove
+the pending state for each service, this architecture looks like a decentralized and event driven saga.
+Being decentralized is good, but it creates much tighter coupling between services. Let's assume a new business requirement adds a new
+process D between B and C. With event driven architecture, service B and C have to change their code to accommodate the new 
+process D.</p>
+
+<p><img src="/assets/images/saga.event.coupling.png" alt="event driven architecture - coupling" class="align-center" /></p>
+
+<p>On the contrary, all these coupling is in saga and no change is required for existing services when a new process is added
+to the long live transaction.</p>
+
+<p>More details can be found at <a href="https://www.nginx.com/blog/event-driven-data-management-microservices/">Event-Driven Data Management for Microservices</a>.</p>
+
+<h2 id="centralized-vs-decentralized">Centralized vs Decentralized</h2>
+<p>This blog series have been talked about centralized saga. But saga can be implemented as decentralized solution too. 
+How does the decentralized version look like?</p>
+
+<p>The decentralized version of saga does not have a dedicated coordinator. Whoever calling the next service
+in the transaction becomes the current coordinator instead. For example,</p>
+<ul>
+  <li>service A receives a request requiring data consistency across service A, B, and C.</li>
+  <li>A does its job and passes the request to the next service in the request, service B.</li>
+  <li>B completes its part and passes the request to C, and so on.</li>
+  <li>If C fails to process the request, it is B's responsibility to initiate its compensating transaction and asks A to rollback.</li>
+</ul>
+
+<p><img src="/assets/images/saga.decentralized.png" alt="decentralized saga" class="align-center" /></p>
+
+<p>Comparing with centralized one, the decentralized version has the advantage of service autonomy. But each service is
+coupled with data consistency protocol, which may require additional persistence infrastructure.</p>
+
+<p>We love services implementing business rules to be autonomous, but there are many application related complexity such as
+data consistency, service monitoring, and message passing, that are better to be centralized, so that business services
+are able to focus on dealing with business complexity instead of application complexity. That's why we designed centralized saga.</p>
+
+<p>In addition, the relationship among services in a long live transaction becomes harder and harder to understand, as the 
+number of services grows. It may quickly grow into a death star like the image below.</p>
+
+<p class="figure-caption"><img src="/assets/images/saga.death.star.png" alt="death star architecture" class="align-center" />
+Image source: http://www.slideshare.net/BruceWong3/the-case-for-chaos (s12)</p>
+
+<p>Meanwhile, locating the root cause of a problem in a long live transaction also becomes more troublesome, since the 
+service logs are spread all over cluster nodes.</p>
+
+<h2 id="summary">Summary</h2>
+<p>In this article, we compared saga with other data consistency solutions. Saga is more scalable than two-phase commit and
+is preferable to TCC in scenarios where compensating transactions are feasible and minimal changes to business logic is
+required. Centralized saga decouples services from data consistency logic and its persistence infrastructure
+and allows easier troubleshooting of any problem occurred in transactions.</p>
+
+<h2 id="references">References</h2>
+<ol>
+  <li><a href="https://en.wikipedia.org/wiki/Two-phase_commit_protocol">https://en.wikipedia.org/wiki/Two-phase_commit_protocol</a></li>
+  <li><a href="https://cs.nyu.edu/courses/spring03/G22.2631-001/lecture8.pdf">https://cs.nyu.edu/courses/spring03/G22.2631-001/lecture8.pdf</a></li>
+  <li><a href="http://courses.cs.vt.edu/~cs5204/fall00/distributedDBMS/duckett/tpcp.html">http://courses.cs.vt.edu/~cs5204/fall00/distributedDBMS/duckett/tpcp.html</a></li>
+  <li><a href="https://www.infoq.com/presentations/Transactions-HTTP-REST">https://www.infoq.com/presentations/Transactions-HTTP-REST</a></li>
+  <li><a href="https://www.nginx.com/blog/event-driven-data-management-microservices/">https://www.nginx.com/blog/event-driven-data-management-microservices/</a></li>
+</ol>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#saga" class="page__taxonomy-item" rel="tag">saga</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-09-18">September 18, 2017</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Eventual Data Consistency Solution in ServiceComb - part 3 /docs/distributed_saga_3/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/distributed_saga_3/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/docs/distributed_saga_3/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/distributed_saga_3/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/distributed_saga_2/" class="pagination--pager" title="ServiceComb中的数据最终一致性方案 - part 2
+">Previous</a>
+    
+    
+      <a href="/cn/docs/distributed_saga_3/" class="pagination--pager" title="ServiceComb中的数据最终一致性方案 - part 3
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">Leave a Comment</h4>
+        <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">Comment <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">Name <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">Email address <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">Website (optional)</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="saga-and-others">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">Submit Comment</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-II/" rel="permalink">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/apache-servicecomb-incubating-day/" rel="permalink">微服务 Meetup：Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/apache-servicecomb-incubating-day/" rel="permalink">Microservice Meetup: Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-I/" rel="permalink">轻松微服务系列：从一键构建微服务和DDD设计开始
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：从一键构建微服务和DDD设计开始
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/2017-09-18-saga-and-others.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/2017-09-18-saga-and-others.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('Submitted');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('Submit Comment');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

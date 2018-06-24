@@ -1,0 +1,888 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>1.0.0-m1版本中的监控如何集成prometheus - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="1.0.0-m1版本中的监控如何集成prometheus">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="1.0.0-m1版本中的监控如何集成prometheus">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/">
+
+
+
+  <meta property="og:description" content="1.0.0-m1版本中的监控如何集成prometheus">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="1.0.0-m1版本中的监控如何集成prometheus">
+  <meta name="twitter:description" content="1.0.0-m1版本中的监控如何集成prometheus">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/users/metrics-integration-with-prometheus-in-1.0.0-m1/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/" class="">Java Chassis系统架构</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/setup-environment/" class="">环境配置</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">开发服务提供者</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-definition/" class="">服务定义</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-contract/" class="">服务契约</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-springmvc/" class="">用SpringMVC开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-jax-rs/" class="">用JAX-RS开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-transparent-rpc/" class="">用透明RPC开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-spring-boot-starter/" class="">用Spring Boot Starter开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-interface-constraints/" class="">服务接口约束</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-configurations/" class="">服务配置</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/communicate-protocol/" class="">通信协议</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/application-boot-process/" class="">程序启动逻辑</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-heartbeat/" class="">服务心跳</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">开发服务消费者</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-rest-template/" class="">使用Rest Template方式开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-rpc/" class="">使用RPC方式开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/use-service-contract/" class="">使用服务契约</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/invoke-control/" class="">调用控制</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">通用开发</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/local-develop-test/" class="">本地开发与测试</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/distributed-tracing/" class="">分布式调用链追踪</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/customized-tracing/" class="">自定义调用链打点</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/users/dynamic-config/"><span class="nav__sub-title nav__sub-title-with-url">动态配置</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">服务能力开放</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/edging-service/nginx/" class="">使用confd和Nginx做边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/edging-service/zuul/" class="">使用Zuul做边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/edge-in-1.0.0-m1/" class="">使用内置Edge模块实现边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/manage_springcloud_application_using_sc_and_gs/" class="">使用Service Center和治理中心管理Spring Cloud应用</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">监控</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-in-0.5.0/" class="">0.5.0版本中的监控</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-in-1.0.0-m1/" class="">1.0.0-m1版本中的监控</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-write-file-extension-and-sample-in-1.0.0-m1/" class="">1.0.0-m1版本写文件扩展和示例</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/" class="active">1.0.0-m1版本中的监控如何集成prometheus</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/healthcheck/" class="">健康检查</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">部署</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/run-mode/" class="">运行模式</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/deploy-mode/" class="">部署模式</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">微服务安全</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/use-tls/" class="">使用TLS通信</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="1.0.0-m1版本中的监控如何集成prometheus">
+    <meta itemprop="description" content="1.0.0-m1版本中的监控如何集成prometheus">
+    
+    <meta itemprop="dateModified" content="January 02, 2018">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">1.0.0-m1版本中的监控如何集成prometheus
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#背景" id="markdown-toc-背景">背景</a></li>
+  <li><a href="#对接原理" id="markdown-toc-对接原理">对接原理</a></li>
+  <li><a href="#如何配置" id="markdown-toc-如何配置">如何配置</a>    <ul>
+      <li><a href="#全局配置" id="markdown-toc-全局配置">全局配置</a></li>
+      <li><a href="#依赖配置" id="markdown-toc-依赖配置">依赖配置</a></li>
+      <li><a href="#配置prometheus的prometheusyml" id="markdown-toc-配置prometheus的prometheusyml">配置Prometheus的prometheus.yml</a></li>
+      <li><a href="#验证输出" id="markdown-toc-验证输出">验证输出</a></li>
+      <li><a href="#配置grafana可选" id="markdown-toc-配置grafana可选">配置Grafana（可选）</a></li>
+    </ul>
+  </li>
+  <li><a href="#运行效果" id="markdown-toc-运行效果">运行效果</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p>微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，请通过查看用户手册和<a href="https://github.com/apache/incubator-servicecomb-java-chassis/releases">Release Note</a>获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)参与讨论。</p>
+
+<h2 id="背景">背景</h2>
+<p><a href="http://www.prometheus.io/">prometheus</a>是相似于Google Borgmon的一个开源监控系统，也是<a href="https://www.cncf.io/">CNCF</a>的成员之一，目前社区非常活跃，Java Chassis Metrics在1.0.0-m1中支持对接prometheus，并进一步实现使用<a href="https://grafana.com/">Grafana</a>查询Metrics数据。</p>
+
+<h2 id="对接原理">对接原理</h2>
+<p>由于Java Chassis由Java语言开发，我们使用<a href="https://github.com/prometheus/client_java">prometheus java client</a>中的Simple Client作为对接SDK，版本为0.1.0。<br />
+Prometheus推荐Pull模式拉取Metrics数据，被监控微服务作为Producer发布数据provider接口，我们采用Simple HTTP Server发布微服务采集到的Metrics数据。<br />
+作为一个集成（可选）模块，代码在metrics-integration/metrics-prometheus中，你可以看到它依赖：</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.prometheus<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>simpleclient<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>io.prometheus<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>simpleclient_httpserver<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+
+  <span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>metrics-core<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+<p>因此一旦集成Prometheus引入了metrics-prometheus依赖后，不再需要添加metrics-core的依赖。</p>
+
+<h2 id="如何配置">如何配置</h2>
+<p>开启对接prometheus非常简单：</p>
+<h3 id="全局配置">全局配置</h3>
+<p>microservice.yaml中有如下配置项：</p>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
+<span class="s">service_description</span><span class="pi">:</span>
+  <span class="s">name</span><span class="pi">:</span> <span class="s">demoService</span>
+  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+
+<span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">metrics</span><span class="pi">:</span>
+    <span class="s">prometheus</span><span class="pi">:</span>
+      <span class="c1">#prometheus provider的端口</span>
+      <span class="s">port</span><span class="pi">:</span> <span class="s">9696</span>
+</code></pre>
+</div>
+<p><em>如果不做配置，默认端口为9696</em></p>
+<h3 id="依赖配置">依赖配置</h3>
+<p>只需要添加metrics-prometheus依赖即可：</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>metrics-prometheus<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+<h3 id="配置prometheus的prometheusyml">配置Prometheus的prometheus.yml</h3>
+<p>你需要在prometheus.yml中配置数据采集job，例如</p>
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">scrape_configs</span><span class="pi">:</span>
+  <span class="c1"># The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span>
+  <span class="pi">-</span> <span class="s">job_name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">prometheus'</span>
+
+    <span class="c1"># metrics_path defaults to '/metrics'</span>
+    <span class="c1"># scheme defaults to 'http'.</span>
+
+    <span class="s">static_configs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9090'</span><span class="pi">]</span>
+
+  <span class="pi">-</span> <span class="s">job_name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">servicecomb'</span>
+
+    <span class="c1"># metrics_path defaults to '/metrics'</span>
+    <span class="c1"># scheme defaults to 'http'.</span>
+
+    <span class="s">static_configs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9696'</span><span class="pi">]</span>
+</code></pre>
+</div>
+<p>其中job_name: ‘servicecomb’即自定义的job配置，目标是本地微服务localhost:9696，关于prometheus.yml的配置更多信息可以参考<a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/">这篇文章</a>。</p>
+
+<h3 id="验证输出">验证输出</h3>
+<p>Prometheus Simple HTTP Server使用/metrics作为默认URL，metrics-prometheus会使用9696作为默认端口，微服务启动后你可以使用http://localhost:9696/metrics 访问它。</p>
+
+<p>使用Prometheus Simple HTTP Server接口发布的数据是Prometheus采集的标准格式：</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code># HELP ServiceComb Metrics ServiceComb Metrics
+# TYPE ServiceComb Metrics untyped
+jvm{name="cpuRunningThreads",statistic="gauge",} 45.0
+jvm{name="heapMax",statistic="gauge",} 3.786407936E9
+jvm{name="heapCommit",statistic="gauge",} 6.12892672E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="max",status="200",unit="MILLISECONDS",} 1.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="tps",status="200",} 0.4
+jvm{name="nonHeapCommit",statistic="gauge",} 6.1104128E7
+jvm{name="nonHeapInit",statistic="gauge",} 2555904.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="execution",statistic="max",status="200",unit="MILLISECONDS",} 0.0
+jvm{name="heapUsed",statistic="gauge",} 2.82814088E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="latency",status="200",unit="MILLISECONDS",} 1.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="execution",statistic="latency",status="200",unit="MILLISECONDS",} 0.0
+jvm{name="heapInit",statistic="gauge",} 2.66338304E8
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="waitInQueue",} 0.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="total",statistic="count",status="200",} 39.0
+jvm{name="nonHeapUsed",statistic="gauge",} 5.9361032E7
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="latency",status="200",unit="MILLISECONDS",} 0.0
+servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="max",status="200",unit="MILLISECONDS",} 0.0
+</code></pre>
+</div>
+
+<h3 id="配置grafana可选">配置Grafana（可选）</h3>
+<p>如何在Grafana中添加Prometheus作为数据源请参考<a href="https://prometheus.io/docs/visualization/grafana/">这篇文章</a>。</p>
+<h2 id="运行效果">运行效果</h2>
+<p>配置好Prometheus并启动了微服务之后，就可以打开Prometheus Web界面（默认地址是http://localhost:9090/ ），在Metrics列表中看到ServiceComb开头的Java Chassis Metrics，如下图所示：</p>
+
+<p><img src="/assets/images/MetricsInPrometheus.png" alt="MetricsInPrometheus" /></p>
+
+<p>为了能够达到更好的查询效果，在Grafana中添加Prometheus作为数据源，通过Grafana查询数据如下图示：</p>
+
+<p><img src="/assets/images/MetricsInGrafana.png" alt="MetricsInGrafana" /></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/metrics-integration-with-prometheus-in-1.0.0-m1.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/metrics-integration-with-prometheus-in-1.0.0-m1.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

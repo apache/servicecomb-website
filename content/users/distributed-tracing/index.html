@@ -1,0 +1,808 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Distributed Tracing - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="Distributed Tracing">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="Distributed Tracing">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/users/distributed-tracing/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/users/distributed-tracing/">
+
+
+
+  <meta property="og:description" content="Distributed Tracing">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Distributed Tracing">
+  <meta name="twitter:description" content="Distributed Tracing">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/release/">Downloads</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/users/distributed-tracing/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/" class="">Java Chassis Architecture</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/setup-environment/" class="">Setup Environment</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop Service Provider</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-definition/" class="">Service Definition</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-contract/" class="">Service Contract</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-springmvc/" class="">Develop Microservice with SpringMVC</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-jax-rs/" class="">Develop Microservice with JAX-RS</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-transparent-rpc/" class="">Develop Microservice with Transparent RPC</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-spring-boot-starter/" class="">Develop Microservice with Spring Boot Starter</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-interface-constraints/" class="">Service Interface Constraints</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-configurations/" class="">Service Configurations</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/communicate-protocol/" class="">Communicate Protocol</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/application-boot-process/" class="">Application Boot Up Process</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/service-heartbeat/" class="">Service Heartbeat</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Develop Service Consumer</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-rest-template/" class="">Develop with Rest Template</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/develop-with-rpc/" class="">Develop with Transparent RPC</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/use-service-contract/" class="">Use Service Contract</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/invoke-control/" class="">Invoke Control</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">General Development</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/local-develop-test/" class="">Develop and Test in Local Environment</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/distributed-tracing/" class="active">Distributed Tracing</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/customized-tracing/" class="">Customized Tracing</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/users/dynamic-config/"><span class="nav__sub-title nav__sub-title-with-url">Dynamic Configurations</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Open Service Capabilities</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/edging-service/nginx/" class="">Confd and Nginx Edge Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/edging-service/zuul/" class="">Zuul Edge Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/edge-in-1.0.0-m1/" class="">ServiceComb Java Chassis Edge Service</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/manage_springcloud_application_using_sc_and_gs/" class="">Using the Service Center and Governance Center to Manage the Spring Cloud Application</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Monitor</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/metrics-in-1.0.0-m1/" class="">Metrics-in-1.0.0-m1</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/metrics-integration-with-prometheus-in-1.0.0-m1/" class="">Metrics-integration-with-prometheus-in-1.0.0-m1</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/healthcheck/" class="">HealthCheck</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Deployment</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/run-mode/" class="">Run Mode</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Security</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/users/use-tls/" class="">Use TLS</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Distributed Tracing">
+    <meta itemprop="description" content="Distributed Tracing">
+    
+    <meta itemprop="dateModified" content="August 15, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Distributed Tracing
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+  <li><a href="#zipkin" id="markdown-toc-zipkin">Zipkin</a></li>
+  <li><a href="#procedure" id="markdown-toc-procedure">Procedure</a>    <ul>
+      <li><a href="#add-dependency" id="markdown-toc-add-dependency">Add dependency</a></li>
+      <li><a href="#configure-tracing-and-data-collection" id="markdown-toc-configure-tracing-and-data-collection">Configure tracing and data collection</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="concept-description">Concept Description</h2>
+
+<p>The microservice architecture addresses many problems of single applications but has several drawbacks, for example, network instability may lead to latency.</p>
+
+<p>In a single application, all the modules are running in the same process without interworking. However, in the microservice architecture, services are communicated through network, and we have to address network problems, such as latency, timeout, and segmentation.</p>
+
+<p>As services expand, we can hardly monitor how data is transferred in the complex service architecture. How do we efficiently monitor network latency and visualize the data flows of services?</p>
+
+<p>The distributed tracing system efficiently monitor network latency of the microservice and visualize data flow during the service.</p>
+
+<h2 id="zipkin">Zipkin</h2>
+
+<blockquote>
+  <p><a href="http://zipkin.io/">Zipkin</a> is a distributed tracing system. It helps gather timing data needed to troubleshoot latency problems in microservice architectures. It manages both the collection and lookup of this data. Zipkin’s design is based on Google <a href="http://research.google.com/pubs/pub36356.html">Dapper paper</a>。</p>
+</blockquote>
+
+<p>ServiceComb integrates the automatic call tracing function provided by Zipkin, so that users can focus on service demands.</p>
+
+<h2 id="procedure">Procedure</h2>
+
+<h3 id="add-dependency">Add dependency</h3>
+
+<p>For microservice based on ServiceComb Java Chassis, add the following content to pom.xml</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>   
+    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>handler-tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<p>If the microservice is based on the API of Spring Cloud Zuul, such as the manager service of the workshop demo, add the following dependency:</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>    
+    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul-zipkin<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+
+<h3 id="configure-tracing-and-data-collection">Configure tracing and data collection</h3>
+
+<p>Set addresses for the tracing processor and data collection in the microservice.yaml file.</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span> 
+  <span class="s">handler</span><span class="pi">:</span> 
+    <span class="s">chain</span><span class="pi">:</span> 
+      <span class="s">Consumer</span><span class="pi">:</span> 
+        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-consumer</span>
+      <span class="s">Provider</span><span class="pi">:</span> 
+        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
+  <span class="s">tracing</span><span class="pi">:</span> 
+    <span class="s">collector</span><span class="pi">:</span> 
+      <span class="s">address</span><span class="pi">:</span> <span class="s">http://zipkin.servicecomb.io:9411</span>
+</code></pre>
+</div>
+
+<p>In this way, we enable the Zipkin-and-Java-based chassis distributed tracing system without changing any code.</p>
+
+<p class="notice--warning"><strong>NOTE:</strong> If other dependencies introduce the Zipkin system, such as Spring Cloud, running errors may occur due to version inconsistency. In this case, you need to specify the Zipkin version in the pom project.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/distributed-tracing.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/distributed-tracing.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

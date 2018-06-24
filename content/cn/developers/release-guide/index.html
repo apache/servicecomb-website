@@ -1,0 +1,915 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>ServiceComb发版指南 - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="ServiceComb发版指南 介绍如何在Apache发版">
+
+
+
+
+<meta name="author" content="Asif Siddiqui">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="ServiceComb发版指南">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/release-guide/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/release-guide/">
+
+
+
+  <meta property="og:description" content="ServiceComb发版指南 介绍如何在Apache发版">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="ServiceComb发版指南">
+  <meta name="twitter:description" content="ServiceComb发版指南 介绍如何在Apache发版">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@asif_diatm">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/developers/release-guide/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/developers/"><span class="nav__sub-title nav__sub-title-with-url">开发者指南</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/developers/contributing"><span class="nav__sub-title nav__sub-title-with-url">如何做贡献</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/developers/setup-develop-environment/"><span class="nav__sub-title nav__sub-title-with-url">开发环境准备</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/developers/submit-codes/"><span class="nav__sub-title nav__sub-title-with-url">代码提交指南</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/developers/subscribe-mail-list/"><span class="nav__sub-title nav__sub-title-with-url">邮件列表订阅指南</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/developers/use-jira/"><span class="nav__sub-title nav__sub-title-with-url">JIRA使用方法</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/developers/use-gitter/"><span class="nav__sub-title nav__sub-title-with-url">Gitter 使用方法</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/developers/setup-committer-rights/"><span class="nav__sub-title nav__sub-title-with-url">设置代码仓库写权限</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/developers/release-guide/"><span class="nav__sub-title nav__sub-title-with-url">Servicecomb发版指南</span></a>
+        
+
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="ServiceComb发版指南">
+    <meta itemprop="description" content="ServiceComb发版指南 介绍如何在Apache发版">
+    
+    <meta itemprop="dateModified" content="May 08, 2018">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">ServiceComb发版指南
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#前期准备" id="markdown-toc-前期准备">前期准备</a></li>
+  <li><a href="#配置maven" id="markdown-toc-配置maven">配置Maven</a></li>
+  <li><a href="#发行service-center" id="markdown-toc-发行service-center">发行Service-Center</a></li>
+  <li><a href="#发行java-chassis" id="markdown-toc-发行java-chassis">发行Java-Chassis</a></li>
+  <li><a href="#发行saga" id="markdown-toc-发行saga">发行Saga</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p>本文向大家介绍如何在Apache上进行ServiceComb项目发版.</p>
+
+<h2 id="前期准备">前期准备</h2>
+
+<ol>
+  <li>项目CI应该是正常的（绿色的）。</li>
+  <li>确定相关的项目版本号。</li>
+  <li>因为发版的过程中需要签名，请确保签名用密钥对应公钥已经发布到公开公钥服务器。</li>
+  <li>熟悉POM文件中版本发行相关的设置。</li>
+</ol>
+
+<h2 id="配置maven">配置Maven</h2>
+<p>ServiceComb Java-Chassis和Saga使用Maven进行版本发布，我们需要在发布前对Maven进行一些配置。</p>
+
+<p>在使用Maven把发行包发布到仓库之前，我们应当在<code class="highlighter-rouge">~/.m2/settings.xml</code>文件中配置制品为组群可写的，否则其它开发人员将无法提交相同制品的新SNAPSHOT版本。本项目参考了Maven项目的设定<a href="http://maven.apache.org/developers/committer-settings.html">指南</a>。请特别注意<a href="http://maven.apache.org/guides/mini/guide-encryption.html">加密密码</a>。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>&lt;settings&gt;
+  ...
+  &lt;servers&gt;
+    &lt;!-- Per http://maven.apache.org/developers/committer-settings.html --&gt;
+
+    &lt;!-- To publish a snapshot of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.snapshots.https&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;password&gt; &lt;!-- YOUR APACHE LDAP PASSWORD --&gt; &lt;/password&gt;
+    &lt;/server&gt;
+    &lt;!-- To publish a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.website&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a release of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.releases.https&lt;/id&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;password&gt; &lt;!-- YOUR APACHE LDAP PASSWORD --&gt; &lt;/password&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;stagingSite&lt;/id&gt; &lt;!-- must match hard-coded repository identifier in site:stage-deploy --&gt;
+      &lt;username&gt; &lt;!-- YOUR APACHE LDAP USERNAME --&gt; &lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+
+  &lt;/servers&gt;
+  ...
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;apache-release&lt;/id&gt;
+      &lt;properties&gt;
+        &lt;gpg.useagent&gt;false&lt;/gpg.useagent&gt;
+        &lt;gpg.passphrase&gt;&lt;!-- YOUR GPG PASSPHRASE --&gt;&lt;/gpg.passphrase&gt;
+        &lt;test&gt;false&lt;/test&gt;
+      &lt;/properties&gt;
+    &lt;/profile&gt;
+
+  &lt;/profiles&gt;
+...
+&lt;/settings&gt;
+</code></pre>
+</div>
+
+<h2 id="发行service-center">发行Service-Center</h2>
+
+<p><strong><em>准备和校验发行包</em></strong></p>
+
+<ol>
+  <li>克隆service-center代码。
+    <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-service-center.git
+cd incubator-servicecomb-service-center
+gvt restore
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>在master分支上打上准备发布版本的标签。</p>
+  </li>
+  <li>
+    <p>运行RAT工具，检查所有源文件头都有合法的ASF声明, 请参考<a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release">该文档</a>。</p>
+  </li>
+  <li>
+    <p>运行<code class="highlighter-rouge">make_release.sh</code>脚本，请参考<a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release">该文档</a>。</p>
+  </li>
+  <li>
+    <p>上一步将会在根目录下生成发行包。</p>
+  </li>
+  <li>
+    <p>在Linux与Windows环境下运行前端与service-center。</p>
+  </li>
+  <li>
+    <p>进行<a href="https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration">集成测试</a>。</p>
+  </li>
+  <li>
+    <p>如果以上全部测试都通过了，将发行包分发给同事在不同机器上进行验证。</p>
+  </li>
+  <li>将标签推送到主仓库。</li>
+</ol>
+
+<p><strong><em>给发行包签名</em></strong></p>
+
+<ol>
+  <li>
+    <p>从Github下载要发行版本<a href="https://github.com/apache/incubator-servicecomb-service-center/tags">标签</a>的源码包。</p>
+  </li>
+  <li>
+    <p>生成Linux发行包，Windows发行包和源码包的签名和校验和。</p>
+  </li>
+  <li>
+    <p>上传发行版到<a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/">Apache发行开发仓库</a>.</p>
+  </li>
+  <li>
+    <p>从SVN下载发行包，验证签名和校验。</p>
+  </li>
+</ol>
+
+<p><strong><em>PPMC批准</em></strong></p>
+
+<ol>
+  <li>
+    <p>发送投票邮件至 <strong><em>dev@servicecomb.apache.org</em></strong>， 发起PPMC批准.</p>
+  </li>
+  <li>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
+  </li>
+  <li>
+    <p>将投票结果发布到dev@servicecomb.apache.org。</p>
+  </li>
+</ol>
+
+<p><strong><em>IPMC批准</em></strong></p>
+
+<ol>
+  <li>
+    <p>发送投票邮件至<strong><em>general@incubator.apache.org</em></strong>，发起IPMC批准。</p>
+  </li>
+  <li>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
+  </li>
+  <li>
+    <p>将投票结果发布到general@incubator.apache.org。</p>
+  </li>
+</ol>
+
+<p><strong><em>通告</em></strong></p>
+
+<ol>
+  <li>
+    <p>上传发行包至<a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/">Apache发行仓库</a>。</p>
+  </li>
+  <li>
+    <p>等待24小时，让所有镜像同步。</p>
+  </li>
+  <li>
+    <p>上传发行页面至ServiceComb网站。</p>
+  </li>
+  <li>
+    <p>发送发行通告邮件到dev@servicecomb.apache.org， general@incubator.apache.org， announce@apache.org。</p>
+  </li>
+</ol>
+
+<h2 id="发行java-chassis">发行Java-Chassis</h2>
+
+<p><strong><em>准备和校验发行包</em></strong></p>
+
+<ol>
+  <li>克隆java-chassis代码。
+    <div class="highlighter-rouge"><pre class="highlight"><code>git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
+</code></pre>
+    </div>
+  </li>
+  <li>使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地。
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>在master分支上打上准备发布版本的标签。</p>
+  </li>
+  <li>
+    <p>清理repository.apache.org中所有冗余的发行版。</p>
+  </li>
+  <li>
+    <p>将GPG密钥文件拷贝至文件夹备用。</p>
+  </li>
+  <li>
+    <p>更新<code class="highlighter-rouge">~/.m2/settings.xml</code>文件中的GPG密钥文件路径和密码.</p>
+  </li>
+  <li>
+    <p>更新设置内Apache帐户用户名和密码。</p>
+  </li>
+  <li>运行以下命令。
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>上述命令执行成功，所有的jar包都成功上传至临时仓库后，运行Company Workshop作基本的功能验证。</p>
+  </li>
+  <li>
+    <p>将临时仓库共享给多人，在不同的机器和环境上进行验证。</p>
+  </li>
+  <li>
+    <p>如果验证全部通过，将标签提交至主仓库。</p>
+  </li>
+  <li>清理Apache临时仓库。</li>
+</ol>
+
+<p><strong><em>给发行包签名</em></strong></p>
+
+<ol>
+  <li>
+    <p>从临时仓库下载二进制包和源码包。</p>
+  </li>
+  <li>
+    <p>生成二进制包和源码包的签名和校验和。</p>
+  </li>
+  <li>
+    <p>上传发行包到<a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache发行开发仓库</a>.
+.</p>
+  </li>
+  <li>
+    <p>从SVN下载发行包，验证签名和校验。</p>
+  </li>
+</ol>
+
+<p><strong><em>PPMC批准</em></strong></p>
+
+<ol>
+  <li>
+    <p>发送投票邮件至 <strong><em>dev@servicecomb.apache.org</em></strong>， 发起PPMC批准.</p>
+  </li>
+  <li>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
+  </li>
+  <li>
+    <p>将投票结果发布到dev@servicecomb.apache.org。</p>
+  </li>
+</ol>
+
+<p><strong><em>IPMC批准</em></strong></p>
+
+<ol>
+  <li>
+    <p>发送投票邮件至<strong><em>general@incubator.apache.org</em></strong>，发起IPMC批准。</p>
+  </li>
+  <li>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
+  </li>
+  <li>
+    <p>将投票结果发布到general@incubator.apache.org。</p>
+  </li>
+</ol>
+
+<p><strong><em>通告</em></strong></p>
+
+<ol>
+  <li>
+    <p>上传发行包至<a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache发行仓库</a>。</p>
+  </li>
+  <li>
+    <p>等待24小时，让所有镜像同步。</p>
+  </li>
+  <li>
+    <p>上传发行页面至ServiceComb网站。</p>
+  </li>
+  <li>
+    <p>发送发行通告邮件到dev@servicecomb.apache.org， general@incubator.apache.org， announce@apache.org。</p>
+  </li>
+</ol>
+
+<h2 id="发行saga">发行Saga</h2>
+
+<p><strong><em>准备和校验发行包</em></strong></p>
+
+<ol>
+  <li>克隆Saga代码。
+    <div class="highlighter-rouge"><pre class="highlight"><code>git@github.com:apache/incubator-servicecomb-saga.git
+</code></pre>
+    </div>
+  </li>
+  <li>使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地。
+    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>在master分支上打上准备发布版本的标签。</p>
+  </li>
+  <li>
+    <p>清理repository.apache.org中所有冗余的发行版。</p>
+  </li>
+  <li>
+    <p>将GPG密钥文件拷贝至文件夹备用。</p>
+  </li>
+  <li>
+    <p>更新<code class="highlighter-rouge">~/.m2/settings.xml</code>文件中的GPG密钥文件路径和密码.</p>
+  </li>
+  <li>
+    <p>更新设置内Apache帐户用户名和密码。</p>
+  </li>
+  <li>运行以下命令。
+    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>上述命令执行成功，所有的jar包都成功上传至临时仓库后，运行门槛测试以验证基本功能。</p>
+  </li>
+  <li>
+    <p>将临时仓库共享给多人，在不同的机器和环境上进行验证。</p>
+  </li>
+  <li>
+    <p>如果验证全部通过，将标签提交至主仓库。</p>
+  </li>
+  <li>清理Apache临时仓库。</li>
+</ol>
+
+<p><strong><em>给发行包签名</em></strong></p>
+
+<ol>
+  <li>
+    <p>从临时仓库下载二进制包和源码包。</p>
+  </li>
+  <li>
+    <p>生成二进制包和源码包的签名和校验和。</p>
+  </li>
+  <li>
+    <p>上传发行包到<a href="https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/">Apache发行开发仓库</a>.
+.</p>
+  </li>
+  <li>
+    <p>从SVN下载发行包，验证签名和校验。</p>
+  </li>
+</ol>
+
+<p><strong><em>PPMC批准</em></strong></p>
+
+<ol>
+  <li>
+    <p>发送投票邮件至 <strong><em>dev@servicecomb.apache.org</em></strong>， 发起PPMC批准.</p>
+  </li>
+  <li>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
+  </li>
+  <li>
+    <p>将投票结果发布到dev@servicecomb.apache.org。</p>
+  </li>
+</ol>
+
+<p><strong><em>IPMC批准</em></strong></p>
+
+<ol>
+  <li>
+    <p>发送投票邮件至<strong><em>general@incubator.apache.org</em></strong>，发起IPMC批准。</p>
+  </li>
+  <li>
+    <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从<strong><em>第1步</em></strong>重新开始。</p>
+  </li>
+  <li>
+    <p>将投票结果发布到general@incubator.apache.org。</p>
+  </li>
+</ol>
+
+<p><strong><em>通告</em></strong></p>
+
+<ol>
+  <li>
+    <p>上传发行包至<a href="https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/">Apache发行仓库</a>。</p>
+  </li>
+  <li>
+    <p>等待24小时，让所有镜像同步。</p>
+  </li>
+  <li>
+    <p>上传发行页面至ServiceComb网站。</p>
+  </li>
+  <li>
+    <p>发送发行通告邮件到dev@servicecomb.apache.org， general@incubator.apache.org， announce@apache.org。</p>
+  </li>
+</ol>
+
+<p><strong>注意</strong>
+整个发行过程通常需要2周时间，如果PPMC投票和IPMC全部都一次性通过。因此请提前准备发行活动。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E5%8F%91%E7%89%88" class="page__taxonomy-item" rel="tag">发版</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _developers/cn/release_guide.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_developers/cn/release_guide.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

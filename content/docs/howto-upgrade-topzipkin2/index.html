@@ -1,0 +1,1001 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Howto Upgrade to Zipkin2 - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="Changes between v1 and v2 of zipkin and how Java Chassis upgraded to zipkin2">
+
+
+
+
+<meta name="author" content="Yang Bo">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="Howto Upgrade to Zipkin2">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/howto-upgrade-topzipkin2/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/howto-upgrade-topzipkin2/">
+
+
+
+  <meta property="og:description" content="Changes between v1 and v2 of zipkin and how Java Chassis upgraded to zipkin2">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Howto Upgrade to Zipkin2">
+  <meta name="twitter:description" content="Changes between v1 and v2 of zipkin and how Java Chassis upgraded to zipkin2">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-01-10T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/release/">Downloads</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/howto-upgrade-topzipkin2/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Yang Bo</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+        Simplicity is beauty
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:yangbo12@huawei.com">
+            <meta itemprop="email" content="yangbo12@huawei.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Howto Upgrade to Zipkin2">
+    <meta itemprop="description" content="Changes between v1 and v2 of zipkin and how Java Chassis upgraded to zipkin2">
+    <meta itemprop="datePublished" content="January 10, 2018">
+    <meta itemprop="dateModified" content="January 11, 2018">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Howto Upgrade to Zipkin2
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <h2 id="background">Background</h2>
+
+<p>Java Chassis uses zipkin as the default tracing implementation.</p>
+
+<p>Zipkin introduced <a href="http://zipkin.io/zipkin-api/#/">v2 http api</a> in version 1.31 which simplifies data types. There are also various other improvements and new features added to the zipkin libraries, so it seems a good time for us to follow the upstream and upgrade to zipkin2.</p>
+
+<h3 id="version-matrix">Version matrix</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>module</th>
+      <th>current</th>
+      <th>target</th>
+      <th>supports v2 since</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>zipkin</td>
+      <td>1.24.0</td>
+      <td>2.4.2</td>
+      <td>2.0.0</td>
+    </tr>
+    <tr>
+      <td>brave</td>
+      <td>4.13.1</td>
+      <td>4.13.1</td>
+      <td>4.7.1</td>
+    </tr>
+    <tr>
+      <td>reporter</td>
+      <td>0.10.0</td>
+      <td>2.2.2</td>
+      <td>2.0.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="whats-changed">What’s changed</h2>
+
+<p>Zipkin did a very good job on maintaining backward compatibility. All the changes that breaks compatiblity are packaged into a new group(<code class="highlighter-rouge">io.zipkin.java</code> -&gt; <code class="highlighter-rouge">io.zipkin.zipkin2</code>, <code class="highlighter-rouge">io.zipkin.reporter</code> -&gt; <code class="highlighter-rouge">io.zipkin.reporter2</code>). And v1/v2 libraries can coexist.</p>
+
+<p>The zipkin2 library can use both v1 and v2 api to communicate with server.</p>
+
+<p>The <code class="highlighter-rouge">zipkin2.Span</code> class changed a bit from the old <code class="highlighter-rouge">zipkin.Span</code> class. The public fields are refactored to methods. And the <code class="highlighter-rouge">BinaryAnnotation</code> class is removed along with <code class="highlighter-rouge">zipkin.Span.binaryAnnotaions</code> field. It’s functionality is replaced by <code class="highlighter-rouge">zipkin2.Span.tags()</code> method which return a <code class="highlighter-rouge">Map&lt;String,String&gt;</code>.</p>
+
+<h2 id="upgrade-to-zipkin2-for-java-chassis">Upgrade to zipkin2 for Java Chassis</h2>
+
+<h3 id="modify-the-maven-dependencies-to-use-the-target-version-of-related-libraries">Modify the maven dependencies to use the target version of related libraries.</h3>
+<p>Change the group <code class="highlighter-rouge">io.zipkin.java</code> and <code class="highlighter-rouge">io.zipkin.reporter</code> to <code class="highlighter-rouge">io.zipkin.zipkin2</code> and <code class="highlighter-rouge">io.zipkin.reporter2</code> respectively.</p>
+
+<div class="language-diff highlighter-rouge"><pre class="highlight"><code>java-chassis-dependencies/pom.xml
+<span class="gu">@@ -50,8 +50,8 @@
+</span>     &lt;cxf.version&gt;3.1.6&lt;/cxf.version&gt;
+     &lt;logback.version&gt;1.1.7&lt;/logback.version&gt;
+     &lt;brave.version&gt;4.13.1&lt;/brave.version&gt;
+<span class="gd">-    &lt;zipkin.version&gt;1.24.0&lt;/zipkin.version&gt;
+-    &lt;zipkin-reporter.version&gt;0.10.0&lt;/zipkin-reporter.version&gt;
+</span><span class="gi">+    &lt;zipkin.version&gt;2.4.2&lt;/zipkin.version&gt;
++    &lt;zipkin-reporter.version&gt;2.2.2&lt;/zipkin-reporter.version&gt;
+</span>   &lt;/properties&gt;
+ 
+   &lt;dependencyManagement&gt;
+<span class="gu">@@ -646,7 +646,7 @@
+</span> 
+       &lt;!-- zipkin dependencies --&gt;
+       &lt;dependency&gt;
+<span class="gd">-        &lt;groupId&gt;io.zipkin.java&lt;/groupId&gt;
+</span><span class="gi">+        &lt;groupId&gt;io.zipkin.zipkin2&lt;/groupId&gt;
+</span>         &lt;artifactId&gt;zipkin&lt;/artifactId&gt;
+         &lt;version&gt;${zipkin.version}&lt;/version&gt;
+       &lt;/dependency&gt;
+<span class="gu">@@ -661,7 +661,7 @@
+</span>         &lt;version&gt;${brave.version}&lt;/version&gt;
+       &lt;/dependency&gt;
+       &lt;dependency&gt;
+<span class="gd">-        &lt;groupId&gt;io.zipkin.reporter&lt;/groupId&gt;
+</span><span class="gi">+        &lt;groupId&gt;io.zipkin.reporter2&lt;/groupId&gt;
+</span>         &lt;artifactId&gt;zipkin-sender-okhttp3&lt;/artifactId&gt;
+         &lt;version&gt;${zipkin-reporter.version}&lt;/version&gt;
+       &lt;/dependency&gt;
+
+handlers/handler-tracing-zipkin/pom.xml
+<span class="gu">@@ -50,7 +50,7 @@
+</span>       &lt;artifactId&gt;brave&lt;/artifactId&gt;
+     &lt;/dependency&gt;
+     &lt;dependency&gt;
+<span class="gd">-      &lt;groupId&gt;io.zipkin.reporter&lt;/groupId&gt;
+</span><span class="gi">+      &lt;groupId&gt;io.zipkin.reporter2&lt;/groupId&gt;
+</span>       &lt;artifactId&gt;zipkin-sender-okhttp3&lt;/artifactId&gt;
+     &lt;/dependency&gt;
+     &lt;dependency&gt;
+
+</code></pre>
+</div>
+
+<h3 id="make-brave-to-use-zipkin2-instead-of-zipkin">Make brave to use zipkin2 instead of zipkin</h3>
+
+<p>Change the zipkin.xxx import to zipkin2.xxx on imports, and most importantly, use <code class="highlighter-rouge">spanReporter()</code> instead of <code class="highlighter-rouge">reporter()</code> for generating reporter for brave, change the api path to /api/v2/xxx when creating sender.</p>
+
+<div class="language-diff highlighter-rouge"><pre class="highlight"><code>handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
+<span class="gu">@@ -31,11 +31,11 @@
+</span> import brave.http.HttpTracing;
+ import brave.propagation.CurrentTraceContext;
+ import org.apache.servicecomb.config.DynamicProperties;
+<span class="gd">-import zipkin.Span;
+-import zipkin.reporter.AsyncReporter;
+-import zipkin.reporter.Reporter;
+-import zipkin.reporter.Sender;
+-import zipkin.reporter.okhttp3.OkHttpSender;
+</span><span class="gi">+import zipkin2.Span;
++import zipkin2.reporter.AsyncReporter;
++import zipkin2.reporter.Reporter;
++import zipkin2.reporter.Sender;
++import zipkin2.reporter.okhttp3.OkHttpSender;
+</span> 
+ @Configuration
+ class TracingConfiguration {
+<span class="gu">@@ -56,14 +56,15 @@ Sender sender(DynamicProperties dynamicProperties) {
+</span>     return AsyncReporter.builder(sender).build();
+   }
+ 
+<span class="gi">+
+</span>   @Bean
+   Tracing tracing(Reporter&lt;Span&gt; reporter, DynamicProperties dynamicProperties,
+       CurrentTraceContext currentTraceContext) {
+     return Tracing.newBuilder()
+         .localServiceName(dynamicProperties.getStringProperty(CONFIG_QUALIFIED_MICROSERVICE_NAME_KEY,
+             DEFAULT_MICROSERVICE_NAME))
+         .currentTraceContext(currentTraceContext) // puts trace IDs into logs
+<span class="gd">-        .reporter(reporter)
+</span><span class="gi">+        .spanReporter(reporter)
+</span>         .build();
+   }
+</code></pre>
+</div>
+
+<p><strong>Note</strong>:</p>
+
+<p>In the <a href="https://github.com/openzipkin/brave/releases/tag/4.7.1">brave release notes</a>, it’s stated that we need to use <code class="highlighter-rouge">create()</code> instead of <code class="highlighter-rouge">builder()</code></p>
+
+<div class="language-diff highlighter-rouge"><pre class="highlight"><code>
+   /** Configuration for how to buffer spans into messages for Zipkin */
+<span class="gd">-  @Bean Reporter&lt;Span&gt; reporter() {
+-    return AsyncReporter.builder(sender()).build();
+</span><span class="gi">+  @Bean Reporter&lt;Span&gt; spanReporter() {
++    return AsyncReporter.create(sender()).build();
+</span>   }
+</code></pre>
+</div>
+
+<p>But this will not work. In <code class="highlighter-rouge">zipkin2.Reporter</code>, the <code class="highlighter-rouge">create(sender)</code> is actually equivalent to <code class="highlighter-rouge">builder(sender).build()</code></p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">&lt;</span><span class="n">Span</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="k">new</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+  <span class="o">}</span>
+  
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span> <span class="nf">builder</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">);</span>
+  <span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="make-changes-according-to-the-changes-of-zipkinspan-and-zipkin2span">Make changes according to the changes of zipkin.Span and zipkin2.Span.</h3>
+
+<p>We do not use zipkin.Span in our production code, but we do use it in our tests. Those changes are quite straight forward, we just change the accessing of fields to calling methods as described in the What’s Changed section.</p>
+
+<div class="language-diff highlighter-rouge"><pre class="highlight"><code>tracing/tracing-zipkin/src/test/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
+<span class="gu">@@ -45,7 +45,7 @@
+</span> import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
+ import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.CustomSpanTask;
+ import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.SomeSlowTask;
+<span class="gd">-import zipkin.Span;
+</span><span class="gi">+import zipkin2.Span;
+</span> 
+ @RunWith(SpringRunner.class)
+ @SpringBootTest(classes = {ZipkinSpanTestApplication.class, TracingConfig.class})
+<span class="gu">@@ -74,8 +74,8 @@ public void reportedSpanContainsAnnotatedMethodInfo() throws Exception {
+</span> 
+     await().atMost(2, SECONDS).until(() -&gt; !spans.isEmpty());
+ 
+<span class="gd">-    zipkin.Span span = spans.poll();
+-    assertThat(span.name, is("crawl"));
+</span><span class="gi">+    zipkin2.Span span = spans.poll();
++    assertThat(span.name(), is("crawl"));
+</span>     assertThat(tracedValues(span), contains(SomeSlowTask.class.getMethod("crawl").toString()));
+   }
+   
+<span class="gu">@@ -84,17 +84,17 @@ public void reportCustomSpanInfomation() throws Exception {
+</span>     customSpanTask.invoke();
+     await().atMost(2, SECONDS).until(() -&gt; !spans.isEmpty());
+   
+<span class="gd">-    zipkin.Span span = spans.poll();
+-    assertThat(span.name, is("transaction1"));
+</span><span class="gi">+    zipkin2.Span span = spans.poll();
++    assertThat(span.name(), is("transaction1"));
+</span>     assertThat(tracedValues(span), contains("startA"));
+     
+   }
+ 
+<span class="gd">-  private List&lt;String&gt; tracedValues(zipkin.Span spans) {
+-    return spans.binaryAnnotations.stream()
+-        .filter(span -&gt; CALL_PATH.equals(span.key) || "error".equals(span.key))
+-        .filter(span -&gt; span.value != null)
+-        .map(annotation -&gt; new String(annotation.value))
+</span><span class="gi">+  private List&lt;String&gt; tracedValues(zipkin2.Span spans) {
++    return spans.tags().entrySet().stream()
++        .filter(span -&gt; CALL_PATH.equals(span.getKey()) || "error".equals(span.getKey()))
++        .filter(span -&gt; span.getValue() != null)
++        .map(annotation -&gt; new String(annotation.getValue()))
+</span>         .distinct()
+         .collect(Collectors.toList());
+   }
+<span class="gu">@@ -110,7 +110,7 @@ public void reportCustomSpanInfomation() throws Exception {
+</span>     Tracing tracing(Queue&lt;Span&gt; spans) {
+       return Tracing.newBuilder()
+           .currentTraceContext(new StrictCurrentTraceContext())
+<span class="gd">-          .reporter(spans::add)
+</span><span class="gi">+          .spanReporter(spans::add)
+</span>           .build();
+     }
+   }
+</code></pre>
+</div>
+
+<h3 id="support-both-v1-and-v2-api-of-zipkin-server">Support both v1 and v2 api of zipkin server.</h3>
+
+<p>Our customers may be still running a zipkin server prior to 1.31 which does not support the v2 http api. So we added an option to let them specify the server api version.</p>
+
+<p>Supporting v1 api is built into zipkin2, so we do not need to rely on the v1 libraries. Just use the <code class="highlighter-rouge">SpanBytesEncoder.JSON_V1</code> when building reporter and change the sender api path.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">sender</span> <span class="o">=</span> <span class="n">URLConnectionSender</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"http://localhost:9411/api/v1/spans"</span><span class="o">)</span>
+<span class="n">reporter</span> <span class="o">=</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">SpanBytesEncoder</span><span class="o">.</span><span class="na">JSON_V1</span><span class="o">);</span>
+</code></pre>
+</div>
+
+<p>That’s all, for the complete changes, please refer the <a href="https://github.com/apache/incubator-servicecomb-java-chassis/pull/488">pull request</a> for the complete changes.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://github.com/openzipkin/zipkin/releases/tag/2.0.0">Zipkin 2.0.0 release notes</a></li>
+  <li><a href="https://github.com/openzipkin/brave/releases/tag/4.7.1">Brave 4.7.1 release notes</a></li>
+  <li><a href="https://github.com/openzipkin/brave/tree/master/brave">Brave API V4</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#zipkin" class="page__taxonomy-item" rel="tag">zipkin</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-01-11">January 11, 2018</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Howto Upgrade to Zipkin2 /docs/howto-upgrade-topzipkin2/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/howto-upgrade-topzipkin2/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/docs/howto-upgrade-topzipkin2/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/howto-upgrade-topzipkin2/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/docs/service-registry-refactor-proposal/" class="pagination--pager" title="Proposal for refactoring service registry module in Java Chassis
+">Previous</a>
+    
+    
+      <a href="/cn/docs/config_center_integration/" class="pagination--pager" title="ServiceComb示例讲解微服务配置中心选型与对接
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">Leave a Comment</h4>
+        <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">Comment <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">Name <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">Email address <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">Website (optional)</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="howto-upgrade-to-zipkin-v2">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">Submit Comment</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-II/" rel="permalink">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/apache-servicecomb-incubating-day/" rel="permalink">微服务 Meetup：Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/apache-servicecomb-incubating-day/" rel="permalink">Microservice Meetup: Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-I/" rel="permalink">轻松微服务系列：从一键构建微服务和DDD设计开始
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：从一键构建微服务和DDD设计开始
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/2018-01-10-howto-upgrade-to-zipkin-v2.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/2018-01-10-howto-upgrade-to-zipkin-v2.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('Submitted');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('Submit Comment');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

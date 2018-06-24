@@ -1,0 +1,898 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>On-demand Resource Control for Micro-serviced Company by Autoscale - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="This article introduces practice of using kubernetes autoscale in the micro-serviced Company demo to achieve on-demand resource control">
+
+
+
+
+<meta name="author" content="Zen Lin">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="On-demand Resource Control for Micro-serviced Company by Autoscale">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/autoscale-on-company/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/autoscale-on-company/">
+
+
+
+  <meta property="og:description" content="This article introduces practice of using kubernetes autoscale in the micro-serviced Company demo to achieve on-demand resource control">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="On-demand Resource Control for Micro-serviced Company by Autoscale">
+  <meta name="twitter:description" content="This article introduces practice of using kubernetes autoscale in the micro-serviced Company demo to achieve on-demand resource control">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-08-24T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/release/">Downloads</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/autoscale-on-company/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Zen Lin</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+        To enjoy in opensource community.
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="http://zenlintechnofreak.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:zenlintechnofreak@gmail.com">
+            <meta itemprop="email" content="zenlintechnofreak@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="On-demand Resource Control for Micro-serviced Company by Autoscale">
+    <meta itemprop="description" content="This article introduces practice of using kubernetes autoscale in the micro-serviced Company demo to achieve on-demand resource control">
+    <meta itemprop="datePublished" content="August 24, 2017">
+    
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">On-demand Resource Control for Micro-serviced Company by Autoscale
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <p>　　<a href="/docs/company-on-kubernetes/">Last article</a> describes how to quickly deploy the Company  demo on K8S. This article will continue to demonstrate the benefits of micro-service architecture, use auto-scale of K8S  in Company to achieve on-demand fine-grained resources.</p>
+
+<h2 id="prepare">Prepare</h2>
+
+<h3 id="prepare-k8s-environment">Prepare K8S Environment</h3>
+
+<p>Install monitor Heapster and Grafana in K8S to enable auto-scale ability in K8S:</p>
+
+<p>Get one-click installing scripts in the <a href="https://github.com/zenlinTechnofreak/LinuxCon-Beijing-WorkShop/tree/autoscal/kubernetes/heapster/deploy">author’s repo</a>，update value of api-server as following and run kube.sh to start,</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi LinuxCon-Beijing-WorkShop/kubernetes/heapster/deploy/kube-config/influxdb/heapster.yaml
+</code></pre>
+</div>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spec</span><span class="pi">:</span>
+  <span class="s">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="s">template</span><span class="pi">:</span>
+    <span class="s">metadata</span><span class="pi">:</span>
+      <span class="s">labels</span><span class="pi">:</span>
+        <span class="s">task</span><span class="pi">:</span> <span class="s">monitoring</span>
+        <span class="s">k8s-app</span><span class="pi">:</span> <span class="s">heapster</span>
+    <span class="s">spec</span><span class="pi">:</span>
+      <span class="s">serviceAccountName</span><span class="pi">:</span> <span class="s">heapster</span>
+      <span class="s">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">heapster</span>
+        <span class="s">image</span><span class="pi">:</span> <span class="s">gcr.io/google_containers/heapster-amd64:v1.4.1</span>
+        <span class="s">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
+        <span class="s">command</span><span class="pi">:</span>
+        <span class="pi">-</span> <span class="s">/heapster</span>
+<span class="c1">#use 'kubernetes' directly if installed inside the cluster</span>
+        <span class="pi">-</span> <span class="s">--source=kubernetes</span>
+<span class="c1">#use the practical api-server address if installed outside the cluster</span>
+<span class="c1">#        - --source=kubernetes:http://10.229.43.65:6443?inClusterConfig=false</span>
+         <span class="pi">-</span> <span class="s">--sink=influxdb:http://monitoring-influxdb:8086</span>
+</code></pre>
+</div>
+
+<h3 id="start-company-demo">Start Company Demo</h3>
+
+<p>Download Company source code, restricted resources, creating auto-scaller,</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
+
+<span class="nb">cd </span>LinuxCon-Beijing-WorkShop/kubernetes/
+
+bash start-autoscale.sh 
+</code></pre>
+</div>
+
+<p>In Company’s deployment script, filed of resources is added to limit  200 milli-cores to each pod(1000 milli-cores equal to 1 core),</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>    <span class="s">resources</span><span class="pi">:</span>
+      <span class="s">limits</span><span class="pi">:</span>
+        <span class="s">cpu</span><span class="pi">:</span> <span class="s">200m</span>
+</code></pre>
+</div>
+<p>In script start-autoscale.sh, each command create a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods controlled by its deployment created. HPA will increase and decrease the number of replicas (via the deployment) to maintain an average CPU utilization across all Pods of 50%(this means average CPU usage of 100 milli-cores),</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="c"># Create Horizontal Pod Autoscaler</span>
+kubectl autoscale deployment zipkin --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-bulletin-board --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-worker --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-doorman --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-manager --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+kubectl autoscale deployment company-beekeeper --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
+</code></pre>
+</div>
+
+<p>HPA can be created after running start-autoscale.sh, get HPA status by the following command,</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code> kubectl get hpa
+</code></pre>
+</div>
+
+<h3 id="start-pressure-testing">Start Pressure Testing</h3>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">export</span> <span class="nv">$HOST</span><span class="o">=</span>&lt;heapster-ip&gt;:&lt;heapster-port&gt;
+bash LinuxCon-Beijing-WorkShop/kubernetes/stress-test.sh
+</code></pre>
+</div>
+
+<p>The script enable a dead loop, request to Company to calculate fibonacci number 200 times in each second, causing pressure on Company,</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nv">FIBONA_NUM</span><span class="o">=</span><span class="sb">`</span>curl -s -H <span class="s2">"Authorization: </span><span class="nv">$Authorization</span><span class="s2">"</span> -XGET <span class="s2">"http://</span><span class="nv">$HOST</span><span class="s2">/worker/fibonacci/term?n=6"</span><span class="sb">`</span>
+</code></pre>
+</div>
+
+<h2 id="testing-result">Testing Result</h2>
+
+<p>Following datas gets from  HPA and Grafana,</p>
+
+<p class="figure-caption"><img src="/assets/images/company-autoscale-1.png" alt="Fig 1" class="align-center" /> 
+Fig 1    HPA Data of Start-up Period</p>
+
+<p class="figure-caption"><img src="/assets/images/company-autoscale-2.png" alt="Fig 2" class="align-center" />
+Fig 2    Granfana Data of Start-up Period</p>
+
+<p class="figure-caption"><img src="/assets/images/company-autoscale-3.png" alt="Fig 3" class="align-center" />
+Fig 3    HPA  Data of middle Period</p>
+
+<p class="figure-caption"><img src="/assets/images/company-autoscale-4.png" alt="Fig 4" class="align-center" />
+Fig 4    Granfana Data of The End</p>
+
+<p class="figure-caption"><img src="/assets/images/company-autoscale-5.png" alt="Fig 5" class="align-center" />
+Fig 5    HPA Data of The End</p>
+
+<p><strong>Analyze the data to get the results,</strong></p>
+
+<ol>
+  <li>
+    <p>Pressure is focused on the pod of company-manager, auto-scaler of K8S increase the pods to achieve goal,  less than 50% of CPU usage limited(In fig 5, Usage default company-manager/Request default company-manager = 192/600 about equal to 33% in fig 4), keeping steady.</p>
+  </li>
+  <li>
+    <p>Before steady, auto-scaling may cause losing packages.</p>
+  </li>
+  <li>
+    <p>Company startup will cause temporarily increasing of the system resource load, so the CPU occupancy curve is showed like a crest-like, but HPA can accurately find the number of matching count of pods. In fig 3, count of pods has exceeded 3 which is actually required, and changed to 3 to keep the system steady.</p>
+  </li>
+  <li>
+    <p>The data of HPA and Granfana should be reported with some delay,  official statement:</p>
+
+    <p>Starting and stopping pods may introduce noise to the metric (for instance, starting may temporarily increase CPU). So, after each action, the autoscaler should wait some time for reliable data. Scale-up can only happen if there was no rescaling within the last 3 minutes. Scale-down will wait for 5 minutes from the last rescaling. Moreover any scaling will only be made if:<code class="highlighter-rouge">avg(CurrentPodsConsumption) / Target</code> drops below 0.9 or increases above 1.1 (10% tolerance).</p>
+  </li>
+</ol>
+
+<p>It is all of the demonstrate  above, anyway, Martin Fowler wrote in the <a href="https://martinfowler.com/articles/microservices.html">March 2014 article</a>:</p>
+<blockquote>
+  <p><em>“Microservices” - yet another new term on the crowded streets of software architecture. Although our natural inclination is to pass such things by with a contemptuous glance, this bit of terminology describes a style of software systems that we are finding more and more appealing. We’ve seen many projects use this style in the last few years, and results so far have been positive, so much so that for many of our colleagues this is becoming the default style for building enterprise applications. Sadly, however, there’s not much information that outlines what the microservice style is and how to do it.</em></p>
+</blockquote>
+
+<p>Mr. Wang Lei, the forerunner of domestic practice micro-service, also held a comprehensive discussion in the book “Micro Service Architecture and Practice”.</p>
+
+<p>Company based on ServiceComb, with micro-service properties, so we can doing  fine-grained control to the single-load service Company-manager, to achieve the purpose of on-demand, this will greatly helpful to accurately and effectively solve the application bottlenecks, improve the efficiency of resource use.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#autoscale" class="page__taxonomy-item" rel="tag">autoscale</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#kubernetes" class="page__taxonomy-item" rel="tag">kubernetes</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-24T00:00:00+08:00">August 24, 2017</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=On-demand Resource Control for Micro-serviced Company by Autoscale /docs/autoscale-on-company/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/autoscale-on-company/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/docs/autoscale-on-company/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/autoscale-on-company/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/company-on-kubernetes/" class="pagination--pager" title="在kubernetes上一键式部署company
+">Previous</a>
+    
+    
+      <a href="/cn/docs/autoscale-on-company/" class="pagination--pager" title="微服务化后的按需精细化资源控制
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">Leave a Comment</h4>
+        <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">Comment <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">Name <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">Email address <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">Website (optional)</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="autoscale-on-company">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">Submit Comment</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-II/" rel="permalink">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/apache-servicecomb-incubating-day/" rel="permalink">微服务 Meetup：Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/apache-servicecomb-incubating-day/" rel="permalink">Microservice Meetup: Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-I/" rel="permalink">轻松微服务系列：从一键构建微服务和DDD设计开始
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：从一键构建微服务和DDD设计开始
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/2017-08-24-autoscale-on-company.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/2017-08-24-autoscale-on-company.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('Submitted');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('Submit Comment');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

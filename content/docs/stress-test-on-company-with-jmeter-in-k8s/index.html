@@ -1,0 +1,925 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Stress test on Company Demo with Jmeter in Kubernetes Cluster - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="An introduction of how to do stress test on company demo with jmeter in kubernetes cluster">
+
+
+
+
+<meta name="author" content="Eric Lee">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="Stress test on Company Demo with Jmeter in Kubernetes Cluster">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/stress-test-on-company-with-jmeter-in-k8s/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/stress-test-on-company-with-jmeter-in-k8s/">
+
+
+
+  <meta property="og:description" content="An introduction of how to do stress test on company demo with jmeter in kubernetes cluster">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Stress test on Company Demo with Jmeter in Kubernetes Cluster">
+  <meta name="twitter:description" content="An introduction of how to do stress test on company demo with jmeter in kubernetes cluster">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2017-08-25T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/release/">Downloads</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/stress-test-on-company-with-jmeter-in-k8s/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Eric Lee</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+        Winter is coming, arm ourself with code
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="https://eric-lee-ltk.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:eric.lee.ltk@gmail.com">
+            <meta itemprop="email" content="eric.lee.ltk@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Stress test on Company Demo with Jmeter in Kubernetes Cluster">
+    <meta itemprop="description" content="An introduction of how to do stress test on company demo with jmeter in kubernetes cluster">
+    <meta itemprop="datePublished" content="August 25, 2017">
+    <meta itemprop="dateModified" content="August 25, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Stress test on Company Demo with Jmeter in Kubernetes Cluster
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  6 minute read
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <h2 id="background">Background</h2>
+
+<p>Stress test is an effective way to evaluate the performance of web applications. Besides, more and more web applications are decomposed into several microservices and performance of each microservice may vary as some are compute intensive while some are IO intensive.</p>
+
+<p>Stress test on web application based on microservice architecture plays a more important role. This blog will evaluate the performance of our <a href="https://github.com/ServiceComb/ServiceComb-Company-WorkShop">company demo</a> using <a href="https://www.google.com.hk/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=1&amp;ved=0ahUKEwiv9rjg7u_VAhUkxoMKHfoYDaYQFggvMAA&amp;url=http%3A%2F%2Fjmeter.apache.org%2F&amp;usg=AFQjCNHIHCOA-F9LnhaAn_STCWyPPgOpdw">JMeter 3.2</a>(a powerful stress test tool) in <a href="https://kubernetes.io/">Kubernetes</a> cluster.</p>
+
+<p>From the <a href="http://servicecomb.io/docs/autoscale-on-company/">last post</a>, we figured out the Manager service demands the most of the resources. Hence, in this plan, we will dig deeper into performance test on the Manager service.</p>
+
+<h2 id="test-plan">Test Plan</h2>
+
+<p>Our JMeter test plan is:</p>
+
+<ul>
+  <li>
+    <p>Handle the authentication before stress tests as the authentication may introduce serious delay.</p>
+  </li>
+  <li>
+    <p>Keep visiting services in Company demo concurrently, push stress on the Manager services by QueryWorker, QueryBeekeeperDrone, QueryBeekeeperQueen HTTP request generator.</p>
+  </li>
+</ul>
+
+<p>You can get the test plan from github.</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>  git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop
+  <span class="nb">cd </span>ServiceComb-Company-WorkShop/stress-tests
+</code></pre>
+</div>
+<p class="figure-caption"><img src="/assets/images/company_test_plan.png" alt="fig-1 JMeter test plan" class="align-center" />
+fig-1 JMeter test plan</p>
+
+<p>At the very first of our test plan, we set up some global configurations that shared among all thread groups. The <em>CSV Data Set Config</em> loads our target server information from a local csv file. The <em>HTTP Request Defaults</em> sets up the default host and port in every request. The <em>User Defined Variables</em> defines variable that shared globally. The <em>HTTP Header Manager</em>  adds headers define inside it to every request.</p>
+
+<p>Then comes to the <em>setUp</em> thread group. It does the authentication job. The build-in way to authenticate in JMeter is the <em>HTTP Cookie Manager</em> as cookie is being used widely over web applications. However, our workshop demo uses the token based authentication instead of cookie based authentication. We need to take a detour to get authenticate done in JMeter.   The <em>Remove header pre processor</em> uses the following script to avoid unnecessary headers being injected into login requests.</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code>import org.apache.jmeter.protocol.http.control.Header;
+sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="o">(</span><span class="s2">"Authorization"</span><span class="o">)</span>;
+</code></pre>
+</div>
+
+<p>Then we retrieve login credential in the <em>Set up Login</em> request. The <em>authorization_extractor</em> is a <em>Regular Expression Extractor</em> used to extract the value of <em>Authorization</em> header. As variables can not pass from one thread group to another, it need to convert to the global property and the script in <em>BeanShell PostProcessor</em> does the job.</p>
+
+<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="k">${</span><span class="nv">__setProperty</span><span class="p">(Authorization,</span><span class="k">${</span><span class="nv">Authorization</span><span class="k">}</span><span class="p">,)</span><span class="k">}</span>
+</code></pre>
+</div>
+
+<p>The last part of our test plan is the stress tests perform on our services.  We test three endpoints as they all pass from the manager service to the other two microservices, namely worker and beekeeper. Before we test, we disable the caching capability by enabling <em>StressTest</em> profile in manager so that the worker service and beekeeper service can serve the incoming computing task all the time.  Besides, we simplify the computing task by setting the request argument to be just 1.</p>
+
+<h2 id="test-steps">Test Steps</h2>
+
+<ul>
+  <li>
+    <p>Start the <em>Company demo</em> in the Kubernetes cluster without resource limits.</p>
+  </li>
+  <li>
+    <p>Replace the content of <em>hosts.csv</em> file with the IP address and port of the Company demo running in the Kubernetes cluster. The content in <em>hosts.csv</em> is:</p>
+
+    <pre><code class="language-csv"> 127.0.0.1,8083
+</code></pre>
+  </li>
+  <li>
+    <p>Run the tests. Using 200 threads to generate requests concurrently, and set the duration to be 600 seconds.</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads<span class="o">=</span>200 -Jduration<span class="o">=</span>600
+</code></pre>
+    </div>
+  </li>
+</ul>
+
+<h2 id="test-results">Test Results</h2>
+<p>The performance among various concurrency is as follows:</p>
+
+<p class="figure-caption"><img src="/assets/images/company_concurrency_performance.png" alt="fig-2 Performance among various concurrency" class="align-center" />
+fig-2 Performance among various concurrency</p>
+
+<p>fig-2 shows that performance of manager service remained stable until it reached the bottleneck(at concurrency of 15), it speeds up to <strong>about 1000 requests per seconds</strong> while keeping the average response time low. Later on, as the concurrency increased, the average response time increased dramatically. <strong>The response time statistics can be helpful when evaluating the circuit-break timeout settings.</strong></p>
+
+<p class="figure-caption"><img src="/assets/images/company_response_time.png" alt="fig-3 Average response time among different services" class="align-center" />
+fig-3 Average response time among different services</p>
+
+<p>fig-3 shows the average response time of different services. As the beekeeper service relies on the worker service, it had a longer response time than the worker service.</p>
+
+<p class="figure-caption"><img src="/assets/images/company_cpu_load.png" alt="fig-4 CPU Load on various concurrency" class="align-center" />
+fig-4 CPU Load on various concurrency</p>
+
+<p>To find out why the performance stuck at the concurrency of 15, we checked the monitor data from <a href="https://github.com/kubernetes/heapster">Heapster</a> as fig-4 shows. Apparently, <strong>manager service became the bottleneck of the whole system.</strong> It reached the maximum cpu load when the throughput was around 1000 req/s. Other services increased much slower than manager service and required less resources.</p>
+
+<p>As manager service logs directly to the stdout and the JMeter test client running on a single host may not simulate enough concurrency simultaneously. As such, we tested on different scenes of log settings(log4j1 stdout, log4j2 stdout, log4j2 asynchronous, none) at the concurrency of 200. The <em>asynchronous</em> log settings in <em>log4j2.xml</em> file is as follows:</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<span class="nt">&lt;Configuration</span> <span class="na">status=</span><span class="s">"INFO"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Appenders&gt;</span>
+    <span class="nt">&lt;RandomAccessFile</span> <span class="na">name=</span><span class="s">"RandomAccessFile"</span> <span class="na">fileName=</span><span class="s">"manager.log"</span> <span class="na">immediateFlush=</span><span class="s">"false"</span> <span class="na">append=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;PatternLayout</span> <span class="na">pattern=</span><span class="s">"%d [%p] %m %l%n"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/RandomAccessFile&gt;</span>
+  <span class="nt">&lt;/Appenders&gt;</span>
+  <span class="nt">&lt;Loggers&gt;</span>
+    <span class="nt">&lt;asyncRoot</span> <span class="na">level=</span><span class="s">"info"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;AppenderRef</span> <span class="na">ref=</span><span class="s">"RandomAccessFile"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/asyncRoot&gt;</span>
+  <span class="nt">&lt;/Loggers&gt;</span>
+<span class="nt">&lt;/Configuration&gt;</span>
+</code></pre>
+</div>
+<p>Besides, we also need to add the <em>disruptor</em> dependency to enable the asynchronous log settings.</p>
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.lmax<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>disruptor<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>3.3.6<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre>
+</div>
+<p>The <em>none</em> log settings just replace the <em>info</em> logging level to <em>off</em> in the above setting. We also tested on distributed JMeter test client environment. Running Jmeter in distributed mode takes two steps:</p>
+
+<ol>
+  <li>
+    <p>run JMeter slave on each test node, the command is as follows:</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter-server -Djava.rmi.server.hostname<span class="o">=</span><span class="k">$(</span>ifconfig eth0 | grep <span class="s2">"inet addr"</span> | awk <span class="s1">'{print $2}'</span> | cut -d <span class="s2">":"</span> -f2<span class="k">)</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>run JMeter master, the command is as follows:</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin<span class="o">=</span>1 -Gmax<span class="o">=</span>2 -Gthreads<span class="o">=</span>200 -Gduration<span class="o">=</span>600
+</code></pre>
+    </div>
+
+    <p class="notice--warning"><em>Note:</em> JMeter property does not work in distributed mode. It needs to be declared as a global property. That’s why We use <em>-G</em> option  here instead of <em>-J</em> option.</p>
+  </li>
+</ol>
+
+<p>The results are as follows:
+<img src="/assets/images/company_log_and_jmeter.png" alt="different log and different JMeter settings" class="align-center" />
+From the above figure, we can conclude that:</p>
+
+<ul>
+  <li>
+    <p>The performance in JMeter distributed mode and single mode are so close, it seems that a single JMeter test client is able to simulate enough concurrency for the current test.</p>
+  </li>
+  <li>
+    <p>The log takes up too many computing resources when directly output to stdout and the asynchronous way has improved nearly 100% throughput of the original. <strong>Seems like using the synchronous log settings may not be wise in production environment.</strong></p>
+  </li>
+  <li>
+    <p>The log4j2 has improved about 40% throughput of the log4j1 and reduced a small amount of memory. Hence, <strong>it’s recommended to replace the log4j1 with log4j2 for the sake of performance.</strong></p>
+  </li>
+</ul>
+
+<p class="figure-caption"><img src="/assets/images/company_different_log_memory_usage.png" alt="fig-5 memory usage of different log settings" class="align-center" />
+fig-5 memory usage of different log settings</p>
+
+<p>Although the asynchronous way save us much computing resources, it takes up a great deal of memory in the meanwhile as fig-5 shows.</p>
+
+<p class="figure-caption"><img src="/assets/images/company_memory_used.png" alt="fig-6 Memory Usage of different services" class="align-center" />
+fig-6 Memory Usage of different services</p>
+
+<p>fig-6 shows the memory usage of different services during tests. As company demo is a simple use case, the memory usage remained quite stable during tests. Comparing to memory usage of the <em>bulletin board</em> service(written in go), other services written in Java take a great deal of memory.</p>
+
+<h2 id="conclusions">Conclusions</h2>
+
+<p>Stress test on applications can help us find out the potential problems in our services before our services run in production environment. It simulates the production environment and validates whether our services meet the specification requirements. We can tune our pod deployment settings based on the stress test result to system’s maximum throughput while keeping SLA.</p>
+
+<p>Applications based on microservice architecture become much more flexible not only on design, programming and tests, but also on deployment. Services based on microservice architecture make resources scale up and down extremely fast. We can choose different specifications of machine and different replicas for different services according to the maximum throughput to save resources. Besides, the scalability of cloud makes services handle visit storm easily.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#jmeter" class="page__taxonomy-item" rel="tag">jmeter</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#performance-test" class="page__taxonomy-item" rel="tag">performance test</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-08-25">August 25, 2017</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Stress test on Company Demo with Jmeter in Kubernetes Cluster /docs/stress-test-on-company-with-jmeter-in-k8s/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/stress-test-on-company-with-jmeter-in-k8s/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/docs/stress-test-on-company-with-jmeter-in-k8s/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/stress-test-on-company-with-jmeter-in-k8s/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/autoscale-on-company/" class="pagination--pager" title="微服务化后的按需精细化资源控制
+">Previous</a>
+    
+    
+      <a href="/cn/docs/stress-test-on-company-with-jmeter-in-k8s/" class="pagination--pager" title="在Kubernetes集群中使用JMeter对Company示例进行压力测试
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">Leave a Comment</h4>
+        <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">Comment <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">Name <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">Email address <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">Website (optional)</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="stress-test-on-company-with-jmeter-in-k8s">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">Submit Comment</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-II/" rel="permalink">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：快速实现客户关系管理系统的用户服务
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/apache-servicecomb-incubating-day/" rel="permalink">微服务 Meetup：Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/apache-servicecomb-incubating-day/" rel="permalink">Microservice Meetup: Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  3 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/easy-build-microservice-system-part-I/" rel="permalink">轻松微服务系列：从一键构建微服务和DDD设计开始
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">轻松微服务系列：从一键构建微服务和DDD设计开始
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/user-guide/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/2017-08-25-stress-test-on-company-with-jmeter-in-k8s.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/2017-08-25-stress-test-on-company-with-jmeter-in-k8s.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('Submitted');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('Submit Comment');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,1179 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>服务配置 - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="服务配置">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="服务配置">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/service-configurations/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/service-configurations/">
+
+
+
+  <meta property="og:description" content="服务配置">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="服务配置">
+  <meta name="twitter:description" content="服务配置">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a class="active" href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/users/service-configurations/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/" class="">Java Chassis系统架构</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/setup-environment/" class="">环境配置</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">开发服务提供者</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-definition/" class="">服务定义</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-contract/" class="">服务契约</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-springmvc/" class="">用SpringMVC开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-jax-rs/" class="">用JAX-RS开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-transparent-rpc/" class="">用透明RPC开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-spring-boot-starter/" class="">用Spring Boot Starter开发微服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-interface-constraints/" class="">服务接口约束</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-configurations/" class="active">服务配置</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/communicate-protocol/" class="">通信协议</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/application-boot-process/" class="">程序启动逻辑</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/service-heartbeat/" class="">服务心跳</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">开发服务消费者</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-rest-template/" class="">使用Rest Template方式开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/develop-with-rpc/" class="">使用RPC方式开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/use-service-contract/" class="">使用服务契约</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/invoke-control/" class="">调用控制</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">通用开发</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/local-develop-test/" class="">本地开发与测试</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/distributed-tracing/" class="">分布式调用链追踪</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/customized-tracing/" class="">自定义调用链打点</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/users/dynamic-config/"><span class="nav__sub-title nav__sub-title-with-url">动态配置</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">服务能力开放</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/edging-service/nginx/" class="">使用confd和Nginx做边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/edging-service/zuul/" class="">使用Zuul做边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/edge-in-1.0.0-m1/" class="">使用内置Edge模块实现边缘服务</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/manage_springcloud_application_using_sc_and_gs/" class="">使用Service Center和治理中心管理Spring Cloud应用</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">监控</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-in-0.5.0/" class="">0.5.0版本中的监控</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-in-1.0.0-m1/" class="">1.0.0-m1版本中的监控</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-write-file-extension-and-sample-in-1.0.0-m1/" class="">1.0.0-m1版本写文件扩展和示例</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/" class="">1.0.0-m1版本中的监控如何集成prometheus</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/healthcheck/" class="">健康检查</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">部署</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/run-mode/" class="">运行模式</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/deploy-mode/" class="">部署模式</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">微服务安全</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/users/use-tls/" class="">使用TLS通信</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="服务配置">
+    <meta itemprop="description" content="服务配置">
+    
+    <meta itemprop="dateModified" content="August 15, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">服务配置
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#负载均衡策略" id="markdown-toc-负载均衡策略">负载均衡策略</a>    <ul>
+      <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
+      <li><a href="#配置说明" id="markdown-toc-配置说明">配置说明</a></li>
+      <li><a href="#示例代码" id="markdown-toc-示例代码">示例代码</a></li>
+    </ul>
+  </li>
+  <li><a href="#自定义路由策略" id="markdown-toc-自定义路由策略">自定义路由策略</a></li>
+  <li><a href="#限流策略" id="markdown-toc-限流策略">限流策略</a>    <ul>
+      <li><a href="#场景描述-1" id="markdown-toc-场景描述-1">场景描述</a></li>
+      <li><a href="#注意事项" id="markdown-toc-注意事项">注意事项</a></li>
+      <li><a href="#配置说明-1" id="markdown-toc-配置说明-1">配置说明</a></li>
+    </ul>
+  </li>
+  <li><a href="#降级策略" id="markdown-toc-降级策略">降级策略</a>    <ul>
+      <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a></li>
+      <li><a href="#场景描述-2" id="markdown-toc-场景描述-2">场景描述</a></li>
+      <li><a href="#配置说明-2" id="markdown-toc-配置说明-2">配置说明</a></li>
+    </ul>
+  </li>
+  <li><a href="#示例代码-1" id="markdown-toc-示例代码-1">示例代码</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="负载均衡策略">负载均衡策略</h2>
+<h3 id="场景描述">场景描述</h3>
+
+<p>　　ServiceComb提供了基于Ribbon的负载均衡方案，用户可以通过配置文件配置负载均衡策略，当前支持随机、顺序、基于响应时间的权值等多种负载均衡路由策略。</p>
+
+<h3 id="配置说明">配置说明</h3>
+
+<p>　　负载均衡策略在microservice.yaml文件中配置，配置项为<code class="highlighter-rouge">servicecomb.loadbalance.[MicroServiceName].[property name]</code>，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。</p>
+
+<p>　　<strong>表1 配置项说明</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">配置项</th>
+      <th style="text-align: left">默认值</th>
+      <th style="text-align: left">取值范围</th>
+      <th style="text-align: left">是否必选</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.NFLoadBalancerRuleClassName</td>
+      <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule</td>
+      <td style="text-align: left">com.netflix.loadbalancer.RoundRobinRule（轮询）com.netflix.loadbalancer.RandomRule（随机）com.netflix.loadbalancer.WeightedResponseTimeRule（服务器响应时间权值）org.apache.servicecomb.loadbalance.SessionStickinessRule（会话保持）</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">负载均衡路由策略</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds</td>
+      <td style="text-align: left">30</td>
+      <td style="text-align: left">Integer</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">客户端闲置时间，超过限制后选择后面的服务器。</td>
+      <td style="text-align: left">暂不支持微服务配置。e.g. servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为cse.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.SessionStickinessRule.successiveFailedTimes</td>
+      <td style="text-align: left">5</td>
+      <td style="text-align: left">Integer</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">客户端失败次数，超过后会切换服务器</td>
+      <td style="text-align: left">暂不支持微服务配置</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.retryEnabled</td>
+      <td style="text-align: left">FALSE</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">负载均衡捕获到服务调用异常，是否进行重试</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.retryOnNext</td>
+      <td style="text-align: left">0</td>
+      <td style="text-align: left">Integer</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">尝试新的服务器的次数</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.retryOnSame</td>
+      <td style="text-align: left">0</td>
+      <td style="text-align: left">Integer</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">同一个服务器尝试的次数</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.isolation.enabled</td>
+      <td style="text-align: left">FALSE</td>
+      <td style="text-align: left">Boolean</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">是否开启故障实例隔离功能</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.isolation.enableRequestThreshold</td>
+      <td style="text-align: left">20</td>
+      <td style="text-align: left">Integer</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">当实例的调用总次数达到该值时开始进入隔离逻辑门槛</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.isolation.errorThresholdPercentage</td>
+      <td style="text-align: left">20</td>
+      <td style="text-align: left">Integer，区间为(0,100]</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">实例故障隔离错误百分比</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.isolation.singleTestTime</td>
+      <td style="text-align: left">10000</td>
+      <td style="text-align: left">Integer</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">故障实例单点测试时间</td>
+      <td style="text-align: left">单位为ms</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.transactionControl.policy</td>
+      <td style="text-align: left">org.apache.servicecomb.loadbalance.filter.SimpleTransactionControlFilter</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">动态路由分流策略</td>
+      <td style="text-align: left">框架提供了简单的分流机制，开发者也可以实现自定义的分流过滤策略</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.loadbalance.transactionControl.options</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">key/value pairs</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">针对SimpleTransactionControlFilter分流策略的配置项，可添加任意项过滤标签</td>
+      <td style="text-align: left">-</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="示例代码">示例代码</h3>
+
+<p>　　负载均衡策略配置在src/main/resources/microservice.yaml文件中。</p>
+
+<p>　　配置处理链：</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="c1"># other configurations omitted</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Consumer</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">loadbalance</span>
+  <span class="c1"># other configurations omitted</span>
+</code></pre>
+</div>
+
+<p>　　增加路由策略：</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb：</span>
+  <span class="s"># other configurations omitted</span>
+  <span class="s">loadbalance</span><span class="pi">:</span>
+    <span class="s">NFLoadBalancerRuleClassName</span><span class="pi">:</span> <span class="s">com.netflix.loadbalancer.RoundRobinRule</span>
+  <span class="c1"># other configurations omitted</span>
+</code></pre>
+</div>
+
+<h2 id="自定义路由策略">自定义路由策略</h2>
+
+<p>　　用户可以在ServiceComb提供的路由策略框架下根据业务需要，通过编程的方式来开发路由策略。实施步骤如下：</p>
+
+<ul>
+  <li>
+    <p>实现接口<code class="highlighter-rouge">com.netflix.loadbalancer.IRule</code>中定义的接口方法。
+路由选择逻辑在public Server choose(Object key)方法中实现。LoadBalancerStats是一个封装了负载均衡器当前运行状态的一个结构。通过获取stats中各个实例的运行指标，在choose方法中，判定将当前请求路由到哪个实例上进行处理。处理风格可以参照<code class="highlighter-rouge">org.apache.servicecomb.loadbalance.SessionStickinessRule</code>。</p>
+  </li>
+  <li>
+    <p>编译开发的策略，保证生成的class在classpath下。</p>
+  </li>
+  <li>
+    <p>通过SDK配置该路由策略，假如是<code class="highlighter-rouge">AbcRule</code>。则配置如下：       <code class="highlighter-rouge">servicecomb.loadbalance.NFLoadBalancerRuleClassName=org.apache.servicecomb.ribbon.rule.AbcRule</code></p>
+  </li>
+</ul>
+
+<h2 id="限流策略">限流策略</h2>
+<h3 id="场景描述-1">场景描述</h3>
+
+<p>用户在provider端使用限流策略，可以限制指定微服务向其发送请求的频率，达到限制每秒钟最大请求数量的效果。</p>
+
+<h3 id="注意事项">注意事项</h3>
+
+<ol>
+  <li>限流策略的控制并不是绝对精确的，可能会有少量误差。</li>
+  <li>provider端的流量控制是业务层面的功能，不是安全意义上的流量控制，如需防止DDoS攻击，需要结合其他的一系列措施。</li>
+  <li>流量控制是微服务级的，不是进程级的。</li>
+</ol>
+
+<h3 id="配置说明-1">配置说明</h3>
+
+<p>　　限流策略配置在microservice.yaml文件中，相关配置项见下表。要开启服务提供者端的限流策略，还需要在处理链中配置服务端限流handler，配置示例如下：</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Consumer</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
+</code></pre>
+</div>
+
+<p>　　<strong>表2 QPS流控配置项说明</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">配置项</th>
+      <th style="text-align: left">默认值</th>
+      <th style="text-align: left">取值范围</th>
+      <th style="text-align: left">是否必选</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.enabled</td>
+      <td style="text-align: left">true</td>
+      <td style="text-align: left">true/false</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">是否启用Provider流控</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.limit.[ServiceName]</td>
+      <td style="text-align: left">2147483647（max int）</td>
+      <td style="text-align: left">(0,2147483647]，整形</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">每秒钟允许的请求数</td>
+      <td style="text-align: left">仅支持microservice一个级别的配置</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.global.limit</td>
+      <td style="text-align: left">2147483647（max int）</td>
+      <td style="text-align: left">(0,2147483647]，整形</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">provider接受请求流量的全局配置</td>
+      <td style="text-align: left">没有具体到微服务的配置时，此配置生效</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="降级策略">降级策略</h2>
+<h3 id="概念阐述">概念阐述</h3>
+
+<p>降级策略是当服务请求异常时，微服务所采用的异常处理策略。降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：</p>
+
+<p>降级策略有三个相关的技术概念：“隔离”、“熔断”、“容错”：</p>
+<ul>
+  <li>“隔离”是一种异常检测机制，常用的检测方法是请求超时、流量过大等。一般的设置参数包括超时时间、同时并发请求个数等。</li>
+  <li>“熔断”是一种异常反应机制，“熔断”依赖于“隔离”。熔断通常基于错误率来实现。一般的设置参数包括统计请求的个数、错误率等。</li>
+  <li>“容错”是一种异常处理机制，“容错”依赖于“熔断”。熔断以后，会调用“容错”的方法。一般的设置参数包括调用容错方法的次数等。</li>
+</ul>
+
+<p>把这些概念联系起来：当”隔离”措施检测到N次请求中共有M次错误的时候，”熔断”不再发送后续请求，调用”容错”处理函数。这个技术上的定义，是和Netflix Hystrix一致的，通过这个定义，非常容易理解它提供的配置项，参考：<a href="https://github.com/Netflix/Hystrix/wiki/Configuration">https://github.com/Netflix/Hystrix/wiki/Configuration</a>。当前ServiceComb提供两种容错方式，分别为返回null值和抛出异常。</p>
+
+<h3 id="场景描述-2">场景描述</h3>
+
+<p>用户通过配置降级策略，可以设置微服务的异常处理策略。</p>
+
+<h3 id="配置说明-2">配置说明</h3>
+
+<p>　　配置项如表所示。</p>
+
+<p>　　<strong>表3 降级策略相关配置项说明</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">配置项</th>
+      <th style="text-align: left">默认值</th>
+      <th style="text-align: left">取值范围</th>
+      <th style="text-align: left">是否必选</th>
+      <th style="text-align: left">含义</th>
+      <th style="text-align: left">注意</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">servicecomb.isolation.timeout.enabled</td>
+      <td style="text-align: left">FALSE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">是否启用超时检测</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.isolation.timeoutInMilliseconds</td>
+      <td style="text-align: left">30000</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">超时时间阈值</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.isolation.maxConcurrentRequests</td>
+      <td style="text-align: left">10</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">最大并发数阈值</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.enabled</td>
+      <td style="text-align: left">TRUE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">是否启用熔断措施</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.forceOpen</td>
+      <td style="text-align: left">FALSE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">不管失败次数，都进行熔断</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.forceClosed</td>
+      <td style="text-align: left">FALSE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">任何时候都不熔断</td>
+      <td style="text-align: left">当与forceOpen同时配置时，forceOpen优先。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.sleepWindowInMilliseconds</td>
+      <td style="text-align: left">15000</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">熔断后，多长时间恢复</td>
+      <td style="text-align: left">恢复后，会重新计算失败情况。注意：如果恢复后的调用立即失败，那么会立即重新进入熔断。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.requestVolumeThreshold</td>
+      <td style="text-align: left">20</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">10s内统计错误发生次数阈值，超过阈值则触发熔断</td>
+      <td style="text-align: left">由于10秒还会被划分为10个1秒的统计周期，经过1s中后才会开始计算错误率，因此从调用开始至少经过1s，才会发生熔断。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.errorThresholdPercentage</td>
+      <td style="text-align: left">50</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">错误率阈值，达到阈值则触发熔断</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.fallback.enabled</td>
+      <td style="text-align: left">TRUE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">是否启用出错后的故障处理措施</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.fallback.maxConcurrentRequests</td>
+      <td style="text-align: left">10</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">并发调用容错处理措施（servicecomb.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.fallbackpolicy.policy</td>
+      <td style="text-align: left">throwexception</td>
+      <td style="text-align: left">returnnulll | throwexception</td>
+      <td style="text-align: left">否</td>
+      <td style="text-align: left">出错后的处理策略</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="notice--warning"><strong>注意：</strong> 谨慎使用cse.isolation.timeout.enabled=true。因为系统处理链都是异步执行，中间处理链的返回，会导致后面处理链的逻辑处理效果丢失。尽可能将cse.isolation.timeout.enabled保持默认值false，并且正确设置网络层超时时间cse.request.timeout=30000。</p>
+
+<h2 id="示例代码-1">示例代码</h2>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
+  <span class="s">handler</span><span class="pi">:</span>
+    <span class="s">chain</span><span class="pi">:</span>
+      <span class="s">Consumer</span><span class="pi">:</span>
+        <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-consumer</span>
+  <span class="s">isolation</span><span class="pi">:</span>
+    <span class="s">Consumer</span><span class="pi">:</span>
+      <span class="s">timeout</span><span class="pi">:</span>
+        <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
+      <span class="s">timeoutInMilliseconds</span><span class="pi">:</span> <span class="s">30000</span>
+  <span class="s">circuitBreaker</span><span class="pi">:</span>
+    <span class="s">sleepWindowInMilliseconds</span><span class="pi">:</span> <span class="s">15000</span>
+    <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">20</span>
+  <span class="s">fallback</span><span class="pi">:</span>
+    <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
+    <span class="s">policy</span><span class="pi">:</span> <span class="s">throwexception</span>
+</code></pre>
+</div>
+
+<blockquote>
+  <p><strong>说明：</strong>
+降级策略需要启用服务治理能力，对应的服务提供者的handler是<code class="highlighter-rouge">bizkeeper-provider</code>，服务消费者的handler是<code class="highlighter-rouge">bizkeeper-consumer</code>。</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _users/cn/service-configurations.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_users/cn/service-configurations.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>
