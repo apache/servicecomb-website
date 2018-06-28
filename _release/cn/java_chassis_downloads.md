@@ -9,11 +9,11 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 
 ## 发布包
 
-* Apache ServiceComb (incubating) Service-Center 1.0.0-m2 (Latest)
+* Apache ServiceComb (incubating) Java-Chassis 1.0.0-m2 (Latest) (Recommended to use Service-Center 1.0.0-m2 along with this version)
     - 源码 [[src]](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m2-src.zip) [[asc]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m2-src.zip.asc) [[sha512]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m2-src.zip.sha512) 
     - 发布包 [[Binary]](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m2-bin.zip) [[asc]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m2-bin.zip.asc) [[sha512]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m2-bin.zip.sha512)
 
-* Apache ServiceComb (incubating) Service-Center 1.0.0-m1
+* Apache ServiceComb (incubating) Java-Chassis 1.0.0-m1
     - 源码 [[src]](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-src.zip) [[asc]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-src.zip.asc) [[sha512]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-src.zip.sha512) 
     - 发布包 [[Binary]](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-bin.zip) [[asc]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-bin.zip.asc) [[sha512]](https://www.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/apache-servicecomb-incubating-java-chassis-distribution-1.0.0-m1-bin.zip.sha512)
     
