@@ -27,6 +27,8 @@ Only current recommended releases are available on the main distribution site an
 
 * [Apache ServiceComb (incubating) Saga 0.1.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/){:target="_blank"} (released on 2018-03-27)
 
+**NOTE:**
+  - Please check [this page](/release/compatibleversion) for compatible version.
 
 **Verifying the release**
 
