@@ -1,12 +1,12 @@
 ---
-title: "轻松微服务系列：如何构建高性能边缘服务应对百万量级API调用挑战"
+title: "轻松微服务系列：开发高性能边缘服务"
 lang: cn
 ref: easy-build-microservice-system-part-III
 permalink: /cn/docs/easy-build-microservice-system-part-III/
-excerpt: "轻松微服务系列：如何构建高性能边缘服务应对百万量级API调用挑战"
+excerpt: "轻松微服务系列：开发高性能边缘服务"
 last_modified_at: 2018-06-07T19:00:00+08:00
 author: Yangyong Zheng
-tags: [Edge Service,API Gateway]
+tags: [Edge Service,API Gateway,Zuul]
 redirect_from:
   - /theme-setup/
 ---
