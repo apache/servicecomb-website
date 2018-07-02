@@ -55,7 +55,7 @@ redirect_from:
 
 
 **《微服务的领域驱动设计》**
-[点击下载](/assets/slides/20180627/)
+[点击下载](/assets/slides/20180627/6_DDD_in_Microservics_wanglei.pdf)
 
 **主讲人：** 王磊 微服务国内先驱，《微服务架构与实践》作者，华为微服务专家，前ThoughtWorks首席咨询师。
 
