@@ -1,5 +1,7 @@
 ---
 permalink: /cn/security/
+lang: cn
+ref: security
 title: "安全问题"
 excerpt: "安全问题"
 last_modified_at: 2018-06-7T14:28:13+08:00
