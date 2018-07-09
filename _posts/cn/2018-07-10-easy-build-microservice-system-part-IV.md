@@ -25,7 +25,8 @@ redirect_from:
 | logon    | 新用户注册                  |
 
 除此之外其他业务请求都需要做Token认证；
-3. Edge服务转发访问请求之前，对需要认证的请求先做统一认证，认证通过之后才转发，为了能够未来更好的扩展这种“转发前处理”的能力，我们设计一个处理链机制——`FilterChain`：
+
+3. Edge服务转发访问请求之前，对需要认证的请求先做统一认证，认证通过之后才转发，为了能够未来更好的扩展这种“转发前处理”的能力，我们设计一个处理链机制`FilterChain`：
 
 ![FilterChain](/assets/images/scaffold/FilterChain.png)
 
