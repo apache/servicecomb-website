@@ -157,21 +157,4 @@ edge:
 同样成功，并在Response中已经包含了正确的`AUTHORIZATION`Header。
 
 ### 性能比拼
-ServiceComb Java Chassis同样支持集成Netflix Zuul作为网关服务，因此我们做了一次性能比较。
-
-场景以及部署如下：
-
-![PerformanceTestDeploy](/assets/images/scaffold/PerformanceTestDeploy.png)
-
-第一次启动Edge作为网关，测试5分钟，之后停止Edge，启动Zuul，测试5分钟，测试结果如下：
-
-|     | CPU使用率  | TPS（吞吐能力）  |
-| :------- | :-------- | :--------- |
-| Zuul    | ≈1000%  | ≈20000  |
-| Edge    | ≈1000%  | ≈55000  |
-
-可以看出在接近的资源使用情况下，Edge相比Zuul有更优秀的吞吐能力。
-
->提示：
->1. 性能测试项目源代码在[这里](https://github.com/zhengyangyong/gateway-perf)；
->2. 两台物理机使用万兆内网直连，两者的时延（Latency）均在1ms以内。
+ServiceComb Java Chassis也支持集成Netflix Zuul作为网关服务，我们做了一次性能比较，使用ServiceComb Edge作为网关吞吐能力大幅优于Netflix Zuul，性能测试项目源代码在[这里](https://github.com/zhengyangyong/gateway-perf)。
