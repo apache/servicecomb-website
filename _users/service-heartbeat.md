@@ -12,7 +12,7 @@ redirect_from:
 {% include toc %}
 ## Scenario
 
-After a microservice instance is registered in the service center, the microservice need to periodically send heartbeats to the service center. If the service center receives no heartbeat within a specific period, the instance will be registered.
+After a microservice instance is registered in the service center, the microservice need to periodically send heartbeats to the service center. If the service center receives no heartbeat within a specific period, the instance will be un-registered.
 
 ## Involved APIs
 
