@@ -26,13 +26,11 @@ redirect_from:
 
 除此之外其他业务请求都需要做Token认证；
 
-3. Edge服务转发访问请求之前，对需要认证的请求先做统一认证，认证通过之后才转发，为了能够未来更好的扩展这种“转发前处理”的能力，我们设计一个处理链机制`FilterChain`：
+3. Edge服务转发访问请求之前，对需要认证的请求先做统一认证，认证通过之后才转发，我们使用`HttpServerFilter`扩展这个能力：
 
 ![FilterChain](/assets/images/scaffold/FilterChain.png)
 
->提示：另外一种方案就是扩展Handler，如果检查失败则使Handler链调用直接返回；但是由于认证过程同样是一个Consumer调用，也会触发Handler 处理，这会使Handler的逻辑和配置复杂化，因此此场景下不推荐。
-
-完整统一认证时序图为：
+统一认证流程时序图为：
 
 ![EdgeAuth](/assets/images/scaffold/EdgeAuth.png)
 
@@ -69,20 +67,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 }
 ```
 
-#### 第二步：实现转发前处理链FilterChain
-##### 定义处理链接口EdgeFilter
+#### 第二步：实现统一认证AuthenticationFilter
 ```java
-public interface EdgeFilter {
-  //Filter的处理顺序，越小越先被处理
-  int getOrder();
-
-  //如果需要中止Filter链执行，抛InvocationException即可
-  void processing(String serviceName, String operationPath, RoutingContext context) throws InvocationException;
-}
-```
-##### 实现统一认证AuthenticationFilter
-```java
-public class AuthenticationFilter implements EdgeFilter {
+public class AuthenticationFilter implements HttpServerFilter {
 
   private final RestTemplate template = RestTemplateBuilder.create();
 
@@ -91,7 +78,7 @@ public class AuthenticationFilter implements EdgeFilter {
   public static final String EDGE_AUTHENTICATION_NAME = "edge-authentication-name";
 
   private static final Set<String> NOT_REQUIRED_VERIFICATION_USER_SERVICE_METHODS = new HashSet<>(
-      Arrays.asList("/login", "/logon", "/validate"));
+      Arrays.asList("login", "logon", "validate"));
 
   @Override
   public int getOrder() {
@@ -99,22 +86,25 @@ public class AuthenticationFilter implements EdgeFilter {
   }
 
   @Override
-  public void processing(String serviceName, String operationPath, RoutingContext context) throws InvocationException {
-    if (isInvocationNeedValidate(serviceName, operationPath)) {
-      String token = context.request().headers().get(AUTHORIZATION);
+  public Response afterReceiveRequest(Invocation invocation, HttpServletRequestEx httpServletRequestEx) {
+    if (isInvocationNeedValidate(invocation.getMicroserviceName(), invocation.getOperationName())) {
+      String token = httpServletRequestEx.getHeader(AUTHORIZATION);
       if (StringUtils.isNotEmpty(token)) {
         String userName = template
             .getForObject("cse://" + USER_SERVICE_NAME + "/validate?token={token}", String.class, token);
         if (StringUtils.isNotEmpty(userName)) {
           //Add header
-          context.request().headers().add(EDGE_AUTHENTICATION_NAME, userName);
+          invocation.getContext().put(EDGE_AUTHENTICATION_NAME, userName);
         } else {
-          throw new InvocationException(Status.UNAUTHORIZED, "authentication failed, invalid token");
+          return Response
+              .failResp(new InvocationException(Status.UNAUTHORIZED, "authentication failed, invalid token"));
         }
       } else {
-        throw new InvocationException(Status.UNAUTHORIZED, "authentication failed, missing AUTHORIZATION header");
+        return Response.failResp(
+            new InvocationException(Status.UNAUTHORIZED, "authentication failed, missing AUTHORIZATION header"));
       }
     }
+    return null;
   }
 
   private boolean isInvocationNeedValidate(String serviceName, String operationPath) {
@@ -130,87 +120,12 @@ public class AuthenticationFilter implements EdgeFilter {
 }
 ```
 
-#### 第三步：在Edge中添加FilterChain调用机制
-##### 在EdgeDispatcher中链式递归的方式顺序调用所有的EdgeFilter
-```java
-  private void onRequest(RoutingContext context) {
-    Map<String, String> pathParams = context.pathParams();
-    //从匹配的param0拿到{ServiceComb微服务Name}
-    final String service = pathParams.get("param0");
-    //从匹配的param1拿到{服务路径&参数}
-    String operationPath = "/" + pathParams.get("param1");
-
-    //还记得我们之前说的做出一点点改进吗？引入一个自定义配置edge.routing-short-path.{简称}，映射微服务名；如果简称没有配置，那么就认为直接是微服务的名
-    final String serviceName = DynamicPropertyFactory.getInstance()
-        .getStringProperty("edge.routing-short-path." + service, service).get();
-
-      //创建一个Edge转发
-    EdgeInvocation edgeInvocation = new EdgeInvocation();
-    //允许接受任意版本的微服务实例作为Provider，未来我们会使用此（设置版本）能力实现灰度发布
-    edgeInvocation.setVersionRule(DefinitionConst.VERSION_RULE_ALL);
-    edgeInvocation.init(serviceName, context, path, httpServerFilters);
-
-    //处理Filter链，如果全部通过则转发请求
-    loopExecuteEdgeFilterInChain(0, serviceName, operationPath, context, edgeInvocation);
-  }
-
-  private void loopExecuteEdgeFilterInChain(int index, String serviceName, String operationPath, RoutingContext context,
-      EdgeInvocation edgeInvocation) {
-    if (index < filterChain.size()) {
-      EdgeFilter filter = filterChain.get(index);
-      AtomicReference<InvocationException> exception = new AtomicReference<>();
-      CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-        try {
-          filter.processing(serviceName, operationPath, context);
-        } catch (InvocationException e) {
-          exception.set(e);
-        }
-      });
-
-      future.whenComplete((result, throwable) -> {
-        if (exception.get() != null) {
-          sendFailed(context, exception.get());
-        } else if (throwable != null) {
-          sendFailed(context, new InvocationException(Status.INTERNAL_SERVER_ERROR, throwable.getMessage()));
-        } else {
-          loopExecuteEdgeFilterInChain(index + 1, serviceName, operationPath, context, edgeInvocation);
-        }
-      });
-    } else {
-      try {
-        edgeInvocation.edgeInvoke();
-      } catch (InvocationException e) {
-        sendFailed(context, e);
-      }
-    }
-  }
-
-  private void sendFailed(RoutingContext context, InvocationException exception) {
-    context.response().setStatusCode(exception.getStatusCode());
-    context.response().headers().add(CONTENT_LENGTH, String.valueOf(exception.getMessage().length()));
-    context.response().write(exception.getMessage());
-    context.response().end();
-  }
-```
-
->提示：Edge默认工作于全异步模式下，不允许有任何阻塞操作，`AuthenticationFilter`是一个RPC调用，所以`loopExecuteEdgeFilterInChain`中调用EdgeFilter使用的是异步回调模式。
-
-##### 使用SPI方式加载所有的EdgeFilter
-在`resources\META-INF\services`目录中创建`org.apache.servicecomb.scaffold.edge.EdgeFilter`文件：
+别忘了通过SPI机制加载它，在`resources\META-INF\services`目录中创建`org.apache.servicecomb.common.rest.filter.HttpServerFilter`文件：
 ```text
 org.apache.servicecomb.scaffold.edge.filter.AuthenticationFilter
 ```
 
-之后在EdgeDispatcher增加SPI加载所有的EdgeFilter的逻辑：
-```java
-private final List<EdgeFilter> filterChain;
-
-public EdgeDispatcher() {
-    filterChain = SPIServiceUtils.getSortedService(EdgeFilter.class);
-  }
-```
-
-#### 第四步：在用户微服务中增加修改密码的功能用于验证
+#### 第三步：在用户微服务中增加修改密码的功能用于验证
 现有的`login`和`logon`都无需认证，因此我们在用户微服务中增加需要认证的修改密码的功能用于验证统一认证。
 ##### 在UserService中添加修改密码
 ```java
@@ -245,6 +160,12 @@ public ResponseEntity<Boolean> changePassword(@RequestBody UserUpdateDTO userUpd
 ```
 
 ### 验证实现的统一认证
+#### 确认AuthenticationFilter在Edge服务中成功加载
+在Edge服务的启动日志中能够找到：
+```text
+2018-07-13 14:38:48,756 [INFO]   1. org.apache.servicecomb.scaffold.edge.filter.AuthenticationFilter. org.apache.servicecomb.foundation.common.utils.SPIServiceUtils.loadSortedService(SPIServiceUtils.java:79)
+```
+
 #### 用户登录
 使用zhengyangyong登录：
 
@@ -271,3 +192,7 @@ public ResponseEntity<Boolean> changePassword(@RequestBody UserUpdateDTO userUpd
 修改密码成功。
 
 **这里可能有疑问，使用zhengyangyong登录后，是可以通过这个Token修改其他用户例如lidagang的密码的，这是因为我们目前构建的validate仅检查Token的有效性，而不做权限检查，基于RBAC的角色权限管理系统将会在未来构建。**
+
+### 参考资料
+1. AuthenticationFilter的完整[代码](https://github.com/zhengyangyong/scaffold/blob/master/edge-service/src/main/java/org/apache/servicecomb/scaffold/edge/filter/AuthenticationFilter.java)；
+2. HttpServerFilter的[介绍](https://github.com/apache/incubator-servicecomb-docs/blob/master/java-chassis-reference/zh_CN/general-development/http-filter.md)。
