@@ -1,0 +1,976 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>轻松微服务系列：边缘服务支持统一认证 - Apache ServiceComb (incubating)</title>
+
+
+
+
+<meta name="description" content="轻松微服务系列：边缘服务支持统一认证">
+
+
+
+
+<meta name="author" content="Yangyong Zheng">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb (incubating)">
+<meta property="og:title" content="轻松微服务系列：边缘服务支持统一认证">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/easy-build-microservice-system-part-IV/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/easy-build-microservice-system-part-IV/">
+
+
+
+  <meta property="og:description" content="轻松微服务系列：边缘服务支持统一认证">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="轻松微服务系列：边缘服务支持统一认证">
+  <meta name="twitter:description" content="轻松微服务系列：边缘服务支持统一认证">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2018-07-10T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb (incubating)",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb (incubating) Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="/assets/images/ServiceComb-logo-1.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/easy-build-microservice-system-part-IV/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Yangyong Zheng</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        Fast Action, do not ask
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="https://zhengyangyong.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> 网站
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:yangyong.zheng@huawei.com">
+            <meta itemprop="email" content="yangyong.zheng@huawei.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="轻松微服务系列：边缘服务支持统一认证">
+    <meta itemprop="description" content="轻松微服务系列：边缘服务支持统一认证">
+    <meta itemprop="datePublished" content="July 10, 2018">
+    <meta itemprop="dateModified" content="July 10, 2018">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">轻松微服务系列：边缘服务支持统一认证
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <h2 id="轻松微服务系列边缘服务支持统一认证">轻松微服务系列：边缘服务支持统一认证</h2>
+<p>在前一篇博文<a href="http://servicecomb.incubator.apache.org/cn/docs/easy-build-microservice-system-part-III/">《轻松微服务系列：开发高性能边缘服务》</a>，我们开发了具备基本路由能力的高性能边缘服务。这篇博文我们将在Edge服务上实施如何扩展支持统一认证。</p>
+
+<h3 id="设计思路">设计思路</h3>
+<p>正如前面的博文提到过，统一认证的目的是在Edge入口处进行访问认证，避免需要在所有的微服务中都承载重复的认证机制，因此：</p>
+<ol>
+  <li>我们先要将认证功能作为一个独立的Procuder发布出来，使Edge服务能够随时认证Token，我们将其命名为<code class="highlighter-rouge">AuthenticationService</code>，放在用户服务中；</li>
+  <li>将无需认证的访问请求识别出来，包括：</li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">功能</th>
+      <th style="text-align: left">描述</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">login</td>
+      <td style="text-align: left">登录验证，通过后为用户生成Token</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">logon</td>
+      <td style="text-align: left">新用户注册</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>除此之外其他业务请求都需要做Token认证；</p>
+
+<ol>
+  <li>Edge服务转发访问请求之前，对需要认证的请求先做统一认证，认证通过之后才转发，我们使用<code class="highlighter-rouge">HttpServerFilter</code>扩展这个能力：</li>
+</ol>
+
+<p><img src="/assets/images/scaffold/FilterChain.png" alt="FilterChain" /></p>
+
+<p>统一认证流程时序图为：</p>
+
+<p><img src="/assets/images/scaffold/EdgeAuth.png" alt="EdgeAuth" /></p>
+
+<h3 id="实现统一认证">实现统一认证</h3>
+<h4 id="第一步发布认证服务">第一步：发布认证服务</h4>
+<h5 id="定义authenticationservice">定义AuthenticationService</h5>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+<h5 id="实现并发布authenticationservice">实现并发布AuthenticationService</h5>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"authentication"</span><span class="o">)</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationServiceImpl</span> <span class="kd">implements</span> <span class="n">AuthenticationService</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">TokenStore</span> <span class="n">tokenStore</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">public</span> <span class="nf">AuthenticationServiceImpl</span><span class="o">(</span><span class="n">TokenStore</span> <span class="n">tokenStore</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">tokenStore</span> <span class="o">=</span> <span class="n">tokenStore</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"validate"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">userName</span> <span class="o">=</span> <span class="n">tokenStore</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">userName</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">BAD_REQUEST</span><span class="o">,</span> <span class="s">"incorrect token"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="n">userName</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h4 id="第二步实现统一认证authenticationfilter">第二步：实现统一认证AuthenticationFilter</h4>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationFilter</span> <span class="kd">implements</span> <span class="n">HttpServerFilter</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">RestTemplate</span> <span class="n">template</span> <span class="o">=</span> <span class="n">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">USER_SERVICE_NAME</span> <span class="o">=</span> <span class="s">"user-service"</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EDGE_AUTHENTICATION_NAME</span> <span class="o">=</span> <span class="s">"edge-authentication-name"</span><span class="o">;</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">NOT_REQUIRED_VERIFICATION_USER_SERVICE_METHODS</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;(</span>
+      <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="s">"login"</span><span class="o">,</span> <span class="s">"logon"</span><span class="o">,</span> <span class="s">"validate"</span><span class="o">));</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getOrder</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">Response</span> <span class="nf">afterReceiveRequest</span><span class="o">(</span><span class="n">Invocation</span> <span class="n">invocation</span><span class="o">,</span> <span class="n">HttpServletRequestEx</span> <span class="n">httpServletRequestEx</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isInvocationNeedValidate</span><span class="o">(</span><span class="n">invocation</span><span class="o">.</span><span class="na">getMicroserviceName</span><span class="o">(),</span> <span class="n">invocation</span><span class="o">.</span><span class="na">getOperationName</span><span class="o">()))</span> <span class="o">{</span>
+      <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">httpServletRequestEx</span><span class="o">.</span><span class="na">getHeader</span><span class="o">(</span><span class="n">AUTHORIZATION</span><span class="o">);</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isNotEmpty</span><span class="o">(</span><span class="n">token</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">userName</span> <span class="o">=</span> <span class="n">template</span>
+            <span class="o">.</span><span class="na">getForObject</span><span class="o">(</span><span class="s">"cse://"</span> <span class="o">+</span> <span class="n">USER_SERVICE_NAME</span> <span class="o">+</span> <span class="s">"/validate?token={token}"</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isNotEmpty</span><span class="o">(</span><span class="n">userName</span><span class="o">))</span> <span class="o">{</span>
+          <span class="c1">//Add header</span>
+          <span class="n">invocation</span><span class="o">.</span><span class="na">getContext</span><span class="o">().</span><span class="na">put</span><span class="o">(</span><span class="n">EDGE_AUTHENTICATION_NAME</span><span class="o">,</span> <span class="n">userName</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">Response</span>
+              <span class="o">.</span><span class="na">failResp</span><span class="o">(</span><span class="k">new</span> <span class="n">InvocationException</span><span class="o">(</span><span class="n">Status</span><span class="o">.</span><span class="na">UNAUTHORIZED</span><span class="o">,</span> <span class="s">"authentication failed, invalid token"</span><span class="o">));</span>
+        <span class="o">}</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">Response</span><span class="o">.</span><span class="na">failResp</span><span class="o">(</span>
+            <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">Status</span><span class="o">.</span><span class="na">UNAUTHORIZED</span><span class="o">,</span> <span class="s">"authentication failed, missing AUTHORIZATION header"</span><span class="o">));</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">isInvocationNeedValidate</span><span class="o">(</span><span class="n">String</span> <span class="n">serviceName</span><span class="o">,</span> <span class="n">String</span> <span class="n">operationPath</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">USER_SERVICE_NAME</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">serviceName</span><span class="o">))</span> <span class="o">{</span>
+      <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">method</span> <span class="o">:</span> <span class="n">NOT_REQUIRED_VERIFICATION_USER_SERVICE_METHODS</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">operationPath</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="n">method</span><span class="o">))</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>别忘了通过SPI机制加载它，在<code class="highlighter-rouge">resources\META-INF\services</code>目录中创建<code class="highlighter-rouge">org.apache.servicecomb.common.rest.filter.HttpServerFilter</code>文件：</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>org.apache.servicecomb.scaffold.edge.filter.AuthenticationFilter
+</code></pre>
+</div>
+
+<h4 id="第三步在用户微服务中增加修改密码的功能用于验证">第三步：在用户微服务中增加修改密码的功能用于验证</h4>
+<p>现有的<code class="highlighter-rouge">login</code>和<code class="highlighter-rouge">logon</code>都无需认证，因此我们在用户微服务中增加需要认证的修改密码的功能用于验证统一认证。</p>
+<h5 id="在userservice中添加修改密码">在UserService中添加修改密码</h5>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="o">{</span>
+  <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">logon</span><span class="o">(</span><span class="n">UserDTO</span> <span class="n">user</span><span class="o">);</span>
+
+  <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">login</span><span class="o">(</span><span class="n">UserDTO</span> <span class="n">user</span><span class="o">);</span>
+  <span class="c1">//需要认证的修改密码功能</span>
+  <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">changePassword</span><span class="o">(</span><span class="n">UserUpdateDTO</span> <span class="n">userUpdate</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h5 id="在userserviceimpl中实现修改密码">在UserServiceImpl中实现修改密码</h5>
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<span class="nd">@PostMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"changePassword"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">changePassword</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">UserUpdateDTO</span> <span class="n">userUpdate</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">validateUserUpdate</span><span class="o">(</span><span class="n">userUpdate</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">UserEntity</span> <span class="n">dbUser</span> <span class="o">=</span> <span class="n">repository</span><span class="o">.</span><span class="na">findByName</span><span class="o">(</span><span class="n">userUpdate</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">dbUser</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">dbUser</span><span class="o">.</span><span class="na">getPassword</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">userUpdate</span><span class="o">.</span><span class="na">getOldPassword</span><span class="o">()))</span> <span class="o">{</span>
+        <span class="n">dbUser</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">userUpdate</span><span class="o">.</span><span class="na">getNewPassword</span><span class="o">());</span>
+        <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">dbUser</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="kc">true</span><span class="o">,</span> <span class="n">HttpStatus</span><span class="o">.</span><span class="na">OK</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">BAD_REQUEST</span><span class="o">,</span> <span class="s">"wrong password"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">BAD_REQUEST</span><span class="o">,</span> <span class="s">"user name not exist"</span><span class="o">);</span>
+  <span class="o">}</span>
+  <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">BAD_REQUEST</span><span class="o">,</span> <span class="s">"incorrect user"</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h3 id="验证实现的统一认证">验证实现的统一认证</h3>
+<h4 id="确认authenticationfilter在edge服务中成功加载">确认AuthenticationFilter在Edge服务中成功加载</h4>
+<p>在Edge服务的启动日志中能够找到：</p>
+<div class="language-text highlighter-rouge"><pre class="highlight"><code>2018-07-13 14:38:48,756 [INFO]   1. org.apache.servicecomb.scaffold.edge.filter.AuthenticationFilter. org.apache.servicecomb.foundation.common.utils.SPIServiceUtils.loadSortedService(SPIServiceUtils.java:79)
+</code></pre>
+</div>
+
+<h4 id="用户登录">用户登录</h4>
+<p>使用zhengyangyong登录：</p>
+
+<p><img src="/assets/images/scaffold/LoginFirst.png" alt="LoginFirst" /></p>
+
+<p>拿到的Token值为：eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ6aGVuZ3lhbmd5b25nIiwiZXhwIjoxNTMwNjA4OTczfQ.90teWUNbypPZvds_SD7Kus_y7wLc4b6VzC_aIVg8sLItKxwQ0g4V9BDU665PlqQY5KM-mnk8y0R6ENL1T8YVFg</p>
+
+<h4 id="不带authorization-header请求changepassword">不带Authorization Header请求changePassword</h4>
+
+<p><img src="/assets/images/scaffold/NoAuthHeader.png" alt="NoAuthHeader" /></p>
+
+<p>返回的失败信息是：authentication failed, missing AUTHORIZATION header</p>
+
+<h4 id="使用错误的token请求changepassword">使用错误的Token请求changePassword</h4>
+
+<p><img src="/assets/images/scaffold/ErrorAuthHeader.png" alt="ErrorAuthHeader" /></p>
+
+<p>返回的失败信息是：authentication failed : InvocationException: code=400;msg=CommonExceptionData [message=incorrect token]</p>
+
+<h4 id="使用正确的token请求changepassword">使用正确的Token请求changePassword</h4>
+
+<p><img src="/assets/images/scaffold/AuthSuccess.png" alt="AuthSuccess" /></p>
+
+<p>修改密码成功。</p>
+
+<p><strong>这里可能有疑问，使用zhengyangyong登录后，是可以通过这个Token修改其他用户例如lidagang的密码的，这是因为我们目前构建的validate仅检查Token的有效性，而不做权限检查，基于RBAC的角色权限管理系统将会在未来构建。</strong></p>
+
+<h3 id="参考资料">参考资料</h3>
+<ol>
+  <li>AuthenticationFilter的完整<a href="https://github.com/zhengyangyong/scaffold/blob/master/edge-service/src/main/java/org/apache/servicecomb/scaffold/edge/filter/AuthenticationFilter.java">代码</a>；</li>
+  <li>HttpServerFilter的<a href="https://github.com/apache/incubator-servicecomb-docs/blob/master/java-chassis-reference/zh_CN/general-development/http-filter.md">介绍</a>。</li>
+</ol>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#api-gateway" class="page__taxonomy-item" rel="tag">API Gateway</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#authentication" class="page__taxonomy-item" rel="tag">Authentication</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#edge-service" class="page__taxonomy-item" rel="tag">Edge Service</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2018-07-10">2018年7月10日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=轻松微服务系列：边缘服务支持统一认证 /cn/docs/easy-build-microservice-system-part-IV/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/easy-build-microservice-system-part-IV/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/easy-build-microservice-system-part-IV/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/easy-build-microservice-system-part-IV/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/docs/apache-servicecomb-incubating-day-report/" class="pagination--pager" title="Apache ServiceComb (incubating) Day Report
+">向前</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="easy-build-microservice-system-part-IV">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/apache-servicecomb-incubating-day-report/" rel="permalink">Apache ServiceComb (incubating) Day Report
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb (incubating) Day Report
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/apache-servicecomb-day-slides/" rel="permalink">LC3大会微服务Workshop-Apaceh ServiceComb(incubating) Day 演讲PPT
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">LC3大会微服务Workshop-Apaceh ServiceComb(incubating) Day 演讲PPT
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/apache-servicecomb-incubating-day/" rel="permalink">微服务 Meetup：Apache ServiceComb (incubating) Day 详细议程
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Detailed Agenda of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/apache-servicecomb-incubating-day/" rel="permalink">Microservice Meetup: Detailed Agenda of Apache ServiceComb (incubating) Day
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Real time updated information of Apache ServiceComb (incubating) Day
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  4 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/user-guide/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/cn/2018-07-10-easy-build-microservice-system-part-IV.md">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/cn/2018-07-10-easy-build-microservice-system-part-IV.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2018 Apache ServiceComb (incubating). 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>
