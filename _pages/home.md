@@ -21,7 +21,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/docs/apache-servicecomb-incubating-day/'>Microservice Meetup: Apache ServiceComb (incubating) Day, detailed agenda updated, attendees can freely visit LC3 booth.</a>
+    <a href='/cn/docs/apache-servicecomb-day-slides/'>Microservice Meetup: Apache ServiceComb (incubating) Day slides </a>
   </li>
   <li>
     <a href='/release/'>ServiceComb announces it's first Apache Incubating Release to the community.</a>

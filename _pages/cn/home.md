@@ -22,7 +22,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/cn/docs/apache-servicecomb-incubating-day/'>微服务 Meetup：Apache ServiceComb (incubating) Day 详细议程更新了，可免费参加，更可获得参观展台机会</a>
+    <a href='/cn/docs/apache-servicecomb-day-slides/'>微服务 Meetup：Apache ServiceComb (incubating) Day 演讲资料</a>
   </li>
   <li>
     <a href='/cn/release/'>ServiceComb 第一个Apache孵化版本发布了！</a>
