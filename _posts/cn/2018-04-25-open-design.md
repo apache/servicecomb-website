@@ -18,7 +18,7 @@ redirect_from:
 
 ## 写在前面
 
-[开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 的前身为华为云的 [微服务引擎 CSE (Cloud Service Engine) 云服务](https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html),  ServiceComb 的早期版本和多数第一批做微服务或分布式框架先贤一样，为了追求高性能，做了非常多的工作.如，改善编码效率，改进通信协议，等尝试。然而，随着业务规模的递增，需求也逐渐呈现多样化。单方面通过传统手段追求高性能，导致在面对多样化需求时，遇到各种挑战：遗留系统的通信、接入各种不同的终端、协议的健壮性、防攻击等各种挑战迎面而来。
+[开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 的前身为华为云的 [微服务引擎 CSE (Cloud Service Engine) 云服务](https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html),  ServiceComb 的早期版本和多数第一批做微服务或分布式框架先贤一样，为了追求高性能，做了非常多的工作，如改善编码效率，改进通信协议等尝试。然而，随着业务规模的递增，需求也逐渐呈现多样化。单方面通过传统手段追求高性能，导致在面对多样化需求时，遗留系统的通信、接入各种不同的终端、协议的健壮性、防攻击等各种挑战迎面而来。
 
 Apache ServiceComb，愿景是帮助企业快速构建云原生应用，通过一系列解决方案，帮助用户快速开发微服务应用的同时，实现对这些微服务应用的高效运维管理。保持中立性，以避免厂商LockIn成为关键任务。对于此， Apache ServiceComb 需要有友好的机制，能够对接各微服务主流技术栈技术或开发框架。
 
