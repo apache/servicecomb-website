@@ -32,19 +32,19 @@ last_modified_at: 2018-04-13T10:01:43-04:00
    
    <div class="tab-content">
      <div id="windows" class="tab-pane active" markdown="1">
-   1. 下载[服务注册中心可执行文件压缩包](http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/apache-servicecomb-incubating-service-center-1.0.0-m1-windows-amd64.tar.gz)
+   1. 下载[服务注册中心可执行文件压缩包](http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/apache-servicecomb-incubating-service-center-1.0.0-m2-windows-amd64.tar.gz)
    2. 解压缩到当前文件夹
    3. 进入解压缩后的目录，然后双击运行**start-service-center.bat**文件
      </div>
      <div id="linux" class="tab-pane fade" markdown="1">
    1. 下载服务注册中心可执行文件压缩包并解压缩
    ```bash
-   wget http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64.tar.gz
-   tar xvf apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64.tar.gz
+   wget http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64.tar.gz
+   tar xvf apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64.tar.gz
    ```
    2. 运行服务注册中心
    ```bash
-   bash apache-servicecomb-incubating-service-center-1.0.0-m1-linux-amd64/start-service-center.sh
+   bash apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64/start-service-center.sh
    ```
    
     注意：前端（frontend）在Linux环境下默认会绑定ipv6地址，导致浏览器报错，修复办法为：先修改conf/app.conf中的httpaddr为外部可达网卡ip，之后修改app/appList/apiList.js中`ip : 'http://127.0.0.1'`为对应ip，最后重启ServiceCenter即可。
