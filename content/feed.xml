@@ -1,4 +1,154 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-07-21T07:57:34+08:00</updated><id>/</id><title type="html">Apache ServiceComb (incubating)</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;servicecomb-developers@googlegroups.com&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>servicecomb-developers@googlegroups.com</email></author><entry xml:lang="cn"><title type="html">轻松微服务系列：边缘服务支持统一认证</title><link href="/cn/docs/easy-build-microservice-system-part-IV/" rel="alternate" type="text/html" title="轻松微服务系列：边缘服务支持统一认证" /><published>2018-07-10T00:00:00+08:00</published><updated>2018-07-10T19:00:00+08:00</updated><id>/cn/docs/easy-build-microservice-system-part-IV</id><content type="html" xml:base="/cn/docs/easy-build-microservice-system-part-IV/">&lt;h2 id=&quot;轻松微服务系列边缘服务支持统一认证&quot;&gt;轻松微服务系列：边缘服务支持统一认证&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-07-23T16:22:45+08:00</updated><id>/</id><title type="html">Apache ServiceComb (incubating)</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;servicecomb-developers@googlegroups.com&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>servicecomb-developers@googlegroups.com</email></author><entry xml:lang="cn"><title type="html">Consul Service Mesh实战</title><link href="/cn/docs/consul-servicemesh" rel="alternate" type="text/html" title="Consul Service Mesh实战" /><published>2018-07-21T00:00:00+08:00</published><updated>2018-07-21T10:26:28+08:00</updated><id>/cn/docs/consul-servicemesh</id><content type="html" xml:base="/cn/docs/consul-servicemesh">&lt;h2 id=&quot;consul-service-mesh实战&quot;&gt;Consul Service Mesh实战&lt;/h2&gt;
+
+&lt;p&gt;在最近发布的&lt;a href=&quot;https://github.com/hashicorp/consul/releases&quot;&gt;Consul1.2&lt;/a&gt;中，&lt;a href=&quot;https://www.hashicorp.com/&quot;&gt;HashiCorp&lt;/a&gt;宣布支持Service Mesh。作为一个优秀的分布式服务发现解决方案，Consul是如何支持Service Mesh的呢？本文将带读者一探究竟。&lt;/p&gt;
+
+&lt;p&gt;在Consul 1.2的&lt;a href=&quot;https://www.hashicorp.com/blog/consul-1-2-service-mesh&quot;&gt;release blog&lt;/a&gt;中，Consul定义了Service Mesh的3个要素：&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Discovery&lt;/strong&gt;：服务可以互相找到&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Configuration&lt;/strong&gt;：服务在运行时，可以从一个集中的源头获取配置&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Segmentation&lt;/strong&gt;：服务之间的通信必须是加密并通过认证的&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;实际上，Consul本身已经支持服务发现，并且实现了一个集群共享的KV存储方案，可以实现服务配置的存储。而最新的Consul 1.2中，新发布的Connect功能，可以为服务创建一个网络层的代理，这成为Consul Service Mesh方案中，数据面代理的基础。接下来，我们从这三个方面一一对Consul进行解析。&lt;/p&gt;
+
+&lt;h4 id=&quot;discovery&quot;&gt;Discovery&lt;/h4&gt;
+
+&lt;p&gt;Consul是一个跨数据中心的分布式服务发现解决方案。在Consul集群的每一个节点上，都运行一个Consul进程，成为一个Consul agent，一个agent可以以server或client两种模式运行。Client agent非常轻量，只需与Server agent交互，并维护Client自身很少的状态。而Server agent除了Client agent的所有功能，还提供额外的能力来完成基于Raft的一致性方案，因此Server agent的负载会更高，也需要更多的资源，运行在更加稳定的节点上。Consul agent可以通过join命令，指定集群中任意一个agent的IP，以加入集群，形成一个Consul cluster。如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/crystaldust/imagestorage/raw/master/consul-servicemesh/consul-cluster.jpg&quot; alt=&quot;consul-cluster&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;在单个节点上，Consul agent读取该节点服务的配置文件，获取该节点上服务的信息，并与cluster中其他agent通过gossip协议互相通信，完成集群内的服务注册与发现。当Consul cluster中的服务需要调用另一个服务时，可以通过API和DNS解析两种方式，向所在节点的Consul agent获取目标服务的具体地址，然后调用目标服务。&lt;/p&gt;
+
+&lt;h4 id=&quot;configuration&quot;&gt;Configuration&lt;/h4&gt;
+
+&lt;p&gt;除了服务注册与发现，Consul还内置了一个KV存储系统，用于Cluster之间共享数据。KV的Key是分层的，通过斜线&lt;code class=&quot;highlighter-rouge&quot;&gt;/&lt;/code&gt;分隔，这样，可以在概念上对key进行组织和管理，用来保存不同的配置，并把配置分配给集群内的所有服务。例如，在一个集群内，运行了&lt;code class=&quot;highlighter-rouge&quot;&gt;webfront&lt;/code&gt;服务，&lt;code class=&quot;highlighter-rouge&quot;&gt;webfront&lt;/code&gt;服务需要获知当前是开发环境还是测试环境，以提供不同的页面表现。那么，我们在可以在节点A上用KV存储保存环境信息：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;nodeA$ &lt;/span&gt;consul kv put services/webapi/metadata/env dev &lt;span class=&quot;c&quot;&gt;#假设env=dev表示测试环境&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;服务运行过程中，假设任务调度器将&lt;code class=&quot;highlighter-rouge&quot;&gt;webfront&lt;/code&gt;服务的实例调度到节点B和节点C，那么在节点B和C上可以通过Consul agent访问到环境信息：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;nodeB$ &lt;/span&gt;consul kv get services/webapi/metadata/env
+&lt;span class=&quot;gp&quot;&gt;nodeB$ &lt;/span&gt;dev
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;当然，在实际的使用中，我们不仅可以通过命令行来获取KV数据，也可以通过RESTful API，向所在节点的Consul agent发送HTTP请求来获取数据。&lt;/p&gt;
+
+&lt;h4 id=&quot;segmentation&quot;&gt;Segmentation&lt;/h4&gt;
+
+&lt;p&gt;按照Consul的说明，Segmentation的意义在于使服务之间的网络请求都是经过TLS加密并认证的。那么，Consul是如何做到请求的自动TLS加密和认证的呢？&lt;/p&gt;
+
+&lt;p&gt;Consul 1.2新增了Connect功能，只需要在服务中增加一个&lt;code class=&quot;highlighter-rouge&quot;&gt;connect&lt;/code&gt;配置，即可为该服务启动一个代理：&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;service&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;webfront&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;connect&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;proxy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这样，Consul agent就会为&lt;code class=&quot;highlighter-rouge&quot;&gt;webfront&lt;/code&gt;服务启动一个内置的proxy，proxy启动时，向所在节点的Consul agent（为了便于说明，假设为Client agent，其实Client/Server都是可能的）请求&lt;code class=&quot;highlighter-rouge&quot;&gt;webfront&lt;/code&gt;所需要的root证书和leaf证书。Client agent检查本地的缓存，若已有所需证书，则直接将证书和私钥返回。否则就会生成一个新的私钥，并向Server agent发送CSR。Server对CSR进行验证，并返回签名的证书，Client agent拿到证书，把证书和私钥返回给proxy。这样，proxy就可以接受TLS请求了。这个过程如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/crystaldust/imagestorage/raw/master/consul-servicemesh/consul-tls.jpg&quot; alt=&quot;consul-tls&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;并且，Consul中还有一个自动更新的机制，当Server中的根证书变化时，Client重新生成私钥，向Server发送CSR，获取签名的证书，并把签名的证书和私钥再发给proxy，完成证书的更新。&lt;/p&gt;
+
+&lt;p&gt;了解了Consul Connect，我们会发现，其实Connect功能帮每个服务启动了一个Proxy，对服务的inbound/outbound请求进行了TLS加密和认证，这个场景是否似曾相识？没错，就是Service Mesh中数据面sidecar的概念。只是这个Consul内建的sidecar目前能实现的功能还比较单一，只有TLS加密和认证。&lt;/p&gt;
+
+&lt;p&gt;现在，我们对Consul Service Mesh的三个要素都有了较为具体了解，那么，相比于一般意义上的Service Mesh方案，例如Istio，Conduit等，Consul的Service Mesh有何不同呢？我们不妨以Istio为例，看看Istio中是如何实现这三个要素的：&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Discovery&lt;/strong&gt;：由Pilot结合服务发现机制（kubernetes，eureka，consul等）完成&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Configuration&lt;/strong&gt;：由Pilot结合Kubernetes完成，用户使用kubectl定义Istio所需的Kubernetes资源，Pilot读取到这些资源后，转换为自己的Model，并通过xDS API将配置信息下发给Envoy&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Segmentation&lt;/strong&gt;：Citadel结合Envoy完成，Citadel将证书颁发给每个服务的Envoy&lt;/p&gt;
+
+&lt;p&gt;因此，Istio的结构是这样的：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/crystaldust/imagestorage/raw/master/consul-servicemesh/istio-architecture.jpg&quot; alt=&quot;istio-architecture&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;可以看到Discovery和Configuration都是在Istio控制面完成的。Segmentation是由控制面的Citadel+数据面的Envoy代理完成的。&lt;/p&gt;
+
+&lt;p&gt;根据HashiCorp的说明，在Consul的Service Mesh方案中，Consul作为控制面运行，Consul agent实现了服务发现和配置存储。同时，Consul agent再结合Connect启动的Proxy，完成了网络流量的加密与认证。如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/crystaldust/imagestorage/raw/master/consul-servicemesh/consul-proxy-certs.jpg&quot; alt=&quot;consul-proxy-certs&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;请注意，Consul的KV系统只完成了配置的存储，并没有像Istio一样，可以对配置进行动态修改并下发到数据面，目前Proxy的配置也是通过读取文件，然后在启动或重启代理时传入的，因此我们认为Consul的配置管理能力还需要完善。此外，因为Consul Connect启动的Proxy是一个4层代理，无法提供路由、熔断、重试等更高级的微服务治理能力，因此也不需要获取服务治理的配置。这是Consul Service Mesh的方案中治理能力欠缺的地方。不过，HashiCorp也表示Connect在1.2版本中只是Beta状态，未来会继续围绕Connect开发新的功能，包括UI的增强，支持Envoy作为proxy，与Nomad和Kubernetes的集成等。&lt;/p&gt;
+
+&lt;h4 id=&quot;等等听说consul已经可以集成envoy了&quot;&gt;等等，听说Consul已经可以集成Envoy了？&lt;/h4&gt;
+
+&lt;p&gt;没错！其实，在Consul1.2中，Connect已经可以通过指定一个可执行文件的路径来启动第三方代理了。Consul会以daemon模式启动第三方代理，在后台运行：&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;service&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;webfront&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;connect&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;proxy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;exec_mode&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;daemon&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&quot;command&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;/usr/bin/my-proxy&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;--listen&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;8800&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;那么，按照通常的思路，是不是可以直接指定Envoy，让Consul启动Envoy来实现集成呢？理论上确实可行，但是Consul是无法管理第三方代理的配置的，Envoy的配置只能由用户自行定义，增加了运维成本，也不便于管理。&lt;/p&gt;
+
+&lt;p&gt;这时，就轮到HashiCorp好基友&lt;a href=&quot;https://www.solo.io/&quot;&gt;solo.io&lt;/a&gt;出品的&lt;a href=&quot;https://github.com/solo-io/gloo-connect&quot;&gt;Gloo Connect&lt;/a&gt;闪亮登场了！solo.io是一家提供Cloud Native工具和集成方案的公司，例如支持Kubernetes和Istio的微服务debugger &lt;a href=&quot;https://github.com/solo-io/squash&quot;&gt;squash&lt;/a&gt;，基于Envoy的function gateway解决方案&lt;a href=&quot;https://github.com/solo-io/gloo&quot;&gt;Gloo&lt;/a&gt;。在刚刚过去的&lt;a href=&quot;https://www.hashidays.com/&quot;&gt;HashiDay 2018&lt;/a&gt;上，solo.io和HashiCorp联合发布了Gloo Connect。Gloo产品线本身很有意思，Gloo与英文单词”胶水”(Glue)的发音一样，暗示着Gloo会作为”胶水”，将Cloud Native中的各种服务粘合在一起，那么，Gloo Connect是如何把Consul和Envoy粘合在一起的呢？&lt;/p&gt;
+
+&lt;p&gt;Gloo Connect作为Consul的第三方代理，在启动时会把Consul Connect proxy的配置和Gloo的配置转换成Envoy的配置，并启动Envoy实例。同时，Gloo Connect也可以通过命令行对Envoy的配置进行动态修改。下面，我们根据Gloo Connect的官方示例来演示如何将Consul与Envoy集成。&lt;/p&gt;
+
+&lt;h6 id=&quot;tips&quot;&gt;Tips&lt;/h6&gt;
+
+&lt;p&gt;根据Gloo Connect的&lt;a href=&quot;https://github.com/solo-io/gloo-connect/blob/master/docs/getting-started/README.md&quot;&gt;Getting Started文档&lt;/a&gt;，Consul 1.2.0中，存在一个已知bug，运行示例需要下载一个&lt;a href=&quot;https://github.com/solo-io/gloo-connect/releases/download/v0.1.0/consul&quot;&gt;预先编译的Consul版本&lt;/a&gt;，或者使用1.2.1版本，并把Consul配置到系统路径，或者当前目录。&lt;/p&gt;
+
+&lt;p&gt;首先，我们将gloo-connect项目clone到本地，进入getting-started目录，并编译运行&lt;code class=&quot;highlighter-rouge&quot;&gt;service.go&lt;/code&gt;：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;git clone https://github.com/solo-io/gloo-connect/
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;gloo-connect/docs/getting-started
+&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;go run service.go &amp;amp;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;service.go&lt;/code&gt;运行后监听8080端口，交替返回200和500状态码。接下来，我们执行当前目录下的&lt;code class=&quot;highlighter-rouge&quot;&gt;run-consul.sh&lt;/code&gt;脚本，该脚本会在&lt;code class=&quot;highlighter-rouge&quot;&gt;./run-data/consul-config&lt;/code&gt;目录下生成两个配置信息&lt;code class=&quot;highlighter-rouge&quot;&gt;connect.json&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;service.json&lt;/code&gt;，前者将gloo-connect指定为Consul Connect默认的proxy，后者定义了两个服务&lt;code class=&quot;highlighter-rouge&quot;&gt;microsvc1&lt;/code&gt;（即我们运行的service.go） 和&lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt;，并定义了两者之间的代理：&lt;code class=&quot;highlighter-rouge&quot;&gt;microsvc1&lt;/code&gt;配置了一个空规则的代理，&lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt;配置了一个监听1234端口的代理，任何访问1234端口的请求，都将被当作&lt;code class=&quot;highlighter-rouge&quot;&gt;test&lt;/code&gt;向&lt;code class=&quot;highlighter-rouge&quot;&gt;microsvc1&lt;/code&gt;的访问。最后，脚本启动consul，并设定consul的配置目录为&lt;code class=&quot;highlighter-rouge&quot;&gt;./run-data/consul-config&lt;/code&gt;。此外，脚本还会运行gloo-connect和envoy，需要确保两者在系统路径或当前目录下并具有执行权限，gloo-connect项目的发布页面可以&lt;a href=&quot;https://github.com/solo-io/gloo-connect/releases&quot;&gt;下载编译好的gloo-connect和envoy&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;脚本启动后，我们通过进程管理工具，可以看到Consul为每个服务启动了第三方代理gloo-connect，而每个gloo-connect又启动了一个Envoy进程，并把转换好的配置传给Envoy：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/crystaldust/imagestorage/raw/master/consul-servicemesh/gloo-connect.png&quot; alt=&quot;gloo-connect&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;此时，真正监听1234端口的就是Envoy进程了。下面，我们访问1234端口，会看到服务交替返回状态码200和500：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/crystaldust/imagestorage/raw/master/consul-servicemesh/req-microsvc1-by-proxy.png&quot; alt=&quot;req-microsvc1-by-proxy&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;我们用gloo-connect命令为&lt;code class=&quot;highlighter-rouge&quot;&gt;microsvc1&lt;/code&gt;的Envoy sidecar配置一条retry规则：&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;gp&quot;&gt;$ &lt;/span&gt;./gloo-connect &lt;span class=&quot;nb&quot;&gt;set &lt;/span&gt;service microsvc1 --http --retries&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;3
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;这样，当通过Envoy代理访问&lt;code class=&quot;highlighter-rouge&quot;&gt;microsvc1&lt;/code&gt;时，如果遇到500，会重试3次，其实在第一次重试时就会返回200了，因此我们访问1234端口，每次都会返回200：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://github.com/crystaldust/imagestorage/raw/master/consul-servicemesh/gloo-connect-retries.png&quot; alt=&quot;gloo-connect-retries&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;这样，我们就借助一个第三方工具gloo-connect，实现了Consul和Envoy的集成！需要说明的是，gloo-connect也处于早期阶段，目前支持的配置还比较少，除了&lt;code class=&quot;highlighter-rouge&quot;&gt;retries&lt;/code&gt;，只支持&lt;code class=&quot;highlighter-rouge&quot;&gt;http&lt;/code&gt;（是否使用http模式，默认为false）和&lt;code class=&quot;highlighter-rouge&quot;&gt;timeout&lt;/code&gt;。&lt;/p&gt;
+
+&lt;h4 id=&quot;总结&quot;&gt;总结&lt;/h4&gt;
+
+&lt;p&gt;目前来看，Consul Connect虽然还刚刚起步，但是已经让我们非常惊喜的看到了一个相对完整、简单易用的Service Mesh方案，通过第三方的集成，未来也许会有更多优秀的代理，甚至是用户自己定义的代理，不断加入到Consul的阵营中。随着Consul Connect的不断演进和HashiCorp的持续投入，我们相信，Consul会在未来的Service Mesh竞争中占有一席之地，也希望业界不断涌现Consul这样优秀的方案，给用户更多选择，让Service Mesh的世界越来越精彩。&lt;/p&gt;
+
+&lt;h4 id=&quot;后记&quot;&gt;后记&lt;/h4&gt;
+
+&lt;p&gt;不同于Istio、Conduit等“天生Service Mesh”的微服务方案，Consul本身是一个成熟的服务发现工具，其实现Service Mesh的思路非常有意思。在笔者看来，除去“控制面”“数据面”这种基于大的框架角度的划分，Service Mesh从功能上要完成三件事情：服务注册与发现，配置管理（存储、下发），服务治理。Consul在第一点已经做得非常好了，配置方面，Consul的集群内共享KV为实现配置管理奠定了坚实的基础，完全可以通过第三方工具、或者Consul自身增强的特性，基于KV实现配置的下发。服务治理方面与Consul本身关系不大，但是通过Connect，Consul具备了为服务配置代理或者集成第三方代理的能力，完全可以用已有的优秀代理来实现Service Mesh数据面，补足服务治理的能力。&lt;/p&gt;
+
+&lt;p&gt;Consul的方案，也给已经在业界流行并经过生产环境验证的“上一代”微服务框架带来很多启发。在Service Mesh概念流行之前，已有很多基于SDK的侵入式微服务框架。这些框架往往提供服务发现机制或者或者兼容开源的服务发现机制，有一些也提供配置的管理，只是需要在应用程序中引入SDK来实现服务治理，因此对于不同的语言，都要提供相应的SDK。但是相对于Consul，毕竟这些框架已经具备了微服务治理的能力，它们向Service Mesh转型的过程中，更需要的是将治理能力从SDK转移到网络层面的代理中。在这一点上，华为开源的微服务框架ServiceComb的做法非常值得参考。在ServiceComb中，已有Service Center实现服务的注册与发现，基于archaius的配置更新机制，以及提供治理能力的SDK（支持Java和Go两种语言），为了实现数据面的代理，ServiceComb团队将SDK中实现治理能力的代码剥离出来，基于此开发了网络代理&lt;a href=&quot;https://github.com/go-chassis/mesher&quot;&gt;Mesher&lt;/a&gt;，Mesher的治理能力与SDK是基本对等的，并且共享同一套配置。这样，已经使用SDK的服务，不需要做任何修改，而使用其他语言开发的新应用，则可以通过Mesher获得ServiceComb的服务治理能力。最终，ServiceComb成为同时支持SDK和网络代理的混合式微服务方案，也是一个真正意义上的Service Mesh方案。&lt;/p&gt;</content><author><name>Zhen Ju</name><email>juzhenatpku@gmail.com</email><uri>https://github.com/crystaldust</uri></author><category term="microservice" /><category term="servicemesh" /><category term="consul" /><summary type="html">Consul Service Mesh介绍与相关实践</summary></entry><entry xml:lang="cn"><title type="html">轻松微服务系列：边缘服务支持统一认证</title><link href="/cn/docs/easy-build-microservice-system-part-IV/" rel="alternate" type="text/html" title="轻松微服务系列：边缘服务支持统一认证" /><published>2018-07-10T00:00:00+08:00</published><updated>2018-07-10T19:00:00+08:00</updated><id>/cn/docs/easy-build-microservice-system-part-IV</id><content type="html" xml:base="/cn/docs/easy-build-microservice-system-part-IV/">&lt;h2 id=&quot;轻松微服务系列边缘服务支持统一认证&quot;&gt;轻松微服务系列：边缘服务支持统一认证&lt;/h2&gt;
 &lt;p&gt;在前一篇博文&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/docs/easy-build-microservice-system-part-III/&quot;&gt;《轻松微服务系列：开发高性能边缘服务》&lt;/a&gt;，我们开发了具备基本路由能力的高性能边缘服务。这篇博文我们将在Edge服务上实施如何扩展支持统一认证。&lt;/p&gt;
 
 &lt;h3 id=&quot;设计思路&quot;&gt;设计思路&lt;/h3&gt;
@@ -1195,343 +1345,4 @@ java -jar xxxx.jar
   &lt;li&gt;前端UI（同样以微服务方式提供）：用户交互界面；&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;至此，DDD设计地产CRM的工作就结束了，从下一篇文章开始，我们将和您一起轻松愉快的开启代码构建之旅，敬请期待！&lt;/p&gt;</content><author><name>Yangyong Zheng</name><email>yangyong.zheng@huawei.com</email><uri>https://zhengyangyong.github.io</uri></author><category term="Archetypes" /><category term="Scaffold" /><summary type="html">轻松微服务系列：从一键构建微服务和DDD设计开始</summary></entry><entry xml:lang="cn"><title type="html">ServiceComb Saga使用Cucumber做验收测试源码分析</title><link href="/cn/docs/saga_with_cucumber/" rel="alternate" type="text/html" title="ServiceComb Saga使用Cucumber做验收测试源码分析" /><published>2018-04-28T00:00:00+08:00</published><updated>2018-04-27T19:05:00+08:00</updated><id>/cn/docs/saga_with_cucumber</id><content type="html" xml:base="/cn/docs/saga_with_cucumber/">&lt;h3 id=&quot;servicecomb-saga使用cucumber做验收测试源码分析&quot;&gt;ServiceComb Saga使用Cucumber做验收测试源码分析&lt;/h3&gt;
-
-&lt;h4 id=&quot;cucumber-简介&quot;&gt;Cucumber 简介&lt;/h4&gt;
-
-&lt;p&gt;Cucumber 是一个能够理解用普通语言描述的测试用例的自动化测试工具，可以让人们用近似自然的语言去描述特性Feature和场景Scenario，根据Feature驱动开发，用作软件技术人员和非技术之间验收测试的桥梁。它是一个命令行工具，运行后会执行features中的内容，feature中的step会调用step definitions 可以用标签来组织场景支持40多种语言包括 Java, Ruby 等。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/cucumber.jpg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Cucumber开发过程：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;创建feature文件，feature文件中描述了测试用例集（Features），测试用例(Scenarios)，创建测试所需环境(Given)，触发被测试事件(When)和结果验证(Then)&lt;/li&gt;
-  &lt;li&gt;创建step_definitions，此代码根据上面创建的feature文件，映射feature中的Gherkin Step为按步骤执行的代码，类似胶水的作用。&lt;/li&gt;
-  &lt;li&gt;执行cucumber执行指令，格式化输出&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;更多关于Cucumber的介绍请参考&lt;a href=&quot;https://cucumber.io/&quot;&gt;官网文档[2]&lt;/a&gt;。&lt;/p&gt;
-
-&lt;h4 id=&quot;saga-使用-cucumber&quot;&gt;Saga 使用 Cucumber&lt;/h4&gt;
-
-&lt;p&gt;Saga项目对其下行程预定demo做了验收测试，我们对照Cucumber的开发过程分别分析成功执行完所有事务和出现异常时的自动化测试开发，在行程预定的demo中，全局事务&lt;code class=&quot;highlighter-rouge&quot;&gt;booking&lt;/code&gt;有两个子事务分别是预定酒店服务&lt;code class=&quot;highlighter-rouge&quot;&gt;Hotel&lt;/code&gt;和包车服务&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;，只有酒店服务和包车服务全部成功行程预定服务才算成功，否则全部失败并回滚补偿。demo中假定了房源紧张，每个用户最多只能预定2间，关于此行程规划demo细节请参考&lt;a href=&quot;https://github.com/apache/incubator-servicecomb-saga/tree/master/saga-demo/booking&quot;&gt;文档[3]&lt;/a&gt;。&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;成功完成所有事务&lt;/p&gt;
-
-    &lt;ol&gt;
-      &lt;li&gt;
-        &lt;p&gt;创建feature文件&lt;code class=&quot;highlighter-rouge&quot;&gt;pack_success_scenario.feature&lt;/code&gt;，定义Feature，并在feature中定义step&lt;/p&gt;
-
-        &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Feature: Alpha records transaction events
-
-  Scenario: Everything is normal
-    Given Car Service is up and running
-    And Hotel Service is up and running
-    And Booking Service is up and running
-    And Alpha is up and running
-
-    When User Sean requests to book 2 cars and 1 rooms
-
-    Then Alpha records the following events
-      | serviceName  | &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;             |
-      | pack-booking | SagaStartedEvent |
-      | pack-car     | TxStartedEvent   |
-      | pack-car     | TxEndedEvent     |
-      | pack-hotel   | TxStartedEvent   |
-      | pack-hotel   | TxEndedEvent     |
-      | pack-booking | SagaEndedEvent   |
-
-    And Car Service contains the following booking orders
-      | name | amount | confirmed | cancelled |
-      | Sean | 2      | &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;      | &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;     |
-
-    And Hotel Service contains the following booking orders
-      | name | amount | confirmed | cancelled |
-      | Sean | 1      | &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;      | &lt;span class=&quot;nb&quot;&gt;false&lt;/span&gt;     |
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-
-        &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Given&lt;/code&gt; 定义了测试用例&lt;code class=&quot;highlighter-rouge&quot;&gt;Everything is normal&lt;/code&gt;所需的4个条件分别是4个服务运行正常，&lt;code class=&quot;highlighter-rouge&quot;&gt;When&lt;/code&gt;定义了触发用户&lt;code class=&quot;highlighter-rouge&quot;&gt;Sean&lt;/code&gt;发起预定2辆车和1间房子的被测事件。&lt;code class=&quot;highlighter-rouge&quot;&gt;Then&lt;/code&gt;中则指定了验证结果是&lt;code class=&quot;highlighter-rouge&quot;&gt;Alpha&lt;/code&gt;记录的各子事务及子事务发生顺序，&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;服务和&lt;code class=&quot;highlighter-rouge&quot;&gt;Hotel&lt;/code&gt;服务则记录预定结果。&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;创建step_definitions &lt;code class=&quot;highlighter-rouge&quot;&gt;PackStepdefs.java&lt;/code&gt;&lt;/p&gt;
-
-        &lt;p&gt;在step_definition中使用正则的方式对应feature中定义的的测试条件，触发测试并验证结果。如：&lt;/p&gt;
-
-        &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;Given&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Car Service is up and running$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;probe&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CAR_SERVICE_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;));&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-
-        &lt;p&gt;上面代码对应feature中第一个测试前提条件&lt;code class=&quot;highlighter-rouge&quot;&gt;Given car service is up and running&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;probe&lt;/code&gt;函数式方位&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;服务的一个Rest接口验证返回状态码来判断&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;是否正常启动运行。接下来四个&lt;code class=&quot;highlighter-rouge&quot;&gt;Given&lt;/code&gt;与此类似。&lt;/p&gt;
-
-        &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;When&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^User ([A-Za-z]+) requests to book ([0-9]+) cars and ([0-9]+) rooms$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rooms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Received request from user {} to book {} cars and {} rooms&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rooms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-
-      &lt;span class=&quot;n&quot;&gt;given&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;username&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rooms&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rooms&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;pathParam&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;cars&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cars&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;when&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
-          &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;post&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;booking.service.address&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/booking/{name}/{rooms}/{cars}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-
-        &lt;p&gt;此段代码解析feature中定义的&lt;code class=&quot;highlighter-rouge&quot;&gt;When User Sean requests to book 2 cars and 1 rooms&lt;/code&gt;事件，解析出用户、预定车辆和房间数量参数并向&lt;code class=&quot;highlighter-rouge&quot;&gt;Booking&lt;/code&gt;服务发出&lt;code class=&quot;highlighter-rouge&quot;&gt;POST&lt;/code&gt;方法的请求，然后在下面代码的&lt;code class=&quot;highlighter-rouge&quot;&gt;Then&lt;/code&gt;中验证结果：&lt;/p&gt;
-
-        &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Then&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Alpha records the following events$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataTable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;Consumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;[]&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columnStrippingConsumer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataMap&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataMap&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-          &lt;span class=&quot;n&quot;&gt;map&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;keySet&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;retainAll&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;topCells&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;};&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;dataMatches&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ALPHA_REST_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/events&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;columnStrippingConsumer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-
- &lt;span class=&quot;n&quot;&gt;And&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Car Service contains the following booking orders$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataTable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;dataMatches&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CAR_SERVICE_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/bookings&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NO_OP_CONSUMER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-
-    &lt;span class=&quot;n&quot;&gt;And&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Hotel Service contains the following booking orders$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataTable&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;dataMatches&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getProperty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HOTEL_SERVICE_ADDRESS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;/bookings&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;NO_OP_CONSUMER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-
-        &lt;p&gt;上面代码对应feature中&lt;code class=&quot;highlighter-rouge&quot;&gt;Then&lt;/code&gt;结果从三方面验证预定事件是否符合预期：&lt;code class=&quot;highlighter-rouge&quot;&gt;Alpha&lt;/code&gt;服务中记录的事件顺序、&lt;code class=&quot;highlighter-rouge&quot;&gt;Car&lt;/code&gt;服务的预定结果和 &lt;code class=&quot;highlighter-rouge&quot;&gt;Hotel&lt;/code&gt;服务中的预定结果。&lt;code class=&quot;highlighter-rouge&quot;&gt;DataTable&lt;/code&gt;解析了feature中定义的事件结果和顺序，&lt;code class=&quot;highlighter-rouge&quot;&gt;dataMatches&lt;/code&gt;将此结果与各服务中查询到的结果进行比较验证是不是符合预期。&lt;/p&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;执行Command &lt;code class=&quot;highlighter-rouge&quot;&gt;RunCucumberIT.java&lt;/code&gt;&lt;/p&gt;
-
-        &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;@Runwith(Cucumber.class)&lt;/code&gt;指定使用Cucumber测试框架入口，并在&lt;code class=&quot;highlighter-rouge&quot;&gt;@CucumberOptions&lt;/code&gt;中指定feature目录和输出格式。&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;有子事务出现异常测试&lt;/p&gt;
-
-    &lt;p&gt;由于房源紧张，限制每个用户最多预订2间房，当用户预订超过2间时会抛出异常：&lt;/p&gt;
-
-    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Compensable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compensationMethod&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;cancel&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;order&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HotelBooking&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getAmount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;throw&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;IllegalArgumentException&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;can not order the rooms large than two&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;confirm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;bookings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;put&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;booking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;在此异常测试中我们预订事件中预订3间房，由于订房间失败，整个行程事务没有成功，对已经成功执行的订车子事务进行补偿保证原子性。&lt;/p&gt;
-
-    &lt;ol&gt;
-      &lt;li&gt;
-        &lt;p&gt;创建feature文件&lt;code class=&quot;highlighter-rouge&quot;&gt;pack_compensation_scenario.feature&lt;/code&gt;&lt;/p&gt;
-
-        &lt;p&gt;与成功的行程规划测试中不同的只有触发的预定事件和最终的结果，前提条件都是4个服务启动并运行，所以feature只要修改&lt;code class=&quot;highlighter-rouge&quot;&gt;When&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;Then&lt;/code&gt;内容即可（Features和Scenarios名也要对应修改）&lt;/p&gt;
-
-        &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;s&quot;&gt;When User Sean requests to book 5 cars and 3 rooms&lt;/span&gt;
-
-    &lt;span class=&quot;s&quot;&gt;Then Alpha records the following events&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| serviceName  | type               |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-booking | SagaStartedEvent   |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxStartedEvent     |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxEndedEvent       |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxStartedEvent     |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxAbortedEvent     |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxCompensatedEvent |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-car     | SagaEndedEvent     |&lt;/span&gt;
-
-    &lt;span class=&quot;s&quot;&gt;Then Car Service contains the following booking orders&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| name | amount | confirmed | cancelled |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| Sean | 5      | false     | true      |&lt;/span&gt;
-
-    &lt;span class=&quot;s&quot;&gt;Then Hotel Service contains the following booking orders&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| name | amount | confirmed | cancelled |&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-        &lt;/div&gt;
-      &lt;/li&gt;
-      &lt;li&gt;
-        &lt;p&gt;step_definition和Command与之前一样，不需要任何修改，触发预定超过3个房间的操作后，&lt;code class=&quot;highlighter-rouge&quot;&gt;Alpha&lt;/code&gt;会记录Hotel服务的&lt;code class=&quot;highlighter-rouge&quot;&gt;TxAbortedEvent&lt;/code&gt;和Car服务的&lt;code class=&quot;highlighter-rouge&quot;&gt;TxCompensatedEvent&lt;/code&gt;时间，此外Car服务的预定记录中会有取消为&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;的记录。&lt;/p&gt;
-      &lt;/li&gt;
-    &lt;/ol&gt;
-
-    &lt;p&gt;通过以上两个例子分析，Cucumber开发只需要在feature中定义好测试所需条件，触发事件和结果验证信息，然后在step_definition中进行解析验证即可。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;byteman-规则注入&quot;&gt;Byteman 规则注入&lt;/h4&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Byteman&lt;/code&gt;可以在代码的任意位置注入代码，并可以在注入的代码中访问当前方法中变量，包括方法参数、局部变量、调用其他函数的参数值、返回值等。更多关于Byteman的介绍请参考&lt;a href=&quot;http://byteman.jboss.org/docs.html&quot;&gt;官方文档[4]&lt;/a&gt;。&lt;/p&gt;
-
-&lt;p&gt;Byteman开发过程：&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;创建规则脚本.btm文件&lt;/p&gt;
-
-    &lt;p&gt;根据byteman语法创建规则，包括规则名，目标类，目标方法，注入位置，注入内容等，下面是一个在&lt;code class=&quot;highlighter-rouge&quot;&gt;main&lt;/code&gt;函数入口注入打印语句的规则文件例子&lt;/p&gt;
-
-    &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;RULE trace main entry&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;CLASS AppMain&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;METHOD main&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;AT ENTRY&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;IF true&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;DO traceln(&quot;entering main&quot;)&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;ENDRULE&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;在安装了byteman环境的机器上用javaagent参数指定加载规则文件运行AppMain即可在main函数入口处打印出&lt;code class=&quot;highlighter-rouge&quot;&gt;entering main&lt;/code&gt;。例子&lt;a href=&quot;https://github.com/adinn/byteman-tutorial1&quot;&gt;源码请参考[5]&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;加载规则并运行&lt;/p&gt;
-
-    &lt;p&gt;除了上面例子中通过命令行指定javaagent指定byteman 规则文件的加载方式外，还可以通过Java代码的方式加载，如下&lt;/p&gt;
-
-    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Submit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Submit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addRulesFromFiles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;org.jboss.byteman.agent.submit.Submit&lt;/code&gt;提供的加载规则的方法有通过文件加载&lt;code class=&quot;highlighter-rouge&quot;&gt;addRulesFromFiles&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;addRulesFromResources&lt;/code&gt;&lt;/p&gt;
-
-    &lt;p&gt;同样，byteman提供了移除规则的方法&lt;code class=&quot;highlighter-rouge&quot;&gt;deleteRulesFromFiles&lt;/code&gt;，&lt;code class=&quot;highlighter-rouge&quot;&gt;deleteRulesFromResources&lt;/code&gt;和&lt;code class=&quot;highlighter-rouge&quot;&gt;deleteAllRules&lt;/code&gt;。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;saga-使用-cucumber-集成-byteman&quot;&gt;Saga 使用 Cucumber 集成 Byteman&lt;/h4&gt;
-
-&lt;p&gt;Saga在Cucumber中集成了byteman注入一个超时异常，测试Saga对超时处理是否符合预期。&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;创建byteman规则文件：&lt;code class=&quot;highlighter-rouge&quot;&gt;booking_timeout.btm&lt;/code&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;s&quot;&gt;RULE set the saga timeout to 5s&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;INTERFACE org.apache.servicecomb.saga.omega.context.annotations.SagaStart&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;METHOD timeout&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;AT EXIT&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;IF TRUE&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;DO RETURN 5&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;ENDRULE&lt;/span&gt;
-
-&lt;span class=&quot;s&quot;&gt;RULE sleep when postBooking until timeout happens&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;CLASS org.apache.servicecomb.saga.demo.pack.booking.BookingController&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;METHOD postBooking&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;AT ENTRY&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;IF TRUE&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;DO debug(&quot;delay 10s until the booking timeout&quot;),&lt;/span&gt;
-   &lt;span class=&quot;s&quot;&gt;Thread.sleep(10000)&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;ENDRULE&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;这里定义了两个规则，第一个规则&lt;code class=&quot;highlighter-rouge&quot;&gt;set the saga timeout to 5s&lt;/code&gt;在注解&lt;code class=&quot;highlighter-rouge&quot;&gt;@SagaStart&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;timeout&lt;/code&gt;方法中返回5表示设置超时时间值为5秒。第二个规则&lt;code class=&quot;highlighter-rouge&quot;&gt;sleep when postBooking until timeout happens&lt;/code&gt;在类&lt;code class=&quot;highlighter-rouge&quot;&gt;BookingController&lt;/code&gt;的&lt;code class=&quot;highlighter-rouge&quot;&gt;postBooking&lt;/code&gt;方法中注入&lt;code class=&quot;highlighter-rouge&quot;&gt;Thread.sleep(10000)&lt;/code&gt;，让&lt;code class=&quot;highlighter-rouge&quot;&gt;postBooking&lt;/code&gt;方法阻塞10秒，原来的&lt;code class=&quot;highlighter-rouge&quot;&gt;postBooking&lt;/code&gt;方法是一个空方法，注入byteman的阻塞方法后会触发预定行程服务的超时异常。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;创建feature文件：&lt;code class=&quot;highlighter-rouge&quot;&gt;pack_timeout_scenario.feature&lt;/code&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;language-yaml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt; 	&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;Given Install the byteman script booking_timeout.btm to Booking Service&lt;/span&gt;
-
-    &lt;span class=&quot;s&quot;&gt;When User Sean requests to book 1 cars and 1 rooms&lt;/span&gt;
-
-    &lt;span class=&quot;s&quot;&gt;Then Alpha records the following events&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| serviceName  | type               |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-booking | SagaStartedEvent   |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxStartedEvent     |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxEndedEvent       |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxStartedEvent     |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxEndedEvent       |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-booking | TxAbortedEvent     |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-hotel   | TxCompensatedEvent |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-car     | TxCompensatedEvent |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| pack-booking | SagaEndedEvent     |&lt;/span&gt;
-
-    &lt;span class=&quot;s&quot;&gt;Then Car Service contains the following booking orders&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| name | amount | confirmed | cancelled |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| Sean | 1      | false     | true      |&lt;/span&gt;
-
-    &lt;span class=&quot;s&quot;&gt;Then Hotel Service contains the following booking orders&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| name | amount | confirmed | cancelled |&lt;/span&gt;
-      &lt;span class=&quot;s&quot;&gt;| Sean | 1      | false     | true      |&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;在行程预定的例子中仍然以4个服务启动并运行为前提，然后加载上面创建的byteman规则文件和目标服务：&lt;code class=&quot;highlighter-rouge&quot;&gt;Booking&lt;/code&gt;。然后触发预定一辆车和一间房的操作。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;step_definition解析&lt;/p&gt;
-
-    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;Given&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;^Install the byteman script ([A-Za-z0-9_\\.]+) to ([A-Za-z]+) Service$&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Install the byteman script {} to {} service&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;List&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ArrayList&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;add&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;target/test-classes/&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;script&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;Submit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;getBytemanSubmit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;service&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;bm&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;addRulesFromFiles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rules&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;});&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;在Cucumber解析文件中用正则方法获取目标规则和服务名，&lt;code class=&quot;highlighter-rouge&quot;&gt;getBytemanSubmit&lt;/code&gt;根据服务名&lt;code class=&quot;highlighter-rouge&quot;&gt;service&lt;/code&gt;参数来获取目标服务的地址和byteman监听端口，并将本地规则注入到目标服务中，注入原理是&lt;code class=&quot;highlighter-rouge&quot;&gt;Booking&lt;/code&gt;启动时是带着byteman参数启动的：&lt;/p&gt;
-
-    &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-Dorg.jboss.byteman.debug&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt; -Dorg.jboss.byteman.verbose&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;tru
--javaagent:/maven/saga/byteman.jar&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;port:9091,address:0.0.0.0,listener:true
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-
-    &lt;p&gt;执行&lt;code class=&quot;highlighter-rouge&quot;&gt;bm.addRulesFromFiles(rules);&lt;/code&gt;时就可以把本地规则通过Socket发送到&lt;code class=&quot;highlighter-rouge&quot;&gt;Booking&lt;/code&gt;服务，并由Byteman完成字节替换。&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;结果验证&lt;/p&gt;
-
-    &lt;p&gt;注入规则后触发预定车辆和房间服务时预定服务会出现超时，Saga会对已经完成的订车和订房间子事务进行补偿，Alpha中记录了一些列事件以及他们发生的顺序，另外Car服务和Hotel服务的取消标记&lt;code class=&quot;highlighter-rouge&quot;&gt;cancelled&lt;/code&gt;也为&lt;code class=&quot;highlighter-rouge&quot;&gt;true&lt;/code&gt;。&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;代码中使用Cucumber和Byteman要先通过pom引入相关依赖&lt;/p&gt;
-
-&lt;div class=&quot;language-xml highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	&lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.cucumber&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;cucumber-java8&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;${cucumber.version}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;test&lt;span class=&quot;nt&quot;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;io.cucumber&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;cucumber-junit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;${cucumber.version}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;scope&amp;gt;&lt;/span&gt;test&lt;span class=&quot;nt&quot;&gt;&amp;lt;/scope&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;dependency&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;groupId&amp;gt;&lt;/span&gt;org.jboss.byteman&lt;span class=&quot;nt&quot;&gt;&amp;lt;/groupId&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;artifactId&amp;gt;&lt;/span&gt;byteman-submit&lt;span class=&quot;nt&quot;&gt;&amp;lt;/artifactId&amp;gt;&lt;/span&gt;
-      &lt;span class=&quot;nt&quot;&gt;&amp;lt;version&amp;gt;&lt;/span&gt;${byteman.version}&lt;span class=&quot;nt&quot;&gt;&amp;lt;/version&amp;gt;&lt;/span&gt;
-    &lt;span class=&quot;nt&quot;&gt;&amp;lt;/dependency&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;p&gt;本地运行调试需要在启动的时候使用javaagent启动byteman，建议通过修改docker-compose.yaml文件，指定可执行jar的启动参数，并修改stepdef解析文件中各个服务地址，个服务启动运行后在IDEA中运行相应的feature文件即可进行调试测试。运行调试版代码可参考&lt;a href=&quot;https://github.com/lijasonvip/incubator-servicecomb-saga/tree/debug-cucumber-byteman&quot;&gt;个人分支代码[6]&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;欢迎开发者朋友们加入ServiceComb社区，一起做些有意思的事情。&lt;a href=&quot;http://servicecomb.incubator.apache.org/cn/docs/join_the_community/&quot;&gt;加入社区方法[7]&lt;/a&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;参考资料&quot;&gt;参考资料&lt;/h4&gt;
-
-&lt;p&gt;[1] ServiceComb Saga  https://github.com/apache/incubator-servicecomb-saga&lt;/p&gt;
-
-&lt;p&gt;[2] Cucumber  https://cucumber.io/&lt;/p&gt;
-
-&lt;p&gt;[3] Saga booking demo  https://github.com/apache/incubator-servicecomb-saga/tree/master/saga-demo/booking&lt;/p&gt;
-
-&lt;p&gt;[4] Byteman  http://byteman.jboss.org/docs.html&lt;/p&gt;
-
-&lt;p&gt;[5] Byteman demo https://github.com/adinn/byteman-tutorial1&lt;/p&gt;
-
-&lt;p&gt;[6] debug 分支 https://github.com/lijasonvip/incubator-servicecomb-saga/tree/debug-cucumber-byteman&lt;/p&gt;
-
-&lt;p&gt;[7] 加入ServiceComb 社区  http://servicecomb.incubator.apache.org/cn/docs/join_the_community/&lt;/p&gt;</content><author><name>Li Bo</name><email>libo75@huawei.com</email></author><category term="Saga" /><category term="Cucumber" /><summary type="html">ServiceComb Saga使用Cucumber做验收测试源码分析</summary></entry></feed>
+&lt;p&gt;至此，DDD设计地产CRM的工作就结束了，从下一篇文章开始，我们将和您一起轻松愉快的开启代码构建之旅，敬请期待！&lt;/p&gt;</content><author><name>Yangyong Zheng</name><email>yangyong.zheng@huawei.com</email><uri>https://zhengyangyong.github.io</uri></author><category term="Archetypes" /><category term="Scaffold" /><summary type="html">轻松微服务系列：从一键构建微服务和DDD设计开始</summary></entry></feed>
