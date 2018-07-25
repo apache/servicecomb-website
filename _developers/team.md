@@ -27,6 +27,7 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | wujimin       |  Wu Jimin               |  Huawei       |  *   |
 | zhangqi       |  Zhang qi               |  Huawei       |      |
 | zhengyangyong |  Zheng Yangyong         |  Huawei       |      |
+| zhfeng        |  Feng Zheng             |  Redhat       |      |
 
 
 * Contributors:
@@ -56,5 +57,4 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | zenlinTechnofreak | Lin Zhinan             | Huawei       |
 | zhanglongchun     | Zhang LongChun         |              |
 | zhang2014         | Zhang Jian             | OneAPM       |
-| zhfeng            | Feng Zheng             | Redhat       |
 | zhuhoudong        | Zhu Houdong            |              |
