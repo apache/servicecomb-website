@@ -1,0 +1,10 @@
+#!/bin/bash
+
+
+git clone https://github.com/apache/incubator-servicecomb-docs.git
+
+gitbook build incubator-servicecomb-docs/java-chassis-reference users/servicecomb-java-chassis-doc
+ 
+bundle exec jekyll build --config _config.yml
+
+bundle exec jekyll server --port 4000 --host 
