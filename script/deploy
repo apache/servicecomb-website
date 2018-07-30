@@ -1,10 +1,14 @@
 #!/bin/bash
 
-
+script_dir=$(cd `dirname $0`; pwd)
+echo cru$script_dir
+base_dir=`dirname ${script_dir}`
+echo build $base_dir
+echo $git_book_dir
 git clone https://github.com/apache/incubator-servicecomb-docs.git
 
-gitbook build incubator-servicecomb-docs/java-chassis-reference users/servicecomb-java-chassis-doc
- 
-bundle exec jekyll build --config _config.yml
+sudo gitbook build incubator-servicecomb-docs/java-chassis-reference ../users/servicecomb-java-chassis-doc
+cd ${base_dir}
+sudo bundle exec jekyll build --config _config.yml
 
-bundle exec jekyll server --port 4000 --host 
+sudo bundle exec jekyll server --port 4000 --host 
