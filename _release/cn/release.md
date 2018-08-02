@@ -14,13 +14,18 @@ Only current recommended releases are available on the main distribution site an
 
 **Stable Release - Latest Version:**
 
-* [Apache ServiceComb (incubating) Service-Center 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
+* [Apache ServiceComb (incubating) Service-Center 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0/){:target="_blank"} (released on 2018-08-02)
 
-* [Apache ServiceComb (incubating) Java-Chassis 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
+* [Apache ServiceComb (incubating) Java-Chassis 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0/){:target="_blank"} (released on 2018-08-02)
 
 * [Apache ServiceComb (incubating) Saga 0.2.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.2.0/){:target="_blank"} (released on 2018-06-21)
 
 **Earlier Releases :**
+
+* [Apache ServiceComb (incubating) Service-Center 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
+
+* [Apache ServiceComb (incubating) Java-Chassis 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
+
 * [Apache ServiceComb (incubating) Service-Center 1.0.0-m1](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/){:target="_blank"} (released on 2018-03-27)
 
 * [Apache ServiceComb (incubating) Java-Chassis 1.0.0-m1](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/){:target="_blank"} (released on 2018-04-02)
