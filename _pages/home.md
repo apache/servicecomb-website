@@ -36,10 +36,10 @@ intro:
 
 <ul>
   <li>
-    <a href='/release/java-chassis-downloads/'>Java-Chassis releases a new version 1.0.0-m2</a>
+    <a href='/release/java-chassis-downloads/'>Java-Chassis releases a new version 1.0.0</a>
   </li>
   <li>
-    <a href='/release/service-center-downloads/'>Service-Center releases a new version 1.0.0-m2</a>
+    <a href='/release/service-center-downloads/'>Service-Center releases a new version 1.0.0</a>
   </li>
   <li>
     <a href='/release/saga-downloads/'>Saga releases a new version 0.2.0</a>

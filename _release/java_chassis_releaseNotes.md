@@ -7,6 +7,126 @@ excerpt: "Release Notes"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
 
+
+        Release Notes - Apache ServiceComb - Version java-chassis-1.0.0
+            
+<h2>        Bug
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-651'>SCB-651</a>] -         QPS rate limit bug
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-662'>SCB-662</a>] -         Using cse/servicecomb duplicate key will get list of values
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-666'>SCB-666</a>] -         Test failure on system that have rotate option set in /etc/resolv.conf
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-696'>SCB-696</a>] -         [AccessLog] If nginx send requests via short-lived connections, %v will print &quot;0.0.0.0&quot;
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-699'>SCB-699</a>] -         add schemaIds field in register.yaml when mock the Local sevice-center
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-703'>SCB-703</a>] -         When consumer invoke void type method in RPC style, an exception is thrown
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-705'>SCB-705</a>] -         When consumer invoke an unregistered provider, it will never find this provider even the provider is registered later
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-753'>SCB-753</a>] -         NPE when query not exists service
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-754'>SCB-754</a>] -         Check null invocation in AbstractRestInvocation to avoid unexpected NPE
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-759'>SCB-759</a>] -         Fix ServiceComb version error
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-772'>SCB-772</a>] -         Java Chassis::Handlers::Loadbalance test failed
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-773'>SCB-773</a>] -         Java Chassis::Core test failed
+</li>
+</ul>
+        
+<h2>        New Feature
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-616'>SCB-616</a>] -         Make access log mechanism extensible
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-640'>SCB-640</a>] -         Add black/white list support based on public key handler
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-679'>SCB-679</a>] -         Support Cross-Origin Resource Sharing (CORS)
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-708'>SCB-708</a>] -         Support assembling query param into Object parameter(in Spring MVC developing style)
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-752'>SCB-752</a>] -         User can switch off outputting merged log4j property file
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-760'>SCB-760</a>] -         provide a way to invoke service with full path
+</li>
+</ul>
+        
+<h2>        Improvement
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-194'>SCB-194</a>] -         Improve component-scan setting
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-661'>SCB-661</a>] -         Logs improvement to give better information
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-671'>SCB-671</a>] -         Duplicate cse.xxx to servicecomb.xxx to work better in future
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-684'>SCB-684</a>] -         Following swagger conventions
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-685'>SCB-685</a>] -         Service comb chassis must support default values
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-697'>SCB-697</a>] -         Service comb chassis must support JAX-RS @DefaultValue
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-700'>SCB-700</a>] -         Check server status when choose an available server
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-701'>SCB-701</a>] -         RequestBody(required = false) and when requestBody is null then exception observed
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-702'>SCB-702</a>] -         Deleted unwanted json-lib maven dependency for foundation-config
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-706'>SCB-706</a>] -         refactor loadbalance filters logic to support invocation based filter
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-712'>SCB-712</a>] -         Do not register service path to service center when not necessary
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-713'>SCB-713</a>] -         @DefaulValue should be set only when input param is null
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-715'>SCB-715</a>] -         Working in thread that do not have context class loader
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-727'>SCB-727</a>] -         Java Chassis-Local generated schema and service center schema are different while registering the service then print the difference content
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-750'>SCB-750</a>] -         Dependency management is incomplete in Saga and Java-Chassis
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-755'>SCB-755</a>] -         [SCB-755] 755 Duplicate copy cse config to Servicecomb config
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-763'>SCB-763</a>] -         Simplify Dynamic Config (Apollo) Integration Test in Java Chassis
+</li>
+</ul>
+        
+<h2>        Wish
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-746'>SCB-746</a>] -         Update Chassis from m1 to m2 in start.servicecomb.io
+</li>
+</ul>
+    
+<h2>        Task
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-506'>SCB-506</a>] -         Report the service governance event 
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-693'>SCB-693</a>] -         registry microservice failed if get host address failed
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-725'>SCB-725</a>] -         support get main class package when run with &quot;java -jar xxx.jar&quot;
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-726'>SCB-726</a>] -         edge support convert from form-data or x-www-form-urlencoded to json automatically
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-728'>SCB-728</a>] -         add decrypt/signature/... to edge demo
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-729'>SCB-729</a>] -         check if instance cache equals to SC
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-733'>SCB-733</a>] -         open handlerContext for business logic, and add a new name: localContext
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-738'>SCB-738</a>] -         delete microservice from MicroserviceManager after it not exist in SC
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-762'>SCB-762</a>] -         resolve eclipse compile warnings
+</li>
+</ul>
+                                                                                                                                        
+                                                                                                                                        
+
         Release Notes - Apache ServiceComb - Version java-chassis-1.0.0-m2
     
 <h2>        Sub-task
