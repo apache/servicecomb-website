@@ -55,5 +55,4 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | zenlinTechnofreak | Lin Zhinan             | Huawei       |
 | zhanglongchun     | Zhang LongChun         |              |
 | zhang2014         | Zhang Jian             | oneAPM       |
-| zhfeng            | Feng Zheng             | Redhat       |
 | zhuhoudong        | Zhu Houdong            |              |
