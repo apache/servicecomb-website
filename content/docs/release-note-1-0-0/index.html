@@ -19,35 +19,35 @@
 
 
 
-<title>Proposal for refactoring service registry module in Java Chassis - Apache ServiceComb (incubating)</title>
+<title>[Milestone] Apache ServiceComb (incubating) Release Version 1.0.0 - Apache ServiceComb (incubating)</title>
 
 
 
 
-<meta name="description" content="Analysis of service registry and propose a new architecture for it">
+<meta name="description" content="Apache ServiceComb (incubating) enters new stage">
 
 
 
 
-<meta name="author" content="Eric Lee">
+<meta name="author" content="Wang Kirin">
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb (incubating)">
-<meta property="og:title" content="Proposal for refactoring service registry module in Java Chassis">
+<meta property="og:title" content="[Milestone] Apache ServiceComb (incubating) Release Version 1.0.0">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/service-registry-refactor-proposal/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/service-registry-refactor-proposal/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/release-note-1-0-0/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/release-note-1-0-0/">
 
 
 
-  <meta property="og:description" content="Analysis of service registry and propose a new architecture for it">
+  <meta property="og:description" content="Apache ServiceComb (incubating) enters new stage">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="Proposal for refactoring service registry module in Java Chassis">
-  <meta name="twitter:description" content="Analysis of service registry and propose a new architecture for it">
+  <meta name="twitter:title" content="[Milestone] Apache ServiceComb (incubating) Release Version 1.0.0">
+  <meta name="twitter:description" content="Apache ServiceComb (incubating) enters new stage">
   <meta name="twitter:url" content="">
 
   
@@ -70,7 +70,7 @@
 
 
   <meta property="og:type" content="article">
-  <meta property="article:published_time" content="2017-12-19T00:00:00+08:00">
+  <meta property="article:published_time" content="2018-08-20T00:00:00+08:00">
 
 
 
@@ -215,7 +215,7 @@
               
               
               
-                <a href="/release/">Downloads</a>
+                <a class="active" href="/release/">Downloads</a>
               
             </li>
           
@@ -225,7 +225,7 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/docs/service-registry-refactor-proposal/>中文</a>
+            <a href=/cn/docs/release-note-1-0-0/>中文</a>
           
         </div>
       </nav>
@@ -251,11 +251,11 @@
   
 
   <div class="author__content">
-    <h3 class="author__name" itemprop="name">Eric Lee</h3>
+    <h3 class="author__name" itemprop="name">Wang Qilin</h3>
     
       <p class="author__bio" itemprop="description">
 	    
-        Winter is coming, arm ourself with code
+        I like opensource!!
 	    
       </p>
     
@@ -268,7 +268,7 @@
 
       
         <li>
-          <a href="https://eric-lee-ltk.github.io" itemprop="url">
+          <a href="https://github.com/wangkirin" itemprop="url">
             <i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website
           </a>
         </li>
@@ -276,8 +276,8 @@
 
       
         <li>
-          <a href="mailto:eric.lee.ltk@gmail.com">
-            <meta itemprop="email" content="eric.lee.ltk@gmail.com" />
+          <a href="mailto:wangqilintech@gmail.com">
+            <meta itemprop="email" content="wangqilintech@gmail.com" />
             <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
           </a>
         </li>
@@ -344,16 +344,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Proposal for refactoring service registry module in Java Chassis">
-    <meta itemprop="description" content="Analysis of service registry and propose a new architecture for it">
-    <meta itemprop="datePublished" content="December 19, 2017">
-    <meta itemprop="dateModified" content="December 19, 2017">
+    <meta itemprop="headline" content="[Milestone] Apache ServiceComb (incubating) Release Version 1.0.0">
+    <meta itemprop="description" content="Apache ServiceComb (incubating) enters new stage">
+    <meta itemprop="datePublished" content="August 20, 2018">
+    <meta itemprop="dateModified" content="June 14, 2018">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">Proposal for refactoring service registry module in Java Chassis
+            <h1 class="page__title" itemprop="headline">[Milestone] Apache ServiceComb (incubating) Release Version 1.0.0
 </h1>
             
               <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
@@ -361,7 +361,7 @@
 
 
 
-  2 minute read
+  4 minute read
 
 </p>
             
@@ -370,61 +370,121 @@
       
 
       <section class="page__content" itemprop="text">
-        <h2 id="background">Background</h2>
+        <p>​	Recently,  the Apache Foundation Incubation Project - Apache ServiceComb (incubating) officially released its  1.0.0 version  through community voting. The release this time includes Apache ServiceComb Java-Chassis (hereinafter referred to as Java-chassis) and Apache ServiceComb ServiceCenter (hereinafter referred to as ServiceCenter).</p>
 
-<p>The architecture of the <code class="highlighter-rouge">service registry</code> module in Java Chassis is as follows.</p>
+<p>​	ServiceComb has entered the Apache Foundation since December 2017, and version 1.0.0-m1 released in March 2018  , 1.0.0-m2 in  June 2018 . Now in August 2018, the milestone of release -1.0.0  was completed.</p>
 
-<p><img src="/assets/images/service_registry.png" alt="" /></p>
+<p>​	 At present, 10+ companies have used ServiceComb for commercial use, the ServiceComb team has already participated in 10+ Meetups to give a speech. Besides, the ServiceComb community also  held 3 Meetups. The release of version 1.0.0 this time means that the ServiceComb version has officially entered a stable state on the premise of meeting the requirements of the Apache Software Foundation. The main new features and enhancements of ServiceComb Java-chassis and Service-center after entering the Apache Foundation incubation are as follows:</p>
 
-<p>However, it has the following problems:</p>
-
-<ul>
-  <li>Low level components access high level components frequently. The cyclic relationships make the implementation complicated and introduce some redundant access points.</li>
-  <li>Low level components should be stateless to be reused by high level components. Introducing state into low level components makes it relies heavily on the high level components, causing cyclic relationships.</li>
-  <li>Hard to integrate with third-party framework. It does not provide a standalone client with cache capability inside. It also requires the configurations should be loaded from dynamic properties.</li>
-</ul>
-
-<h2 id="proposed-architecture">Proposed Architecture</h2>
-
-<p><img src="/assets/images/proposed_architecture.png" alt="" /></p>
-
-<p>The above architecture is what the <code class="highlighter-rouge">service registry</code> module supposed to be in my opinion. The low level components like <code class="highlighter-rouge">ApiManager</code> and <code class="highlighter-rouge">UriManager</code> are stateless so they do not rely on high level components any more. Relationships between components are clear and simple.</p>
-
-<p>Tasks can be divided into the following parts:</p>
-
-<p><img src="/assets/images/task.png" alt="" /></p>
-
-<p>There are two types of tasks:</p>
+<h2 id="java-chassis">Java-chassis</h2>
 
 <ul>
-  <li>Simple Task. Task that executes only once.</li>
-  <li>Period Task. Task that executes at every interval.</li>
+  <li>New Metrics module; Added a large number of monitoring indicators; Support Prometheus integration</li>
+  <li>Re-org the configuration center, support docking Ctrip Apollo as a configuration center, and easily extend the docking of other three-party configuration centers</li>
+  <li>The POJO programming model allows users to use CompletableFuture asynchronous programming</li>
+  <li>The POJO programming model allows users to use Object and Generic types as invoke parameters</li>
+  <li>Upgrade Zipkin to Zipkin2, and support both v1 and v2 versions of Zipkin server</li>
+  <li>Micro-service communication provides file stream capability and supports multimedia scenes such as music and pictures</li>
+  <li>Added support for API level QPS control based on service level QPS control;</li>
+  <li>Now we support using <code class="highlighter-rouge">servicecomb.flowcontrol.Consumer.qps.limit.[ServiceName].[Schema].[operation]</code> to config the API level QPS control</li>
+  <li>Added  <code class="highlighter-rouge">scaffold</code> and <a href="http://start.servicecomb.io">start.servicecomb.io</a> to allow users quickly build projects and provide complete out-of-the-box capabilities
+    <ul>
+      <li> Now create a ServiceComb microservice can be quickly built by Apache Maven Archetype. For more details, please refer to <a href="https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/archetypes/README.md">ServiceComb Java Chassis Archetypes</a> , or you can directly access <a href="http://start.servicecomb.io">start.servicecomb.io</a>  to use the  <code class="highlighter-rouge">SPRING INITIALIZR UI</code> intergated by ServiceComb .</li>
+    </ul>
+  </li>
+  <li>Added a demonstration of how to build a ServiceComb project using <code class="highlighter-rouge">Gradle</code>
+    <ul>
+      <li>We added the Gradle configuration to the <a href="https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/bmi">BMI</a> project</li>
+    </ul>
+  </li>
+  <li>
+    <p>Asynchronous programming model supports <code class="highlighter-rouge">AsycRestTemplate</code></p>
+  </li>
+  <li>
+    <p>Added support for the <code class="highlighter-rouge">http/2</code> protocol</p>
+  </li>
+  <li>
+    <p>Implemented error injection interface that allows constructing an exception scenario by intercepting a service request. For example, setting the delay and error of a request to a specified microservice and its triggering probability</p>
+  </li>
+  <li>
+    <p>Added service Dev running mode, support contract dynamic modification when Dev mode is enabled</p>
+  </li>
+  <li>
+    <p>Implemented graceful downtime, anti-registration when the service is closed, ensuring that the accepted request is completed and the resources are fully released</p>
+  </li>
+  <li>
+    <p>Extend the micro-service public-private key authentication mechanism and add the  blacklist and whitelist function</p>
+
+    <ul>
+      <li>ServiceCenter has already support control the registration of microservices through blacklist and whitelist. However, since microservices are directly connected to each other, the microservices themselves need to have independent blacklist and whitelist authentication.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Support Cross-Origin Resource Sharing (CORS);</p>
+
+    <ul>
+      <li>For example, Ajax can directly access microservices.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Expanded the Access Log mechanism of Rest Endpoint</p>
+
+    <ul>
+      <li>Previously users could only set the Access Log’s Pattern. Now users can further customize the Access Log Item.</li>
+    </ul>
+  </li>
+  <li>
+    <p>The SpringMVC programming model now also supports class objects as arguments</p>
+
+    <ul>
+      <li>Users can use class objects as parameters, for example：</li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/address"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">address</span><span class="o">(</span><span class="n">Address</span> <span class="n">address</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Address</span> <span class="o">{</span>
+	<span class="n">String</span> <span class="n">country</span><span class="o">;</span>
+	<span class="n">String</span> <span class="n">city</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+    </div>
+
+    <p> will be automatically converted to<code class="highlighter-rouge">/address?city={city}&amp;country={country}</code></p>
+  </li>
+  <li>
+    <p>Microservices deployed in web containers such as Tomcat, now support access path request services in conjunction with context path and servlet pattern</p>
+
+    <ul>
+      <li>For example,if  the calling path is<code class="highlighter-rouge">cse://service/a/b...</code>，can also  access via <code class="highlighter-rouge">cse://service/{context path}/{servlet pattern}/a/b...</code> after deployed in web containers such as Tomcat</li>
+    </ul>
+  </li>
+  <li>
+    <p>Automatically scan the package of the <code class="highlighter-rouge">main</code> function to simplify user configuration</p>
+  </li>
+  <li>
+    <p>Provides a client ping mechanism that can detect if a client cache instance is available through ping extension. This feature is enabled by default, and the instance isolation function is used to isolate instances that fail to detect</p>
+  </li>
+  <li>When the microservices are downgraded or the instance is isolated, the corresponding event will be triggered, which facilitates third-party integration (reporting)</li>
 </ul>
 
-<p>The result of task will convert to event and posts to the <code class="highlighter-rouge">EventManager</code>. Any methods that subscribes that kind of event will be notified and execute the corresponding response, e.g. update the cache.</p>
-
-<p>Both the outside requests and chassis requests share the same interface of Configuration, they can implement their own way to load configurations. The difference between chassis requests and outside requests is that chassis requests need to manage microservice informations of their own. Besides,  chassis requests also need to provide a compatible interface for requests to use. There comes  to the component <code class="highlighter-rouge">RegistryUtils</code>. It is responsible for the following stuff:</p>
+<h2 id="service-center">Service-center</h2>
 
 <ul>
-  <li>Initialize service registry client with configurations.</li>
-  <li>Initialization of service center service, attach with a PullTask.</li>
-  <li>Initialization of service itself, attach with RegisterTask, HeartbeatTask and WatchTask.</li>
-  <li>Provide wrapper method for service registry client.</li>
+  <li>In total 3 releases has been done till date after incubation of Service-Center in Apache.</li>
+  <li>With every release there has been a significant addition of features and improvements.(like PACT Broker, Async Rest Template, Log Rotation, ipv6 support, Backend Store extension, Schema Testing, Self Discovery from Consumer )</li>
+  <li>With each release the stability of the Service-Center increased as more and more bugs were fixed.</li>
+  <li>Performance has increased significantly as lot of API’s were optimized related to Service Discovery.</li>
+  <li>Optimizations were done for Restful Clients and Plugin loaders.</li>
+  <li>Seamless integration of metrics &amp; tracing were added in to improve the monitoring capabilities.</li>
+  <li>Security was improved in terms of Service Discovery based on rules, default TLS Cipher Suites were added.</li>
+  <li>Event driven mechanisms were adopted for Service-Dependency management.</li>
+  <li>Better management of data was implemented in case of recovery management.</li>
+  <li>Efforts were made to make the ETCD connection resilient and self healing.</li>
+  <li>Support for Async rest template and ipv6 supports were added.</li>
+  <li>Concrete License Management has been done to give full credits to the authors of third party dependencies used in the project.</li>
+  <li>Support for deployement of Service-Centere in multiple infrastructures has been added.</li>
+  <li>The Web Management Console was completely re-designed to provide better functionalities and user friendly.</li>
 </ul>
-
-<p>The initialization process of service registry client is as follows:</p>
-
-<p><img src="/assets/images/client_initialization.png" alt="" /></p>
-
-<p>If the auto discovery switch is on, it need to create a period task <code class="highlighter-rouge">PullTask</code> to make the available service center services’ information up to date.</p>
-
-<p>Any requests to a new microservice will create a new entry in the service registry client. Once we access the same microservice again, the client will response with the cached version which reduces communication cost with service center.</p>
-
-<p>Let’s checkout how the <code class="highlighter-rouge">Microservice</code> component works. Instances and its versions are cached inside the microservice. To get an instance of a specified id, all it needs to do is lookup the cache or create a query task to update the cache. All interactions from <code class="highlighter-rouge">Microservice</code> to  <code class="highlighter-rouge">ApiManager</code> are done by the <code class="highlighter-rouge">Task</code>.</p>
-
-<p>The <code class="highlighter-rouge">ApiManager</code> is designed to interact directly with service center as a pure client with api inside only. Its structure is as follows:</p>
-
-<p><img src="/assets/images/api_manager.png" alt="" /></p>
 
         
       </section>
@@ -445,7 +505,15 @@
     
       
       
-      <a href="/tags/#refactor" class="page__taxonomy-item" rel="tag">refactor</a>
+      <a href="/tags/#microservice" class="page__taxonomy-item" rel="tag">microservice</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#release" class="page__taxonomy-item" rel="tag">release</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#version" class="page__taxonomy-item" rel="tag">version</a>
     
     </span>
   </p>
@@ -457,7 +525,7 @@
         
           
             
-              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-12-19">December 19, 2017</time></p>
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2018-06-14">June 14, 2018</time></p>
             
           
         
@@ -468,25 +536,24 @@
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Proposal for refactoring service registry module in Java Chassis /docs/service-registry-refactor-proposal/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=[Milestone] Apache ServiceComb (incubating) Release Version 1.0.0 /docs/release-note-1-0-0/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/service-registry-refactor-proposal/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/release-note-1-0-0/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=/docs/service-registry-refactor-proposal/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=/docs/release-note-1-0-0/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/service-registry-refactor-proposal/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/release-note-1-0-0/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/cn/docs/jira_beginner_guide/" class="pagination--pager" title="老司机带你刷任务 - ServiceComb JIRA入门指南
+      <a href="/cn/docs/release_note_1_0_0" class="pagination--pager" title="[里程碑]Apache ServiceComb 1.0.0版本正式发布
 ">Previous</a>
     
     
-      <a href="/docs/howto-upgrade-topzipkin2/" class="pagination--pager" title="Howto Upgrade to Zipkin2
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
@@ -532,7 +599,7 @@
             <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
           </fieldset>
           <fieldset class="hidden" style="display: none;">
-            <input type="hidden" name="options[slug]" value="service-registry-refactor-proposal">
+            <input type="hidden" name="options[slug]" value="release-note-1-0-0">
             <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
             <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
           </fieldset>
@@ -559,35 +626,6 @@
     <div class="page__related">
       <h4 class="page__related-title">You May Also Enjoy</h4>
       <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/docs/release-note-1-0-0/" rel="permalink">[Milestone] Apache ServiceComb (incubating) Release Version 1.0.0
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb (incubating) enters new stage
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  4 minute read
-
-</p>
-    
-  </article>
-</div>
-
         
           
 
@@ -639,7 +677,7 @@
 
 
 
-  1 minute read
+  less than 1 minute read
 
 </p>
     
@@ -669,6 +707,35 @@
 
 
   1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/apache-servicecomb-incubating-day-report/" rel="permalink">Apache ServiceComb (incubating) Day Report
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb (incubating) Day Report
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
 
 </p>
     
@@ -728,8 +795,8 @@
     <div class="col">
       <ul>
         <p class="header">Contribute</p>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/2017-12-19-service-registry-refactor-proposal.md">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/2017-12-19-service-registry-refactor-proposal.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/issues/new?title=Issue with _posts/2018-8-20-release-note-1-0-0.md">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/incubator-servicecomb-website/edit/master/_posts/2018-8-20-release-note-1-0-0.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
         <li><a href="/security">Security</a></li>
       </ul>
