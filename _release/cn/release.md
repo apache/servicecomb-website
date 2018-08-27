@@ -7,7 +7,7 @@ excerpt: "ServiceComb Releases"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
 
-Use the links below to download the ServiceComb releases from one of our mirrors. You must verify the integrity of the downloaded files using signatures downloaded from our main distribution directory.
+Use the links below to download the ServiceComb toolkits releases from one of our mirrors. You must verify the integrity of the downloaded files using signatures downloaded from our main distribution directory.
 
 Only current recommended releases are available on the main distribution site and its mirrors.
 
