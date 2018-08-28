@@ -12,22 +12,24 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 
 * Committers
 
-| Apache ID     |         Name            |  Organization | PPMC |
-| ------------- | ----------------------- | ------------- | ---- |
-| acsukesh      |  Sukesh A C             |  Huawei       |      |
-| asifdxtream   |  Mohammad Asif Siddiqui |  Huawei       |  *   |
-| ericlee       |  Li Dagang (Eric)       |  Tencent      |      |
-| jbonofre      |  Jean-Baptiste Onofre   |  Talend       |  *   |
-| liubao68      |  Liu Bao                |  Huawei       |  *   |
-| little-cui    |  Cui Yihua              |  Huawei       |  *   |
-| ningjiang     |  Jiang Ning (Willem)    |  Huawei       |  *   |
-| rvs           |  Roman Shaposhnik       |  Stealth      |  *   |
-| seanyinx      |  Yin Xiang (Sean)       |  Syswin       |      |
-| tnachen       |  Timothy Chen           |  Hyperpilot   |  *   |
-| wujimin       |  Wu Jimin               |  Huawei       |  *   |
-| zhangqi       |  Zhang qi               |  Huawei       |      |
-| zhengyangyong |  Zheng Yangyong         |  Huawei       |      |
-| zhfeng        |  Feng Zheng             |  Redhat       |      |
+| Apache ID         |         Name            |  Organization | PPMC |
+| ----------------- | ----------------------- | ------------- | ---- |
+| acsukesh          |  Sukesh A C             |  Huawei       |      |
+| asifdxtream       |  Mohammad Asif Siddiqui |  Huawei       |  *   |
+| ericlee           |  Li Dagang (Eric)       |  Tencent      |      |
+| jbonofre          |  Jean-Baptiste Onofre   |  Talend       |  *   |
+| liubao68          |  Liu Bao                |  Huawei       |  *   |
+| little-cui        |  Cui Yihua              |  Huawei       |  *   |
+| ningjiang         |  Jiang Ning (Willem)    |  Huawei       |  *   |
+| rvs               |  Roman Shaposhnik       |  Stealth      |  *   |
+| seanyinx          |  Yin Xiang (Sean)       |  Syswin       |      |
+| tnachen           |  Timothy Chen           |  Hyperpilot   |  *   |
+| wujimin           |  Wu Jimin               |  Huawei       |  *   |
+| yangbor           |  Yang Bo                |  Huawei       |      |
+| zenlinTechnofreak |  Lin Zhinan             |  Huawei       |      |
+| zhangqi           |  Zhang qi               |  Huawei       |      |
+| zhengyangyong     |  Zheng Yangyong         |  Huawei       |      |
+| zhfeng            |  Feng Zheng             |  Redhat       |      |
 
 
 * Contributors:
@@ -36,8 +38,11 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | ----------------- | ---------------------- | ------------ |
 | aseTo2016         |                        |              |
 | chanjarster       | Daniel Qian            | SupWisdom    |
+| cherrylzhao       | Zhao Jun               | JD.com       |
+| crystaldust       | Ju Zheng               | Huawei       |
 | imlidian          | Li Dian                | Huawei       |
 | jyseanl           | Sean Li                | Pactera      |
+| KomachiSion       | Yang Yi                | JD.com       |
 | laijianbin        | Lai Jianbin            |              |
 | lijasonvip        | Li bo                  |              |
 | liuzhenyang       |                        |              |
@@ -52,9 +57,7 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | weichao666        | Wei Chao               | ISoftStone   |
 | wuzunqian         | Wu Zunqian             | Yongyou      |
 | xuyiyun0929       | Xu Yiyun               |              |
-| yangbor           | Yang Bo                | Huawei       |
 | yhs0092           |                        |              |
-| zenlinTechnofreak | Lin Zhinan             | Huawei       |
 | zhanglongchun     | Zhang LongChun         |              |
 | zhang2014         | Zhang Jian             | OneAPM       |
 | zhuhoudong        | Zhu Houdong            |              |
