@@ -23,10 +23,10 @@ intro:
     <a href='/cn/docs/release_note_1_0_0'>Apache ServiceComb 1.0.0版本正式发布</a>
   </li>
   <li>
-    <a href='/cn/developers/team/'>Apache ServiceComb (incubating) Development Team</a>
+    <a href='/developers/team/'>Apache ServiceComb (incubating) 开发团队</a>
   </li>
   <li>
-    <a href='https://gitter.im/ServiceCombUsers/Lobby'>Join us at Gitter</a>
+    <a href='https://gitter.im/ServiceCombUsers/Lobby'>加入ServiceComb Gitter聊天室</a>
   </li>
 </ul>
 
