@@ -18,11 +18,12 @@ intro:
 <div class='excerpt-title'>Latest News</div>
 
 <ul>
-    <li>
-    <a href='/release/'>[Milestone] Apache ServiceComb (incubating) Release Version 1.0.0</a>
+
+  <li>
+    <a href='/release/'>Apache ServiceComb (incubating) Release Version 1.0.0</a>
   </li>
   <li>
-    <a href='/cn/docs/apache-servicecomb-day-slides/'>Microservice Meetup: Apache ServiceComb (incubating) Day slides </a>
+    <a href='/developers/team/'>Apache ServiceComb (incubating) Development Team</a> 
   </li>
   <li>
     <a href='/docs/quick-start-dataconsistency/'>ServiceComb now provides data consistency solutions(Saga) in microservice application.</a>
