@@ -13,20 +13,20 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 
 | Apache ID         |         Name            |  Organization | PPMC |
 | ----------------- | ----------------------- | ------------- | ---- |
-| acsukesh          |  Sukesh A C             |  Huawei       |      |
+| acsukesh          |  Sukesh A C             |  Huawei       |  *   |
 | asifdxtream       |  Mohammad Asif Siddiqui |  Huawei       |  *   |
-| ericlee           |  Li Dagang (Eric)       |  Tencent      |      |
+| ericlee           |  Li Dagang (Eric)       |  Tencent      |  *   |
 | jbonofre          |  Jean-Baptiste Onofre   |  Talend       |  *   |
 | liubao68          |  Liu Bao                |  Huawei       |  *   |
 | little-cui        |  Cui Yihua              |  Huawei       |  *   |
 | ningjiang         |  Jiang Ning (Willem)    |  Huawei       |  *   |
 | rvs               |  Roman Shaposhnik       |  Stealth      |  *   |
-| seanyinx          |  Yin Xiang (Sean)       |  Syswin       |      |
+| seanyinx          |  Yin Xiang (Sean)       |  Syswin       |  *   |
 | tnachen           |  Timothy Chen           |  Hyperpilot   |  *   |
 | wujimin           |  Wu Jimin               |  Huawei       |  *   |
-| yangbor           |  Yang Bo                |  Huawei       |      |
+| yangbor           |  Yang Bo                |  Huawei       |  *   |
 | zenlinTechnofreak |  Lin Zhinan             |  Huawei       |  *   |
-| zhangqi           |  Zhang qi               |  Huawei       |      |
+| zhangqi           |  Zhang qi               |  Huawei       |  *   |
 | zhengyangyong     |  Zheng Yangyong         |  Huawei       |  *   |
 | zhfeng            |  Feng Zheng             |  Redhat       |  *   |
 
