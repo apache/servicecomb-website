@@ -15,7 +15,7 @@ redirect_from:
 
 **Apache ServiceComb Meetup**  
 
-**会议日期/时间**：2018 年 10 月 12 日，星期三，9:30 – 17:30
+**会议日期/时间**：2018 年 10 月 12 日，星期三，1:30 – 16:50
 
 **会议地址**：上海世博展览馆416-417会议厅，上海, **Room 416-417**
 
@@ -34,17 +34,13 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 
 **时间：** 13:30-14:30
 
-**主讲人：** Roman Shaposhnik，知名企业开源专家及数字转型顾问，曾在Linux基金会下项目的开源协作过程中起了重要作用。并曾在Pivotal负责大数据及应用管理平台领域的工作。Roman 在Pivotal的工作使他深入了解了容器技术、虚拟化以及unikernel架构。此外，Roman 是Apache基金会孵化器的活跃成员，指导了大量的Apache基金会项目并直接参与项目贡献。      
+**主讲人：** Roman Shaposhnik，知名企业开源专家及数字转型顾问，曾在Linux基金会下项目的开源协作过程中起了重要作用。并曾在Pivotal负责大数据及应用管理平台领域的工作。Roman 在Pivotal的工作使他深入了解了容器技术、虚拟化以及unikernel架构。此外，Roman 是Apache基金会孵化器的活跃成员，指导了大量的Apache基金会项目并直接参与项目贡献。         
 
-**摘要：** Apache软件基金会是全球最大的开源基金会，目前拥有300多个开源项目，涵盖大数据、云计算、服务器和Web框架、构建管理、内容管理、物联网等众多领域。Roman作为Apache基金会董事会成员，将详细介绍Apache基金会发展历程及现状，阐述Apache基金会的运作方式，解读Apache软件基金会的核心理念—Apache Way。     
-
-**讲师：** Justin Mclean，Apache项目管理委员会主席，Apache Member，20余年IT行业软件开发经历，擅长IoT, Web 应用开发，数据库设计，开源硬件领域。曾经在全球范围内超过50场会议中进行演讲  
-
-**摘要：** 详细介绍作为一个Apache项目需要遵守的合规性规则及背后所蕴含的意义。   
+**主讲人：** Justin Mclean，Apache项目管理委员会主席，Apache Member，20余年IT行业软件开发经历，擅长IoT, Web 应用开发，数据库设计，开源硬件领域。曾经在全球范围内超过50场会议中进行演讲。  
 
 **主讲人：** Craig Russell，Apache Member，Apache IPMC成员，专注于数据库API方向，Sun公司和Oracle公司Java和Javascript中ORM部分架构师。Craig从2005年开始参与Apache基金会的事务，从2010年开始担任Apache Secretary及形象大使。       
 
-**摘要：** 介绍Apache基金会孵化器的概况及项目流程，讨论Apache孵化项目如何发展社区并毕业成为顶级项目。       
+**摘要：** Apache软件基金会是全球最大的开源基金会，目前拥有300多个开源项目，涵盖大数据、云计算、服务器和Web框架、构建管理、内容管理、物联网等众多领域。三位来自Apache基金会的专家将详细介绍Apache基金会发展历程及现状，阐述Apache基金会的运作方式，解读Apache软件基金会的核心理念—Apache Way。同时分析作为一个Apache项目需要遵守的合规性规则及背后所蕴含的意义。并介绍Apache基金会孵化器的概况及项目流程，讨论Apache孵化项目如何发展社区并毕业成为顶级项目。
 
 ---
 **《Apache ServiceComb(incubating)社区最新路线》**     
@@ -53,7 +49,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 
 **主讲人：** 姜宁，Apache Member，华为微服务领域专家，开源专家，前红帽软件首席软件工程师，有十五年企业级开源中间件开发经验。2006年起一直从事Apache开源中间件项目工作，先后参与Apache CXF， Apache Camel，以及Apache ServiceComb等项目。对微服务架构，WebServices，Enterprise Integration Pattern，SOA， OSGi有比较深入的研究。      
 
-**摘要：** 介绍ServiceComb社区自1.0.0版本发布之后的整体技术演进路线和项目在Apahce软件基金会的最新成长状态。     
+**摘要：** 介绍ServiceComb社区自1.0.0版本发布之后的整体技术演进路线和在Apahce软件基金会的最新成长状态。     
 
 
 ---        
@@ -68,11 +64,11 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 ---
 **《Service Mesh微服务化和传统框架微服务化混合部署协同实践分享》**
 
-**时间：** 15:20-15:50
+**时间：** 15:20-15:40
 
 **主讲人：** 苗彦杰 梅斯医学首席架构师，多年医疗行业云计算开发经验。
 
-**摘要：** 在以Service Mesh为代表的零侵入微服务化发展过程中，如何与传统侵入式框架开发的微服务混合部署、协同治理成为了一道难题。演讲者将从自身的业务背景出发，介绍如何借助ServiceComb和Mesher完成混合部署，分享其中遇到的问题和解决方法。
+**摘要：** 在以Service Mesh为代表的零侵入微服务化发展过程中，如何与传统侵入式框架开发的微服务混合部署、协同治理成为了一道难题。演讲者将从自身的业务背景出发，介绍如何借助ServiceComb和Mesher完成混合部署，分享其中遇到的问题和解决方法。。
 
 ---
 **《Apache Committer 成长经验分享》**
