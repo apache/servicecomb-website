@@ -12,8 +12,9 @@ redirect_from:
 ---
 **Apache ServiceComb Meetup**  
 
-**Meeting Date/time**：Friday, October 12, 2018, 13:30-16:50 PM
-**Meeting address**：Shanghai World Expo Exhibition & Convention Center, **Room 416-417**
+**Meeting Date/time:** Friday, October 12, 2018, 13:30-16:50 PM
+
+**Meeting address:**Shanghai World Expo Exhibition & Convention Center, **Room 416-417**
 
 ****    
 
@@ -85,4 +86,5 @@ redirect_from:
 **Speaker:** Ju Zhen, a Huawei software engineer and Go language developer, is specialized in cloud computing, container technology, and DevOps. He is one of the core developers of container image services for HUAWEI CLOUD, and is mainly engaged in Huawei open source project development. He is a co-translator of The Docker Book and is an advocate of technologies like O&M automation, microservices, and Service Mesh. He gave speeches at Container Days 2017 and KubeCon 2017.
 
 ---
+**Please checkout ServiceComb Gitter if you are interesting about visiting the booth of ServiceComb during the Meetup**
 **[ServiceComb Gitter](https://gitter.im/ServiceCombUsers/Lobby)**
