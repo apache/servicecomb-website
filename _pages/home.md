@@ -35,7 +35,7 @@ intro:
     <a href='/release/saga-downloads/'>Saga releases a new version 0.2.0</a>
   </li>
   <li>
-    <a href='https://www.youtube.com/watch?v=yrAneJvVC7A'>Service-Center Frontend can be used to test microservices schema directly from web.</a>
+    <a href='/docs/Apache-ServiceComb-Meetup-2018-Shanghai/'>Apache ServiceComb (incubating) Meetup -Shanghai 2018.10.12</a>
   </li>
     <li>
     <a href='https://gitter.im/ServiceCombUsers/Lobby'>Join us at Gitter</a>
