@@ -36,7 +36,7 @@ redirect_from:
 
 **Time:** 14:40-15:00
 
-**Summary:** This session will introduce the overall evolutionary roadmap of technology for the ServiceComb community since version 1.0.0 and its latest development within the Apache Software Foundation.    
+**Summary:** This session will introduce the overall evolutionary roadmap of technology for the ServiceComb project and its latest development within the Apache Software Foundation.    
 
 **Speaker:** Jiang Ning, an Apache member, Huawei microservices expert, open source expert, former principle engineer of Red Hat, has 15 years of experience in developing enterprise-class open source middleware. He is engaged in Apache open-source middleware projects since 2006, including Apache CXF, Apache Camel, and Apache ServiceComb; and in-depth research on microservices architectures, Web Services, Enterprise Integration Patterns, SOA, and OSGi.     
 
@@ -47,7 +47,7 @@ redirect_from:
 
 **Summary:** This session will introduce the efforts made by ServiceComb to stay compatible with the Service Mesh ecosystem. The presenter will talk about ServiceComb's exploration into hybrid deployment and governance of non-intrusive microservices and those based on a traditional architecture.
 
-**Speaker :** Tian Xiaoliang is a HUAWEI CLOUD microservices architect and a leader of Service Mesh technology. He was the former monitoring platform architect for S Voice of Samsung, worked on O&M and development solutions for S Voice. He has rich experience in PaaS, O&M and development, and APM; has spoken at multiple open source conferences including LC3 and ArchSummit.     
+**Speaker :** Tian Xiaoliang is a HUAWEI CLOUD microservices architect and a leader of Service Mesh technology. He was the former monitoring platform architect for SVoice of Samsung, worked on O&M and development solutions for SVoice. He has rich experience in PaaS, O&M and development, and APM; has spoken at multiple open source conferences including LC3 and ArchSummit.     
 
 ---
 **《Practice Sharing: Hybrid Deployment of Service Mesh-based Microservices and Those Based on a Traditional Architecture》**

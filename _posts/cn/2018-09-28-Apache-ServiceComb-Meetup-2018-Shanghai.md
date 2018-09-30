@@ -49,7 +49,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 
 **主讲人：** 姜宁，Apache Member，华为微服务领域专家，开源专家，前红帽软件首席软件工程师，有十五年企业级开源中间件开发经验。2006年起一直从事Apache开源中间件项目工作，先后参与Apache CXF， Apache Camel，以及Apache ServiceComb等项目。对微服务架构，WebServices，Enterprise Integration Pattern，SOA， OSGi有比较深入的研究。      
 
-**摘要：** 介绍ServiceComb社区自1.0.0版本发布之后的整体技术演进路线和项目在Apahce软件基金会的最新成长状态。    
+**摘要：** 介绍ServiceComb社区自1.0.0版本发布之后的整体技术演进路线和项目在Apache软件基金会的最新成长状态。    
 
 
 ---        
@@ -57,7 +57,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 
 **时间：** 15:00-15:20
 
-**主讲人：** 田晓亮，华为云微服务架构师，同时是服务网格的技术带头人。前三星Svoice 监控平台架构师，为 Svoice 执行运维开发解决方案，在 PaaS、运维开发和 APM 拥有丰富的经验，多次在包括 LC3 和 ArchSummit 的开源大会上演讲。      
+**主讲人：** 田晓亮，华为云微服务架构师，同时是服务网格的技术带头人。前三星Svoice监控平台架构师，为Svoice执行运维开发解决方案，在PaaS、运维开发和 APM拥有丰富的经验，多次在包括LC3和ArchSummit的开源大会上演讲。      
 
 **摘要：** 介绍ServiceComb在生态兼容Service Mesh方面的工作，阐述ServiceComb在支持零侵入微服务化方面以及和传统微服务框架实现方式的协同部署、治理的探索。    
 
@@ -86,7 +86,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 
 **主讲人：** 巨震，华为软件工程师，Go语言开发者，聚焦云计算、容器技术和DevOps。华为云公有云容器镜像服务核心开发者，当前主要从事华为开源项目开发。《第一本Docker书》的合作译者。热衷于自动化运维、微服务、Service Mesh等技术，曾在Container Days 2017， KubeCon 2017发表演讲。
 
-**摘要：** 现场演示如何快速使用ServiceComb Java-chassis和Service Mesh技术Mesher 进行微服务化应用编程，结合Kubernetes进行快速部署，并和与会者互动练习。
+**摘要：** 现场演示如何快速使用ServiceComb Java-chassis和Service Mesh技术Mesher进行微服务化应用编程，结合Kubernetes进行快速部署，并和与会者互动练习。
 
 ---
 **如您需要在参加Meetup之余参观ServiceComb展台，请您加入ServiecComb Gitter聊天室咨询：**     
