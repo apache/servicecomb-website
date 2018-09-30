@@ -38,7 +38,7 @@ intro:
     <a href='/cn/docs/quick-start-dataconsistency/'>号外：现在ServiceComb提供了微服务场景下的数据一致性解决方案Saga！</a>
   </li>
   <li>
-    <a href='https://www.youtube.com/watch?v=yrAneJvVC7A'>这个视频演示了如何Service-Center前端直接从浏览器测试已注册的微服务</a>
+    <a href='/cn/docs/Apache-ServiceComb-Meetup-2018-Shanghai/'>Apache ServiceComb (incubating) Meetup -上海 2018.10.12</a>
   </li>
 </ul>
 "

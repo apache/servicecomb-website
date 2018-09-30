@@ -2,7 +2,7 @@
 title: "Apache ServiceComb (incubating) Meetup -Shanghai 2018.10.12"
 lang: en
 ref: 2018-10-12-huawei-connect-2018-ServiceComb
-permalink: /cn/docs/Apache-ServiceComb-Meetup-2018-Shanghai/
+permalink: /docs/Apache-ServiceComb-Meetup-2018-Shanghai/
 excerpt: "Apache ServiceComb (incubating) Meetup"
 last_modified_at: 2018-10-12:26:28+08:00
 author: Dean Lee
