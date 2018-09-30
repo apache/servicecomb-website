@@ -38,7 +38,7 @@ redirect_from:
 
 **Summary:** This session will introduce the overall evolutionary roadmap of technology for the ServiceComb community since version 1.0.0 and its latest development within the Apache Software Foundation.    
 
-**Speaker:** Jiang Ning, an Apache member, Huawei microservices expert, open source expert, former chief software architect of Red Hat, has 15 years of experience in developing enterprise-class open source middleware. He is engaged in Apache open-source middleware projects since 2006, including Apache CXF, Apache Camel, and Apache ServiceComb; and in-depth research on microservices architectures, Web Services, Enterprise Integration Patterns, SOA, and OSGi.     
+**Speaker:** Jiang Ning, an Apache member, Huawei microservices expert, open source expert, former principle engineer of Red Hat, has 15 years of experience in developing enterprise-class open source middleware. He is engaged in Apache open-source middleware projects since 2006, including Apache CXF, Apache Camel, and Apache ServiceComb; and in-depth research on microservices architectures, Web Services, Enterprise Integration Patterns, SOA, and OSGi.     
 
 ---        
 **《ServiceComb's Exploration of Service Mesh》**     
@@ -62,16 +62,16 @@ redirect_from:
 
 **Time:** 15:50-16:10
 
-**Summary:** Miao Yanjie is the chief architect in MedSci and has years of experience in cloud computing development for the healthcare industry.
+**Summary:** As a new PMC (Project Management Committee) member and committer to ServiceComb, the presenter will talk about his own experience participating in the ServiceComb project, lessons learned and achievements made.
 
-**Speaker:** Feng Zheng, a software engineer, joined Red Hat Software in 2009. He is specialized in transaction manager; and is one of the core developers for Narayan and Blacktie projects. He worked on implementation of the distributed transaction part of Apache ServiceComb since 2017; optimized exception and timeout test scenarios using tools like Byteman. He has in-depth research on distributed transaction processing and transaction processing in microservice environments.
+**Speaker:** Feng Zheng, a software engineer, joined Red Hat Software in 2009. He is specialized in transaction manager; and is one of the core developers for Narayan and Blacktie projects. He worked on implementation of the distributed transaction part of Apache ServiceComb since 2017; optimized exception and timeout test scenarios by using tools like Byteman. He has in-depth research on distributed transaction processing and transaction processing in microservice environments.
 
 ---
 **《Hands-on Experience with Fast Microservices Programming》**
 
 **Time:** 16:10-16:50
 
-**Summary:** The presenter will demonstrate onsite how to use ServiceComb Java Chassis and Mesher of Service Mesh to quickly program microservices-based applications, and how to quickly deploy them using Kubernetes. Then he will invite attendees to actively participate, gaining some hands-on experience.
+**Summary:** The presenter will demonstrate how to use ServiceComb Java Chassis and Mesher of Service Mesh to quickly program microservices applications, and how to quickly deploy them by using Kubernetes. Audience can gain some hands-on experiences at the same time.
 
 **Speaker:** Ju Zhen, a Huawei software engineer and Go language developer, is specialized in cloud computing, container technology, and DevOps. He is one of the core developers of container image services for HUAWEI CLOUD, and is mainly engaged in Huawei open source project development. He is a co-translator of The Docker Book and is an advocate of technologies like O&M automation, microservices, and Service Mesh. He gave speeches at Container Days 2017 and KubeCon 2017.
 

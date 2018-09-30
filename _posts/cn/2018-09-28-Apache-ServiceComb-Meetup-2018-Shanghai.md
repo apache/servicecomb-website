@@ -49,7 +49,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 
 **主讲人：** 姜宁，Apache Member，华为微服务领域专家，开源专家，前红帽软件首席软件工程师，有十五年企业级开源中间件开发经验。2006年起一直从事Apache开源中间件项目工作，先后参与Apache CXF， Apache Camel，以及Apache ServiceComb等项目。对微服务架构，WebServices，Enterprise Integration Pattern，SOA， OSGi有比较深入的研究。      
 
-**摘要：** 介绍ServiceComb社区自1.0.0版本发布之后的整体技术演进路线和在Apahce软件基金会的最新成长状态。     
+**摘要：** 介绍ServiceComb社区自1.0.0版本发布之后的整体技术演进路线和项目在Apahce软件基金会的最新成长状态。    
 
 
 ---        
@@ -68,7 +68,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 
 **主讲人：** 苗彦杰 梅斯医学首席架构师，多年医疗行业云计算开发经验。
 
-**摘要：** 在以Service Mesh为代表的零侵入微服务化发展过程中，如何与传统侵入式框架开发的微服务混合部署、协同治理成为了一道难题。演讲者将从自身的业务背景出发，介绍如何借助ServiceComb和Mesher完成混合部署，分享其中遇到的问题和解决方法。。
+**摘要：** 在以Service Mesh为代表的零侵入微服务化发展过程中，如何与传统侵入式框架开发的微服务混合部署、协同治理成为了一道难题。演讲者将从自身的业务背景出发，介绍如何借助ServiceComb和Mesher完成混合部署，分享其中遇到的问题和解决方法。
 
 ---
 **《Apache Committer 成长经验分享》**
