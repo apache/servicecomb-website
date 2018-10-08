@@ -14,7 +14,9 @@ redirect_from:
 
 **Meeting Date/time:** Friday, October 12, 2018, 13:30-16:50 PM
 
-**Meeting address:**Shanghai World Expo Exhibition & Convention Center, **Room 416-417**
+**Meeting Address:**Shanghai World Expo Exhibition & Convention Center, **Room 416-417**  
+
+**Live Online:** [Link](http://www.itdks.com/eventlist/detail/2709)
 
 ****    
 
