@@ -28,23 +28,12 @@ MONOLITH TO MICRO-SERVICES: A HANDS ON WORKSHOP FOR DEVELOPMENT OF MICRO-SERVICE
 ![3]({{ site.url }}{{ site.baseurl }}/assets/images/OSI/Title.png)
 ![4]({{ site.url }}{{ site.baseurl }}/assets/images/OSI/Topics.png)
 
-## Event Glimpse 
-![5]({{ site.url }}{{ site.baseurl }}/assets/images/OSI/OSI-Event-Glimpse.jpg)
 
 ## Workshop Glimpse  
-
+![5]({{ site.url }}{{ site.baseurl }}/assets/images/OSI/OSI-Workshop-1.jpg)  
   
-  **Introduction to MicroServices and Opensource MicroService Frameworks**
-![5]({{ site.url }}{{ site.baseurl }}/assets/images/OSI/OSI-Workshop-1.jpg)
-  
-  **Introduction to Go-Chassis and Service Mesh**  
-![5]({{ site.url }}{{ site.baseurl }}/assets/images/OSI/OSI-Workshop-2.jpg)
-  
-  **Introduction to Java-Chassis & Saga**  
-![5]({{ site.url }}{{ site.baseurl }}/assets/images/OSI/OSI-Workshop-4.jpg)  
-  
-  **Hands-on on ServiceComb Frameworks**  
-![5]({{ site.url }}{{ site.baseurl }}/assets/images/OSI/OSI-Workshop-3.jpg)  
+## Event Glimpse 
+![5]({{ site.url }}{{ site.baseurl }}/assets/images/OSI/OSI-Event-Glimpse.jpg)
   
 ## Summary
  - Around 70% of the Workshop attendees were already using Microservices in production.
