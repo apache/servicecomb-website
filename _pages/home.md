@@ -20,10 +20,10 @@ intro:
 <ul>
 
   <li>
-    <a href='/release/'>Apache ServiceComb (incubating) Release Version 1.0.0</a>
+    <a href='/release/'>Apache ServiceComb Release Version 1.0.0</a>
   </li>
   <li>
-    <a href='/developers/team/'>Apache ServiceComb (incubating) Development Team</a> 
+    <a href='/developers/team/'>Apache ServiceComb Development Team</a>
   </li>
   <li>
     <a href='/docs/quick-start-dataconsistency/'>ServiceComb now provides data consistency solutions(Saga) in microservice application.</a>
@@ -35,7 +35,7 @@ intro:
     <a href='/release/saga-downloads/'>Saga releases a new version 0.2.0</a>
   </li>
   <li>
-    <a href='/docs/Apache-ServiceComb-Meetup-2018-Shanghai/'>Apache ServiceComb (incubating) Meetup -Shanghai 2018.10.12</a>
+    <a href='/docs/Apache-ServiceComb-Meetup-2018-Shanghai/'>Apache ServiceComb Meetup -Shanghai 2018.10.12</a>
   </li>
     <li>
     <a href='https://gitter.im/ServiceCombUsers/Lobby'>Join us at Gitter</a>

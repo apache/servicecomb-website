@@ -23,7 +23,7 @@ intro:
     <a href='/cn/docs/release_note_1_0_0'>Apache ServiceComb 1.0.0版本正式发布</a>
   </li>
   <li>
-    <a href='/developers/team/'>Apache ServiceComb (incubating) 开发团队</a>
+    <a href='/developers/team/'>Apache ServiceComb 开发团队</a>
   </li>
   <li>
     <a href='https://gitter.im/ServiceCombUsers/Lobby'>加入ServiceComb Gitter聊天室</a>
@@ -38,7 +38,7 @@ intro:
     <a href='/cn/docs/quick-start-dataconsistency/'>号外：现在ServiceComb提供了微服务场景下的数据一致性解决方案Saga！</a>
   </li>
   <li>
-    <a href='/cn/docs/Apache-ServiceComb-Meetup-2018-Shanghai/'>Apache ServiceComb (incubating) Meetup -上海 2018.10.12</a>
+    <a href='/cn/docs/Apache-ServiceComb-Meetup-2018-Shanghai/'>Apache ServiceComb Meetup -上海 2018.10.12</a>
   </li>
 </ul>
 "
