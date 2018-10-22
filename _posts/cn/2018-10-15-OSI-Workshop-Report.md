@@ -1,6 +1,6 @@
 ---
 title: "OpenSource India Summit: Hands-on Apache ServiceComb(Incubating) MicroServices Workshop"
-lang: en
+lang: cn
 ref: Apache ServiceComb(Incubating) MicroServices Workshop
 permalink: /cn/docs/osi-microservices/
 excerpt: "OpenSource India Summit: Hands-on Apache ServiceComb(Incubating) MicroServices Workshop"
