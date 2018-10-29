@@ -76,6 +76,5 @@ redirect_from:
 
 ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠，致力于帮助企业轻松构建云原生应用及传统企业业务快速微服务化，通过系列解决方案帮助用户快速开发微服务的同时实现对这些微服务应用的高效运维管理。它具有完整的微服务生态栈，无厂商锁定，当前遵循Apache Way进行孵化，已拥有如消费者云、云EI、云安全、云核等华为业务之外的一批非华为商用用户，且社区和开发者也日趋多样化。
 
-**如您有更多问题关于Aapche ServiceComb，请您加入ServiecComb Gitter聊天室咨询：**     
-**[ServiceComb Gitter 聊天室](https://gitter.im/ServiceCombUsers/Lobby)**
+**如您有更多问题关于Aapche ServiceComb，请您加入ServiecComb Gitter聊天室咨询：[ServiceComb Gitter 聊天室](https://gitter.im/ServiceCombUsers/Lobby)**
 
