@@ -34,7 +34,8 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 ---
 **《Apache之道》**    
 
-**时间：** 13:30-14:30
+[中文PDF下载](/assets/slides/20181012/1_Apache_HuaweiConnect_Presentation_20181012.pdf)  [英文PDF下载](/assets/slides/20181012/EN/1_Apache_HuaweiConnect_Presentation_20181012.pdf)
+
 
 **主讲人：** Roman Shaposhnik，知名企业开源专家及数字转型顾问，曾在Linux基金会下项目的开源协作过程中起了重要作用。并曾在Pivotal负责大数据及应用管理平台领域的工作。Roman 在Pivotal的工作使他深入了解了容器技术、虚拟化以及unikernel架构。此外，Roman 是Apache基金会孵化器的活跃成员，指导了大量的Apache基金会项目并直接参与项目贡献。         
 
@@ -47,7 +48,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 ---
 **《Apache ServiceComb(incubating)社区最新路线》**     
 
-**时间：** 14:40-15:00
+[中文PDF下载](/assets/slides/20181012/2_ApacheServiceComb(Incubating)Community_Roadmap.pdf)  [英文PDF下载](/assets/slides/20181012/EN/1_Apache_HuaweiConnect_Presentation_20181012.pdf)
 
 **主讲人：** 姜宁，Apache Member，华为微服务领域专家，开源专家，前红帽软件首席软件工程师，有十五年企业级开源中间件开发经验。2006年起一直从事Apache开源中间件项目工作，先后参与Apache CXF， Apache Camel，以及Apache ServiceComb等项目。对微服务架构，WebServices，Enterprise Integration Pattern，SOA， OSGi有比较深入的研究。      
 
@@ -57,7 +58,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 ---        
 **《ServiceComb在Service Mesh的探索与思考》**     
 
-**时间：** 15:00-15:20
+[中文PDF下载](/assets/slides/20181012/3_ServiceMesh-based_Microservices_and_Those_Based_on_a_Traditional_Architecture.pdf)  [英文PDF下载](/assets/slides/20181012/EN/3_ServiceMesh-based_Microservices_and_Those_Based_on_a_Traditional_Architecture.pdf)
 
 **主讲人：** 田晓亮，华为云微服务架构师，同时是服务网格的技术带头人。前三星Svoice监控平台架构师，为Svoice执行运维开发解决方案，在PaaS、运维开发和 APM拥有丰富的经验，多次在包括LC3和ArchSummit的开源大会上演讲。      
 
@@ -66,7 +67,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 ---
 **《Service Mesh微服务化和传统框架微服务化混合部署协同实践分享》**
 
-**时间：** 15:20-15:40
+[中文PDF下载](/assets/slides/20181012/4_ServiceComb’s_Exploration_of_Service_Mesh.pdf)  [英文PDF下载](/assets/slides/20181012/EN/4_ServiceComb’s_Exploration_of_Service_Mesh.pdf)
 
 **主讲人：** 苗彦杰 梅斯医学首席架构师，多年医疗行业云计算开发经验。
 
@@ -75,7 +76,7 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 ---
 **《Apache Committer 成长经验分享》**
 
-**时间：** 15:50-16:10
+[中文PDF下载](/assets/slides/20181012/5_My_Participation_in_ServiceComb.pdf)  [英文PDF下载](/assets/slides/20181012/EN/5_My_Participation_in_ServiceComb.pdf)
 
 **主讲人：** 冯征，软件工程师，2009年加入红帽软件公司。主要从事事务管理器方面的工作，Narayan和Blacktie项目的核心开发人员。从2017年开始参与了Apache ServiceComb有关分布式事务部分的实现，利用Byteman等工具完善了异常和超时测试场景。对于分布式事务处理以及微服务环境中的事务处理，有过深入的研究。
 
@@ -84,12 +85,12 @@ ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠�
 ---
 **《快速微服务化编程体验》**
 
-**时间：** 16:10-16:50
+[中文PDF下载](/assets/slides/20181012/6_Experience_on_Fast_Microservice_Programming.pdf)  [英文PDF下载](/assets/slides/20181012/EN/6_Experience_on_Fast_Microservice_Programming.pdf)
 
 **主讲人：** 巨震，华为软件工程师，Go语言开发者，聚焦云计算、容器技术和DevOps。华为云公有云容器镜像服务核心开发者，当前主要从事华为开源项目开发。《第一本Docker书》的合作译者。热衷于自动化运维、微服务、Service Mesh等技术，曾在Container Days 2017， KubeCon 2017发表演讲。
 
 **摘要：** 现场演示如何快速使用ServiceComb Java-chassis和Service Mesh技术Mesher进行微服务化应用编程，结合Kubernetes进行快速部署，并和与会者互动练习。
 
 ---
-**如您需要在参加Meetup之余参观ServiceComb展台，请您加入ServiecComb Gitter聊天室咨询：**     
+**如您有更多问题关于Aapche ServiceComb，请您加入ServiecComb Gitter聊天室咨询：**     
 **[ServiceComb Gitter 聊天室](https://gitter.im/ServiceCombUsers/Lobby)**
