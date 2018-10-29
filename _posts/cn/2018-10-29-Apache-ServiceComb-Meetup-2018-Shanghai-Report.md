@@ -1,10 +1,11 @@
 ---
 title: "Apache ServiceComb Meetup -Shanghai 2018.10.12 Report (PPT)"
 lang: cn
-ref: apache-servicecomb-day-slides
-permalink: /cn/docs/apache-servicecomb-day-slides/
+ref: Apache-ServiceComb-Meetup-2018-Shanghai-Report
+permalink: /cn/docs/Apache-ServiceComb-Meetup-2018-Shanghai-Report/
+
 excerpt: "Apache ServiceComb Meetup -Shanghai 2018.10.12 Report (PPT)"
-last_modified_at: 2018-10-28T17:18:43+08:00
+last_modified_at: 2018-10-29T17:18:43+08:00
 author: Dean Lee
 tags: [microservice, Meetup]
 redirect_from:

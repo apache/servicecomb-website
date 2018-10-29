@@ -1,8 +1,8 @@
 ---
 title: "Apache ServiceComb Meetup -Shanghai 2018.10.12 Report (PPT)"
 lang: en
-ref: Apache-ServiceComb-Meetup-2018-Shanghai
-permalink: /docs/Apache-ServiceComb-Meetup-2018-Shanghai/
+ref: Apache-ServiceComb-Meetup-2018-Shanghai-Report
+permalink: /docs/Apache-ServiceComb-Meetup-2018-Shanghai-Report/
 excerpt: "Apache ServiceComb Meetup Report (PPT)"
 last_modified_at: 2018-10-29T10:26:28+08:00
 author: Dean Lee
