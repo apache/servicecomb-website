@@ -17,7 +17,7 @@ redirect_from:
 
 **《The Apache Way》**    
 
-[PDF](/assets/slides/20181012/EN/1_Apache_HuaweiConnect_Presentation_20181012.pdf)
+[PDF](/assets/slides/20181012/EN/1_The_Apache_Way.pdf)
 
 **Roman Shaposhnik, Justin Mclean, Craig Russell:** The Apache Software Foundation (ASF) is the world's largest open source foundation with more than 300 open source projects, covering big data, cloud computing, servers and web frameworks, build management, content management, IoT, and more areas.  Three experts from ASF will talk about the history and development of the ASF, its operation model, and will elaborate on the core ideas of the ASF – The Apache Way.This session will also cover the compliance rules and their meanings for Apache projects. And introduce the Apache Incubator project and its standard procedures. The presenter will talk about how open-source projects can develop into communities through the Apache Incubator project, and how these projects can eventually become top projects.
 
