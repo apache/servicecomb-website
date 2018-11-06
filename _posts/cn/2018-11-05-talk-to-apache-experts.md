@@ -17,10 +17,12 @@ redirect_from:
 
 2018年10月13日下午，国内首个从Apache孵化器毕业的微服务项目ServiceComb的团队邀请Apache基金会三位专家成员：Apache孵化器主席Justin Mclean，Apache董事会董事Roman Shaposhnik, 以及Apache基金会秘书长兼形象大使Craig Rossell，与国内Apache项目开发者相聚于上海。针对开发者所关心的Apache精英管理模式，从孵化器毕业成为顶级项目，开源软件的商业化等主题进行了深入的交流。本文对活动当日的交流进行了整理和总结。
 
+---
 ### Apache基金会简介
 
 Apache软件基金会是一个成立于1999年的非盈利慈善组织，英文名称 Apache Software Foundation，简称 ASF，最早源于开发Apache HTTP服务器的一个爱好者组织“Apache组织”。经过近20年的发展，Apache软件基金会已成为世界上最大的开源基金会，负责监管350多个免费的企业级项目和1.9亿多行的代码，它们作为主干支撑着全球广泛使用的应用程序。
 
+---
 ### 开场介绍
 
 大家好，我是姜宁，今天咱们聚集了华东地区参与Apache相关项目开发的Committer。值得一提的是这里大部分Apache项目都还在孵化器中孵化，同时还有一些准备进入Apache孵化的项目。
@@ -31,8 +33,10 @@ Apache软件基金会是一个成立于1999年的非盈利慈善组织，英文�
 
 今天的Meetup之前，和大家交流中我发现大家最关心的问题就是如何从Apache孵化器毕业。 我们今天邀请到远道而来的Apache Member，Roman，Justin，Craig和我们一起交流的分享他们有关Apache孵化器孵化经验，以及开源相关的感悟。
 
+---
 ### 活动期间问答交流
 
+---
 #### 如何从Apache软件基金会孵化器毕业成为顶级项目
 
 [Justin]
@@ -67,7 +71,7 @@ ASF非常强调多样性原则。 大部分开源软件项目都是创新型项�
 
 #### 对于构建持续增长的社区，有何建议？
 
-[Justin] 
+[Justin]
 
 要让大家觉得自己是受欢迎的。当有人在邮件列表中提问时，我通常会分配PMC成员关注问题，并咨询提问者是否还需要其他帮助，或者有其他问题，我把这个作为日常工作。这样也有利于开发者从用户变成提交者甚至PMC成员。良好的文档可以让大家更容易使用你的项目。而文档的缺失则可能造成用户的流失，人们编译编译代码，就再也不使用这个项目了，因为项目上手太难了。
 
@@ -180,7 +184,7 @@ Skywalking是中国开发者发起的一个Apache孵化项目，刚加入孵化�
 - **开展开源软件的培训服务**
 
 
-
+---
 ### 活动尾声
 
 经过一番深入的沟通和交流，现场的开发者对Apache基金会、基金会的经营管理模式、Apache孵化器的运作模式都有了进一步的了解。在meetup活动的最后，三位Apache专家带领现场所有开发者进行了“Apache问答”小游戏。问答题目由Justin编写，公布在网站https://rawgit.com/justinmclean/ApacheQuiz/master/compiled/index.html 上，问题有不同的难度等级，涉及Apache基金会的管理模式、Apache开源协议、版本发布注意事项、三方软件集成等。三位专家与开发者一起答题，并对题目进行了风趣幽默的解读。最终，活动在一片欢笑声中结束，三位专家与开发者进行合影留念。
@@ -188,7 +192,7 @@ Skywalking是中国开发者发起的一个Apache孵化项目，刚加入孵化�
 ![apache-developers-gathering]({{ site.url }}{{ site.baseurl }}/assets/images/apache-developers-gathering-shanghai.jpg)
 
 
-
+---
 ### Apache知多少
 
 本文从问答游戏中抽取了版本发布相关的三个问题，各位读者可以尝试回答，答案将在ServiceComb公众号发布，快来看看，你答对了没有吧！
