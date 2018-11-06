@@ -1,3 +1,16 @@
+---
+title: "对话Apache大咖"
+lang: cn
+ref: talk-to-apache-experts
+permalink: /cn/docs/talk-to-apache-experts
+excerpt: "Apache专家现场解读Apache基金会及孵化器运作模式"
+last_modified_at: 2018-11-05T17:10:21+08:00
+author: Zhen Ju
+tags: [微服务, Meetup, Apache]
+redirect_from:
+  - /theme-setup/
+---
+
 ## 对话Apache大咖
 
 ### 活动简介
@@ -195,22 +208,18 @@ Skywalking是中国开发者发起的一个Apache孵化项目，刚加入孵化�
 >
 > 顶级项目为版本发布进行投票时，需要：
 >
-> A. 投票必须有72小时窗口期
->
-> B. 只要超过3个"+"投票就可以发布版本
->
-> C. "+1"投票要超过3个，并且"+1"投票要多于"-1"投票
->
-> D. 只要有1个"-1"投票就意味着投票不通过
+>	A. 投票必须有72小时窗口期
+>	B. 只要超过3个"+"投票就可以发布版本
+>	C. "+1"投票要超过3个，并且"+1"投票要多于"-1"投票
+>	D. 只要有1个"-1"投票就意味着投票不通过
 
 
 
->问题3
+> **问题3**
 > 对于发布的新版本，PMC（项目管理委员会）必须：
 >
-> A. 公布官方发布源代码
->
-> B. 提供新版本的二进制文件
+>	A. 公布官方发布源代码
+>	B. 提供新版本的二进制文件
 
 关注ServiceComb公众号查看答案：
 
