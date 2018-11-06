@@ -7,25 +7,25 @@ excerpt: "Becoming a committer of Apache ServiceComb"
 last_modified_at: 2018-06-19T09:46:01+08:00
 ---
 
-ServiceComb follows the Apache way to build the community. Anyone can become a committer once they have contributed sufficiently to the project and earned the trust.
+ServiceComb 是按照Apache的做事方式来构建社区的，任何人只要他为社区做出了足够的贡献争获取到足够的信任就可以成为代码提交者。
 
-## Contribute and Earn The Trust
+## 参与社区贡献
 
-* [Download the releases](/release)
-* [Join the mailing list](mailto:dev@servicecomb.apache.org)
-* [Report bugs and/or feature requests](https://issues.apache.org/jira/projects/SCB/)
+* [下载发行版](/release)
+* [参加邮件列表讨论](mailto:dev@servicecomb.apache.org)
+* [提交Bug或者提交新的功能需求](https://issues.apache.org/jira/projects/SCB/)
 
-See the [contributing](/developers/contributing) guide on how to become a contributor.
+参见 [贡献社区](/developers/contributing) 获取更多成为贡献者的指导建议。
 
-ServiceComb is a meritocracy the same as Apache. Once you have shown sufficient sustained commitment to the project and earned the trust, the PMC may invite you to be a committer.
+ServiceComb采用了与Apache基金会相同的精英治理模式。 一旦您对项目表现出足够的持续承诺并赢得了信任，PMC可能会邀请您成为提交者。
 
-There are multiple actions other than coding to build the trust in the ServiceComb community, code review, design discussion, user support, community outreach, documentation, project management etc. 
+除了编码之外，还有多种贡献方式可以在ServiceComb社区中建立信任。例如代码审查，设计讨论，用户支持，社区拓展，文档，项目管理等。
 
 ## New Committer Process
 
-The ServiceComb community follows the Apache Community's [process](http://community.apache.org/newcommitter.html) on accepting a new committer.
+ServiceComb社区参照Apache[发展新提交者流程](http://community.apache.org/newcommitter.html)来发展新的提交者。
 
-* Start the vote in @private.
-* If the vote passes, send an offer to become a committer with @private CC'ed.
-* Add the committer to the [team page](/developers/team)
-* [Setup committer rights](/developers/setup-committer-rights/)
+* 在 @private 中进行投票.
+* 如果投票通过，项目管理委员会讲向新发展的代码提交这发送邀请邮件，邮件同时抄送 @private。
+* 将代码提交者信息刷新到[开发团队](/developers/team)
+* [设置提交权限信息](/developers/setup-committer-rights/)
