@@ -7,20 +7,20 @@ excerpt: "ServiceComb Releases"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
 
-Use the links below to download the ServiceComb toolkits releases from one of our mirrors. You must verify the integrity of the downloaded files using signatures downloaded from our main distribution directory.
+使用以下链接从我们的一个镜像下载ServiceComb工具包版本。 您必须使用从我们的主分发目录下载的签名来验证下载文件的完整性。
 
-Only current recommended releases are available on the main distribution site and its mirrors.
+主分发站点及其镜像仅提供当前推荐的版本。
 
 
-**Stable Release - Latest Version:**
+**稳定发布版 - 最新版本:**
 
-* [ServiceComb Service-Center 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0/){:target="_blank"} (released on 2018-08-02)
+* [ServiceComb Service-Center 1.0.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0/){:target="_blank"} (released on 2018-08-02)
 
-* [ServiceComb Java-Chassis 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0/){:target="_blank"} (released on 2018-08-02)
+* [ServiceComb Java-Chassis 1.0.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0/){:target="_blank"} (released on 2018-08-02)
 
 * [ServiceComb Saga 0.2.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.2.0/){:target="_blank"} (released on 2018-06-21)
 
-**Earlier Releases :**
+**先前发行版本 :**
 
 * [ServiceComb Service-Center 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
 
@@ -32,15 +32,13 @@ Only current recommended releases are available on the main distribution site an
 
 * [ServiceComb Saga 0.1.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/){:target="_blank"} (released on 2018-03-27)
 
-**NOTE:**
-  - Please check [this page](/release/compatibleversion) for compatible version.
+**注意:**
+  - 请查看 [兼容版本](/release/compatibleversion) 获取版本兼容信息.
 
 
-**Verifying the release**
+**验证发行版本**
 
-It is essential that you verify the integrity of the downloaded files using the PGP or SHA signatures.
- The PGP signatures can  be verified using GPG or PGP.
- Please download the [KEYS](https://www.apache.org/dist/incubator/servicecomb/KEYS){:target="_blank"} as well as the asc signature files for relevant distribution. It is recommended to get these files from the main distribution [directory](https://www.apache.org/dist/incubator/servicecomb/){:target="_blank"} and not from the mirrors.
+使用PGP或SHA签名验证下载文件的完整性至关重要。可以使用GPG或PGP验证PGP签名。请下载[KEYS](https://www.apache.org/dist/incubator/servicecomb/KEYS){:target="_blank"} 以及相关发行版的asc签名文件。 建议从主发行版[目录](https://www.apache.org/dist/incubator/servicecomb/){:target="_blank"} 中获取这些文件，而不是从镜像中获取。
  ```
  gpg -i KEYS
 
@@ -54,7 +52,7 @@ It is essential that you verify the integrity of the downloaded files using the 
 
 ```
 
-To verify the binaries/sources you can download the relevant asc files for it from main distribution directory and follow the below guide.
+要验证二进制文件/源，您可以从主分发目录下载相关的asc文件，并按照以下指南进行操作。
 
 ```
 gpg --verify apache-servicecomb-incubating********.asc apache-servicecomb-incubating*********
@@ -70,4 +68,4 @@ pgp apache-servicecomb-incubating********.asc
 
 ```
 
-Alternatively you can download the SHA signatures from main distribution [repo](https://www.apache.org/dist/incubator/servicecomb/){:target="_blank"} and verify the downloads using sha512sum.
+或者，您可以从主发行版[repo](https://www.apache.org/dist/incubator/servicecomb/){:target="_blank"}下载SHA签名，并使用sha512sum验证下载。
