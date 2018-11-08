@@ -193,5 +193,9 @@ Skywalking是中国开发者发起的一个Apache孵化项目，刚加入孵化�
 ![apache-developers-gathering]({{ site.url }}{{ site.baseurl }}/assets/images/apache-developers-gathering-shanghai.jpg)
 
 ---
+### 关于Apache ServiceComb
+Apache ServiceComb是一个开源微服务框架，旨在使开发人员能够高效、方便的构建和管理微服务应用。该项目源于华为云为服务引擎CSE，借鉴和继承了华为诸多微服务实践经验，于2017年5月开源并在同年11月捐赠给Apache软件基金会。历经将近一年的孵化，ServiceComb从微服务软件开发套件发展成为完整的微服务解决方案，用户数迅速增长，并获得了来自社区开发者的广泛支持。2018年10月24日，ServiceComb从Apache孵化器顺利毕业并成为顶级项目。
+
+---
 ### 加入Apache开发者社区
 Apache软件基金会作为全球最大的开源软件基金会，其独特的精英治理模式和社区文化得到了全球无数开发者的青睐。如果读者有意加入Apache社区，参与Apache开源项目贡献，可以参考《[如何成为commiter](http://servicecomb.apache.org/cn/developers/becomming-a-commiter)》，了解Apache基金会的管理模式，以及《[从开源小白到Apache Commiter](http://servicecomb.apache.org/cn/docs/how-to-grow-up-to-be-an-apache-committer)》，体会开发者成长为commiter的心路历程。期待在Apache社区见到更多中国开发者的身影，我们，社区见！
