@@ -79,7 +79,7 @@ redirect_from:
 
 在会议中分享项目、建立技术博客也是不错的方式。
 
-[吴晟]
+[吴晟，Skywalking]
 
 Skywalking是中国开发者发起的一个Apache孵化项目，刚加入孵化时只有15个committer，而现在，代码层面的提交者已经达到了70人。我们提倡大家提交小的改动，这样很容易提交代码来做贡献，所以我们每次发布版本都会吸引一些开发者。当我们没有太多精力投入到测试时，我们会吸引开发者来提供测试，他们可以提交集成测试结果，可以提交测试模型，**只要保持正确的编程风格，PMC的成员就可以进行审查，并合并代码**。
 
@@ -197,9 +197,3 @@ Apache软件基金会是一个成立于1999年的非盈利慈善组织，英文�
 ### 加入Apache开发者社区
 
 Apache软件基金会作为全球最大的开源软件基金会，其独特的精英治理模式和社区文化得到了全球无数开发者的青睐。如果读者有意加入Apache社区，参与Apache开源项目贡献，**可以参考《[如何成为commiter](http://servicecomb.apache.org/cn/developers/becomming-a-commiter)》，了解Apache基金会的管理模式，以及《[从开源小白到Apache Commiter](http://servicecomb.apache.org/cn/docs/how-to-grow-up-to-be-an-apache-committer)》，体会开发者成长为commiter的心路历程。期待在Apache社区见到更多中国开发者的身影，我们，社区见！**
-
-
-
- 活动组织人员：Apache ServiceComb社区的总负责人姜宁，运营负责人Zen Lin，ServiceComb成员巨震、王齐林、吴继敏、刘果等。
-
-参与活动的社区：Beam、ServiceComb、Dubbo、Gearpump、Griffin、Kerlin、Skywalking、Weex
