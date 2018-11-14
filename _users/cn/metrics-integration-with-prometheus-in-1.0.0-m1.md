@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 {% include toc %}
-微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，请通过查看用户手册和[Release Note](https://github.com/apache/incubator-servicecomb-java-chassis/releases)获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)参与讨论。
+微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，请通过查看用户手册和[Release Note](https://github.com/apache/servicecomb-java-chassis/releases)获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.apache.org)参与讨论。
 
 ## 背景
 [普罗米修斯](http://www.prometheus.io/)是相似于Google Borgmon的一个开源监控系统，也是[CNCF](https://www.cncf.io/)的成员之一，目前社区非常活跃，Java Chassis Metrics在1.0.0-m1中支持对接普罗米修斯，并进一步实现使用[Grafana](https://grafana.com/)查询Metrics数据。

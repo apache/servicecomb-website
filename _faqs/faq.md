@@ -33,7 +33,7 @@ last_modified_at: 2017-10-29T10:01:43-04:00
 
 5. **Q: Are there any restrictions of the return type of our API? Should it be the type of ResponseEntity?**
 
-   A: No, examples can refer to [the implementation of integration-test](https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/org/apache/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java) in java-chassis.
+   A: No, examples can refer to [the implementation of integration-test](https://github.com/apache/servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/springmvc-tests-common/src/test/java/org/apache/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java) in java-chassis.
 
 6. **Q: Our API can not be accessed after microservices are up. It just returns *404 Not Found*. The codes we use is as follows:**
 

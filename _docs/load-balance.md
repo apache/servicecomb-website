@@ -25,7 +25,7 @@ Run one more *BMI calculator service* with the following command:
 mvn spring-boot:run -Drun.jvmArguments="-Dcse.rest.address=0.0.0.0:7778"
 ```
 
-To better distinguish different running instances, we added a new interface that returns instance id in the implementation of BMI calculator, details can refer to [the implementation of BMI calculator](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/bmi/calculator). Besides, a different service port is needed to avoid port conflict.
+To better distinguish different running instances, we added a new interface that returns instance id in the implementation of BMI calculator, details can refer to [the implementation of BMI calculator](https://github.com/apache/servicecomb-java-chassis/tree/master/samples/bmi/calculator). Besides, a different service port is needed to avoid port conflict.
 
 Now you can see the instance id in the following figures shows up alternately by clicking the *Submit* button.
 

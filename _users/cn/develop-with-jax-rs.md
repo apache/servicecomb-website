@@ -114,7 +114,7 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
 
 * **步骤 4** 添加服务定义。
 
-   在resources目录中添加[microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/)。
+   在resources目录中添加[microservice.yaml](https://docs.servicecomb.io/java-chassis/zh_CN/build-provider/definition/service-definition.html)。
 
 * **步骤 5** 添加Main启动类
 
@@ -124,7 +124,7 @@ ServiceComb支持开发者使用JAX-RS注解，使用JAX-RS模式开发服务。
 
    public class Application {
      public static void main(String[] args) throws Exception {
-        //初始化日志， 加载Bean(包括它们的参数), 以及注册Service, 更多信息可以参见文档 : http://servicecomb.incubator.apache.org/cn/users/application-boot-process/
+        //初始化日志， 加载Bean(包括它们的参数), 以及注册Service, 更多信息可以参见文档 : https://docs.servicecomb.io/java-chassis/zh_CN/build-provider/bootup.html
         Log4jUtils.init();
         BeanUtils.init();
      }

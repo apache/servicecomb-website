@@ -85,7 +85,7 @@ Service Center是一个无状态的应用因此它很容易以集群的模式部
 我们假定你的etcd运行在http://10.12.0.4:2379 上：
 
 ##### 第一步
-在所有的VM上从[ServiceComb官网](https://github.com/apache/incubator-servicecomb-service-center/releases)下载最新版本的Service Center并解压：
+在所有的VM上从[ServiceComb官网](https://github.com/apache/servicecomb-service-center/releases)下载最新版本的Service Center并解压：
 
 ```bash
 tar -xvf service-center-X.X.X-linux-amd64.tar.gz
@@ -178,9 +178,9 @@ curl http://10.12.0.1:30101/v4/default/registry/health
 ```
 
 
-我们可以看到Service Center能够自动发现所有正在集群中运行的实例，[Java-Chassis SDK](https://github.com/apache/incubator-servicecomb-java-chassis)将使用这个特性至少找到一个Service Center实例。
+我们可以看到Service Center能够自动发现所有正在集群中运行的实例，[Java-Chassis SDK](https://github.com/apache/servicecomb-java-chassis)将使用这个特性至少找到一个Service Center实例。
 
-在你的microservice.yaml中你可以填写一个或多个Service Center实例，如果[Java-Chassis SDK](https://github.com/apache/incubator-servicecomb-java-chassis)发现配置的第一个地址（实例）失败，它将会自动使用下一个地址（实例）：
+在你的microservice.yaml中你可以填写一个或多个Service Center实例，如果[Java-Chassis SDK](https://github.com/apache/servicecomb-java-chassis)发现配置的第一个地址（实例）失败，它将会自动使用下一个地址（实例）：
 ```yaml
 servicecomb:
   service:

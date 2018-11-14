@@ -1,9 +1,9 @@
 ---
-title: "如何订阅Apache ServiceComb (incubating) 的邮件列表"
+title: "如何订阅Apache ServiceComb的邮件列表"
 lang: cn 
 ref: subscribe-mail-list
 permalink: /cn/developers/subscribe-mail-list/
-excerpt: "如何订阅Apache ServiceComb (incubating) 的邮件列表"
+excerpt: "如何订阅Apache ServiceComb的邮件列表"
 last_modified_at: 2017-09-08T20:26:43-20:46
 ---
 
@@ -12,7 +12,7 @@ last_modified_at: 2017-09-08T20:26:43-20:46
 
 ## 0 前言
 
-​	邮件列表（Mail List）是一个成熟开源社区的“枢纽”。通常来说，开源社区的提问与解答、技术讨论、事务决策等都通过邮件列表来承载。邮件列表异步、广播的特性，也非常适合开源社区的沟通交流。那么，如何订阅Apache ServiceComb (incubating)的邮件列表呢？
+​	邮件列表（Mail List）是一个成熟开源社区的“枢纽”。通常来说，开源社区的提问与解答、技术讨论、事务决策等都通过邮件列表来承载。邮件列表异步、广播的特性，也非常适合开源社区的沟通交流。那么，如何订阅Apache ServiceComb的邮件列表呢？
 
 
 

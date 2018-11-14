@@ -138,7 +138,7 @@ Different from the Spring MVC and JAX-RS development modes, the transparent RPC 
 
 * **Step 5** Add service definition file:
 
-   Add [microservice.yaml](http://servicecomb.incubator.apache.org/cn/users/service-definition/) file into resources folder of your project.
+   Add [microservice.yaml](https://docs.servicecomb.io/java-chassis/zh_CN/build-provider/definition/service-definition.html) file into resources folder of your project.
    
 * **Step 6** Add Main class:
 
@@ -148,7 +148,7 @@ Different from the Spring MVC and JAX-RS development modes, the transparent RPC 
 
    public class Application {
      public static void main(String[] args) throws Exception {
-        //initializing log, loading bean(including its parameters), and registering service, more detail can be found here : http://servicecomb.incubator.apache.org/users/application-boot-process/
+        //initializing log, loading bean(including its parameters), and registering service, more detail can be found here : https://docs.servicecomb.io/java-chassis/zh_CN/build-provider/bootup.html
         Log4jUtils.init();
         BeanUtils.init();
      }
