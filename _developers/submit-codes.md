@@ -12,7 +12,7 @@ last_modified_at: 2017-09-08T20:26:43-20:46
 ## Contributing
    ServiceComb is still growing and we hope that more will join us to share this. There are many ways to contribute:
 * Improve documents. Help us improve the documents on this site or the API documentation. For the documents on this site, you can find links **Report a Doc Issue** or **Edit This Page on Github** to start.
-* Implement feature request or fix bugs. You can find all the feature request and bug reports on the projects' issues pages. Take [Saga](https://github.com/apache/incubator-servicecomb-saga/issues) as an example, issues will be labeled as **enhancement** or **bug**, you can choose the ones you are interested in. Bug reports and new feature requests are also welcomed.
+* Implement feature request or fix bugs. You can find all the feature request and bug reports on the projects' issues pages. Take [Saga](https://github.com/apache/servicecomb-saga/issues) as an example, issues will be labeled as **enhancement** or **bug**, you can choose the ones you are interested in. Bug reports and new feature requests are also welcomed.
 
    ![Find Features](/assets/images/find-features-by-example.png){: .align-center}
 
@@ -20,11 +20,11 @@ last_modified_at: 2017-09-08T20:26:43-20:46
     Before submitting code, make sure that you have properly tested the functionality and verified the implementation according to the auto test section in README.
 
 ## How to submit a PR
-　　It's quite convenient to submit a [Pull Request(PR)](https://help.github.com/articles/about-pull-requests/) on [Github](https://github.com/search?q=org%3Aapache+servicecomb). Take the [apache/incubator-servicecomb-website](https://github.com/apache/incubator-servicecomb-website) as an example:
+　　It's quite convenient to submit a [Pull Request(PR)](https://help.github.com/articles/about-pull-requests/) on [Github](https://github.com/search?q=org%3Aapache+servicecomb). Take the [apache/servicecomb-website](https://github.com/apache/servicecomb-website) as an example:
 
 ### Fork repository
 
-　　Visit the apache/incubator-servicecomb-website project's [github page](https://github.com/apache/incubator-servicecomb-website), click `Fork` button on the right left cornor.
+　　Visit the apache/servicecomb-website project's [github page](https://github.com/apache/servicecomb-website), click `Fork` button on the right left cornor.
 
 ![Fork Repository](/assets/images/fork-repo.jpg){: .align-center}
 
@@ -33,27 +33,27 @@ last_modified_at: 2017-09-08T20:26:43-20:46
 - Clone the source code to local machine:
 
   ```shell
-  git clone https://github.com/<your_github_name>/incubator-servicecomb-website.git
+  git clone https://github.com/<your_github_name>/servicecomb-website.git
   ```
 
   Note: substitute \<your\_github\_name\> with your github username.
 
   After the clone is done, the origin remote will point to the default branch of the cloned repository.
 
-- Add apache/incubator-servicecomb-website as upstream remote:
+- Add apache/servicecomb-website as upstream remote:
 
   ```shell
-  cd  incubator-servicecomb-website
-  git remote add upstream https://github.com/apache/incubator-servicecomb-website.git
+  cd  servicecomb-website
+  git remote add upstream https://github.com/apache/servicecomb-website.git
   ```
 - Check the local repository's remotes
 
   ```shell  
   git remote -v
-  origin https://github.com/<your_github_name>/incubator-servicecomb-website.git (fetch)
-  origin    https://github.com/<your_github_name>/incubator-servicecomb-website.git (push)
-  upstream  https://github.com/apache/incubator-servicecomb-website.git (fetch)
-  upstream  https://github.com/apache/incubator-servicecomb-website.git (push)
+  origin https://github.com/<your_github_name>/servicecomb-website.git (fetch)
+  origin    https://github.com/<your_github_name>/servicecomb-website.git (push)
+  upstream  https://github.com/apache/servicecomb-website.git (fetch)
+  upstream  https://github.com/apache/servicecomb-website.git (push)
   ```
 
 - Create a new branch to start working
@@ -75,7 +75,7 @@ last_modified_at: 2017-09-08T20:26:43-20:46
 　For more on git usages, please visit[Git tutorial](https://www.atlassian.com/git/tutorials/setting-up-a-repository).
 
 ### Create PR
-  Goto your github page, find the apache/incubator-servicecomb-website project, swich to the branch you just pushed, click on `New pull request` and then `Create pull request`, see the image below:
+  Goto your github page, find the apache/servicecomb-website project, swich to the branch you just pushed, click on `New pull request` and then `Create pull request`, see the image below:
 
 ![New Pull Request](/assets/images/new-pr.jpg){: .align-center}
 fig-1 New pull request 

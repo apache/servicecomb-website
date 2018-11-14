@@ -19,7 +19,7 @@ There are many ways that you can help make ServiceComb a better piece of solutio
 ## Getting in touch
 
 There are various ways of communicating with the ServiceComb community.
-- Join us on the [mailing list](http://servicecomb.incubator.apache.org/cn/developers/subscribe-mail-list) and take part in any conversations
+- Join us on the [mailing list](http://servicecomb.apache.org/cn/developers/subscribe-mail-list) and take part in any conversations
 - Pop by on [Gitter](https://gitter.im/ServiceCombUsers/Lobby) and say hi
 
 ## Improving the documentation
@@ -32,19 +32,19 @@ Most of the documentation is stored as the markdown text, you can edit this page
 
 Please raise a new issue in our [issue tracker](https://issues.apache.org/jira/browse/SCB)
 If you can create a JUnit test case then your issue is more likely to be resolved quicker.
-e.g. take a look at some of the existing [unit tests cases](https://github.com/apache/incubator-servicecomb-saga/tree/master/alpha/alpha-core/src/test/java/org/apache/servicecomb/saga/alpha/core)
+e.g. take a look at some of the existing [unit tests cases](https://github.com/apache/servicecomb-saga/tree/master/alpha/alpha-core/src/test/java/org/apache/servicecomb/saga/alpha/core)
 Then we can add your issue to git and then we'll know when its really fixed and we can ensure that the problem stays fixed in future releases.
 
 ## Working on the code
 
-We recommend to work on the code from  [Github](https://github.com/apache?q=incubator-servicecomb), it has the following sub-projects:
+We recommend to work on the code from  [Github](https://github.com/search?q=org%3Aapache+servicecomb), it has the following sub-projects:
 
 | Project Name | Project Introduction | Programming Language |
 |-------------------------------------------------------------------------------|----------------------------|----------|
-| [Java Chassis](https://github.com/apache/incubator-servicecomb-java-chassis)      | Java Microservice Framework（SDK） | Java     |
-| [Service Center](https://github.com/apache/incubator-servicecomb-service-center)               | Service registration and discovery | Go       |
-| [Saga](https://github.com/apache/incubator-servicecomb-saga)                                   | Data Eventually Consistency Solution for Microservice | Java     |
-| [Website](https://github.com/apache/incubator-servicecomb-website) | ServiceComb Website | Markdown |
+| [Java Chassis](https://github.com/apache/servicecomb-java-chassis)      | Java Microservice Framework（SDK） | Java     |
+| [Service Center](https://github.com/apache/servicecomb-service-center)               | Service registration and discovery | Go       |
+| [Saga](https://github.com/apache/servicecomb-saga)                                   | Data Eventually Consistency Solution for Microservice | Java     |
+| [Website](https://github.com/apache/servicecomb-website) | ServiceComb Website | Markdown |
 
 If you intend to work on the code and provide patches and other work you want to submit to the Apache ServiceComb projects, then you can fork the project on github and work on your own fork. The custom work you do should be done on branches you create, which can then be committed and pushed upstream, and then submitted to Apache ServiceComb as PRs (pull requests). You can find many resources online how to work on github projects and how to submit work to these projects.
 

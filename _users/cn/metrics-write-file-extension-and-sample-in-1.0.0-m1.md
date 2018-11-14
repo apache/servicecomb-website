@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 {% include toc %}
-微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，请通过查看用户手册和[Release Note](https://github.com/apache/incubator-servicecomb-java-chassis/releases)获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)参与讨论。
+微服务框架从0.5.0版本开始支持监控功能Metrics，1.0.0-m1版本正式发布，请通过查看用户手册和[Release Note](https://github.com/apache/servicecomb-java-chassis/releases)获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.apache.org)参与讨论。
 
 ## 背景
 0.5.0版本的foundation-metrics实现了将采集到的Metrics数据写入文件，在1.0.0-m1中，此功能以Sample的形式移动到了samples/metrics-write-file-sample中；  

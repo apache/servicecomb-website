@@ -29,10 +29,10 @@ Before you start, make sure you have the following tools installed:
 
    Substitute \<your-user-name\>和\<your-email-address\> with your name and email. Refer[Git push without username and password](https://stackoverflow.com/a/8588786){:target="_blank"}to setup pushing without username/password.
 
-3. Get the source code. For example, to get [ServiceComb-Java-Chassis](https://github.com/apache/incubator-servicecomb-java-chassis.git), execute the following command:
+3. Get the source code. For example, to get [ServiceComb-Java-Chassis](https://github.com/apache/servicecomb-java-chassis.git), execute the following command:
 
    ```bash
-   git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
+   git clone https://github.com/apache/servicecomb-java-chassis.git
    ```
        
 ## Configure IDE

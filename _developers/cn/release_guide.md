@@ -83,22 +83,22 @@ ServiceComb Java-Chassis和Saga使用Maven进行版本发布，我们需要在�
 
 1. 克隆service-center代码。
 ```
-git@github.com:apache/incubator-servicecomb-service-center.git
-cd incubator-servicecomb-service-center
+git clone https://github.com/apache/servicecomb-service-center.git
+cd servicecomb-service-center
 gvt restore
 ```
 
 2. 在master分支上打上准备发布版本的标签。
 
-3. 运行RAT工具，检查所有源文件头都有合法的ASF声明, 请参考[该文档](https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release)。
+3. 运行RAT工具，检查所有源文件头都有合法的ASF声明, 请参考[该文档](https://github.com/apache/servicecomb-service-center/tree/master/docs/release)。
 
-4. 运行`make_release.sh`脚本，请参考[该文档](https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release)。
+4. 运行`make_release.sh`脚本，请参考[该文档](https://github.com/apache/servicecomb-service-center/tree/master/scripts/release)。
 
 5. 上一步将会在根目录下生成发行包。
 
 6. 在Linux与Windows环境下运行前端与service-center。
 
-7. 进行[集成测试](https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration)。
+7. 进行[集成测试](https://github.com/apache/servicecomb-service-center/tree/master/integration)。
 
 8. 如果以上全部测试都通过了，将发行包分发给同事在不同机器上进行验证。
 
@@ -106,7 +106,7 @@ gvt restore
 
 ***给发行包签名***
 
-10. 从Github下载要发行版本[标签](https://github.com/apache/incubator-servicecomb-service-center/tags)的源码包。
+10. 从Github下载要发行版本[标签](https://github.com/apache/servicecomb-service-center/tags)的源码包。
 
 11. 生成Linux发行包，Windows发行包和源码包的签名和校验和。
 
@@ -149,7 +149,7 @@ gvt restore
 
 1. 克隆java-chassis代码。
 ```
-git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
+git clone https://github.com/apache/servicecomb-java-chassis.git
 ```
 
 2. 使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地。
@@ -226,7 +226,7 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 
 1. 克隆Saga代码。
 ```
-git@github.com:apache/incubator-servicecomb-saga.git
+git clone https://github.com/apache/servicecomb-saga.git
 ```
 
 2. 使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地。
