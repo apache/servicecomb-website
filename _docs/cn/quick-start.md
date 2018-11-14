@@ -19,8 +19,8 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 * 安装 ServiceComb Java Chassis(SDK)，执行以下指令：
 
    ```bash
-   git clone https://github.com/apache/incubator-servicecomb-java-chassis.git
-   cd incubator-servicecomb-java-chassis
+   git clone https://github.com/apache/servicecomb-java-chassis.git
+   cd servicecomb-java-chassis
    mvn clean install -DskipTests
    ```
 

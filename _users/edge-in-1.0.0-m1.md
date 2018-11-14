@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 {% include toc %}
-We had provide an edge core module since 1.0.0-m1, please checkout the user guide and [release note](https://github.com/apache/incubator-servicecomb-java-chassis/releases) for more information.Also subscribe ServiceComb mail-list(dev-subscribe@servicecomb.incubator.apache.org) and join discussion is welcome.
+We had provide an edge core module since 1.0.0-m1, please checkout the user guide and [release note](https://github.com/apache/servicecomb-java-chassis/releases) for more information.Also subscribe ServiceComb mail-list(dev-subscribe@servicecomb.apache.org) and join discussion is welcome.
 
 ## Edge Features
 ### Loose Coupling

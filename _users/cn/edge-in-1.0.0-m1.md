@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 {% include toc %}
-微服务框架从1.0.0-m1版本开始提供内置Edge模块，请通过查看用户手册和Release Note获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)参与讨论。
+微服务框架从1.0.0-m1版本开始提供内置Edge模块，请通过查看用户手册和Release Note获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.apache.org)参与讨论。
 
 ## Edge特性
 ### 与微服务松耦合

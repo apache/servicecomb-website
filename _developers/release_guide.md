@@ -82,22 +82,22 @@ Before you deploy anything to the maven repository using Maven 2, you should con
 
 1. Clone the service-center code.
 ```
-git@github.com:apache/incubator-servicecomb-service-center.git
-cd incubator-servicecomb-service-center
+git clone https://github.com/apache/servicecomb-service-center.git
+cd servicecomb-service-center
 gvt restore
 ```
 
 2. Create a Tag from the master branch based on the version number which needs to be released.
 
-3. Run RAT tool to ensure no license issues are there, follow the guide over [here](https://github.com/apache/incubator-servicecomb-service-center/tree/master/docs/release)
+3. Run RAT tool to ensure no license issues are there, follow the guide over [here](https://github.com/apache/servicecomb-service-center/tree/master/docs/release)
 
-4. Run the make_release.sh to make the release for windows and linux following the guide over [here](https://github.com/apache/incubator-servicecomb-service-center/tree/master/scripts/release).
+4. Run the make_release.sh to make the release for windows and linux following the guide over [here](https://github.com/apache/servicecomb-service-center/tree/master/scripts/release).
 
 5. Last Step will make the releases in root folder.
 
 6. Run the releases of frontend and service-center in both linux and windows.
 
-7. Run the [integration test](https://github.com/apache/incubator-servicecomb-service-center/tree/master/integration) on the release.
+7. Run the [integration test](https://github.com/apache/servicecomb-service-center/tree/master/integration) on the release.
 
 8. If all the test passes then send the release candidate to peers to test in different machines.
 
@@ -105,7 +105,7 @@ gvt restore
 
 ***Sign the Release***
 
-1. Once the tag is pushed then using the tag download the source code from git [tag](https://github.com/apache/incubator-servicecomb-service-center/tags). 
+1. Once the tag is pushed then using the tag download the source code from git [tag](https://github.com/apache/servicecomb-service-center/tags). 
 
 2. Sign the 3 releases(linux, windows, src) and checksum.
 
@@ -150,7 +150,7 @@ gvt restore
 
 1. Clone the java-chassis code.
 ```
-git clone git@github.com:apache/incubator-servicecomb-java-chassis.git
+git clone https://github.com/apache/servicecomb-java-chassis.git
 ```
 
 2. Cut the release using perl command to replace all the versions in pom.xml files
@@ -227,7 +227,7 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 ***Make and Verify the Release***
 1. Clone the saga code.
 ```
-git@github.com:apache/incubator-servicecomb-saga.git
+git clone https://github.com/apache/servicecomb-saga.git
 ```
 
 2. Cut the release using per command to replace all the versions in pom.xml files

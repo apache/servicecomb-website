@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 {% include toc %}
-微服务框架从0.5.0版本开始支持监控功能Metrics，请注意这个功能还处于开发（Preview）阶段，并且我们未来会做较大的调整，更多讨论请订阅ServiceComb邮件列表(dev-subscribe@servicecomb.incubator.apache.org)。
+微服务框架从0.5.0版本开始支持监控功能Metrics，请注意这个功能还处于开发（Preview）阶段，并且我们未来会做较大的调整，更多讨论请订阅ServiceComb邮件列表(dev-subscribe@servicecomb.apache.org)。
 
 ## 背景
 将系统微服务化是技术潮流和趋势，但是它解决了很多问题的同时也带来了新的问题。

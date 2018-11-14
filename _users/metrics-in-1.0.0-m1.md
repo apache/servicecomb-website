@@ -10,7 +10,7 @@ redirect_from:
 ---
 
 {% include toc %}
-Metrics had supported from Java chassis version 0.5.0,in version 1.0.0-m1,we had reconstruction it and add some more features,please checkout the user guide and [release note](https://github.com/apache/incubator-servicecomb-java-chassis/releases) for more information.Also subscribe ServiceComb mail-list(dev-subscribe@servicecomb.incubator.apache.org) and join discussion is welcome.
+Metrics had supported from Java chassis version 0.5.0,in version 1.0.0-m1,we had reconstruction it and add some more features,please checkout the user guide and [release note](https://github.com/apache/servicecomb-java-chassis/releases) for more information.Also subscribe ServiceComb mail-list(dev-subscribe@servicecomb.apache.org) and join discussion is welcome.
 
 ## Background
 Microservice is trend of technology,it resolve many problems also follows new problem. 
