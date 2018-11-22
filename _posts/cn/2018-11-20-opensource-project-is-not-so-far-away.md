@@ -33,7 +33,10 @@ redirect_from:
 
 ### 给有意者的一些建议
 
-参与一个开源项目，对于自己阅读文档、分析源码、开发和沟通的能力都有很大的益处。这和开发一个业务系统是两种完全不同的体验，对于拓展个人的视野和经验很有帮助，我想大家应该从各种文章里了解很多了，我在这里就不多讲了 : )
+参与一个开源项目，对于自己阅读文档、分析源码、开发和沟通的能力都有很大的益处。这和开发一个业务系统是两种完全不同的体验，对于拓展个人的视野和经验很有帮助。如果进一步成为Apache committer，还有一些额外的福利哦，例如：
+- 合入PR的权限：普通的贡献者只能等待其他committer来检视代码和帮你合入PR。如果你自己就是一名committer的话，那么你就有了合入PR的权限了；而且在你提交PR的时候，不用再像以前一样被动等待其他人来检视，你可以在Github的PR页面主动选择要求其他committer帮你检视代码，被你at到的committer会收到提醒检视的邮件，这样更快捷。
+- JetBrains开源license：如果你是一名Java开发人员，相信你应该听说过JetBrains的Intellij IDEA吧？IDEA有社区版和商业版之分，商业版的功能更丰富，不过需要付费使用。如果你成为了一个Apache项目的committer，那么你就可以申请Open Source License，免费使用商业版的IDEA，或者其他工具（如Goland）了。
+- 技术水平的认可：成为Apache Committer本身就是一件可以证明你的技术能力的事情。在[Apache Committer 列表][ApacheIDList]页面，你可以看到所有的Apache Committer，表格的第三列显示了各个committer所参与的项目。当你参与的项目足够多时，还能成为Apache member，帮助大家孵化开源项目，这个层次相当于比普通committer更进一步了。
 
 如果想要参与到一个开源项目中，可以首先了解一下如何使用这个项目。给开源社区做贡献的方式不仅仅限于提交代码，[修复文档问题][ServiceComb-docs]可能是一个更好的切入点。通过阅读和修复文档问题，我们可以了解到一个项目的主要特性，这对于我们进一步了解项目源码也是很有帮助的。
 
@@ -53,7 +56,7 @@ redirect_from:
 在成为committer之前，你需要先确保自己已经[签署iCLA][ContributorLicenseAgreements]。如果没有的话，可以先去[下载一份iCLA pdf文件][下载ICLA文件]，注意`(optional) Public name`一栏填写自己的github id。注意这份PDF文件需要签名，签名内容是`Full Name`那一栏的你填的内容。  
 将签署好了的iCLA文件按照[iCLA文件提交说明]发送给`secretary@apache.org`，等待回信即可完成签署流程。  
 2. 回复PMC的邀请邮件  
-完成iCLA的签署后，就可以在Apache PMC的邀请邮件上回复了，回复邮件发给`private@servicecomb.apache.org`，你需要说明自己接受邀请，并且告诉PMC你所想要使用的Apache id。已经被人申请了的Apache ID在[这里][ApacheID]都可以查到，选择的时候需要选一个还没有被人使用的id。  
+完成iCLA的签署后，就可以在Apache PMC的邀请邮件上回复了，回复邮件发给`private@servicecomb.apache.org`，你需要说明自己接受邀请，并且告诉PMC你所想要使用的Apache id。已经被人申请了的Apache ID在[这里][ApacheIDList]都可以查到，选择的时候需要选一个还没有被人使用的id。  
 3. 初始化Apache帐户密码  
 当收到Apache帐户创建成功的邮件（标题为`Welcome to the Apache Software Foundation (ASF)!`）时，你的Apache帐号就创建成功了，记得按照邮件中的提示，去设置一下自己的密码。重置密码的过程中需要使用你在签署iCLA时填写的邮箱地址。  
 4. 设置committer权限  
