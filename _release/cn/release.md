@@ -38,9 +38,9 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 
 **验证发行版本**
 
-使用PGP或SHA签名验证下载文件的完整性至关重要。可以使用GPG或PGP验证PGP签名。请下载[KEYS](https://www.apache.org/dist/incubator/servicecomb/KEYS){:target="_blank"} 以及相关发行版的asc签名文件。 建议从主发行版[目录](https://www.apache.org/dist/incubator/servicecomb/){:target="_blank"} 中获取这些文件，而不是从镜像中获取。
+使用PGP或SHA签名验证下载文件的完整性至关重要。可以使用GPG或PGP验证PGP签名。请下载[KEYS](https://www.apache.org/dist/servicecomb/KEYS){:target="_blank"} 以及相关发行版的asc签名文件。 建议从主发行版[目录](https://www.apache.org/dist/servicecomb/){:target="_blank"} 中获取这些文件，而不是从镜像中获取。
  ```
- gpg -i KEYS
+ gpg -import KEYS
 
  or
 
@@ -68,4 +68,4 @@ pgp apache-servicecomb-incubating********.asc
 
 ```
 
-或者，您可以从主发行版[repo](https://www.apache.org/dist/incubator/servicecomb/){:target="_blank"}下载SHA签名，并使用sha512sum验证下载。
+或者，您可以从主发行版[repo](https://www.apache.org/dist/servicecomb/){:target="_blank"}下载SHA签名，并使用sha512sum或者shasum验证下载。
