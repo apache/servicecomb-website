@@ -38,9 +38,9 @@ Only current recommended releases are available on the main distribution site an
 
 It is essential that you verify the integrity of the downloaded files using the PGP or SHA signatures.
  The PGP signatures can  be verified using GPG or PGP.
- Please download the [KEYS](https://www.apache.org/dist/incubator/servicecomb/KEYS){:target="_blank"} as well as the asc signature files for relevant distribution. It is recommended to get these files from the main distribution [directory](https://www.apache.org/dist/incubator/servicecomb/){:target="_blank"} and not from the mirrors.
+ Please download the [KEYS](https://www.apache.org/dist/servicecomb/KEYS){:target="_blank"} as well as the asc signature files for relevant distribution. It is recommended to get these files from the main distribution [directory](https://www.apache.org/dist/servicecomb/){:target="_blank"} and not from the mirrors.
  ```
- gpg -i KEYS
+ gpg -import KEYS
 
  or
 
@@ -68,4 +68,4 @@ pgp apache-servicecomb-incubating********.asc
 
 ```
 
-Alternatively you can download the SHA signatures from main distribution [repo](https://www.apache.org/dist/incubator/servicecomb/){:target="_blank"} and verify the downloads using sha512sum.
+Alternatively you can download the SHA signatures from main distribution [repo](https://www.apache.org/dist/servicecomb/){:target="_blank"} and verify the downloads using sha512sum or shasum.
