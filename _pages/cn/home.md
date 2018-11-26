@@ -32,7 +32,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/release/saga-downloads/'>Saga releases 发布最新版 0.2.0</a>
+    <a href='/release/saga-downloads/'>Saga releases 发布最新版 0.2.1</a>
   </li>
   <li>
     <a href='/cn/docs/quick-start-dataconsistency/'>号外：现在ServiceComb提供了微服务场景下的数据一致性解决方案Saga！</a>
