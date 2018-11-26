@@ -14,11 +14,11 @@ Only current recommended releases are available on the main distribution site an
 
 **Stable Release - Latest Version:**
 
+* [ServiceComb Saga 0.2.1](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga/0.2.1/){:target="_blank"} (released on 2018-11-23)
+
 * [ServiceComb Service-Center 1.0.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0/){:target="_blank"} (released on 2018-08-02)
 
 * [ServiceComb Java-Chassis 1.0.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0/){:target="_blank"} (released on 2018-08-02)
-
-* [ServiceComb Saga 0.2.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.2.0/){:target="_blank"} (released on 2018-06-21)
 
 **Earlier Releases :**
 * [ServiceComb Service-Center 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
@@ -28,6 +28,8 @@ Only current recommended releases are available on the main distribution site an
 * [ServiceComb Service-Center 1.0.0-m1](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/){:target="_blank"} (released on 2018-03-27)
 
 * [ServiceComb Java-Chassis 1.0.0-m1](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/){:target="_blank"} (released on 2018-04-02)
+
+* [ServiceComb Saga 0.2.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.2.0/){:target="_blank"} (released on 2018-06-21)
 
 * [ServiceComb Saga 0.1.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/){:target="_blank"} (released on 2018-03-27)
 
@@ -55,15 +57,15 @@ It is essential that you verify the integrity of the downloaded files using the 
 To verify the binaries/sources you can download the relevant asc files for it from main distribution directory and follow the below guide.
 
 ```
-gpg --verify apache-servicecomb-incubating********.asc apache-servicecomb-incubating*********
+gpg --verify apache-servicecomb********.asc apache-servicecomb*********
 
 or
 
-pgpv apache-servicecomb-incubating********.asc
+pgpv apache-servicecomb********.asc
 
 or
 
-pgp apache-servicecomb-incubating********.asc
+pgp apache-servicecomb********.asc
 
 
 ```
