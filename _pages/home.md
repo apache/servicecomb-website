@@ -32,7 +32,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/release/saga-downloads/'>Saga releases a new version 0.2.0</a>
+    <a href='/release/saga-downloads/'>Saga releases a new version 0.2.1</a>
   </li>
   <li>
     <a href='/docs/Apache-ServiceComb-Meetup-2018-Shanghai-Report/'>Apache ServiceComb Meetup -Shanghai 2018.10.12 Report(PPT Download)</a>
