@@ -9,7 +9,7 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 
 ## Releases
 
-* Apache ServiceComb (incubating) Saga 0.2.1(LATEST)
+* Apache ServiceComb Saga 0.2.1(LATEST)
     - Source [[src]](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga/0.2.1/apache-servicecomb-saga-distribution-0.2.1-src.zip) [[asc]](https://www.apache.org/dist/servicecomb/servicecomb-saga/0.2.1/apache-servicecomb-saga-distribution-0.2.1-src.zip.asc) [[sha512]](https://www.apache.org/dist/servicecomb/servicecomb-saga/0.2.1/apache-servicecomb-saga-distribution-0.2.1-src.zip.sha512)
     - Distribution [[Binary]](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga/0.2.1/apache-servicecomb-saga-distribution-0.2.1-bin.zip) [[asc]](https://www.apache.org/dist/servicecomb/servicecomb-saga/0.2.1/apache-servicecomb-saga-distribution-0.2.1-bin.zip.asc) [[sha512]](https://www.apache.org/dist/servicecomb/servicecomb-saga/0.2.1/apache-servicecomb-saga-distribution-0.2.1-bin.zip.sha512)
 
