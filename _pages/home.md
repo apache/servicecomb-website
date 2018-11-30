@@ -10,7 +10,7 @@ excerpt: 'ServiceComb is a microservice framework with full functionality of ser
 
 <div class="excerpt-label">Download latest release:</div>
 <div class="button-group">
-<a href="/release" class="home-button btn--info">ServiceComb 1.0.0</a>
+<a href="/release" class="home-button btn--info">ServiceComb 1.1.0</a>
 </div>'
 
 intro:
@@ -20,7 +20,7 @@ intro:
 <ul>
 
   <li>
-    <a href='/release/'>Apache ServiceComb Release Version 1.0.0</a>
+    <a href='/release/'>Apache ServiceComb Release Version 1.1.0</a>
   </li>
   <li>
     <a href='/developers/team/'>Apache ServiceComb Development Team</a>
