@@ -110,35 +110,30 @@ gvt restore
 
 11. 生成Linux发行包，Windows发行包和源码包的签名和校验和。
 
-12. 上传发行版到[Apache发行开发仓库](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/).
+12. 上传发行版到[Apache发行开发仓库](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-service-center/).
 
 13. 从SVN下载发行包，验证签名和校验。
 
-***PPMC批准***
+***PMC批准***
 
-14. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PPMC批准.
+14. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
 
 15. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从***第1步***重新开始。
 
 16. 将投票结果发布到dev@servicecomb.apache.org。
 
-***IPMC批准***
-
-17. 发送投票邮件至***general@incubator.apache.org***，发起IPMC批准。
-
-18. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从***第1步***重新开始。
-
-19. 将投票结果发布到general@incubator.apache.org。
 
 ***通告***
 
-20. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/)。
+20. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-service-center/)。
 
 21. 等待24小时，让所有镜像同步。
 
-22. 上传发行页面至ServiceComb网站。
+22. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
 
-23. 发送发行通告邮件到dev@servicecomb.apache.org， general@incubator.apache.org， announce@apache.org。
+23. 上传发行页面至ServiceComb网站。
+
+24. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
 
 
 
@@ -186,36 +181,31 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 
 14. 生成二进制包和源码包的签名和校验和。
 
-15. 上传发行包到[Apache发行开发仓库](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/).
+15. 上传发行包到[Apache发行开发仓库](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/).
 .
 
 16. 从SVN下载发行包，验证签名和校验。
 
-***PPMC批准***
+***PMC批准***
 
-17. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PPMC批准.
+17. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
 
 18. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从***第1步***重新开始。
 
 19. 将投票结果发布到dev@servicecomb.apache.org。
 
-***IPMC批准***
-
-20. 发送投票邮件至***general@incubator.apache.org***，发起IPMC批准。
-
-21. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从***第1步***重新开始。
-
-22. 将投票结果发布到general@incubator.apache.org。
 
 ***通告***
 
-23. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/)。
+23. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-java-chassis/)。
 
 24. 等待24小时，让所有镜像同步。
 
-25. 上传发行页面至ServiceComb网站。
+25. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
 
-26. 发送发行通告邮件到dev@servicecomb.apache.org， general@incubator.apache.org， announce@apache.org。
+26. 上传发行页面至ServiceComb网站。
+
+27. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
 
 
 
@@ -263,37 +253,31 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 
 14. 生成二进制包和源码包的签名和校验和。
 
-15. 上传发行包到[Apache发行开发仓库](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/).
+15. 上传发行包到[Apache发行开发仓库](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/).
 .
 
 16. 从SVN下载发行包，验证签名和校验。
 
-***PPMC批准***
+***PMC批准***
 
-17. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PPMC批准.
+17. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
 
 18. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从***第1步***重新开始。
 
 19. 将投票结果发布到dev@servicecomb.apache.org。
 
-***IPMC批准***
-
-20. 发送投票邮件至***general@incubator.apache.org***，发起IPMC批准。
-
-21. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从***第1步***重新开始。
-
-22. 将投票结果发布到general@incubator.apache.org。
-
 ***通告***
 
-23. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/)。
+23. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-saga/)。
 
 24. 等待24小时，让所有镜像同步。
 
-25. 上传发行页面至ServiceComb网站。
+25. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
 
-26. 发送发行通告邮件到dev@servicecomb.apache.org， general@incubator.apache.org， announce@apache.org。
+26. 上传发行页面至ServiceComb网站。
+
+27. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
 
 
 **注意**
-整个发行过程通常需要2周时间，如果PPMC投票和IPMC全部都一次性通过。因此请提前准备发行活动。
+整个发行过程通常需要2周时间，如果PMC全部都一次性通过。因此请提前准备发行活动。

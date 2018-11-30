@@ -107,39 +107,33 @@ gvt restore
 
 1. Once the tag is pushed then using the tag download the source code from git [tag](https://github.com/apache/servicecomb-service-center/tags). 
 
-2. Sign the 3 releases(linux, windows, src) and checksum.
+2. Sign the 4 releases(linux, windows, darwin, src) and checksum.
 
-3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-service-center/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the second attempt of the release then the folder structure will be `1.0.0-m2/rc02`)
+3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-service-center/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the second attempt of the release then the folder structure will be `1.0.0-m2/rc02`)
 
 4. Upload the release to the directory created in last step.
 
 5. Download all the releases from SVN and verify the signature and checksum.
 
-***PPMC Approval***
+***PMC Approval***
 
-1. Send the voting mail in ***dev@servicecomb.apache.org*** for PPMC approval.
+1. Send the voting mail in ***dev@servicecomb.apache.org*** for 1PMC approval.
 
 2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from ***Step 1***.
 
 3. Publish the result of the vote in dev@servicecomb.apache.org.
 
-***IPMC approval***
-
-1. Send the voting mail in ***general@incubator.apache.org*** for IPMC approval.
-
-2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote.If you get even one -1 binding vote then fix the issue and start again from ***Step 1***
-
-3. Publish the result of the vote in general@incubator.apache.org.
-
 ***Announcements***
 
-1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-service-center/).
+1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-service-center/).
 
 2. Wait for 24 hours to replicate the release in all the mirrors.
 
-3. Upload the release page of ServiceComb Website.
+3. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
 
-4. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
+4. Upload the release page of ServiceComb Website.
+
+5. Send the announcement mails to dev@servicecomb.apache.org, announce@apache.org
 
 
 
@@ -187,37 +181,31 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 
 2. Sign the 2 releases(distribution, src) and checksum.
 
-3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the first attempt of the release then the folder structure will be `1.0.0-m2/rc01`)
+3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the first attempt of the release then the folder structure will be `1.0.0-m2/rc01`)
 
 4. Upload the release to  directory created in last step.
 
 5. Download all the releases from SVN and verify the signature and checksum.
 
-***PPMC approval***
+***PMC approval***
 
-1. Send the voting mail in dev@servicecomb.apache.org for PPMC approval.
+1. Send the voting mail in dev@servicecomb.apache.org for PMC approval.
 
 2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
 
 3. Publish the result of the vote in dev@servicecomb.apache.org.
 
-***IPMC approval***
-
-1. Send the voting mail in general@incubator.apache.org
-
-2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
-
-3. Publish the result of the vote in general@incubator.apache.org.
-
 ***Announcements***
 
-1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-java-chassis/).
+1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-java-chassis/).
 
 2. Wait for 24 hours to replicate the release in all the mirrors.
 
-3. Upload the release page of ServiceComb Website.
+3. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
 
-4. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
+4. Upload the release page of ServiceComb Website.
+
+5. Send the announcement mails to dev@servicecomb.apache.org, announce@apache.org
 
 
 
@@ -264,13 +252,13 @@ mvn deploy -DskipTests -Ppassphrase -Prelease
 
 2. Sign the 2 releases(distribution, src) and checksum.
 
-3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-saga/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the third attempt of the release then the folder structure will be `1.0.0-m2/rc03`)
+3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-saga/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the third attempt of the release then the folder structure will be `1.0.0-m2/rc03`)
 
 4. Upload the release to  directory created in last step.
 
 5. Download all the releases from SVN and verify the signature and checksum.
 
-***PPMC approval***
+***PMC approval***
 
 1. Send the voting mail in dev@servicecomb.apache.org.
 
@@ -278,25 +266,18 @@ mvn deploy -DskipTests -Ppassphrase -Prelease
 
 3. Publish the result of the vote in dev@servicecomb.apache.org.
 
-***IPMC approval***
-
-1. Send the voting mail in general@incubator.apache.org
-
-2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
-
-3. Publish the result of the vote in general@incubator.apache.org.
-
 ***Announcements***
 
-1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/incubator/servicecomb/incubator-servicecomb-saga/).
-
+1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-saga/).
 
 2. Wait for 24 hours to replicate the release in all the mirrors.
 
-3. Upload the release page of ServiceComb Website.
+3. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
 
-4. Send the announcement mails to dev@servicecomb.apache.org, general@incubator.apache.org, announce@apache.org
+4. Upload the release page of ServiceComb Website.
+
+5. Send the announcement mails to dev@servicecomb.apache.org, announce@apache.orgg
 
 
 **NOTE**
- - The whole process generally takes 2 weeks to complete assuming you don't get any -1 from PPMC and IMPC, so please plan the release activity before hand.
+ - The whole process generally takes 1 weeks to complete assuming you don't get any -1 from PMC, so please plan the release activity before hand.
