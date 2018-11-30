@@ -11,7 +11,7 @@ excerpt: 'ServiceComb提供了一套包含代码框架生成，服务注册发�
 
 <div class="excerpt-label">下载最新版本:</div>
 <div class="button-group">
-<a href="/cn/release" class="home-button btn--info">ServiceComb 1.0.0</a>
+<a href="/cn/release" class="home-button btn--info">ServiceComb 1.1.0</a>
 </div>'
 
 intro:
@@ -20,7 +20,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/cn/docs/release_note_1_0_0'>Apache ServiceComb 1.0.0版本正式发布</a>
+    <a href='/cn/docs/release_note_1_0_0'>Apache ServiceComb 1.1.0版本正式发布</a>
   </li>
   <li>
     <a href='/developers/team/'>Apache ServiceComb 开发团队</a>
