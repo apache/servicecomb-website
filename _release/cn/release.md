@@ -23,21 +23,21 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 
 **先前发行版本 :**
 
-* [ServiceComb Service-Center 1.0.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0/){:target="_blank"} (released on 2018-08-02)
+* [ServiceComb Service-Center 1.0.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0/){:target="_blank"} (released on 2018-08-02)
 
-* [ServiceComb Java-Chassis 1.0.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0/){:target="_blank"} (released on 2018-08-02)
+* [ServiceComb Java-Chassis 1.0.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0/){:target="_blank"} (released on 2018-08-02)
 
-* [ServiceComb Service-Center 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
+* [ServiceComb Service-Center 1.0.0-m2](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
 
-* [ServiceComb Java-Chassis 1.0.0-m2](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
+* [ServiceComb Java-Chassis 1.0.0-m2](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
 
-* [ServiceComb Service-Center 1.0.0-m1](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/){:target="_blank"} (released on 2018-03-27)
+* [ServiceComb Service-Center 1.0.0-m1](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/){:target="_blank"} (released on 2018-03-27)
 
-* [ServiceComb Java-Chassis 1.0.0-m1](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/){:target="_blank"} (released on 2018-04-02)
+* [ServiceComb Java-Chassis 1.0.0-m1](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/){:target="_blank"} (released on 2018-04-02)
 
-* [ServiceComb Saga 0.2.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.2.0/){:target="_blank"} (released on 2018-06-21)
+* [ServiceComb Saga 0.2.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-saga/0.2.0/){:target="_blank"} (released on 2018-06-21)
 
-* [ServiceComb Saga 0.1.0](https://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/){:target="_blank"} (released on 2018-03-27)
+* [ServiceComb Saga 0.1.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/){:target="_blank"} (released on 2018-03-27)
 
 **注意:**
   - 请查看 [兼容版本](/release/compatibleversion) 获取版本兼容信息.
