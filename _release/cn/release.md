@@ -62,15 +62,15 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 要验证二进制文件/源，您可以从主分发目录下载相关的asc文件，并按照以下指南进行操作。
 
 ```
-gpg --verify apache-servicecomb-incubating********.asc apache-servicecomb-incubating*********
+gpg --verify apache-servicecomb-********.asc apache-servicecomb-*********
 
 or
 
-pgpv apache-servicecomb-incubating********.asc
+pgpv apache-servicecomb-********.asc
 
 or
 
-pgp apache-servicecomb-incubating********.asc
+pgp apache-servicecomb-********.asc
 
 
 ```
