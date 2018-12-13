@@ -15,6 +15,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | ----------------- | ----------------------- | ------------- | ---- |
 | acsukesh          |  Sukesh A C             |  Huawei       |  *   |
 | asifdxtream       |  Mohammad Asif Siddiqui |  Huawei       |  *   |
+| cherrylzhao       |  Zhao Jun               |  JD.com       |      |
 | ericlee           |  Li Dagang (Eric)       |  Tencent      |  *   |
 | jbonofre          |  Jean-Baptiste Onofre   |  Talend       |  *   |
 | liubao68          |  Liu Bao                |  Huawei       |  *   |
@@ -24,6 +25,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | seanyinx          |  Yin Xiang (Sean)       |  Syswin       |  *   |
 | tnachen           |  Timothy Chen           |  Hyperpilot   |  *   |
 | wujimin           |  Wu Jimin               |  Huawei       |  *   |
+| yaohaishi         |  Yao Haishi             |  Huawei       |      |
 | yangbor           |  Yang Bo                |  Huawei       |  *   |
 | zenlinTechnofreak |  Lin Zhinan             |  Huawei       |  *   |
 | zhangqi           |  Zhang qi               |  Huawei       |  *   |
@@ -36,7 +38,6 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | ----------------- | ---------------------- | ------------ |
 | aseTo2016         |                        |              |
 | chanjarster       | Daniel Qian            | SupWisdom    |
-| cherrylzhao       | Zhao Jun               | JD.com       |
 | crystaldust       | Ju Zheng               | Huawei       |
 | imlidian          | Li Dian                | Huawei       |
 | imlijinting       | Li Jinting             | PICC         |
@@ -61,7 +62,6 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | wuzunqian         | Wu Zunqian             | Yongyou      |
 | xuyiyun0929       | Xu Yiyun               |              |
 | xiaoyimei         | Xiao Yimei             | Changhong    |
-| yhs0092           |                        |              |
 | zhanglongchun     | Zhang LongChun         |              |
 | zhang2014         | Zhang Jian             | OneAPM       |
 | zhuhoudong        | Zhu Houdong            |              |

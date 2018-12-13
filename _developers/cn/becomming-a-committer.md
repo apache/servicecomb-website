@@ -26,6 +26,6 @@ ServiceComb采用了与Apache基金会相同的精英治理模式。 一旦您�
 ServiceComb社区参照Apache[发展新提交者流程](http://community.apache.org/newcommitter.html)来发展新的提交者。
 
 * 在 @private 中进行投票.
-* 如果投票通过，项目管理委员会讲向新发展的代码提交这发送邀请邮件，邮件同时抄送 @private。
+* 如果投票通过，项目管理委员会将向新发展的代码提交这发送邀请邮件，邮件同时抄送 @private。
 * 将代码提交者信息刷新到[开发团队](/developers/team)
 * [设置提交权限信息](/developers/setup-committer-rights/)
