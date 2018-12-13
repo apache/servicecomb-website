@@ -16,6 +16,7 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | ----------------- | ----------------------- | ------------- | ---- |
 | acsukesh          |  Sukesh A C             |  Huawei       |  *   |
 | asifdxtream       |  Mohammad Asif Siddiqui |  Huawei       |  *   |
+| cherrylzhao       |  Zhao Jun               |  JD.com       |      |
 | ericlee           |  Li Dagang (Eric)       |  Tencent      |  *   |
 | jbonofre          |  Jean-Baptiste Onofre   |  Talend       |  *   |
 | liubao68          |  Liu Bao                |  Huawei       |  *   |
@@ -25,6 +26,7 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | seanyinx          |  Yin Xiang (Sean)       |  Syswin       |  *   |
 | tnachen           |  Timothy Chen           |  Hyperpilot   |  *   |
 | wujimin           |  Wu Jimin               |  Huawei       |  *   |
+| yaohaishi         |  Yao Haishi             |  Huawei       |      |
 | yangbor           |  Yang Bo                |  Huawei       |  *   |
 | zenlinTechnofreak |  Lin Zhinan             |  Huawei       |  *   |
 | zhangqi           |  Zhang qi               |  Huawei       |  *   |
@@ -38,7 +40,6 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | ----------------- | ---------------------- | ------------ |
 | aseTo2016         |                        |              |
 | chanjarster       | Daniel Qian            | SupWisdom    |
-| cherrylzhao       | Zhao Jun               | JD.com       |
 | crystaldust       | Ju Zheng               | Huawei       |
 | imlidian          | Li Dian                | Huawei       |
 | imlijinting       | Li Jinting             | PICC         |
