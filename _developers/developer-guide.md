@@ -8,14 +8,16 @@ last_modified_at: 2017-06-24T19:18:43+08:00
 ---
 {% include toc %}
 
-**ServiceComb** is hosted on [Github](https://github.com/search?q=org%3Aapache+servicecomb), it has the following sub-projects:
+**ServiceComb** is hosted on [Github](https://github.com/apache?q=servicecomb), it has the following sub-projects:
 
 | Project Name | Project Introduction | Programming Language |
 |-------------------------------------------------------------------------------|----------------------------|----------|
-| [Java Chassis](https://github.com/apache/servicecomb-java-chassis)      | Java Microservice Framework（SDK） | Java     |
-| [Service Center](https://github.com/apache/servicecomb-service-center)               | Service registration and discovery | Go       |
-| [Saga](https://github.com/apache/servicecomb-saga)                                   | Data Eventually Consistency Solution for Microservice | Java     |
-| [Website](https://github.com/apache/servicecomb-website) | ServiceComb Website | Markdown |
+| [servicecomb-java-chassis](https://github.com/apache/servicecomb-java-chassis) | Java Microservice Framework（SDK） | Java |
+| [servicecomb-service-center](https://github.com/apache/servicecomb-service-center) | Service registration and discovery | Golang |
+| [servicecomb-pack](https://github.com/apache/servicecomb-pack) | Distributed transaction schemes,support Saga and TCC | Java |
+| [servicecomb-saga-actuator](https://github.com/apache/servicecomb-saga-actuator) | Centralized Saga Transaction Coordinator | Java |
+| [servicecomb-docs](https://github.com/apache/servicecomb-docs) | User manual | CSS |
+| [servicecomb-website](https://github.com/apache/servicecomb-website) | Website | HTML |
 
 There are many ways to get involved in ServiceComb and contribute to it, e.g. submit codes, submit tests, tools improvements, document improvements. You can contribute to one or more interested projects. You can refer to the following guide about how to contribute to this community.
 
