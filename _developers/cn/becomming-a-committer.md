@@ -1,9 +1,9 @@
 ---
-title: "Becomming a Committer"
+title: "成为Committer"
 lang: cn
 ref: becomming-a-committer
 permalink: /cn/developers/becomming-a-commiter
-excerpt: "Becoming a committer of Apache ServiceComb"
+excerpt: "成为committer"
 last_modified_at: 2018-06-19T09:46:01+08:00
 ---
 
@@ -21,7 +21,7 @@ ServiceComb采用了与Apache基金会相同的精英治理模式。 一旦您�
 
 除了编码之外，还有多种贡献方式可以在ServiceComb社区中建立信任。例如代码审查，设计讨论，用户支持，社区拓展，文档，项目管理等。
 
-## New Committer Process
+## 新提交者流程
 
 ServiceComb社区参照Apache[发展新提交者流程](http://community.apache.org/newcommitter.html)来发展新的提交者。
 
