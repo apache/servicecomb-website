@@ -6,7 +6,7 @@ permalink: /
 header:
   overlay_image: /assets/images/servicecomb-banner-s.png
   caption:
-excerpt: 'ServiceComb is a microservice framework with full functionality of service management, focus on rapidly development of microservices.
+excerpt: 'Open-Source, Full-Stack Microservice Solution.With out of the box, high performance, compatible with popular ecology, multi-language support
 
 <div class="excerpt-label">Download latest release:</div>
 <div class="button-group">
@@ -18,27 +18,29 @@ intro:
 <div class='excerpt-title'>Latest News</div>
 
 <ul>
-
   <li>
     <a href='/release/'>Apache ServiceComb Release Version 1.1.0</a>
   </li>
   <li>
-    <a href='/developers/team/'>Apache ServiceComb Development Team</a>
+    <a href='/cn/release/saga-downloads/'>Apache ServiceComb Saga releases a new version 0.2.1</a>
   </li>
   <li>
-    <a href='/docs/quick-start-dataconsistency/'>ServiceComb now provides data consistency solutions(Saga) in microservice application.</a>
+    <a href='/cn/release/saga-actuator-downloads/'>Apache ServiceComb Saga Actuator releases a new version 0.3.0</a>
+  </li>
+  <li>
+    <a href=''>Apache ServiceComb won the first prize of China's outstanding open source project organized by China Open Source Cloud Alliance</a>
+  </li>
+  <li>
+    <a href=''>Apache ServiceComb community joint Itcast.cn sub-brand Itheima, Boxuegu and Wisdom Gathering release micro-service tutorial</a>
   </li>
 </ul>
 
 <ul>
   <li>
-    <a href='/release/saga-downloads/'>Saga releases a new version 0.2.1</a>
+    <a href='https://gitter.im/ServiceCombUsers/Lobby'>Welcome to join Apache ServiceComb community at Gitter</a>
   </li>
   <li>
-    <a href='/docs/Apache-ServiceComb-Meetup-2018-Shanghai-Report/'>Apache ServiceComb Meetup -Shanghai 2018.10.12 Report(PPT Download)</a>
-  </li>
-    <li>
-    <a href='https://gitter.im/ServiceCombUsers/Lobby'>Join us at Gitter</a>
+    <a href='/developers/team/'>Apache ServiceComb Development Team</a>
   </li>
 </ul>
 "
@@ -47,17 +49,17 @@ feature_row:
   - image_path: /assets/images/servicecomb-feature-openapi.png
     alt: "Standard"
     title: "Service Contract"
-    url: /users/service-contract/
-    excerpt: "service contract guarantee based on [OpenAPI](https://www.openapis.org)"
+    url: https://docs.servicecomb.io/java-chassis/en_US/build-provider/define-contract.html
+    excerpt: "Service contract guarantee based on [OpenAPI](https://www.openapis.org)"
   - image_path: /assets/images/servicecomb-feature-quickstart.png
     alt: "Efficient"
     title: "Rapid Development"
     url: /docs/quick-start/
-    excerpt: "supports many service frameworks, speed up building of cloud applications"
+    excerpt: "One-click scaffolding, out of the box, speed up building of microservice applications"
   - image_path: /assets/images/servicecomb-feature-multiLanguage.png
     alt: "MultiLanguage"
     title: "Multiple Languages"
-    excerpt: "supports both Java and Go"
+    excerpt: "Ecological extension supports multiple development languages such as Java/Golang/PHP/NodeJS"
 ---
 
 {% include feature_row id="intro" type="center" %}
