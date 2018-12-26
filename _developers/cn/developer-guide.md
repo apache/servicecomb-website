@@ -12,10 +12,12 @@ last_modified_at: 2017-06-24T19:18:43+08:00
 
 | 项目名                                                                        | 项目简介                   | 编程语言 |
 |-------------------------------------------------------------------------------|----------------------------|----------|
-| [Java Chassis](https://github.com/apache/servicecomb-java-chassis)       | Java微服务框架（SDK）      | Java     |
-| [Service Center](https://github.com/apache/servicecomb-service-center)               | 服务中心（服务注册及发现） | Go       |
-| [Saga](https://github.com/apache/servicecomb-saga)                                   | 微服务数据最终一致性实现   | Java     |
-| [Website](https://github.com/apache/servicecomb-website) | ServiceComb网站            | Markdown |
+| [servicecomb-java-chassis](https://github.com/apache/servicecomb-java-chassis)       | Java微服务框架（SDK）      | Java     |
+| [servicecomb-service-center](https://github.com/apache/servicecomb-service-center)               | 服务中心（服务注册及发现） | Golang       |
+| [servicecomb-pack](https://github.com/apache/servicecomb-pack)                                   | 支持Saga/TCC等多协议的分布式事务方案   | Java     |
+| [servicecomb-saga-actuator](https://github.com/apache/servicecomb-saga-actuator)                                   | 集中式Saga事务协调器   | Java     |
+| [servicecomb-docs](https://github.com/apache/servicecomb-docs) | ServiceComb用户手册            | CSS |
+| [servicecomb-website](https://github.com/apache/servicecomb-website) | ServiceComb网站            | HTML |
 
 参与 ServiceComb 项目并为其作出贡献的方法有很多：代码实现、测试编写、流程工具改进、文档完善等。您可以选择上述任何一个或多个感兴趣的项目进行贡献。具体贡献事宜可参考以下指南：
 
