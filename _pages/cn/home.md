@@ -20,7 +20,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/cn/release/'>Apache ServiceComb Pack 式版 0.3.0</a>
+    <a href='/cn/release/pack-downloads/'>Apache ServiceComb Pack 发布式版 0.3.0</a>
   </li>
   <li>
     <a href='/cn/release/saga-downloads/'>Apache ServiceComb Saga 发布最新版 0.2.1</a>
@@ -30,9 +30,6 @@ intro:
   </li>
   <li>
     <a href=''>Apache ServiceComb 荣获中国开源云联盟组织的中国优秀开源项目一等奖</a>
-  </li>
-  <li>
-    <a href=''>Apache ServiceComb 社区联合传智播客的黑马程序员、博学谷、传智汇子品牌发布微服务化教程</a>
   </li>
 </ul>
 
@@ -45,6 +42,9 @@ intro:
   </li>
   <li>
     <a href='/cn/developers/team/'>Apache ServiceComb 社区开发团队</a>
+  </li>
+  <li>
+    <a href=''>Apache ServiceComb 社区联合传智播客的黑马程序员、博学谷、传智汇子品牌发布微服务化教程</a>
   </li>  
 </ul>
 "
