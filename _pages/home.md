@@ -19,13 +19,13 @@ intro:
 
 <ul>
   <li>
-    <a href='/release/'>Apache ServiceComb Release Version 1.1.0</a>
-  </li>
-  <li>
-    <a href='/cn/release/saga-downloads/'>Apache ServiceComb Saga releases a new version 0.2.1</a>
+    <a href='/release/'>Apache ServiceComb Release Pack 0.3.0</a>
   </li>
   <li>
     <a href='/cn/release/saga-actuator-downloads/'>Apache ServiceComb Saga Actuator releases a new version 0.3.0</a>
+  </li>
+  <li>
+    <a href='/cn/release/saga-downloads/'>Apache ServiceComb Saga releases a new version 0.2.1</a>
   </li>
   <li>
     <a href=''>Apache ServiceComb won the first prize of China's outstanding open source project organized by China Open Source Cloud Alliance</a>
@@ -36,6 +36,9 @@ intro:
 </ul>
 
 <ul>
+  <li>
+      <a href='/release/'>Apache ServiceComb Release Version 1.1.0</a>
+  </li>
   <li>
     <a href='https://gitter.im/ServiceCombUsers/Lobby'>Welcome to join Apache ServiceComb community at Gitter</a>
   </li>

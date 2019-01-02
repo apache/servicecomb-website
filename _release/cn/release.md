@@ -14,6 +14,8 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 
 **稳定发布版 - 最新版本:**
 
+* [ServiceComb Pack 0.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.3.0/){:target="_blank"} (released on 2019-01-02)
+
 * [ServiceComb Saga Actuator 0.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga-actuator/0.3.0/){:target="_blank"} (released on 2018-12-18)
 
 * [ServiceComb Service-Center 1.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.1.0/){:target="_blank"} (released on 2018-11-30)
