@@ -6,6 +6,7 @@ permalink: /release/saga-downloads/
 excerpt: "ServiceComb Saga Downloads"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
+**Note**: servicecomb-saga is renamed to servicecomb-pack， please go to [pack_downloads](http://servicecomb.apache.org/release/pack-downloads/) for new Version downloads.
 
 ## Releases
 

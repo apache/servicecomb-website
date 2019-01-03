@@ -7,9 +7,9 @@ excerpt: "ServiceComb Saga Actuator Downloads"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
 
-## Releases
+## 发布包
 
-| Release           |         Source            |           Distribution         |
+| 版本号           |         源码            |           发布包         |
 | ---------------------- | --------------------------------- | --------------------------------- |
 |**Apache ServiceComb Saga Actuator 0.3.0(LATEST)**|[[src]](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga-actuator/0.3.0/apache-servicecomb-saga-actuator-distribution-0.3.0-src.zip) [[asc]](https://www.apache.org/dist/servicecomb/servicecomb-saga-actuator/0.3.0/apache-servicecomb-saga-actuator-distribution-0.3.0-src.zip.asc) [[sha512]](https://www.apache.org/dist/servicecomb/servicecomb-saga-actuator/0.3.0/apache-servicecomb-saga-actuator-distribution-0.3.0-src.zip.sha512)|[[Binary]](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga-actuator/0.3.0/apache-servicecomb-saga-actuator-distribution-0.3.0-bin.zip) [[asc]](https://www.apache.org/dist/servicecomb/servicecomb-saga-actuator/0.3.0/apache-servicecomb-saga-actuator-distribution-0.3.0-bin.zip.asc) [[sha512]](https://www.apache.org/dist/servicecomb/servicecomb-saga-actuator/0.3.0/apache-servicecomb-saga-actuator-distribution-0.3.0-bin.zip.sha512)|
 

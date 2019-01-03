@@ -7,7 +7,7 @@ excerpt: "ServiceComb Compatibility"
 last_modified_at: 2018-06-21T00:50:43-55:00
 ---
 
-Here is the list of compatible version for Java-Chassis and Service-Center
+这里列举了与Java-Chassis版本相兼容的Service-Center信息。
 
 | Java-Chassis           |         Service-Center            |
 | ---------------------- | --------------------------------- |
