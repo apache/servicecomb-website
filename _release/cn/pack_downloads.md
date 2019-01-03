@@ -7,19 +7,18 @@ excerpt: "ServiceComb Pack Downloads"
 last_modified_at: 2018-03-28T00:50:43-55:00
 ---
 
-## Releases
+## 发布包
 
-| Release           |         Source            |           Distribution         | 
-| ---------------------- | --------------------------------- | --------------------------------- | 
+| Release           |         Source            |           Distribution         |
+| ---------------------- | --------------------------------- | --------------------------------- |
 |**Apache ServiceComb Pack 0.3.0(LATEST)**|[[src]](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.3.0/apache-servicecomb-pack-distribution-0.3.0-src.zip) [[asc]](https://www.apache.org/dist/servicecomb/servicecomb-pack/0.3.0/apache-servicecomb-pack-distribution-0.3.0-src.zip.asc) [[sha512]](https://www.apache.org/dist/servicecomb/servicecomb-pack/0.3.0/apache-servicecomb-pack-distribution-0.3.0-src.zip.sha512)|[[Binary]](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.3.0/apache-servicecomb-pack-distribution-0.3.0-bin.zip) [[asc]](https://www.apache.org/dist/servicecomb/servicecomb-pack/0.3.0/apache-servicecomb-pack-distribution-0.3.0-bin.zip.asc) [[sha512]](https://www.apache.org/dist/servicecomb/servicecomb-pack/0.3.0/apache-servicecomb-pack-distribution-0.3.0-bin.zip.sha512)|
 
-**Verifying the release**
+**发布包验证**
+使用PGP或SHA签名验证下载文件的完整性是很有必要的。PGP签名可以使用GPG或PGP进行验证，请下载 [KEYS](https://www.apache.org/dist/servicecomb/KEYS)以及相关发行的asc签名文件。
+建议从主发行[目录](https://www.apache.org/dist/servicecomb/servicecomb-pack/){:target="_blank"}中获取这些文件，而不是从镜像中获取这些文件。
 
-It is essential that you verify the integrity of the downloaded files using the PGP or SHA signatures.
- The PGP signatures can  be verified using GPG or PGP.
- Please download the [KEYS](https://www.apache.org/dist/servicecomb/KEYS){:target="_blank"} as well as the asc signature files for relevant distribution. It is recommended to get these files from the main distribution [directory](https://www.apache.org/dist/servicecomb/servicecomb-pack/){:target="_blank"} and not from the mirrors.
  ```
- gpg -i KEYS
+ gpg -import KEYS
 
  or
 

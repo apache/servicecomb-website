@@ -21,17 +21,17 @@ last_modified_at: 2018-07-28T00:50:43-55:00
 **Verifying the release**
 
 It is essential that you verify the integrity of the downloaded files using the PGP or SHA signatures.
- The PGP signatures can  be verified using GPG or PGP. 
+ The PGP signatures can  be verified using GPG or PGP.
  Please download the [KEYS](https://www.apache.org/dist/servicecomb/KEYS){:target="_blank"} as well as the asc signature files for relevant distribution. It is recommended to get these files from the main distribution [directory](https://www.apache.org/dist/servicecomb/servicecomb-service-center/){:target="_blank"} and not from the mirrors.
  ```
- gpg -i KEYS
- 
+ gpg -import KEYS
+
  or
- 
+
  pgpk -a KEYS
- 
+
  or
- 
+
  pgp -ka KEYS
 
 ```
@@ -45,7 +45,7 @@ or
 
 pgpv apache-servicecomb-service-center-********.asc
 
-or 
+or
 
 pgp apache-servicecomb-service-center-********.asc
 
