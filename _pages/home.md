@@ -30,9 +30,6 @@ intro:
   <li>
     <a href=''>Apache ServiceComb won the first prize of China's outstanding open source project organized by China Open Source Cloud Alliance</a>
   </li>
-  <li>
-    <a href=''>Apache ServiceComb community joint Itcast.cn sub-brand Itheima, Boxuegu and Wisdom Gathering release micro-service tutorial</a>
-  </li>
 </ul>
 
 <ul>
@@ -44,6 +41,9 @@ intro:
   </li>
   <li>
     <a href='/developers/team/'>Apache ServiceComb Development Team</a>
+  </li>
+  <li>
+    <a href=''>Apache ServiceComb community joint Itcast.cn sub-brand Itheima, Boxuegu and Wisdom Gathering release micro-service tutorial</a>
   </li>
 </ul>
 "
