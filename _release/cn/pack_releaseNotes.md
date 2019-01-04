@@ -8,11 +8,17 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 ---
 
         Release Notes - Apache ServiceComb - Version pack-0.3.0
-    
+<h2> New and Noteworthy </h2>
+  <ul>
+   <li> Provides the TCC support </li>
+   <li> Rename the package name from "org.apache.servicecomb.saga" to "org.apache.servicecomb.pack"</li>
+   <li> Omega supports JDK 1.7 </li>
+   <li> Using Spring-Boot 2.1 by default </li>
+ </ul>       
 <h2>        Sub-task
 </h2>
 <ul>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-817'>SCB-817</a>] -         Setup the TCC events 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-817'>SCB-817</a>] -         Setup the TCC events
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-818'>SCB-818</a>] -         Omega support of TCC
 </li>
@@ -20,16 +26,16 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-820'>SCB-820</a>] -         TCC demo
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-856'>SCB-856</a>] -         Implement reaction of the event in Alpha Server 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-856'>SCB-856</a>] -         Implement reaction of the event in Alpha Server
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-876'>SCB-876</a>] -         Confirm and Cancel invocation support of Omega
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-877'>SCB-877</a>] -         Alpha should pesistend the received TCC events
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-923'>SCB-923</a>] -         Provide API to access the TCC events 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-923'>SCB-923</a>] -         Provide API to access the TCC events
 </li>
 </ul>
-        
+
 <h2>        Bug
 </h2>
 <ul>
@@ -58,7 +64,7 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1098'>SCB-1098</a>] -         Pack pom need to be updated
 </li>
 </ul>
-        
+
 <h2>        New Feature
 </h2>
 <ul>
@@ -73,17 +79,17 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-909'>SCB-909</a>] -         Add fault tolerance for service comb TCC
 </li>
 </ul>
-        
+
 <h2>        Improvement
 </h2>
 <ul>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-244'>SCB-244</a>] -         [pack] add demo to use pack with java chassis
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-630'>SCB-630</a>] -         Active the -Pdocker profile if detect the docker installation 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-630'>SCB-630</a>] -         Active the -Pdocker profile if detect the docker installation
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-639'>SCB-639</a>] -         upgrade docker maven plugin
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-660'>SCB-660</a>] -         Update the dubbo example compose file 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-660'>SCB-660</a>] -         Update the dubbo example compose file
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-750'>SCB-750</a>] -         Dependency management is incomplete in Saga and Java-Chassis
 </li>
@@ -91,7 +97,7 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-805'>SCB-805</a>] -         If the node time of alpha and omega are not same, the transaction could be aborted
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-806'>SCB-806</a>] -         Polish alpha-server logger 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-806'>SCB-806</a>] -         Polish alpha-server logger
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-813'>SCB-813</a>] -         pack-contract-grp module mvn install builds failure
 </li>
@@ -111,7 +117,7 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-885'>SCB-885</a>] -         saga alpha event scanner delete duplicate events sql optimization
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-913'>SCB-913</a>] -         Switch TCC demo JPA implementation 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-913'>SCB-913</a>] -         Switch TCC demo JPA implementation
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-916'>SCB-916</a>] -         Clean up @order annotation in TransactionAspectConfig
 </li>
@@ -132,14 +138,14 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1093'>SCB-1093</a>] -         Upgrade the Spring Boot version to 2.1.1 Release
 </li>
 </ul>
-    
+
 <h2>        Test
 </h2>
 <ul>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-823'>SCB-823</a>] -         Set up a fully functional test in kubernetes environment
 </li>
 </ul>
-        
+
 <h2>        Task
 </h2>
 <ul>
@@ -158,4 +164,3 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1097'>SCB-1097</a>] -         Clean up the distribution of servicecomb-pack
 </li>
 </ul>
-                                                                                                                                        

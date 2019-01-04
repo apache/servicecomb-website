@@ -29,7 +29,8 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 
 ```
 
-To verify the binaries/sources you can download the relevant asc files for it from main distribution directory and follow the below guide.
+要验证二进制文件或源代码，您可以从主发行目录下载相关的asc文件并按照以下指南进行操作。
+
 
 ```
 gpg --verify apache-servicecomb-saga********.asc apache-servicecomb-saga-*********
@@ -45,4 +46,4 @@ pgp apache-servicecomb-saga-********.asc
 
 ```
 
-Alternatively you can download the SHA signatures from main distribution [repo](https://www.apache.org/dist/servicecomb/servicecomb-saga-actuator/){:target="_blank"} and verify the downloads using sha512sum.
+另外，您也可以从主发行[仓库](https://www.apache.org/dist/servicecomb/servicecomb-saga-actuator/){:target="_blank"}下载SHA签名并使用sha512sum验证。
