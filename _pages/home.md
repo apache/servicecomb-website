@@ -43,7 +43,7 @@ intro:
     <a href='/developers/team/'>Apache ServiceComb Development Team</a>
   </li>
   <li>
-    <a href=''>Apache ServiceComb community joint Itcast.cn sub-brand Itheima, Boxuegu and Wisdom Gathering release micro-service tutorial</a>
+    <a href='/docs/chuanzhiboke-servicecomb-tutoria-release/'>Apache ServiceComb community joint Itcast.cn sub-brand Itheima, Boxuegu and Wisdom Gathering release micro-service tutorial</a>
   </li>
 </ul>
 "
