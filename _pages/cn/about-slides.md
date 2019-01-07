@@ -6,6 +6,9 @@ permalink: /cn/slides/
 date: 2017-06-20T11:02:20+08:00
 ---
 
+## Apache ServiceComb社区入门
+* [Apache ServiceComb开源微服务社区介绍]({{ site.url }}{{ site.baseurl }}/assets/slides/20181229/1_ApacheServiceComb_Community_Introduction.pdf)
+
 ## LinuxCon Beijing 2017 Workshop
  * [微服务设计原则与生态系统]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/MSAPrinciple&EcoSystem.pdf)
  * [ServiceComb RoadMap]({{ site.url }}{{ site.baseurl }}/assets/slides/20170619/ServiceCombRoadMap.pdf)
