@@ -44,7 +44,7 @@ intro:
     <a href='/cn/developers/team/'>Apache ServiceComb 社区开发团队</a>
   </li>
   <li>
-    <a href=''>Apache ServiceComb 社区联合传智播客的黑马程序员、博学谷、传智汇子品牌发布微服务化教程</a>
+    <a href='/cn/docs/chuanzhiboke-servicecomb-tutoria-release/'>Apache ServiceComb 社区联合传智播客的黑马程序员、博学谷、传智汇子品牌发布微服务化教程</a>
   </li>  
 </ul>
 "
