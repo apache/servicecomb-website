@@ -1,0 +1,877 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>基于服务的分布式事务(上篇) - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="本文从分布式事务需要解决的问题入手，向大家介绍了建立在补充基础之上的基于服务的分布式事务的解决思路。接下来我们结合具体的示例介绍了完美的补偿（TCC）和非完美补偿（Saga）两种分布式事务协调协议，最后结合ServiceComb Pack的实现原理详细介绍了ServiceComb Pack的架构实现。">
+
+
+
+
+<meta name="author" content="Willem Jiang">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="基于服务的分布式事务(上篇)">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed-transaction-of-services-1/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed-transaction-of-services-1/">
+
+
+
+  <meta property="og:description" content="本文从分布式事务需要解决的问题入手，向大家介绍了建立在补充基础之上的基于服务的分布式事务的解决思路。接下来我们结合具体的示例介绍了完美的补偿（TCC）和非完美补偿（Saga）两种分布式事务协调协议，最后结合ServiceComb Pack的实现原理详细介绍了ServiceComb Pack的架构实现。">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="基于服务的分布式事务(上篇)">
+  <meta name="twitter:description" content="本文从分布式事务需要解决的问题入手，向大家介绍了建立在补充基础之上的基于服务的分布式事务的解决思路。接下来我们结合具体的示例介绍了完美的补偿（TCC）和非完美补偿（Saga）两种分布式事务协调协议，最后结合ServiceComb Pack的实现原理详细介绍了ServiceComb Pack的架构实现。">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@willemjiang">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-01-10T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/distributed-transaction-of-services-1/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Willem Jiang</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        Apache member, open source addict.
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="http://willemjiang.github.io" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> 网站
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:willemjiang@gmail.com">
+            <meta itemprop="email" content="willemjiang@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="https://twitter.com/willemjiang" itemprop="sameAs">
+            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="基于服务的分布式事务(上篇)">
+    <meta itemprop="description" content="本文从分布式事务需要解决的问题入手，向大家介绍了建立在补充基础之上的基于服务的分布式事务的解决思路。接下来我们结合具体的示例介绍了完美的补偿（TCC）和非完美补偿（Saga）两种分布式事务协调协议，最后结合ServiceComb Pack的实现原理详细介绍了ServiceComb Pack的架构实现。">
+    <meta itemprop="datePublished" content="January 10, 2019">
+    <meta itemprop="dateModified" content="January 10, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">基于服务的分布式事务(上篇)
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <h3 id="传统数据库事务">传统数据库事务</h3>
+
+<p>在传统单体应用架构下，我们通常会将业务数据存储在一个数据库中，应用各模块直接对数据库进行操作业务数据。由数据库提供基于<a href="https://en.wikipedia.org/wiki/ACID">ACID</a>的事务保证，这里的A是Atomic原子性的简称（事务作为整体来执行，要么全部执行，要么都不执行）； C是Consistency一致性的简称（事务应确保数据从一个一致的状态转变为另一个一致的状态）；I是 Isolation 隔离性的简称 （多个事务并发执行时，一个事务的执行不应影响其他事务的执行）； D是Durability持久性的简称（已提交的事务修改数据会被持久保持）。</p>
+
+<p>例如一个电商的下单操作，就涉及到用户系统，库存系统，支付系统以及配送系统一系列的协同操作。我们在执行下单操作的过程中，如果出现库存短缺，或者用户账户余额不足的情况，这个下单操作涉及到一系列的业务系统调用。如果这些子系统连接的一个数据库，我们可以通过数据库提供的事务原子性机制将库存数量校验以及用户余额校验的工作，和执行具体的下单业务操作组合成为一个数据库事务操作。通过数据库事务原子性来保证系统各个模块的调用要么都成功，要么都失败（取消）。 同时由于数据库提供一致性，和持久性保证，保证了如果事务执行成功并提交，本次业务操作的数据是立即生效的同时不会产生异议。 同时数据库提供了不同级别的数据锁机制保证应用多个线程同时读取或者更新数据的过程中不会相互影响，从而来保证业务操作的隔离性。</p>
+
+<h3 id="微服务的分布式事务">微服务的分布式事务</h3>
+
+<p>随着微服务架构的流行，很多大型的业务流程被拆分成为了多个功能单一的基础服务，大家会根据业务的述求在这些基础服务之上编写一些组合调用服务以满足业务述求。 为了保证微服务能够独立开发部署运行， 通常我们会采用一个微服务一个数据库的架构，将内部数据经微服务封装之后，以服务方式对外暴露。 这样以往基于数据库来实现的数据操作，就变成了多个对外提供服务的微服务系统的协同完成操作。因为单个微服务只知道自己的服务执行情况，为了保证分布事务的一致性，参与分布式事务的微服务通常会依托协调器完成相关的<a href="https://www.enterpriseintegrationpatterns.com/patterns/conversation/CoordinatedAgreement.html">一致性协调操作</a>。</p>
+
+<p>在十多年前分布式事务的实现方案有 CORBA的 Object Transaction Service（OTS), J2EE的 Java Transaction API 以及 Java Transaction Service。这些事务管理以及事务服务的技术都是建立在<a href="https://en.wikipedia.org/wiki/ACID">ACID</a>事务的概念上的。协调器依托于底层的资源交互协议实现资源的占用以及提交的操作，通过<a href="https://zh.wikipedia.org/wiki/%E4%BA%8C%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4">两阶段提交</a>的方式实现分布式事务的强一致操作。两阶段提交将分布式事务操作分为准备和提交两个阶段：系统在准备解决阶段完成资源操作， 如果准备阶段中出现问题，支持回滚操作，但是在提交阶段是不允许出错的。两阶段在保证事务原子性上做了很多工作，但是两阶段提交的最大的问题是在分布式事务执行过程中， 所有参与事务的节点资源都是被锁定的, 系统不允许其他节点访问锁定的资源，在这种执行下很难进一步提升系统的执行效率。</p>
+
+<p>如前文所述在<a href="https://en.wikipedia.org/wiki/ACID">ACID</a>的事务执行过程中，为了保证事务的隔离性，通常我们会采用读写加锁的方式，通过串行处理数据方式，保证多个事务在同时执行的过程中不会相互影响。也就是说只有当事务提交并且保存修改记录或者回退取消修改记录之后，其他的事务才能继续执行。然后对于由多个事务组成的长时间运行的事务来说，如果在整个事务的执行过程都采用这锁机制来保证事务的隔离性是一种很低效的解决方案。</p>
+
+<p>那我们有什么办法即提高系统运行效率，又能保证事务的数据一致性呢？这里的答案是采用补偿的方式来解决这一问题。</p>
+
+<h3 id="基于补偿的事务实现">基于补偿的事务实现</h3>
+
+<p>补偿是指我们将一个事务分成一个本地执行的正常操作事务和一个逻辑上对之前的操作进行补偿的事务。这样采用补偿事务的方式，我们可以把一个长时间运行的事务变成了若干个可以立即提交的本地事务调用，而不是一个长时间占用锁资源的巨型事务。 这样做的最大好处就是极大降低锁占用的时间。作为代价，补偿方式的取消操作和以往的实现方式有很大的不同，我们需要执行一个单独的<a href="https://en.wikipedia.org/wiki/ACID">ACID</a>事务来完成对之前已提交的事务的逻辑补偿。</p>
+
+<p>下图展示了一个典型的分布式事务调用， 用户请求触发事务初始服务， 事务初始服务会顺序调用两个事务参与服务（服务A，服务B）。由于这两个事务参与服务之间没有联系，当事务参与服务执行出现了问题，需要一个协调器参与相关的恢复操作。</p>
+
+<p><img src="/assets/images/dts1/image-distributed-transaction.png" alt="" /></p>
+
+<p>这里我们可以根据补偿执行的不同将其分成两组不同的补偿方式：</p>
+
+<ol>
+  <li>不完美补偿 - 反向操作会留下之前原始事务操作的痕迹，一般来说我们是会在原始事务记录中设置取消状态。</li>
+  <li>完美补偿 - 反向逻辑会彻底清理之前的原始事务操作，一般来说是不会保留原始事务交易记录，用户是感知不到事务取消之前的状态信息的。</li>
+</ol>
+
+<p>对于采用不完美的补偿方式的系统（<a href="https://microservices.io/patterns/data/saga.html">Saga</a>实现）来说，我们的补偿事务逻辑其他的事务逻辑相比没有什么不同， 系统只需要像执行其他业务逻辑一样执行相关的补偿操作即可。系统不需要设置特殊的处理逻辑来恢复事务执行之前的状态。以我们常见的银行ATM取款业务为例，银行账户预先进行扣减的操作，如果取款不成功，其逻辑恢复操作就是通过冲正的方式将预先扣减的款项打回到用户账户，我们可以通过查看账户的交易记录找到扣减和冲正的记录信息。下图展示的内容就是当初始服务调用分别调用服务A和服务B，服务B执行出现错误，这个时候我们事务协调器会调用服务A的冲正方法将系统状态恢复到执行服务调用之前的状态。</p>
+
+<p>对于采用完美补偿方式的系统（<a href="https://dzone.com/articles/transactions-for-the-rest-of-us">Try-Cancel/Confirm</a>实现)来说，为了让系统能够在补偿操作彻底清除事务执行的情况，我们会借助两阶段提交协议来完成这部分的功能。在TCC方式下，cancel补偿显然是在第二阶段需要执行业务逻辑来取消第一阶段产生的后果。try是在第一阶段执行相关的业务操作，完成相关业务资源的占用，例如预先分配票务资源，或者检查并刷新用户账户信用额度。 在cancel阶段释放相关的业务资源，例如释放预先分配的票务资源或者回复之前占用的用户信用额度。 那我们为什么还要加入confirm操作呢？这需要从业务资源的使用生命周期来入手。在try过程中，我们只是占用的业务资源，相关的执行操作只是出于待定状态，只有在确认操作执行完毕之后，业务资源才能真正被确认。例如订票业务的try操作，我们只是占用了相关的票务资源。目的是防止票务资源被其他用户占用，但是业务还没有执行完毕，票务提供方还不能将被占用的票务资源统计为已售出票务。 只有相关票务资源被确认售出的之后，票务提供方才能将其统计为已售出票务资源。</p>
+
+<h3 id="servicecomb-pack架构介绍">ServiceComb Pack架构介绍</h3>
+
+<p>通过上面的分析我们可以发现一个有意思的现象，每一步事务的操作都有可能会根据业务的执行情况提供一个补偿操作，通过一个事务管理系统来协调这个补偿操作可以帮我们大大降低业务流程建模的复杂度。在分布式事务实现过程中， 协调器的作用非常重要， 各个事务的参与方需要跟协调器建立好良好的沟通， 由协调器统一调度完成相关事务的执行或者取消的操作。</p>
+
+<p>ServiceComb Pack架构如下图所示，主要包含两个组件，即Alpha和Omega，其中：</p>
+
+<ul>
+  <li>Alpha充当协调者的角色，主要负责对事务的事件进行持久化存储以及协调子事务的状态，使其最终得以与全局事务的状态保持一致，即保证事务中的子事务要么全执行，要么全不执行。</li>
+  <li>Omega是微服务中内嵌的一个agent，负责对监控本地事务执行情况并向Alpha上报事务执行事件，并在异常情况下根据alpha下发的指令执行相应的补偿或重试操作。</li>
+</ul>
+
+<p><img src="/assets/images/dts1/image-pack.png" alt="" /></p>
+
+<p>Omega可以通过向alpha发送消息的方式向alpha实时传递事务执行的进展， 但是Alpha怎么知道这些Omega上传的消息是相互关联的呢？我们通过在服务调用过程中插入唯一的全局事务ID，并在进行传递。通过全局事务ID可以从汇总到Alpha事件中找到事件与之相关联的所有事件，通过对这些事件信息进行分析，我们可以完整地追踪到与分布式事务执行情况。</p>
+
+<p><img src="/assets/images/dts1/image-transactions-correlation.png" alt="" /></p>
+
+<p>Omega会以切面编程的方式向应用程序注入相关的处理模块，帮助我们构建分布式事务调用的上下文。 Omega在事务处理初始阶段处理事务的相关准备的操作，在事务执行完毕做一些清理的操作，例如创建分布式事务起始事件，以及相关的子事件， 根据事务的执行的成功或者失败生产相关的事务终止或者失败事件。这样带来的好处是用户的代码只需要添加几个annotation 来描述分布式事务执行范围，以及与本地的事务处理恢复的相关函数信息，Omega就能通过切面注入的代码能够追踪与本地事务的执行情况。 Omega会将本地事务执行的情况以事件的方式通知给Alpha。 由于单个Omega不可能知晓一个分布式事务下其他参与服务的执行情况， 这样就需要Alpha扮演一个十分重要的协调者的角色。Alpha将收集到的分布式事务事件信息整理汇总，通过分析这些事件之间的关系可以了解到分布式事务的执行情况， Alpha通过向Omega下发相关的执行指令执行相关提交或恢复操作，实现分布式事务的一致性。</p>
+
+<p><img src="/assets/images/dts1/image-Omega-Implementation.png" alt="" /></p>
+
+<p>在了解的Pack实现的部分细节之后， 我们可以从下图进一步了解ServiceComb Pack架构下，Alpha与Omega内部各模块之间的关系图。</p>
+
+<p><img src="/assets/images/dts1/image-pack-system-archecture.png" alt="" /></p>
+
+<p>整个架构分为三个部分，一个是<strong>Alpha协调器</strong>（支持多个实例提供高可用支持），另外一个就是注入到微服务实例中的<strong>Omega</strong>，以及Alpha与Omega之间的<strong>交互协议</strong>， 目前ServiceComb Pack支持Saga 以及TCC两种分布式事务协调协议实现。</p>
+
+<p>Omega包含了与分析用户分布式事务逻辑相关的 <strong>事务注解模块</strong>（Transaction Annotation） 以及 事务拦截器（Transaction Interceptor）； 分布式事务执行相关的<strong>事务上下文</strong>（Transaction Context），<strong>事务回调</strong>（Transaction Callback) ，<strong>事务执行器</strong> （Transaction Executor）；以及负责与Alpha进行通讯的<strong>事务传输</strong>（Transaction Transport）模块。</p>
+
+<p><strong>事务注解</strong>模块是分布式事务的用户界面，用户将这些标注添加到自己的业务代码之上用以描述与分布式事务相关的信息，这样Omega就可以按照分布式事务的协调要求进行相关的处理。如果大家扩展自己的分布式事务，也可以通过定义自己的事务标注来实现。</p>
+
+<p><strong>事务拦截器</strong>这个模块我们可以借助AOP手段，在用户标注的代码基础上添加相关的拦截代码，获取到与分布式事务以及本地事务执行相关的信息，并借助<strong>事务传输</strong>模块与Alpha进行通讯传递事件。</p>
+
+<p><strong>事务上下文</strong>为Omega内部提供了一个传递事务调用信息的一个手段，借助前面提到的全局事务ID以及本地事务ID的对应关系，Alpha可以很容易检索到与一个分布式事务相关的所有本地事务事件信息。</p>
+
+<p><strong>事务执行器</strong>主要是为了处理事务调用超时设计的模块由于Alpha与Omega之间的连接有可能不可靠，Alpha端很难判断Omega本地事务执行超时是由Alpha与Omega直接的网络引起的还是Omega自身调用的问题，因此设计了事务执行器来监控Omega的本地的执行情况，简化Omega的超时操作。目前Omega的缺省实现是直接调用事务方法，由Alpha的后台服务来确定事务是否超时。</p>
+
+<p><strong>事务回调</strong> 在Omega与Alpha建立连接的时候就会向Alpha进行注册，当Alpha需要进行相关的协调操作的时候，会直接调用Omega注册的回调方法进行通信。 由于微服务实例在云化场景启停会很频繁，我们不能假设Alpha一直能找到原有注册上的事务回调， 因此我们建议微服务实例是无状态的，这样Alpha只需要根据服务名就能找到对应的Omega进行通信。</p>
+
+<p><strong>事务传输模块</strong>负责Omega与Alpha之间的通讯，在具体的实现过程中，Pack通过定义相关的Grpc<a href="https://github.com/apache/servicecomb-pack/tree/master/pack-contracts/pack-contract-grpc/src/main/proto">描述接口文件</a>定义了TCC 以及Saga的事务交互方法， 同时也定义了与交互相关的事件。我们借助了Grpc所提供的双向流操作接口实现了Omega与Alpha之间的相互调用。 Omega和Alpha的传输建立在Grpc多语言支持的基础上，为实现多语言版本的Omega奠定了基础。</p>
+
+<p>Alpha为了实现其事务协调的功能，首先需要通过<strong>事务传输</strong>（Transaction Transport）接收Omega上传的事件， 并将事件存在<strong>事件存储</strong>（Event Store）模块中，Alpha通过<strong>事件API</strong> (Event API）对外提供事件查询服务。Alpha会通过<strong>事件扫描器</strong>（Event Scanner）对分布式事务的执行情况进行分析，必要时会向Omega发送相关的指令来完成事务协调的工作。由于Alpha协调是采用多个实例的方式对外提供高可用架构， 这就需要<strong>Alpha集群管理器</strong>（Alpha Cluster Manger）来管理Alpha集群实例之前的协调。用户可以通过<strong>管理终端</strong>（Manage console）对分布式事务的执行情况进行监控。</p>
+
+<p>目前Alpha的<strong>事件存储</strong>是构建在数据库基础之上的。为了降低系统实现的复杂程度，Alpha集群的高可用架构是建立在数据库集群基础之上的。 为了提高数据库的查询效率，我们会根据事件的全局事务执行情况的装将数据存储分成了在线库以及存档库，将未完成的分布式事务事件存储在在线库中， 将已经完成的分布式事务事件存储在存档库中。</p>
+
+<p><strong>事件API</strong>是Alpha对外暴露的Restful事件查询服务。 这模块功能首先应用在<a href="https://github.com/apache/servicecomb-pack/tree/master/acceptance-tests">Pack的验收测试</a>中，通过事件API验收测试代码可以很方便的了解Alpha内部接收的事件。验收测试通过模拟各种分布式事务执行异常情况（错误或者超时），比对Alpha接收到的事务事件来验证相关的其事务协调功能是否正确。</p>
+
+<p><strong>管理终端</strong>是一个js的前端界面， <strong>管理终端</strong>通过访问<strong>事件API</strong>提供的Rest服务，向用户提供是分布式事务执行情况的统计分析，并且可以追踪单个全局事务的执行情况，找出事务的失败的根源。在Pack 0.3.0 中实现了一部分功能，后续还需要进一步完善，欢迎大家参与进来。</p>
+
+<p><strong>Alpha集群管理器</strong>负责Alpha实例注册工作，管理Alpha中单个服务的执行情况， 并且为Omega提供一个及时更新的服务列表。 通过集群管理器用户可以轻松实现Alpha服务实例的启停操作，以及Alpha服务实例的滚动升级功能。目前这部分的模块还在设计开发中，欢迎对此有兴趣的朋友加入到我们的开发队伍中来。</p>
+
+<h3 id="小结">小结</h3>
+
+<p>本文从分布式事务需要解决的问题入手，向大家介绍了建立在补充基础之上的基于服务的分布式事务的解决思路。接下来我们结合具体的示例介绍了完美的补偿（TCC）和非完美补偿（Saga）两种分布式事务协调协议，最后结合ServiceComb Pack的实现原理详细介绍了ServiceComb Pack的架构实现。</p>
+
+<p><a href="../distributed-transaction-of-services-2/">基于服务的分布式事务下篇</a>中，我们结合具体的示例向大家介绍TCC以及Saga分布式事务协调协议的交互细节，以及如何使用ServiceComb Pack编写TCC 以及Saga 应用。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#pack" class="page__taxonomy-item" rel="tag">Pack</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#saga" class="page__taxonomy-item" rel="tag">Saga</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2019-01-10">2019年1月10日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=基于服务的分布式事务(上篇) /cn/docs/distributed-transaction-of-services-1/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/distributed-transaction-of-services-1/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/distributed-transaction-of-services-1/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/distributed-transaction-of-services-1/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/chuanzhiboke-servicecomb-tutoria-release/" class="pagination--pager" title="Apache ServiceComb 社区联合传智播客黑马程序员、博学谷、传智汇子品牌发布微服务化教程
+">向前</a>
+    
+    
+      <a href="/cn/docs/distributed-transaction-of-services-2/" class="pagination--pager" title="基于服务的分布式事务(下篇)
+">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="distributed-transaction-of-services-1">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/distributed-transaction-of-services-2/" rel="permalink">基于服务的分布式事务(下篇)
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">在本文中我们先从分布式事务场景入手，采用交互图的方式，向大家介绍分布式Saga以及TCC分布式事务协调协议交互，最后结合ServiceComb Pack所提供的示例向大家介绍如何编写Saga以及TCC的应用代码。
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/chuanzhiboke-servicecomb-tutoria-release/" rel="permalink">Apache ServiceComb 社区联合传智播客黑马程序员、博学谷、传智汇子品牌发布微服务化教程
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">传智播客与Apache ServiceComb课程及技术资源共建仪式圆满结束
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/chuanzhiboke-servicecomb-tutoria-release/" rel="permalink">Apache ServiceComb community joint chuanzhiboke sub-brand Itheima, Boxuegu and Wisdom Gathering release micro-service tutorial
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Chuanzhiboke and Apache ServiceComb course and technical resources co-construction ceremony ended successfully
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/apache-servicecomb-introduction-slides/" rel="permalink">Apache ServiceComb开源微服务社区介绍
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb开源微服务社区介绍PDF
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/cn/2019-01-10-distributed-transaction-of-services-1.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>
