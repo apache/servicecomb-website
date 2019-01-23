@@ -1,4 +1,109 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-22T17:06:16+08:00</updated><id>/</id><title type="html">Apache ServiceComb</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;dev@servicecomb.apache.org&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>dev@servicecomb.apache.org</email></author><entry xml:lang="cn"><title type="html">基于服务的分布式事务(下篇)</title><link href="/cn/docs/distributed-transaction-of-services-2/" rel="alternate" type="text/html" title="基于服务的分布式事务(下篇)" /><published>2019-01-10T00:00:00+08:00</published><updated>2019-01-10T15:30:43+08:00</updated><id>/cn/docs/distributed-transaction-of-services-2</id><content type="html" xml:base="/cn/docs/distributed-transaction-of-services-2/">&lt;h3 id=&quot;分布式事务协调场景介绍&quot;&gt;分布式事务协调场景介绍&lt;/h3&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-01-23T11:54:33+08:00</updated><id>/</id><title type="html">Apache ServiceComb</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;dev@servicecomb.apache.org&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>dev@servicecomb.apache.org</email></author><entry><title type="html">Customized Tracing With Servicecomb</title><link href="/customized-tracing-with-servicecomb/" rel="alternate" type="text/html" title="Customized Tracing With Servicecomb" /><published>2019-01-23T00:00:00+08:00</published><updated>2019-01-23T00:00:00+08:00</updated><id>/customized-tracing-with-servicecomb</id><content type="html" xml:base="/customized-tracing-with-servicecomb/">&lt;p&gt;﻿—
+title: “ServiceComb + Zipkin : 使用篇——自定义追踪”
+lang: cn
+ref: customized-tracing-with-servicecomb
+permalink: /cn/docs/customized-tracing-with-servicecomb/
+excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”
+last_modified_at: 2019-01-23T09:30:30+08:00
+author: Zhou Zhongyuan
+tags: [zipkin,分布式追踪]
+redirect_from:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;h2 id=&quot;theme-setup&quot;&gt;/theme-setup/&lt;/h2&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;自定义追踪功能&quot;&gt;自定义追踪功能&lt;/h1&gt;
+&lt;p&gt;ServiceComb 支持用户在程序中的指定位置处增加追踪数据，可以实现更细力度的追踪。&lt;/p&gt;
+&lt;h2 id=&quot;使用步骤&quot;&gt;使用步骤&lt;/h2&gt;
+&lt;p&gt;添加依赖&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &amp;lt;dependency&amp;gt;
+      &amp;lt;groupId&amp;gt;org.apache.servicecomb&amp;lt;/groupId&amp;gt;
+      &amp;lt;artifactId&amp;gt;tracing-zipkin&amp;lt;/artifactId&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;在程序入口或者配置处添加 &lt;code class=&quot;highlighter-rouge&quot;&gt;@EnableZipkinTracing&lt;/code&gt; 注解&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import org.apache.servicecomb.tracing.zipkin.EnableZipkinTracing;
+
+@SpringBootApplication
+@EnableServiceComb
+@EnableZipkinTracing
+public class CalculatorApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(CalculatorApplication.class, args);
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在服务程序中的调用方法处添加 &lt;code class=&quot;highlighter-rouge&quot;&gt;@Span&lt;/code&gt; 注解&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import org.apache.servicecomb.tracing.Span;
+
+@Service
+public class CalculatorServiceImpl implements CalculatorService {
+
+  /**
+   * {@inheritDoc}
+   */
+  @Span
+  @Override
+  public double calculate(double height, double weight) {
+    if (height &amp;lt;= 0 || weight &amp;lt;= 0) {
+      throw new IllegalArgumentException(&quot;Arguments must be above 0&quot;);
+    }
+    double heightInMeter = height / 100;
+    double bmi = weight / (heightInMeter * heightInMeter);
+    return roundToOnePrecision(bmi);
+  }
+
+  private double roundToOnePrecision(double value) {
+    return new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;使用限制：自定义跟踪仅支持注解请求线程中的方法调用，且带有&lt;code class=&quot;highlighter-rouge&quot;&gt;@Span&lt;/code&gt;的类必须是spring管理的bean。&lt;/p&gt;
+&lt;h2 id=&quot;快速演示&quot;&gt;快速演示&lt;/h2&gt;
+&lt;p&gt;下面使用java-chassis/samples/bmi 程序演示，如何使用自定义追踪功能定位应用程序中的问题？&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;正常运行bmi程序，结果如下
+ &lt;img src=&quot;https://img-blog.csdnimg.cn/20190122101706113.png&quot; alt=&quot;正常结果&quot; /&gt;
+ &lt;img src=&quot;https://img-blog.csdnimg.cn/20190122101505915.png&quot; alt=&quot;zipkin追踪正常情况&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;在bmi程序的calculator服务的calculate方法处，增加一块进程休眠代码（模拟实际工作中调用当前线程处理其他业务的情景），如下
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; public double calculate(double height, double weight) {
+	
+     try{
+     Thread.currentThread().sleep(5000);
+     } catch (Exception e){
+	
+     }
+	
+     if (height &amp;lt;= 0 || weight &amp;lt;= 0) {
+       throw new IllegalArgumentException(&quot;Arguments must be above 0&quot;);
+     }
+     double heightInMeter = height / 100;
+     double bmi = weight / (heightInMeter * heightInMeter);
+     return roundToOnePrecision(bmi);
+   }
+	
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;运行bmi程序，出现如下异常结果。查看zipkin追踪情况和程序报错信息，可以初步确定问题由 bmi/calculator 服务超时未响应导致
+ &lt;img src=&quot;https://img-blog.csdnimg.cn/20190121193215681.png&quot; alt=&quot;异常结果&quot; /&gt;     	
+ &lt;img src=&quot;https://img-blog.csdnimg.cn/20190121195130561.png&quot; alt=&quot;zipkin追踪情况&quot; /&gt;
+ &lt;img src=&quot;https://img-blog.csdnimg.cn/20190122093001881.png&quot; alt=&quot;程序报错信息&quot; /&gt;&lt;/li&gt;
+  &lt;li&gt;使用自定义追踪功能，定位问题具体位置
+ 在calculator服务中配置自定义追踪功能，添加注解 &lt;code class=&quot;highlighter-rouge&quot;&gt;@Span&lt;/code&gt;在calculator服务的方法上 。运行bmi程序，zipkin追踪耗时情况如下。根据span占用的时间戳，可以确定延时问题出现在calculate方法处，点击span，可查看call.path 获取calculate方法的具体位置。
+ &lt;img src=&quot;https://img-blog.csdnimg.cn/20190121200305278.png&quot; alt=&quot;zipkin追踪异常情况&quot; /&gt;
+ &lt;img src=&quot;https://img-blog.csdnimg.cn/20190121200411404.png&quot; alt=&quot;span信息信息&quot; /&gt;
+    &lt;h2 id=&quot;总结&quot;&gt;总结&lt;/h2&gt;
+    &lt;p&gt;从上面的示例可以看出，通过配置ServiceComb的自定义追踪功能，可以实现对服务中调用方法、接口的追踪，实现更细力度化的追踪。这对于我们监控服务内部调用、定位服务中的延时问题等非常有帮助。&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;</content><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;dev@servicecomb.apache.org&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>dev@servicecomb.apache.org</email></author><summary type="html">﻿— title: “ServiceComb + Zipkin : 使用篇——自定义追踪” lang: cn ref: customized-tracing-with-servicecomb permalink: /cn/docs/customized-tracing-with-servicecomb/ excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪” last_modified_at: 2019-01-23T09:30:30+08:00 author: Zhou Zhongyuan tags: [zipkin,分布式追踪] redirect_from: /theme-setup/</summary></entry><entry xml:lang="cn"><title type="html">基于服务的分布式事务(下篇)</title><link href="/cn/docs/distributed-transaction-of-services-2/" rel="alternate" type="text/html" title="基于服务的分布式事务(下篇)" /><published>2019-01-10T00:00:00+08:00</published><updated>2019-01-10T15:30:43+08:00</updated><id>/cn/docs/distributed-transaction-of-services-2</id><content type="html" xml:base="/cn/docs/distributed-transaction-of-services-2/">&lt;h3 id=&quot;分布式事务协调场景介绍&quot;&gt;分布式事务协调场景介绍&lt;/h3&gt;
 
 &lt;p&gt;在基于服务的分布式事务上篇中， 我们举了了一个业务场景，就是一个初始服务创建了一个分布式事务，在这个分布式事务包含了两个参与服务的本地事务，这两个本地事务由初始服务通过调用两个参与事务的服务方式组合在一起。根据分布式事务一致性的要求，这两个本地事务要么同时成功，要么同时失败。 由于这两个参与事务的服务并不知道对方的存在，当一个参与服务调用（Invocation A）成功而另外一个参与服务调用（Invocation B）失败，我们就需要分布式事务协调器的进行相关的补偿，保证分布式事务的一致性。&lt;/p&gt;
 
@@ -743,32 +848,4 @@ committer账号设置完成后，你还需要设置对Github上托管的Apache S
 &lt;p&gt;&lt;img src=&quot;/assets/images/hc2018/6.jpeg&quot; alt=&quot;6&quot; /&gt;&lt;/p&gt;
 
 &lt;hr /&gt;
-&lt;p&gt;&lt;strong&gt;Please checkout ServiceComb Gitter if you are interesting about Apache ServiceComb Project &lt;a href=&quot;https://gitter.im/ServiceCombUsers/Lobby&quot;&gt;ServiceComb Gitter&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</content><author><name>Dean Lee</name></author><category term="microservice" /><category term="Meetup" /><summary type="html">Apache ServiceComb Meetup Report (PPT)</summary></entry><entry xml:lang="cn"><title type="html">OpenSource India Summit: Hands-on Apache ServiceComb(Incubating) MicroServices Workshop</title><link href="/cn/docs/osi-microservices/" rel="alternate" type="text/html" title="OpenSource India Summit: Hands-on Apache ServiceComb(Incubating) MicroServices Workshop" /><published>2018-10-15T00:00:00+08:00</published><updated>2018-10-15T10:26:28+08:00</updated><id>/cn/docs/OSI-Workshop-Report</id><content type="html" xml:base="/cn/docs/osi-microservices/">&lt;p&gt;​&lt;strong&gt;Event Date/Time&lt;/strong&gt;: Thursday, October 11, 2018, 15:15 – 18:30&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Event Location&lt;/strong&gt;: Workshop Hall 3, Nimhans Convention Center, Bangalore, India&lt;/p&gt;
-
-&lt;p&gt;Open Source India (OSI) is an attempt by the team at Open Source For You magazine in partnership with India’s Open Source community and industry—to bring various stake-holders under one roof. The mission of OSI is simple—to accelerate development and deployment of Open Source in India, and beyond.&lt;/p&gt;
-
-&lt;p&gt;Around 70+ experts shared their knowledge and expertise in this Summit with around 20 Tech Talks and 11 Workshops with 8 different tracks.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Workshop&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;MONOLITH TO MICRO-SERVICES: A HANDS ON WORKSHOP FOR DEVELOPMENT OF MICRO-SERVICES USING OPEN SOURCE FRAMEWORKS&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/OSI/Title.png&quot; alt=&quot;3&quot; /&gt;
-&lt;img src=&quot;/assets/images/OSI/Topics.png&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;workshop-glimpse&quot;&gt;Workshop Glimpse&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/OSI/OSI-Workshop-1.jpg&quot; alt=&quot;5&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;event-glimpse&quot;&gt;Event Glimpse&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/assets/images/OSI/OSI-Event-Glimpse.jpg&quot; alt=&quot;5&quot; /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;Around 70% of the Workshop attendees were already using Microservices in production.&lt;/li&gt;
-  &lt;li&gt;Very few people were aware about leading Opensource Microservices framework, most of them were using some commercial Microservices solution.&lt;/li&gt;
-  &lt;li&gt;Most of the attendees were not having clear directions of how to choose Opensource frameworks for their specific use cases.&lt;/li&gt;
-  &lt;li&gt;Attendees were delighted to know that ServiceComb offers a complete full stack solution for Microservices and is backed by a big opensource community.&lt;/li&gt;
-  &lt;li&gt;Most of them were able to understand how to develop microservices using ServiceComb SDK’s.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>Mohammad Asif Siddiqui</name><email>mohammad.asif.siddiqui1@huawei.com</email><uri>http://asifdxtreme.github.io</uri></author><category term="microservice" /><category term="Meetup" /><summary type="html">OpenSource India Summit: Hands-on Apache ServiceComb(Incubating) MicroServices Workshop</summary></entry></feed>
+&lt;p&gt;&lt;strong&gt;Please checkout ServiceComb Gitter if you are interesting about Apache ServiceComb Project &lt;a href=&quot;https://gitter.im/ServiceCombUsers/Lobby&quot;&gt;ServiceComb Gitter&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</content><author><name>Dean Lee</name></author><category term="microservice" /><category term="Meetup" /><summary type="html">Apache ServiceComb Meetup Report (PPT)</summary></entry></feed>

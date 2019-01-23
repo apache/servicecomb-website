@@ -19,35 +19,35 @@
 
 
 
-<title>SecKill Development Journey (I) - Apache ServiceComb</title>
+<title>Customized Tracing With Servicecomb - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="an introduction of how to build seckill demo project step by step">
+<meta name="description" content="﻿—title: “ServiceComb + Zipkin : 使用篇——自定义追踪”lang: cnref: customized-tracing-with-servicecombpermalink: /cn/docs/customized-tracing-with-servicecomb/excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”last_modified_at: 2019-01-23T09:30:30+08:00author: Zhou Zhongyuantags: [zipkin,分布式追踪]redirect_from:      /theme-setup/  ">
 
 
 
 
-<meta name="author" content="Yangyong Zheng">
+<meta name="author" content="">
 
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="en_US">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="SecKill Development Journey (I)">
+<meta property="og:title" content="Customized Tracing With Servicecomb">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/seckill-development-journey-part-I/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/seckill-development-journey-part-I/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/customized-tracing-with-servicecomb/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/customized-tracing-with-servicecomb/">
 
 
 
-  <meta property="og:description" content="an introduction of how to build seckill demo project step by step">
+  <meta property="og:description" content="﻿—title: “ServiceComb + Zipkin : 使用篇——自定义追踪”lang: cnref: customized-tracing-with-servicecombpermalink: /cn/docs/customized-tracing-with-servicecomb/excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”last_modified_at: 2019-01-23T09:30:30+08:00author: Zhou Zhongyuantags: [zipkin,分布式追踪]redirect_from:      /theme-setup/  ">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="SecKill Development Journey (I)">
-  <meta name="twitter:description" content="an introduction of how to build seckill demo project step by step">
+  <meta name="twitter:title" content="Customized Tracing With Servicecomb">
+  <meta name="twitter:description" content="﻿—title: “ServiceComb + Zipkin : 使用篇——自定义追踪”lang: cnref: customized-tracing-with-servicecombpermalink: /cn/docs/customized-tracing-with-servicecomb/excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”last_modified_at: 2019-01-23T09:30:30+08:00author: Zhou Zhongyuantags: [zipkin,分布式追踪]redirect_from:      /theme-setup/  ">
   <meta name="twitter:url" content="">
 
   
@@ -55,8 +55,6 @@
     
   
 
-  
-    <meta name="twitter:creator" content="@">
   
 
 
@@ -70,7 +68,7 @@
 
 
   <meta property="og:type" content="article">
-  <meta property="article:published_time" content="2017-08-26T00:00:00+08:00">
+  <meta property="article:published_time" content="2019-01-23T00:00:00+08:00">
 
 
 
@@ -165,67 +163,13 @@
 	      
         <ul class="visible-links">
           
-            
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/docs/quick-start/">Quick Start</a>
-              
-            </li>
-          
-            
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/users/">Users</a>
-              
-            </li>
-          
-            
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/developers/">Developers</a>
-              
-            </li>
-          
-            
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/year-archive/">Blogs</a>
-              
-            </li>
-          
-            
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/faqs/">FAQ</a>
-              
-            </li>
-          
-            
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/release/">Downloads</a>
-              
-            </li>
-          
         </ul>
         <button><div class="navicon"></div></button>
         <ul class="hidden-links hidden"></ul>
         <div class="nav-lang">
           
             
-            <a href=/cn/docs/seckill-development-journey-part-I/>中文</a>
+            <a href=/cn/customized-tracing-with-servicecomb/>中文</a>
           
         </div>
       </nav>
@@ -249,13 +193,19 @@
 <div itemscope itemtype="http://schema.org/Person">
 
   
+    <div class="author__avatar">
+      
+        <img src="/assets/images/ServiceComb-logo-3.jpg" class="author__avatar" alt="" itemprop="image">
+      
+    </div>
+  
 
   <div class="author__content">
-    <h3 class="author__name" itemprop="name">Yangyong Zheng</h3>
+    <h3 class="author__name" itemprop="name"></h3>
     
       <p class="author__bio" itemprop="description">
 	    
-        Fast Action, do not ask
+        ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.
 	    
       </p>
     
@@ -265,19 +215,19 @@
     <button class="btn btn--inverse">Follow</button>
     <ul class="author__urls social-icons">
       
-
-      
-        <li>
-          <a href="https://zhengyangyong.github.io" itemprop="url">
-            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> Website
-          </a>
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+        
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">China</span>
+        
         </li>
       
 
       
+
+      
         <li>
-          <a href="mailto:yangyong.zheng@huawei.com">
-            <meta itemprop="email" content="yangyong.zheng@huawei.com" />
+          <a href="mailto:dev@servicecomb.apache.org">
+            <meta itemprop="email" content="dev@servicecomb.apache.org" />
             <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
           </a>
         </li>
@@ -301,6 +251,12 @@
 
       
 
+      
+        <li>
+          <a href="https://github.com/ServiceComb" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
       
 
       
@@ -344,16 +300,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="SecKill Development Journey (I)">
-    <meta itemprop="description" content="an introduction of how to build seckill demo project step by step">
-    <meta itemprop="datePublished" content="August 26, 2017">
-    <meta itemprop="dateModified" content="September 13, 2017">
+    <meta itemprop="headline" content="Customized Tracing With Servicecomb">
+    <meta itemprop="description" content="﻿—title: “ServiceComb + Zipkin : 使用篇——自定义追踪”lang: cnref: customized-tracing-with-servicecombpermalink: /cn/docs/customized-tracing-with-servicecomb/excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”last_modified_at: 2019-01-23T09:30:30+08:00author: Zhou Zhongyuantags: [zipkin,分布式追踪]redirect_from:      /theme-setup/  ">
+    <meta itemprop="datePublished" content="January 23, 2019">
+    
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">SecKill Development Journey (I)
+            <h1 class="page__title" itemprop="headline">Customized Tracing With Servicecomb
 </h1>
             
               <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
@@ -361,7 +317,7 @@
 
 
 
-  2 minute read
+  less than 1 minute read
 
 </p>
             
@@ -370,73 +326,113 @@
       
 
       <section class="page__content" itemprop="text">
-        <h2 id="overview">Overview</h2>
-<p>SecKill is a demo project that our ServiceComb team try to build a micro-service architecture from the perspective of domain-driven design (<a href="https://en.wikipedia.org/wiki/Domain-driven_design">DDD</a>).</p>
-
-<h2 id="background">Background</h2>
-
-<p>SecKill idea comments from the Internet popular promotions, using coupons to obtain some discounts; because the number of coupons is limited, so we must provide a platform for everyone who wants to get it fair competition.</p>
-
-<p>As a demo project, so we don’t want make the SecKill too complicated; we just use the most primitive strategy - first come first get. It is quite simple if you want to implements other strategies by yourself.</p>
-
-<h2 id="first-design">First Design</h2>
-<p>Now let’s analyze requirement in customer bounded context:</p>
-<ol>
-  <li>Customer try to grab a coupon, SecKill return the coupon according to the coupon in inventory;</li>
-  <li>Customer cannot get the coupon anymore if he already send the request to the system.</li>
-  <li>Customer can query how many coupons he owned.</li>
-</ol>
-
-<p>Let’s go! what? you say this description is to simple? because they are no registration system, and promotion is how come, how to start? which coupon the customer request for? Is the discount all same? etc.</p>
-
-<p>Actually, we are accustomed to thinking a lot at the beginning, so some larger system, the design stage may be a few months, but this time you can’t consider too much, because we believe:</p>
-
-<ol>
-  <li>Over-design can’t guarantee fully meeting the demand after construction completed, the only constant is the demand is always changing, so don’t over-design;</li>
-  <li>The principle of the microservice architecture is that service provides single function, so each components(microservices) only need to provide small service, without having to design all the services in system one-time;</li>
-  <li>Should be solve the problem of the core domain as soon as possible.</li>
-</ol>
-
-<p>Then, we can follow the many principles of domain-driven design (<a href="https://en.wikipedia.org/wiki/Domain-driven_design">DDD</a>). The core task of the design process is identify entities, value objects, services and other elements, and further search aggregation; because our requirements are very simple, so it’s easy find them out:</p>
+        <p>﻿—
+title: “ServiceComb + Zipkin : 使用篇——自定义追踪”
+lang: cn
+ref: customized-tracing-with-servicecomb
+permalink: /cn/docs/customized-tracing-with-servicecomb/
+excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”
+last_modified_at: 2019-01-23T09:30:30+08:00
+author: Zhou Zhongyuan
+tags: [zipkin,分布式追踪]
+redirect_from:</p>
 <ul>
-  <li>Entities:Promotion</li>
-  <li>Value-Object:Coupon,PromotionEvent</li>
-  <li>Domain Service:SecKill</li>
+  <li>
+    <h2 id="theme-setup">/theme-setup/</h2>
+  </li>
 </ul>
 
-<p>Now we can find the aggregation between them, separated two microservice, now we direct use MySQL database for shared data (although microservice recommend use independent storage for each, we can revisit it in the next iteration)</p>
+<h1 id="自定义追踪功能">自定义追踪功能</h1>
+<p>ServiceComb 支持用户在程序中的指定位置处增加追踪数据，可以实现更细力度的追踪。</p>
+<h2 id="使用步骤">使用步骤</h2>
+<p>添加依赖</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+      &lt;artifactId&gt;tracing-zipkin&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+</code></pre>
+</div>
+<p>在程序入口或者配置处添加 <code class="highlighter-rouge">@EnableZipkinTracing</code> 注解</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>import org.apache.servicecomb.tracing.zipkin.EnableZipkinTracing;
+
+@SpringBootApplication
+@EnableServiceComb
+@EnableZipkinTracing
+public class CalculatorApplication {
+
+  public static void main(String[] args) {
+    SpringApplication.run(CalculatorApplication.class, args);
+  }
+}
+</code></pre>
+</div>
+
+<p>在服务程序中的调用方法处添加 <code class="highlighter-rouge">@Span</code> 注解</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>import org.apache.servicecomb.tracing.Span;
+
+@Service
+public class CalculatorServiceImpl implements CalculatorService {
+
+  /**
+   * {@inheritDoc}
+   */
+  @Span
+  @Override
+  public double calculate(double height, double weight) {
+    if (height &lt;= 0 || weight &lt;= 0) {
+      throw new IllegalArgumentException("Arguments must be above 0");
+    }
+    double heightInMeter = height / 100;
+    double bmi = weight / (heightInMeter * heightInMeter);
+    return roundToOnePrecision(bmi);
+  }
+
+  private double roundToOnePrecision(double value) {
+    return new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
+  }
+}
+</code></pre>
+</div>
+<p>使用限制：自定义跟踪仅支持注解请求线程中的方法调用，且带有<code class="highlighter-rouge">@Span</code>的类必须是spring管理的bean。</p>
+<h2 id="快速演示">快速演示</h2>
+<p>下面使用java-chassis/samples/bmi 程序演示，如何使用自定义追踪功能定位应用程序中的问题？</p>
 <ol>
-  <li>Command : for SecKill domain service</li>
-  <li>Query : for query Coupon Value-Object</li>
+  <li>正常运行bmi程序，结果如下
+ <img src="https://img-blog.csdnimg.cn/20190122101706113.png" alt="正常结果" />
+ <img src="https://img-blog.csdnimg.cn/20190122101505915.png" alt="zipkin追踪正常情况" /></li>
+  <li>在bmi程序的calculator服务的calculate方法处，增加一块进程休眠代码（模拟实际工作中调用当前线程处理其他业务的情景），如下
+    <div class="highlighter-rouge"><pre class="highlight"><code> public double calculate(double height, double weight) {
+	
+     try{
+     Thread.currentThread().sleep(5000);
+     } catch (Exception e){
+	
+     }
+	
+     if (height &lt;= 0 || weight &lt;= 0) {
+       throw new IllegalArgumentException("Arguments must be above 0");
+     }
+     double heightInMeter = height / 100;
+     double bmi = weight / (heightInMeter * heightInMeter);
+     return roundToOnePrecision(bmi);
+   }
+	
+</code></pre>
+    </div>
+  </li>
+  <li>运行bmi程序，出现如下异常结果。查看zipkin追踪情况和程序报错信息，可以初步确定问题由 bmi/calculator 服务超时未响应导致
+ <img src="https://img-blog.csdnimg.cn/20190121193215681.png" alt="异常结果" />     	
+ <img src="https://img-blog.csdnimg.cn/20190121195130561.png" alt="zipkin追踪情况" />
+ <img src="https://img-blog.csdnimg.cn/20190122093001881.png" alt="程序报错信息" /></li>
+  <li>使用自定义追踪功能，定位问题具体位置
+ 在calculator服务中配置自定义追踪功能，添加注解 <code class="highlighter-rouge">@Span</code>在calculator服务的方法上 。运行bmi程序，zipkin追踪耗时情况如下。根据span占用的时间戳，可以确定延时问题出现在calculate方法处，点击span，可查看call.path 获取calculate方法的具体位置。
+ <img src="https://img-blog.csdnimg.cn/20190121200305278.png" alt="zipkin追踪异常情况" />
+ <img src="https://img-blog.csdnimg.cn/20190121200411404.png" alt="span信息信息" />
+    <h2 id="总结">总结</h2>
+    <p>从上面的示例可以看出，通过配置ServiceComb的自定义追踪功能，可以实现对服务中调用方法、接口的追踪，实现更细力度化的追踪。这对于我们监控服务内部调用、定位服务中的延时问题等非常有帮助。</p>
+  </li>
 </ol>
 
-<p><img src="/assets/images/seckill-develop-course-part-I-arth-en.png" alt="Fig-1 Architecture" class="align-center" /></p>
-
-<h2 id="core-domain-implement">Core Domain Implement</h2>
-<p>The source code at <a href="https://github.com/ServiceComb/seckill">Github</a>, Welcome to Watch and Star : )</p>
-<h3 id="implement-of-command-micro-service">Implement of Command micro-service</h3>
-<p>We create two class “SecKillCommandService” and “SecKillPersistentRunner” to accept seckill request and persist seckill result, considering persistence is slow, we use BlockQueue temporary cache requests. another class “SecKillCommandRestController” act as Endpoint; ServiceComb support a variety of programming models and communication model, also well support Spring Boot, and easy deploy to Huawei cloud.</p>
-
-<p><img src="/assets/images/seckill-develop-course-part-I-command-en.png" alt="Fig-2 Command micro-service components" class="align-center" /></p>
-
-<h3 id="implement-of-query-microservice">Implement of Query microService</h3>
-<p>Query logic is relatively simple, because PromotionEvent is Value-Object, we use PromotionEvent records to get Coupon Value-Object, you can read the source code and understand this process.</p>
-
-<h2 id="support-domain-implement">Support Domain Implement</h2>
-<p>As promotion is entity and seckill need it as preconditions, we need build and manage it in another domain, because it’s not so urgent at current stage, we can use Spring injection autowire fix objects.</p>
-
-<p><img src="/assets/images/seckill-develop-course-part-I-spring.png" alt="Fig-3 Support domain object injection" class="align-center" /></p>
-
-<h2 id="function-verification">Function Verification</h2>
-<p>Finally, we use PostMan to check completed functions, Please ensure request body fill with JSON format, and set Content-Type to application/json:</p>
-
-<h3 id="request-seckill">Request SecKill</h3>
-
-<p><img src="/assets/images/seckill-develop-course-part-I-request-seckill.png" alt="Fig-4 Request seckill" class="align-center" /></p>
-
-<h3 id="query-owned-coupons">Query owned coupons</h3>
-
-<p><img src="/assets/images/seckill-develop-course-part-I-query-coupons.png" alt="Fig-5 Query owned coupons" class="align-center" /></p>
 
         
       </section>
@@ -444,32 +440,12 @@
       <footer class="page__meta">
         
         
-  
-
-
-  
-  
-  
-
-  <p class="page__taxonomy">
-    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
-    <span itemprop="keywords">
-    
-      
-      
-      <a href="/tags/#seckill" class="page__taxonomy-item" rel="tag">seckill</a>
-    
-    </span>
-  </p>
-
-
-
 
 
         
           
             
-              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2017-09-13">September 13, 2017</time></p>
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-01-23T00:00:00+08:00">January 23, 2019</time></p>
             
           
         
@@ -477,28 +453,25 @@
 
       <section class="page__share">
   
-    <h4 class="page__share-title">Share on</h4>
-  
 
-  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=SecKill Development Journey (I) /docs/seckill-development-journey-part-I/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Customized Tracing With Servicecomb /customized-tracing-with-servicecomb/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/seckill-development-journey-part-I/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/customized-tracing-with-servicecomb/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=/docs/seckill-development-journey-part-I/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=/customized-tracing-with-servicecomb/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/seckill-development-journey-part-I/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/customized-tracing-with-servicecomb/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/cn/docs/stress-test-on-company-with-jmeter-in-k8s/" class="pagination--pager" title="在Kubernetes集群中使用JMeter对Company示例进行压力测试
+      <a href="/cn/docs/distributed-transaction-of-services-2/" class="pagination--pager" title="基于服务的分布式事务(下篇)
 ">Previous</a>
     
     
-      <a href="/cn/docs/seckill-development-journey-part-I/" class="pagination--pager" title="秒杀开发历程（一）
-">Next</a>
+      <a href="#" class="pagination--pager disabled">Next</a>
     
   </nav>
 
@@ -544,7 +517,7 @@
             <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
           </fieldset>
           <fieldset class="hidden" style="display: none;">
-            <input type="hidden" name="options[slug]" value="seckill-develop-course-part-I">
+            <input type="hidden" name="options[slug]" value="customized-tracing-with-servicecomb">
             <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
             <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
           </fieldset>
@@ -571,39 +544,6 @@
     <div class="page__related">
       <h4 class="page__related-title">You May Also Enjoy</h4>
       <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/customized-tracing-with-servicecomb/" rel="permalink">Customized Tracing With Servicecomb
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">﻿—
-title: “ServiceComb + Zipkin : 使用篇——自定义追踪”
-lang: cn
-ref: customized-tracing-with-servicecomb
-permalink: /cn/docs/customized-tracing-with-servicecomb/
-exce...</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  1 minute read
-
-</p>
-    
-  </article>
-</div>
-
         
           
 
@@ -692,6 +632,35 @@ exce...</p>
 </div>
 
         
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/chuanzhiboke-servicecomb-tutoria-release/" rel="permalink">Apache ServiceComb community joint chuanzhiboke sub-brand Itheima, Boxuegu and Wisdom Gathering release micro-service tutorial
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Chuanzhiboke and Apache ServiceComb course and technical resources co-construction ceremony ended successfully
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
       </div>
     </div>
   
@@ -721,8 +690,8 @@ exce...</p>
         <p class="header">Resources</p>
         <li><a href="/docs/quick-start/">Quick Start</a></li>
         <li><a href="/users/">User Guide</a></li>
-        <li><a href="/slides/">Slides</a></li>
-        <li><a href="/users/faq/">Common Questions</a></li>
+        <li><a href="/slides/">Workshop Slides</a></li>
+        <li><a href="/users/faq/">Frequently Asked Questions</a></li>
       </ul>
     </div>
     <div class="col">
@@ -739,7 +708,7 @@ exce...</p>
       <ul>
         <p class="header">Contribute</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/2017-08-26-seckill-develop-course-part-I.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/cn/2019-01-23-customized-tracing-with-servicecomb.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
         <li><a href="/security">Security</a></li>
       </ul>
