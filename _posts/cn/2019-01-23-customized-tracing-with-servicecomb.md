@@ -1,6 +1,6 @@
-﻿---
-title: "ServiceComb + Zipkin : 使用篇——自定义追踪"
+---
 lang: cn
+title: "ServiceComb + Zipkin : 使用篇——自定义追踪"
 ref: customized-tracing-with-servicecomb
 permalink: /cn/docs/customized-tracing-with-servicecomb/
 excerpt: "本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪"
@@ -15,14 +15,14 @@ redirect_from:
 ServiceComb 支持用户在程序中的指定位置处增加追踪数据，可以实现更细力度的追踪。
 ## 使用步骤
 添加依赖
-```
+```xml
     <dependency>
       <groupId>org.apache.servicecomb</groupId>
       <artifactId>tracing-zipkin</artifactId>
     </dependency>
 ```
 在程序入口或者配置处添加 `@EnableZipkinTracing` 注解
-```
+```java
 import org.apache.servicecomb.tracing.zipkin.EnableZipkinTracing;
 
 @SpringBootApplication
@@ -37,7 +37,7 @@ public class CalculatorApplication {
 ```
 
 在服务程序中的调用方法处添加 `@Span` 注解
-```
+```java
 import org.apache.servicecomb.tracing.Span;
 
 @Service
@@ -69,15 +69,15 @@ public class CalculatorServiceImpl implements CalculatorService {
     ![正常结果](https://img-blog.csdnimg.cn/20190122101706113.png)
     ![zipkin追踪正常情况](https://img-blog.csdnimg.cn/20190122101505915.png)
 2. 在bmi程序的calculator服务的calculate方法处，增加一块进程休眠代码（模拟实际工作中调用当前线程处理其他业务的情景），如下
-	```
+	```java
 	public double calculate(double height, double weight) {
-	
+
 	    try{
 	    Thread.currentThread().sleep(5000);
 	    } catch (Exception e){
-	
+
 	    }
-	
+
 	    if (height <= 0 || weight <= 0) {
 	      throw new IllegalArgumentException("Arguments must be above 0");
 	    }
@@ -85,7 +85,7 @@ public class CalculatorServiceImpl implements CalculatorService {
 	    double bmi = weight / (heightInMeter * heightInMeter);
 	    return roundToOnePrecision(bmi);
 	  }
-	
+
 	```
 3. 运行bmi程序，出现如下异常结果。查看zipkin追踪情况和程序报错信息，可以初步确定问题由 bmi/calculator 服务超时未响应导致
     ![异常结果](https://img-blog.csdnimg.cn/20190121193215681.png)     	
@@ -97,4 +97,3 @@ public class CalculatorServiceImpl implements CalculatorService {
 	![span信息信息](https://img-blog.csdnimg.cn/20190121200411404.png)
 ## 总结
 从上面的示例可以看出，通过配置ServiceComb的自定义追踪功能，可以实现对服务中调用方法、接口的追踪，实现更细力度化的追踪。这对于我们监控服务内部调用、定位服务中的延时问题等非常有帮助。
-
