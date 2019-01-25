@@ -16,7 +16,7 @@ redirect_from:
 ### 场景
 本文将以一个简单的Hello服务演示网关的使用。Hello微服务提供一个hello/{name}接口，只要传递路径参数name就可以返回打招呼内容。接口返回结果通过网关将在浏览器界面显示
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190122155908145.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2tha3Vscw==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](../../assets/images/zuul/demo-theory.png)
 
 ### 技术准备
 [ServiceComb](http://servicecomb.apache.org/cn/docs/quick-start/) 作为后端微服务核心框架   
@@ -35,13 +35,13 @@ redirect_from:
 ServiceCenter安装  
 下载地址：http://mirrors.hust.edu.cn/apache/servicecomb/servicecomb-service-center/1.1.0/apache-servicecomb-service-center-1.1.0-windows-amd64.tar.gz
 下载后解压如下
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190116151218442.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2tha3Vscw==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](../../assets/images/zuul/demo-dir.png)
 
 在该目录下双击service-center.exe即可启动，命令窗口中出现如下信息基本代表ServiceCenter启动成功，从这个信息也可以得知ServiceCenter监听的是30100端口，等下配置文件要用到。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190116151749311.png)
+![在这里插入图片描述](../../assets/images/zuul/demo-servicecenter-console1.png)
 
 问题点： 有可能会有如下信息，这个一般是端口被占用，很可能你打开了两个ServiceCenter，都关闭后再打开就可以了。
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190116152539182.png)
+![在这里插入图片描述](../../assets/images/zuul/demo-servicecenter-console2.png)
 
 
 
@@ -49,7 +49,7 @@ ServiceCenter安装
 
 
 
-#### 二.  后端微服务 HelloService
+#### 一.  后端微服务 HelloService
 ##### 1. 添加依赖
 新建maven项目HelloService，pom文件如下
 ```xml
@@ -171,11 +171,11 @@ public class HelloController {
 
 ##### 4. 启动
 到此，一个微服务就写完了，如下在IDEA里面直接启动应用
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190116183524398.png)
+![在这里插入图片描述](../../assets/images/zuul/demo-helloservice-start.png)
 
 
 
-#### 一. 编写Zuul网关服务
+#### 二. 编写Zuul网关服务
 ##### 1. 添加依赖
 新建maven项目 zuulserver，pom文件如下
 ```xml
@@ -343,14 +343,14 @@ public class ZuulApplication {
 ```
 ##### 4. 启动
 到此，网关服务器写完，如下在IDEA里面直接启动应用
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190116182829756.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2tha3Vscw==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](../../assets/images/zuul/demo-zuulservice-start.jpg)
 
 
 #### 三. 演示效果
 浏览器访问http://localhost:8080/ ，如下图。
 在输入框中输入姓名，就可以在下面看到打招呼的信息
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20190122103230358.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2tha3Vscw==,size_16,color_FFFFFF,t_70)
+![在这里插入图片描述](../../assets/images/zuul/demo-run.png)
 
 
 ### 总结
