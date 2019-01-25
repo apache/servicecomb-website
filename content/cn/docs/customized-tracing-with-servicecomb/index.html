@@ -5,7 +5,7 @@
   Free for personal and commercial use under the MIT license
   https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
 -->
-<html lang="en" class="no-js">
+<html lang="cn" class="no-js">
   <head>
     <meta charset="utf-8">
 
@@ -19,35 +19,35 @@
 
 
 
-<title>Customized Tracing With Servicecomb - Apache ServiceComb</title>
+<title>ServiceComb + Zipkin : 使用篇——自定义追踪 - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="﻿—title: “ServiceComb + Zipkin : 使用篇——自定义追踪”lang: cnref: customized-tracing-with-servicecombpermalink: /cn/docs/customized-tracing-with-servicecomb/excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”last_modified_at: 2019-01-23T09:30:30+08:00author: Zhou Zhongyuantags: [zipkin,分布式追踪]redirect_from:      /theme-setup/  ">
+<meta name="description" content="本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪">
 
 
 
 
-<meta name="author" content="">
+<meta name="author" content="Zhou Zhongyuan">
 
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="Customized Tracing With Servicecomb">
+<meta property="og:title" content="ServiceComb + Zipkin : 使用篇——自定义追踪">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/customized-tracing-with-servicecomb/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/customized-tracing-with-servicecomb/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/customized-tracing-with-servicecomb/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/customized-tracing-with-servicecomb/">
 
 
 
-  <meta property="og:description" content="﻿—title: “ServiceComb + Zipkin : 使用篇——自定义追踪”lang: cnref: customized-tracing-with-servicecombpermalink: /cn/docs/customized-tracing-with-servicecomb/excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”last_modified_at: 2019-01-23T09:30:30+08:00author: Zhou Zhongyuantags: [zipkin,分布式追踪]redirect_from:      /theme-setup/  ">
+  <meta property="og:description" content="本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="Customized Tracing With Servicecomb">
-  <meta name="twitter:description" content="﻿—title: “ServiceComb + Zipkin : 使用篇——自定义追踪”lang: cnref: customized-tracing-with-servicecombpermalink: /cn/docs/customized-tracing-with-servicecomb/excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”last_modified_at: 2019-01-23T09:30:30+08:00author: Zhou Zhongyuantags: [zipkin,分布式追踪]redirect_from:      /theme-setup/  ">
+  <meta name="twitter:title" content="ServiceComb + Zipkin : 使用篇——自定义追踪">
+  <meta name="twitter:description" content="本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪">
   <meta name="twitter:url" content="">
 
   
@@ -55,6 +55,8 @@
     
   
 
+  
+    <meta name="twitter:creator" content="@Zhou Zhongyuan">
   
 
 
@@ -159,9 +161,63 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
 	      
-          <a class="site-title active" href="/"><img src="https://www.apache.org/img/servicecomb.png"></a>
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
 	      
         <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -169,7 +225,8 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/customized-tracing-with-servicecomb/>中文</a>
+            
+            <a href=/docs/customized-tracing-with-servicecomb/>English</a>
           
         </div>
       </nav>
@@ -186,7 +243,7 @@
   
   <div class="sidebar sticky">
       
-      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
       
   
 
@@ -205,19 +262,23 @@
     
       <p class="author__bio" itemprop="description">
 	    
-        ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.
+	      
+	        ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架
+	      
 	    
       </p>
     
   </div>
 
   <div class="author__urls-wrapper">
-    <button class="btn btn--inverse">Follow</button>
+    <button class="btn btn--inverse">关注</button>
     <ul class="author__urls social-icons">
       
         <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
         
-          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">China</span>
+          
+            <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">中国</span>
+          
         
         </li>
       
@@ -228,7 +289,7 @@
         <li>
           <a href="mailto:dev@servicecomb.apache.org">
             <meta itemprop="email" content="dev@servicecomb.apache.org" />
-            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
           </a>
         </li>
       
@@ -300,16 +361,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Customized Tracing With Servicecomb">
-    <meta itemprop="description" content="﻿—title: “ServiceComb + Zipkin : 使用篇——自定义追踪”lang: cnref: customized-tracing-with-servicecombpermalink: /cn/docs/customized-tracing-with-servicecomb/excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”last_modified_at: 2019-01-23T09:30:30+08:00author: Zhou Zhongyuantags: [zipkin,分布式追踪]redirect_from:      /theme-setup/  ">
+    <meta itemprop="headline" content="ServiceComb + Zipkin : 使用篇——自定义追踪">
+    <meta itemprop="description" content="本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪">
     <meta itemprop="datePublished" content="January 23, 2019">
-    
+    <meta itemprop="dateModified" content="January 23, 2019">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">Customized Tracing With Servicecomb
+            <h1 class="page__title" itemprop="headline">ServiceComb + Zipkin : 使用篇——自定义追踪
 </h1>
             
               <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
@@ -317,7 +378,7 @@
 
 
 
-  less than 1 minute read
+  少于 1 分钟 阅读
 
 </p>
             
@@ -326,71 +387,55 @@
       
 
       <section class="page__content" itemprop="text">
-        <p>﻿—
-title: “ServiceComb + Zipkin : 使用篇——自定义追踪”
-lang: cn
-ref: customized-tracing-with-servicecomb
-permalink: /cn/docs/customized-tracing-with-servicecomb/
-excerpt: “本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪”
-last_modified_at: 2019-01-23T09:30:30+08:00
-author: Zhou Zhongyuan
-tags: [zipkin,分布式追踪]
-redirect_from:</p>
-<ul>
-  <li>
-    <h2 id="theme-setup">/theme-setup/</h2>
-  </li>
-</ul>
-
-<h1 id="自定义追踪功能">自定义追踪功能</h1>
+        <h1 id="自定义追踪功能">自定义追踪功能</h1>
 <p>ServiceComb 支持用户在程序中的指定位置处增加追踪数据，可以实现更细力度的追踪。</p>
 <h2 id="使用步骤">使用步骤</h2>
 <p>添加依赖</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>    &lt;dependency&gt;
-      &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
-      &lt;artifactId&gt;tracing-zipkin&lt;/artifactId&gt;
-    &lt;/dependency&gt;
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
 </div>
 <p>在程序入口或者配置处添加 <code class="highlighter-rouge">@EnableZipkinTracing</code> 注解</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>import org.apache.servicecomb.tracing.zipkin.EnableZipkinTracing;
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.tracing.zipkin.EnableZipkinTracing</span><span class="o">;</span>
 
-@SpringBootApplication
-@EnableServiceComb
-@EnableZipkinTracing
-public class CalculatorApplication {
+<span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableServiceComb</span>
+<span class="nd">@EnableZipkinTracing</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorApplication</span> <span class="o">{</span>
 
-  public static void main(String[] args) {
-    SpringApplication.run(CalculatorApplication.class, args);
-  }
-}
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">CalculatorApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
 </code></pre>
 </div>
 
 <p>在服务程序中的调用方法处添加 <code class="highlighter-rouge">@Span</code> 注解</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>import org.apache.servicecomb.tracing.Span;
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.tracing.Span</span><span class="o">;</span>
 
-@Service
-public class CalculatorServiceImpl implements CalculatorService {
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorServiceImpl</span> <span class="kd">implements</span> <span class="n">CalculatorService</span> <span class="o">{</span>
 
-  /**
+  <span class="cm">/**
    * {@inheritDoc}
-   */
-  @Span
-  @Override
-  public double calculate(double height, double weight) {
-    if (height &lt;= 0 || weight &lt;= 0) {
-      throw new IllegalArgumentException("Arguments must be above 0");
-    }
-    double heightInMeter = height / 100;
-    double bmi = weight / (heightInMeter * heightInMeter);
-    return roundToOnePrecision(bmi);
-  }
+   */</span>
+  <span class="nd">@Span</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">height</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">weight</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Arguments must be above 0"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kt">double</span> <span class="n">heightInMeter</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="kt">double</span> <span class="n">bmi</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">/</span> <span class="o">(</span><span class="n">heightInMeter</span> <span class="o">*</span> <span class="n">heightInMeter</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nf">roundToOnePrecision</span><span class="o">(</span><span class="n">bmi</span><span class="o">);</span>
+  <span class="o">}</span>
 
-  private double roundToOnePrecision(double value) {
-    return new BigDecimal(value).setScale(1, RoundingMode.HALF_UP).doubleValue();
-  }
-}
+  <span class="kd">private</span> <span class="kt">double</span> <span class="nf">roundToOnePrecision</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">BigDecimal</span><span class="o">(</span><span class="n">value</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">RoundingMode</span><span class="o">.</span><span class="na">HALF_UP</span><span class="o">).</span><span class="na">doubleValue</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
 </code></pre>
 </div>
 <p>使用限制：自定义跟踪仅支持注解请求线程中的方法调用，且带有<code class="highlighter-rouge">@Span</code>的类必须是spring管理的bean。</p>
@@ -401,22 +446,22 @@ public class CalculatorServiceImpl implements CalculatorService {
  <img src="https://img-blog.csdnimg.cn/20190122101706113.png" alt="正常结果" />
  <img src="https://img-blog.csdnimg.cn/20190122101505915.png" alt="zipkin追踪正常情况" /></li>
   <li>在bmi程序的calculator服务的calculate方法处，增加一块进程休眠代码（模拟实际工作中调用当前线程处理其他业务的情景），如下
-    <div class="highlighter-rouge"><pre class="highlight"><code> public double calculate(double height, double weight) {
-	
-     try{
-     Thread.currentThread().sleep(5000);
-     } catch (Exception e){
-	
-     }
-	
-     if (height &lt;= 0 || weight &lt;= 0) {
-       throw new IllegalArgumentException("Arguments must be above 0");
-     }
-     double heightInMeter = height / 100;
-     double bmi = weight / (heightInMeter * heightInMeter);
-     return roundToOnePrecision(bmi);
-   }
-	
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code> <span class="kd">public</span> <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">)</span> <span class="o">{</span>
+
+     <span class="k">try</span><span class="o">{</span>
+     <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5000</span><span class="o">);</span>
+     <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+
+     <span class="o">}</span>
+
+     <span class="k">if</span> <span class="o">(</span><span class="n">height</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">weight</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+       <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Arguments must be above 0"</span><span class="o">);</span>
+     <span class="o">}</span>
+     <span class="kt">double</span> <span class="n">heightInMeter</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">100</span><span class="o">;</span>
+     <span class="kt">double</span> <span class="n">bmi</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">/</span> <span class="o">(</span><span class="n">heightInMeter</span> <span class="o">*</span> <span class="n">heightInMeter</span><span class="o">);</span>
+     <span class="k">return</span> <span class="nf">roundToOnePrecision</span><span class="o">(</span><span class="n">bmi</span><span class="o">);</span>
+   <span class="o">}</span>
+
 </code></pre>
     </div>
   </li>
@@ -433,19 +478,42 @@ public class CalculatorServiceImpl implements CalculatorService {
   </li>
 </ol>
 
-
         
       </section>
 
       <footer class="page__meta">
         
         
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#zipkin" class="page__taxonomy-item" rel="tag">zipkin</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%BD%E8%B8%AA" class="page__taxonomy-item" rel="tag">分布式追踪</a>
+    
+    </span>
+  </p>
+
+
+
 
 
         
           
             
-              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-01-23T00:00:00+08:00">January 23, 2019</time></p>
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2019-01-23">2019年1月23日</time></p>
             
           
         
@@ -453,14 +521,16 @@ public class CalculatorServiceImpl implements CalculatorService {
 
       <section class="page__share">
   
+    <h4 class="page__share-title">分享</h4>
+  
 
-  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Customized Tracing With Servicecomb /customized-tracing-with-servicecomb/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=ServiceComb + Zipkin : 使用篇——自定义追踪 /cn/docs/customized-tracing-with-servicecomb/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=/customized-tracing-with-servicecomb/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/customized-tracing-with-servicecomb/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=/customized-tracing-with-servicecomb/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=/cn/docs/customized-tracing-with-servicecomb/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/customized-tracing-with-servicecomb/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/customized-tracing-with-servicecomb/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
@@ -468,10 +538,10 @@ public class CalculatorServiceImpl implements CalculatorService {
   <nav class="pagination">
     
       <a href="/cn/docs/distributed-transaction-of-services-2/" class="pagination--pager" title="基于服务的分布式事务(下篇)
-">Previous</a>
+">向前</a>
     
     
-      <a href="#" class="pagination--pager disabled">Next</a>
+      <a href="#" class="pagination--pager disabled">向后</a>
     
   </nav>
 
@@ -491,29 +561,29 @@ public class CalculatorServiceImpl implements CalculatorService {
         <!-- End static comments -->
 
         <!-- Start new comment form -->
-        <h4 class="page__comments-title">Leave a Comment</h4>
-        <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
         <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
           <div class="form__spinner">
             <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-            <span class="sr-only">Loading...</span>
+            <span class="sr-only">正在加载...</span>
           </div>
 
           <fieldset>
-            <label for="comment-form-message">Comment <small class="required">*</small></label>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
             <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
-            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
           </fieldset>
           <fieldset>
-            <label for="comment-form-name">Name <small class="required">*</small></label>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
             <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
           </fieldset>
           <fieldset>
-            <label for="comment-form-email">Email address <small class="required">*</small></label>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
             <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
           </fieldset>
           <fieldset>
-            <label for="comment-form-url">Website (optional)</label>
+            <label for="comment-form-url">网站（可选）</label>
             <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
           </fieldset>
           <fieldset class="hidden" style="display: none;">
@@ -527,7 +597,7 @@ public class CalculatorServiceImpl implements CalculatorService {
           </p>
           <!-- End comment form alert messaging -->
           <fieldset>
-            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">Submit Comment</button>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
           </fieldset>
         </form>
         <!-- End new comment form -->
@@ -542,7 +612,7 @@ public class CalculatorServiceImpl implements CalculatorService {
   
   
     <div class="page__related">
-      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <h4 class="page__related-title">猜您还喜欢</h4>
       <div class="grid__wrapper">
         
           
@@ -566,7 +636,7 @@ public class CalculatorServiceImpl implements CalculatorService {
 
 
 
-  2 minute read
+  2 分钟 阅读
 
 </p>
     
@@ -595,7 +665,7 @@ public class CalculatorServiceImpl implements CalculatorService {
 
 
 
-  less than 1 minute read
+  少于 1 分钟 阅读
 
 </p>
     
@@ -624,7 +694,7 @@ public class CalculatorServiceImpl implements CalculatorService {
 
 
 
-  less than 1 minute read
+  少于 1 分钟 阅读
 
 </p>
     
@@ -653,7 +723,7 @@ public class CalculatorServiceImpl implements CalculatorService {
 
 
 
-  1 minute read
+  1 分钟 阅读
 
 </p>
     
@@ -687,37 +757,37 @@ public class CalculatorServiceImpl implements CalculatorService {
     
     <div class="col">
       <ul>
-        <p class="header">Resources</p>
-        <li><a href="/docs/quick-start/">Quick Start</a></li>
-        <li><a href="/users/">User Guide</a></li>
-        <li><a href="/slides/">Workshop Slides</a></li>
-        <li><a href="/users/faq/">Frequently Asked Questions</a></li>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
       </ul>
     </div>
     <div class="col">
       <ul>
         <p class="header">ASF</p>
-        <li><a href="http://www.apache.org">Foundation</a></li>
-        <li><a href="http://www.apache.org/licenses/">License</a></li>
-        <li><a href="http://www.apache.org/events/current-event">Events</a></li>
-        <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
-        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
       </ul>
     </div>
     <div class="col">
       <ul>
-        <p class="header">Contribute</p>
-        <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/cn/2019-01-23-customized-tracing-with-servicecomb.md">Edit This Page on Github</a></li>
-        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
-        <li><a href="/security">Security</a></li>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/cn/2019-01-23-customized-tracing-with-servicecomb.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
       </ul>
     </div>
     <div class="col">
       <ul class="social-icons">
-        <p class="header">Community</p>
+        <p class="header">社区</p>
         <li>
-            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
         </li>
         <li>
             <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
@@ -733,7 +803,7 @@ public class CalculatorServiceImpl implements CalculatorService {
   </div>
 </div>
 <div class="page__footer-bottom">
-  <div>&copy; 2019 Apache ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
   <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
 </div>
 
@@ -770,7 +840,7 @@ public class CalculatorServiceImpl implements CalculatorService {
       var form = this;
 
       $(form).addClass('disabled');
-      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
 
       $.ajax({
         type: $(this).attr('method'),
@@ -778,17 +848,17 @@ public class CalculatorServiceImpl implements CalculatorService {
         data: $(this).serialize(),
         contentType: 'application/x-www-form-urlencoded',
         success: function (data) {
-          $('#comment-form-submit').html('Submitted');
+          $('#comment-form-submit').html('已提交');
           $('.page__comments-form .js-notice').removeClass('notice--danger');
           $('.page__comments-form .js-notice').addClass('notice--success');
-          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
         },
         error: function (err) {
           console.log(err);
-          $('#comment-form-submit').html('Submit Comment');
+          $('#comment-form-submit').html('提交评论');
           $('.page__comments-form .js-notice').removeClass('notice--success');
           $('.page__comments-form .js-notice').addClass('notice--danger');
-          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
           $(form).removeClass('disabled');
         }
       });
