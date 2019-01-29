@@ -32,7 +32,7 @@ Most of the documentation is stored as the markdown text, you can edit this page
 
 Please raise a new issue in our [issue tracker](https://issues.apache.org/jira/browse/SCB)
 If you can create a JUnit test case then your issue is more likely to be resolved quicker.
-e.g. take a look at some of the existing [unit tests cases](https://github.com/apache/servicecomb-saga/tree/master/alpha/alpha-core/src/test/java/org/apache/servicecomb/saga/alpha/core)
+e.g. take a look at some of the existing [unit tests cases](https://github.com/apache/servicecomb-pack/tree/master/alpha/alpha-core/src/test/java/org/apache/servicecomb/pack/alpha/core)
 Then we can add your issue to git and then we'll know when its really fixed and we can ensure that the problem stays fixed in future releases.
 
 ## Working on the code
