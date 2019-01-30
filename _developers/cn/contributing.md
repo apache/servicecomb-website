@@ -32,7 +32,7 @@ last_modified_at: 2018-05-20T19:18:43+08:00
 
 ## 如果发现了一个Bug或问题
 
-请提交一个新的Issue在我们的[issue tracker](https://issues.apache.org/jira/browse/SCB)上，如果您能够提供一个JUnit测试用例来复现这个问题，那么我们就能够更快的解决它，例如已经有的[例子](https://github.com/apache/servicecomb-saga/tree/master/alpha/alpha-core/src/test/java/org/apache/servicecomb/saga/alpha/core)，并且我们还能够持续的确认这个问题不会再次出现在未来的版本中。
+请提交一个新的Issue在我们的[issue tracker](https://issues.apache.org/jira/browse/SCB)上，如果您能够提供一个JUnit测试用例来复现这个问题，那么我们就能够更快的解决它，例如已经有的[例子](https://github.com/apache/servicecomb-pack/tree/master/alpha/alpha-core/src/test/java/org/apache/servicecomb/pack/alpha/core)，并且我们还能够持续的确认这个问题不会再次出现在未来的版本中。
 
 ## 编写代码
 
