@@ -19,7 +19,7 @@ It is essential that you verify the integrity of the downloaded files using the 
  The PGP signatures can  be verified using GPG or PGP.
  Please download the [KEYS](https://www.apache.org/dist/servicecomb/KEYS){:target="_blank"} as well as the asc signature files for relevant distribution. It is recommended to get these files from the main distribution [directory](https://www.apache.org/dist/servicecomb/servicecomb-saga-actuator/){:target="_blank"} and not from the mirrors.
  ```
- gpg -import KEYS
+ gpg --import KEYS
 
  or
 
