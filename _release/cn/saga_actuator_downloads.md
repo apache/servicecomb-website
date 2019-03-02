@@ -17,7 +17,7 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 
 使用PGP或SHA签名验证下载文件的完整性是很有必要的。PGP签名可以使用GPG或PGP进行验证，请下载 [KEYS](https://www.apache.org/dist/servicecomb/KEYS)以及相关发行的asc签名文件。
 建议从主发行[目录](https://www.apache.org/dist/servicecomb/servicecomb-saga-actuator/){:target="_blank"}中获取这些文件，而不是从镜像中获取这些文件。 ```
- gpg -import KEYS
+ gpg --import KEYS
 
  or
 
