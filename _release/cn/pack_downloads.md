@@ -18,7 +18,7 @@ last_modified_at: 2018-03-28T00:50:43-55:00
 建议从主发行[目录](https://www.apache.org/dist/servicecomb/servicecomb-pack/){:target="_blank"}中获取这些文件，而不是从镜像中获取这些文件。
 
  ```
- gpg -import KEYS
+ gpg --import KEYS
 
  or
 
