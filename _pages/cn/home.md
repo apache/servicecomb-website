@@ -11,7 +11,7 @@ excerpt: '开箱即用、高性能、兼容流行生态、支持多语言的一�
 
 <div class="excerpt-label">下载最新版本:</div>
 <div class="button-group">
-<a href="/cn/release" class="home-button btn--info">ServiceComb 1.1.0</a>
+<a href="/cn/release" class="home-button btn--info">ServiceComb 1.2.0</a>
 </div>'
 
 intro:

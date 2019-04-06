@@ -4,9 +4,51 @@ lang: cn
 ref: release
 permalink: /cn/release/service-center-release-notes/
 excerpt: "Release Notes"
-last_modified_at: 2018-03-28T00:50:43-55:00
+last_modified_at: 2019-04-06T00:50:43-55:00
 ---
 
+        Release Notes - Apache ServiceComb - Version service-center-1.2.0
+            
+<h2>        Bug
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1050'>SCB-1050</a>] -         Metrics cache does not clean
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1059'>SCB-1059</a>] -         Bug fixes for v1.1.0
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1069'>SCB-1069</a>] -         Wrong response of batch delete microservices API
+</li>
+</ul>
+        
+<h2>        New Feature
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1049'>SCB-1049</a>] -         Alarm center
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1087'>SCB-1087</a>] -         Add View Schema Option in Schema Details Page
+</li>
+</ul>
+        
+<h2>        Improvement
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1052'>SCB-1052</a>] -         import zap logger without binding go version
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1053'>SCB-1053</a>] -         Batch microservices instances discovery API
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1070'>SCB-1070</a>] -         New instance &#39;TESTING&#39; status
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1092'>SCB-1092</a>] -         More abundant metrics information
+</li>
+</ul>
+            
+<h2>        Task
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1219'>SCB-1219</a>] -         Prepare 1.2.0 Release
+</li>
+</ul>
+                                                                                                                                        
 
         Release Notes - Apache ServiceComb - Version service-center-1.1.0
             

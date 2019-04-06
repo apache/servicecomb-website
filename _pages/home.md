@@ -10,7 +10,7 @@ excerpt: 'Open-Source, Full-Stack Microservice Solution.With out of the box, hig
 
 <div class="excerpt-label">Download latest release:</div>
 <div class="button-group">
-<a href="/release" class="home-button btn--info">ServiceComb 1.1.0</a>
+<a href="/release" class="home-button btn--info">ServiceComb 1.2.0</a>
 </div>'
 
 intro:

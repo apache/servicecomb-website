@@ -4,9 +4,128 @@ lang: en
 ref: release
 permalink: /release/pack-release-notes/
 excerpt: "ServiceComb Pack Release Notes"
-last_modified_at: 2018-03-28T00:50:43-55:00
+last_modified_at: 2019-04-06T00:50:43-55:00
 ---
 
+
+        Release Notes - Apache ServiceComb - Version pack-0.4.0
+    
+<h2>        Sub-task
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1180'>SCB-1180</a>] -         Unable to register eureka instance metadata on random gRPC port
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1187'>SCB-1187</a>] -         Update distribution LICENSE for Spring Cloud Starter Netflix
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1200'>SCB-1200</a>] -         Omega with consul
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1201'>SCB-1201</a>] -         alpha-spring-cloud-starter rename alpha-server-cloud-eureka-starter
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1204'>SCB-1204</a>] -         acceptance tests with consul
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1209'>SCB-1209</a>] -         Add a description about the integrated consul
+</li>
+</ul>
+        
+<h2>        Bug
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1118'>SCB-1118</a>] -         EventScanner should catch the exception to keep it running.
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1159'>SCB-1159</a>] -         Rxjs and TypeScript version compatibility issues
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1216'>SCB-1216</a>] -         Alpha Cluster support random gRPC port
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1217'>SCB-1217</a>] -         Consul support random gRPC port
+</li>
+</ul>
+        
+<h2>        New Feature
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-15'>SCB-15</a>] -         service discovery with popular open source service registry
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1155'>SCB-1155</a>] -         Generate a random free gRPC port to launch alpha
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1199'>SCB-1199</a>] -         service discovery with consul
+</li>
+</ul>
+        
+<h2>        Improvement
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1082'>SCB-1082</a>] -         Dependency-free-transaction-demo failed on Mac OSX
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1099'>SCB-1099</a>] -         Add nexus SNAPSHOT information to the README repo 
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1100'>SCB-1100</a>] -         Updated the user guide for migration from saga 0.2.x
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1103'>SCB-1103</a>] -         TCC should have participate started and ended events
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1110'>SCB-1110</a>] -         omega-transport-feign configure file error
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1119'>SCB-1119</a>] -         Add the order number on the demo
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1121'>SCB-1121</a>] -         Clean up the OmegaContext once the invocation is over
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1122'>SCB-1122</a>] -         Specify the name of RestTemplate in the configuration
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1124'>SCB-1124</a>] -         Rename the Handler name of Omega transport
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1125'>SCB-1125</a>] -         Add omega instanceid to properties
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1127'>SCB-1127</a>] -         Support alpha server registering to Spring Cloud Eureka
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1128'>SCB-1128</a>] -         Omega get Alpha address from Spring Cloud Eureka
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1130'>SCB-1130</a>] -         Alpha cluster need distributed lock function
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1158'>SCB-1158</a>] -          External jars support Alpha
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1160'>SCB-1160</a>] -         SCB-1142 additional
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1171'>SCB-1171</a>] -         Improve unit test coverage for ClusterLockServiceTest
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1235'>SCB-1235</a>] -         Clean up third party license with maven plugin
+</li>
+</ul>
+    
+<h2>        Test
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-306'>SCB-306</a>] -         [pack] acceptance tests with all the transaction scenarios
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1152'>SCB-1152</a>] -         About abortTimeoutTxStartedEvent test case failed
+</li>
+</ul>
+        
+<h2>        Task
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1151'>SCB-1151</a>] -         Add Eureka instructions in the user guide
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1161'>SCB-1161</a>] -         Eureka integration english guide
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1181'>SCB-1181</a>] -         Add mvn wrap script to lock the maven version
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1182'>SCB-1182</a>] -         Also need to use -Pspring-boot-2 by default
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1189'>SCB-1189</a>] -         Update the Eureka Integration User Guide for version 0.4.0
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1190'>SCB-1190</a>] -         Update the mysql manual for use extension jar description
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1194'>SCB-1194</a>] -         Specify alphaEventBus bean with @Qualifier(&quot;alphaEventBus&quot;)
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1195'>SCB-1195</a>] -         About typo in eureka Integrated documentation
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1215'>SCB-1215</a>] -         Update document about alpha cluster
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1233'>SCB-1233</a>] -         Alpha Server should not include eureka dependencies by default
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1238'>SCB-1238</a>] -         Introductory article on cluster implementation of ServiceComb Pack
+</li>
+</ul>
+                                                                                                                                        
         Release Notes - Apache ServiceComb - Version pack-0.3.0
 <h2> New and Noteworthy </h2>
   <ul>
