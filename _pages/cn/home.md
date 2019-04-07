@@ -20,7 +20,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/cn/release/pack-downloads/'>Apache ServiceComb Pack 发布式版 0.3.0</a>
+    <a href='/cn/release/pack-downloads/'>Apache ServiceComb Pack 发布式版 0.4.0</a>
   </li>
   <li>
     <a href='/cn/release/saga-downloads/'>Apache ServiceComb Saga 发布最新版 0.2.1</a>
@@ -35,7 +35,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/cn/release/'>Apache ServiceComb 发布正式版 1.1.0</a>
+    <a href='/cn/release/'>Apache ServiceComb 发布正式版 1.2.0</a>
   </li>
   <li>
     <a href='https://gitter.im/ServiceCombUsers/Lobby'>欢迎加入 Apache ServiceComb 社区Gitter即时聊天室</a>
