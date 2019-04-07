@@ -19,12 +19,12 @@
 
 
 
-<title>开发环境准备 - Apache ServiceComb</title>
+<title>发现问题 - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="开发环境准备">
+<meta name="description" content="介绍如何向 ServiceComb 项目提交issue">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="开发环境准备">
+<meta property="og:title" content="发现问题">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/setup-develop-environment/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/setup-develop-environment/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/submit-issues/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/developers/submit-issues/">
 
 
 
-  <meta property="og:description" content="开发环境准备">
+  <meta property="og:description" content="介绍如何向 ServiceComb 项目提交issue">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="开发环境准备">
-  <meta name="twitter:description" content="开发环境准备">
+  <meta name="twitter:title" content="发现问题">
+  <meta name="twitter:description" content="介绍如何向 ServiceComb 项目提交issue">
   <meta name="twitter:url" content="">
 
   
@@ -221,7 +221,7 @@
           
             
             
-            <a href=/developers/setup-develop-environment/>English</a>
+            <a href=/developers/submit-issues/>English</a>
           
         </div>
       </nav>
@@ -409,16 +409,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="开发环境准备">
-    <meta itemprop="description" content="开发环境准备">
+    <meta itemprop="headline" content="发现问题">
+    <meta itemprop="description" content="介绍如何向 ServiceComb 项目提交issue">
     
-    <meta itemprop="dateModified" content="June 24, 2017">
+    <meta itemprop="dateModified" content="March 13, 2019">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">开发环境准备
+            <h1 class="page__title" itemprop="headline">发现问题
 </h1>
             
           </header>
@@ -430,96 +430,32 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#基本环境准备" id="markdown-toc-基本环境准备">基本环境准备</a></li>
-  <li><a href="#git配置" id="markdown-toc-git配置">Git配置</a></li>
-  <li><a href="#ide-环境配置" id="markdown-toc-ide-环境配置">IDE 环境配置</a>    <ul>
-      <li><a href="#intellij-idea-配置" id="markdown-toc-intellij-idea-配置">IntelliJ IDEA 配置</a></li>
-    </ul>
-  </li>
-  <li><a href="#下一步" id="markdown-toc-下一步">下一步</a></li>
+  <li><a href="#发现问题" id="markdown-toc-发现问题">发现问题</a></li>
+  <li><a href="#创建issue" id="markdown-toc-创建issue">创建issue</a></li>
+  <li><a href="#参与讨论" id="markdown-toc-参与讨论">参与讨论</a></li>
+  <li><a href="#关闭issue" id="markdown-toc-关闭issue">关闭issue</a></li>
 </ul>
 
   </nav>
 </aside>
 
-<h2 id="基本环境准备">基本环境准备</h2>
-<p>在您开始前，请确保以下应用已安装：</p>
-<ul>
-  <li><strong>Git</strong>，安装详情可参考<a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank">Git安装教程</a></li>
-  <li><strong>JDK 1.8</strong>，安装详情可参考<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html" target="_blank">JDK安装教程</a></li>
-  <li><strong>Maven 3.x</strong>，安装详情可参考<a href="https://maven.apache.org/install.html" target="_blank">Maven安装教程</a></li>
-  <li><strong>Docker</strong>，安装详情可参考<a href="https://docs.docker.com/engine/installation/" target="_blank">Docker 安装教程</a></li>
-  <li><strong>Service Center</strong>, 安装详情可参考<a href="/cn/users/setup-environment/#运行service-center">Service Center安装教程</a></li>
-  <li><strong>IntelliJ Idea IDE</strong>(可选，您可以使用其他心仪的IDE，如eclipse)，安装详情可参考<a href="https://www.jetbrains.com/help/idea/installing-and-launching.html" target="_blank">IntelliJ安装教程</a></li>
-</ul>
+<h2 id="发现问题">发现问题</h2>
+<p>　　ServiceComb正在不断成长中，用户可以通过在github上提交issue的方式描述自己的问题或建议并发起讨论，帮助社区进一步改进。可以在issue上提出bug，建议，疑问或者寻求帮助等等</p>
 
-<h2 id="git配置">Git配置</h2>
-<ol>
-  <li>注册Github。由于ServiceComb的代码是托管在Github上的，所以您需要有一个Github的帐号，可前往 <a href="https://github.com/join?source=header-home">https://github.com/join?source=header-home</a> 进行注册，如您已有Github帐号，则可跳过此步。注册完成后直接在 <a href="https://github.com/login?return_to=%2Fjoin%3Fsource%3Dheader-home">https://github.com/login?return_to=%2Fjoin%3Fsource%3Dheader-home</a> 进行登录即可。</li>
-  <li>
-    <p>配置Git。主要配置Git的个人信息和设置免密码提交代码。个人信息可通过以下指令进行配置：</p>
+<h2 id="创建issue">创建issue</h2>
+<p>　　在对应github项目页面上，如java-chassis，点击右上角按钮<code class="highlighter-rouge">New issue</code>创建issue
+   <img src="/assets/images/submit-issues/find-issues-by-example.png" alt="创建issue示例" class="align-center" /></p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git config --global user.name &lt;your-user-name&gt;
-git config --global user.email &lt;your-email-address&gt;
-</code></pre>
-    </div>
+<p>　　issue内容推荐使用如下模板，建议先提供ServiceComb版本信息，程序运行环境信息，然后描述产生的bug和希望出现的结果，最后提供可以复现bug的操作步骤。这些信息都有助于其他人快速了解你的问题并参与解决。 <br />
+​    <img src="/assets/images/submit-issues/find-issues-write.png" alt="issue模板" class="align-center" /></p>
 
-    <p>其中，请将&lt;your-user-name&gt;和&lt;your-email-address&gt;替换为您在Github上注册用到的用户名和邮箱信息。设置免密码提交代码可参考<a href="https://stackoverflow.com/a/8588786" target="_blank">Git免密码提交代码教程</a>。</p>
-  </li>
-  <li>
-    <p>获取项目代码。以 <a href="https://github.com/apache/servicecomb-java-chassis">ServiceComb-Java-Chassis</a> 项目为例，可直接执行以下指令获取代码：</p>
+<h2 id="参与讨论">参与讨论</h2>
+<p>　　在issue下可以很方便地参与讨论，如下图 <br />
+<img src="/assets/images/submit-issues/find-issues-comment.png" alt="参与讨论" class="align-center" /></p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-java-chassis.git
-</code></pre>
-    </div>
-  </li>
-</ol>
+<h2 id="关闭issue">关闭issue</h2>
+<p>　　通过讨论之后得出最终解决方案，issue将会被关闭，如有修改代码，需要提交PR，可参考<a href="http://servicecomb.apache.org/cn/developers/submit-codes/">代码提交指南</a></p>
 
-<h2 id="ide-环境配置">IDE 环境配置</h2>
-<p>现有支持Java开发的IDE很多，如Eclipse, IntelliJ IDEA和STS等。我们在此推荐使用IntelliJ IDEA，对于日常开发，其社区版的功能已经足够了。在安装完IntelliJ IDEA后，您可以根据<a href="https://www.jetbrains.com/help/idea/installing-and-launching.html#d325787e291">初始化设置教程</a>对IntelliJ IDEA进行配置，随后可通过阅读<a href="https://www.jetbrains.com/help/idea/keyboard-shortcuts-you-cannot-miss.html">必备快捷键</a>了解常用的快捷键。</p>
-
-<p>Java Chassis和Saga项目使用了<a href="https://github.com/google/styleguide">Google Code Style</a>作为代码风格，配置文件可以在本项目 <code class="highlighter-rouge">etc</code> 目录下找到。其中，目录中也有Eclipse的代码风格，读者可以直接导入使用。</p>
-
-<p><img src="/assets/images/intellij.code.style.3.png" alt="code style files" class="align-center" /></p>
-
-<aside class="sidebar__right">
-<nav class="toc">
-    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
-    <ul class="toc__menu">
-      <li>Auto generated table of contents</li>
-    </ul>
-  </nav>
-</aside>
-
-<h3 id="intellij-idea-配置">IntelliJ IDEA 配置</h3>
-<p><a href="https://www.jetbrains.com/idea/download/">IntelliJ IDEA</a>的配置方法如下</p>
-
-<ol>
-  <li>
-    <p>打开IntelliJ配置
-<img src="/assets/images/intellij.code.style.4.png" alt="IntelliJ Settings" class="align-center" /></p>
-  </li>
-  <li>
-    <p>Import 配置文件 <code class="highlighter-rouge">etc/intellij-java-google-style.xml</code>
-<img src="/assets/images/intellij.code.style.1.png" alt="import code style" class="align-center" /></p>
-  </li>
-  <li>
-    <p>打开已修改而未提交的文件，并打开格式化文件对话框
-<img src="/assets/images/intellij.code.style.5.png" alt="reformat file dialog" class="align-center" /></p>
-  </li>
-  <li>
-    <p>选择只格式化修改部分
-<img src="/assets/images/intellij.code.style.2.png" alt="reformat options" class="align-center" /></p>
-  </li>
-</ol>
-
-<p>配置完成后，后续按快捷键 (Ctrl+Alt+i) 格式化修改文件即可。更多关于IntelliJ的使用技巧可阅读<a href="https://www.jetbrains.com/help/idea/tutorials.html">IntelliJ教程</a>。</p>
-
-<h2 id="下一步">下一步</h2>
-
-<ul>
-  <li>阅读<a href="/cn/developers/submit-codes/">代码提交指南</a></li>
-</ul>
 
         
       </section>
@@ -587,7 +523,7 @@ git config --global user.email &lt;your-email-address&gt;
       <ul>
         <p class="header">贡献</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_developers/cn/setup-develop-environment.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_developers/cn/submit-issues.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
         <li><a href="/cn/security">安全</a></li>
       </ul>
