@@ -1,0 +1,1106 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>ServiceComb Pack 0.4.0 Cluster : 集群实现 - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="本篇将介绍如何使用 ServiceComb Pack 集群以及实现原理">
+
+
+
+
+<meta name="author" content="Lei Zhang">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="ServiceComb Pack 0.4.0 Cluster : 集群实现">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-pack-cluster/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-pack-cluster/">
+
+
+
+  <meta property="og:description" content="本篇将介绍如何使用 ServiceComb Pack 集群以及实现原理">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="ServiceComb Pack 0.4.0 Cluster : 集群实现">
+  <meta name="twitter:description" content="本篇将介绍如何使用 ServiceComb Pack 集群以及实现原理">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@Lei Zhang">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-04-03T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/servicecomb-pack-cluster/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/ServiceComb-logo-3.jpg" class="author__avatar" alt="" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name"></h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+        
+          
+            <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">中国</span>
+          
+        
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:dev@servicecomb.apache.org">
+            <meta itemprop="email" content="dev@servicecomb.apache.org" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/ServiceComb" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="ServiceComb Pack 0.4.0 Cluster : 集群实现">
+    <meta itemprop="description" content="本篇将介绍如何使用 ServiceComb Pack 集群以及实现原理">
+    <meta itemprop="datePublished" content="April 03, 2019">
+    <meta itemprop="dateModified" content="April 11, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">ServiceComb Pack 0.4.0 Cluster : 集群实现
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Alpha可以通过扩展部署多个实例实现高可用部署，并且通过在节点上设置启动参数 <code class="highlighter-rouge">alpha.event.scanner.enabled=false</code> 关闭一些节点后台定时执行的事务扫描，避免多个节点同时扫描事物表可能导致的性能问题。但是当启动事务扫描的进程宕机后会导致没有进程进行事务扫描，从而无法进行超时事务补偿。
+在0.4.0版本中，我们通过一种基于数据库表的抢占锁机制，实现Alpha集群中主节点的动态选举，并让事务扫描方法只在主节点上执行。当主节点宕机后其他节点通过抢占的方式选出一个新的主节点，本文将介绍在0.4.0版本相关的代码实现。</p>
+
+<h2 id="快速体验">快速体验</h2>
+
+<p>在0.4.0版本中开启动态主节点集群模式支持只需要增加启动参数 <code class="highlighter-rouge">alpha.cluster.master.enabled=true</code></p>
+
+<ul>
+  <li>启动两个节点</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
+  --server.port<span class="o">=</span>8090 <span class="se">\</span>
+  --alpha.server.port<span class="o">=</span>8080 <span class="se">\</span>
+  --spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+  --spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+  --spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+  --alpha.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+</div>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
+  --server.port<span class="o">=</span>8091 <span class="se">\</span>
+  --alpha.server.port<span class="o">=</span>8081 <span class="se">\</span>
+  --spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+  --spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+  --spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+  --alpha.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>节点类型信息查看</li>
+</ul>
+
+<p>在日志中看到 <code class="highlighter-rouge">Master Node</code> 则表示这个进程是主节点</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>01:31:07.032 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Master Node 
+</code></pre>
+</div>
+
+<p>在日志中看到 <code class="highlighter-rouge">Slave Node</code> 则表示这个进程是从节点</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>01:31:31.059 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Slave Node
+</code></pre>
+</div>
+
+<ul>
+  <li>节点切换</li>
+</ul>
+
+<p>当主节点进程宕后，其他从节点会采用抢占的产生一个新的主节点</p>
+
+<h2 id="让事务扫描运行在主节点">让事务扫描运行在主节点</h2>
+
+<p>事务扫描是通过 <code class="highlighter-rouge">EventScanner.java</code> 实现的，并且在 <code class="highlighter-rouge">AlphaConfig.java</code> 中进行初始化，可以看到在 <code class="highlighter-rouge">new EventScanner</code> 代码执行前进行了eventScannerEnabled判断，这个参数就是通过<code class="highlighter-rouge">alpha.event.scanner.enabled</code> 指定的（默认是true），然后传入了<code class="highlighter-rouge">nodeStatus</code> 对象，这个对象就记录着这个节点的状态（主节点或者从节点），后边会讲解 <code class="highlighter-rouge">nodeStatus</code> 是如何构造的。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="n">TxConsistentService</span> <span class="nf">txConsistentService</span><span class="o">(</span>
+  <span class="nd">@Value</span><span class="o">(</span><span class="s">"${alpha.event.pollingInterval:500}"</span><span class="o">)</span> <span class="kt">int</span> <span class="n">eventPollingInterval</span><span class="o">,</span>
+  <span class="nd">@Value</span><span class="o">(</span><span class="s">"${alpha.event.scanner.enabled:true}"</span><span class="o">)</span> <span class="kt">boolean</span> <span class="n">eventScannerEnabled</span><span class="o">,</span>
+  <span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span><span class="o">,</span>
+  <span class="n">TxEventRepository</span> <span class="n">eventRepository</span><span class="o">,</span>
+  <span class="n">CommandRepository</span> <span class="n">commandRepository</span><span class="o">,</span>
+  <span class="n">TxTimeoutRepository</span> <span class="n">timeoutRepository</span><span class="o">,</span>
+  <span class="n">OmegaCallback</span> <span class="n">omegaCallback</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">eventScannerEnabled</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">new</span> <span class="nf">EventScanner</span><span class="o">(</span><span class="n">scheduler</span><span class="o">,</span>
+          <span class="n">eventRepository</span><span class="o">,</span> <span class="n">commandRepository</span><span class="o">,</span> <span class="n">timeoutRepository</span><span class="o">,</span>
+          <span class="n">omegaCallback</span><span class="o">,</span> <span class="n">eventPollingInterval</span><span class="o">,</span> <span class="n">nodeStatus</span><span class="o">).</span><span class="na">run</span><span class="o">();</span>
+      <span class="n">LOG</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Starting the EventScanner."</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="n">TxConsistentService</span> <span class="n">consistentService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TxConsistentService</span><span class="o">(</span><span class="n">eventRepository</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">consistentService</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">EventScanner.java</code> 的 pollEvents 方法进行定时事务扫描，并使用 <code class="highlighter-rouge">nodeStatus.isMaster()</code> 判断自己是否是主节点，只有主节点才允许执行。看到这里大家应该知道 <code class="highlighter-rouge">nodeStatus.isMaster()</code> 是我们判断主节点的关键对象，那么 <code class="highlighter-rouge">NodeStatus.java</code> 是如何被创建并初始化的呢</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">pollEvents</span><span class="o">()</span> <span class="o">{</span>
+	<span class="n">scheduler</span><span class="o">.</span><span class="na">scheduleWithFixedDelay</span><span class="o">(</span>
+	    <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+	      <span class="c1">// only pull the events when working in the master mode</span>
+	      <span class="k">if</span><span class="o">(</span><span class="n">nodeStatus</span><span class="o">.</span><span class="na">isMaster</span><span class="o">()){</span>
+	        <span class="n">updateTimeoutStatus</span><span class="o">();</span>
+	        <span class="n">findTimeoutEvents</span><span class="o">();</span>
+	        <span class="n">abortTimeoutEvents</span><span class="o">();</span>
+	        <span class="n">saveUncompensatedEventsToCommands</span><span class="o">();</span>
+	        <span class="n">compensate</span><span class="o">();</span>
+	        <span class="n">updateCompensatedCommands</span><span class="o">();</span>
+	        <span class="n">deleteDuplicateSagaEndedEvents</span><span class="o">();</span>
+	        <span class="n">updateTransactionStatus</span><span class="o">();</span>
+	      <span class="o">}</span>
+	    <span class="o">},</span>
+	    <span class="mi">0</span><span class="o">,</span>
+	    <span class="n">eventPollingInterval</span><span class="o">,</span>
+	    <span class="n">MILLISECONDS</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>我们在 <code class="highlighter-rouge">AlphaConfig.java</code>  中通过以下方式创建实例，以确保无论您是否指定了 <code class="highlighter-rouge">alpha.cluster.master.enabled</code> 参数事务扫描都可以正常工作，在这里可以看到当我们开启了集群模式后节点刚启动的时候状态是Slave，下面会说明状态是如何切换到Master的。</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="n">NodeStatus</span> <span class="nf">nodeStatus</span> <span class="o">(){</span>
+<span class="k">if</span><span class="o">(</span><span class="n">masterEnabled</span><span class="o">){</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nf">NodeStatus</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">SLAVE</span><span class="o">);</span>
+<span class="o">}</span><span class="k">else</span><span class="o">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nf">NodeStatus</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">MASTER</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="nd">@Autowired</span>
+<span class="n">NodeStatus</span> <span class="n">nodeStatus</span><span class="o">;</span>
+</code></pre>
+</div>
+
+<p>控制节点状态切换的是 <code class="highlighter-rouge">ClusterLockService.java</code> ,这个服务会定时执行锁抢占，抢占成功后设置本节点为Master，否则为Slave</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<span class="n">LockProvider</span> <span class="n">lockProvider</span><span class="o">;</span>
+<span class="o">...</span>
+<span class="o">...</span>
+<span class="nd">@Scheduled</span><span class="o">(</span><span class="n">cron</span> <span class="o">=</span> <span class="s">"0/1 * * * * ?"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">masterCheck</span><span class="o">()</span> <span class="o">{</span>
+<span class="k">if</span> <span class="o">(</span><span class="n">applicationReady</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">this</span><span class="o">.</span><span class="na">locker</span> <span class="o">=</span> <span class="n">lockProvider</span><span class="o">.</span><span class="na">lock</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getMasterLock</span><span class="o">());</span>
+  <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">locker</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="na">locked</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">locked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+      <span class="n">nodeStatus</span><span class="o">.</span><span class="na">setTypeEnum</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">MASTER</span><span class="o">);</span>
+      <span class="n">LOG</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Master Node"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="c1">//Keep locked</span>
+  <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">locked</span> <span class="o">||</span> <span class="o">!</span><span class="n">lockExecuted</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">locked</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+      <span class="n">nodeStatus</span><span class="o">.</span><span class="na">setTypeEnum</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">SLAVE</span><span class="o">);</span>
+      <span class="n">LOG</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Slave Node"</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="n">lockExecuted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="加锁服务基础类">加锁服务基础类</h2>
+
+<p>在前边的说明中可以看到，在 <code class="highlighter-rouge">ClusterLockService.java</code> 的 <code class="highlighter-rouge">masterCheck</code> 方法中通过 <code class="highlighter-rouge">this.locker = lockProvider.lock(this.getMasterLock());</code> 获取一个锁并判断是否锁成功。</p>
+
+<p><code class="highlighter-rouge">LockProvider.java</code> 是一个接口，目前我们提供了基于 JDBC 的实现，包结构以及类依赖关系如下：</p>
+
+<p><img src="/assets/images/2019-04-03-servicecomb-pack-cluster/cluster-package-structure.png" alt="cluster-package-structure" /></p>
+
+<p>依赖关系如下</p>
+
+<p><img src="/assets/images/2019-04-03-servicecomb-pack-cluster/class-dependency-1.png" alt="class-dependency-1" /></p>
+
+<ul>
+  <li>
+    <p>LockProvider.java</p>
+
+    <p>接口定义了锁方法 lock</p>
+  </li>
+  <li>
+    <p>LockProviderPersistence.java</p>
+
+    <p>接口定义了以下三个方法，作为持久化锁的接口</p>
+
+    <ul>
+      <li>initLock 创建锁，尝试进行锁定并返回锁定是否成功</li>
+      <li>updateLock 更新锁，进行再次锁定并返回是否成功（更新锁的接口设计的目的是为了非长连接锁设计，例如对于按照固定周期进行加锁的实现）</li>
+      <li>unLock 解锁，取消锁定</li>
+    </ul>
+  </li>
+  <li>
+    <p>AbstractLockProvider.java</p>
+
+    <p>抽象类实现了 <code class="highlighter-rouge">LockProvider.java</code> 接口的lock方法，并调用内部的 <code class="highlighter-rouge">LockProviderPersistence.java</code> 接口进行锁操作</p>
+  </li>
+</ul>
+
+<h2 id="加锁服务-jdbc-实现">加锁服务 JDBC 实现</h2>
+
+<blockquote>
+  <p>我喜欢和你们一起跑步，一致的步伐，一样的心跳，这感觉真好，当你掉队了，我带着大家跑</p>
+</blockquote>
+
+<ul>
+  <li>JDBC 类关系图</li>
+</ul>
+
+<p><img src="/assets/images/2019-04-03-servicecomb-pack-cluster/class-dependency-2.png" alt="class-dependency-2" /></p>
+
+<ul>
+  <li>
+    <p>JdbcLockPersistence.java</p>
+
+    <p><code class="highlighter-rouge">LockProviderPersistence.java</code> 接口实现，用来实现对数据库表操作</p>
+  </li>
+  <li>
+    <p>JdbcLockProvider.java</p>
+
+    <p>继承抽象类 <code class="highlighter-rouge">AbstractLockProvider.java</code> ，在构造函数中传入 ``LockProviderPersistence.java<code class="highlighter-rouge"> 的接口实现  </code>JdbcLockPersistence`</p>
+  </li>
+  <li>
+    <p>LockProviderJdbcConfiguration.java</p>
+
+    <p>锁的JDBC实例构造类</p>
+  </li>
+  <li>
+    <p>JPA</p>
+
+    <p>MasterLockEntityRepository.java、SpringMasterLockRepository.java、org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.*</p>
+  </li>
+  <li>
+    <p>锁定表结构设计</p>
+  </li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">master_lock</span> <span class="p">(</span>
+  <span class="n">serviceName</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">not</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">expireTime</span> <span class="n">datetime</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+  <span class="n">lockedTime</span> <span class="n">datetime</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+  <span class="n">instanceId</span>  <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">serviceName</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>serviceName 服务名，这个字段取值  <code class="highlighter-rouge">${spring.application.name}</code></li>
+  <li>expireTime 锁定过期时间，这个字段取值 lockedTime+5s</li>
+  <li>lockedTime 最近一次锁定时间</li>
+  <li>instanceId 集群实例ID，这个字段取值 <code class="highlighter-rouge">${alpha.server.host}]:${alpha.server.port}</code></li>
+</ul>
+
+<h2 id="加锁过程">加锁过程</h2>
+
+<p>加锁/更新锁的过程是一个周期性重复执行的动作，步骤如下：</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">ClusterLockService.java</code> 服务中会每秒调用一次 <code class="highlighter-rouge">LockProvider.java</code> 接口的lock方法</p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">AbstractLockProvider.java</code> 抽象类中的 lock方法会尝试调用 <code class="highlighter-rouge">JdbcLockPersistence.java</code> 的 iniLock方法进行加锁，加锁的SQL实现定义在 <code class="highlighter-rouge">MasterLockEntityRepository.java</code> 中</p>
+
+    <ul>
+      <li>如果表为空，那么插入一条记录并返回加锁成功</li>
+      <li>如果表中存在serviceName字段相同的记录，则捕获异常加锁失败</li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
+   <span class="nd">@Modifying</span>
+   <span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"INSERT INTO master_lock "</span>
+       <span class="o">+</span> <span class="s">"(serviceName, expireTime, lockedTime, instanceId) "</span>
+       <span class="o">+</span> <span class="s">"VALUES "</span>
+       <span class="o">+</span> <span class="s">"(?1, ?2, ?3, ?4)"</span><span class="o">,</span> <span class="n">nativeQuery</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+   <span class="kt">int</span> <span class="nf">initLock</span><span class="o">(</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"serviceName"</span><span class="o">)</span> <span class="n">String</span> <span class="n">serviceName</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"expireTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">expireTime</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"lockedTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">lockedTime</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"instanceId"</span><span class="o">)</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">);</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>如果 initLock加锁失败，则尝试调用 <code class="highlighter-rouge">MasterLockEntityRepository.java</code> 中的 updateLock 方法尝试更新锁</p>
+
+    <ul>
+      <li>表中存在的本服务记录 instanceId 与本实例 instanceId 相同，则更新成功并返回加锁成功（这个表明上一个更新周期也是本服务更新的）</li>
+      <li>表中存在的本服务记录 expireTime 小于当前锁定时间 ，则更新成功并返回加锁成功（表示上一个锁定周期并没有实例进行锁定更新操作）</li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
+   <span class="nd">@Modifying</span><span class="o">(</span><span class="n">clearAutomatically</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+   <span class="nd">@Query</span><span class="o">(</span><span class="s">"UPDATE org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.MasterLock t "</span>
+       <span class="o">+</span> <span class="s">"SET t.expireTime = :expireTime"</span>
+       <span class="o">+</span> <span class="s">",t.lockedTime = :lockedTime "</span>
+       <span class="o">+</span> <span class="s">",t.instanceId = :instanceId "</span>
+       <span class="o">+</span> <span class="s">"WHERE t.serviceName = :serviceName AND (t.expireTime &lt;= :lockedTime OR t.instanceId = :instanceId)"</span><span class="o">)</span>
+   <span class="kt">int</span> <span class="nf">updateLock</span><span class="o">(</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"serviceName"</span><span class="o">)</span> <span class="n">String</span> <span class="n">serviceName</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"lockedTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">lockedTime</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"expireTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">expireTime</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"instanceId"</span><span class="o">)</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">);</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>释放锁 unLock</p>
+
+    <p>保留接口，用于扩展其他锁定方式</p>
+  </li>
+</ul>
+
+<h2 id="锁的其他实现">锁的其他实现</h2>
+
+<p>可以通过 <code class="highlighter-rouge">LockProvider.java</code> 和 <code class="highlighter-rouge">LockProviderPersistence.java</code> 接口实现其他方式的锁，例如zookeeper，redis等</p>
+
+<h2 id="注意">注意</h2>
+
+<ul>
+  <li>
+    <p>基于数据库表的方式需要集群中多个节点的服务器时钟同步</p>
+  </li>
+  <li>
+    <p>基于 MySQL 数据库时需要配置正确的时区，例如：<code class="highlighter-rouge">serverTimezone=GMT%2b8</code></p>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#cluster" class="page__taxonomy-item" rel="tag">Cluster</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#servicecomb-pack" class="page__taxonomy-item" rel="tag">ServiceComb Pack</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2019-04-11">2019年4月11日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=ServiceComb Pack 0.4.0 Cluster : 集群实现 /cn/docs/servicecomb-pack-cluster/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/servicecomb-pack-cluster/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/servicecomb-pack-cluster/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/servicecomb-pack-cluster/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/docs/servicecomb-pack-cluster/" class="pagination--pager" title="ServiceComb Pack 0.4.0 Cluster : Implementation
+">向前</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="servicecomb-pack-cluster">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/servicecomb-pack-cluster/" rel="permalink">ServiceComb Pack 0.4.0 Cluster : Implementation
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">This article describes how to use the ServiceComb Pack 0.4.0 cluster and how it works
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  5 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/customized-tracing-with-servicecomb/" rel="permalink">ServiceComb + Zipkin : 使用篇——自定义追踪
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/servicecomb-springcloud-zuul-demo/" rel="permalink">基于 ServiceComb 和 SpringCloud Zuul 快速构建微服务系统
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">基于 ServiceComb 和 SpringCloud Zuul 快速构建微服务系统
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/distributed-transaction-of-services-2/" rel="permalink">基于服务的分布式事务(下篇)
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">在本文中我们先从分布式事务场景入手，采用交互图的方式，向大家介绍分布式Saga以及TCC分布式事务协调协议交互，最后结合ServiceComb Pack所提供的示例向大家介绍如何编写Saga以及TCC的应用代码。
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/cn/2019-04-03-servicecomb-pack-cluster.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

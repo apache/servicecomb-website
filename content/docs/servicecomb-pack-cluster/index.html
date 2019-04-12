@@ -1,0 +1,1102 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>ServiceComb Pack 0.4.0 Cluster : Implementation - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="This article describes how to use the ServiceComb Pack 0.4.0 cluster and how it works">
+
+
+
+
+<meta name="author" content="Lei Zhang">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="ServiceComb Pack 0.4.0 Cluster : Implementation">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-cluster/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-cluster/">
+
+
+
+  <meta property="og:description" content="This article describes how to use the ServiceComb Pack 0.4.0 cluster and how it works">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="ServiceComb Pack 0.4.0 Cluster : Implementation">
+  <meta name="twitter:description" content="This article describes how to use the ServiceComb Pack 0.4.0 cluster and how it works">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@Lei Zhang">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-04-03T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/docs/quick-start/">Quick Start</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/users/">Users</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/developers/">Developers</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/year-archive/">Blogs</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/faqs/">FAQ</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/release/">Downloads</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/servicecomb-pack-cluster/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">Home > <a href="/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/ServiceComb-logo-3.jpg" class="author__avatar" alt="" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name"></h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+        ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">Follow</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+        
+          <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">China</span>
+        
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:dev@servicecomb.apache.org">
+            <meta itemprop="email" content="dev@servicecomb.apache.org" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> Email
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/ServiceComb" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="ServiceComb Pack 0.4.0 Cluster : Implementation">
+    <meta itemprop="description" content="This article describes how to use the ServiceComb Pack 0.4.0 cluster and how it works">
+    <meta itemprop="datePublished" content="April 03, 2019">
+    <meta itemprop="dateModified" content="April 11, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">ServiceComb Pack 0.4.0 Cluster : Implementation
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  5 minute read
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <p>Now you can run multiple Alpha server in High Availability (HA) mode which support to run the event scanning in the master node only. You can also turn off event table scanning for some nodes with parameter <code class="highlighter-rouge">alpha.event.scanner.enabled=false</code> . However, transaction compensation will fail when the node that enabled the event table scan is crashed.
+We implemented database-based distributed lock in version 0.4.0 version, event scanning only runs on the master node in the cluster, When the master node is down, other nodes in the cluster will elect a new master node.</p>
+
+<h2 id="quick-starts">Quick Starts</h2>
+
+<p>Enable cluster support by parameter <code class="highlighter-rouge">alpha.cluster.master.enabled=true</code>.</p>
+
+<ul>
+  <li>Start Two Alphas.</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
+--server.port<span class="o">=</span>8090 <span class="se">\</span>
+--alpha.server.port<span class="o">=</span>8080 <span class="se">\</span>
+--spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+--spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+--spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+--alpha.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+</div>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
+--server.port<span class="o">=</span>8091 <span class="se">\</span>
+--alpha.server.port<span class="o">=</span>8081 <span class="se">\</span>
+--spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+--spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+--spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+--alpha.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>Who Is Master</li>
+</ul>
+
+<p><code class="highlighter-rouge">Master Node</code> This alpha is the master</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>01:31:07.032 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Master Node
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">Slave Node</code> This alpha is the slave</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>01:31:31.059 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Slave Node
+</code></pre>
+</div>
+
+<ul>
+  <li>Switch Master Nodes</li>
+</ul>
+
+<p>After the master node is off line, other nodes in the cluster will elect a new master node</p>
+
+<h2 id="how-to-make-event-scanning-only-run-on-the-master-node">How to make event scanning only run on the master node</h2>
+
+<p>Event scanning is implemented by <code class="highlighter-rouge">EventScanner.java</code> , initialize it in <code class="highlighter-rouge">AlphaConfig.java</code> , you can enable it by setting the parameter ‘alpha.event.scanner.enabled=true’, it will be instantiated EventScanner. The variable nodeStatus is the node type(Master or Slave). Later, I will introduce how <code class="highlighter-rouge">nodeStatus</code> is initialized.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Bean</span>
+<span class="n">TxConsistentService</span> <span class="nf">txConsistentService</span><span class="o">(</span>
+  <span class="nd">@Value</span><span class="o">(</span><span class="s">"${alpha.event.pollingInterval:500}"</span><span class="o">)</span> <span class="kt">int</span> <span class="n">eventPollingInterval</span><span class="o">,</span>
+  <span class="nd">@Value</span><span class="o">(</span><span class="s">"${alpha.event.scanner.enabled:true}"</span><span class="o">)</span> <span class="kt">boolean</span> <span class="n">eventScannerEnabled</span><span class="o">,</span>
+  <span class="n">ScheduledExecutorService</span> <span class="n">scheduler</span><span class="o">,</span>
+  <span class="n">TxEventRepository</span> <span class="n">eventRepository</span><span class="o">,</span>
+  <span class="n">CommandRepository</span> <span class="n">commandRepository</span><span class="o">,</span>
+  <span class="n">TxTimeoutRepository</span> <span class="n">timeoutRepository</span><span class="o">,</span>
+  <span class="n">OmegaCallback</span> <span class="n">omegaCallback</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">eventScannerEnabled</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">new</span> <span class="nf">EventScanner</span><span class="o">(</span><span class="n">scheduler</span><span class="o">,</span>
+          <span class="n">eventRepository</span><span class="o">,</span> <span class="n">commandRepository</span><span class="o">,</span> <span class="n">timeoutRepository</span><span class="o">,</span>
+          <span class="n">omegaCallback</span><span class="o">,</span> <span class="n">eventPollingInterval</span><span class="o">,</span> <span class="n">nodeStatus</span><span class="o">).</span><span class="na">run</span><span class="o">();</span>
+      <span class="n">LOG</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Starting the EventScanner."</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="n">TxConsistentService</span> <span class="n">consistentService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TxConsistentService</span><span class="o">(</span><span class="n">eventRepository</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">consistentService</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>The pollEvents method of <code class="highlighter-rouge">EventScanner.java</code> for scanning events, If the master node <code class="highlighter-rouge">nodeStatus.isMaster()</code> returns true.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">pollEvents</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">scheduler</span><span class="o">.</span><span class="na">scheduleWithFixedDelay</span><span class="o">(</span>
+    <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="c1">// only pull the events when working in the master mode</span>
+      <span class="k">if</span><span class="o">(</span><span class="n">nodeStatus</span><span class="o">.</span><span class="na">isMaster</span><span class="o">()){</span>
+        <span class="n">updateTimeoutStatus</span><span class="o">();</span>
+        <span class="n">findTimeoutEvents</span><span class="o">();</span>
+        <span class="n">abortTimeoutEvents</span><span class="o">();</span>
+        <span class="n">saveUncompensatedEventsToCommands</span><span class="o">();</span>
+        <span class="n">compensate</span><span class="o">();</span>
+        <span class="n">updateCompensatedCommands</span><span class="o">();</span>
+        <span class="n">deleteDuplicateSagaEndedEvents</span><span class="o">();</span>
+        <span class="n">updateTransactionStatus</span><span class="o">();</span>
+      <span class="o">}</span>
+    <span class="o">},</span>
+    <span class="mi">0</span><span class="o">,</span>
+    <span class="n">eventPollingInterval</span><span class="o">,</span>
+    <span class="n">MILLISECONDS</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>Construct NodeStatus in <code class="highlighter-rouge">AlphaConfig.java</code> by the following to ensure that the event scan will work regardless of whether you have configured the <code class="highlighter-rouge">alpha.cluster.master.enabled</code> parameter, Here you can see the node is a slave just after startup when cluster mode is enabled. Later, I will introduce how to switch to master.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="nd">@Bean</span>
+  <span class="n">NodeStatus</span> <span class="nf">nodeStatus</span> <span class="o">(){</span>
+    <span class="k">if</span><span class="o">(</span><span class="n">masterEnabled</span><span class="o">){</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">NodeStatus</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">SLAVE</span><span class="o">);</span>
+    <span class="o">}</span><span class="k">else</span><span class="o">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">NodeStatus</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">MASTER</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="n">NodeStatus</span> <span class="n">nodeStatus</span><span class="o">;</span>
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">ClusterLockService.java</code> is in charge of node state switching, It periodically perform lock preemption and set the node as a master after successful preemption.</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="nd">@Autowired</span>
+  <span class="n">LockProvider</span> <span class="n">lockProvider</span><span class="o">;</span>
+  <span class="o">...</span>
+  <span class="o">...</span>
+  <span class="nd">@Scheduled</span><span class="o">(</span><span class="n">cron</span> <span class="o">=</span> <span class="s">"0/1 * * * * ?"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">masterCheck</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">applicationReady</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">locker</span> <span class="o">=</span> <span class="n">lockProvider</span><span class="o">.</span><span class="na">lock</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">getMasterLock</span><span class="o">());</span>
+      <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">locker</span><span class="o">.</span><span class="na">isPresent</span><span class="o">())</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(!</span><span class="k">this</span><span class="o">.</span><span class="na">locked</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">this</span><span class="o">.</span><span class="na">locked</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+          <span class="n">nodeStatus</span><span class="o">.</span><span class="na">setTypeEnum</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">MASTER</span><span class="o">);</span>
+          <span class="n">LOG</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Master Node"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">//Keep locked</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">locked</span> <span class="o">||</span> <span class="o">!</span><span class="n">lockExecuted</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">locked</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+          <span class="n">nodeStatus</span><span class="o">.</span><span class="na">setTypeEnum</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">SLAVE</span><span class="o">);</span>
+          <span class="n">LOG</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Slave Node"</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+      <span class="n">lockExecuted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre>
+</div>
+
+<h2 id="lock-architecture">Lock architecture</h2>
+
+<p>As you can see from the previous description, in the <code class="highlighter-rouge">masterCheck</code> method of <code class="highlighter-rouge">ClusterLockService.java</code>, get a lock by <code class="highlighter-rouge">this.locker = lockProvider.lock(this.getMasterLock());</code> and determine if the lock was successful.</p>
+
+<p><code class="highlighter-rouge">LockProvider.java</code> is an interface. Currently, we provide an implementation based on JDBC. The package structure and class dependencies are as follows:</p>
+
+<p><img src="/assets/images/2019-04-03-servicecomb-pack-cluster/cluster-package-structure.png" alt="cluster-package-structure" /></p>
+
+<p>Dependencies are as follows</p>
+
+<p><img src="/assets/images/2019-04-03-servicecomb-pack-cluster/class-dependency-1.png" alt="class-dependency-1" /></p>
+
+<ul>
+  <li>
+    <p>LockProvider.java</p>
+
+    <p>The interface defines the lock methods</p>
+  </li>
+  <li>
+    <p>LockProviderPersistence.java</p>
+
+    <p>The interface defines the following three persistence methods</p>
+
+    <ul>
+      <li>initLock Create a lock, try to lock and return whether the lock was successful</li>
+      <li>updateLock Update the lock, lock it again and return it successfully (the interface design of the update lock is designed for non-long connection lock design, for example, for locking according to a fixed period)</li>
+      <li>unLock</li>
+    </ul>
+  </li>
+  <li>
+    <p>AbstractLockProvider.java</p>
+
+    <p>Implemented the <code class="highlighter-rouge">LockProvider.java</code> interface and called the internal <code class="highlighter-rouge">LockProviderPersistence.java</code> interface for locking operations</p>
+  </li>
+</ul>
+
+<h2 id="jdbc-implementation">JDBC implementation</h2>
+
+<blockquote>
+  <p>I like to run with you, the same rhythm, the same heartbeat, I feel very good, when you fall behind, I lead everyone to run together</p>
+</blockquote>
+
+<ul>
+  <li>JDBC class diagram</li>
+</ul>
+
+<p><img src="/assets/images/2019-04-03-servicecomb-pack-cluster/class-dependency-2.png" alt="class-dependency-2" /></p>
+
+<ul>
+  <li>
+    <p>JdbcLockPersistence.java</p>
+
+    <p>Implement <code class="highlighter-rouge">LockProviderPersistence.java</code> interface operation database</p>
+  </li>
+  <li>
+    <p>JdbcLockProvider.java</p>
+
+    <p>Inherit the abstract class <code class="highlighter-rouge">AbstractLockProvider.java</code>, passing the <code class="highlighter-rouge">LockProviderPersistence.java</code> interface implementation class <code class="highlighter-rouge">JdbcLockPersistence</code> in the constructor.</p>
+  </li>
+  <li>
+    <p>LockProviderJdbcConfiguration.java</p>
+
+    <p>Declare a LockProvider Bean with @Configuration</p>
+  </li>
+  <li>
+    <p>JPA</p>
+
+    <p>MasterLockEntityRepository.java、SpringMasterLockRepository.java、org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.*</p>
+  </li>
+  <li>
+    <p>Create master_lock Table</p>
+  </li>
+</ul>
+
+<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">master_lock</span> <span class="p">(</span>
+  <span class="n">serviceName</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">not</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="n">expireTime</span> <span class="n">datetime</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+  <span class="n">lockedTime</span> <span class="n">datetime</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
+  <span class="n">instanceId</span>  <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">serviceName</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+</code></pre>
+</div>
+
+<ul>
+  <li>serviceName Service name, this field takes the value <code class="highlighter-rouge">$ {spring.application.name}</code></li>
+  <li>expireTime Lock expiration time, this field takes value lockedTime + 5s</li>
+  <li>lockedTime Last lock time</li>
+  <li>instanceId Service instance ID, this field takes the value <code class="highlighter-rouge">$ {alpha.server.host}]:$ {alpha.server.port}</code></li>
+</ul>
+
+<h2 id="lock-processing">Lock processing</h2>
+
+<p>The process of locking/updating a lock is a cyclically repeating action, as follows:</p>
+
+<ul>
+  <li>
+    <p><code class="highlighter-rouge">ClusterLockService.java</code> calls the lock method of <code class="highlighter-rouge">LockProvider.java</code> interface once per second</p>
+  </li>
+  <li>
+    <p>The lock method in the abstract class <code class="highlighter-rouge">AbstractLockProvider.java</code> will attempt to lock the iniLock method of <code class="highlighter-rouge">JdbcLockPersistence.java</code>, and the locked SQL implementation is defined in <code class="highlighter-rouge">MasterLockEntityRepository.java</code></p>
+
+    <ul>
+      <li>If the table is empty then insert a record and return the lock successfully</li>
+      <li>Exception caught and lock failed if there are records with the same service name field in the table</li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
+   <span class="nd">@Modifying</span>
+   <span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"INSERT INTO master_lock "</span>
+       <span class="o">+</span> <span class="s">"(serviceName, expireTime, lockedTime, instanceId) "</span>
+       <span class="o">+</span> <span class="s">"VALUES "</span>
+       <span class="o">+</span> <span class="s">"(?1, ?2, ?3, ?4)"</span><span class="o">,</span> <span class="n">nativeQuery</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+   <span class="kt">int</span> <span class="nf">initLock</span><span class="o">(</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"serviceName"</span><span class="o">)</span> <span class="n">String</span> <span class="n">serviceName</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"expireTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">expireTime</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"lockedTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">lockedTime</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"instanceId"</span><span class="o">)</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">);</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>If the initLock lock fails, try to update the lock by calling the updateLock method in <code class="highlighter-rouge">MasterLockEntityRepository.java</code>.</p>
+
+    <ul>
+      <li>If the record instanceId of the same service name is the same as the instance instanceId, the update succeeds and the lock is successfully returned.</li>
+      <li>If the record expireTime of the same service name is less than the current lock time, the update is successful and the lock is successful.</li>
+    </ul>
+
+    <div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
+   <span class="nd">@Modifying</span><span class="o">(</span><span class="n">clearAutomatically</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+   <span class="nd">@Query</span><span class="o">(</span><span class="s">"UPDATE org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.MasterLock t "</span>
+       <span class="o">+</span> <span class="s">"SET t.expireTime = :expireTime"</span>
+       <span class="o">+</span> <span class="s">",t.lockedTime = :lockedTime "</span>
+       <span class="o">+</span> <span class="s">",t.instanceId = :instanceId "</span>
+       <span class="o">+</span> <span class="s">"WHERE t.serviceName = :serviceName AND (t.expireTime &lt;= :lockedTime OR t.instanceId = :instanceId)"</span><span class="o">)</span>
+   <span class="kt">int</span> <span class="nf">updateLock</span><span class="o">(</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"serviceName"</span><span class="o">)</span> <span class="n">String</span> <span class="n">serviceName</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"lockedTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">lockedTime</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"expireTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">expireTime</span><span class="o">,</span>
+       <span class="nd">@Param</span><span class="o">(</span><span class="s">"instanceId"</span><span class="o">)</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">);</span>
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>UnLock</p>
+
+    <p>Reserved interface for extending other ways of locking</p>
+  </li>
+</ul>
+
+<h2 id="other-lock-implementations">Other lock implementations</h2>
+
+<p>Other types of locks can be implemented through the <code class="highlighter-rouge">LockProvider.java</code> and <code class="highlighter-rouge">LockProviderPersistence.java</code> interfaces, such as zookeeper or redis etc.</p>
+
+<h2 id="note">Note</h2>
+
+<ul>
+  <li>
+    <p>Need to synchronize time across multiple servers</p>
+  </li>
+  <li>
+    <p>Need to configure the correct time zone parameters when using MySQL database</p>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> Tags: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#cluster" class="page__taxonomy-item" rel="tag">Cluster</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#servicecomb-pack" class="page__taxonomy-item" rel="tag">ServiceComb Pack</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> Updated:</strong> <time datetime="2019-04-11">April 11, 2019</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">Share on</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=ServiceComb Pack 0.4.0 Cluster : Implementation /docs/servicecomb-pack-cluster/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/servicecomb-pack-cluster/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/docs/servicecomb-pack-cluster/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/servicecomb-pack-cluster/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/customized-tracing-with-servicecomb/" class="pagination--pager" title="ServiceComb + Zipkin : 使用篇——自定义追踪
+">Previous</a>
+    
+    
+      <a href="/cn/docs/servicecomb-pack-cluster/" class="pagination--pager" title="ServiceComb Pack 0.4.0 Cluster : 集群实现
+">Next</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">Leave a Comment</h4>
+        <p class="small">Your email address will not be published. Required fields are marked <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">Comment <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown is supported.</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">Name <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">Email address <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">Website (optional)</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="servicecomb-pack-cluster">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">Submit Comment</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">You May Also Enjoy</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/servicecomb-pack-cluster/" rel="permalink">ServiceComb Pack 0.4.0 Cluster : 集群实现
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">本篇将介绍如何使用 ServiceComb Pack 集群以及实现原理
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/customized-tracing-with-servicecomb/" rel="permalink">ServiceComb + Zipkin : 使用篇——自定义追踪
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/servicecomb-springcloud-zuul-demo/" rel="permalink">基于 ServiceComb 和 SpringCloud Zuul 快速构建微服务系统
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">基于 ServiceComb 和 SpringCloud Zuul 快速构建微服务系统
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/distributed-transaction-of-services-2/" rel="permalink">基于服务的分布式事务(下篇)
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">在本文中我们先从分布式事务场景入手，采用交互图的方式，向大家介绍分布式Saga以及TCC分布式事务协调协议交互，最后结合ServiceComb Pack所提供的示例向大家介绍如何编写Saga以及TCC的应用代码。
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Quick Start</a></li>
+        <li><a href="/users/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">Foundation</a></li>
+        <li><a href="http://www.apache.org/licenses/">License</a></li>
+        <li><a href="http://www.apache.org/events/current-event">Events</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/2019-04-03-servicecomb-pack-cluster.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="/security">Security</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> Loading...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('Submitted');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('Thanks for your comment! It will show on the site once it has been approved.');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('Submit Comment');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('Sorry, there was an error with your submission. Please make sure all required fields have been completed and try again.');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>

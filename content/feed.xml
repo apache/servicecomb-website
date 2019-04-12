@@ -1,4 +1,628 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-04-09T17:16:17+08:00</updated><id>/</id><title type="html">Apache ServiceComb</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;dev@servicecomb.apache.org&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>dev@servicecomb.apache.org</email></author><entry xml:lang="cn"><title type="html">ServiceComb + Zipkin : 使用篇——自定义追踪</title><link href="/cn/docs/customized-tracing-with-servicecomb/" rel="alternate" type="text/html" title="ServiceComb + Zipkin : 使用篇——自定义追踪" /><published>2019-01-23T00:00:00+08:00</published><updated>2019-01-23T09:30:30+08:00</updated><id>/cn/docs/customized-tracing-with-servicecomb</id><content type="html" xml:base="/cn/docs/customized-tracing-with-servicecomb/">&lt;h1 id=&quot;自定义追踪功能&quot;&gt;自定义追踪功能&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.4.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2019-04-12T09:03:08+08:00</updated><id>/</id><title type="html">Apache ServiceComb</title><subtitle>The homepage of ServiceComb</subtitle><author><name>{&quot;name&quot;=&gt;nil, &quot;avatar&quot;=&gt;&quot;/assets/images/ServiceComb-logo-3.jpg&quot;, &quot;bio&quot;=&gt;&quot;ServiceComb is a microservice framework that provides service registration, discovery, configuration and management utilities.&quot;, &quot;biocn&quot;=&gt;&quot;ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架&quot;, &quot;location&quot;=&gt;&quot;China&quot;, &quot;locationcn&quot;=&gt;&quot;中国&quot;, &quot;email&quot;=&gt;&quot;dev@servicecomb.apache.org&quot;, &quot;uri&quot;=&gt;nil, &quot;bitbucket&quot;=&gt;nil, &quot;codepen&quot;=&gt;nil, &quot;dribbble&quot;=&gt;nil, &quot;flickr&quot;=&gt;nil, &quot;facebook&quot;=&gt;nil, &quot;foursquare&quot;=&gt;nil, &quot;github&quot;=&gt;&quot;ServiceComb&quot;, &quot;google_plus&quot;=&gt;nil, &quot;keybase&quot;=&gt;nil, &quot;instagram&quot;=&gt;nil, &quot;lastfm&quot;=&gt;nil, &quot;linkedin&quot;=&gt;nil, &quot;pinterest&quot;=&gt;nil, &quot;soundcloud&quot;=&gt;nil, &quot;stackoverflow&quot;=&gt;nil, &quot;steam&quot;=&gt;nil, &quot;tumblr&quot;=&gt;nil, &quot;twitter&quot;=&gt;nil, &quot;vine&quot;=&gt;nil, &quot;weibo&quot;=&gt;nil, &quot;xing&quot;=&gt;nil, &quot;youtube&quot;=&gt;nil}</name><email>dev@servicecomb.apache.org</email></author><entry xml:lang="cn"><title type="html">ServiceComb Pack 0.4.0 Cluster : 集群实现</title><link href="/cn/docs/servicecomb-pack-cluster/" rel="alternate" type="text/html" title="ServiceComb Pack 0.4.0 Cluster : 集群实现" /><published>2019-04-03T00:00:00+08:00</published><updated>2019-04-11T12:30:00+08:00</updated><id>/cn/docs/servicecomb-pack-cluster</id><content type="html" xml:base="/cn/docs/servicecomb-pack-cluster/">&lt;p&gt;Alpha可以通过扩展部署多个实例实现高可用部署，并且通过在节点上设置启动参数 &lt;code class=&quot;highlighter-rouge&quot;&gt;alpha.event.scanner.enabled=false&lt;/code&gt; 关闭一些节点后台定时执行的事务扫描，避免多个节点同时扫描事物表可能导致的性能问题。但是当启动事务扫描的进程宕机后会导致没有进程进行事务扫描，从而无法进行超时事务补偿。
+在0.4.0版本中，我们通过一种基于数据库表的抢占锁机制，实现Alpha集群中主节点的动态选举，并让事务扫描方法只在主节点上执行。当主节点宕机后其他节点通过抢占的方式选出一个新的主节点，本文将介绍在0.4.0版本相关的代码实现。&lt;/p&gt;
+
+&lt;h2 id=&quot;快速体验&quot;&gt;快速体验&lt;/h2&gt;
+
+&lt;p&gt;在0.4.0版本中开启动态主节点集群模式支持只需要增加启动参数 &lt;code class=&quot;highlighter-rouge&quot;&gt;alpha.cluster.master.enabled=true&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;启动两个节点&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --server.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8090 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --alpha.server.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8080 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --spring.datasource.url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --spring.datasource.username&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;saga-user &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --spring.datasource.password&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;saga-password &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --alpha.cluster.master.enabled&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --server.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8091 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --alpha.server.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8081 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --spring.datasource.url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --spring.datasource.username&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;saga-user &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --spring.datasource.password&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;saga-password &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  --alpha.cluster.master.enabled&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;节点类型信息查看&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;在日志中看到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Master Node&lt;/code&gt; 则表示这个进程是主节点&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;01:31:07.032 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Master Node 
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;在日志中看到 &lt;code class=&quot;highlighter-rouge&quot;&gt;Slave Node&lt;/code&gt; 则表示这个进程是从节点&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;01:31:31.059 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Slave Node
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;节点切换&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;当主节点进程宕后，其他从节点会采用抢占的产生一个新的主节点&lt;/p&gt;
+
+&lt;h2 id=&quot;让事务扫描运行在主节点&quot;&gt;让事务扫描运行在主节点&lt;/h2&gt;
+
+&lt;p&gt;事务扫描是通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;EventScanner.java&lt;/code&gt; 实现的，并且在 &lt;code class=&quot;highlighter-rouge&quot;&gt;AlphaConfig.java&lt;/code&gt; 中进行初始化，可以看到在 &lt;code class=&quot;highlighter-rouge&quot;&gt;new EventScanner&lt;/code&gt; 代码执行前进行了eventScannerEnabled判断，这个参数就是通过&lt;code class=&quot;highlighter-rouge&quot;&gt;alpha.event.scanner.enabled&lt;/code&gt; 指定的（默认是true），然后传入了&lt;code class=&quot;highlighter-rouge&quot;&gt;nodeStatus&lt;/code&gt; 对象，这个对象就记录着这个节点的状态（主节点或者从节点），后边会讲解 &lt;code class=&quot;highlighter-rouge&quot;&gt;nodeStatus&lt;/code&gt; 是如何构造的。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;TxConsistentService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;txConsistentService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${alpha.event.pollingInterval:500}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eventPollingInterval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${alpha.event.scanner.enabled:true}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eventScannerEnabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ScheduledExecutorService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scheduler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;TxEventRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eventRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;CommandRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commandRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;TxTimeoutRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeoutRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;OmegaCallback&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;omegaCallback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eventScannerEnabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;EventScanner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scheduler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;eventRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commandRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeoutRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;omegaCallback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eventPollingInterval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;LOG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Starting the EventScanner.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;TxConsistentService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consistentService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TxConsistentService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eventRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consistentService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;EventScanner.java&lt;/code&gt; 的 pollEvents 方法进行定时事务扫描，并使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;nodeStatus.isMaster()&lt;/code&gt; 判断自己是否是主节点，只有主节点才允许执行。看到这里大家应该知道 &lt;code class=&quot;highlighter-rouge&quot;&gt;nodeStatus.isMaster()&lt;/code&gt; 是我们判断主节点的关键对象，那么 &lt;code class=&quot;highlighter-rouge&quot;&gt;NodeStatus.java&lt;/code&gt; 是如何被创建并初始化的呢&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;pollEvents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;scheduler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;scheduleWithFixedDelay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+	    &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	      &lt;span class=&quot;c1&quot;&gt;// only pull the events when working in the master mode&lt;/span&gt;
+	      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isMaster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()){&lt;/span&gt;
+	        &lt;span class=&quot;n&quot;&gt;updateTimeoutStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	        &lt;span class=&quot;n&quot;&gt;findTimeoutEvents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	        &lt;span class=&quot;n&quot;&gt;abortTimeoutEvents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	        &lt;span class=&quot;n&quot;&gt;saveUncompensatedEventsToCommands&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	        &lt;span class=&quot;n&quot;&gt;compensate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	        &lt;span class=&quot;n&quot;&gt;updateCompensatedCommands&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	        &lt;span class=&quot;n&quot;&gt;deleteDuplicateSagaEndedEvents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	        &lt;span class=&quot;n&quot;&gt;updateTransactionStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	    &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;
+	    &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+	    &lt;span class=&quot;n&quot;&gt;eventPollingInterval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+	    &lt;span class=&quot;n&quot;&gt;MILLISECONDS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;我们在 &lt;code class=&quot;highlighter-rouge&quot;&gt;AlphaConfig.java&lt;/code&gt;  中通过以下方式创建实例，以确保无论您是否指定了 &lt;code class=&quot;highlighter-rouge&quot;&gt;alpha.cluster.master.enabled&lt;/code&gt; 参数事务扫描都可以正常工作，在这里可以看到当我们开启了集群模式后节点刚启动的时候状态是Slave，下面会说明状态是如何切换到Master的。&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;nodeStatus&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;masterEnabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SLAVE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MASTER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;控制节点状态切换的是 &lt;code class=&quot;highlighter-rouge&quot;&gt;ClusterLockService.java&lt;/code&gt; ,这个服务会定时执行锁抢占，抢占成功后设置本节点为Master，否则为Slave&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;LockProvider&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;nd&quot;&gt;@Scheduled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cron&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0/1 * * * * ?&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;masterCheck&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;applicationReady&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMasterLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isPresent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MASTER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;LOG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Master Node&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;//Keep locked&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lockExecuted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;locked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SLAVE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;LOG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Slave Node&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;lockExecuted&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;加锁服务基础类&quot;&gt;加锁服务基础类&lt;/h2&gt;
+
+&lt;p&gt;在前边的说明中可以看到，在 &lt;code class=&quot;highlighter-rouge&quot;&gt;ClusterLockService.java&lt;/code&gt; 的 &lt;code class=&quot;highlighter-rouge&quot;&gt;masterCheck&lt;/code&gt; 方法中通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;this.locker = lockProvider.lock(this.getMasterLock());&lt;/code&gt; 获取一个锁并判断是否锁成功。&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LockProvider.java&lt;/code&gt; 是一个接口，目前我们提供了基于 JDBC 的实现，包结构以及类依赖关系如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2019-04-03-servicecomb-pack-cluster/cluster-package-structure.png&quot; alt=&quot;cluster-package-structure&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;依赖关系如下&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2019-04-03-servicecomb-pack-cluster/class-dependency-1.png&quot; alt=&quot;class-dependency-1&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;LockProvider.java&lt;/p&gt;
+
+    &lt;p&gt;接口定义了锁方法 lock&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LockProviderPersistence.java&lt;/p&gt;
+
+    &lt;p&gt;接口定义了以下三个方法，作为持久化锁的接口&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;initLock 创建锁，尝试进行锁定并返回锁定是否成功&lt;/li&gt;
+      &lt;li&gt;updateLock 更新锁，进行再次锁定并返回是否成功（更新锁的接口设计的目的是为了非长连接锁设计，例如对于按照固定周期进行加锁的实现）&lt;/li&gt;
+      &lt;li&gt;unLock 解锁，取消锁定&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;AbstractLockProvider.java&lt;/p&gt;
+
+    &lt;p&gt;抽象类实现了 &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProvider.java&lt;/code&gt; 接口的lock方法，并调用内部的 &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProviderPersistence.java&lt;/code&gt; 接口进行锁操作&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;加锁服务-jdbc-实现&quot;&gt;加锁服务 JDBC 实现&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;我喜欢和你们一起跑步，一致的步伐，一样的心跳，这感觉真好，当你掉队了，我带着大家跑&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;JDBC 类关系图&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2019-04-03-servicecomb-pack-cluster/class-dependency-2.png&quot; alt=&quot;class-dependency-2&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;JdbcLockPersistence.java&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LockProviderPersistence.java&lt;/code&gt; 接口实现，用来实现对数据库表操作&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;JdbcLockProvider.java&lt;/p&gt;
+
+    &lt;p&gt;继承抽象类 &lt;code class=&quot;highlighter-rouge&quot;&gt;AbstractLockProvider.java&lt;/code&gt; ，在构造函数中传入 ``LockProviderPersistence.java&lt;code class=&quot;highlighter-rouge&quot;&gt; 的接口实现  &lt;/code&gt;JdbcLockPersistence`&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LockProviderJdbcConfiguration.java&lt;/p&gt;
+
+    &lt;p&gt;锁的JDBC实例构造类&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;JPA&lt;/p&gt;
+
+    &lt;p&gt;MasterLockEntityRepository.java、SpringMasterLockRepository.java、org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.*&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;锁定表结构设计&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;master_lock&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;serviceName&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;varchar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;36&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;expireTime&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CURRENT_TIMESTAMP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;lockedTime&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CURRENT_TIMESTAMP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;varchar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;KEY&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serviceName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ENGINE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InnoDB&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CHARSET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utf8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;serviceName 服务名，这个字段取值  &lt;code class=&quot;highlighter-rouge&quot;&gt;${spring.application.name}&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;expireTime 锁定过期时间，这个字段取值 lockedTime+5s&lt;/li&gt;
+  &lt;li&gt;lockedTime 最近一次锁定时间&lt;/li&gt;
+  &lt;li&gt;instanceId 集群实例ID，这个字段取值 &lt;code class=&quot;highlighter-rouge&quot;&gt;${alpha.server.host}]:${alpha.server.port}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;加锁过程&quot;&gt;加锁过程&lt;/h2&gt;
+
+&lt;p&gt;加锁/更新锁的过程是一个周期性重复执行的动作，步骤如下：&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ClusterLockService.java&lt;/code&gt; 服务中会每秒调用一次 &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProvider.java&lt;/code&gt; 接口的lock方法&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;AbstractLockProvider.java&lt;/code&gt; 抽象类中的 lock方法会尝试调用 &lt;code class=&quot;highlighter-rouge&quot;&gt;JdbcLockPersistence.java&lt;/code&gt; 的 iniLock方法进行加锁，加锁的SQL实现定义在 &lt;code class=&quot;highlighter-rouge&quot;&gt;MasterLockEntityRepository.java&lt;/code&gt; 中&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;如果表为空，那么插入一条记录并返回加锁成功&lt;/li&gt;
+      &lt;li&gt;如果表中存在serviceName字段相同的记录，则捕获异常加锁失败&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
+   &lt;span class=&quot;nd&quot;&gt;@Modifying&lt;/span&gt;
+   &lt;span class=&quot;nd&quot;&gt;@Query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;INSERT INTO master_lock &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;(serviceName, expireTime, lockedTime, instanceId) &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;VALUES &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;(?1, ?2, ?3, ?4)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nativeQuery&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;serviceName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serviceName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;expireTime&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expireTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lockedTime&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockedTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;instanceId&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;如果 initLock加锁失败，则尝试调用 &lt;code class=&quot;highlighter-rouge&quot;&gt;MasterLockEntityRepository.java&lt;/code&gt; 中的 updateLock 方法尝试更新锁&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;表中存在的本服务记录 instanceId 与本实例 instanceId 相同，则更新成功并返回加锁成功（这个表明上一个更新周期也是本服务更新的）&lt;/li&gt;
+      &lt;li&gt;表中存在的本服务记录 expireTime 小于当前锁定时间 ，则更新成功并返回加锁成功（表示上一个锁定周期并没有实例进行锁定更新操作）&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
+   &lt;span class=&quot;nd&quot;&gt;@Modifying&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clearAutomatically&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;nd&quot;&gt;@Query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;UPDATE org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.MasterLock t &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;SET t.expireTime = :expireTime&quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;,t.lockedTime = :lockedTime &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;,t.instanceId = :instanceId &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;WHERE t.serviceName = :serviceName AND (t.expireTime &amp;lt;= :lockedTime OR t.instanceId = :instanceId)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;serviceName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serviceName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lockedTime&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockedTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;expireTime&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expireTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;instanceId&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;释放锁 unLock&lt;/p&gt;
+
+    &lt;p&gt;保留接口，用于扩展其他锁定方式&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;锁的其他实现&quot;&gt;锁的其他实现&lt;/h2&gt;
+
+&lt;p&gt;可以通过 &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProvider.java&lt;/code&gt; 和 &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProviderPersistence.java&lt;/code&gt; 接口实现其他方式的锁，例如zookeeper，redis等&lt;/p&gt;
+
+&lt;h2 id=&quot;注意&quot;&gt;注意&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;基于数据库表的方式需要集群中多个节点的服务器时钟同步&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;基于 MySQL 数据库时需要配置正确的时区，例如：&lt;code class=&quot;highlighter-rouge&quot;&gt;serverTimezone=GMT%2b8&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Lei Zhang</name></author><category term="ServiceComb Pack" /><category term="Cluster" /><summary type="html">本篇将介绍如何使用 ServiceComb Pack 集群以及实现原理</summary></entry><entry xml:lang="en"><title type="html">ServiceComb Pack 0.4.0 Cluster : Implementation</title><link href="/docs/servicecomb-pack-cluster/" rel="alternate" type="text/html" title="ServiceComb Pack 0.4.0 Cluster : Implementation" /><published>2019-04-03T00:00:00+08:00</published><updated>2019-04-11T12:30:00+08:00</updated><id>/docs/servicecomb-pack-cluster</id><content type="html" xml:base="/docs/servicecomb-pack-cluster/">&lt;p&gt;Now you can run multiple Alpha server in High Availability (HA) mode which support to run the event scanning in the master node only. You can also turn off event table scanning for some nodes with parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;alpha.event.scanner.enabled=false&lt;/code&gt; . However, transaction compensation will fail when the node that enabled the event table scan is crashed.
+We implemented database-based distributed lock in version 0.4.0 version, event scanning only runs on the master node in the cluster, When the master node is down, other nodes in the cluster will elect a new master node.&lt;/p&gt;
+
+&lt;h2 id=&quot;quick-starts&quot;&gt;Quick Starts&lt;/h2&gt;
+
+&lt;p&gt;Enable cluster support by parameter &lt;code class=&quot;highlighter-rouge&quot;&gt;alpha.cluster.master.enabled=true&lt;/code&gt;.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Start Two Alphas.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--server.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8090 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--alpha.server.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8080 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--spring.datasource.url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--spring.datasource.username&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;saga-user &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--spring.datasource.password&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;saga-password &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--alpha.cluster.master.enabled&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--server.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8091 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--alpha.server.port&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;8081 &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--spring.datasource.url&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false&quot;&lt;/span&gt; &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--spring.datasource.username&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;saga-user &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--spring.datasource.password&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;saga-password &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+--alpha.cluster.master.enabled&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Who Is Master&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Master Node&lt;/code&gt; This alpha is the master&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;01:31:07.032 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Master Node
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Slave Node&lt;/code&gt; This alpha is the slave&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;01:31:31.059 &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Slave Node
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Switch Master Nodes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After the master node is off line, other nodes in the cluster will elect a new master node&lt;/p&gt;
+
+&lt;h2 id=&quot;how-to-make-event-scanning-only-run-on-the-master-node&quot;&gt;How to make event scanning only run on the master node&lt;/h2&gt;
+
+&lt;p&gt;Event scanning is implemented by &lt;code class=&quot;highlighter-rouge&quot;&gt;EventScanner.java&lt;/code&gt; , initialize it in &lt;code class=&quot;highlighter-rouge&quot;&gt;AlphaConfig.java&lt;/code&gt; , you can enable it by setting the parameter ‘alpha.event.scanner.enabled=true’, it will be instantiated EventScanner. The variable nodeStatus is the node type(Master or Slave). Later, I will introduce how &lt;code class=&quot;highlighter-rouge&quot;&gt;nodeStatus&lt;/code&gt; is initialized.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;TxConsistentService&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;txConsistentService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${alpha.event.pollingInterval:500}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eventPollingInterval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;${alpha.event.scanner.enabled:true}&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;boolean&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eventScannerEnabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;ScheduledExecutorService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scheduler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;TxEventRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eventRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;CommandRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commandRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;TxTimeoutRepository&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeoutRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;OmegaCallback&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;omegaCallback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eventScannerEnabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;EventScanner&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scheduler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;eventRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;commandRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeoutRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;omegaCallback&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eventPollingInterval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;LOG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Starting the EventScanner.&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;TxConsistentService&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consistentService&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TxConsistentService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eventRepository&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;consistentService&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;The pollEvents method of &lt;code class=&quot;highlighter-rouge&quot;&gt;EventScanner.java&lt;/code&gt; for scanning events, If the master node &lt;code class=&quot;highlighter-rouge&quot;&gt;nodeStatus.isMaster()&lt;/code&gt; returns true.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;private&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;pollEvents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;scheduler&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;scheduleWithFixedDelay&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;c1&quot;&gt;// only pull the events when working in the master mode&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isMaster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()){&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;updateTimeoutStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;findTimeoutEvents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;abortTimeoutEvents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;saveUncompensatedEventsToCommands&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;compensate&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;updateCompensatedCommands&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;deleteDuplicateSagaEndedEvents&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;updateTransactionStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;},&lt;/span&gt;
+    &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;eventPollingInterval&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;MILLISECONDS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Construct NodeStatus in &lt;code class=&quot;highlighter-rouge&quot;&gt;AlphaConfig.java&lt;/code&gt; by the following to ensure that the event scan will work regardless of whether you have configured the &lt;code class=&quot;highlighter-rouge&quot;&gt;alpha.cluster.master.enabled&lt;/code&gt; parameter, Here you can see the node is a slave just after startup when cluster mode is enabled. Later, I will introduce how to switch to master.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nd&quot;&gt;@Bean&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;nodeStatus&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(){&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;masterEnabled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SLAVE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MASTER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ClusterLockService.java&lt;/code&gt; is in charge of node state switching, It periodically perform lock preemption and set the node as a master after successful preemption.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;nd&quot;&gt;@Autowired&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;LockProvider&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;...&lt;/span&gt;
+  &lt;span class=&quot;nd&quot;&gt;@Scheduled&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cron&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0/1 * * * * ?&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;masterCheck&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;applicationReady&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locker&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockProvider&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getMasterLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locker&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;isPresent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(!&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locked&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;MASTER&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;LOG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Master Node&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+        &lt;span class=&quot;c1&quot;&gt;//Keep locked&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;locked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lockExecuted&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;locked&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;nodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;setTypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NodeStatus&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;TypeEnum&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;SLAVE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+          &lt;span class=&quot;n&quot;&gt;LOG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;info&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Slave Node&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+        &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;lockExecuted&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;lock-architecture&quot;&gt;Lock architecture&lt;/h2&gt;
+
+&lt;p&gt;As you can see from the previous description, in the &lt;code class=&quot;highlighter-rouge&quot;&gt;masterCheck&lt;/code&gt; method of &lt;code class=&quot;highlighter-rouge&quot;&gt;ClusterLockService.java&lt;/code&gt;, get a lock by &lt;code class=&quot;highlighter-rouge&quot;&gt;this.locker = lockProvider.lock(this.getMasterLock());&lt;/code&gt; and determine if the lock was successful.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;LockProvider.java&lt;/code&gt; is an interface. Currently, we provide an implementation based on JDBC. The package structure and class dependencies are as follows:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2019-04-03-servicecomb-pack-cluster/cluster-package-structure.png&quot; alt=&quot;cluster-package-structure&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Dependencies are as follows&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2019-04-03-servicecomb-pack-cluster/class-dependency-1.png&quot; alt=&quot;class-dependency-1&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;LockProvider.java&lt;/p&gt;
+
+    &lt;p&gt;The interface defines the lock methods&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LockProviderPersistence.java&lt;/p&gt;
+
+    &lt;p&gt;The interface defines the following three persistence methods&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;initLock Create a lock, try to lock and return whether the lock was successful&lt;/li&gt;
+      &lt;li&gt;updateLock Update the lock, lock it again and return it successfully (the interface design of the update lock is designed for non-long connection lock design, for example, for locking according to a fixed period)&lt;/li&gt;
+      &lt;li&gt;unLock&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;AbstractLockProvider.java&lt;/p&gt;
+
+    &lt;p&gt;Implemented the &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProvider.java&lt;/code&gt; interface and called the internal &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProviderPersistence.java&lt;/code&gt; interface for locking operations&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;jdbc-implementation&quot;&gt;JDBC implementation&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I like to run with you, the same rhythm, the same heartbeat, I feel very good, when you fall behind, I lead everyone to run together&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;JDBC class diagram&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/2019-04-03-servicecomb-pack-cluster/class-dependency-2.png&quot; alt=&quot;class-dependency-2&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;JdbcLockPersistence.java&lt;/p&gt;
+
+    &lt;p&gt;Implement &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProviderPersistence.java&lt;/code&gt; interface operation database&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;JdbcLockProvider.java&lt;/p&gt;
+
+    &lt;p&gt;Inherit the abstract class &lt;code class=&quot;highlighter-rouge&quot;&gt;AbstractLockProvider.java&lt;/code&gt;, passing the &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProviderPersistence.java&lt;/code&gt; interface implementation class &lt;code class=&quot;highlighter-rouge&quot;&gt;JdbcLockPersistence&lt;/code&gt; in the constructor.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;LockProviderJdbcConfiguration.java&lt;/p&gt;
+
+    &lt;p&gt;Declare a LockProvider Bean with @Configuration&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;JPA&lt;/p&gt;
+
+    &lt;p&gt;MasterLockEntityRepository.java、SpringMasterLockRepository.java、org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.*&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create master_lock Table&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;IF&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;EXISTS&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;master_lock&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;serviceName&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;varchar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;36&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;expireTime&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CURRENT_TIMESTAMP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;lockedTime&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NOT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;CURRENT_TIMESTAMP&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;varchar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;255&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;PRIMARY&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;KEY&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serviceName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ENGINE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InnoDB&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;DEFAULT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CHARSET&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;utf8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;serviceName Service name, this field takes the value &lt;code class=&quot;highlighter-rouge&quot;&gt;$ {spring.application.name}&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;expireTime Lock expiration time, this field takes value lockedTime + 5s&lt;/li&gt;
+  &lt;li&gt;lockedTime Last lock time&lt;/li&gt;
+  &lt;li&gt;instanceId Service instance ID, this field takes the value &lt;code class=&quot;highlighter-rouge&quot;&gt;$ {alpha.server.host}]:$ {alpha.server.port}&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;lock-processing&quot;&gt;Lock processing&lt;/h2&gt;
+
+&lt;p&gt;The process of locking/updating a lock is a cyclically repeating action, as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;ClusterLockService.java&lt;/code&gt; calls the lock method of &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProvider.java&lt;/code&gt; interface once per second&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The lock method in the abstract class &lt;code class=&quot;highlighter-rouge&quot;&gt;AbstractLockProvider.java&lt;/code&gt; will attempt to lock the iniLock method of &lt;code class=&quot;highlighter-rouge&quot;&gt;JdbcLockPersistence.java&lt;/code&gt;, and the locked SQL implementation is defined in &lt;code class=&quot;highlighter-rouge&quot;&gt;MasterLockEntityRepository.java&lt;/code&gt;&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;If the table is empty then insert a record and return the lock successfully&lt;/li&gt;
+      &lt;li&gt;Exception caught and lock failed if there are records with the same service name field in the table&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
+   &lt;span class=&quot;nd&quot;&gt;@Modifying&lt;/span&gt;
+   &lt;span class=&quot;nd&quot;&gt;@Query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;INSERT INTO master_lock &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;(serviceName, expireTime, lockedTime, instanceId) &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;VALUES &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;(?1, ?2, ?3, ?4)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nativeQuery&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;serviceName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serviceName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;expireTime&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expireTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lockedTime&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockedTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;instanceId&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;If the initLock lock fails, try to update the lock by calling the updateLock method in &lt;code class=&quot;highlighter-rouge&quot;&gt;MasterLockEntityRepository.java&lt;/code&gt;.&lt;/p&gt;
+
+    &lt;ul&gt;
+      &lt;li&gt;If the record instanceId of the same service name is the same as the instance instanceId, the update succeeds and the lock is successfully returned.&lt;/li&gt;
+      &lt;li&gt;If the record expireTime of the same service name is less than the current lock time, the update is successful and the lock is successful.&lt;/li&gt;
+    &lt;/ul&gt;
+
+    &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;nd&quot;&gt;@Transactional&lt;/span&gt;
+   &lt;span class=&quot;nd&quot;&gt;@Modifying&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clearAutomatically&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;nd&quot;&gt;@Query&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;UPDATE org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.MasterLock t &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;SET t.expireTime = :expireTime&quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;,t.lockedTime = :lockedTime &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;,t.instanceId = :instanceId &quot;&lt;/span&gt;
+       &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;WHERE t.serviceName = :serviceName AND (t.expireTime &amp;lt;= :lockedTime OR t.instanceId = :instanceId)&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+   &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;updateLock&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;serviceName&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serviceName&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;lockedTime&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lockedTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;expireTime&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Date&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expireTime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt;
+       &lt;span class=&quot;nd&quot;&gt;@Param&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;instanceId&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;instanceId&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;UnLock&lt;/p&gt;
+
+    &lt;p&gt;Reserved interface for extending other ways of locking&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;other-lock-implementations&quot;&gt;Other lock implementations&lt;/h2&gt;
+
+&lt;p&gt;Other types of locks can be implemented through the &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProvider.java&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;LockProviderPersistence.java&lt;/code&gt; interfaces, such as zookeeper or redis etc.&lt;/p&gt;
+
+&lt;h2 id=&quot;note&quot;&gt;Note&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Need to synchronize time across multiple servers&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Need to configure the correct time zone parameters when using MySQL database&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Lei Zhang</name></author><category term="ServiceComb Pack" /><category term="Cluster" /><summary type="html">This article describes how to use the ServiceComb Pack 0.4.0 cluster and how it works</summary></entry><entry xml:lang="cn"><title type="html">ServiceComb + Zipkin : 使用篇——自定义追踪</title><link href="/cn/docs/customized-tracing-with-servicecomb/" rel="alternate" type="text/html" title="ServiceComb + Zipkin : 使用篇——自定义追踪" /><published>2019-01-23T00:00:00+08:00</published><updated>2019-01-23T09:30:30+08:00</updated><id>/cn/docs/customized-tracing-with-servicecomb</id><content type="html" xml:base="/cn/docs/customized-tracing-with-servicecomb/">&lt;h1 id=&quot;自定义追踪功能&quot;&gt;自定义追踪功能&lt;/h1&gt;
 &lt;p&gt;ServiceComb 支持用户在程序中的指定位置处增加追踪数据，可以实现更细力度的追踪。&lt;/p&gt;
 &lt;h2 id=&quot;使用步骤&quot;&gt;使用步骤&lt;/h2&gt;
 &lt;p&gt;添加依赖&lt;/p&gt;
@@ -856,261 +1480,4 @@
   &lt;li&gt;设置committer权限&lt;br /&gt;
 committer账号设置完成后，你还需要设置对Github上托管的Apache ServiceComb项目的仓库权限进行设置，设置流程可以参考&lt;a href=&quot;https://servicecomb.apache.org/cn/developers/setup-committer-rights/&quot; title=&quot;Committer权限设置&quot;&gt;这篇博客&lt;/a&gt;。需要补充的一点是，在对Github账号授权时，需要开启&lt;a href=&quot;https://github.com/settings/two_factor_authentication/intro&quot; title=&quot;Github双因子认证&quot;&gt;双因子认证&lt;/a&gt;，国内的同学只能选择使用双因子认证APP来做认证了。除了Github介绍页面上推荐的Authy、1Password和LastPass Authenticator，也可以使用Google的身份验证器，在APP store能够搜到，图标如下：
 &lt;img src=&quot;/assets/images/becoming_committer/2FA_APP.png&quot; alt=&quot;2FA APP&quot; class=&quot;align-center&quot; /&gt;&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>Haishi Yao</name></author><category term="Committer" /><category term="Apache Way" /><summary type="html">开源项目没有那么遥远</summary></entry><entry xml:lang="cn"><title type="html">Apache ServiceComb带您对话Apache大咖</title><link href="/cn/docs/talk-to-apache-experts" rel="alternate" type="text/html" title="Apache ServiceComb带您对话Apache大咖" /><published>2018-11-05T00:00:00+08:00</published><updated>2018-11-05T17:10:21+08:00</updated><id>/cn/docs/talk-to-apache-experts</id><content type="html" xml:base="/cn/docs/talk-to-apache-experts">&lt;h2 id=&quot;apache-servicecomb带您对话apache大咖&quot;&gt;Apache ServiceComb带您对话Apache大咖&lt;/h2&gt;
-
-&lt;p&gt;&lt;em&gt;PMC沉睡了怎么办？首次发版项目不一定能够跑起来，甚至不一定能成功编译，一定要先把合规性问题解决！有人给项目提交Patch，我们从来不说“No“！我曾工作过的Cloudera，利用开源赚钱，至少赚到了买下Hortonworks公司的钱……开源微服务项目ServiceComb带您对话Apache大咖，领略Apache专家风采。&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;2018年10月13日下午，开源微服务项目ServiceComb的团队邀请Apache基金会三位专家成员：Apache孵化器主席Justin Mclean，Apache董事会董事Roman Shaposhnik, 以及Apache基金会秘书长兼形象大使Craig Rossell，与国内Apache项目开发者相聚于上海。针对开发者所关心的&lt;strong&gt;Apache精英管理模式&lt;/strong&gt;、从&lt;strong&gt;孵化器毕业成为顶级项目&lt;/strong&gt;以及&lt;strong&gt;开源软件的商业化&lt;/strong&gt;等主题进行了深入的交流。本文对活动当日的交流进行了纪实和总结。&lt;/p&gt;
-
-&lt;p&gt;（现场为英文分享，本文对其进行翻译整理和校正归纳）&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h3 id=&quot;开场介绍&quot;&gt;开场介绍&lt;/h3&gt;
-
-&lt;p&gt;[姜宁]今天咱们聚集了国内大部分的Apache相关项目的committer，这些项目包括Beam、ServiceComb、Dubbo、Gearpump、Griffin、Kerlin、Skywalking和Weex。这些Apache项目大部分都还在孵化器中孵化，同时还有一些准备进入Apache孵化的项目。&lt;/p&gt;
-
-&lt;p&gt;我在2006年9月作为Apache CXF 项目 初始 committer与Apache软件基金会结缘，2011年1月正式成为 Apache基金会成员。我作为基金会项目导师（Mentor）参与了多个来自中国的Apache孵化器项目。2017年，我作为项目负责人推动ServiceComb进入Apache 孵化器进行孵化，现在 ServiceComb已经很快就要从Apache孵化器毕业了。&lt;/p&gt;
-
-&lt;p&gt;虽然参与了许多Apache开源项目，坦白地说我对Apache的项目孵化流程并未有系统化全面的理解。直到ServiceComb这个项目，我经历了寻找Mentor，捐赠协议签署，迁移项目，孵化器发版，以及毕业准备这些流程之后，才对Apache孵化器孵化流程有了更加深刻的认识。&lt;/p&gt;
-
-&lt;p&gt;就在刚刚的交流中，我发现大家最关心的问题就是如何从Apache孵化器毕业。 我们今天邀请到远道而来的Apache Member，Roman，Justin，Craig，和国内Apache项目开发者一起分享他们有关Apache孵化器孵化经验，以及开源相关的感悟。&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h4 id=&quot;如何从apache软件基金会孵化器毕业成为顶级项目&quot;&gt;如何从Apache软件基金会孵化器毕业成为顶级项目&lt;/h4&gt;
-
-&lt;p&gt;[Justin]&lt;/p&gt;
-
-&lt;p&gt;从Apache孵化器毕业，首要为孵化项目构建一个社区，项目毕业意味着很多事情，比如要&lt;strong&gt;保持开发者的多样性&lt;/strong&gt;，项目贡献者不能仅仅来自一个公司。此外，还应该尝试小版本发布（&lt;strong&gt;make micro releases&lt;/strong&gt;）。&lt;/p&gt;
-
-&lt;p&gt;[Roman]&lt;/p&gt;
-
-&lt;p&gt;发布版本时，除了项目本身，还有许多合规性工作（mechanical stuff）要做，例如开源协议，发版签名，发版投票等等。项目进入孵化器后，要尽快尝试发布第一个版本。许多孵化项目（podling）都想在发布版本时中搞定这样或那样的功能，我总是跟他们说，没关系，&lt;strong&gt;项目不一定能够跑起来，甚至不一定能成功编译，一定要先把合规性问题解决&lt;/strong&gt;，然后再专注于功能开发。&lt;/p&gt;
-
-&lt;p&gt;[Justin]&lt;/p&gt;
-
-&lt;p&gt;没错，要尽早发版、多做发版。&lt;/p&gt;
-
-&lt;p&gt;[姜宁]&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;发布版本尽管痛苦，但是要尽早去做&lt;/strong&gt;。ServiceComb在发布第一个版本时，团队也非常痛苦，但是经历过这个阶段，后面会变得越来越顺利。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;总结：孵化器毕业要点解读&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;构建社区&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;u&gt;ASF一直坚信好的软件是由强大的社区构建出来的。诚然，代码是一个软件社区的重中之重，但Apache之道**”Community over code”**同样强调社区的重要性。它意味着我们的行事方式，如何看待彼此，如何进行决策，甚至如何编写代码。健康、互相尊重的社区非常重要，这不仅让社区的开发者有被尊重的感觉，也会带来切实的好处。一个健康、多样、包容的社区，可以促进项目不断成长，可持续发展。甚至，有助于用开源技术提供服务的公司获得商业上的成功。&lt;/u&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;保持贡献者多样性&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;u&gt;ASF非常强调**多样性原则**。 大部分开源软件项目都是创新型项目，多样性保证了开源项目的持续创新， 也保证了社区的健康发展。 开源项目鼓励所有个体或公司参与， 让他们感觉能对项目有所掌控，或者会对项目产生一定影响。这样可以保证意见的多样性、用户的多样性、系统的的多样性。Apache项目通常是要求有三个以上不同公司的人参与开发，以保证项目不会因为其中某个公司的退出而终止。&lt;/u&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;** &lt;u&gt;尽早、尽量多的进行版本发布&lt;/u&gt;**&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;对于构建持续增长的社区有何建议&quot;&gt;对于构建持续增长的社区，有何建议？&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;[郑士汉，Weex]：社区建设、多样性对于毕业非常重要，您能给出一些相关建议吗？&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;[Justin]&lt;/p&gt;
-
-&lt;p&gt;要让大家觉得自己是受欢迎的。当有人在邮件列表中提问时，我通常会&lt;strong&gt;分配PMC成员关注问题，并咨询提问者是否还需要其他帮助&lt;/strong&gt;，或者有其他问题，我把这个作为日常工作。这样也有利于开发者从用户变成提交者甚至PMC成员。&lt;strong&gt;良好的文档可以让大家更容易使用你的项目&lt;/strong&gt;。而文档的缺失则可能造成用户的流失，人们编译编译代码，就再也不使用这个项目了，因为项目上手太难了。&lt;/p&gt;
-
-&lt;p&gt;[Roman]&lt;/p&gt;
-
-&lt;p&gt;良好的文档确实非常重要。此外，我也有其他方面的建议。Apache软件基金会参与了一些项目，吸引了不少开贡献者。我们一直指导Google代码夏令营活动，夏令营由Google赞助，帮开发者更好的发展他们自己的项目。&lt;strong&gt;如果你可以让自己的社区参加类似的活动，对于社区建设无疑是有很大帮助的&lt;/strong&gt;。因为大家来自中国的社区，我也建议一些中国的大公司，例如华为，也可以举办类似的学生项目，学生是一个项目最好的新鲜血液。&lt;/p&gt;
-
-&lt;p&gt;[Justin]&lt;/p&gt;
-
-&lt;p&gt;在会议中分享项目、建立技术博客也是不错的方式。&lt;/p&gt;
-
-&lt;p&gt;[吴晟，Skywalking]&lt;/p&gt;
-
-&lt;p&gt;Skywalking是中国开发者发起的一个Apache孵化项目，刚加入孵化时只有15个committer，而现在，代码层面的提交者已经达到了70人。我们提倡大家提交小的改动，这样很容易提交代码来做贡献，所以我们每次发布版本都会吸引一些开发者。当我们没有太多精力投入到测试时，我们会吸引开发者来提供测试，他们可以提交集成测试结果，可以提交测试模型，&lt;strong&gt;只要保持正确的编程风格，PMC的成员就可以进行审查，并合并代码&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;[Justin]&lt;/p&gt;
-
-&lt;p&gt;这里我想多提一点，很多项目过于注重质量。有些Apache项目收到一些代码不太完美的提交，就直接丢弃了这些提交，然后自己从头搞起。其实这并没有关系，&lt;strong&gt;如果你收到了不太完美的PR，可以请社区成员帮忙改进质量&lt;/strong&gt;。另外，在JIRA或Github上浏览issue时，如果发现一些比较简单的issue，你可以加个”&lt;strong&gt;easy to fix&lt;/strong&gt;”标签，告诉大家这个issue比较容易解决，这样也可以吸引人来贡献。&lt;/p&gt;
-
-&lt;p&gt;[吴晟]&lt;/p&gt;
-
-&lt;p&gt;没错，我们也会跟踪一些讨论，有些时候我们可能会考虑过于理想的方案。但是好的项目有时候并不完全是完美的代码决定的，还要考虑不同的场景。这样项目才能不断壮大。&lt;/p&gt;
-
-&lt;p&gt;[姜宁]&lt;/p&gt;
-
-&lt;p&gt;我也谈谈自己的感受，我非常赞同Justin所说的“Low the bar”。我在参与Apache Camel项目开发时，它已经非常成熟了，但是我们还采用先提交后Review的方式进开发。 有很多人为Camel提交Patch，&lt;strong&gt;我们从来不说“No”&lt;/strong&gt;。有些人提交的代码质量可能并不太好，我们还是会接受这些补丁，让贡献者觉得自己得到认可。这样，开发者就不会想“啊，我还不够优秀，还无法成为committer，我提交的补丁也不够好，那我还是不提交补丁了。” &lt;strong&gt;在我们合入代码时候，也会顺道帮助修复一下补丁上面的问题&lt;/strong&gt;。 顺便说一句，Apache Camel现在有200多个组件，目前项目只有大概4，5个人在维护，很大程度上是得益与这种降低社区门槛的方式。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;总结：构建社区的建议&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;让大家觉得自己是受欢迎的。&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;编写良好的文档，降低初学者入门难度。&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;参与或组织类似Google代码夏令营的学生项目。&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;在技术会议中分享项目经验，建立技术博客传播技术。&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;提倡小的改动，乐于接受他人的贡献，乐于帮助改进质量，让开发者更容易参与社区贡献。&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;项目的提交者和pmc成员不够活跃我应该怎么办&quot;&gt;项目的提交者和PMC成员不够活跃，我应该怎么办？&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;[史少锋，Kerlin]：有些开发者成为提交者后就消失了，有时候PMC成员也不能非常及时的审查提交，有没有什么规则推动大家活跃起来？&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;[Justin]&lt;/p&gt;
-
-&lt;p&gt;我觉得提交者或者PMC成员不活跃并不是问题，不是所有人都必须活跃。但是如果项目的导师不活跃就是问题了，因为导师要指导项目，告诉项目成员正确的做事方法。我们没办法为提交者和PMC成员制定“（及时反馈的）规则”，这样对他们要求太高了。&lt;strong&gt;我们应该降低门槛，让更多人参与进来&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;[Roman]&lt;/p&gt;
-
-&lt;p&gt;通常，每个项目的PMC都有VP（Vice President），VP主要负责合规性相关的工作，向Apache董事会汇报，但是VP也要担当起项目的领导者角色。&lt;strong&gt;即便所有其他PMC成员都在沉睡，VP也是唯一要保持清醒的人&lt;/strong&gt;。VP是默认的那个要回答问题的人，当然不是技术相关的问题，而是回答管理流程相关的问题。如果邮件列表无人响应，你要写信给VP，告诉他，“嘿，大家似乎都睡着了，我们应该怎么办呢？”。VP有权利做出改变，他可以组织大家开始审查提交，让大家醒过来。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;总结：PMC沉睡了怎么办&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;Apache基金会是个公益组织，不能通过强制要求来约束成员。&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;可以通过降低门槛，让更多人可以参与进来，解决社区响应不及时的问题。&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;VP承担项目领导责任，要时刻保持活跃。遇到问题可以向VP寻求帮助&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;u&gt;在Apache软件基金会的组织结构中，Apache董事会根据基金会的管理原则，负责管理和监督对外合作的商业和事务，包括基金、知识资产、注册商标等。每个Apache项目都有一个PMC（项目管理委员会），负责项目的管理和监督，并定期向Apache董事会汇报项目情况。PMC有一位主席（Chairperson），也被称为该项目的Vice President，简称VP。VP由董事会指定，是董事会和项目之间的接口人，负责项目汇报、同时与PMC一同保证项目和代码遵从法规、管理商标事务、管理邮件列表等合规性问题，发展新的Committer和PMC成员。&lt;/u&gt;&lt;/p&gt;
-
-&lt;h4 id=&quot;发版投票过程漫长如何保持正确的发版姿势&quot;&gt;发版投票过程漫长，如何保持正确的发版“姿势”？&lt;/h4&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;[张天伦，Gearpump]：发版投票需要经过至少72+72个小时，过程非常漫长，又担心犯错误导致投票过少进而导致发版失败。并且，有时候发起投票，响应的人比较少。&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;[Justin]&lt;/p&gt;
-
-&lt;p&gt;犯一次错误没关系，可以向导师寻求帮助以避免重复多次犯错误。&lt;strong&gt;在开始的一两次发版中，有一些错误很正常，但是后续的版本发布就会越来越顺利&lt;/strong&gt;。如果发版时响应人数比较少，可以直接在邮件列表中提醒孵化器项目管理委员会（IPMC）成员，特别是导师，进行投票。&lt;/p&gt;
-
-&lt;p&gt;[Roman]&lt;/p&gt;
-
-&lt;p&gt;我想大家对敏捷开发都比较熟悉，敏捷开发提倡小幅度的改动，多进行更新。如果你的项目遵循敏捷开发方式，将对版本发布大有裨益。我指导项目孵化时，除了首次发版需要在合规性方面花费很多时间，后面的版本尽量在每个月或每两个月发布一次，新版本不一定要加入很多功能，每月发一次版本，更容易让IPMC的成员审查新版本的变动。因此，&lt;strong&gt;首次发版，解决合规性问题，然后尽快发版，多做发版&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;[Justin]&lt;/p&gt;
-
-&lt;p&gt;另外，可以将新版本改动写入版本说明中，可以让审查工作变得轻松很多。&lt;/p&gt;
-
-&lt;p&gt;[Roman]&lt;/p&gt;
-
-&lt;p&gt;没错，小幅度迭代也可以帮你构建社区。社区贡献者提交的补丁越小，越容易进行审查。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;总结：在Apache孵化器发布版本的要点&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;不要担心在发版时犯错误，大胆的向导师和IPMC成员寻求帮助，但要避免犯重复的错误&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;借鉴敏捷开发模式，小版本迭代，频繁更新&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;首次发版扫除一切合规性问题，后续版本专注功能和质量&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;让版本更新更容易审查&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;如何使用开源软件进行商业化&quot;&gt;如何使用开源软件进行商业化？&lt;/h4&gt;
-
-&lt;p&gt;[Roman]&lt;/p&gt;
-
-&lt;p&gt;开源商业化的模式是多种多样的。红帽（RedHat）就是一个很成功的例子，他们用开源收益颇丰。也有一些新的公司，例如我曾工作过的Cloudera，利用开源赚钱，至少赚到了买下Hortonworks公司的钱（众人笑）。&lt;/p&gt;
-
-&lt;p&gt;我大致可以列出3种开源商业化的模式。首先，几乎所有云服务厂商都使用开源产品，将其&lt;strong&gt;变成服务&lt;/strong&gt;来进行营利，这就是一个很常见的商业化模式。例如，我很惊喜地看到华为云的流服务使用了Apache Flink，这就是华为使用开源盈利的方式。&lt;/p&gt;
-
-&lt;p&gt;另外一种比较传统但应用广泛的商模式，&lt;strong&gt;以开源软件为核心构建产品，并提供额外的组件和技术&lt;/strong&gt;。这些额外的部分不一定是开源的。例如你的产品可以用Apache项目作为核心，然后加入GPL协议的组件，再加上一些私有的组件，然后就可以像微软出售Windows系统，或者Adobe出售Adobe Creative Suite那样盈利了。&lt;/p&gt;
-
-&lt;p&gt;第三种商业化模式，就是&lt;strong&gt;基于开源软件提供差异化的集成服务或者解决方案&lt;/strong&gt;。将开源软件集成为一个更大的系统，提供给客户以进行营利。你可以运营一个专业的服务公司，用开源软件帮助用户简化业务。例如，你的公司服务于酒店或工厂，帮他们实现自动化运维。客户并不在乎你用什么软件或技术，他们只关心端到端的方案能够顺利实施。你的公司使用开源软件，可以按照自己的需求进行优化，也避免了收费的商业软件侵占你的利润。&lt;/p&gt;
-
-&lt;p&gt;[Craig]&lt;/p&gt;
-
-&lt;p&gt;在培训行业，经常有公司需要培训自己的员工来学习、使用Apache软件。我们曾短暂的考虑过和商业公司合作提&lt;strong&gt;供培训服务&lt;/strong&gt;，然后与商业公司分享利润。但是这个念头只是一闪而过就被我们否决了，这样会与提供Apache软件培训服务的人形成竞争，这样有悖于Apache厂商中立的原则。所以，&lt;strong&gt;如果你想通过开源软件培训来盈利，大胆去做，这也是一个不错的开源商业化模式&lt;/strong&gt;。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;u&gt;总结：开源商业化的几种方式&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;用开源软件提供服务，例如那些云服务厂商&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;基于开源软件提供额外的收费功能&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;利用开源软件提供集成服务，并提供商业支持&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;&lt;u&gt;开展开源软件的培训服务&lt;/u&gt;&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;hr /&gt;
-&lt;h3 id=&quot;活动尾声&quot;&gt;活动尾声&lt;/h3&gt;
-
-&lt;p&gt;经过一番深入的沟通和交流，现场的开发者对Apache基金会、基金会的精英管理模式、Apache孵化器的运作模式都有了进一步的了解。在meetup活动的最后，三位Apache专家带领现场所有开发者进行了“Apache问答”小游戏。问答题目由Justin编写，公布在网站https://rawgit.com/justinmclean/ApacheQuiz/master/compiled/index.html 上，问题有不同的难度等级，涉及Apache基金会的管理模式、Apache开源协议、版本发布注意事项、三方软件集成等。三位专家与开发者一起答题，并对题目进行了风趣幽默的解读。最终，活动在一片欢笑声中结束，三位专家与开发者进行合影留念。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/apache-developers-gathering-shanghai.jpg&quot; alt=&quot;apache-developers-gathering&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;h3 id=&quot;关于apache-servicecomb&quot;&gt;关于Apache ServiceComb&lt;/h3&gt;
-&lt;p&gt;Apache ServiceComb是一个开源微服务框架，旨在使开发人员能够高效、方便的构建和管理微服务应用。该项目源于华为云微服务引擎CSE，借鉴和继承了华为诸多微服务实践经验，于2017年5月开源并在同年11月捐赠给Apache软件基金会。历经近一年的孵化，ServiceComb从微服务软件开发套件发展成为完整的微服务解决方案，用户数迅速增长，并获得了来自企业和社区开发者的广泛支持。2018年10月24日，ServiceComb从Apache孵化器顺利毕业成为顶级项目。&lt;/p&gt;
-
-&lt;h3 id=&quot;关于apache基金会&quot;&gt;关于Apache基金会&lt;/h3&gt;
-
-&lt;p&gt;Apache软件基金会是一个成立于1999年的非盈利慈善组织，英文名称 Apache Software Foundation，简称 ASF，最早源于开发Apache HTTP服务器的一个爱好者组织“Apache组织”。经过近20年的发展，Apache软件基金会已成为世界上最大的开源基金会，负责监管350多个免费的企业级项目和1.9亿多行的代码，它们作为主干支撑着全球广泛使用的应用程序。&lt;/p&gt;
-
-&lt;h3 id=&quot;加入apache开发者社区&quot;&gt;加入Apache开发者社区&lt;/h3&gt;
-
-&lt;p&gt;Apache软件基金会作为全球最大的开源软件基金会，其独特的精英治理模式和社区文化得到了全球无数开发者的青睐。如果读者有意加入Apache社区，参与Apache开源项目贡献，&lt;strong&gt;可以参考《&lt;a href=&quot;http://servicecomb.apache.org/cn/developers/becomming-a-commiter&quot;&gt;如何成为commiter&lt;/a&gt;》，了解Apache基金会的管理模式，以及《&lt;a href=&quot;http://servicecomb.apache.org/cn/docs/how-to-grow-up-to-be-an-apache-committer&quot;&gt;从开源小白到Apache Commiter&lt;/a&gt;》，体会开发者成长为commiter的心路历程。期待在Apache社区见到更多中国开发者的身影，我们，社区见！&lt;/strong&gt;&lt;/p&gt;</content><author><name>Zhen Ju</name><email>juzhenatpku@gmail.com</email><uri>https://github.com/crystaldust</uri></author><category term="微服务" /><category term="Meetup" /><category term="Apache" /><summary type="html">Apache专家现场解读Apache基金会及孵化器运作模式</summary></entry><entry xml:lang="cn"><title type="html">Apache ServiceComb Meetup -Shanghai 2018.10.12 Report (PPT Download)</title><link href="/cn/docs/Apache-ServiceComb-Meetup-2018-Shanghai-Report/" rel="alternate" type="text/html" title="Apache ServiceComb Meetup -Shanghai 2018.10.12 Report (PPT Download)" /><published>2018-10-29T00:00:00+08:00</published><updated>2018-10-29T17:18:43+08:00</updated><id>/cn/docs/Apache-ServiceComb-Meetup-2018-Shanghai-Report</id><content type="html" xml:base="/cn/docs/Apache-ServiceComb-Meetup-2018-Shanghai-Report/">&lt;p&gt;Apache软件基金会（ASF）的三位Apache专家与ServiceComb Team在上海世博会会展中心举办了Apache Service ServiceComb会议。。此次会议，八位发言者提出了六个主题，分别是关于Apache Way的解释、Apache ServiceComb的路线图、ServiceMesh的探索分享、快速微服务编程的实践经验等。约50人参加了现场会议，600人在线观看。会中以讨论互动的形式进行，开放的、积极的气氛贯穿整个会议。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;《Apache之道》&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/slides/20181012/EN/1_The_Apache_Way.pdf&quot;&gt;PDF下载&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Roman Shaposhnik, Justin Mclean, Craig Russell：&lt;/strong&gt; Apache软件基金会是全球最大的开源基金会，目前拥有300多个开源项目，涵盖大数据、云计算、服务器和Web框架、构建管理、内容管理、物联网等众多领域。三位来自Apache基金会的专家将详细介绍Apache基金会发展历程及现状，阐述Apache基金会的运作方式，解读Apache软件基金会的核心理念—Apache Way。同时分析作为一个Apache项目需要遵守的合规性规则及背后所蕴含的意义。并介绍Apache基金会孵化器的概况及项目流程，讨论Apache孵化项目如何发展社区并毕业成为顶级项目。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/hc2018/1.jpeg&quot; alt=&quot;1&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;《Apache ServiceComb(incubating)社区最新路线》&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/slides/20181012/2_ApacheServiceComb(Incubating)Community_Roadmap.pdf&quot;&gt;中文PDF下载&lt;/a&gt;  &lt;a href=&quot;/assets/slides/20181012/EN/2_ApacheServiceComb(Incubating)Community_Roadmap.pdf&quot;&gt;英文PDF下载&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;姜宁：&lt;/strong&gt; 介绍ServiceComb社区自1.0.0版本发布之后的整体技术演进路线和项目在Apache软件基金会的最新成长状态。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/hc2018/2.jpeg&quot; alt=&quot;2&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;《ServiceComb在Service Mesh的探索与思考》&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/slides/20181012/4_ServiceComb’s_Exploration_of_Service_Mesh.pdf&quot;&gt;中文PDF下载&lt;/a&gt;  &lt;a href=&quot;/assets/slides/20181012/EN/4_ServiceComb’s_Exploration_of_Service_Mesh.pdf&quot;&gt;英文PDF下载&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;田晓亮：&lt;/strong&gt; 介绍ServiceComb在生态兼容Service Mesh方面的工作，阐述ServiceComb在支持零侵入微服务化方面以及和传统微服务框架实现方式的协同部署、治理的探索。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/hc2018/4.jpeg&quot; alt=&quot;4&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;《Service Mesh微服务化和传统框架微服务化混合部署协同实践分享》&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/slides/20181012/3_ServiceMesh-based_Microservices_and_Those_Based_on_a_Traditional_Architecture.pdf&quot;&gt;中文PDF下载&lt;/a&gt;  &lt;a href=&quot;/assets/slides/20181012/EN/3_ServiceMesh-based_Microservices_and_Those_Based_on_a_Traditional_Architecture.pdf&quot;&gt;英文PDF下载&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;苗彦杰：&lt;/strong&gt; 在以Service Mesh为代表的零侵入微服务化发展过程中，如何与传统侵入式框架开发的微服务混合部署、协同治理成为了一道难题。演讲者将从自身的业务背景出发，介绍如何借助ServiceComb和Mesher完成混合部署，分享其中遇到的问题和解决方法。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/hc2018/3.jpeg&quot; alt=&quot;3&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;《Apache Committer 成长经验分享》&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/slides/20181012/5_My_Participation_in_ServiceComb.pdf&quot;&gt;中文PDF下载&lt;/a&gt;  &lt;a href=&quot;/assets/slides/20181012/EN/5_My_Participation_in_ServiceComb.pdf&quot;&gt;英文PDF下载&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;冯征：&lt;/strong&gt; 作为ServiceComb的新晋PMC和Committer，讲述自己如何在ServiceComb项目中成长的历程，分享自身参与开源社区的经验和收获。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/hc2018/5.jpeg&quot; alt=&quot;5&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;《快速微服务化编程体验》&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;/assets/slides/20181012/6_Experience_on_Fast_Microservice_Programming.pdf&quot;&gt;中文PDF下载&lt;/a&gt;  &lt;a href=&quot;/assets/slides/20181012/EN/6_Experience_on_Fast_Microservice_Programming.pdf&quot;&gt;英文PDF下载&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;巨震：&lt;/strong&gt; 现场演示如何快速使用ServiceComb Java-chassis和Service Mesh技术Mesher进行微服务化应用编程，结合Kubernetes进行快速部署，并和与会者互动练习。&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/assets/images/hc2018/6.jpeg&quot; alt=&quot;6&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
-
-&lt;p&gt;&lt;strong&gt;关于Apache ServiceComb 项目&lt;/strong&gt;：&lt;/p&gt;
-
-&lt;p&gt;ServiceComb Apache软件基金会孵化项目的主体代码由华为云捐赠，致力于帮助企业轻松构建云原生应用及传统企业业务快速微服务化，通过系列解决方案帮助用户快速开发微服务的同时实现对这些微服务应用的高效运维管理。它具有完整的微服务生态栈，无厂商锁定，当前遵循Apache Way进行孵化，已拥有如消费者云、云EI、云安全、云核等华为业务之外的一批非华为商用用户，且社区和开发者也日趋多样化。&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;如您有更多问题关于Aapche ServiceComb，请您加入ServiecComb Gitter聊天室咨询：&lt;a href=&quot;https://gitter.im/ServiceCombUsers/Lobby&quot;&gt;ServiceComb Gitter 聊天室&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;</content><author><name>Dean Lee</name></author><category term="microservice" /><category term="Meetup" /><summary type="html">Apache ServiceComb Meetup -Shanghai 2018.10.12 Report (PPT)</summary></entry></feed>
+&lt;/ol&gt;</content><author><name>Haishi Yao</name></author><category term="Committer" /><category term="Apache Way" /><summary type="html">开源项目没有那么遥远</summary></entry></feed>
