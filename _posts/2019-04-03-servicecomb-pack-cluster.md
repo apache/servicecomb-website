@@ -11,7 +11,7 @@ redirect_from:
   - /theme-setup/
 ---
 
-High Availability (HA) enables you to run multiple alpha, Avoid nodes scanning event tables at the same time. You can turn off event table scanning for some nodes with parameter `alpha.event.scanner.enabled=false` . However, transaction compensation will fail when the node that enabled the event table scan is closed.
+Now you can run multiple Alpha server in High Availability (HA) mode which support to run the event scanning in the master node only. You can also turn off event table scanning for some nodes with parameter `alpha.event.scanner.enabled=false` . However, transaction compensation will fail when the node that enabled the event table scan is crashed.
 We implemented database-based distributed lock in version 0.4.0 version, event scanning only runs on the master node in the cluster, When the master node is down, other nodes in the cluster will elect a new master node.
 
 ## Quick Starts
@@ -56,11 +56,11 @@ java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar \
 
 - Switch Master Nodes
 
-After the master node is down, other nodes in the cluster will elect a new master node
+After the master node is off line, other nodes in the cluster will elect a new master node
 
 ## How to make event scanning only run on the master node
 
-Event scanning is implemented by `EventScanner.java` , initialize it in `AlphaConfig.java` , You can see that when the parameter 'alpha.event.scanner.enabled=true' is met, it will be instantiated EventScanner. The variable nodeStatus is the node type(Master or Slave). Later, I will introduce how `nodeStatus` is initialized.
+Event scanning is implemented by `EventScanner.java` , initialize it in `AlphaConfig.java` , you can enable it by setting the parameter 'alpha.event.scanner.enabled=true', it will be instantiated EventScanner. The variable nodeStatus is the node type(Master or Slave). Later, I will introduce how `nodeStatus` is initialized.
 
 ```java
 @Bean
@@ -123,7 +123,7 @@ Construct NodeStatus in `AlphaConfig.java` by the following to ensure that the e
   NodeStatus nodeStatus;
 ```
 
-`ClusterLockService.java` is responsible for node state switching, It will periodically perform lock preemption and set the node as a master after successful preemption.
+`ClusterLockService.java` is in charge of node state switching, It periodically perform lock preemption and set the node as a master after successful preemption.
 
 ```java
   @Autowired
