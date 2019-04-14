@@ -19,35 +19,35 @@
 
 
 
-<title>基于 ServiceComb 和 Zipkin 的分布式调用链追踪 - Apache ServiceComb</title>
+<title>ServiceComb Pack 0.4.0 集成发现服务 : Consul - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="本篇将介绍如何使用 ServiceComb 和 Zipkin 实现分布式调用链追踪">
+<meta name="description" content="ServiceComb Pack 集成发现服务 Consul">
 
 
 
 
-<meta name="author" content="Sean Yin">
+<meta name="author" content="Lei Zhang">
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="基于 ServiceComb 和 Zipkin 的分布式调用链追踪">
+<meta property="og:title" content="ServiceComb Pack 0.4.0 集成发现服务 : Consul">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/tracing-with-servicecomb/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/tracing-with-servicecomb/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-pack-consul/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-pack-consul/">
 
 
 
-  <meta property="og:description" content="本篇将介绍如何使用 ServiceComb 和 Zipkin 实现分布式调用链追踪">
+  <meta property="og:description" content="ServiceComb Pack 集成发现服务 Consul">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="基于 ServiceComb 和 Zipkin 的分布式调用链追踪">
-  <meta name="twitter:description" content="本篇将介绍如何使用 ServiceComb 和 Zipkin 实现分布式调用链追踪">
+  <meta name="twitter:title" content="ServiceComb Pack 0.4.0 集成发现服务 : Consul">
+  <meta name="twitter:description" content="ServiceComb Pack 集成发现服务 Consul">
   <meta name="twitter:url" content="">
 
   
@@ -56,7 +56,7 @@
   
 
   
-    <meta name="twitter:creator" content="@seanyinx">
+    <meta name="twitter:creator" content="@Lei Zhang">
   
 
 
@@ -70,7 +70,7 @@
 
 
   <meta property="og:type" content="article">
-  <meta property="article:published_time" content="2017-07-17T00:00:00+08:00">
+  <meta property="article:published_time" content="2019-04-12T00:00:00+08:00">
 
 
 
@@ -226,7 +226,7 @@
           
             
             
-            <a href=/docs/tracing-with-servicecomb/>English</a>
+            <a href=/docs/servicecomb-pack-consul/>English</a>
           
         </div>
       </nav>
@@ -250,14 +250,20 @@
 <div itemscope itemtype="http://schema.org/Person">
 
   
+    <div class="author__avatar">
+      
+        <img src="/assets/images/ServiceComb-logo-3.jpg" class="author__avatar" alt="" itemprop="image">
+      
+    </div>
+  
 
   <div class="author__content">
-    <h3 class="author__name" itemprop="name">Sean Yin</h3>
+    <h3 class="author__name" itemprop="name"></h3>
     
       <p class="author__bio" itemprop="description">
 	    
 	      
-	        Nothing but speed is indestructible
+	        ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架
 	      
 	    
       </p>
@@ -268,19 +274,21 @@
     <button class="btn btn--inverse">关注</button>
     <ul class="author__urls social-icons">
       
-
-      
-        <li>
-          <a href="http://seanyinx.github.io" itemprop="url">
-            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> 网站
-          </a>
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+        
+          
+            <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">中国</span>
+          
+        
         </li>
       
 
       
+
+      
         <li>
-          <a href="mailto:seanyinx@gmail.com">
-            <meta itemprop="email" content="seanyinx@gmail.com" />
+          <a href="mailto:dev@servicecomb.apache.org">
+            <meta itemprop="email" content="dev@servicecomb.apache.org" />
             <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
           </a>
         </li>
@@ -289,27 +297,27 @@
       
 
       
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
         <li>
-          <a href="https://twitter.com/seanyinx" itemprop="sameAs">
-            <i class="fa fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter
+          <a href="https://github.com/ServiceComb" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
           </a>
         </li>
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
-      
-
       
 
       
@@ -353,16 +361,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="基于 ServiceComb 和 Zipkin 的分布式调用链追踪">
-    <meta itemprop="description" content="本篇将介绍如何使用 ServiceComb 和 Zipkin 实现分布式调用链追踪">
-    <meta itemprop="datePublished" content="July 17, 2017">
-    <meta itemprop="dateModified" content="July 17, 2017">
+    <meta itemprop="headline" content="ServiceComb Pack 0.4.0 集成发现服务 : Consul">
+    <meta itemprop="description" content="ServiceComb Pack 集成发现服务 Consul">
+    <meta itemprop="datePublished" content="April 12, 2019">
+    <meta itemprop="dateModified" content="April 12, 2019">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">基于 ServiceComb 和 Zipkin 的分布式调用链追踪
+            <h1 class="page__title" itemprop="headline">ServiceComb Pack 0.4.0 集成发现服务 : Consul
 </h1>
             
               <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
@@ -370,7 +378,7 @@
 
 
 
-  少于 1 分钟 阅读
+  1 分钟 阅读
 
 </p>
             
@@ -379,112 +387,150 @@
       
 
       <section class="page__content" itemprop="text">
-        <p>微服务架构解决了很多单体应用带来的问题，但同时也需要我们付出额外的代价。由于网络的不稳定性带来的请求处理延迟就是代价之一。</p>
+        <p>ServiceComb Pack 从 0.4.0 版本开始支持将 Alpha 服务实例注册到发现服务 Consul 中，Omega 端的程序通过注册中心 Consul 就可以连接 Alpha 服务</p>
 
-<p>在单体应用中，所有模块都在同一个进程中运行，所以并没有模块间互通的问题。但微服务架构中，服务间通过网络沟通，因此我们不得不处理和网络有关的
-问题，例如：延迟、超时、网络分区等。</p>
+<h3 id="启动-consul">启动 Consul</h3>
 
-<p>另外，随着业务的扩展服务增多，我们很难洞察数据如何在蛛网般复杂的服务结构中流转。我们如何才能有效的监控网络延迟并且可视化服务中的数据流转呢？</p>
+<ul>
+  <li>使用 Docker 启动 Consul，更多方式请参考官方网站 <a href="https://www.consul.io">https://www.consul.io</a></li>
+</ul>
 
-<h2 id="zipkin">Zipkin</h2>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker run -d -p 8500:8500 consul
+</code></pre>
+</div>
+
+<ul>
+  <li>访问 Consul UI</li>
+</ul>
+
+<p>在浏览器中访问 http://0.0.0.0:8500  ，能看到如下页面表示 Consul 启动成功</p>
+
+<p><img src="/assets/images/2019-04-12-servicecomb-pack-consul/consul_main.png" alt="consul_main" /></p>
+
+<h3 id="启动-alpha">启动 Alpha</h3>
+
+<p>注册中心功能通过设置 <code class="highlighter-rouge">spring.cloud.consul.enabled=true</code> 参数开启</p>
+
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-exec.jar <span class="se">\</span>
+  --server.port<span class="o">=</span>8090 <span class="se">\</span>
+  --alpha.server.port<span class="o">=</span>8080 <span class="se">\</span>
+  --spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+  --spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+  --spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+  --spring.cloud.consul.enabled<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  --spring.cloud.consul.host<span class="o">=</span>0.0.0.0 <span class="se">\</span>
+  --spring.cloud.consul.port<span class="o">=</span>8500 <span class="se">\</span>
+  --spring.profiles.active<span class="o">=</span>prd 
+</code></pre>
+</div>
+<p><strong>注意:</strong> 更多 Consul 参数请参考 <a href="https://cloud.spring.io/spring-cloud-consul/spring-cloud-consul.html">Spring Cloud Consul 2.x</a> <a href="https://cloud.spring.io/spring-cloud-consul/1.3.x/single/spring-cloud-consul.html">Spring Cloud Consul 1.x</a></p>
+
+<p>Alpha 启动完毕后可以看到已经注册到 Consul</p>
+
+<p><img src="/assets/images/2019-04-12-servicecomb-pack-consul/alpha_register_to_consul.png" alt="alpha_register_to_consul" /></p>
+
+<p>执行命令行 <code class="highlighter-rouge">curl http://0.0.0.0:8500/v1/agent/services</code> 可以看到已经将 Alpha 的 gRPC 地址和端口注册到 Consul 的 Tags 中</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"servicecomb-alpha-server-0-0-0-0-336b06581fb5b92ed91c7ade3fdafa88"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"servicecomb-alpha-server-0-0-0-0-336b06581fb5b92ed91c7ade3fdafa88"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"servicecomb-alpha-server"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"alpha-server-host=0.0.0.0"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"alpha-server-port=8080"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"secure=false"</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nt">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+        </span><span class="nt">"Port"</span><span class="p">:</span><span class="w"> </span><span class="mi">8090</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.168.1.116"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"Weights"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"Passing"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="nt">"Warning"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"EnableTagOverride"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<h3 id="配置-omega-端">配置 Omega 端</h3>
+
 <blockquote>
-  <p><a href="http://zipkin.io/">Zipkin</a> 是一个分布式调用链追踪系统。 它能帮助用户收集时序数据用以定位微服务中的延迟问题，它同时管理追踪数据的收集
-和查询。Zipkin 的设计基于 Google <a href="http://research.google.com/pubs/pub36356.html">Dapper paper</a>。[1]</p>
+  <p>ServiceComb Pack 0.4.0 Omega 默认依赖 Spring Boot 2.x Spring 和 Cloud Consul 2.x ，如果你的 Omega 端项目依赖 Spring Boot 1.x 你可以使用 <code class="highlighter-rouge">-Pspring-boot-1</code> 参数重新编译 Spring Boot 1.x 和 Spring Cloud Consul 1.x 的版本</p>
 </blockquote>
 
-<p>ServiceComb 集成了 Zipkin 提供自动调用链追踪能力，如此一来用户只需要专注实现其业务需求。</p>
+<p>修改原有 omega 端项目</p>
 
-<h2 id="使用步骤">使用步骤</h2>
-<p>我们将以 <a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">workshop demo</a> 为例演示如何用 Zipkin 实施调用链追踪。</p>
+<p>增加以下依赖</p>
 
-<h3 id="添加依赖">添加依赖</h3>
-<p>基于 ServiceComb Java Chassis 的微服务只需要添加如下依赖到 pom.xml。</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-      <span class="nt">&lt;artifactId&gt;</span>handler-tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+	<span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb.pack<span class="nt">&lt;/groupId&gt;</span>
+	<span class="nt">&lt;artifactId&gt;</span>omega-spring-cloud-consul-starter<span class="nt">&lt;/artifactId&gt;</span>
+	<span class="nt">&lt;version&gt;</span>${pack.version}<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
 </code></pre>
 </div>
 
-<p>如果微服务是基于 Spring Cloud + Zuul 的 API 网关，例如 workshop demo 中的 manager service ，我们还需要加入如下的额外依赖。</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-      <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul-zipkin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
+<p>在 <code class="highlighter-rouge">application.yaml</code> 添加下面的配置项</p>
+
+<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spring</span><span class="pi">:</span>
+  <span class="s">cloud</span><span class="pi">:</span>
+    <span class="s">consul</span><span class="pi">:</span>
+      <span class="s">discovery</span><span class="pi">:</span>
+<span class="err">      	</span><span class="s">register</span><span class="pi">:</span> <span class="s">false</span>
+      <span class="s">host</span><span class="pi">:</span> <span class="s">0.0.0.0</span>
+      <span class="s">port</span><span class="pi">:</span> <span class="s">8500</span>
+      
+<span class="s">alpha</span><span class="pi">:</span>
+  <span class="s">cluster</span><span class="pi">:</span>
+    <span class="s">register</span><span class="pi">:</span>
+      <span class="s">type</span><span class="pi">:</span> <span class="s">consul</span>
 </code></pre>
 </div>
 
-<h3 id="配置追踪处理和数据收集">配置追踪处理和数据收集</h3>
-<p>在微服务的 <code class="highlighter-rouge">microservice.yaml</code> 配置文件中，设置追踪处理器和数据收集服务地址。</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Consumer</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-consumer</span>
-      <span class="s">Provider</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
-
-<span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">tracing</span><span class="pi">:</span>
-    <span class="s">collector</span><span class="pi">:</span>
-      <span class="s">address</span><span class="pi">:</span> <span class="s">http://zipkin.servicecomb.io:9411</span>
-</code></pre>
-</div>
-
-<p>就这样，在加了两个配置项，没改动一行代码的情况下，我们启动了基于 Zipkin 和 Java chassis 的分布式调用链追踪的功能。</p>
-
-<p><strong>注意</strong> 如果项目中的其他依赖也引入了 zipkin （例如 Spring Cloud），可能导致 zipkin 版本不一致而运行出错，这时需要在项目 pom 中声明 zipkin
-版本。</p>
-
-<h2 id="快速演示">快速演示</h2>
-<p>在 workshop demo 中启动追踪后，我们接下来在 docker 环境中演示一下调用链追踪功能。</p>
-<ol>
-  <li>
-    <p>在 workshop demo 目录下，使用命令 <code class="highlighter-rouge">mvn package -DskipTests -Pdocker</code> 或 <code class="highlighter-rouge">mvn package -DskipTests -Pdocker -Pdocker-machine</code>
-（如果你使用 <a href="https://www.docker.com/products/docker-toolbox">Docker Toolbox</a>），创建所有服务的 docker 镜像</p>
-  </li>
-  <li>
-    <p>运行 <code class="highlighter-rouge">docker-compose up</code></p>
-  </li>
-  <li>
-    <p>按照下面视频中的操作步骤，给运行在 docker 容器中的服务发送请求</p>
-  </li>
-  <li>
-    <p>用浏览器打开运行在 docker 容器中的 Zipkin 网站，地址应为 docker 容器IP：<code class="highlighter-rouge">http://docker.container.ip:9411</code></p>
-  </li>
-</ol>
-
-<!-- Courtesy of embedresponsively.com //-->
-<div class="responsive-video-container">
-
-  <iframe src="https://player.youku.com/embed/XMjg1NzQ3NzUzNg" frameborder="0" allowfullscreen=""></iframe>
-
-</div>
-
-<p>现在我们应该可以看到 Zipkin 首页上显示的几个被追踪的服务。
-<img src="/assets/images/tracing.1.png" alt="zipkin homepage" class="align-center" /></p>
-
-<p>如果我们选择 manager 并点击 Find Traces 按钮，就能看到一些调用链数据。请别介意服务性能可能不太好，因为我们是在一台2012年产的笔记本上
-运行这么多服务。
-<img src="/assets/images/tracing.2.png" alt="traces of manager service" class="align-center" /></p>
-
-<p>如果点击某一个调用链，我们能看到对应的所有时间跨度信息。
-<img src="/assets/images/tracing.3.png" alt="trace spans of manager service" class="align-center" /></p>
-
-<p>点击某个时间跨度，可以获取更详细的调用时间信息。
-<img src="/assets/images/tracing.4.png" alt="span details of manager service" class="align-center" /></p>
-
-<p>同时我们也可以点击 Dependencies 按钮，查看服务的依赖关系图。
-<img src="/assets/images/tracing.5.png" alt="service dependencies" class="align-center" /></p>
-
-<h2 id="总结">总结</h2>
-<p>从以上的示例可以看出，通过 ServiceComb 实现分布式调用链追踪功能只需简单的两步配置，但我们却基于 Zipkin 展示了强大的功能，如分析服务间
-调用的时间数据以定位网络延迟，并提供可视化界面以洞察服务间的调用链和依赖关系。</p>
-
-<h2 id="参考">参考</h2>
 <ul>
-  <li>[1] <a href="http://zipkin.io/">Zipkin</a></li>
+  <li>
+    <p><code class="highlighter-rouge">spring.cloud.consul.host</code> 配置 Consul 注册中心的地址，<code class="highlighter-rouge">spring.cloud.consul.port</code> 配置 Consul 注册中心的端口，<code class="highlighter-rouge">spring.cloud.consul.discovery.register=false</code> 表示不注册自己到注册中心，更多 Consul 客户端配置可以参考<a href="https://cloud.spring.io/spring-cloud-consul/spring-cloud-consul.html">Spring Cloud Consul 2.x</a> <a href="https://cloud.spring.io/spring-cloud-consul/1.3.x/single/spring-cloud-consul.html">Spring Cloud Consul 1.x</a></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">alpha.cluster.register.type=consul</code> 配置 Omega 获取 Alpha 的方式是通过 Consul 的注册中心</p>
+  </li>
+  <li>
+    <p>spring boot 和 spring cloud 版本兼容</p>
+
+    <p>如果你的项目使用的不是spring boot 2.1.1版本，那么请参照此列表增加兼容的spring-cloud-starter-consul-discovery版本</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>spring boot</th>
+          <th>spring-cloud-starter-consul-discovery</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>2.1.x.RELEASE</td>
+          <td>2.1.1.RELEASE</td>
+        </tr>
+        <tr>
+          <td>2.0.x.RELEASE</td>
+          <td>2.0.2.RELEASE</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>     <span class="nt">&lt;dependencyManagement&gt;</span>
+       <span class="nt">&lt;dependencies&gt;</span>
+         <span class="nt">&lt;dependency&gt;</span>
+           <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
+           <span class="nt">&lt;artifactId&gt;</span>spring-cloud-starter-consul-discovery<span class="nt">&lt;/artifactId&gt;</span>
+           <span class="nt">&lt;version&gt;</span>2.0.2.RELEASE<span class="nt">&lt;/version&gt;</span>
+         <span class="nt">&lt;/dependency&gt;</span>
+       <span class="nt">&lt;/dependencies&gt;</span>
+     <span class="nt">&lt;/dependencyManagement&gt;</span>
+</code></pre>
+    </div>
+  </li>
 </ul>
 
         
@@ -506,11 +552,15 @@
     
       
       
-      <a href="/tags/#zipkin" class="page__taxonomy-item" rel="tag">zipkin</a><span class="sep">, </span>
+      <a href="/tags/#consul" class="page__taxonomy-item" rel="tag">Consul</a><span class="sep">, </span>
     
       
       
-      <a href="/tags/#%E5%88%86%E5%B8%83%E5%BC%8F%E8%BF%BD%E8%B8%AA" class="page__taxonomy-item" rel="tag">分布式追踪</a>
+      <a href="/tags/#discovery" class="page__taxonomy-item" rel="tag">Discovery</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#servicecomb-pack" class="page__taxonomy-item" rel="tag">ServiceComb Pack</a>
     
     </span>
   </p>
@@ -522,7 +572,7 @@
         
           
             
-              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2017-07-17">2017年7月17日</time></p>
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2019-04-12">2019年4月12日</time></p>
             
           
         
@@ -533,25 +583,24 @@
     <h4 class="page__share-title">分享</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=基于 ServiceComb 和 Zipkin 的分布式调用链追踪 /cn/docs/tracing-with-servicecomb/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=ServiceComb Pack 0.4.0 集成发现服务 : Consul /cn/docs/servicecomb-pack-consul/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/tracing-with-servicecomb/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/servicecomb-pack-consul/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=/cn/docs/tracing-with-servicecomb/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=/cn/docs/servicecomb-pack-consul/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/tracing-with-servicecomb/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/servicecomb-pack-consul/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/docs/tracing-with-servicecomb/" class="pagination--pager" title="Distributed Tracing with ServiceComb and Zipkin
+      <a href="/docs/servicecomb-pack-consul/" class="pagination--pager" title="ServiceComb Pack 0.4.0 Integrated Discovery Service : Consul
 ">向前</a>
     
     
-      <a href="/docs/communication-btw-sc-ms/" class="pagination--pager" title="Communication Between Service-Center and MicroServices
-">向后</a>
+      <a href="#" class="pagination--pager disabled">向后</a>
     
   </nav>
 
@@ -597,7 +646,7 @@
             <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
           </fieldset>
           <fieldset class="hidden" style="display: none;">
-            <input type="hidden" name="options[slug]" value="tracing-with-servicecomb">
+            <input type="hidden" name="options[slug]" value="servicecomb-pack-consul">
             <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
             <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
           </fieldset>
@@ -634,35 +683,6 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/cn/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Consul
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">ServiceComb Pack 集成发现服务 Consul
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  1 分钟 阅读
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
         <a href="/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Consul
 </a>
       
@@ -675,7 +695,7 @@
 
 
 
-  2 分钟 阅读
+  1 分钟 阅读
 
 </p>
     
@@ -741,6 +761,35 @@
 </div>
 
         
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/customized-tracing-with-servicecomb/" rel="permalink">ServiceComb + Zipkin : 使用篇——自定义追踪
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">本篇将介绍如何使用 ServiceComb 和 Zipkin 实现自定义追踪
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
       </div>
     </div>
   
@@ -788,7 +837,7 @@
       <ul>
         <p class="header">贡献</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/cn/2017-07-17-tracing-with-servicecomb.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/cn/2019-04-12-servicecomb-pack-consul.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
         <li><a href="/cn/security">安全</a></li>
       </ul>
