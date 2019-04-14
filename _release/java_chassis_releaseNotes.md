@@ -12,7 +12,7 @@ last_modified_at: 2019-04-12T00:50:43-55:00
 <h2>        Sub-task
 </h2>
 <ul>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-353'>SCB-353</a>] -         Servicecomb当前性能统计不支持时延分布的统计，这个对于业务有重要意义
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-353'>SCB-353</a>] -         Support Servicecomb metrics with statics during a long time
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-837'>SCB-837</a>] -         add http2 special configuration
 </li>
@@ -37,7 +37,7 @@ last_modified_at: 2019-04-12T00:50:43-55:00
 <h2>        Bug
 </h2>
 <ul>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-781'>SCB-781</a>] -         关于apollo配置中心不支持@ConfigurationProperties
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-781'>SCB-781</a>] -         support @ConfigurationProperties with Apollo.
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-968'>SCB-968</a>] -         [SCB-968] http2 do not support pump download
 </li>
