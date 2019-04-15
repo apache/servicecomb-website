@@ -9,7 +9,14 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 
         Release Notes - Apache ServiceComb - Version pack-0.4.0
-    
+
+<h2> New and Noteworthy </h2>
+  <ul>
+   <li> Provides Alpha HA implementation </li>
+   <li> Support to use eureka or consul to do the service discovery of Alpha</li>
+   <li> Fix the event scanner thread exit issue </li>
+  </ul>  
+
 <h2>        Sub-task
 </h2>
 <ul>
@@ -26,7 +33,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1209'>SCB-1209</a>] -         Add a description about the integrated consul
 </li>
 </ul>
-        
+
 <h2>        Bug
 </h2>
 <ul>
@@ -39,7 +46,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1217'>SCB-1217</a>] -         Consul support random gRPC port
 </li>
 </ul>
-        
+
 <h2>        New Feature
 </h2>
 <ul>
@@ -50,13 +57,13 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1199'>SCB-1199</a>] -         service discovery with consul
 </li>
 </ul>
-        
+
 <h2>        Improvement
 </h2>
 <ul>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1082'>SCB-1082</a>] -         Dependency-free-transaction-demo failed on Mac OSX
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-1099'>SCB-1099</a>] -         Add nexus SNAPSHOT information to the README repo 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1099'>SCB-1099</a>] -         Add nexus SNAPSHOT information to the README repo
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1100'>SCB-1100</a>] -         Updated the user guide for migration from saga 0.2.x
 </li>
@@ -89,7 +96,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1235'>SCB-1235</a>] -         Clean up third party license with maven plugin
 </li>
 </ul>
-    
+
 <h2>        Test
 </h2>
 <ul>
@@ -98,7 +105,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1152'>SCB-1152</a>] -         About abortTimeoutTxStartedEvent test case failed
 </li>
 </ul>
-        
+
 <h2>        Task
 </h2>
 <ul>
@@ -125,7 +132,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1238'>SCB-1238</a>] -         Introductory article on cluster implementation of ServiceComb Pack
 </li>
 </ul>
-                                                                                                                                        
+
         Release Notes - Apache ServiceComb - Version pack-0.3.0
 <h2> New and Noteworthy </h2>
   <ul>
