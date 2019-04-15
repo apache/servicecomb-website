@@ -13,9 +13,9 @@ redirect_from:
 
 ServiceComb Pack supports the registration of Alpha service instances to Eureka from version 0.4.0, and Omega-side programs can visit Alpha with Eureka
 
-### 编译支持 Eureka 的版本
+### Compile with Eureka
 
-Default release does not include Eureka support，You can build the version support eureka with the `-Pspring-cloud-eureka` parameter
+Pack doesn't include Eureka support by default，you can use profile `-Pspring-cloud-eureka` to enable the feature of eureka when building the code of Pack. 
 
 ```bash
 git clone https://github.com/apache/servicecomb-pack.git
@@ -25,7 +25,7 @@ mvn clean install -DskipTests=true -Pspring-boot-2,spring-cloud-eureka
 
 ### Run Eureka
 
-* Start Eureka with Docker, please refer to the official website [https://cloud.spring.io](https://cloud.spring.io/spring-cloud-netflix/spring-cloud-netflix.html#spring-cloud-eureka-server) for more ways
+* Start Eureka with Docker, please refer to the official website [https://cloud.spring.io](https://cloud.spring.io/spring-cloud-netflix/spring-cloud-netflix.html#spring-cloud-eureka-server) for more information.
 
 ```bash
 docker run -d -p 8761:8761 springcloud/eureka
@@ -33,13 +33,13 @@ docker run -d -p 8761:8761 springcloud/eureka
 
 * Eureka UI
 
-Visit http://0.0.0.0:8761 in the browser, you can see the following page indicates that Eureka started successfully
+Visit http://0.0.0.0:8761 in the browser, you can see the following page shows that Eureka is started successfully
 
 ![eureka_main]({{ site.url }}{{ site.baseurl }}/assets/images/2019-04-15-servicecomb-pack-eureka/eureka-main.png)
 
 ### Run Alpha
 
-Enable registration to Eureka with the parameter `eureka.client.enabled=true`
+Enable registration to Eureka with the configuration of `eureka.client.enabled=true`
 
 ```bash
 java -jar alpha-server-0.4.0-exec.jar \
@@ -58,7 +58,7 @@ After Alpha is launched, you can see that you have registered to Eureka
 
 ![alpha_register_to_eureka]({{ site.url }}{{ site.baseurl }}/assets/images/2019-04-15-servicecomb-pack-eureka/alpha_register_to_eureka.png)
 
-Use `curl http://127.0.0.1:8761/eureka/apps/` You can see that Alpha's gRPC address and port have been registered in Eureka's Metadata
+Use `curl http://127.0.0.1:8761/eureka/apps/` You can see that Alpha's gRPC service address and port have been registered in Eureka's Metadata
 
 ```xml
 <applications>
