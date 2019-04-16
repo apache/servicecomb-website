@@ -36,8 +36,8 @@
 <meta property="og:title" content="基于服务的分布式事务(上篇)">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed-transaction-of-services-1/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed-transaction-of-services-1/">
+  <link rel="canonical" href="http://localhost:4000/cn/docs/distributed-transaction-of-services-1/">
+  <meta property="og:url" content="http://localhost:4000/cn/docs/distributed-transaction-of-services-1/">
 
 
 
@@ -48,7 +48,7 @@
   <meta name="twitter:site" content="@ServiceComb">
   <meta name="twitter:title" content="基于服务的分布式事务(上篇)">
   <meta name="twitter:description" content="本文从分布式事务需要解决的问题入手，向大家介绍了建立在补充基础之上的基于服务的分布式事务的解决思路。接下来我们结合具体的示例介绍了完美的补偿（TCC）和非完美补偿（Saga）两种分布式事务协调协议，最后结合ServiceComb Pack的实现原理详细介绍了ServiceComb Pack的架构实现。">
-  <meta name="twitter:url" content="">
+  <meta name="twitter:url" content="http://localhost:4000/cn/docs/distributed-transaction-of-services-1/">
 
   
     <meta name="twitter:card" content="summary">
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "http://localhost:4000",
       "sameAs" : null
     }
   </script>
@@ -99,7 +99,7 @@
 <!-- end SEO -->
 
 
-<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
 
 <!-- http://t.co/dKP3o1e -->
 <meta name="HandheldFriendly" content="True">
@@ -110,7 +110,7 @@
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-<script src="/assets/vendor/prism/prism.js"></script>
+<script src="http://localhost:4000/assets/vendor/prism/prism.js"></script>
 
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
+<link rel="stylesheet" href="http://localhost:4000/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -146,7 +146,7 @@
 
 <!-- insert favicons. use http://realfavicongenerator.net/ -->
 <link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
-<script src="/assets/js/custom.js"></script>
+<script src="http://localhost:4000/assets/js/custom.js"></script>
 <!-- end custom head snippets -->
 
   </head>
@@ -161,7 +161,7 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
 	      
-          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+          <a class="site-title active" href="http://localhost:4000/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
 	      
         <ul class="visible-links">
           
@@ -170,7 +170,7 @@
               
               
               
-                <a href="/cn/docs/quick-start/">快速入门</a>
+                <a href="http://localhost:4000/cn/docs/quick-start/">快速入门</a>
               
             </li>
           
@@ -179,7 +179,7 @@
               
               
               
-                <a href="/cn/users/">用户手册</a>
+                <a href="http://localhost:4000/cn/users/">用户手册</a>
               
             </li>
           
@@ -188,7 +188,7 @@
               
               
               
-                <a href="/cn/developers/">开发者手册</a>
+                <a href="http://localhost:4000/cn/developers/">开发者手册</a>
               
             </li>
           
@@ -197,7 +197,7 @@
               
               
               
-                <a href="/cn/year-archive/">博文</a>
+                <a href="http://localhost:4000/cn/year-archive/">博文</a>
               
             </li>
           
@@ -206,7 +206,7 @@
               
               
               
-                <a href="/cn/faqs/">常见问题</a>
+                <a href="http://localhost:4000/cn/faqs/">常见问题</a>
               
             </li>
           
@@ -215,7 +215,7 @@
               
               
               
-                <a href="/cn/release/">下载</a>
+                <a href="http://localhost:4000/cn/release/">下载</a>
               
             </li>
           
@@ -401,7 +401,7 @@
 
 <p>下图展示了一个典型的分布式事务调用， 用户请求触发事务初始服务， 事务初始服务会顺序调用两个事务参与服务（服务A，服务B）。由于这两个事务参与服务之间没有联系，当事务参与服务执行出现了问题，需要一个协调器参与相关的恢复操作。</p>
 
-<p><img src="/assets/images/dts1/image-distributed-transaction.png" alt="" /></p>
+<p><img src="http://localhost:4000/assets/images/dts1/image-distributed-transaction.png" alt="" /></p>
 
 <p>这里我们可以根据补偿执行的不同将其分成两组不同的补偿方式：</p>
 
@@ -425,19 +425,19 @@
   <li>Omega是微服务中内嵌的一个agent，负责对监控本地事务执行情况并向Alpha上报事务执行事件，并在异常情况下根据alpha下发的指令执行相应的补偿或重试操作。</li>
 </ul>
 
-<p><img src="/assets/images/dts1/image-pack.png" alt="" /></p>
+<p><img src="http://localhost:4000/assets/images/dts1/image-pack.png" alt="" /></p>
 
 <p>Omega可以通过向alpha发送消息的方式向alpha实时传递事务执行的进展， 但是Alpha怎么知道这些Omega上传的消息是相互关联的呢？我们通过在服务调用过程中插入唯一的全局事务ID，并在后续的调用其它服务过程中传递这个全局事务ID。通过全局事务ID可以从汇总到Alpha事件中找到事件与之相关联的所有事件，通过对这些事件信息进行分析，我们可以完整地追踪到与分布式事务执行情况。</p>
 
-<p><img src="/assets/images/dts1/image-transactions-correlation.png" alt="" /></p>
+<p><img src="http://localhost:4000/assets/images/dts1/image-transactions-correlation.png" alt="" /></p>
 
 <p>Omega会以切面编程的方式向应用程序注入相关的处理模块，帮助我们构建分布式事务调用的上下文。 Omega在事务处理初始阶段处理事务的相关准备的操作，在事务执行完毕做一些清理的操作，例如创建分布式事务起始事件，以及相关的子事件， 根据事务的执行的成功或者失败生产相关的事务终止或者失败事件。这样带来的好处是用户的代码只需要添加几个annotation 来描述分布式事务执行范围，以及与本地的事务处理恢复的相关函数信息，Omega就能通过切面注入的代码能够追踪与本地事务的执行情况。 Omega会将本地事务执行的情况以事件的方式通知给Alpha。 由于单个Omega不可能知晓一个分布式事务下其他参与服务的执行情况， 这样就需要Alpha扮演一个十分重要的协调者的角色。Alpha将收集到的分布式事务事件信息整理汇总，通过分析这些事件之间的关系可以了解到分布式事务的执行情况， Alpha通过向Omega下发相关的执行指令由Omega执行相关提交或恢复操作，实现分布式事务的最终一致性。</p>
 
-<p><img src="/assets/images/dts1/image-Omega-Implementation.png" alt="" /></p>
+<p><img src="http://localhost:4000/assets/images/dts1/image-Omega-Implementation.png" alt="" /></p>
 
 <p>在了解的Pack实现的部分细节之后， 我们可以从下图进一步了解ServiceComb Pack架构下，Alpha与Omega内部各模块之间的关系图。</p>
 
-<p><img src="/assets/images/dts1/image-pack-system-archecture.png" alt="" /></p>
+<p><img src="http://localhost:4000/assets/images/dts1/image-pack-system-archecture.png" alt="" /></p>
 
 <p>整个架构分为三个部分，一个是<strong>Alpha协调器</strong>（支持多个实例提供高可用支持），另外一个就是注入到微服务实例中的<strong>Omega</strong>，以及Alpha与Omega之间的<strong>交互协议</strong>， 目前ServiceComb Pack支持Saga 以及TCC两种分布式事务协调协议实现。</p>
 
@@ -490,11 +490,11 @@
     
       
       
-      <a href="/tags/#pack" class="page__taxonomy-item" rel="tag">Pack</a><span class="sep">, </span>
+      <a href="http://localhost:4000/tags/#pack" class="page__taxonomy-item" rel="tag">Pack</a><span class="sep">, </span>
     
       
       
-      <a href="/tags/#saga" class="page__taxonomy-item" rel="tag">Saga</a>
+      <a href="http://localhost:4000/tags/#saga" class="page__taxonomy-item" rel="tag">Saga</a>
     
     </span>
   </p>
@@ -517,24 +517,24 @@
     <h4 class="page__share-title">分享</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=基于服务的分布式事务(上篇) /cn/docs/distributed-transaction-of-services-1/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=基于服务的分布式事务(上篇) http://localhost:4000/cn/docs/distributed-transaction-of-services-1/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/distributed-transaction-of-services-1/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/cn/docs/distributed-transaction-of-services-1/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=/cn/docs/distributed-transaction-of-services-1/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=http://localhost:4000/cn/docs/distributed-transaction-of-services-1/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/distributed-transaction-of-services-1/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/cn/docs/distributed-transaction-of-services-1/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/cn/docs/chuanzhiboke-servicecomb-tutoria-release/" class="pagination--pager" title="Apache ServiceComb 社区联合传智播客黑马程序员、博学谷、传智汇子品牌发布微服务化教程
+      <a href="http://localhost:4000/cn/docs/chuanzhiboke-servicecomb-tutoria-release/" class="pagination--pager" title="Apache ServiceComb 社区联合传智播客黑马程序员、博学谷、传智汇子品牌发布微服务化教程
 ">向前</a>
     
     
-      <a href="/cn/docs/distributed-transaction-of-services-2/" class="pagination--pager" title="基于服务的分布式事务(下篇)
+      <a href="http://localhost:4000/cn/docs/distributed-transaction-of-services-2/" class="pagination--pager" title="基于服务的分布式事务(下篇)
 ">向后</a>
     
   </nav>
@@ -618,7 +618,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/cn/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Spring Cloud Eureka
+        <a href="http://localhost:4000/cn/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Spring Cloud Eureka
 </a>
       
     </h2>
@@ -647,7 +647,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Eureka
+        <a href="http://localhost:4000/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Eureka
 </a>
       
     </h2>
@@ -676,7 +676,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/cn/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Consul
+        <a href="http://localhost:4000/cn/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Consul
 </a>
       
     </h2>
@@ -705,7 +705,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Consul
+        <a href="http://localhost:4000/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Consul
 </a>
       
     </h2>
@@ -790,7 +790,7 @@
             <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
         </li>
         <li>
-            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+            <a href="http://localhost:4000/feed.xml" target="_blank"><span class="rss">Feed</span></a>
         </li>
       </ul>
     </div>
@@ -804,7 +804,7 @@
       </footer>
     </div>
 
-    <script src="/assets/js/main.min.js"></script>
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
 
 
 
