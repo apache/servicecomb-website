@@ -36,8 +36,8 @@
 <meta property="og:title" content="Eventual Data Consistency Solution in ServiceComb - part 1">
 
 
-  <link rel="canonical" href="http://localhost:4000/docs/distributed_saga_1/">
-  <meta property="og:url" content="http://localhost:4000/docs/distributed_saga_1/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/distributed_saga_1/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/distributed_saga_1/">
 
 
 
@@ -48,7 +48,7 @@
   <meta name="twitter:site" content="@ServiceComb">
   <meta name="twitter:title" content="Eventual Data Consistency Solution in ServiceComb - part 1">
   <meta name="twitter:description" content="The background of data consistency problem in the scenario of microservice architecture">
-  <meta name="twitter:url" content="http://localhost:4000/docs/distributed_saga_1/">
+  <meta name="twitter:url" content="">
 
   
     <meta name="twitter:card" content="summary">
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://localhost:4000",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -99,7 +99,7 @@
 <!-- end SEO -->
 
 
-<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
 
 <!-- http://t.co/dKP3o1e -->
 <meta name="HandheldFriendly" content="True">
@@ -110,7 +110,7 @@
   document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
-<script src="http://localhost:4000/assets/vendor/prism/prism.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
 
 <script type="text/javascript" async
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css">
-<link rel="stylesheet" href="http://localhost:4000/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -146,7 +146,7 @@
 
 <!-- insert favicons. use http://realfavicongenerator.net/ -->
 <link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
-<script src="http://localhost:4000/assets/js/custom.js"></script>
+<script src="/assets/js/custom.js"></script>
 <!-- end custom head snippets -->
 
   </head>
@@ -161,7 +161,7 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
 	      
-          <a class="site-title active" href="http://localhost:4000/"><img src="https://www.apache.org/img/servicecomb.png"></a>
+          <a class="site-title active" href="/"><img src="https://www.apache.org/img/servicecomb.png"></a>
 	      
         <ul class="visible-links">
           
@@ -170,7 +170,7 @@
               
               
               
-                <a href="http://localhost:4000/docs/quick-start/">Quick Start</a>
+                <a href="/docs/quick-start/">Quick Start</a>
               
             </li>
           
@@ -179,7 +179,7 @@
               
               
               
-                <a href="http://localhost:4000/users/">Users</a>
+                <a href="/users/">Users</a>
               
             </li>
           
@@ -188,7 +188,7 @@
               
               
               
-                <a href="http://localhost:4000/developers/">Developers</a>
+                <a href="/developers/">Developers</a>
               
             </li>
           
@@ -197,7 +197,7 @@
               
               
               
-                <a href="http://localhost:4000/year-archive/">Blogs</a>
+                <a href="/year-archive/">Blogs</a>
               
             </li>
           
@@ -206,7 +206,7 @@
               
               
               
-                <a href="http://localhost:4000/faqs/">FAQ</a>
+                <a href="/faqs/">FAQ</a>
               
             </li>
           
@@ -215,7 +215,7 @@
               
               
               
-                <a href="http://localhost:4000/release/">Downloads</a>
+                <a href="/release/">Downloads</a>
               
             </li>
           
@@ -389,7 +389,7 @@ are successful to make a successful trip plan, or there will be no plan</strong>
 <p>This requirement is easily satisfied with our current monolithic application. We just had to wrap all the three bookings 
 in a single database transaction and they would all be done successfully or none was done.</p>
 
-<p><img src="http://localhost:4000/assets/images/saga.monolithic.png" alt="Monolithic Application" class="align-center" /></p>
+<p><img src="/assets/images/saga.monolithic.png" alt="Monolithic Application" class="align-center" /></p>
 
 <p>When this feature released, our business was happy, and our customer was happy.</p>
 
@@ -406,7 +406,7 @@ according to their own schedule to meet the market needs. But we face a new prob
 rule of bookings with all three services must be successful to make a trip plan? A service cannot just access another's
 database, because it violates the service boundary and services may not use the same database technology.</p>
 
-<p><img src="http://localhost:4000/assets/images/saga.service.boundary.png" alt="Service Boundary" class="align-center" /></p>
+<p><img src="/assets/images/saga.service.boundary.png" alt="Service Boundary" class="align-center" /></p>
 
 <h2 id="sagas">Sagas</h2>
 <p>We found a <a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">great paper</a> by Hector &amp; Kenneth on the Internet talking about data consistency issues and this paper mentioned 
@@ -421,7 +421,7 @@ database consistency. [<a href="https://www.cs.cornell.edu/andru/cs711/2002fa/re
 <p>In case of our business, a trip transaction is a saga which consists of four sub-transactions: flight booking, car rental, 
 hotel reservation, and payment.</p>
 
-<p><img src="http://localhost:4000/assets/images/saga.transactions.png" alt="Transactions" class="align-center" /></p>
+<p><img src="/assets/images/saga.transactions.png" alt="Transactions" class="align-center" /></p>
 
 <p>Saga is also described in <a href="http://www.chrisrichardson.net/">Chris Richardson</a>'s article: <a href="http://microservices.io/patterns/data/saga.html">Pattern: Saga</a>.</p>
 <blockquote>
@@ -560,7 +560,7 @@ next blog post.</p>
     
       
       
-      <a href="http://localhost:4000/tags/#saga" class="page__taxonomy-item" rel="tag">saga</a>
+      <a href="/tags/#saga" class="page__taxonomy-item" rel="tag">saga</a>
     
     </span>
   </p>
@@ -583,24 +583,24 @@ next blog post.</p>
     <h4 class="page__share-title">Share on</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Eventual Data Consistency Solution in ServiceComb - part 1 http://localhost:4000/docs/distributed_saga_1/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=Eventual Data Consistency Solution in ServiceComb - part 1 /docs/distributed_saga_1/" class="btn btn--twitter" title="Share on Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/docs/distributed_saga_1/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/docs/distributed_saga_1/" class="btn btn--facebook" title="Share on Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=http://localhost:4000/docs/distributed_saga_1/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=/docs/distributed_saga_1/" class="btn btn--google-plus" title="Share on Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/docs/distributed_saga_1/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/docs/distributed_saga_1/" class="btn btn--linkedin" title="Share on LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="http://localhost:4000/cn/docs/seckill-development-journey-part-III/" class="pagination--pager" title="秒杀开发历程（三）
+      <a href="/cn/docs/seckill-development-journey-part-III/" class="pagination--pager" title="秒杀开发历程（三）
 ">Previous</a>
     
     
-      <a href="http://localhost:4000/cn/docs/distributed_saga_1/" class="pagination--pager" title="ServiceComb中的数据最终一致性方案 - part 1
+      <a href="/cn/docs/distributed_saga_1/" class="pagination--pager" title="ServiceComb中的数据最终一致性方案 - part 1
 ">Next</a>
     
   </nav>
@@ -684,7 +684,7 @@ next blog post.</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://localhost:4000/cn/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Spring Cloud Eureka
+        <a href="/cn/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Spring Cloud Eureka
 </a>
       
     </h2>
@@ -713,7 +713,7 @@ next blog post.</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://localhost:4000/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Eureka
+        <a href="/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Eureka
 </a>
       
     </h2>
@@ -742,7 +742,7 @@ next blog post.</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://localhost:4000/cn/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Consul
+        <a href="/cn/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Consul
 </a>
       
     </h2>
@@ -771,7 +771,7 @@ next blog post.</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="http://localhost:4000/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Consul
+        <a href="/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Consul
 </a>
       
     </h2>
@@ -856,7 +856,7 @@ next blog post.</p>
             <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
         </li>
         <li>
-            <a href="http://localhost:4000/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
         </li>
       </ul>
     </div>
@@ -870,7 +870,7 @@ next blog post.</p>
       </footer>
     </div>
 
-    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+    <script src="/assets/js/main.min.js"></script>
 
 
 
