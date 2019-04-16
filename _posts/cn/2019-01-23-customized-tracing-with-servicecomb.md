@@ -65,9 +65,9 @@ public class CalculatorServiceImpl implements CalculatorService {
 使用限制：自定义跟踪仅支持注解请求线程中的方法调用，且带有`@Span`的类必须是spring管理的bean。
 ## 快速演示
 下面使用java-chassis/samples/bmi 程序演示，如何使用自定义追踪功能定位应用程序中的问题？
-1. 正常运行bmi程序，结果如下
-    ![正常结果](../../assets/images/zipkin/demo-bmi-run.png)
-	![zipkin正常追踪结果](../../assets/images/zipkin/zipkin-track-bmi.png)
+1. 正常运行bmi程序，结果如下  
+    ![正常结果]({{ site.url }}{{ site.baseurl }}/assets/images/zipkin/demo-bmi-run.png)
+    ![zipkin正常追踪结果]({{ site.url }}{{ site.baseurl }}/assets/images/zipkin/zipkin-track-bmi.png)
 2. 在bmi程序的calculator服务的calculate方法处，增加一块进程休眠代码（模拟实际工作中调用当前线程处理其他业务的情景），如下
 	```java
 	public double calculate(double height, double weight) {
@@ -87,13 +87,13 @@ public class CalculatorServiceImpl implements CalculatorService {
 	  }
 
 	```
-3. 运行bmi程序，出现如下异常结果。查看zipkin追踪情况和程序报错信息，可以初步确定问题由 bmi/calculator 服务超时未响应导致
-    ![异常结果](../../assets/images/zipkin/demo-bmi-run-error.png)     	
-    ![zipkin追踪情况](../../assets/images/zipkin/zipkin-track-bmi-error.png)
-    ![程序报错信息](../../assets/images/zipkin/error-message.png)
+3. 运行bmi程序，出现如下异常结果。查看zipkin追踪情况和程序报错信息，可以初步确定问题由 bmi/calculator 服务超时未响应导致  
+    ![异常结果]({{ site.url }}{{ site.baseurl }}/assets/images/zipkin/demo-bmi-run-error.png)     	
+    ![zipkin追踪情况]({{ site.url }}{{ site.baseurl }}/assets/images/zipkin/zipkin-track-bmi-error.png)
+    ![程序报错信息]({{ site.url }}{{ site.baseurl }}/assets/images/zipkin/error-message.png)
 4. 使用自定义追踪功能，定位问题具体位置
 	在calculator服务中配置自定义追踪功能，添加注解 `@Span`在calculator服务的方法上 。运行bmi程序，zipkin追踪耗时情况如下。根据span占用的时间戳，可以确定延时问题出现在calculate方法处，点击span，可查看call.path 获取calculate方法的具体位置。
-	![zipkin追踪异常情况](../../assets/images/zipkin/zipkin-customized-track-bmi.png)
-	![span信息信息](../../assets/images/zipkin/zipkin-track-span.png)
+	![zipkin追踪异常情况]({{ site.url }}{{ site.baseurl }}/assets/images/zipkin/zipkin-customized-track-bmi.png)
+	![span信息信息]({{ site.url }}{{ site.baseurl }}/assets/images/zipkin/zipkin-track-span.png)
 ## 总结
 从上面的示例可以看出，通过配置ServiceComb的自定义追踪功能，可以实现对服务中调用方法、接口的追踪，实现更细力度化的追踪。这对于我们监控服务内部调用、定位服务中的延时问题等非常有帮助。
