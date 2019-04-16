@@ -8,18 +8,26 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 ---
 
         Release Notes - Apache ServiceComb - Version service-center-1.2.0
-            
+
 <h2>        Bug
 </h2>
 <ul>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1050'>SCB-1050</a>] -         Metrics cache does not clean
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-1059'>SCB-1059</a>] -         Bug fixes for v1.1.0
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1059'>SCB-1059</a>] -         Unexpected events publish if error occurs in previous list-watch loop
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1059'>SCB-1059</a>] -         Re-register instance does not keep alive the lease
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1059'>SCB-1059</a>] -         Use the raw password if decrypt failed
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1059'>SCB-1059</a>] -         Should not show the shared microservices by default
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1059'>SCB-1059</a>] -         Add grpc keepalive time
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1069'>SCB-1069</a>] -         Wrong response of batch delete microservices API
 </li>
 </ul>
-        
+
 <h2>        New Feature
 </h2>
 <ul>
@@ -28,7 +36,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1087'>SCB-1087</a>] -         Add View Schema Option in Schema Details Page
 </li>
 </ul>
-        
+
 <h2>        Improvement
 </h2>
 <ul>
@@ -41,17 +49,17 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1092'>SCB-1092</a>] -         More abundant metrics information
 </li>
 </ul>
-            
+
 <h2>        Task
 </h2>
 <ul>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1219'>SCB-1219</a>] -         Prepare 1.2.0 Release
 </li>
 </ul>
-                                                                                                                                        
+
 
         Release Notes - Apache ServiceComb - Version service-center-1.1.0
-            
+
 <h2>        Bug
 </h2>
 <ul>
@@ -98,7 +106,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1027'>SCB-1027</a>] -         Fix the core dump in SC which compiled with go1.10+
 </li>
 </ul>
-        
+
 <h2>        New Feature
 </h2>
 <ul>
@@ -117,7 +125,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-949'>SCB-949</a>] -         Support access distinct kubernetes clusters
 </li>
 </ul>
-        
+
 <h2>        Improvement
 </h2>
 <ul>
@@ -131,7 +139,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-797'>SCB-797</a>] -         More information in dump API
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-807'>SCB-807</a>] -         Limit the topology view to only 100 microservices. 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-807'>SCB-807</a>] -         Limit the topology view to only 100 microservices.
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-808'>SCB-808</a>] -         Aut-refresh the dashboard and service-list page every 10sec
 </li>
@@ -166,7 +174,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1015'>SCB-1015</a>] -         Support the forth microservice version number registration
 </li>
 </ul>
-            
+
 <h2>        Task
 </h2>
 <ul>
@@ -181,11 +189,11 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1033'>SCB-1033</a>] -         Update license for Service-Center
 </li>
 </ul>
-                                                                                                                                        
-                                                                                                                                        
+
+
 
         Release Notes - Apache ServiceComb - Version Service-Center-1.0.0
-    
+
 
 #### New Features/Improvements:
  - Make ETCD connection more Resilient
@@ -196,7 +204,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
  - Use glide for dependency management
  - Add release binaries for MacOS
  - Add Toplogy View and Instance View in UI
- 
+
 
 #### Bug-Fix:
  - Fix connection leak in etcd
@@ -207,7 +215,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 
         Release Notes - Apache ServiceComb - Version Service-Center-1.0.0-m2
-    
+
 
 #### API Changes :
 * Governance API also returns self microservice information.
@@ -247,7 +255,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 
         Release Notes - Apache ServiceComb - Version Service-Center-1.0.0-m1
-    
+
 
 #### API Changes :
  * Added new API to get All Schema List.
@@ -261,10 +269,10 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 * Update the default quota’s limit of service/instance count.
 * Update black-list rule controls in discovery.
 
-#### Metrics : 
+#### Metrics :
 * Added support for Prometheus metrics exposure.
 * Added templates for Grafana Dashboard.
-            
+
 #### Optimization:
 * Optimized Restful clients and plugins loader.
 * Optimized Service-Count calculation rule.
@@ -275,4 +283,4 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 * Fix modify schema response issue and heart-beat failure when etcd has no leader.
 * Fix batch delete api to exempt from unregistering service-center microservice.
 * Fix watcher wrong event sequence when SC modify resource concurrently
-* Fix discovery of default APP services in Shared service mode 
+* Fix discovery of default APP services in Shared service mode
