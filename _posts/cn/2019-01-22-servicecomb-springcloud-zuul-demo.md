@@ -16,7 +16,7 @@ redirect_from:
 ### 场景
 本文将以一个简单的Hello服务演示网关的使用。Hello微服务提供一个hello/{name}接口，只要传递路径参数name就可以返回打招呼内容。接口返回结果通过网关将在浏览器界面显示
 
-![在这里插入图片描述](../../assets/images/zuul/demo-theory.png)
+![在这里插入图片描述]({{ site.url }}{{ site.baseurl }}/assets/images/zuul/demo-theory.png)
 
 ### 技术准备
 [ServiceComb](http://servicecomb.apache.org/cn/docs/quick-start/) 作为后端微服务核心框架   
@@ -35,13 +35,13 @@ redirect_from:
 ServiceCenter安装  
 下载地址：http://mirrors.hust.edu.cn/apache/servicecomb/servicecomb-service-center/1.1.0/apache-servicecomb-service-center-1.1.0-windows-amd64.tar.gz
 下载后解压如下
-![在这里插入图片描述](../../assets/images/zuul/demo-dir.png)
+![在这里插入图片描述]({{ site.url }}{{ site.baseurl }}/assets/images/zuul/demo-dir.png)
 
 在该目录下双击service-center.exe即可启动，命令窗口中出现如下信息基本代表ServiceCenter启动成功，从这个信息也可以得知ServiceCenter监听的是30100端口，等下配置文件要用到。
-![在这里插入图片描述](../../assets/images/zuul/demo-servicecenter-console1.png)
+![在这里插入图片描述]({{ site.url }}{{ site.baseurl }}/assets/images/zuul/demo-servicecenter-console1.png)
 
 问题点： 有可能会有如下信息，这个一般是端口被占用，很可能你打开了两个ServiceCenter，都关闭后再打开就可以了。
-![在这里插入图片描述](../../assets/images/zuul/demo-servicecenter-console2.png)
+![在这里插入图片描述]({{ site.url }}{{ site.baseurl }}/assets/images/zuul/demo-servicecenter-console2.png)
 
 
 
@@ -171,7 +171,7 @@ public class HelloController {
 
 ##### 4. 启动
 到此，一个微服务就写完了，如下在IDEA里面直接启动应用
-![在这里插入图片描述](../../assets/images/zuul/demo-helloservice-start.png)
+![在这里插入图片描述]({{ site.url }}{{ site.baseurl }}/assets/images/zuul/demo-helloservice-start.png)
 
 
 
@@ -196,21 +196,21 @@ public class HelloController {
             <artifactId>spring-boot-starter</artifactId>
             <version>1.5.12.RELEASE</version>
         </dependency>
-      
+
         <!-- ServiceComb框架，提供基础能力 -->
         <dependency>
             <groupId>org.apache.servicecomb</groupId>
             <artifactId>spring-boot-starter-servicecomb</artifactId>
             <version>1.1.0</version>
         </dependency>
-        
+
         <!-- ServiceComb与SpringCloud Zuul的集成框架 -->
         <dependency>
             <groupId>org.apache.servicecomb</groupId>
             <artifactId>spring-boot-starter-discovery</artifactId>
             <version>1.1.0</version>
         </dependency>
-        
+
         <!-- SpringCloud Zuul框架 -->
         <dependency>
             <groupId>org.apache.servicecomb</groupId>
@@ -267,7 +267,7 @@ servicecomb:
 ```
 
 ##### 3.项目入口
-新建启动类 ZuulApplication.java 
+新建启动类 ZuulApplication.java
 ```java
 package com.servicecomb.example;
 
@@ -343,14 +343,14 @@ public class ZuulApplication {
 ```
 ##### 4. 启动
 到此，网关服务器写完，如下在IDEA里面直接启动应用
-![在这里插入图片描述](../../assets/images/zuul/demo-zuulservice-start.jpg)
+![在这里插入图片描述]({{ site.url }}{{ site.baseurl }}/assets/images/zuul/demo-zuulservice-start.jpg)
 
 
 #### 三. 演示效果
 浏览器访问http://localhost:8080/ ，如下图。
 在输入框中输入姓名，就可以在下面看到打招呼的信息
 
-![在这里插入图片描述](../../assets/images/zuul/demo-run.png)
+![在这里插入图片描述]({{ site.url }}{{ site.baseurl }}/assets/images/zuul/demo-run.png)
 
 
 ### 总结
