@@ -61,7 +61,7 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | tuohai666         | Zhang Yonglun          | JD.com       |
 | vibakar           |                        |              |
 | weichao666        | Wei Chao               | ISoftStone   |
-| withLin           | Xiao Fu                |              |
+| withLin           | Fu JinLin              |              |
 | wuzunqian         | Wu Zunqian             | Yongyou      |
 | xuyiyun0929       | Xu Yiyun               |              |
 | xiaoyimei         | Xiao Yimei             | Changhong    |
