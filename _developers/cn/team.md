@@ -59,7 +59,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | tuohai666         | Zhang Yonglun          | JD.com       |
 | vibakar           |                        |              |
 | weichao666        | Wei Chao               | ISoftStone   |
-| withLin           | Xiao Fu                |              |
+| withLin           | Fu JinLin              |              |
 | wuzunqian         | Wu Zunqian             | Yongyou      |
 | xuyiyun0929       | Xu Yiyun               |              |
 | xiaoyimei         | Xiao Yimei             | Changhong    |
