@@ -19,7 +19,7 @@ To prepare or perform a released you MUST BE at least an Apache ServiceComb comm
 
 1. The CI for the project should be green.
 2. Should have the version number for the project.
-3. Should have Sign Key for signing the release, the keys should be published to public key server.
+3. Should have [Sign Key](https://www.apache.org/dev/openpgp.html#generate-key) for [signing the release](https://www.apache.org/dev/release-signing), the keys should be published to public key server.
 4. Get familiar with the release settings in the parent Apache POM
 
 ## Maven 2 Setup
@@ -105,7 +105,7 @@ gvt restore
 
 ***Sign the Release***
 
-1. Once the tag is pushed then using the tag download the source code from git [tag](https://github.com/apache/servicecomb-service-center/tags). 
+1. Once the tag is pushed then using the tag download the source code from git [tag](https://github.com/apache/servicecomb-service-center/tags).
 
 2. Sign the 4 releases(linux, windows, darwin, src) and checksum.
 
