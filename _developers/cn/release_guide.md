@@ -19,7 +19,7 @@ redirect_from:
 
 1. 项目CI应该是正常的（绿色的）。
 2. 确定相关的项目版本号。
-3. 因为发版的过程中需要签名，请确保签名用密钥对应公钥已经发布到公开公钥服务器。
+3. 因为发版的过程中需要使用[私钥](https://www.apache.org/dev/openpgp.html#generate-key)对[发布版本进行签名](https://www.apache.org/dev/release-signing)，请确保签名用密钥对应公钥已经发布到公开公钥服务器。
 4. 熟悉POM文件中版本发行相关的设置。
 
 ## 配置Maven
@@ -129,7 +129,7 @@ gvt restore
 
 21. 等待24小时，让所有镜像同步。
 
-22. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
+22. 将[dev](https://dist.apache.org/repos/dist/dev)的文件移动到[release](https://dist.apache.org/repos/dist/release)目录中，同时确认已经被存档,同时更新网站上相关链接。
 
 23. 上传发行页面至ServiceComb网站。
 
@@ -201,7 +201,7 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 
 24. 等待24小时，让所有镜像同步。
 
-25. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
+25. 将[dev](https://dist.apache.org/repos/dist/dev)的文件移动到[release](https://dist.apache.org/repos/dist/release)目录中，同时确认已经被存档,同时更新网站上相关链接。
 
 26. 上传发行页面至ServiceComb网站。
 
@@ -272,7 +272,7 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 
 24. 等待24小时，让所有镜像同步。
 
-25. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
+25. 将[dev](https://dist.apache.org/repos/dist/dev)的文件移动到[release](https://dist.apache.org/repos/dist/release)目录中，同时确认已经被存档,同时更新网站上相关链接。
 
 26. 上传发行页面至ServiceComb网站。
 
