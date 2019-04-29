@@ -19,7 +19,7 @@ redirect_from:
 
 1. 项目CI应该是正常的（绿色的）。
 2. 确定发布版本号。
-3. 因为发版的过程中需要使用[密钥](https://www.apache.org/dev/openpgp.html#generate-key)对[发布版本进行签名](https://www.apache.org/dev/release-signing)，请确保密钥中的公钥已经发布到公开公钥服务器(https://www.apache.org/dev/openpgp.html#publish-in-web-space)。
+3. 因为发版的过程中需要使用[密钥](https://www.apache.org/dev/openpgp.html#generate-key)对[发布版本进行签名](https://www.apache.org/dev/release-signing)，请确保密钥中的公钥已经[发布](https://www.apache.org/dev/openpgp.html#publish-in-web-space)到公钥服务器。
 4. 熟悉maven版本发行相关的设置。
 
 ## 配置Maven
@@ -50,7 +50,6 @@ ServiceComb Java-Chassis和Saga使用Maven进行版本发布，我们需要在�
         <test>false</test>
       </properties>
     </profile>
-
   </profiles>
 ...
 </settings>
@@ -121,7 +120,14 @@ gvt restore
 
 ***准备和校验发行包***
 
-1. 如果`~/.ssh`中没有GPG密钥文件，则将GPG密钥文件拷贝至`~/.ssh`文件夹。
+1. 如果`~/.gnupg`中没有GPG密钥文件，则将GPG密钥文件拷贝至`~/.gnupg`文件夹。
+  ```
+  gpg.conf
+  pubring.gpg
+  random_seed
+  secring.gpg
+  trustdb.gpg
+  ```
 
 2. 更新`~/.m2/settings.xml`文件中的GPG密码。
 
@@ -141,7 +147,7 @@ find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 
 7. 运行以下命令
 ```
-mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 ```
 
 8. 如果执行失败，需要解决问题，从步骤7重新开始。
