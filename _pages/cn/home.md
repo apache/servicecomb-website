@@ -20,7 +20,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/cn/release/pack-downloads/'>Apache ServiceComb Pack 发布式版 0.4.0</a>
+    <a href='/cn/release/'>Apache ServiceComb Java-Chassis 1.2.1 is released</a>
   </li>
   <li>
     <a href='/cn/release/saga-downloads/'>Apache ServiceComb Saga 发布最新版 0.2.1</a>
