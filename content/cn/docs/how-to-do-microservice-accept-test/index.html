@@ -1,0 +1,1107 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>如何给微服务架构的项目做验收测试？ - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="本文将介绍如何给微服务架构的项目做验收测试">
+
+
+
+
+<meta name="author" content="Daniel Qian">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="如何给微服务架构的项目做验收测试？">
+
+
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/how-to-do-microservice-accept-test/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/how-to-do-microservice-accept-test/">
+
+
+
+  <meta property="og:description" content="本文将介绍如何给微服务架构的项目做验收测试">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="如何给微服务架构的项目做验收测试？">
+  <meta name="twitter:description" content="本文将介绍如何给微服务架构的项目做验收测试">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-07-04T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/docs/quick-start/">快速入门</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/users/">用户手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/developers/">开发者手册</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/year-archive/">博文</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/faqs/">常见问题</a>
+              
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              
+              
+              
+                <a href="/cn/release/">下载</a>
+              
+            </li>
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/how-to-do-microservice-accept-test/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home">首页 > <a href="/cn/">ServiceComb</a></div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name">Qian Jia</h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        Opensource change the world
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+
+      
+        <li>
+          <a href="https://github.com/chanjarster" itemprop="url">
+            <i class="fa fa-fw fa-chain" aria-hidden="true"></i> 网站
+          </a>
+        </li>
+      
+
+      
+        <li>
+          <a href="mailto:chanjarster@gmail.com">
+            <meta itemprop="email" content="chanjarster@gmail.com" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="如何给微服务架构的项目做验收测试？">
+    <meta itemprop="description" content="本文将介绍如何给微服务架构的项目做验收测试">
+    <meta itemprop="datePublished" content="July 04, 2019">
+    <meta itemprop="dateModified" content="July 04, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">如何给微服务架构的项目做验收测试？
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <h3 id="如何给微服务架构的项目做验收测试">如何给微服务架构的项目做验收测试？</h3>
+
+<p>基于微服务架构的应用相对于单体架构的应用而言在验收测试阶段具有以下挑战：</p>
+
+<ol>
+  <li>复数的服务增加了测试环境搭建的难度</li>
+  <li>各种异常情况的模拟变得困难，基于Mock的测试方式无法对整个调用链路作异常模拟，进而使得对整体架构的健壮性测试变得困难</li>
+  <li>基于成本和效率的原因，测试工作已经不适合通过人工完成</li>
+</ol>
+
+<p>我们认为对基于微服务架构的应用的验收测试应该具有以下特征：</p>
+
+<ol>
+  <li>自动化、可重复、易于和CI工具集成</li>
+  <li>能够在测试运行时修改服务的行为</li>
+</ol>
+
+<p>下面将就一个Demo来介绍如何利用 <a href="https://www.docker.com/">Docker [1]</a>、<a href="https://cucumber.io/">Cucumber [2]</a>、<a href="https://byteman.jboss.org/">Byteman [3]</a>、<a href="https://dmp.fabric8.io/">Fabric8 docker-maven-plugin [4]</a>、<a href="https://github.com/spotify/dockerfile-maven">Spotify dockerfile-maven-plugin [5]</a>达成以上目标。</p>
+
+<h3 id="demo介绍">Demo介绍</h3>
+
+<p>一共有两个服务Product Service（商品服务）和Product Price Service（商品价格服务），Product Service提供了一个查询接口用于获得商品信息及其价格信息的组合结果，这相当于跨服务的SQL JOIN。</p>
+
+<p>下面是Product的Schema：</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>下面是ProductPrice的Schema：</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;number&gt;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>Product Service返回的Schema则是：</p>
+
+<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nt">"products"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;string&gt;"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"price"</span><span class="p">:</span><span class="w"> </span><span class="err">&lt;number&gt;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+</div>
+
+<p>该接口的实现逻辑是：</p>
+
+<ol>
+  <li>Product Service本地查询得到Product List</li>
+  <li>Product Service调用Product Price Service接口得到ProductPrice List</li>
+  <li>拼装结果</li>
+</ol>
+
+<p>此外还有一个要求，当Product Price Service出现异常时，Product Service依然要能够返回结果，只不过<code class="highlighter-rouge">price</code>字段为<code class="highlighter-rouge">null</code>，即无论如何Product Service都要能够返回结果。</p>
+
+<h3 id="实现步骤">实现步骤</h3>
+
+<h4 id="构建docker-image">构建Docker Image</h4>
+
+<p>为了能够便利地搭建测试环境，我们需要先为Product Servcie和Product Price Service构建Docker Image。利用<a href="https://github.com/spotify/dockerfile-maven">Spotify dockerfile-maven-plugin [5]</a>可以很方便地做到这一点，它没有引入额外的概念，只要你会写<a href="https://docs.docker.com/engine/reference/builder/">Dockerfile [6]</a>就行。我们在Product Service和Producer Price Service的<code class="highlighter-rouge">pom.xml</code>中添加类似以下的配置：</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>com.spotify<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>dockerfile-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>${dockerfile-maven-plugin.version}<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;repository&gt;</span>msat-${project.artifactId}<span class="nt">&lt;/repository&gt;</span>
+    <span class="nt">&lt;tag&gt;</span>${project.version}<span class="nt">&lt;/tag&gt;</span>
+    <span class="nt">&lt;buildArgs&gt;</span>
+      <span class="nt">&lt;JAR_FILE&gt;</span>${project.build.finalName}-exec.${project.packaging}<span class="nt">&lt;/JAR_FILE&gt;</span>
+    <span class="nt">&lt;/buildArgs&gt;</span>
+  <span class="nt">&lt;/configuration&gt;</span>
+  <span class="nt">&lt;executions&gt;</span>
+    <span class="nt">&lt;execution&gt;</span>
+      <span class="nt">&lt;id&gt;</span>build<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;phase&gt;</span>package<span class="nt">&lt;/phase&gt;</span>
+      <span class="nt">&lt;goals&gt;</span>
+        <span class="nt">&lt;goal&gt;</span>build<span class="nt">&lt;/goal&gt;</span>
+      <span class="nt">&lt;/goals&gt;</span>
+    <span class="nt">&lt;/execution&gt;</span>
+  <span class="nt">&lt;/executions&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre>
+</div>
+
+<p>并且提供了Dockerfile：</p>
+
+<pre><code class="language-txt">FROM openjdk:8-jre-alpine
+ARG JAR_FILE
+ENV JAR_FILE=${JAR_FILE}
+RUN mkdir /maven
+COPY target/${JAR_FILE} /maven
+COPY target/lib/byteman.jar /maven
+ENTRYPOINT java $JAVA_OPTS -jar /maven/$JAR_FILE
+EXPOSE 8080
+</code></pre>
+
+<p>注意我们在Image中添加了byteman.jar，利用它我们可以在运行时修改程序的行为。</p>
+
+<h4 id="编写验收测试脚本">编写验收测试脚本</h4>
+
+<p>我们新建一个验收测试的Maven项目，然后使用<a href="https://cucumber.io/">Cucumber [2]</a>编写了以下两个场景的验收测试脚本：</p>
+
+<p>正常情况：</p>
+
+<pre><code class="language-txt">Feature: List product information with price
+
+  Scenario: Everything is good
+    Given Product Service is up and running
+    And Product Price Service is up and running
+
+    When User query product list
+
+    Then Get following products
+
+      | id       | name | description            | price |
+      | animal-1 | dog  | woof woof              | 1000  |
+      | animal-2 | duck | quack quack            | 40    |
+      | animal-3 | fox  | what does the fox say? | 5000  |
+</code></pre>
+
+<p>这个脚本的大致意思是在Product Service和Product Price Service都启动的情况下，当用户查询Product信息时，我们会得到上述表格中的结果。</p>
+
+<p>Product Price Service异常情况：</p>
+
+<pre><code class="language-txt">Feature: List product information with price
+
+  Scenario: Product Price Service throws exception when being queried
+    Given Product Service is up and running
+    And Product Price Service is up and running
+
+    Given Install the byteman script product_price_exception.btm to Product Price Service
+
+    When User query product list
+
+    Then Get following products
+
+      | id       | name | description            | price |
+      | animal-1 | dog  | woof woof              |       |
+      | animal-2 | duck | quack quack            |       |
+      | animal-3 | fox  | what does the fox say? |       |
+</code></pre>
+
+<p>注意到我们在这里使用了<a href="https://byteman.jboss.org/">Byteman [3]</a>注入了异常情况给Product Price Service：</p>
+
+<pre><code class="language-txt">Given Install the byteman script product_price_exception.btm to Product Price Service
+</code></pre>
+
+<p><code class="highlighter-rouge">product_price_exception.btm</code>的内容是这样的：</p>
+
+<pre><code class="language-txt">RULE throw exception
+CLASS me.chanjar.msat.productprice.FakeProductPriceRepository
+METHOD listAll
+AT ENTRY
+IF TRUE
+DO debug("throw RuntimeException here"),
+   throw new RuntimeException("Product Repository Error!")
+ENDRULE
+</code></pre>
+
+<p>意思是在调用<code class="highlighter-rouge">FakeProductPriceRepository.listAll</code>方法时抛出异常，注意这样做并没有修改Product Price Service的源码，而是在运行时修改了它的逻辑。</p>
+
+<p>接下来我们为上面的验收测试脚本实现逻辑（下面代码与实际上有所不同，这是为了尽量使得代码篇幅精简）：</p>
+
+<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Stepdefs</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">answer</span><span class="o">;</span>
+
+  <span class="nd">@Given</span><span class="o">(</span><span class="s">"^Product Service is up and running$"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">productServiceIsUpAndRunning</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">probe</span><span class="o">(</span><span class="s">"Product Service"</span><span class="o">,</span> <span class="n">PRODUCT_ADDRESS</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@And</span><span class="o">(</span><span class="s">"^Product Price Service is up and running$"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">productPriceServiceIsUpAndRunning</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">probe</span><span class="o">(</span><span class="s">"Product Price Service"</span><span class="o">,</span> <span class="n">PRODUCT_PRICE_ADDRESS</span><span class="o">);</span>
+    <span class="n">clearBytemanScript</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="nd">@When</span><span class="o">(</span><span class="s">"^User query product list$"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">queryProductList</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="n">given</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">when</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">PRODUCT_ADDRESS</span> <span class="o">+</span> <span class="s">"/products"</span><span class="o">)</span>
+      <span class="o">.</span><span class="na">then</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">statusCode</span><span class="o">(</span><span class="n">is</span><span class="o">(</span><span class="mi">200</span><span class="o">))</span>
+      <span class="o">.</span><span class="na">extract</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">body</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">jsonPath</span><span class="o">()</span>
+      <span class="o">.</span><span class="na">getList</span><span class="o">(</span><span class="s">"products"</span><span class="o">,</span> <span class="n">Map</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Given</span><span class="o">(</span><span class="s">"^Install the byteman script ([A-Za-z0-9_\\.]+) to Product Price Service$"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">injectExceptionIntoProductPriceService</span><span class="o">(</span><span class="n">String</span> <span class="n">bytemanScript</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">injectBytemanScript</span><span class="o">(</span><span class="s">"target/test-classes/"</span> <span class="o">+</span> <span class="n">bytemanScript</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Then</span><span class="o">(</span><span class="s">"^Get following products$"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">compareResult</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;&gt;</span> <span class="n">expected</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">assertThat</span><span class="o">(</span><span class="n">answer</span><span class="o">).</span><span class="na">containsExactlyInAnyOrderElementsOf</span><span class="o">(</span><span class="n">expected</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre>
+</div>
+
+<p>关于<a href="https://cucumber.io/">Cucumber [2]</a>和<a href="https://byteman.jboss.org/">Byteman [3]</a>的更详细的介绍可以见<a href="https://servicecomb.apache.org/cn/docs/saga_with_cucumber/">ServiceComb Saga使用Cucumber做验收测试源码分析 [7]</a>。</p>
+
+<h4 id="自动化搭建测试环境">自动化搭建测试环境</h4>
+
+<p>我们希望能够在Maven的<code class="highlighter-rouge">integration-test</code> 阶段搭建测试环境、执行上述验收测试脚本。在<code class="highlighter-rouge">pom.xml</code>中添加到<a href="https://dmp.fabric8.io/">Fabric8 docker-maven-plugin [4]</a>：</p>
+
+<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>io.fabric8<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>docker-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;showLogs&gt;</span>true<span class="nt">&lt;/showLogs&gt;</span>
+    <span class="nt">&lt;images&gt;</span>
+      <span class="nt">&lt;image&gt;</span>
+        <span class="nt">&lt;name&gt;</span>msat-product:${project.version}<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;alias&gt;</span>msat-product<span class="nt">&lt;/alias&gt;</span>
+        <span class="nt">&lt;run&gt;</span>
+          <span class="nt">&lt;wait&gt;</span>
+            <span class="nt">&lt;log&gt;</span>Started [a-zA-Z]+ in [0-9.]+ seconds<span class="nt">&lt;/log&gt;</span>
+            <span class="nt">&lt;time&gt;</span>120000<span class="nt">&lt;/time&gt;</span>
+          <span class="nt">&lt;/wait&gt;</span>
+          <span class="nt">&lt;links&gt;</span>
+            <span class="nt">&lt;link&gt;</span>msat-product-price:msat-product-price<span class="nt">&lt;/link&gt;</span>
+          <span class="nt">&lt;/links&gt;</span>
+          <span class="nt">&lt;ports&gt;</span>
+            <span class="nt">&lt;port&gt;</span>product.port:8080<span class="nt">&lt;/port&gt;</span>
+          <span class="nt">&lt;/ports&gt;</span>
+        <span class="nt">&lt;/run&gt;</span>
+      <span class="nt">&lt;/image&gt;</span>
+      <span class="nt">&lt;image&gt;</span>
+        <span class="nt">&lt;name&gt;</span>msat-product-price:${project.version}<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;alias&gt;</span>msat-product-price<span class="nt">&lt;/alias&gt;</span>
+        <span class="nt">&lt;run&gt;</span>
+          <span class="nt">&lt;env&gt;</span>
+            <span class="nt">&lt;JAVA_OPTS&gt;</span>
+              -Dorg.jboss.byteman.debug=true -Dorg.jboss.byteman.verbose=true
+              -javaagent:/maven/byteman.jar=port:9091,address:0.0.0.0,listener:true
+            <span class="nt">&lt;/JAVA_OPTS&gt;</span>
+          <span class="nt">&lt;/env&gt;</span>
+          <span class="nt">&lt;wait&gt;</span>
+            <span class="nt">&lt;log&gt;</span>Started [a-zA-Z]+ in [0-9.]+ seconds<span class="nt">&lt;/log&gt;</span>
+            <span class="nt">&lt;time&gt;</span>120000<span class="nt">&lt;/time&gt;</span>
+          <span class="nt">&lt;/wait&gt;</span>
+          <span class="nt">&lt;ports&gt;</span>
+            <span class="nt">&lt;port&gt;</span>product-price.port:8080<span class="nt">&lt;/port&gt;</span>
+            <span class="nt">&lt;port&gt;</span>product-price.byteman.port:9091<span class="nt">&lt;/port&gt;</span>
+          <span class="nt">&lt;/ports&gt;</span>
+        <span class="nt">&lt;/run&gt;</span>
+      <span class="nt">&lt;/image&gt;</span>
+    <span class="nt">&lt;/images&gt;</span>
+  <span class="nt">&lt;/configuration&gt;</span>
+  <span class="nt">&lt;executions&gt;</span>
+    <span class="nt">&lt;execution&gt;</span>
+      <span class="nt">&lt;id&gt;</span>start<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;phase&gt;</span>pre-integration-test<span class="nt">&lt;/phase&gt;</span>
+      <span class="nt">&lt;goals&gt;</span>
+        <span class="nt">&lt;goal&gt;</span>start<span class="nt">&lt;/goal&gt;</span>
+      <span class="nt">&lt;/goals&gt;</span>
+    <span class="nt">&lt;/execution&gt;</span>
+    <span class="nt">&lt;execution&gt;</span>
+      <span class="nt">&lt;id&gt;</span>stop<span class="nt">&lt;/id&gt;</span>
+      <span class="nt">&lt;phase&gt;</span>post-integration-test<span class="nt">&lt;/phase&gt;</span>
+      <span class="nt">&lt;goals&gt;</span>
+        <span class="nt">&lt;goal&gt;</span>stop<span class="nt">&lt;/goal&gt;</span>
+      <span class="nt">&lt;/goals&gt;</span>
+    <span class="nt">&lt;/execution&gt;</span>
+  <span class="nt">&lt;/executions&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre>
+</div>
+
+<p>这样一来就能够在<code class="highlighter-rouge">pre-integration-test</code>阶段启动容器，在<code class="highlighter-rouge">post-integration-test</code>阶段销毁容器了。</p>
+
+<h4 id="take-a-run">Take a run</h4>
+
+<p>接下来只需要<code class="highlighter-rouge">mvn clean install</code>它就会：</p>
+
+<ol>
+  <li>构建：
+    <ol>
+      <li>构建Product Service项目，并为其构建Docker Image</li>
+      <li>构建Product Price Service项目，并为其构建Docker Image</li>
+    </ol>
+  </li>
+  <li>验收测试：
+    <ol>
+      <li>启动Product Service和Product Price Service的容器</li>
+      <li>执行验收测试脚本</li>
+      <li>销毁上述创建的容器</li>
+    </ol>
+  </li>
+</ol>
+
+<p>如果你想自己试试可以下载<a href="https://github.com/chanjarster/microservice-acceptance-test-demo">本项目源码[8]</a>。</p>
+
+<p>欢迎开发者朋友们加入ServiceComb社区，一起做些有意思的事情。<a href="http://servicecomb.incubator.apache.org/cn/docs/join_the_community/">加入社区方法[9]</a></p>
+
+<h3 id="参考资料">参考资料</h3>
+
+<p>[1] Docker https://www.docker.com/</p>
+
+<p>[2] Cucumber https://cucumber.io/</p>
+
+<p>[3] Byteman  https://byteman.jboss.org/</p>
+
+<p>[4] Fabric8 docker-maven-plugin  https://dmp.fabric8.io/</p>
+
+<p>[5] Spotify dockerfile-maven-plugin https://github.com/spotify/dockerfile-maven</p>
+
+<p>[6] Dockerfile https://docs.docker.com/engine/reference/builder/</p>
+
+<p>[7] ServiceComb Saga使用Cucumber做验收测试源码分析 https://servicecomb.apache.org/cn/docs/saga_with_cucumber/</p>
+
+<p>[8] 本项目源码 https://github.com/chanjarster/microservice-acceptance-test-demo</p>
+
+<p>[9] 加入Servicecomb社区  http://servicecomb.incubator.apache.org/cn/docs/join_the_community/</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#%E5%BE%AE%E6%9C%8D%E5%8A%A1" class="page__taxonomy-item" rel="tag">微服务</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2019-07-04">2019年7月4日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=如何给微服务架构的项目做验收测试？ /cn/docs/how-to-do-microservice-accept-test/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/how-to-do-microservice-accept-test/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/how-to-do-microservice-accept-test/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/how-to-do-microservice-accept-test/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/Apache-ServiceComb-Meetup-2019-Shanghai-KubeCon+CloudNative+OSS-Report/" class="pagination--pager" title="Apache ServiceComb Meetup - Shanghai 2019.06.24 Report (PPT Download)
+">向前</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="how-to-do-microservice-accept-test">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/Apache-ServiceComb-Meetup-2019-Shanghai-KubeCon+CloudNative+OSS-Report/" rel="permalink">Apache ServiceComb Meetup - Shanghai 2019.06.24 Report (PPT Download)
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb Meetup
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Spring Cloud Eureka
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">ServiceComb Pack 集成发现服务 Eureka
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/servicecomb-pack-eureka/" rel="permalink">ServiceComb Pack 0.4.0 Integrated Discovery Service : Eureka
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">ServiceComb Pack Integrated Discovery Service Eurek
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/servicecomb-pack-consul/" rel="permalink">ServiceComb Pack 0.4.0 集成发现服务 : Consul
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">ServiceComb Pack 集成发现服务 Consul
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/cn/2019-07-04-how-to-do-microservice-accept-test.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>
