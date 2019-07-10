@@ -1,5 +1,5 @@
 ---
-title: "Apache ServiceComb Meetup - Shanghai 2019.06.24 Report (PPT Download)"
+title: "Apache ServiceComb Meetup - Shanghai 2019.06.24 Report (PDF Download)"
 lang: cn
 ref: Apache-ServiceComb-Meetup-2019-Shanghai-KubeCon+CloudNative+OSS-Report
 permalink: /cn/docs/Apache-ServiceComb-Meetup-2019-Shanghai-KubeCon+CloudNative+OSS-Report/
@@ -21,7 +21,7 @@ redirect_from:
 
 秉承“将复杂留给自己，极简留给用户，提供一站式的微服务开源解决方案，致力于帮助企业、用户和开发者将应用轻松微服务化上云，实现对微服务应用的高效运维管理” 的发展理念，社区发起召集令，动员有志者加入社区，一起做点有意思的事情。
 
-![1](/assets/images/Community_Summoned.png)
+![1](/assets/images/Community_Summoned_zh.png)
 
 ---
 **全场视频回顾:** [链接](https://huaweicloud.bugu.mudu.tv/watch/ym1vkamp)
@@ -49,7 +49,7 @@ redirect_from:
 **摘要：** 我们在公有云交付PaaS平台，帮助用户管理应用，通过流水线进行持续交付，管领应用的全生命周期，当应用系统的网络拓扑变得不断复杂后，需要引入微服务架构模式，来解决分布式系统的复杂性，本主题将讲述PaaS平台如何使用ServiceComb帮助用户完成微服务转型。
 
 ---
-**《微服务创新新品发布》**  [PDF下载](/assets/slides/20190624/4_Innovation_New_Product_Release.pdf)
+**《微服务创新新品发布》**  [PDF下载](/assets/slides/20190624/4_Innovation_New_Project_Release.pdf)
 
 **主讲人：** **马彬**，ServiceComb 社区成员，华为开源软件能力中心架构师，企业应用微服务化工程师，13+年电信级中间件平台、虚拟化、嵌入式操作系统与开源软件设计开发经验。
 
