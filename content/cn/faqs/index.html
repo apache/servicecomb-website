@@ -844,18 +844,7 @@
   <li>
     <p><strong>Q: 如何在用户自定义的handler中获取header中某个字段的值</strong></p>
 
-    <p>A: 在用户自定义的handler使用@ApiImplicitParams注解声明，使用invocation.getArgs()获取header的值。例如:</p>
-
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyHandler</span> <span class="kd">implements</span> <span class="n">Handler</span> <span class="o">{</span>
-  <span class="nd">@ApiImplicitParams</span><span class="o">({</span><span class="nd">@ApiImplicitParam</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"tester"</span><span class="o">,</span> <span class="n">dataType</span> <span class="o">=</span> <span class="s">"string"</span><span class="o">,</span> <span class="n">paramType</span> <span class="o">=</span> <span class="s">"header"</span><span class="o">)})</span>
-  <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handle</span><span class="o">(</span><span class="n">Invocation</span> <span class="n">invocation</span><span class="o">,</span> <span class="n">AsyncResponse</span> <span class="n">asyncResp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-    <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="n">invocation</span><span class="o">.</span><span class="na">getArgs</span><span class="o">();</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</code></pre>
-    </div>
+    <p>A: Invocation.getArgs可以获取到接口定义里面声明的所有参数信息。在接口里面未定义的信息，比如额外的header，则需要通过InvocationContext来传递和获取。基本原理是实现HttpServerFilter将header设置到InvocationContext里面，然后在通过invocation.getContext获取。示例代码可以参考servicecomb-fence的 <a href="https://github.com/apache/servicecomb-fence/tree/master/api/edge-service/endpoint/src/main/java/org/apache/servicecomb/authentication/edge">AuthHandler 和 AuthenticationFilter</a> 。</p>
   </li>
   <li>
     <p><strong>Q: 微服务运行时抛出异常：<code class="highlighter-rouge"> java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty</code>？</strong></p>
