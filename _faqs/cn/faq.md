@@ -494,18 +494,8 @@ redirect_from:
 
 * **Q: 如何在用户自定义的handler中获取header中某个字段的值**
 
-   A: 在用户自定义的handler使用@ApiImplicitParams注解声明，使用invocation.getArgs()获取header的值。例如:
-
-  ```java
-  public class MyHandler implements Handler {
-    @ApiImplicitParams({@ApiImplicitParam(name = "tester", dataType = "string", paramType = "header")})
-    @Override
-    public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
-      Object[] args = invocation.getArgs();
-      System.out.println(args);
-    }
-  }
-  ```
+   A: Invocation.getArgs可以获取到接口定义里面声明的所有参数信息。在接口里面未定义的信息，比如额外的header，则需要通过InvocationContext来传递和获取。基本原理是实现HttpServerFilter将header设置到InvocationContext里面，然后在通过invocation.getContext获取。示例代码可以参考servicecomb-fence的 [AuthHandler 和 AuthenticationFilter](https://github.com/apache/servicecomb-fence/tree/master/api/edge-service/endpoint/src/main/java/org/apache/servicecomb/authentication/edge) 。
+   
 
 * **Q: 微服务运行时抛出异常：` java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty`？**
 
