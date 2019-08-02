@@ -11,66 +11,9 @@ redirect_from:
 
 {% include toc %}
 ## Load Balancing Policy
-### Scenario
+The content of this page has been outdated, please refer to [Load Balancing](https://docs.servicecomb.io/java-chassis/en_US/references-handlers/loadbalance.html)
 
-　　ServiceComb provides a Ribbon-based load balancing solution. You can configure a load balancing policy in the configuration file. Currently, a load balancing routing policy can be random, sequential, or based on response time weight.
 
-### Configuration
-
-　　Load balancing policies are configured by setting the parameter `servicecomb.loadbalance.[MicroServiceName].[property name]` in the microservice.yaml fiel. If MicroServiceName is not set, the configuration is set for all microservices. Otherwise, the configuration is set for a specific microservice.
-
-　　**Table 1 Configuration items of load balancing policy**
-
-| Configuration Items                      | Default Value                            | Value Range                              | Mandatory | Description                              | Remarks                                  |
-| :--------------------------------------- | :--------------------------------------- | :--------------------------------------- | :-------- | :--------------------------------------- | :--------------------------------------- |
-| servicecomb.loadbalance.NFLoadBalancerRuleClassName | com.netflix.loadbalancer.RoundRobinRule  | com.netflix.loadbalancer.RoundRobinRule（polling）com.netflix.loadbalancer.RandomRule（random）com.netflix.loadbalancer.WeightedResponseTimeRule（server response time weight）org.apache.servicecomb.loadbalance.SessionStickinessRule（session stickiness） | No        | Specifiles the load balancing policy     | -                                        |
-| servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds | 30                                       | Integer                                  | No        | Specifies the idle time of a client. If the idle time exceeds the set value, ServiceComb will select another server. | Currently, this parameter cannot be set for a certain microservice. For example, servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds cannot be set to servicecomb.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds |
-| servicecomb.loadbalance.SessionStickinessRule.successiveFailedTimes | 5                                        | Integer                                  | No        | Specifies the number of failed requests from the client. If the number exceeds the set value, ServiceComb will switch to another server | Currently, this parameter cannot be set for a certain microservice. |
-| servicecomb.loadbalance.retryEnabled             | FALSE                                    | Boolean                                  | No        | Specifies whether to call a service again when a exception is captured by the load balance. | -                                        |
-| servicecomb.loadbalance.retryOnNext              | 0                                        | Integer                                  | No        | Specifies the number of attempts to connect to another server. | -                                        |
-| servicecomb.loadbalance.retryOnSame              | 0                                        | Integer                                  | No        | Specifies the number of attempts to connect to the same server. | -                                        |
-| servicecomb.loadbalance.isolation.enabled        | FALSE                                    | Boolean                                  | No        | Specifies whether to enable faulty instance isolation. | -                                        |
-| servicecomb.loadbalance.isolation.enableRequestThreshold | 20                                       | Integer                                  | No        | Specifies the threshold number of instance calls. If this value is reached, isolation is enabled. | -                                        |
-| servicecomb.loadbalance.isolation.errorThresholdPercentage | 20                                       | Integer，\(0,100\]                        | No        | Specifies the error percentage. Instance fault isolation is enabled when the set value is reached. | -                                        |
-| servicecomb.loadbalance.isolation.singleTestTime | 10000                                    | Integer                                  | No        | Specifies the duration of a faulty instance test on a single node. | This unit is ms.                         |
-| servicecomb.loadbalance.transactionControl.policy | org.apache.servicecomb.loadbalance.filter.SimpleTransactionControlFilter | -                                        | No        | Specifies the offload policies for dynamic routing. | The framework provides simple offload mechanisms. You can also customize offload policies. |
-| servicecomb.loadbalance.transactionControl.options | -                                        | key/value pairs                          | No        | Specifies the parameter configured for the SimpleTransactionControlFilter offload policy. You can add any filtration tag for this item. | -                                        |
-
-### Sample Code
-
-　　in the src/main/resources/microservice.yaml file, configure a load balancing policy.
-
-　　Configure a processing link：
-
-```yaml
-servicecomb:
-  # other configurations omitted
-  handler:
-    chain:
-      Consumer:
-        default: loadbalance
-  # other configurations omitted
-```
-
-　　Add a routing policy:
-
-```yaml
-servicecomb：
-  # other configurations omitted
-  loadbalance:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
-  # other configurations omitted
-```
-
-## Customizing Routing Policies
-
-　　Based on the routing policy framework provided by ServiceComb, you can program to customize routing policies as required. Perform the following steps:
-
-* Encode using the API method defined in the `com.netflix.loadbalancer.IRule` API. Encode in the public Server  choose(Object key) method. LoadBalancerStats is a structure that encapsulates the running state of the load balancer. Determine on which instance the current routing request will be processed based on the running indexes of each instance by using the Server choose(Object key) method. Use method `org.apache.servicecomb.loadbalance.SessionStickinessRule`for instance processing.
-
-* Compile the developed policy and ensure that the generated class is under classpath.
-
-* Use the software development kit(SDK) to configure the routing policy. Use AbcRule as a routing policy example. The configuration is as follows:        `servicecomb.loadbalance.NFLoadBalancerRuleClassName=org.apache.servicecomb.ribbon.rule.AbcRule`
 
 ## Rate Limiting Policy
 ### Scenario
