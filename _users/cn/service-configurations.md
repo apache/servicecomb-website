@@ -11,68 +11,10 @@ redirect_from:
 
 {% include toc %}
 ## 负载均衡策略
-### 场景描述
+本章节的内容已过时，新的负载均衡策略说明见[负载均衡](https://docs.servicecomb.io/java-chassis/zh_CN/references-handlers/loadbalance.html)
 
-　　ServiceComb提供了基于Ribbon的负载均衡方案，用户可以通过配置文件配置负载均衡策略，当前支持随机、顺序、基于响应时间的权值等多种负载均衡路由策略。
 
-### 配置说明
 
-　　负载均衡策略在microservice.yaml文件中配置，配置项为`servicecomb.loadbalance.[MicroServiceName].[property name]`，其中若省略MicroServiceName，则为全局配置；若指定MicroServiceName，则为针对特定微服务的配置。
-
-　　**表1 配置项说明**
-
-| 配置项 | 默认值 | 取值范围 | 是否必选 | 含义 | 注意 |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| servicecomb.loadbalance.NFLoadBalancerRuleClassName | com.netflix.loadbalancer.RoundRobinRule | com.netflix.loadbalancer.RoundRobinRule（轮询）com.netflix.loadbalancer.RandomRule（随机）com.netflix.loadbalancer.WeightedResponseTimeRule（服务器响应时间权值）org.apache.servicecomb.loadbalance.SessionStickinessRule（会话保持） | 否 | 负载均衡路由策略 | - |
-| servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds | 30 | Integer | 否 | 客户端闲置时间，超过限制后选择后面的服务器。 | 暂不支持微服务配置。e.g. servicecomb.loadbalance.SessionStickinessRule.sessionTimeoutInSeconds，不能配置为servicecomb.loadbalance.DemoService.SessionStickinessRule.sessionTimeoutInSeconds |
-| servicecomb.loadbalance.SessionStickinessRule.successiveFailedTimes | 5 | Integer | 否 | 客户端失败次数，超过后会切换服务器 | 暂不支持微服务配置 |
-| servicecomb.loadbalance.retryEnabled | FALSE | Boolean | 否 | 负载均衡捕获到服务调用异常，是否进行重试 | - |
-| servicecomb.loadbalance.retryOnNext | 0 | Integer | 否 | 尝试新的服务器的次数 | - |
-| servicecomb.loadbalance.retryOnSame | 0 | Integer | 否 | 同一个服务器尝试的次数 | - |
-| servicecomb.loadbalance.isolation.enabled | FALSE | Boolean | 否 | 是否开启故障实例隔离功能 | - |
-| servicecomb.loadbalance.isolation.enableRequestThreshold | 20 | Integer | 否 | 当实例的调用总次数达到该值时开始进入隔离逻辑门槛 | - |
-| servicecomb.loadbalance.isolation.errorThresholdPercentage | 20 | Integer，区间为\(0,100\] | 否 | 实例故障隔离错误百分比 | - |
-| servicecomb.loadbalance.isolation.singleTestTime | 10000 | Integer | 否 | 故障实例单点测试时间 | 单位为ms |
-| servicecomb.loadbalance.transactionControl.policy | org.apache.servicecomb.loadbalance.filter.SimpleTransactionControlFilter | - | 否 | 动态路由分流策略 | 框架提供了简单的分流机制，开发者也可以实现自定义的分流过滤策略 |
-| servicecomb.loadbalance.transactionControl.options | - | key/value pairs | 否 | 针对SimpleTransactionControlFilter分流策略的配置项，可添加任意项过滤标签 | - |
-
-### 示例代码
-
-　　负载均衡策略配置在src/main/resources/microservice.yaml文件中。
-
-　　配置处理链：
-
-```yaml
-servicecomb:
-  # other configurations omitted
-  handler:
-    chain:
-      Consumer:
-        default: loadbalance
-  # other configurations omitted
-```
-
-　　增加路由策略：
-
-```yaml
-servicecomb：
-  # other configurations omitted
-  loadbalance:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule
-  # other configurations omitted
-```
-
-## 自定义路由策略
-
-　　用户可以在ServiceComb提供的路由策略框架下根据业务需要，通过编程的方式来开发路由策略。实施步骤如下：
-
-* 实现接口`com.netflix.loadbalancer.IRule`中定义的接口方法。
-路由选择逻辑在public Server choose\(Object key\)方法中实现。LoadBalancerStats是一个封装了负载均衡器当前运行状态的一个结构。通过获取stats中各个实例的运行指标，在choose方法中，判定将当前请求路由到哪个实例上进行处理。处理风格可以参照`org.apache.servicecomb.loadbalance.SessionStickinessRule`。
-
-* 编译开发的策略，保证生成的class在classpath下。
-
-* 通过SDK配置该路由策略，假如是`AbcRule`。则配置如下：       `servicecomb.loadbalance.NFLoadBalancerRuleClassName=org.apache.servicecomb.ribbon.rule.AbcRule`
-   
 ## 限流策略
 ### 场景描述
 
