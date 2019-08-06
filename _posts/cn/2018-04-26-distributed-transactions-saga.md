@@ -12,16 +12,22 @@ redirect_from:
 ---
 ## Saga分布式事务解决方案与实践
 
+本文为2018年QConBeijing Saga分布式事务解决方案与实践演讲实录。   
+【2019年8月更新】目前我们的集中式的Saga解决方案ServiceComb已经发布了7版，去年底项目更名为 ServiceComb Pack，提供TCC的支持。大家可以访问我们项目的[github地址](https://github.com/apache/servicecomb-pack)，获取到更多与项目相关的详细信息，欢迎大家为项目加星哦。
+
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/saga/Saga.001.jpeg)
 
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/saga/Saga.002.jpeg)
-我先介绍一下我自己，我叫姜宁，来自于华为开源研究中心，现在负责的是ServiceComb这个开源项目。ServiceComb这个项目已经进到Apache孵化，应该是去年11月份时进到Apache孵化的，这个月我们帮刚发了1.0M1版，但对于SAGA来说我们属于探索的阶段，发布了0.1.0。
+我先介绍一下我自己，我叫姜宁，来自于华为开源能力中心，现在负责的是ServiceComb这个开源项目。ServiceComb这个项目已经进到Apache孵化，应该是去年11月份时进到Apache孵化的，这个月我们帮刚发了1.0M1版，但对于SAGA来说我们属于探索的阶段，发布了0.1.0。     
 
-我参与过Apache一些项目，我也是Apache的 Member，是Apache CXF, Apache Camel 还有的PMC。还有一件事情，前一段时间帮阿里同学孵化 RocketMQ，我是以导师的身份参与的，属于见习的Mentor.这回带着ServiceComb这个项目，我感觉我把很多角色都玩了一遍。后面如果大家对开源项目进入Apache孵化感兴趣的话也可以来找到。
+我参与过Apache一些项目，我也是Apache的 Member，是Apache CXF, Apache Camel 还有的PMC。还有一件事情，前一段时间帮阿里同学孵化 RocketMQ，我是以导师的身份参与的，属于见习的Mentor.这回带着ServiceComb这个项目，我感觉我把很多角色都玩了一遍。后面如果大家对开源项目进入Apache孵化感兴趣的话也可以来找到。    
+
+【2019年8月更新】最近发现Apache Camel的国内小伙伴越来越多， 有兴趣想加入的朋友可以给我发邮件 willem.jiang AT gmail.
 
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/saga/Saga.003.jpeg)
 
 今天的议题围绕几个方面来展开，一个是微服务事务一致性的问题，然后讲一讲业界的SAGA解决方案，我们在ServiceComb里也提供了SAGA的实现。另外一件事情，我项目这边也在招新，欢迎广大感兴趣的同学一会儿加我微信。我们现在项目其实架子也都搭得不错了，基本功能都实现了，就是等着大家跳到碗里面，一起来解决微服务事务一致性问题。
+
 
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/saga/Saga.004.jpeg)
 
@@ -190,8 +196,13 @@ Omega会与Alpha进行链接会把这些事件通知给Alpha。 Alpha可以在�
 
 还有Omega需要解决多线程共享调用的问题。
 
-我们问题都列在下面的JIRA上面，大家可以通过这个[链接](https://issues.apache.org/jira/browse/SCB-333?jql=project%20%3D%20SCB%20AND%20status%20%3D%20Open%20AND%20fixVersion%20in%20(EMPTY%2C%20java-chassis-1.0.0-m2)%20AND%20labels%20%3D%20newbie)入门任务。
+【2019年8月更新】TCC的功能我们已经在[Pack 0.3.0](https://github.com/apache/servicecomb-pack/releases/tag/0.3.0)中提供, 并且在 [Pack 0.4.0](https://github.com/apache/servicecomb-pack/releases/tag/0.4.0)中提供了Alpha多活支持。现在开发的ServiceComb Pack 0.5.0 做了两个比较大的改进， 一个是在客户端（Omega）提供异步调用的支持， 一个是服务端（Alpha）采用状态机追踪服务的调用情况。
 
+大家可以通过查看我们的[线路图](https://github.com/apache/servicecomb-pack/blob/master/ROADMAP.md), 或者通过[gitter](https://gitter.im/ServiceCombUsers/Saga)与社区开发人员互动。
+
+有关ServiceComb Pack交互的细节以及相关的架构设计，大家可以参考下面两篇文章:
+* [基于服务的分布式事务(上篇)](http://servicecomb.apache.org/cn/docs/distributed-transaction-of-services-1/)
+* [基于服务的分布式事务(下篇)](http://servicecomb.apache.org/cn/docs/distributed-transaction-of-services-2/)
 ![]({{ site.url }}{{ site.baseurl }}/assets/images/saga/Saga.037.jpeg)
 
 简单小节一下，我们对事务一致性做了简单的回顾，业界的SAGA解决方案也提了一下，简单介绍一下ServiceComb的Saga实现，以及我们后续的开发计划。
