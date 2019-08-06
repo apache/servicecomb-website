@@ -404,7 +404,13 @@
 
 <p>体质指数应用中已配置好了上述配置项，您只需关闭之前运行的 <strong>体质指数计算器</strong>，然后再用以下指令重新运行即可：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=qps-flowcontrol-provider -Dcse.flowcontrol.Provider.qps.limit.gateway=1"</span>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 1.x</span>
+mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=qps-flowcontrol-provider -Dcse.flowcontrol.Provider.qps.limit.gateway=1"</span>
+</code></pre>
+</div>
+<p>or</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
+mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=qps-flowcontrol-provider -Dcse.flowcontrol.Provider.qps.limit.gateway=1"</span>
 </code></pre>
 </div>
 

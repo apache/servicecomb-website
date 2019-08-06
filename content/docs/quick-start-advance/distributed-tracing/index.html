@@ -422,11 +422,22 @@
     <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
 </code></pre>
     </div>
+    <p>or</p>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
+ mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
+</code></pre>
+    </div>
   </li>
   <li>
     <p>Restart <em>BMI web service</em> with the following command:</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dservicecomb.tracing.enabled=true"</span>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 1.x</span>
+mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dservicecomb.tracing.enabled=true"</span>
+</code></pre>
+    </div>
+    <p>or</p>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
+ mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"--Dservicecomb.tracing.enabled=true"</span>
 </code></pre>
     </div>
   </li>
@@ -461,6 +472,10 @@
     <p>Learn more from <a href="/docs/linuxcon-workshop-demo/">the Company application</a> for a more complete example of microservice applications integrated with ServiceComb</p>
   </li>
 </ul>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>
+</code></pre>
+</div>
 
         
       </section>

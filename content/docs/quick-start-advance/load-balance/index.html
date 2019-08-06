@@ -377,7 +377,13 @@
 <h2 id="verification">Verification</h2>
 
 <p>Run one more <em>BMI calculator service</em> with the following command:</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.rest.address=0.0.0.0:7778"</span>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 1.x</span>
+mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.rest.address=0.0.0.0:7778"</span>
+</code></pre>
+</div>
+<p>or</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
+mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.rest.address=0.0.0.0:7778"</span>
 </code></pre>
 </div>
 

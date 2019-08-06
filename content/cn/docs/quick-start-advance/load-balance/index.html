@@ -379,7 +379,13 @@
 
 <p>对 <em>体质指数计算器</em> 微服务进行水平扩展，使其运行实例数为2，即新增一个运行实例：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.rest.address=0.0.0.0:7778"</span>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 1.x</span>
+mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.rest.address=0.0.0.0:7778"</span>
+</code></pre>
+</div>
+<p>or</p>
+<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
+mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.rest.address=0.0.0.0:7778"</span>
 </code></pre>
 </div>
 
