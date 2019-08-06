@@ -57,11 +57,22 @@ The above configurations have already set up in the code. All you need to do is 
    ```bash
    mvn spring-boot:run -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
    ```
+   or 
+   ```bash
+   #spring-boot-maven-plugin 2.x
+    mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
+   ```
    
 3. Restart *BMI web service* with the following command:
 
    ```bash
+   #spring-boot-maven-plugin 1.x
    mvn spring-boot:run -Drun.jvmArguments="-Dservicecomb.tracing.enabled=true"
+   ```
+   or
+   ```bash
+   #spring-boot-maven-plugin 2.x
+    mvn spring-boot:run -Dspring-boot.run.jvmArguments="--Dservicecomb.tracing.enabled=true"
    ```
 
 ## Verification
@@ -81,3 +92,7 @@ The above configurations have already set up in the code. All you need to do is 
 * See [ServiceComb User Guide](/users/)
 
 * Learn more from [the Company application](/docs/linuxcon-workshop-demo/) for a more complete example of microservice applications integrated with ServiceComb
+
+ ```
+
+ ```

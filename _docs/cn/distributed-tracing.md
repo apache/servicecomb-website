@@ -55,13 +55,25 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 2. 重启 *体质指数计算器* 微服务：
 
    ```bash
+   #spring-boot-maven-plugin 1.x
    mvn spring-boot:run -Drun.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
+   ```
+   or 
+   ```bash
+   #spring-boot-maven-plugin 2.x
+    mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dcse.handler.chain.Provider.default=tracing-provider"
    ```
    
 3. 重启 *体质指数界面* 微服务：
 
    ```bash
+   #spring-boot-maven-plugin 1.x
    mvn spring-boot:run -Drun.jvmArguments="-Dservicecomb.tracing.enabled=true"
+   ```
+   or
+   ```bash
+   #spring-boot-maven-plugin 2.x
+   mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dservicecomb.tracing.enabled=true"
    ```
 
 ## 验证
