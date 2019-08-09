@@ -19,12 +19,12 @@
 
 
 
-<title>服务治理 - Apache ServiceComb</title>
+<title>分布式调用链追踪 - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="介绍如何在体质指数应用中使用ServiceComb提供的服务治理能力">
+<meta name="description" content="介绍如何在体质指数应用中使用ServiceComb提供的分布式追踪能力">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="服务治理">
+<meta property="og:title" content="分布式调用链追踪">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/quick-start-advance/service-management/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/quick-start-advance/service-management/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/">
 
 
 
-  <meta property="og:description" content="介绍如何在体质指数应用中使用ServiceComb提供的服务治理能力">
+  <meta property="og:description" content="介绍如何在体质指数应用中使用ServiceComb提供的分布式追踪能力">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="服务治理">
-  <meta name="twitter:description" content="介绍如何在体质指数应用中使用ServiceComb提供的服务治理能力">
+  <meta name="twitter:title" content="分布式调用链追踪">
+  <meta name="twitter:description" content="介绍如何在体质指数应用中使用ServiceComb提供的分布式追踪能力">
   <meta name="twitter:url" content="">
 
   
@@ -165,7 +165,7 @@
               
               
               
-                <a class="active" href="/cn/docs/quick-start/">快速入门</a>
+                <a href="/cn/docs/quick-start/">快速入门</a>
               
             </li>
           
@@ -221,7 +221,7 @@
           
             
             
-            <a href=/docs/quick-start-advance/service-management/>English</a>
+            <a href=/docs/mersher-quick-start-advance/mersher-distributed-tracing/>English</a>
           
         </div>
       </nav>
@@ -313,7 +313,7 @@
             
             
 
-            <li><a href="/cn/docs/quick-start-advance/service-management/" class="active">服务治理</a></li>
+            <li><a href="/cn/docs/quick-start-advance/service-management/" class="">服务治理</a></li>
           
             
             
@@ -384,7 +384,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="">mersher分布式调用链追踪</a></li>
+            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="active">mersher分布式调用链追踪</a></li>
           
         </ul>
         
@@ -400,16 +400,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="服务治理">
-    <meta itemprop="description" content="介绍如何在体质指数应用中使用ServiceComb提供的服务治理能力">
+    <meta itemprop="headline" content="分布式调用链追踪">
+    <meta itemprop="description" content="介绍如何在体质指数应用中使用ServiceComb提供的分布式追踪能力">
     
-    <meta itemprop="dateModified" content="September 03, 2017">
+    <meta itemprop="dateModified" content="August 08, 2019">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">服务治理
+            <h1 class="page__title" itemprop="headline">分布式调用链追踪
 </h1>
             
           </header>
@@ -417,94 +417,63 @@
       
 
       <section class="page__content" itemprop="text">
-        <aside class="sidebar__right">
-<nav class="toc">
-    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
-<ul class="toc__menu" id="markdown-toc">
-  <li><a href="#前言" id="markdown-toc-前言">前言</a></li>
-  <li><a href="#启用" id="markdown-toc-启用">启用</a></li>
-  <li><a href="#验证" id="markdown-toc-验证">验证</a></li>
-  <li><a href="#下一步" id="markdown-toc-下一步">下一步</a></li>
+        <ul>
+  <li>分布式调用链追踪提供追溯微服务调用关系和调用处理时延的能力，便于用户检查分布式环境中微服务的健康状态。本指南将展示如何使用 <strong>mersher</strong> 提供的分布式调用链追踪能力。</li>
 </ul>
 
-  </nav>
-</aside>
+<h1 id="前言">前言</h1>
 
-<p>服务治理主要用于解决或缓解服务雪崩的情况，即个别微服务表现异常时，系统能对其进行容错处理，从而避免资源的耗尽。本指南将会展示如何在 <em>体质指数</em> 应用中使用 <strong>ServiceComb</strong> 提供的服务治理能力。</p>
+<ul>
+  <li>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/mersher-quick-start/">mersher快速入门</a>，并已成功运行用例服务。</li>
+</ul>
 
-<h2 id="前言">前言</h2>
-
-<p>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/quick-start-bmi/">微服务应用快速开发指南</a>，并已成功运行体质指数微服务。</p>
-
-<h2 id="启用">启用</h2>
-
-<ol>
-  <li>
-    <p>在 <em>体质指数计算器</em> 的 <code class="highlighter-rouge">pom.xml</code> 文件中添加依赖项：</p>
-
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-      <span class="nt">&lt;artifactId&gt;</span>handler-bizkeeper<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>在 <em>体质指数计算器</em> 的 <code class="highlighter-rouge">microservice.yaml</code> 文件中指明使用服务治理的处理链及指定熔断和容错策略：</p>
-
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Provider</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">bizkeeper-provider</span>
-  <span class="s">circuitBreaker</span><span class="pi">:</span>
-    <span class="s">Provider</span><span class="pi">:</span>
-      <span class="s">calculator</span><span class="pi">:</span>
-        <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">3</span>
-  <span class="s">fallbackpolicy</span><span class="pi">:</span>
-    <span class="s">Provider</span><span class="pi">:</span>
-      <span class="s">policy</span><span class="pi">:</span> <span class="s">returnnull</span>
-</code></pre>
-    </div>
-  </li>
-</ol>
-
-<p>体质指数应用中已配置好了上述配置项，您只需重新运行 <strong>体质指数计算器</strong>：</p>
-
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 1.x</span>
-mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"</span>
-</code></pre>
-</div>
-<p>or</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
-mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=bizkeeper-provider -Dcse.circuitBreaker.Provider.calculator.requestVolumeThreshold=3 -Dcse.fallbackpolicy.Provider.policy=returnnull"</span>
-</code></pre>
-</div>
-
-<h2 id="验证">验证</h2>
-
-<ol>
-  <li>
-    <p>使服务进入熔断状态。访问 <a>http://localhost:8889</a>，在身高或体重的输入框中输入一个负数，连续点击三次或以上 <em>Submit</em> 按钮，此时在网页下方能看到类似左图的界面。</p>
-  </li>
-  <li>
-    <p>验证服务处于熔断状态。在身高和体重的输入框中输入正数，再次点击 <em>Submit</em> 按钮，此时看到的界面依然是类似左图的界面。同时在 <em>体质指数计算器</em> 运行日志也能看到调用不再抛出异常，而是出现类似 <code class="highlighter-rouge">fallback called</code> 的日志。</p>
-  </li>
-  <li>
-    <p>验证服务恢复正常。约15秒后，在身高和体重的输入框中输入正数，点击 <em>Submit</em> 按钮，此时界面显示正常。</p>
-
-    <p><img src="/assets/images/service-management-result.png" alt="服务治理效果" class="align-center" /></p>
-  </li>
-</ol>
-
-<h2 id="下一步">下一步</h2>
+<h1 id="启用">启用</h1>
 
 <ul>
   <li>
-    <p>阅读<a href="/cn/docs/quick-start-advance/distributed-tracing/">分布式追踪快速入门指南</a></p>
+    <p>1、mersher main文件中添加对zipkin库依赖：</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>_ <span class="s2">"github.com/go-chassis/go-chassis-plugins/tracing/zipkin"</span>
+</code></pre>
+    </div>
   </li>
   <li>
-    <p>了解更多<a href="/cn/users/service-configurations/">服务治理</a>的使用方式</p>
+    <p>2、启发器bootstrap.go中添加默认处理函数，如图中箭头所示：</p>
+
+    <p><img src="/assets/images/mersher/mersher-tracing-func.png" alt="流量控制效果图" /></p>
+  </li>
+  <li>
+    <p>3、重新编译，分别替换<strong>mersher-g</strong>、<strong>mersher-a</strong>和<strong>mersher-b</strong>的可执行文件，启动mersher服务；</p>
+  </li>
+  <li>
+    <p>4、使用<strong>Docker</strong>运行<a href="http://servicecomb.apache.org/cn/docs/quick-start-advance/distributed-tracing/">Zipkin分布式追踪服务</a></p>
+  </li>
+  <li>
+    <p>5、多次点击 <em>Submit</em> 按钮发起服务调用；</p>
+  </li>
+  <li>
+    <p>6、打开 <a href="http://192.168.88.64:9411">http://192.168.88.64:9411</a>可查看分布式追踪结果如图，可以通过host地址看到分别调用了<strong>mersher-a</strong>(监听30108端口)和<strong>mersher-b</strong>（监听30111端口）：</p>
+
+    <p><img src="/assets/images/mersher/mersher-tracing-30108.png" alt="分布式追踪效果图" /><br /></p>
+
+    <p><img src="/assets/images/mersher/mersher-tracing-30111.png" alt="分布式追踪效果图" /></p>
+  </li>
+</ul>
+
+<h1 id="下一步">下一步</h1>
+
+<ul>
+  <li>
+    <p>了解更多<a href="/cn/users/distributed-tracing/">分布式调用链追踪</a></p>
+  </li>
+  <li>
+    <p>阅读<a href="/cn/docs/tracing-with-servicecomb/">基于 ServiceComb 和 Zipkin 的分布式调用链追踪</a>来进一步了解分布式追踪</p>
+  </li>
+  <li>
+    <p>认识 <a href="/cn/users/"><strong>ServiceComb</strong> 微服务开发框架</a></p>
+  </li>
+  <li>
+    <p>通过 <a href="/cn/docs/linuxcon-workshop-demo/">Company应用</a> 更深入地了解微服务开发</p>
   </li>
 </ul>
 
@@ -574,7 +543,7 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span 
       <ul>
         <p class="header">贡献</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/service-management.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/mersher-distributed-tracing.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
         <li><a href="/cn/security">安全</a></li>
       </ul>

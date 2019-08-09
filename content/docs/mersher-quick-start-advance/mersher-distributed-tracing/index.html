@@ -19,12 +19,12 @@
 
 
 
-<title>Distributed Tracing - Apache ServiceComb</title>
+<title>Mersher Distributed Tracing - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+<meta name="description" content="Introduce how to use distributed tracing with mersher">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="Distributed Tracing">
+<meta property="og:title" content="Mersher Distributed Tracing">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/quick-start-advance/distributed-tracing/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/quick-start-advance/distributed-tracing/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-distributed-tracing/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-distributed-tracing/">
 
 
 
-  <meta property="og:description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+  <meta property="og:description" content="Introduce how to use distributed tracing with mersher">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="Distributed Tracing">
-  <meta name="twitter:description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+  <meta name="twitter:title" content="Mersher Distributed Tracing">
+  <meta name="twitter:description" content="Introduce how to use distributed tracing with mersher">
   <meta name="twitter:url" content="">
 
   
@@ -165,7 +165,7 @@
               
               
               
-                <a class="active" href="/docs/quick-start/">Quick Start</a>
+                <a href="/docs/quick-start/">Quick Start</a>
               
             </li>
           
@@ -220,7 +220,7 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/docs/quick-start-advance/distributed-tracing/>中文</a>
+            <a href=/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/>中文</a>
           
         </div>
       </nav>
@@ -320,7 +320,7 @@
             
             
 
-            <li><a href="/docs/quick-start-advance/distributed-tracing/" class="active">Distributed Tracing</a></li>
+            <li><a href="/docs/quick-start-advance/distributed-tracing/" class="">Distributed Tracing</a></li>
           
         </ul>
         
@@ -383,7 +383,7 @@
             
             
 
-            <li><a href="/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="">Mersher Distributed Tracing</a></li>
+            <li><a href="/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="active">Mersher Distributed Tracing</a></li>
           
         </ul>
         
@@ -399,16 +399,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Distributed Tracing">
-    <meta itemprop="description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+    <meta itemprop="headline" content="Mersher Distributed Tracing">
+    <meta itemprop="description" content="Introduce how to use distributed tracing with mersher">
     
-    <meta itemprop="dateModified" content="September 03, 2017">
+    <meta itemprop="dateModified" content="August 08, 2019">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">Distributed Tracing
+            <h1 class="page__title" itemprop="headline">Mersher Distributed Tracing
 </h1>
             
           </header>
@@ -416,112 +416,54 @@
       
 
       <section class="page__content" itemprop="text">
-        <aside class="sidebar__right">
-<nav class="toc">
-    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
-<ul class="toc__menu" id="markdown-toc">
-  <li><a href="#before-you-start" id="markdown-toc-before-you-start">Before you start</a></li>
-  <li><a href="#enable" id="markdown-toc-enable">Enable</a></li>
-  <li><a href="#verification" id="markdown-toc-verification">Verification</a></li>
-  <li><a href="#whats-next" id="markdown-toc-whats-next">What’s next</a></li>
+        <ul>
+  <li>Distributed handler chain tracking provides the ability of tracing microservice call relationships and watching delays of calling processing. It is used to make it easy for users to check the health of microservices in a distributed environment. This guide will show you how to use the distributed handler chain tracking capabilities provided by <strong>mersher</strong>.</li>
 </ul>
 
-  </nav>
-</aside>
+<h1 id="foreword">Foreword</h1>
 
-<p>Distributed handler chain tracing is used to monitor the network latencies and visualize the flow of requests through microservices. This guide shows how to use distributed tracing with <strong>ServiceComb</strong> in the BMI application.</p>
+<ul>
+  <li>Walk through <a href="/docs/mersher-quick-start/">mersher-quick-start</a> and have <strong>mersher display programs</strong> running.</li>
+</ul>
 
-<h2 id="before-you-start">Before you start</h2>
+<h1 id="enable">Enable</h1>
 
-<p>Walk through <a href="/docs/quick-start-bmi/">Develop microservice application in minutes</a> and have <strong>BMI application</strong> running.</p>
-
-<h2 id="enable">Enable</h2>
-
-<ol>
+<ul>
   <li>
-    <p>Add distributed tracing dependency in <code class="highlighter-rouge">pom.xml</code> of <em>BMI calculator service</em>:</p>
+    <p>1 Added zipkin library dependency in mersher main file.</p>
 
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-      <span class="nt">&lt;artifactId&gt;</span>handler-tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>_ <span class="s2">"github.com/go-chassis/go-chassis-plugins/tracing/zipkin"</span>
 </code></pre>
     </div>
   </li>
   <li>
-    <p>Add handler chain of distributed tracing in <code class="highlighter-rouge">microservice.yaml</code> of <em>BMI calculator service</em>:</p>
+    <p>2 Add default handlers in bootstrap.go as shown by the arrows in the figure.</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Provider</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
-</code></pre>
-    </div>
+    <p><img src="/assets/images/mersher/mersher-tracing-func.png" alt="tracing-func" /></p>
   </li>
   <li>
-    <p>Add distributed tracing dependency in <code class="highlighter-rouge">pom.xml</code> of <em>BMI web service</em>:</p>
-
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-      <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul-zipkin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
+    <p>3 Recompile and replace the executables of <strong>mersher-g</strong>,<strong>mersher-a</strong> and <strong>mersher-b</strong>.Then start the mersher service respectively.</p>
   </li>
-</ol>
-
-<p>The above configurations have already set up in the code. All you need to do is as follows:</p>
-
-<ol>
   <li>
-    <p>Run <em>Zipkin</em> distributed service inside Docker.</p>
+    <p>4 Running Zipkin Distributed tracking service with docker.</p>
 
     <div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker run -d -p 9411:9411 openzipkin/zipkin
 </code></pre>
     </div>
   </li>
   <li>
-    <p>Restart <em>BMI calculator service</em> with the following command:</p>
-
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
-</code></pre>
-    </div>
-    <p>or</p>
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
- mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
-</code></pre>
-    </div>
+    <p>5 Multiple clicks on the <em>Submit</em> button to initiate multiple service calls.</p>
   </li>
   <li>
-    <p>Restart <em>BMI web service</em> with the following command:</p>
+    <p>6 Open <a href="http://192.168.88.64:9411">http://192.168.88.64:9411</a> to view the distributed tracking results. You can see the call chains and call delays of <strong>mersher-a</strong> (listening port 30108) and <strong>mersher-b</strong> (listening port 30111).</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 1.x</span>
-mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dservicecomb.tracing.enabled=true"</span>
-</code></pre>
-    </div>
-    <p>or</p>
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
- mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"--Dservicecomb.tracing.enabled=true"</span>
-</code></pre>
-    </div>
+    <p><img src="/assets/images/mersher/mersher-tracing-30108.png" alt="Distributed tracking rendering 30108" /><br /></p>
+
+    <p><img src="/assets/images/mersher/mersher-tracing-30111.png" alt="Distributed tracking rendering 30111" /></p>
   </li>
-</ol>
+</ul>
 
-<h2 id="verification">Verification</h2>
-
-<ol>
-  <li>
-    <p>Visit <a>http://localhost:8889</a> . Input a positive height and weight and then click <em>Submit</em> button.</p>
-  </li>
-  <li>
-    <p>Visit <a>http://localhost:9411</a> to checkout the status of distributed tracing and get the following figure.</p>
-  </li>
-</ol>
-
-<p><img src="/assets/images/distributed-tracing-result.png" alt="Distributed tracing result" class="align-center" /></p>
-
-<h2 id="whats-next">What’s next</h2>
+<h1 id="whats-next">What’s next</h1>
 
 <ul>
   <li>
@@ -535,12 +477,10 @@ mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"
   </li>
   <li>
     <p>Learn more from <a href="/docs/linuxcon-workshop-demo/">the Company application</a> for a more complete example of microservice applications integrated with ServiceComb</p>
+
+    <p>``</p>
   </li>
 </ul>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>
-</code></pre>
-</div>
 
         
       </section>
@@ -608,7 +548,7 @@ mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"
       <ul>
         <p class="header">Contribute</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/distributed-tracing.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/mersher-distributed-tracing.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
         <li><a href="/security">Security</a></li>
       </ul>

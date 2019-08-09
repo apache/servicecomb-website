@@ -19,12 +19,12 @@
 
 
 
-<title>Distributed Tracing - Apache ServiceComb</title>
+<title>Mersher Flow Control - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+<meta name="description" content="Describe how to use the flow control capabilities provided by mersher">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="Distributed Tracing">
+<meta property="og:title" content="Mersher Flow Control">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/quick-start-advance/distributed-tracing/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/quick-start-advance/distributed-tracing/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-flow-control/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-flow-control/">
 
 
 
-  <meta property="og:description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+  <meta property="og:description" content="Describe how to use the flow control capabilities provided by mersher">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="Distributed Tracing">
-  <meta name="twitter:description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+  <meta name="twitter:title" content="Mersher Flow Control">
+  <meta name="twitter:description" content="Describe how to use the flow control capabilities provided by mersher">
   <meta name="twitter:url" content="">
 
   
@@ -165,7 +165,7 @@
               
               
               
-                <a class="active" href="/docs/quick-start/">Quick Start</a>
+                <a href="/docs/quick-start/">Quick Start</a>
               
             </li>
           
@@ -220,7 +220,7 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/docs/quick-start-advance/distributed-tracing/>中文</a>
+            <a href=/cn/docs/mersher-quick-start-advance/mersher-flow-control/>中文</a>
           
         </div>
       </nav>
@@ -320,7 +320,7 @@
             
             
 
-            <li><a href="/docs/quick-start-advance/distributed-tracing/" class="active">Distributed Tracing</a></li>
+            <li><a href="/docs/quick-start-advance/distributed-tracing/" class="">Distributed Tracing</a></li>
           
         </ul>
         
@@ -367,7 +367,7 @@
             
             
 
-            <li><a href="/docs/mersher-quick-start-advance/mersher-flow-control/" class="">Mersher Flow Control</a></li>
+            <li><a href="/docs/mersher-quick-start-advance/mersher-flow-control/" class="active">Mersher Flow Control</a></li>
           
             
             
@@ -399,16 +399,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Distributed Tracing">
-    <meta itemprop="description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+    <meta itemprop="headline" content="Mersher Flow Control">
+    <meta itemprop="description" content="Describe how to use the flow control capabilities provided by mersher">
     
-    <meta itemprop="dateModified" content="September 03, 2017">
+    <meta itemprop="dateModified" content="August 08, 2019">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">Distributed Tracing
+            <h1 class="page__title" itemprop="headline">Mersher Flow Control
 </h1>
             
           </header>
@@ -416,131 +416,57 @@
       
 
       <section class="page__content" itemprop="text">
-        <aside class="sidebar__right">
-<nav class="toc">
-    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
-<ul class="toc__menu" id="markdown-toc">
-  <li><a href="#before-you-start" id="markdown-toc-before-you-start">Before you start</a></li>
-  <li><a href="#enable" id="markdown-toc-enable">Enable</a></li>
-  <li><a href="#verification" id="markdown-toc-verification">Verification</a></li>
-  <li><a href="#whats-next" id="markdown-toc-whats-next">What’s next</a></li>
+        <ul>
+  <li>Flow control avoids microservice overload operations by controlling the data transfer rate. This guide will show you how to use the flow control capabilities provided by <strong>mersher</strong></li>
 </ul>
 
-  </nav>
-</aside>
+<h1 id="before-you-start">Before you start</h1>
 
-<p>Distributed handler chain tracing is used to monitor the network latencies and visualize the flow of requests through microservices. This guide shows how to use distributed tracing with <strong>ServiceComb</strong> in the BMI application.</p>
+<ul>
+  <li>Walk through <a href="/docs/mersher-quick-start/">mersher-quick-start</a> and have <strong>mersher display programs</strong> running.</li>
+</ul>
 
-<h2 id="before-you-start">Before you start</h2>
-
-<p>Walk through <a href="/docs/quick-start-bmi/">Develop microservice application in minutes</a> and have <strong>BMI application</strong> running.</p>
-
-<h2 id="enable">Enable</h2>
-
-<ol>
-  <li>
-    <p>Add distributed tracing dependency in <code class="highlighter-rouge">pom.xml</code> of <em>BMI calculator service</em>:</p>
-
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-      <span class="nt">&lt;artifactId&gt;</span>handler-tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Add handler chain of distributed tracing in <code class="highlighter-rouge">microservice.yaml</code> of <em>BMI calculator service</em>:</p>
-
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Provider</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Add distributed tracing dependency in <code class="highlighter-rouge">pom.xml</code> of <em>BMI web service</em>:</p>
-
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-      <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul-zipkin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
-  </li>
-</ol>
-
-<p>The above configurations have already set up in the code. All you need to do is as follows:</p>
-
-<ol>
-  <li>
-    <p>Run <em>Zipkin</em> distributed service inside Docker.</p>
-
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker run -d -p 9411:9411 openzipkin/zipkin
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Restart <em>BMI calculator service</em> with the following command:</p>
-
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
-</code></pre>
-    </div>
-    <p>or</p>
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
- mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Restart <em>BMI web service</em> with the following command:</p>
-
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 1.x</span>
-mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dservicecomb.tracing.enabled=true"</span>
-</code></pre>
-    </div>
-    <p>or</p>
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
- mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"--Dservicecomb.tracing.enabled=true"</span>
-</code></pre>
-    </div>
-  </li>
-</ol>
-
-<h2 id="verification">Verification</h2>
-
-<ol>
-  <li>
-    <p>Visit <a>http://localhost:8889</a> . Input a positive height and weight and then click <em>Submit</em> button.</p>
-  </li>
-  <li>
-    <p>Visit <a>http://localhost:9411</a> to checkout the status of distributed tracing and get the following figure.</p>
-  </li>
-</ol>
-
-<p><img src="/assets/images/distributed-tracing-result.png" alt="Distributed tracing result" class="align-center" /></p>
-
-<h2 id="whats-next">What’s next</h2>
+<h1 id="enable">Enable</h1>
 
 <ul>
   <li>
-    <p>Learn more about <a href="/users/distributed-tracing/">Distributed Tracing</a></p>
-  </li>
-  <li>
-    <p>Read <a href="/docs/tracing-with-servicecomb/">Distributed Tracing with ServiceComb and Zipkin</a></p>
-  </li>
-  <li>
-    <p>See <a href="/users/">ServiceComb User Guide</a></p>
-  </li>
-  <li>
-    <p>Learn more from <a href="/docs/linuxcon-workshop-demo/">the Company application</a> for a more complete example of microservice applications integrated with ServiceComb</p>
+    <p>Change the <strong>mersher-a’s</strong> configuration file <strong>chassis.yaml</strong>. Add a flow control configuration in <strong>chassis.yaml</strong> as follows. Restart the service.</p>
+
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">flowcontrol</span><span class="pi">:</span>
+ <span class="s">Provider</span><span class="pi">:</span>
+   <span class="s">qps</span><span class="pi">:</span>
+     <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>                 <span class="c1"># enable rate limiting or not</span>
+     <span class="s">global</span><span class="pi">:</span>
+       <span class="s">limit</span><span class="pi">:</span> <span class="s">0</span>                    <span class="c1"># default limit of provider</span>
+     <span class="s">limit</span><span class="pi">:</span>
+       <span class="s">Server</span><span class="pi">:</span> <span class="s">0</span>                  <span class="c1"># rate limit for request from a provider</span>
+</code></pre>
+    </div>
+
+    <p>The frequency limit configuration make the request accepted per second is 0 which means no service is provided.</p>
   </li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
-</code></pre>
-</div>
+<h1 id="verification">Verification</h1>
+
+<ul>
+  <li>Click the <em>Submit</em> button and you can see that the request was rejected due to the flow control of mersher. Now the request can’t reach real httpserver.</li>
+</ul>
+
+<p><img src="/assets/images/mersher/mersher-flow-control-fail.png" alt="flow-control-req" /></p>
+
+<p><img src="/assets/images/mersher/mersher-flow-control-log.png" alt="flow-control-log" /></p>
+
+<h1 id="whats-next">What’s next</h1>
+
+<ul>
+  <li>
+    <p>See quick start for <a href="/docs/mersher-quick-start-advance/mersher-service-management/">Service Management</a></p>
+  </li>
+  <li>
+    <p>Learn more about <a href="/users/service-configurations/#限流策略">Flow Control</a></p>
+  </li>
+</ul>
 
         
       </section>
@@ -608,7 +534,7 @@ mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"
       <ul>
         <p class="header">Contribute</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/distributed-tracing.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/mersher-flow-control.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
         <li><a href="/security">Security</a></li>
       </ul>

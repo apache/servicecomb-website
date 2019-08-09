@@ -19,12 +19,12 @@
 
 
 
-<title>Distributed Tracing - Apache ServiceComb</title>
+<title>Mersher Service Management - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+<meta name="description" content="Describe how to use the service management capabilities provided by mersher">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="Distributed Tracing">
+<meta property="og:title" content="Mersher Service Management">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/quick-start-advance/distributed-tracing/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/quick-start-advance/distributed-tracing/">
+  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-service-management/">
+  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-service-management/">
 
 
 
-  <meta property="og:description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+  <meta property="og:description" content="Describe how to use the service management capabilities provided by mersher">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="Distributed Tracing">
-  <meta name="twitter:description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+  <meta name="twitter:title" content="Mersher Service Management">
+  <meta name="twitter:description" content="Describe how to use the service management capabilities provided by mersher">
   <meta name="twitter:url" content="">
 
   
@@ -165,7 +165,7 @@
               
               
               
-                <a class="active" href="/docs/quick-start/">Quick Start</a>
+                <a href="/docs/quick-start/">Quick Start</a>
               
             </li>
           
@@ -220,7 +220,7 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/docs/quick-start-advance/distributed-tracing/>中文</a>
+            <a href=/cn/docs/mersher-quick-start-advance/mersher-service-management/>中文</a>
           
         </div>
       </nav>
@@ -320,7 +320,7 @@
             
             
 
-            <li><a href="/docs/quick-start-advance/distributed-tracing/" class="active">Distributed Tracing</a></li>
+            <li><a href="/docs/quick-start-advance/distributed-tracing/" class="">Distributed Tracing</a></li>
           
         </ul>
         
@@ -375,7 +375,7 @@
             
             
 
-            <li><a href="/docs/mersher-quick-start-advance/mersher-service-management/" class="">Mersher Service Management</a></li>
+            <li><a href="/docs/mersher-quick-start-advance/mersher-service-management/" class="active">Mersher Service Management</a></li>
           
             
             
@@ -399,16 +399,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Distributed Tracing">
-    <meta itemprop="description" content="Introduce how to use distributed tracing with ServiceComb in the BMI application">
+    <meta itemprop="headline" content="Mersher Service Management">
+    <meta itemprop="description" content="Describe how to use the service management capabilities provided by mersher">
     
-    <meta itemprop="dateModified" content="September 03, 2017">
+    <meta itemprop="dateModified" content="August 08, 2019">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">Distributed Tracing
+            <h1 class="page__title" itemprop="headline">Mersher Service Management
 </h1>
             
           </header>
@@ -416,131 +416,109 @@
       
 
       <section class="page__content" itemprop="text">
-        <aside class="sidebar__right">
-<nav class="toc">
-    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
-<ul class="toc__menu" id="markdown-toc">
-  <li><a href="#before-you-start" id="markdown-toc-before-you-start">Before you start</a></li>
-  <li><a href="#enable" id="markdown-toc-enable">Enable</a></li>
-  <li><a href="#verification" id="markdown-toc-verification">Verification</a></li>
-  <li><a href="#whats-next" id="markdown-toc-whats-next">What’s next</a></li>
+        <ul>
+  <li>Service management is mainly used to effectively control and manage a large number of microservices in distributed systems. This guide will show you how to use the service management capabilities provided by <strong>mersher</strong>.</li>
 </ul>
 
-  </nav>
-</aside>
+<h1 id="before-you-start">Before you start</h1>
 
-<p>Distributed handler chain tracing is used to monitor the network latencies and visualize the flow of requests through microservices. This guide shows how to use distributed tracing with <strong>ServiceComb</strong> in the BMI application.</p>
+<ul>
+  <li>Walk through <a href="/docs/mersher-quick-start/">mersher-quick-start</a> and have <strong>mersher display programs</strong> running.</li>
+</ul>
 
-<h2 id="before-you-start">Before you start</h2>
+<h1 id="grayscale-release">Grayscale release</h1>
 
-<p>Walk through <a href="/docs/quick-start-bmi/">Develop microservice application in minutes</a> and have <strong>BMI application</strong> running.</p>
-
-<h2 id="enable">Enable</h2>
-
-<ol>
-  <li>
-    <p>Add distributed tracing dependency in <code class="highlighter-rouge">pom.xml</code> of <em>BMI calculator service</em>:</p>
-
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-      <span class="nt">&lt;artifactId&gt;</span>handler-tracing-zipkin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Add handler chain of distributed tracing in <code class="highlighter-rouge">microservice.yaml</code> of <em>BMI calculator service</em>:</p>
-
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">handler</span><span class="pi">:</span>
-    <span class="s">chain</span><span class="pi">:</span>
-      <span class="s">Provider</span><span class="pi">:</span>
-        <span class="s">default</span><span class="pi">:</span> <span class="s">tracing-provider</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Add distributed tracing dependency in <code class="highlighter-rouge">pom.xml</code> of <em>BMI web service</em>:</p>
-
-    <div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
-      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
-      <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul-zipkin<span class="nt">&lt;/artifactId&gt;</span>
-    <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-    </div>
-  </li>
-</ol>
-
-<p>The above configurations have already set up in the code. All you need to do is as follows:</p>
-
-<ol>
-  <li>
-    <p>Run <em>Zipkin</em> distributed service inside Docker.</p>
-
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker run -d -p 9411:9411 openzipkin/zipkin
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Restart <em>BMI calculator service</em> with the following command:</p>
-
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
-</code></pre>
-    </div>
-    <p>or</p>
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
- mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"-Dcse.handler.chain.Provider.default=tracing-provider"</span>
-</code></pre>
-    </div>
-  </li>
-  <li>
-    <p>Restart <em>BMI web service</em> with the following command:</p>
-
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 1.x</span>
-mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"-Dservicecomb.tracing.enabled=true"</span>
-</code></pre>
-    </div>
-    <p>or</p>
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="c">#spring-boot-maven-plugin 2.x</span>
- mvn spring-boot:run -Dspring-boot.run.jvmArguments<span class="o">=</span><span class="s2">"--Dservicecomb.tracing.enabled=true"</span>
-</code></pre>
-    </div>
-  </li>
-</ol>
-
-<h2 id="verification">Verification</h2>
-
-<ol>
-  <li>
-    <p>Visit <a>http://localhost:8889</a> . Input a positive height and weight and then click <em>Submit</em> button.</p>
-  </li>
-  <li>
-    <p>Visit <a>http://localhost:9411</a> to checkout the status of distributed tracing and get the following figure.</p>
-  </li>
-</ol>
-
-<p><img src="/assets/images/distributed-tracing-result.png" alt="Distributed tracing result" class="align-center" /></p>
-
-<h2 id="whats-next">What’s next</h2>
+<h2 id="configuration">Configuration</h2>
 
 <ul>
   <li>
-    <p>Learn more about <a href="/users/distributed-tracing/">Distributed Tracing</a></p>
+    <p>1、Change the version number respectively in conf <strong>microservice.yaml</strong> of <strong>mersher-a</strong> and <strong>mersher-b</strong>. Change the <strong>version</strong> field to <strong>1.1.1</strong> and <strong>1.1.2</strong> respectively.Restart the mersher service and you can see that the service version number has changed in servicecenter.</p>
+
+    <p><img src="/assets/images/mersher/mersher-ser-manage-ver.png" alt="mersher-ser-manage-ver" /></p>
   </li>
   <li>
-    <p>Read <a href="/docs/tracing-with-servicecomb/">Distributed Tracing with ServiceComb and Zipkin</a></p>
-  </li>
-  <li>
-    <p>See <a href="/users/">ServiceComb User Guide</a></p>
-  </li>
-  <li>
-    <p>Learn more from <a href="/docs/linuxcon-workshop-demo/">the Company application</a> for a more complete example of microservice applications integrated with ServiceComb</p>
+    <p>2、Change weight options in configuration files router.yaml of mersher-g. Then restart service.</p>
+
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">routeRule</span><span class="pi">:</span>
+<span class="s">mersher-provider</span><span class="pi">:</span>        <span class="c1">#service name</span>
+<span class="pi">-</span> <span class="s">precedence</span><span class="pi">:</span> <span class="s">2</span>        <span class="c1">#precedence of route rule</span>
+  <span class="s">route</span><span class="pi">:</span>               <span class="c1">#route rule list</span>
+  <span class="pi">-</span> <span class="s">tags</span><span class="pi">:</span>
+      <span class="s">version</span><span class="pi">:</span> <span class="s">1.1.1</span>
+    <span class="s">weight</span><span class="pi">:</span> <span class="s">80</span>        <span class="c1">#weight of 80%</span>
+  <span class="pi">-</span> <span class="s">tags</span><span class="pi">:</span>
+      <span class="s">version</span><span class="pi">:</span> <span class="s">1.1.2</span>
+    <span class="s">weight</span><span class="pi">:</span> <span class="s">20</span>        <span class="c1">#weight of 20%</span>
+</code></pre>
+    </div>
   </li>
 </ul>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>
+<h2 id="verification">Verification</h2>
+
+<ul>
+  <li>Click the <em>Submit</em> button repeatedly and you can see that the BMI Instance ID keep changing according to the weight configuration.</li>
+</ul>
+
+<h1 id="circuit-breaker">Circuit breaker</h1>
+
+<h2 id="configuration-1">Configuration</h2>
+
+<ul>
+  <li>
+    <p>Change the circuit breaker configuration in chassis.yaml of mersher-g.</p>
+
+    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">isolation</span><span class="pi">:</span>
+  <span class="s">Consumer</span><span class="pi">:</span>
+    <span class="s">timeout</span><span class="pi">:</span>
+      <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
+    <span class="s">timeoutInMilliseconds</span><span class="pi">:</span> <span class="s">1000</span>            
+    <span class="s">maxConcurrentRequests</span><span class="pi">:</span> <span class="s">1</span>
+<span class="s">circuitBreaker</span><span class="pi">:</span>
+  <span class="s">Consumer</span><span class="pi">:</span>
+    <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
+    <span class="s">forceOpen</span><span class="pi">:</span> <span class="s">false</span>
+    <span class="s">forceClosed</span><span class="pi">:</span> <span class="s">false</span>
+    <span class="s">sleepWindowInMilliseconds</span><span class="pi">:</span> <span class="s">10000</span>    
+    <span class="s">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">1</span>          
+    <span class="s">errorThresholdPercentage</span><span class="pi">:</span> <span class="s">1</span>
+<span class="s">fallback</span><span class="pi">:</span>
+  <span class="s">Consumer</span><span class="pi">:</span>
+    <span class="s">enabled</span><span class="pi">:</span> <span class="s">true</span>
+    <span class="s">maxConcurrentRequests</span><span class="pi">:</span> <span class="s">1</span>
+<span class="s">fallbackpolicy</span><span class="pi">:</span>
+  <span class="s">Consumer</span><span class="pi">:</span>
+    <span class="s">policy</span><span class="pi">:</span> <span class="s">returnnull</span>
 </code></pre>
-</div>
+    </div>
+  </li>
+</ul>
+
+<h2 id="verification-1">Verification</h2>
+
+<ul>
+  <li>
+    <p>1 The circuit breaker of mersher-g takes effect when a negative parameter is passed in.</p>
+
+    <p><img src="/assets/images/mersher/mersher-circuitbreaker.png" alt="mersher-circuitbreaker" /></p>
+
+    <p><img src="/assets/images/mersher/mersher-circuitbreaker-ret.png" alt="mersher-circuitbreaker-ret" /></p>
+  </li>
+  <li>
+    <p>2 The service is automatically restored after 10 seconds because of the configuration parameter ‘sleepWindowInMilliseconds’ take effect.</p>
+  </li>
+</ul>
+
+<h1 id="whats-next">What’s next</h1>
+
+<ul>
+  <li>
+    <p>Read<a href="/docs/mersher-quick-start-advance/mersher-distributed-tracing/">mersher distributed tracing</a></p>
+  </li>
+  <li>
+    <p>More about <a href="/users/service-configurations/">service management</a></p>
+  </li>
+</ul>
 
         
       </section>
@@ -608,7 +586,7 @@ mvn spring-boot:run -Drun.jvmArguments<span class="o">=</span><span class="s2">"
       <ul>
         <p class="header">Contribute</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/distributed-tracing.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/mersher-service-management.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
         <li><a href="/security">Security</a></li>
       </ul>
