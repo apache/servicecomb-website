@@ -30,7 +30,7 @@ _您可以通过阅读[环境配置](/cn/users/setup-environment/#运行service-
 
 ## 案例背景
 
-- 本用例主要是帮助用户快速入门**mersher sidecar模式**；希望用户通过该例子，快速上手使用mersher服务，了解mersher的工作模式，并了解如何通过mersher的帮助改造已有的http服务，接入ServiceComb微服务体系，得到go-chassis微服务框架提供的负载均衡、流控、服务治理、调用链追踪等微服务能力。
+- 本用例主要是帮助用户快速入门**mersher sidecar模式**；希望用户通过该例子，快速上手使用mersher服务，了解mersher的工作模式，并了解如何通过mersher的帮助改造已有的http服务，接入ServiceComb微服务体系，得到go-chassis微服务框架提供的负载均衡、流控、服务治理、调用链追踪等微服务能力。完整案例将提交至[案例下载](https://github.com/apache/servicecomb-mesher/tree/master/examples/quick_start).
 
 ## 用例服务介绍
 
@@ -132,7 +132,7 @@ _您可以通过阅读[环境配置](/cn/users/setup-environment/#运行service-
 
 - 6、运行**http_server.py**程序，需要安装python2.7，依赖BaseHTTPServer包；
 
-- 7、 使用[**Bmi体质指数**](/cn/docs/quick-start.md/) 中的webapp作为展示服务，将webapp/src/main/resources/static/index.html 静态页面中 ajax调用的地址从/calculator/bmi?height=改为[]()<http://192.168.88.64:4538/bmi?height=> 这个地址是httpservergateway客户端服务的监听地址；
+- 7、 使用[**Bmi体质指数**](/cn/docs/quick-start.md/) 中的webapp作为展示服务，将webapp/src/main/resources/static/index.html 静态页面中 ajax调用的地址从/calculator/bmi?height=改为[]()<http://192.168.88.64:4538/bmi?height=> 这个地址是httpservergateway客户端服务的监听地址，更新application.yaml中的监听端口为192.168.88.64；
 
 ## 开始测试
 

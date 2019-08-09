@@ -30,7 +30,7 @@ _Reference to [service center deployment](/users/setup-environment/#运行servic
 
 ## Background
 
-- This use case is mainly to help users get started quickly with **mersher sidecar mode**. We hope that users can understand the working mode of mersher and learn how to merge the existing http service into the ServiceComb micro-service system with mersher's help. The final goal is to help user get the micro-service capabilities such as load balancing, flow control, service management and call chain tracing provided by servicecomb.
+- This use case is mainly to help users get started quickly with **mersher sidecar mode**. We hope that users can understand the working mode of mersher and learn how to merge the existing http service into the ServiceComb micro-service system with mersher's help. The final goal is to help user get the micro-service capabilities such as load balancing, flow control, service management and call chain tracing provided by servicecomb. The full case will be submitted to [Case Download](https://github.com/apache/servicecomb-mesher/tree/master/examples/quick_start).
 
 ## Mersher use case service introduction
 
@@ -104,22 +104,22 @@ _Reference to [service center deployment](/users/setup-environment/#运行servic
 
 - 4 Start running mersher-g, mersher-a and mersher-b respectively by cmd.
 
-```bash
-cd /usr/local/src/mersher-a
-export SPECIFIC_ADDR=127.0.0.1:4537
-./mersher
-```
+  ```bash
+  cd /usr/local/src/mersher-a
+  export SPECIFIC_ADDR=127.0.0.1:4537
+  ./mersher
+  ```
 
-```bash
-cd /usr/local/src/mersher-b
-export SPECIFIC_ADDR=127.0.0.1:4540
-./mersher
-```
+  ```bash
+  cd /usr/local/src/mersher-b
+  export SPECIFIC_ADDR=127.0.0.1:4540
+  ./mersher
+  ```
 
-```bash
-cd /usr/local/src/mersher-g
-./mersher
-```
+  ```bash
+  cd /usr/local/src/mersher-g
+  ./mersher
+  ```
 
 - 5 Use **httpserver** to provide http service. Use **httpserver-gateway** as the client to execute http request to **httpserver**.
 
@@ -132,7 +132,7 @@ cd /usr/local/src/mersher-g
 
 - 6 Run **http_server.py** program. You need to install python2.7 and this service relies on BaseHTTPServer package.
 
-- 7 Use webapp as a user interface which is in [**Bmi-example**](/docs/quick-start.md/). Edit http address of the ajax call from /calculator/bmi?height= to []()<http://192.168.88.64:4538/bmi?height=> in static page webapp/src/main/resources/static/index.html. This address is the listening address of the httpservergateway.
+- 7 Use webapp as a user interface which is in [**Bmi-example**](/docs/quick-start.md/). Edit http address of the ajax call from /calculator/bmi?height= to []()<http://192.168.88.64:4538/bmi?height=> in static page webapp/src/main/resources/static/index.html. This address is the listening address of the httpservergateway. Update the listening port configuration in application.yaml to 192.168.88.64.
 
 ## Start testing
 
