@@ -7,13 +7,15 @@ excerpt: 介绍如何使用mersher快速改造微服务应用
 last_modified_at: 2019-08-08T14:01:43.000Z
 ---
 
-# 安装 Go 和 Python 开发环境
+# 安装运行环境
 
 - 安装**git**，详情可参考[git安装教程](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git){:target="_blank"}。
 
 - 安装**golang 1.12.7** ，详情可参考[Go安装教程](https://golang.google.cn/doc/install){:target="_blank"}。
 
 - 安装**python 2.7**，详情可参考[python安装教程](https://wiki.python.org/moin/BeginnersGuide/Download){:target="_blank"}。
+
+- 安装**nodejs v10.16.2**，详情可参考[nodejs安装教程](https://nodejs.org/en/download/){:target="_blank"}。
 
 # 运行 Service Center
 
@@ -34,39 +36,47 @@ _您可以通过阅读[环境配置](/cn/users/setup-environment/#运行service-
 
 ## 用例服务介绍
 
-- 1、 **httpserver-a**：基于go语言实现的http体质指数服务，可替换为任何语言开发的http服务；
-- 2、 **httpserver-b**：基于python语言实现的http体质指数服务，功能与httpserver-a相同，可替换为任何语言开发的http服务；
-- 3、 **mersher-a**：通过sidecar模式为httpserver-a提供服务的mersher实例；
-- 4、 **mersher-b**：通过sidecar模式为httpserver-b提供服务的mersher实例；
-- 5、 **mersher-g**：通过sidecar模式为httpserver-gateway提供服务的mersher实例；
-- 6、 **servicecenter**：服务中心，接收mesher服务的注册，提供服务发现、路由查询、服务监控功能；
-- 7、 **webapp**：来源于bmi示例，用于在浏览器上展示可视化结果，使用ajax发起http服务调用；
-- 8、 **httpserver-gateway**：内部服务服务统一出口，接收webapp服务请求，作为bmi（体质指数）客户端发起http请求；
+- 如下图所示，用例中的服务部署在地址为192.168.88.64的机器上，用户在地址为192.168.88.78的机器上通过浏览器发起请求；
 
-  ![mersher部署图](/assets/images/mersher/mersher-deployment.png)
+- 1、 **httpserver_calculator**：基于python语言实现的http体质指数服务，可替换为任何语言开发的http服务；
+
+- 2、 **httpserver_webapp**：基于nodejs语言实现的web服务，用于在浏览器上展示可视化结果；
+
+- 3、 **mersher_webapp**：通过sidecar模式为httpserver_webapp提供服务的mersher实例；
+
+- 4、 **mersher_calculator**：通过sidecar模式为httpserver_calculator提供服务的mersher实例；
+
+- 5、 **servicecenter**：服务中心，接收mesher服务的注册，提供服务发现、路由查询、服务监控功能；
+
+  ![mersher部署图](/assets/images/mersher/mersher-deployment-simple.png)
 
 ## 流程详情
 
-- 1、 浏览器通过 **webapp** 服务发起http调用[]()<http://192.168.88.64:4538/bmi>；
-- 2、 httpserver-gateway服务接收请求，并发起对地址[]()<http://mersher-provider/bmi>的http调用，因为设置了代理[]()<http://127.0.0.1:30101>，**httpserver-gateway** 发起的请求将被转发到 **mersher-g** 服务；
-- 3、 **mersher-g** 根据请求的服务名(microservice.yaml配置的服务名**mersher-provider**）从服务中心**servicecenter**获得该服务名的地址，根据负载均衡算法（默认轮询）转发到部署的两个**mersher**(**mersher-a**和**mersher-b**)之一；
-- 4、 **mersher**(**mersher-a**和**mersher-b**)服务根据设置好的spefic地址，转发到自己绑定的**provider**服务(**httpserver_a**和**httpserver_b**)服务进行处理；
-- 5、 **httpserver_a**和**httpserver_b**会根据用户身高和体重进行计算，并返回自己的服务标识展示在界面上；流程图如下所示：
+- 1、 浏览器[192.168.88.78]对 **httpserver_webapp** 服务发起http调用[]()<http://192.168.88.64:4597/calculator/bmi>；
 
-  ![mersher流程图](/assets/images/mersher/mersher-flowchart.png)
+- 2、 httpserver_webapp服务接收请求，并发起对地址[]()<http://calculator/bmi>的http调用，因为设置了代理[]()<http://127.0.0.1:30101>，**httpserver_webapp** 发起的请求将被转发到 **mersher_webapp** 服务；
+
+- 3、 **mersher_webapp** 根据请求的服务名(microservice.yaml配置的服务名**calculator**）从服务中心**servicecenter**获得该服务名的地址，转发到**mersher_calculator**；
+
+- 4、 **mersher_calculator**服务根据设置好的specific地址，转发到自己绑定的体质指数**calculator**服务(**httpserver_calculator**)进行处理；
+
+- 5、 **httpserver_calculator**会根据用户身高和体重进行计算，并返回自己的服务标识展示在界面上；流程图如下所示：
+
+  ![mersher流程图](/assets/images/mersher/mersher-flowchart-simple.png)
 
 ## 环境搭建
 
-- 1、 编译 **mersher** ：[下载地址](https://github.com/apache/servicecomb-mesher), 按README.md编译项目 得到可执行文件mersher（linux），windows（mersher.exe）；
-- 2、 创建 **mersher-g** 用于接收客户端请求： 在mersher目录下执行下列linux命令创建mersher-g，此处除了可执行文件，还需要拷贝conf
+- 1、 编译 **mersher** ：[下载地址](https://github.com/apache/servicecomb-mesher)， 按README.md编译项目得到可执行文件mersher(linux)，windows(mersher.exe)；
+
+- 2、 创建 **mersher_webapp** 用于为**httpserver_webapp**服务： 在mersher目录下执行下列linux命令创建mersher_webapp，此处除了可执行文件，还需要拷贝conf
 
   ```bash
-  mkdir /usr/local/src/mersher-g
-  cp ./mesher /usr/local/src/mersher-g
-  cp -r ./conf /usr/local/src/mersher-g
+  mkdir /usr/local/src/mersher_webapp
+  cp ./mesher /usr/local/src/mersher_webapp
+  cp -r ./conf /usr/local/src/mersher_webapp
   ```
 
-  更改conf中配置文件，microservice.yaml中的**服务name**，从hellomesher改为**mersher-consumer**；更改chassis.yaml中监听的服务地址，从本地回环（127.0.0.1）地址改为**内网ip**（linux下通过ifconfig查看，如192.168.88.64）:
+  更改conf中配置文件，microservice.yaml中的**服务name**，从hellomesher改为**webapp**；更改chassis.yaml中监听的服务地址，从本地回环（127.0.0.1）地址改为**内网ip**（linux下通过ifconfig查看，如192.168.88.64）:
 
   ```bash
   listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40101
@@ -74,19 +84,16 @@ _您可以通过阅读[环境配置](/cn/users/setup-environment/#运行service-
   listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30102
   ```
 
-- 3、 创建mersher-a和mersher-b
+- 3、 创建**mersher_calculator**
 
   ```bash
-  mkdir /usr/local/src/mersher-a
-  cp ./mesher /usr/local/src/mersher-a
-  cp -r ./conf /usr/local/src/mersher-a
-  mkdir /usr/local/src/mersher-b
-  cp ./mesher /usr/local/src/mersher-b
-  cp -r ./conf /usr/local/src/mersher-b
+  mkdir /usr/local/src/mersher_calculator
+  cp ./mesher /usr/local/src/mersher_calculator
+  cp -r ./conf /usr/local/src/mersher_calculator
   ```
 
-  更改conf中配置文件，分别更改**microservice.yaml**中的**服务name**为相同的**mersher-provider**；<br>
-  更改**mersher-a**配置**chassis.yaml**监听的地址和端口：
+  更改conf中配置文件，分别更改**microservice.yaml**中的**服务name**为体质指数微服务名**calculator**；<br>
+  更改**mersher_calculator**配置**chassis.yaml**监听的地址和端口：
 
   ```bash
   listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40107
@@ -94,62 +101,47 @@ _您可以通过阅读[环境配置](/cn/users/setup-environment/#运行service-
   listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30112
   ```
 
-  更改**mersher-b**配置**chassis.yaml**监听的地址和端口：
+- 4、 启动mersher服务，分别进入**mersher_webapp**和**mersher_calculator**，启动服务，其中需要设置mersher_calculator的**SPECIFIC_ADDR**地址，该地址用于将mersher和http服务绑定起来；
 
   ```bash
-    listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40102
-    listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30108
-    listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30109
-  ```
-
-- 4、 启动mersher服务，分别进入mersher-g、mersher-a和mersher-b，启动服务，其中需要设置mersher-a和mersher-b的SPECIFIC_ADDR地址，该地址用于将mersher和http服务绑定起来；
-
-  ```bash
-  cd /usr/local/src/mersher-a
-  export SPECIFIC_ADDR=127.0.0.1:4537
-  ./mersher
-  ```
-
-  ```bash
-  cd /usr/local/src/mersher-b
+  cd /usr/local/src/mersher_calculator
   export SPECIFIC_ADDR=127.0.0.1:4540
   ./mersher
   ```
 
   ```bash
-  cd /usr/local/src/mersher-g
+  cd /usr/local/src/mersher_webapp
   ./mersher
   ```
 
-- 5、 搭建**httpserver**作为http provier服务，**httpserver-gateway**作为http client服务：
+- 5、 启动**httpserver_webapp**服务：
 
   ```bash
-  go build httpserver.go
-  ./httpserver.go
-  go build httpservergateway.go
-  ./httpservergateway
+  cd /usr/local/src/httpserver_webapp
+  node ./httpserver_webapp.js
   ```
 
-- 6、运行**http_server.py**程序，需要安装python2.7，依赖BaseHTTPServer包；
+- 6、 **httpserver_calculator**作为体质指数计算服务，需要安装python2.7，依赖BaseHTTPServer包：
 
-- 7、 使用[**Bmi体质指数**](/cn/docs/quick-start.md/) 中的webapp作为展示服务，将webapp/src/main/resources/static/index.html 静态页面中 ajax调用的地址从/calculator/bmi?height=改为[]()<http://192.168.88.64:4538/bmi?height=> 这个地址是httpservergateway客户端服务的监听地址，更新application.yaml中的监听端口为192.168.88.64；
+  ```bash
+  cd /usr/local/src/httpserver_calculator
+  ./httpserver_calculator.py
+  ```
 
 ## 开始测试
 
-- 1、 浏览器打开页面<http://192.168.88.64:30103> (如果打不开需要开启服务中心service-center的front服务，参考 <<http://servicecomb.apache.org/cn/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center>) 查看服务，可以看到如下界面。其中gateway是上述的webapp服务，这里展示的是microservice.yaml中配置的服务名。大写的SERVICECENTER是服务中心；
+- 1、 浏览器打开页面<http://192.168.88.64:30103> (如果打不开需要开启服务中心service-center的front服务，参考 <http://servicecomb.apache.org/cn/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center>) 查看服务，其中地址service-center服务启动的地址，看到如图界面。**webapp**代表**mersher_webapp**服务，这里展示的是microservice.yaml中配置的服务名。**calculator**代表**mersher_calculator**服务，这里展示的是microservice.yaml中配置的服务名。大写的**SERVICECENTER**是服务中心；
 
   ![服务中心监控图](/assets/images/mersher/mersher-servercenter.png)
 
-- 2、 浏览器打开<http://192.168.88.64:8889>，可以看到如下界面，为webapp呈现的静态页面：
+- 2、 浏览器打开<http://192.168.88.64:4597>，可以看到如下界面，为webapp呈现的静态页面：
 
   ![bmi测试初始化图](/assets/images/mersher/mersher-testinit.png)
 
-- 3、 输入参数(180、70)点击submit，观察BMI Instance ID变化：
-
-  ![bmi测试初始化图](/assets/images/mersher/mersher-testgohttp.png)<br>
+- 3、 输入参数(180、70)点击submit，显示如下图：
 
   ![bmi测试初始化图](/assets/images/mersher/mersher-testpythonhttp.png)
 
 # 下一步
 
-- 阅读[**mersher**进阶](/cn/docs/mersher-quick-start-advance.md/)。
+- 阅读[**mersher**进阶](/cn/docs/mersher-quick-start-advance/)。

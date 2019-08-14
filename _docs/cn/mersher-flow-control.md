@@ -15,7 +15,7 @@ last_modified_at: 2017-09-03T14:01:43.000Z
 
 # 开启
 
-- 添加流量控制配置，重启服务，更改**mersher-a**配置文件**chassis.yaml**，其中流量控制包含下列选项：
+- 添加流量控制配置，重启服务，更改**mersher_calculator**配置文件**chassis.yaml**，其中流量控制包含下列选项：
 
   ```yaml
   flowcontrol:
@@ -32,7 +32,7 @@ last_modified_at: 2017-09-03T14:01:43.000Z
 
 # 验证
 
-- 点击 _Submit_ 按钮，此时能看到由于流控受限而请求被拒的界面，请求已经无法到达httpserver。
+- 点击 _Submit_ 按钮，此时能看到由于流控受限而请求被拒的界面，请求已经无法到达httpserver_calculator。
 
   ![流量控制效果图](/assets/images/mersher/mersher-flow-control-fail.png)
 

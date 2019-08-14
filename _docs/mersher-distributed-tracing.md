@@ -7,7 +7,7 @@ excerpt: Introduce how to use distributed tracing with mersher
 last_modified_at: 2019-08-08T14:01:43.000Z
 ---
 
-- Distributed handler chain tracking provides the ability of tracing microservice call relationships and watching delays of calling processing. It is used to make it easy for users to check the health of microservices in a distributed environment. This guide will show you how to use the distributed handler chain tracking capabilities provided by **mersher**.
+- Distributed handler chain tracking provides the ability of tracing microservice call relationships and watching processing time. It is used to make it easy for users to check the health of microservices in a distributed environment. This guide will show you how to use the distributed handler chain tracking capabilities provided by **mersher**.
 
 # Foreword
 
@@ -25,7 +25,7 @@ last_modified_at: 2019-08-08T14:01:43.000Z
 
   ![tracing-func](/assets/images/mersher/mersher-tracing-func.png)
 
-- 3 Recompile and replace the executables of **mersher-g**,**mersher-a** and **mersher-b**.Then start the mersher service respectively.
+- 3 Recompile and replace the executable file of **mersher_webapp** and **mersher_calculator**. Then start the mersher service respectively.
 
 - 4 Running Zipkin Distributed tracking service with docker.
 
@@ -33,11 +33,9 @@ last_modified_at: 2019-08-08T14:01:43.000Z
   docker run -d -p 9411:9411 openzipkin/zipkin
   ```
 
-- 5 Multiple clicks on the _Submit_ button to initiate multiple service calls.
+- 5 Click on the _Submit_ button to initiate http call.
 
-- 6 Open <http://192.168.88.64:9411> to view the distributed tracking results. You can see the call chains and call delays of **mersher-a** (listening port 30108) and **mersher-b** (listening port 30111).
-
-  ![Distributed tracking rendering 30108](/assets/images/mersher/mersher-tracing-30108.png)<br>
+- 6 Open <http://192.168.88.64:9411> to view the distributed tracking results. You can see the call chains and processing time of http call.
 
   ![Distributed tracking rendering 30111](/assets/images/mersher/mersher-tracing-30111.png)
 
