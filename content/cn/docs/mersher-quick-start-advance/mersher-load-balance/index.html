@@ -403,7 +403,7 @@
     <meta itemprop="headline" content="负载均衡">
     <meta itemprop="description" content="介绍如何在体质指数应用中使用mersher提供的负载均衡能力">
     
-    <meta itemprop="dateModified" content="September 03, 2017">
+    <meta itemprop="dateModified" content="August 08, 2019">
 
     <div class="page__inner-wrap">
       
@@ -430,8 +430,27 @@
 <h1 id="负载均衡算法">负载均衡算法</h1>
 
 <ul>
+  <li>启动一个新的<strong>mersher_calculator</strong>和<strong>httpserver_calculator</strong>实例用于负载均衡测试，可以使用例子目录<a href="https://github.com/apache/servicecomb-mesher/tree/master/examples/quick_start/test_balance">test_balance</a>下的服务：</li>
   <li>
-    <p>1、默认情况下会使用roundbin（轮询）负载均衡算法，另外还支持Random和SessionStickiness负载均衡算法。 我们将负载均衡方法配置为Random，修改mersher-g的配置文件chassis.yaml：</p>
+    <p>1、修改mersher_calculator配置文件<strong>microservice.yaml</strong>中的服务name为<strong>calculator</strong>；<br />
+更改配置<strong>chassis.yaml</strong>监听的地址和端口避免冲突：</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40102
+listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30108
+listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30109
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>2、 启动<strong>mersher_calculator</strong>，需要设置mersher_calculator的<strong>SPECIFIC_ADDR</strong>地址，该地址用于将mersher和http服务绑定起来；</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>  <span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4537
+  ./mersher
+</code></pre>
+    </div>
+  </li>
+  <li>
+    <p>3、 默认情况下会使用roundbin（轮询）负载均衡算法，另外还支持Random和SessionStickiness负载均衡算法。 我们修改mersher_webapp的配置文件chassis.yaml，将负载均衡方法配置为Random：</p>
 
     <div class="language-bash highlighter-rouge"><pre class="highlight"><code>loadbalance:
   strategy:
@@ -440,11 +459,14 @@
     </div>
   </li>
   <li>
-    <p>2、此时点击 <em>Submit</em> 按钮就可以看到如下两个界面中的BMI Instance ID随机出现。</p>
+    <p>4、 开启httpserver_calculator服务新实例，监听4537端口；</p>
+  </li>
+  <li>
+    <p>5、 此时点击 <em>Submit</em> 按钮就可以看到如下两个界面中的BMI Instance ID随机出现。</p>
 
-    <p><img src="/assets/images/mersher/mersher-testgohttp.png" alt="bmi测试初始化图" /><br /></p>
+    <p><img src="/assets/images/mersher/mersher-testpythonhttp.png" alt="bmi测试初始化图1" /><br /></p>
 
-    <p><img src="/assets/images/mersher/mersher-testpythonhttp.png" alt="bmi测试初始化图" /></p>
+    <p><img src="/assets/images/mersher/mersher-testpythonhttp2.png" alt="bmi测试初始化图2" /></p>
   </li>
 </ul>
 

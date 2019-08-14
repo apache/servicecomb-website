@@ -424,7 +424,7 @@
 <h1 id="前言">前言</h1>
 
 <ul>
-  <li>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/mersher-quick-start/">mersher快速入门</a>，并已成功运行mersher用例服务。</li>
+  <li>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/mersher-quick-start/">mersher快速入门</a>和<a href="/cn/docs/quick-start-advance/load-balance/">mersher负载均衡</a>，并已成功运行mersher用例服务。</li>
 </ul>
 
 <h1 id="灰度发布">灰度发布</h1>
@@ -433,23 +433,23 @@
 
 <ul>
   <li>
-    <p>1、更新版本号： 分别更改<strong>mersher-a</strong>和<strong>mersher-b</strong>的配置文件<strong>microservice.yaml</strong>，更新<strong>version</strong>字段分别为<strong>1.1.1</strong>和<strong>1.1.2</strong>，重启mersher服务，可以看到服务版本号发生了变更。如图中所示：</p>
+    <p>1、更新版本号： 分别更改两个<strong>mersher_calculator</strong>实例的配置文件<strong>microservice.yaml</strong>，更新<strong>version</strong>字段分别为<strong>1.1.1</strong>和<strong>1.1.2</strong>，重启mersher服务，可以看到服务版本号发生了变更。如图中所示：</p>
 
     <p><img src="/assets/images/mersher/mersher-ser-manage-ver.png" alt="灰度发布版本图" /></p>
   </li>
   <li>
-    <p>2、配置路由信息，更改mersher-g的配置文件router.yaml，按实例版本更新权重信息，并重启服务：</p>
+    <p>2、配置路由信息，更改mersher_webapp的配置文件router.yaml，按实例版本更新权重信息，并重启服务：</p>
 
     <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">routeRule</span><span class="pi">:</span>
-<span class="s">mersher-provider</span><span class="pi">:</span>        <span class="c1">#service name</span>
-<span class="pi">-</span> <span class="s">precedence</span><span class="pi">:</span> <span class="s">2</span>        <span class="c1">#precedence of route rule</span>
-  <span class="s">route</span><span class="pi">:</span>               <span class="c1">#route rule list</span>
-  <span class="pi">-</span> <span class="s">tags</span><span class="pi">:</span>
-      <span class="s">version</span><span class="pi">:</span> <span class="s">1.1.1</span>
-    <span class="s">weight</span><span class="pi">:</span> <span class="s">80</span>        <span class="c1">#weight of 20%</span>
-  <span class="pi">-</span> <span class="s">tags</span><span class="pi">:</span>
-      <span class="s">version</span><span class="pi">:</span> <span class="s">1.1.2</span>
-    <span class="s">weight</span><span class="pi">:</span> <span class="s">20</span>        <span class="c1">#weight of 20%</span>
+  <span class="s">calculator</span><span class="pi">:</span>        <span class="c1">#service name</span>
+    <span class="pi">-</span> <span class="s">precedence</span><span class="pi">:</span> <span class="s">2</span>    <span class="c1">#precedence of route rule</span>
+      <span class="s">route</span><span class="pi">:</span>           <span class="c1">#route rule list</span>
+      <span class="pi">-</span> <span class="s">tags</span><span class="pi">:</span>
+          <span class="s">version</span><span class="pi">:</span> <span class="s">1.1.1</span>
+        <span class="s">weight</span><span class="pi">:</span> <span class="s">70</span>     <span class="c1">#weight of 20%</span>
+      <span class="pi">-</span> <span class="s">tags</span><span class="pi">:</span>
+          <span class="s">version</span><span class="pi">:</span> <span class="s">1.1.2</span>
+        <span class="s">weight</span><span class="pi">:</span> <span class="s">30</span>     <span class="c1">#weight of 20%</span>
 </code></pre>
     </div>
   </li>
@@ -467,7 +467,7 @@
 
 <ul>
   <li>
-    <p>更改断流器配置，更改mersher-g的配置文件chassis.yaml，设置其中的断流器配置为：</p>
+    <p>1、 更改断流器配置，更改mersher_webapp的配置文件chassis.yaml，设置其中的断流器配置为：</p>
 
     <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">isolation</span><span class="pi">:</span>
   <span class="s">Consumer</span><span class="pi">:</span>
@@ -493,17 +493,22 @@
 </code></pre>
     </div>
   </li>
+  <li>
+    <p>2、 关闭test_balance目录下的服务实例；</p>
+  </li>
 </ul>
 
 <h2 id="验证-1">验证</h2>
 
 <ul>
   <li>
-    <p>1、传入负数参数，响应超时，mersher-g断流器生效 mersher-service-management-circuitbreaker</p>
+    <p>1、传入负数参数，响应超时，mersher_webapp断流器生效，下图一是mersher_webapp日志截图，表明断流器启用，下图二是传入负数参数触发断流器时的返回值，下图三表示断流器生效后对所有请求都按配置返回nil；</p>
 
     <p><img src="/assets/images/mersher/mersher-circuitbreaker.png" alt="断流器生效日志图" /></p>
 
     <p><img src="/assets/images/mersher/mersher-circuitbreaker-ret.png" alt="断流器生效日志图" /></p>
+
+    <p><img src="/assets/images/mersher/mersher-circuitbreaker-ret-nil.png" alt="断流器生效日志图" /></p>
   </li>
   <li>
     <p>2、根据配置参数sleepWindowInMilliseconds，过10秒后服务自动恢复</p>

@@ -416,7 +416,7 @@
       
 
       <section class="page__content" itemprop="text">
-        <h1 id="install-go-and-python-development-environment">Install Go and Python development environment</h1>
+        <h1 id="install-development-environment">Install development environment</h1>
 
 <ul>
   <li>
@@ -426,13 +426,16 @@
     <p>Install <strong>golang 1.12.7</strong>. Get details <a href="https://golang.google.cn/doc/install" target="_blank">Go Installation tutorial</a>.</p>
   </li>
   <li>
-    <p>Install <strong>python 2.7</strong>. Get details <a href="https://wiki.python.org/moin/BeginnersGuide/Download" target="_blank">python Installation tutorial</a>。</p>
+    <p>Install <strong>python 2.7</strong>. Get details <a href="https://wiki.python.org/moin/BeginnersGuide/Download" target="_blank">python Installation tutorial</a>.</p>
+  </li>
+  <li>
+    <p>Install <strong>nodejs v10.16.2</strong>. Get details <a href="https://nodejs.org/en/download/" target="_blank">nodejs download</a>。</p>
   </li>
 </ul>
 
 <h1 id="run-service-center">Run Service Center</h1>
 
-<p>In the <strong>ServiceComb</strong> microservices framework, <strong>Service Center</strong> provides service registration and service discovery, which can be run directly using Docker.</p>
+<p>In the <strong>ServiceComb</strong> microservices framework, <strong>Service Center</strong> provides service registration and service discovery.</p>
 
 <div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker pull servicecomb/service-center
 docker run -d -p 30100:30100 servicecomb/service-center:latest
@@ -446,54 +449,51 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 <h2 id="background">Background</h2>
 
 <ul>
-  <li>This use case is mainly to help users get started quickly with <strong>mersher sidecar mode</strong>. We hope that users can understand the working mode of mersher and learn how to merge the existing http service into the ServiceComb micro-service system with mersher’s help. The final goal is to help user get the micro-service capabilities such as load balancing, flow control, service management and call chain tracing provided by servicecomb. The full case will be submitted to <a href="https://github.com/apache/servicecomb-mesher/tree/master/examples/quick_start">Case Download</a>.</li>
+  <li>This use case is mainly to help users get started quickly with <strong>mersher sidecar</strong> mode. We hope that users can understand the working mode of mersher and learn how to merge the existing http service into the ServiceComb micro-service system with mersher. The final goal is to help user get the micro-service capabilities such as load balancing, flow control, service management and call chain tracing provided by servicecomb. The full case will be submitted to <a href="https://github.com/apache/servicecomb-mesher/tree/master/examples/quick_start">Case Download</a>.</li>
 </ul>
 
 <h2 id="mersher-use-case-service-introduction">Mersher use case service introduction</h2>
 
 <ul>
-  <li>1 <strong>httpserver-a</strong>: A http server based on golang which is for BMI calculator and can be developed by any language.</li>
-  <li>2 <strong>httpserver-b</strong>: A http server based on python which is for BMI calculator and can be developed by any language.</li>
-  <li>3 <strong>mersher-a</strong>: A mersher instance which serves for httpserver-a via sidecar mode.</li>
-  <li>4 <strong>mersher-b</strong>: A mersher instance which serves for httpserver-b via sidecar mode.</li>
-  <li>5 <strong>mersher-g</strong>: A mersher instance which serves for httpserver-gateway via sidecar mode.</li>
-  <li>6 <strong>servicecenter</strong>: Servicecenter which receives registration of mesher service and provides services as service discovery, routing query, service monitoring and so on.</li>
-  <li>7 <strong>webapp</strong>: A http server which reuses the bmi example service is used for displaying visual results on the browser and using ajax to execute http service calls.</li>
-  <li>
-    <p>8 <strong>httpserver-gateway</strong>: A http server which is used as an unified export of internal services receives webapp’s requestand and then execute HTTP request as a BMI client.</p>
-
-    <p><img src="/assets/images/mersher/mersher-deployment.png" alt="mersher deployment diagram" /></p>
-  </li>
+  <li>1 <strong>httpserver_calculator</strong>. A http server based on python which is for BMI calculator and can be developed by any language.</li>
+  <li>2 <strong>httpserver_webapp</strong>. A http server based on nodejs which is used for displaying results on the browser.</li>
+  <li>3 <strong>mersher_webapp</strong>. A mersher instance which serves for httpserver_webapp via sidecar mode.</li>
+  <li>4 <strong>mersher_calculator</strong>. A mersher instance which serves for httpserver_calculator via sidecar mode.</li>
+  <li>5 <strong>servicecenter</strong>. Servicecenter which receives registration of mesher service and provides services as service discovery, routing query, service monitoring and so on.</li>
 </ul>
+
+<p><img src="/assets/images/mersher/mersher-deployment-simple.png" alt="mersher deployment diagram" /></p>
 
 <h2 id="process-details">Process details</h2>
 
 <ul>
-  <li>1 The browser execute a http call via the <strong>webapp</strong> service <a href=""></a><a href="http://192.168.88.64:4538/bmi">http://192.168.88.64:4538/bmi</a>.</li>
-  <li>2 The httpserver-gateway service receives the request and execute http call <a href=""></a><a href="http://mersher-provider/bmi">http://mersher-provider/bmi</a>. Because the proxy is set as <a href=""></a><a href="http://127.0.0.1:30101">http://127.0.0.1:30101</a>, the request initiated by <strong>httpserver-gateway</strong> will be forwarded to the <strong>mersher-g</strong> service.</li>
-  <li>3 <strong>mersher-g</strong> gets the address of the service name from the <strong>servicecenter</strong> based on the requested service name(the service name <strong>mersher-provider</strong> here is configured in microservice.yaml) and forwarded to one of the two <strong>mersher</strong> (<strong>mersher-a</strong> and <strong>mersher-b</strong>) according to the load balancing algorithm (default polling);</li>
-  <li>4 <strong>mersher</strong> (<strong>mersher-a</strong> and <strong>mersher-b</strong>) services forward http requests to their own <strong>provider</strong> service (<strong>httpserver_a</strong> or <strong>httpserver_b</strong>) based on the spefic address.</li>
+  <li>1 The browser[192.168.88.78] execute a http call to the <strong>httpserver_webapp</strong> service with url <a href=""></a><a href="http://192.168.88.64:4597/calculator/bmi">http://192.168.88.64:4597/calculator/bmi</a>.</li>
+  <li>2 The httpserver_webapp service receives the request and execute http call <a href=""></a><a href="http://calculator/bmi">http://calculator/bmi</a>. Because the proxy is set as <a href=""></a><a href="http://127.0.0.1:30101">http://127.0.0.1:30101</a>, the request initiated by <strong>httpserver_webapp</strong> will be forwarded to the <strong>mersher_webapp</strong> service.</li>
+  <li>3 <strong>mersher_webapp</strong> gets the address of the service name(the service name <strong>calculator</strong> here is configured in microservice.yaml) from the <strong>servicecenter</strong> and forwarded to <strong>mersher_calculator</strong>.</li>
+  <li>4 <strong>mersher_calculator</strong> service forward http requests to the <strong>httpserver_calculator</strong> service.</li>
   <li>
-    <p>5 <strong>httpserver_a</strong> and <strong>httpserver_b</strong> will calculate according to the user’s height and weight, and return their own service ID displayed on the interface. The flow chart is as follows:</p>
+    <p>5 <strong>httpserver_calculator</strong> will calculate according to the input parameters(height and weight). The result containing service id and body mass index will be displayed on the browser. The flow chart is as follows:</p>
 
-    <p><img src="/assets/images/mersher/mersher-flowchart.png" alt="mersher-flow-chart" /></p>
+    <p><img src="/assets/images/mersher/mersher-flowchart-simple.png" alt="mersher-flow-chart" /></p>
   </li>
 </ul>
 
 <h2 id="environmental-construction">Environmental construction</h2>
 
 <ul>
-  <li>1 Compile <strong>mersher</strong> in <a href="https://github.com/apache/servicecomb-mesher">download</a>. Download the project by README.md to get the executable mersher(linux) or mersher.exe(windows).</li>
   <li>
-    <p>2 Create <strong>mersher-g</strong> to receive client requests. In the mersher directory execute the following linux command to create mersher-g. In order to the execute mersher you also need to copy the conf.</p>
+    <p>1 Compile <strong>mersher</strong> <a href="https://github.com/apache/servicecomb-mesher">download</a>. Download the project and get the executable mersher(linux) or mersher.exe(windows) by README.md.</p>
+  </li>
+  <li>
+    <p>2 Create <strong>mersher_webapp</strong> which serves for <strong>httpserver_webapp</strong>. In the mersher directory execute the following linux command to create mersher_webapp. In order to the run mersher you also need to copy the conf.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir /usr/local/src/mersher-g
-cp ./mesher /usr/local/src/mersher-g
-cp -r ./conf /usr/local/src/mersher-g
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir /usr/local/src/mersher_webapp
+cp ./mesher /usr/local/src/mersher_webapp
+cp -r ./conf /usr/local/src/mersher_webapp
 </code></pre>
     </div>
 
-    <p>Change <strong>service name</strong> in microservice.yaml from hellemesher to <strong>mersher-consumer</strong>. Change the listening service address in chassis.yaml from 127.0.0.1 to <strong>intranet ip</strong>（Viewed by cmd ifconfig in linux, such as 192.168.88.64）:</p>
+    <p>Change <strong>service name</strong> in microservice.yaml from hellemesher to <strong>webapp</strong>. Change the listening service address in chassis.yaml from 127.0.0.1 to <strong>intranet ip</strong>(Viewed by cmd ifconfig in linux, such as 192.168.88.64).</p>
 
     <div class="language-bash highlighter-rouge"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40101
 listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30101
@@ -502,87 +502,70 @@ listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30102
     </div>
   </li>
   <li>
-    <p>3 Create mersher-a and mersher-b services.</p>
+    <p>3 Create mersher_calculator service.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir /usr/local/src/mersher-a
-cp ./mesher /usr/local/src/mersher-a
-cp -r ./conf /usr/local/src/mersher-a
-mkdir /usr/local/src/mersher-b
-cp ./mesher /usr/local/src/mersher-b
-cp -r ./conf /usr/local/src/mersher-b
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir /usr/local/src/mersher_calculator
+cp ./mesher /usr/local/src/mersher_calculator
+cp -r ./conf /usr/local/src/mersher_calculator
 </code></pre>
     </div>
 
-    <p>Change the <strong>service name</strong> in <strong>microservice.yaml</strong> from hellemesher to <strong>mersher-provider</strong> for both mersher-a and mersher-b<br />
-Change the listening address and port set in the <strong>mersher-a</strong> configuration file <strong>chassis.yaml</strong>:</p>
+    <p>Change the <strong>service name</strong> in conf file <strong>microservice.yaml</strong> from hellemesher to <strong>calculator</strong>.<br />
+Change the listening address and port in conf file <strong>chassis.yaml</strong>.</p>
 
     <div class="language-bash highlighter-rouge"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40107
 listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30111
 listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30112
 </code></pre>
     </div>
-
-    <p>Change the listening address and port set in the <strong>mersher-b</strong> configuration file <strong>chassis.yaml</strong>:</p>
-
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>  listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40102
-  listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30108
-  listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30109
-</code></pre>
-    </div>
   </li>
   <li>
-    <p>4 Start running mersher-g, mersher-a and mersher-b respectively by cmd.</p>
+    <p>4 Run mersher_webapp and mersher_calculator respectively by cmd.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher-a
-<span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4537
-./mersher
-</code></pre>
-    </div>
-
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher-b
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_calculator
 <span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4540
 ./mersher
 </code></pre>
     </div>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher-g
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_webapp
 ./mersher
 </code></pre>
     </div>
   </li>
   <li>
-    <p>5 Use <strong>httpserver</strong> to provide http service. Use <strong>httpserver-gateway</strong> as the client to execute http request to <strong>httpserver</strong>.</p>
+    <p>5 Run <strong>httpserver_webapp</strong>.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>go build httpserver.go
-./httpserver.go
-go build httpservergateway.go
-./httpservergateway
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_webapp
+node ./httpserver_webapp.js
 </code></pre>
     </div>
   </li>
   <li>
-    <p>6 Run <strong>http_server.py</strong> program. You need to install python2.7 and this service relies on BaseHTTPServer package.</p>
+    <p>6 Run <strong>httpserver_calculator</strong> program as BMI calculator. You need to install python2.7 and this service relies on package BaseHTTPServer.</p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_calculator
+./httpserver_calculator.py
+</code></pre>
+    </div>
   </li>
-  <li>7 Use webapp as a user interface which is in <a href="/docs/quick-start.md/"><strong>Bmi-example</strong></a>. Edit http address of the ajax call from /calculator/bmi?height= to <a href=""></a><a href="http://192.168.88.64:4538/bmi?height=">http://192.168.88.64:4538/bmi?height=</a> in static page webapp/src/main/resources/static/index.html. This address is the listening address of the httpservergateway. Update the listening port configuration in application.yaml to 192.168.88.64.</li>
 </ul>
 
 <h2 id="start-testing">Start testing</h2>
 
 <ul>
   <li>
-    <p>1 Open url <a href="http://192.168.88.64:30103">http://192.168.88.64:30103</a> in browser. (If you can’t open it, you need to open the front service of the service-center. Referring <a href="http://servicecomb.apache.org/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center">http://servicecomb.apache.org/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center</a>). You can see services information in web. The name ‘gateway’ represents the webapp service introduced above which is the service name configured in microservice.yaml. SERVICECENTER represents the servicecenter.</p>
+    <p>1 Open url <a href="http://192.168.88.64:30103">http://192.168.88.64:30103</a> in browser(You need to start the front service of the service-center. Referring <a href="http://servicecomb.apache.org/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center">http://servicecomb.apache.org/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center</a>). You can see services information in web. The name <strong>webapp</strong> represents the <strong>mersher_webapp</strong> which is the service name configured in microservice.yaml. The name <strong>calculator</strong> represents the <strong>mersher_calculator</strong> which is the service name configured in microservice.yaml. <strong>SERVICECENTER</strong> represents the <strong>servicecenter</strong>.</p>
 
     <p><img src="/assets/images/mersher/mersher-servercenter.png" alt="Service-center-monitoring" /></p>
   </li>
   <li>
-    <p>2 Open <a href="http://192.168.88.64:8889">http://192.168.88.64:8889</a> in browser and you can see the following interface.</p>
+    <p>2 Open <a href="http://192.168.88.64:4597">http://192.168.88.64:4597</a> in browser and you can see the following interface.</p>
 
-    <p><img src="/assets/images/mersher/mersher-testinit.png" alt="mersher-bmi-test" /></p>
+    <p><img src="/assets/images/mersher/mersher-testinit.png" alt="mersher_calculatormi-test" /></p>
   </li>
   <li>
-    <p>3 Enter the parameters (180, 70) and click submit to observe change of the BMI Instance ID.</p>
-
-    <p><img src="/assets/images/mersher/mersher-testgohttp.png" alt="mersher-testhttp" /><br /></p>
+    <p>3 Enter the parameters (180, 70) and click submit.</p>
 
     <p><img src="/assets/images/mersher/mersher-testpythonhttp.png" alt="mersher-testhttp" /></p>
   </li>
@@ -591,7 +574,7 @@ go build httpservergateway.go
 <h1 id="whats-next">What’s next</h1>
 
 <ul>
-  <li>Read <a href="/docs/mersher-quick-start-advance.md/"><strong>mersher</strong> quick start advance</a></li>
+  <li>Read <a href="/docs/mersher-quick-start-advance/">mersher quick start advance</a></li>
 </ul>
 
         

@@ -443,18 +443,20 @@
     <p><img src="/assets/images/mersher/mersher-tracing-func.png" alt="流量控制效果图" /></p>
   </li>
   <li>
-    <p>3、重新编译，分别替换<strong>mersher-g</strong>、<strong>mersher-a</strong>和<strong>mersher-b</strong>的可执行文件，启动mersher服务；</p>
+    <p>3、重新编译，分别替换<strong>mersher_webapp</strong>和<strong>mersher_calculator</strong>的可执行文件，启动mersher服务；</p>
   </li>
   <li>
     <p>4、使用<strong>Docker</strong>运行<a href="http://servicecomb.apache.org/cn/docs/quick-start-advance/distributed-tracing/">Zipkin分布式追踪服务</a></p>
+
+    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker run -d -p 9411:9411 openzipkin/zipkin
+</code></pre>
+    </div>
   </li>
   <li>
     <p>5、多次点击 <em>Submit</em> 按钮发起服务调用；</p>
   </li>
   <li>
-    <p>6、打开 <a href="http://192.168.88.64:9411">http://192.168.88.64:9411</a>可查看分布式追踪结果如图，可以通过host地址看到分别调用了<strong>mersher-a</strong>(监听30108端口)和<strong>mersher-b</strong>（监听30111端口）：</p>
-
-    <p><img src="/assets/images/mersher/mersher-tracing-30108.png" alt="分布式追踪效果图" /><br /></p>
+    <p>6、打开 <a href="http://192.168.88.64:9411">http://192.168.88.64:9411</a>可查看分布式追踪结果如图，可以通过host地址判断调用路径：</p>
 
     <p><img src="/assets/images/mersher/mersher-tracing-30111.png" alt="分布式追踪效果图" /></p>
   </li>
