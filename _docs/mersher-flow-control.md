@@ -15,7 +15,7 @@ last_modified_at: 2019-08-08T14:01:43.000Z
 
 # Enable
 
-- Change the **mersher-a's** configuration file **chassis.yaml**. Add a flow control configuration in **chassis.yaml** as follows. Restart the service.
+- Change the configuration file **chassis.yaml** of **mersher_calculator**. Add a flow control configuration in **chassis.yaml** as follows. Restart the service.
 
   ```yaml
   flowcontrol:
@@ -32,7 +32,7 @@ last_modified_at: 2019-08-08T14:01:43.000Z
 
 # Verification
 
-- Click the _Submit_ button and you can see that the request was rejected due to the flow control of mersher. Now the request can't reach real httpserver.
+- Click the _Submit_ button and you can see that the request was rejected due to the flow control of mersher. Now the request can not reach real httpserver.
 
 ![flow-control-req](/assets/images/mersher/mersher-flow-control-fail.png)
 
