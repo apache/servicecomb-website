@@ -25,15 +25,17 @@ last_modified_at: 2019-08-08T14:01:43.000Z
 
   ![流量控制效果图](/assets/images/mersher/mersher-tracing-func.png)
 
-- 3、重新编译，分别替换**mersher-g**、**mersher-a**和**mersher-b**的可执行文件，启动mersher服务；
+- 3、重新编译，分别替换**mersher_webapp**和**mersher_calculator**的可执行文件，启动mersher服务；
 
 - 4、使用**Docker**运行[Zipkin分布式追踪服务](http://servicecomb.apache.org/cn/docs/quick-start-advance/distributed-tracing/)
 
+  ```bash
+  docker run -d -p 9411:9411 openzipkin/zipkin
+  ```
+
 - 5、多次点击 _Submit_ 按钮发起服务调用；
 
-- 6、打开 <http://192.168.88.64:9411>可查看分布式追踪结果如图，可以通过host地址看到分别调用了**mersher-a**(监听30108端口)和**mersher-b**（监听30111端口）：
-
-  ![分布式追踪效果图](/assets/images/mersher/mersher-tracing-30108.png)<br>
+- 6、打开 <http://192.168.88.64:9411>可查看分布式追踪结果如图，可以通过host地址判断调用路径：
 
   ![分布式追踪效果图](/assets/images/mersher/mersher-tracing-30111.png)
 
