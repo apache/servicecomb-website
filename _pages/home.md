@@ -19,7 +19,7 @@ intro:
 
 <ul>
   <li>
-    <a href='/release/'>Apache ServiceComb Java-Chassis 1.2.1 is released</a>
+    <a href='/release/'>Apache ServiceComb Pack 0.5.0 is released</a>
   </li>
   <li>
     <a href='/release/saga-actuator-downloads/'>Apache ServiceComb Saga Actuator releases a new version 0.3.0</a>
