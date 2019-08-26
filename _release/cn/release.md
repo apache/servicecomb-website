@@ -14,11 +14,11 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 **稳定发布版 - 最新版本:**
 
+* [ServiceComb Pack 0.5.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.5.0/){:target="_blank"} (released on 2019-08-26)
+
 * [ServiceComb Java-Chassis 1.2.1](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-java-chassis/1.2.1/){:target="_blank"} (released on 2019-05-19)
 
 * [ServiceComb Service-Center 1.2.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.2.0/){:target="_blank"} (released on 2019-04-06)
-
-* [ServiceComb Pack 0.4.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.4.0/){:target="_blank"} (released on 2019-04-06)
 
 * [ServiceComb Saga Actuator 0.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga-actuator/0.3.0/){:target="_blank"} (released on 2018-12-18)
 
@@ -38,10 +38,11 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 * [ServiceComb Java-Chassis 1.0.0-m2](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
 * [ServiceComb Java-Chassis 1.0.0-m1](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/){:target="_blank"} (released on 2018-04-02)
 
+* [ServiceComb Pack 0.4.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.4.0/){:target="_blank"} (released on 2019-04-06)
+* [ServiceComb Pack 0.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.3.0/){:target="_blank"} (released on 2019-01-02)
 * [ServiceComb Saga 0.2.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-saga/0.2.0/){:target="_blank"} (released on 2018-06-21)
 * [ServiceComb Saga 0.1.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/){:target="_blank"} (released on 2018-03-27)
 
-* [ServiceComb Pack 0.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.3.0/){:target="_blank"} (released on 2019-01-02)
 
 **注意:**
   - 请查看 [兼容版本](/release/compatibleversion) 获取版本兼容信息.
