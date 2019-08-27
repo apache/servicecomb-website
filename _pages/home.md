@@ -19,13 +19,13 @@ intro:
 
 <ul>
   <li>
-    <a href='/release/'>Apache ServiceComb Pack 0.5.0 is released</a>
+    <a href='/release/pack-downloads'>Apache ServiceComb Pack 0.5.0 is released</a>
   </li>
   <li>
-    <a href='/release/saga-actuator-downloads/'>Apache ServiceComb Saga Actuator releases a new version 0.3.0</a>
+    <a href='/release/java-chassis'>Apache ServiceComb Java-Chassis Release Version 1.2.1</a>
   </li>
   <li>
-    <a href='/release/saga-downloads/'>Apache ServiceComb Saga releases a new version 0.2.1</a>
+    <a href='/docs/mersher-quick-start/'>Apache ServiceComb new project Mesher </a>
   </li>
   <li>
     <a href=''>Apache ServiceComb won the first prize of China's outstanding open source project organized by China Open Source Cloud Alliance</a>

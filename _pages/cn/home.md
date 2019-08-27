@@ -20,13 +20,13 @@ intro:
 
 <ul>
   <li>
-    <a href='/cn/release/'>Apache ServiceComb Pack 0.5.0 is released</a>
+    <a href='/cn/release/pack-downloads'>Apache ServiceComb Pack 发布0.5.0</a>
   </li>
   <li>
-    <a href='/cn/release/saga-downloads/'>Apache ServiceComb Saga 发布最新版 0.2.1</a>
+    <a href='/cn/release/java-chassis'>Apache ServiceComb Java-Chassis 发布1.2.1</a>
   </li>
   <li>
-    <a href='/cn/release/saga-actuator-downloads/'>Apache ServiceComb Saga Actuator 发布最新版 0.3.0</a>
+    <a href='/cn/docs/mersher-quick-start/'>Apache ServiceComb 新项目 Mesher </a>
   </li>
   <li>
     <a href=''>Apache ServiceComb 荣获中国开源云联盟组织的中国优秀开源项目一等奖</a>
