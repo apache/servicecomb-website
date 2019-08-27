@@ -100,7 +100,6 @@ gvt restore
 
 16. 将投票结果发布到dev@servicecomb.apache.org。
 
-
 ***通告***
 
 20. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-service-center/)。
@@ -112,8 +111,6 @@ gvt restore
 23. 上传发行页面至ServiceComb网站。
 
 24. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
-
-
 
 
 ## 发行Java-Chassis
@@ -157,7 +154,6 @@ mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 
 10. 将release分支以及标签分别push至主仓库。
 
-
 ***给发行包签名***
 
 11. 从临时仓库下载二进制包及签名  
@@ -191,11 +187,6 @@ mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 ***PMC批准***
 
 17. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
-  模板：
-  ```
-
-  ```
-
 
 18. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题，并删除主仓库的release版本对应的标签，并从***第1步***重新开始。
 
@@ -224,9 +215,7 @@ mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
    PR
 
 23. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
-    模板：
-    ```
-    ```
+
 
 ## 发行Pack
 
@@ -261,9 +250,7 @@ find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 ```
 
-8. 上述命令执行成功，所有的jar包都成功上传至临时仓库后，运行门槛测试以验证基本功能。
-
-8. 如果执行失败，需要解决问题，从步骤7重新开始。
+8. 上述命令执行成功，所有的jar包都成功上传至临时仓库后，运行门槛测试以验证基本功能, 如果执行失败，需要解决问题，从步骤7重新开始。
 
 9. 如果步骤7命令执行成功，则所有的jar包都已经成功上传至maven临时仓库。  
    使用apache帐号登录到[Apache Nexus](https://repository.apache.org/)，点击“Staging Repositories”，搜索“servicecomb-pack”，根据时间找到最近的pack相关的记录，close该条记录，得到maven临时仓库的链接，例如：`https://repository.apache.org/content/repositories/orgapacheservicecomb-1385`
@@ -277,7 +264,6 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 14. 生成二进制包和源码包的签名和校验和。
 
 15. 上传发行包到[Apache发行开发仓库](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-pack/).
-.
 
 16. 从SVN下载发行包，验证签名和校验。
 
@@ -291,12 +277,12 @@ mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 
 ***通告***
 
-23. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-pack/)。
+20. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-pack/)。
 
-24. 等待24小时，让所有镜像同步。
+21. 等待24小时，让所有镜像同步。
 
-25. 将[dev](https://dist.apache.org/repos/dist/dev)的文件移动到[release](https://dist.apache.org/repos/dist/release)目录中，同时确认已经被存档,同时更新网站上相关链接。
+22. 将[dev](https://dist.apache.org/repos/dist/dev)的文件移动到[release](https://dist.apache.org/repos/dist/release)目录中，同时确认已经被存档,同时更新网站上相关链接。
 
-26. 上传发行页面至ServiceComb网站。
+23. 上传发行页面至ServiceComb网站。
 
-27. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
+24. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
