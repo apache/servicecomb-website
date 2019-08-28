@@ -7,9 +7,8 @@ excerpt: "ServiceComb Pack Release Notes"
 last_modified_at: 2019-04-06T00:50:43-55:00
 ---
 
+        Release Notes - Apache ServiceComb - Version pack 0.5.0
 
-        Release Notes - Apache ServiceComb - Version pack-0.5.0
-    
 <h2>        Sub-task
 </h2>
 <ul>
@@ -32,7 +31,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1442'>SCB-1442</a>] -         Topic initialization  &amp; Class KafkaMessagePublisher needs to use globalTxId as the partitioning strategy.
 </li>
 </ul>
-        
+
 <h2>        Bug
 </h2>
 <ul>
@@ -51,7 +50,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1438'>SCB-1438</a>] -         Class ElasticsearchTransactionRepository synchronization save method is invalid
 </li>
 </ul>
-            
+
 <h2>        New Feature
 </h2>
 <ul>
@@ -62,13 +61,13 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1411'>SCB-1411</a>] -         Add alpha-ui module to provide a simple Web GUI
 </li>
 </ul>
-    
+
 <h2>        Improvement
 </h2>
 <ul>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-575'>SCB-575</a>] -         Publish the Java doc of ServiceComb projects
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-1243'>SCB-1243</a>] -         Keep the handler name of saga-consumer and saga-producer 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1243'>SCB-1243</a>] -         Keep the handler name of saga-consumer and saga-producer
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1247'>SCB-1247</a>] -         Set default value in alpha.cluster.address on omega side
 </li>
@@ -99,7 +98,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1443'>SCB-1443</a>] -         Adding a Rolling File Appender for Log4j2
 </li>
 </ul>
-    
+
 <h2>        Test
 </h2>
 <ul>
@@ -110,7 +109,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1423'>SCB-1423</a>] -         Non-thread-safe method size of ConcurrentLinkedQueue in AlphaIntegrationTest
 </li>
 </ul>
-        
+
 <h2>        Task
 </h2>
 <ul>
@@ -122,7 +121,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1244'>SCB-1244</a>] -         Update the configuration of Pack 0.4.0 in the user guide
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-1298'>SCB-1298</a>] -         Add Zookeeper as the Alpha server load balancer 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1298'>SCB-1298</a>] -         Add Zookeeper as the Alpha server load balancer
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1314'>SCB-1314</a>] -         support zookeeper user_guide
 </li>
@@ -130,7 +129,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1353'>SCB-1353</a>] -         Travis CI should fail fast
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-1356'>SCB-1356</a>] -         add NACOS to DiscoveryType 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1356'>SCB-1356</a>] -         add NACOS to DiscoveryType
 </li>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1389'>SCB-1389</a>] -         Doc for SCB-1385
 </li>
@@ -139,7 +138,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1440'>SCB-1440</a>] -         Remove the Kamon dependencies
 </li>
 </ul>
-                                                                                                                                        
+
 
         Release Notes - Apache ServiceComb - Version pack-0.4.0
 
