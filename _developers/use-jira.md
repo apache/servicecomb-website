@@ -12,7 +12,7 @@ last_modified_at: 2018-02-28T11:26:43-20:46
 ## JIRA Introduction
 JIRA is a task and issue tracking system of Atlassian. It is widely used in defect tracking, customer practice, demand collection, process approval, task tracking, project tracking and agile management. ServiceComb uses JIRA for bug and task tracking. This article will briefly describe how to use JIRA during the development of ServiceComb.
 
-## login JIRA
+## Login JIRA
 Open the [JIRA registration page] (https://issues.apache.org/jira/secure/Signup!default.jspa) in your browser, fill in your personal email address, name and other registration information to register. Log in and enter the [ServiceComb project] after registration (https://issues.apache.org/jira/projects/SCB/)
 
 ## View issues
