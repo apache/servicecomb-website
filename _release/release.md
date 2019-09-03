@@ -14,6 +14,7 @@ Only current recommended releases are available on the main distribution site an
 
 **Stable Release - Latest Version:**
 
+* [ServiceComb Toolkit 0.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-toolkit/0.1.0/){:target="_blank"} (released on 2019-08-31)
 
 * [ServiceComb Pack 0.5.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.5.0/){:target="_blank"} (released on 2019-08-26)
 

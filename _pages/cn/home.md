@@ -30,7 +30,7 @@ intro:
     <a href='/cn/release/toolkit-downloads'>Apache ServiceComb Toolkit 发布0.1.0</a>
   </li>
   <li>
-    <a href='/cn/release/java-chassis'>Apache ServiceComb Java-Chassis 发布1.2.1</a>
+    <a href='/cn/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis 发布1.2.1</a>
   </li>
 </ul>
 

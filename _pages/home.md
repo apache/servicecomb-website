@@ -29,7 +29,7 @@ intro:
     <a href='/release/toolkit-downloads'>Apache ServiceComb Toolkit 0.1.0 is released</a>
   </li>
   <li>
-    <a href='/release/java-chassis'>Apache ServiceComb Java-Chassis Release Version 1.2.1</a>
+    <a href='/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis Release Version 1.2.1</a>
   </li>
 </ul>
 
