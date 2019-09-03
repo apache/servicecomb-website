@@ -17,8 +17,8 @@ intro:
   - excerpt: "
 <div class='excerpt-title'>Latest News</div>
 
-<style> li{width:100%} </style>
-<ul>
+<style>left_ul li{width:100%} </style>
+<ul class='left_ul'>
   <li>
       <a href='/release/'>Apache ServiceComb Release Version 1.2.0</a>
   </li>

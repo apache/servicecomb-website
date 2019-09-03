@@ -18,8 +18,8 @@ intro:
   - excerpt: "
 <div class='excerpt-title'>最新新闻</div>
 
-<style> li{width:100%} </style>
-<ul>
+<style>left_ul li{width:100%} </style>
+<ul class='left_ul'>
   <li>
     <a href='/cn/release/'>Apache ServiceComb 发布正式版 1.2.0</a>
   </li>
