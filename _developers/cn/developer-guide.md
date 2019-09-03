@@ -17,7 +17,7 @@ last_modified_at: 2017-06-24T19:18:43+08:00
 | [servicecomb-pack](https://github.com/apache/servicecomb-pack)                                   | 支持Saga/TCC等多协议的分布式事务方案   | Java     |
 | [servicecomb-mesher](https://github.com/apache/servicecomb-Mesher)       | 微服务网格      | Golang    |
 | [servicecomb-kie](https://github.com/apache/servicecomb-kie)                                   |  微服务配置管理中心  | Golang    |
-| [servicecomb-tool-kit](https://github.com/apache/servicecomb-tool-kit)               | 基于契约的微服务开发工具 | Java       |
+| [servicecomb-toolkit](https://github.com/apache/servicecomb-toolkit)               | 基于契约的微服务开发工具 | Java       |
 | [servicecomb-samples](https://github.com/apache/servicecomb-samples)                                   | 提供了微服务示例   | Java     |
 | [servicecomb-fence](https://github.com/apache/servicecomb-fence)               | ServiceComb Java-chassis安全认证解决方案 | Java       |
 | [servicecomb-docs](https://github.com/apache/servicecomb-docs) | ServiceComb用户手册            | CSS |
