@@ -17,33 +17,34 @@ intro:
   - excerpt: "
 <div class='excerpt-title'>Latest News</div>
 
-<ul>
+<style>left_ul li{width:100%} </style>
+<ul class='left_ul'>
+  <li>
+      <a href='/release/'>Apache ServiceComb Release Version 1.2.0</a>
+  </li>
   <li>
     <a href='/release/pack-downloads'>Apache ServiceComb Pack 0.5.0 is released</a>
   </li>
   <li>
-    <a href='/release/java-chassis'>Apache ServiceComb Java-Chassis Release Version 1.2.1</a>
+    <a href='/release/toolkit-downloads'>Apache ServiceComb Toolkit 0.1.0 is released</a>
   </li>
   <li>
-    <a href='/docs/mersher-quick-start/'>Apache ServiceComb new project Mesher </a>
-  </li>
-  <li>
-    <a href=''>Apache ServiceComb won the first prize of China's outstanding open source project organized by China Open Source Cloud Alliance</a>
+    <a href='/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis Release Version 1.2.1</a>
   </li>
 </ul>
 
 <ul>
   <li>
-      <a href='/release/'>Apache ServiceComb Release Version 1.2.0</a>
+    <a href='/docs/Apache-ServiceComb-Meetup-2019-Shanghai-KubeCon+CloudNative+OSS-Report'>Apache ServiceComb Meetup and new projects release</a>
   </li>
   <li>
-    <a href='https://gitter.im/ServiceCombUsers/Lobby'>Welcome to join Apache ServiceComb community at Gitter</a>
-  </li>
-  <li>
-    <a href='/developers/team/'>Apache ServiceComb Development Team</a>
+    <a href=''>Apache ServiceComb won the first prize of China's outstanding open source project organized by China Open Source Cloud Alliance</a>
   </li>
   <li>
     <a href='/docs/chuanzhiboke-servicecomb-tutoria-release/'>Apache ServiceComb community joint Itcast.cn sub-brand Itheima, Boxuegu and Wisdom Gathering release micro-service tutorial</a>
+  </li>
+  <li>
+    <a href='https://gitter.im/ServiceCombUsers/Lobby'>Welcome to join Apache ServiceComb community at Gitter</a>
   </li>
 </ul>
 "
