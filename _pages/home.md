@@ -8,9 +8,11 @@ header:
   caption:
 excerpt: 'Open-Source, Full-Stack Microservice Solution.With out of the box, high performance, compatible with popular ecology, multi-language support
 
-<div class="excerpt-label">Download latest release:</div>
-<div class="button-group">
-<a href="/release" class="home-button btn--info">ServiceComb 1.2.0</a>
+<div class="button-group def-inline-block">
+    <a href="/release" class="home-button btn--info">Download</a>
+</div>
+<div class="button-group def-inline-block">
+    <a href="/docs/quick-start/" class="home-button btn--info">Quick Start</a>
 </div>'
 
 intro:

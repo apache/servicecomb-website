@@ -1,4 +1,4 @@
-<div class="masthead">
+<div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -14,15 +14,61 @@
             {% else %}
               {% assign domain = site.url | append: site.baseurl %}
             {% endif %}
-            <li class="masthead__menu-item">
+          {% assign pageUrl = page.url %}
+          {% if page.lang == "cn" %}
+            {% assign prefixSize =  page.url.size | minus:1 %}
+            {% assign pageUrl = page.url | slice: 3, prefixSize  %}
+          {% endif %}
+            {% if link.children == null %}
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                {% if pageUrl == '/' %}
+                  {% if link.group == 'home' %}
+                    <a class="active" href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+                  {% else %}
+                    <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+                  {% endif %}
+
+                {% elsif pageUrl == '/developers/' %}
+                  {% if link.group == 'projects' %}
+                    <a class="active" href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+                  {% else %}
+                    <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+                  {% endif %}
+                {% elsif pageUrl contains link.group %}
+                  <a class="active" href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+                {% else %}
+                  <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
+                {% endif %}
+              </li>
+            {% else %}
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               {% assign prefixSize = link.url.size | minus:1 %}
               {% assign prefix = link.url | slice: 0, prefixSize  %}
               {% if page.url contains prefix %}
+                {% assign act = 'true' %}
+              {% else %}
+                {% for child in link.children %}
+                  {% assign cSize = child.url.size | minus:1 %}
+                  {% assign cPrefix = child.url | slice: 0, cSize  %}
+                  {% if page.url contains cPrefix %}
+                    {% assign act = 'true' %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+
+              {% if act != null %}
                 <a class="active" href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
               {% else %}
                 <a href="{{ domain }}{{ link.url }}">{{ link.title }}</a>
               {% endif %}
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                {% for child in link.children %}
+                <li><a href="{{ domain }}{{ child.url }}" class="{{ active }}">{{ child.title }}</a></li>
+                {% endfor %}
+              </ul>
             </li>
+          {% endif %}
           {% endfor %}
         </ul>
         <button><div class="navicon"></div></button>

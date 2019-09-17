@@ -8,10 +8,11 @@ header:
   caption:
 excerpt: '开箱即用、高性能、兼容流行生态、支持多语言的一站式开源微服务解决方案
 
-
-<div class="excerpt-label">下载最新版本:</div>
-<div class="button-group">
-<a href="/cn/release" class="home-button btn--info">ServiceComb 1.2.0</a>
+<div class="button-group def-inline-block">
+    <a href="/cn/release" class="home-button btn--info">下载</a>
+</div>
+<div class="button-group def-inline-block">
+    <a href="/cn/docs/quick-start/" class="home-button btn--info">快速入门</a>
 </div>'
 
 intro:
