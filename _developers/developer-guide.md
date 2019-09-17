@@ -1,9 +1,9 @@
 ---
-title: "Developer Guide"
+title: "Projects"
 lang: en
 ref: developer-guide
 permalink: /developers/
-excerpt: "Developer Guide"
+excerpt: "Projects"
 last_modified_at: 2017-06-24T19:18:43+08:00
 ---
 {% include toc %}
