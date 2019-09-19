@@ -29,7 +29,26 @@ Please sent your PR to the master branch instead of asf-site.
 
    `sudo bundle exec jekyll server`
 
-*  Start web browser to access `http://localhost:4000`   
+*  Start web browser to access `http://localhost:4000` 
+
+# How to push the change to apache website
+
+* Switch to asf-site branch
+
+  `git checkout asf-site`
+  
+* Merge the changes of master branch
+
+  `git merge master`
+  
+* Generate the website static pages
+
+  `bundle exec jekyll build`
+  
+* Commit the changes into git repo
+
+  `git add content `
+  `git commit -m "publish website"`
 
 **Note that tested versions of the tools covered in this section are as following,**    
 
