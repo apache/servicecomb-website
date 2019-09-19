@@ -36,8 +36,8 @@
 <meta property="og:title" content="基于服务的分布式事务(下篇)">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed-transaction-of-services-2/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed-transaction-of-services-2/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed-transaction-of-services-2/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/distributed-transaction-of-services-2/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -417,7 +445,7 @@
 
 <p>在文章开头我们给大家介绍了一个典型的分布式事务业务场景，其中涉及到一个初始服务，以及两个参与服务。 为了方便大家理解，我们将以<a href="https://github.com/apache/servicecomb-pack/tree/master/demo/saga-spring-demo">ServiceComb Pack Spring Demo</a>为例介绍如何使用Saga实现分布式事务。这里预订服务(Booking) 相当于之前提到的分布式事务初始服务，对外提供一个租车(Car)和酒店(Hotel)聚合服务，在<a href="https://github.com/apache/servicecomb-pack/blob/master/demo/saga-spring-demo/booking/src/main/java/org/apache/servicecomb/pack/demo/booking/BookingController.java">BookingController</a> 中使用Spring提供的<a href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/client/RestTemplate.html">RestTemplate</a> 向租车和酒店服务转发请求。租车和酒店服务分别作为Saga事务参与方参与整个事务。预订服务，租车和酒店服务都是基于<a href="https://spring.io/projects/spring-boot">Spring-Boot</a>编写独立进程应用，应用代码通过<a href="https://github.com/apache/servicecomb-pack/blob/master/omega/omega-spring-starter/src/main/java/org/apache/servicecomb/pack/omega/spring/EnableOmega.java">@EnableOmega</a>加载Omega相关的<a href="https://github.com/apache/servicecomb-pack/blob/master/demo/saga-spring-demo/booking/src/main/resources/application.yaml">配置</a>，同时需要在Spring的配置文件中配置与Alpha服务相关的信息。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.spring.EnableOmega</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.spring.EnableOmega</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
 
@@ -428,12 +456,11 @@
     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">Application</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在应用代码中需要描述出Saga事务的边界，我们可以在BookingController的 order方法上标准@SagaStart；</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.context.annotations.SagaStart</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.context.annotations.SagaStart</span><span class="o">;</span>
 
 <span class="nd">@SagaStart</span>
 <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/booking/{name}/{rooms}/{cars}"</span><span class="o">)</span>
@@ -448,12 +475,11 @@
       <span class="kc">null</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">rooms</span><span class="o">);</span>
   <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" booking "</span> <span class="o">+</span> <span class="n">rooms</span> <span class="o">+</span> <span class="s">" rooms and "</span> <span class="o">+</span> <span class="n">cars</span> <span class="o">+</span> <span class="s">" cars OK"</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>本地事务是通过@Compensable来标识， 并且在Compensable的compensationMethod属性中描述补偿方法。 注意补偿方法和本地事务方法的参数必须一致，否则Omega在系统启动进行参数检查的时候报找不到恢复方法的错误。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.transaction.annotations.Compensable</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.transaction.annotations.Compensable</span><span class="o">;</span>
 
 <span class="nd">@Compensable</span><span class="o">(</span><span class="n">compensationMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
 <span class="kt">void</span> <span class="nf">order</span><span class="o">(</span><span class="n">CarBooking</span> <span class="n">booking</span><span class="o">)</span> <span class="o">{</span>
@@ -467,8 +493,7 @@
     <span class="n">bookings</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">id</span><span class="o">).</span><span class="na">cancel</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="tcc实现">TCC实现</h3>
 
@@ -506,7 +531,7 @@
 
 <p>下⾯面我们会结合ServiceComb中的<a href="https://github.com/apache/servicecomb-pack/tree/master/demo/tcc-spring-demo">TCC示例</a>，向大家介绍如何编写与TCC应用代码。这个示例以我们常见的电商场景为例，用户通过Ordering应用进行下单，Odering会调用Inventory以及Payment两个服务进行相关的业务操作。和之前Saga的示例一样，我们可以通过@EnableOmega的方式在这几个应用中注入Omega。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.spring.EnableOmega</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.spring.EnableOmega</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.boot.SpringApplication</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="o">;</span>
 
@@ -518,12 +543,11 @@
     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">TccOrderingApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>接下来我们需要在OrderingController中通过加入@TccStart来定义这个TCC分布式事务的范围，这个分布式事务的范围就是order方法，order方法会调用Inventory的order服务接口，以及Payment的pay服务接口。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.context.annotations.TccStart</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.context.annotations.TccStart</span><span class="o">;</span>
 
 <span class="nd">@TccStart</span>
 <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/order/{userName}/{productName}/{productUnit}/{unitPrice}"</span><span class="o">)</span>
@@ -543,12 +567,11 @@
 
   <span class="k">return</span> <span class="n">userName</span> <span class="o">+</span> <span class="s">" ordering "</span> <span class="o">+</span> <span class="n">productName</span> <span class="o">+</span> <span class="s">" with "</span> <span class="o">+</span> <span class="n">productUnit</span> <span class="o">+</span> <span class="s">" OK"</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Inventory会在try阶段先进行库存的扣减，在分布式业务执行成功之后进行设置库存订单状态；如果业务执行失败，Inventory服务会执行恢复操作。通过定义@Participate，ServiceComb Omega可以标注相关try方法，同时通过confirmMethod 以及cancelMethod定义相关确认以及取消方法名。 这里需要注意的是这里提到的confirm，cancel方法的参数必须和try方法的相同。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.transaction.annotations.Participate</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.transaction.annotations.Participate</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="o">;</span>
 
 <span class="nd">@Participate</span><span class="o">(</span><span class="n">confirmMethod</span> <span class="o">=</span> <span class="s">"confirm"</span><span class="o">,</span> <span class="n">cancelMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
@@ -595,12 +618,11 @@
   <span class="n">payment</span><span class="o">.</span><span class="na">setCancelled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Payment会在try阶段先验证用户账户的信用值，在确认阶段执行扣减用户账户余额的操作，在恢复阶段恢复信用值。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.transaction.annotations.Participate</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.transaction.annotations.Participate</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">org.springframework.transaction.annotation.Transactional</span><span class="o">;</span>
 
 <span class="nd">@Participate</span><span class="o">(</span><span class="n">confirmMethod</span> <span class="o">=</span> <span class="s">"confirm"</span><span class="o">,</span> <span class="n">cancelMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
@@ -636,8 +658,7 @@
   <span class="o">}</span>
   <span class="k">return</span> <span class="n">product</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="小结">小结</h3>
 
@@ -963,6 +984,14 @@
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

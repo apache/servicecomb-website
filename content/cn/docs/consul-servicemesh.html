@@ -36,8 +36,8 @@
 <meta property="og:title" content="Consul Service Mesh实战">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/consul-servicemesh">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/consul-servicemesh">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/consul-servicemesh">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/consul-servicemesh">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -399,16 +427,14 @@
 
 <p>除了服务注册与发现，Consul还内置了一个KV存储系统，用于Cluster之间共享数据。KV的Key是分层的，通过斜线<code class="highlighter-rouge">/</code>分隔，这样，可以在概念上对key进行组织和管理，用来保存不同的配置，并把配置分配给集群内的所有服务。例如，在一个集群内，运行了<code class="highlighter-rouge">webfront</code>服务，<code class="highlighter-rouge">webfront</code>服务需要获知当前是开发环境还是测试环境，以提供不同的页面表现。那么，我们在可以在节点A上用KV存储保存环境信息：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">nodeA$ </span>consul kv put services/webapi/metadata/env dev <span class="c">#假设env=dev表示测试环境</span>
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nodeA<span class="nv">$ </span>consul kv put services/webapi/metadata/env dev <span class="c">#假设env=dev表示测试环境</span>
+</code></pre></div></div>
 
 <p>服务运行过程中，假设任务调度器将<code class="highlighter-rouge">webfront</code>服务的实例调度到节点B和节点C，那么在节点B和C上可以通过Consul agent访问到环境信息：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">nodeB$ </span>consul kv get services/webapi/metadata/env
-<span class="gp">nodeB$ </span>dev
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nodeB<span class="nv">$ </span>consul kv get services/webapi/metadata/env
+nodeB<span class="nv">$ </span>dev
+</code></pre></div></div>
 
 <p>当然，在实际的使用中，我们不仅可以通过命令行来获取KV数据，也可以通过RESTful API，向所在节点的Consul agent发送HTTP请求来获取数据。</p>
 
@@ -418,16 +444,15 @@
 
 <p>Consul 1.2新增了Connect功能，只需要在服务中增加一个<code class="highlighter-rouge">connect</code>配置，即可为该服务启动一个代理：</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webfront"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"connect"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"service"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webfront"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"connect"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>这样，Consul agent就会为<code class="highlighter-rouge">webfront</code>服务启动一个内置的proxy，proxy启动时，向所在节点的Consul agent（为了便于说明，假设为Client agent，其实Client/Server都是可能的）请求<code class="highlighter-rouge">webfront</code>所需要的root证书和leaf证书。Client agent检查本地的缓存，若已有所需证书，则直接将证书和私钥返回。否则就会生成一个新的私钥，并向Server agent发送CSR。Server对CSR进行验证，并返回签名的证书，Client agent拿到证书，把证书和私钥返回给proxy。这样，proxy就可以接受TLS请求了。这个过程如下：</p>
 
@@ -461,19 +486,18 @@
 
 <p>没错！其实，在Consul1.2中，Connect已经可以通过指定一个可执行文件的路径来启动第三方代理了。Consul会以daemon模式启动第三方代理，在后台运行：</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"service"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webfront"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"connect"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"exec_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"daemon"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"command"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/usr/bin/my-proxy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--listen"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8800"</span><span class="p">]</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"service"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"webfront"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"connect"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"proxy"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"exec_mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"daemon"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"command"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"/usr/bin/my-proxy"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--listen"</span><span class="p">,</span><span class="w"> </span><span class="s2">"8800"</span><span class="p">]</span><span class="w">
             </span><span class="p">}</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>那么，按照通常的思路，是不是可以直接指定Envoy，让Consul启动Envoy来实现集成呢？理论上确实可行，但是Consul是无法管理第三方代理的配置的，Envoy的配置只能由用户自行定义，增加了运维成本，也不便于管理。</p>
 
@@ -487,11 +511,10 @@
 
 <p>首先，我们将gloo-connect项目clone到本地，进入getting-started目录，并编译运行<code class="highlighter-rouge">service.go</code>：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>git clone https://github.com/solo-io/gloo-connect/
-<span class="gp">$ </span><span class="nb">cd </span>gloo-connect/docs/getting-started
-<span class="gp">$ </span>go run service.go &amp;
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git clone https://github.com/solo-io/gloo-connect/
+<span class="nv">$ </span><span class="nb">cd </span>gloo-connect/docs/getting-started
+<span class="nv">$ </span>go run service.go &amp;
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">service.go</code>运行后监听8080端口，交替返回200和500状态码。接下来，我们执行当前目录下的<code class="highlighter-rouge">run-consul.sh</code>脚本，该脚本会在<code class="highlighter-rouge">./run-data/consul-config</code>目录下生成两个配置信息<code class="highlighter-rouge">connect.json</code>和<code class="highlighter-rouge">service.json</code>，前者将gloo-connect指定为Consul Connect默认的proxy，后者定义了两个服务<code class="highlighter-rouge">microsvc1</code>（即我们运行的service.go） 和<code class="highlighter-rouge">test</code>，并定义了两者之间的代理：<code class="highlighter-rouge">microsvc1</code>配置了一个空规则的代理，<code class="highlighter-rouge">test</code>配置了一个监听1234端口的代理，任何访问1234端口的请求，都将被当作<code class="highlighter-rouge">test</code>向<code class="highlighter-rouge">microsvc1</code>的访问。最后，脚本启动consul，并设定consul的配置目录为<code class="highlighter-rouge">./run-data/consul-config</code>。此外，脚本还会运行gloo-connect和envoy，需要确保两者在系统路径或当前目录下并具有执行权限，gloo-connect项目的发布页面可以<a href="https://github.com/solo-io/gloo-connect/releases">下载编译好的gloo-connect和envoy</a></p>
 
@@ -505,9 +528,8 @@
 
 <p>我们用gloo-connect命令为<code class="highlighter-rouge">microsvc1</code>的Envoy sidecar配置一条retry规则：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>./gloo-connect <span class="nb">set </span>service microsvc1 --http --retries<span class="o">=</span>3
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>./gloo-connect <span class="nb">set </span>service microsvc1 <span class="nt">--http</span> <span class="nt">--retries</span><span class="o">=</span>3
+</code></pre></div></div>
 
 <p>这样，当通过Envoy代理访问<code class="highlighter-rouge">microsvc1</code>时，如果遇到500，会重试3次，其实在第一次重试时就会返回200了，因此我们访问1234端口，每次都会返回200：</p>
 
@@ -849,6 +871,14 @@
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

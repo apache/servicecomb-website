@@ -36,8 +36,8 @@
 <meta property="og:title" content="Mersher Load Balance">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-load-balance/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-load-balance/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-load-balance/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start-advance/mersher-load-balance/">
 
 
 
@@ -79,7 +79,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -151,7 +151,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -161,58 +161,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/docs/quick-start/">Quick Start</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/users/">Users</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/developers/">Developers</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/year-archive/">Blogs</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/faqs/">FAQ</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/release/">Downloads</a>
+
               
+                <a href="/users/">Resources</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Quick Start</a></li>
+                
+                <li><a href="/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -435,28 +463,25 @@
   <li>
     <p>1 Change the <strong>service name</strong> in file <strong>microservice.yaml</strong> to <strong>calculator</strong>. Change the listening address and port in file <strong>chassis.yaml</strong> to avoid conflicts.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40102
-listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30108
-listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30109
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40102
+listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30108
+listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30109
+</code></pre></div>    </div>
   </li>
   <li>
     <p>2 Start running mersher_calculator by cmd:</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4537
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4537
 ./mersher
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>3 The <strong>Roundbin</strong> load balancing algorithm is used by default and the Random, SessionStickiness load balancing algorithms are also supported. We configure the load balancing method <strong>Random</strong> by modifing configuration file chassis.yaml of <strong>mersher_webapp</strong>.</p>
 
-    <div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">loadbalance</span><span class="pi">:</span>
-  <span class="s">strategy</span><span class="pi">:</span>
-    <span class="s">name</span><span class="pi">:</span> <span class="s">Random</span>
-</code></pre>
-    </div>
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">loadbalance</span><span class="pi">:</span>
+  <span class="na">strategy</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Random</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>4 Run a new services instance of <strong>httpserver_calculator</strong> which is listenning on port 4537.</p>
@@ -571,6 +596,14 @@ listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30109
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Connect Us</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

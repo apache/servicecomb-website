@@ -36,8 +36,8 @@
 <meta property="og:title" content="使用JMeter对秒杀示例进行性能测试">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/performance-test-on-seckill-with-jmeter/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/performance-test-on-seckill-with-jmeter/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/performance-test-on-seckill-with-jmeter/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/performance-test-on-seckill-with-jmeter/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -392,10 +420,9 @@
 
 <p>　　脚本文件已经托管至秒杀项目中，可直接获取：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/seckill
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/seckill
 <span class="nb">cd </span>seckill/performance-test/script
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="性能测试环境">性能测试环境</h2>
 <p>　　我们调来了两台云服务器进行性能测试，角色和配置如下：</p>
@@ -427,20 +454,19 @@
 
 <p>　　为了能够便于配置和启动示例系统，我们采用《秒杀开发历程（三）》中的一键启动模式拉起所有的服务，因此Docker升级为当前最新版17.06.2-ce，能够支持配置Container使用CPU和内存的大小限制，以Admin微服务为例：
 　　</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>  <span class="s">admin-service</span><span class="pi">:</span>
-    <span class="s">mem_limit</span><span class="pi">:</span> <span class="s">4096m</span>
-    <span class="s">cpu_count</span><span class="pi">:</span> <span class="s">4</span>
-    <span class="s">cpu_percent</span><span class="pi">:</span> <span class="s">50</span>
-    <span class="s">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">seckill-admin-service:0.2.0-SNAPSHOT"</span>
-    <span class="s">hostname</span><span class="pi">:</span> <span class="s">admin-service</span>
-    <span class="s">links</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="na">admin-service</span><span class="pi">:</span>
+    <span class="na">mem_limit</span><span class="pi">:</span> <span class="s">4096m</span>
+    <span class="na">cpu_count</span><span class="pi">:</span> <span class="s">4</span>
+    <span class="na">cpu_percent</span><span class="pi">:</span> <span class="s">50</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">seckill-admin-service:0.2.0-SNAPSHOT"</span>
+    <span class="na">hostname</span><span class="pi">:</span> <span class="s">admin-service</span>
+    <span class="na">links</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">mysql-write-db:write_db.servicecomb.io"</span>
-    <span class="s">environment</span><span class="pi">:</span>
+    <span class="na">environment</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s">JAVA_OPTS=-Dspring.profiles.active=prd -Dendpoints.shutdown.enabled=true</span>
-    <span class="s">ports</span><span class="pi">:</span>
+    <span class="na">ports</span><span class="pi">:</span>
       <span class="pi">-</span> <span class="s2">"</span><span class="s">8081:8081"</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="加压机配置">加压机配置</h3>
 <p>　　加压机与秒杀服务器处于同一网络环境中，配置如下：
@@ -456,16 +482,14 @@
 　　
 　　现在，我们切换到性能测试脚本目录下，执行下面的命令启动测试：
 　　</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter -n -t seckill.jmx -l log.jtl
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter <span class="nt">-n</span> <span class="nt">-t</span> seckill.jmx <span class="nt">-l</span> log.jtl
+</code></pre></div></div>
 
 <h2 id="测试结果">测试结果</h2>
 <p>　　测试完毕后通过下面的命令分析测试结果日志数据，请将<report folder="">替换为你的本地目录：</report></p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter -g log.jtl -o &lt;report folder&gt;
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter <span class="nt">-g</span> log.jtl <span class="nt">-o</span> &lt;report folder&gt;
+</code></pre></div></div>
 
 <p>　　我们需要先验证测试结果的正确性，查看数据统计图：</p>
 
@@ -821,6 +845,14 @@
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

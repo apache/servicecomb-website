@@ -36,8 +36,8 @@
 <meta property="og:title" content="mersher快速入门">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start/">
 
 
 
@@ -79,7 +79,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -151,7 +151,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -161,58 +161,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -438,10 +466,9 @@
 
 <p>在 <strong>ServiceComb</strong> 微服务框架中，<strong>Service Center</strong> 提供服务注册及服务发现功能，可直接使用 Docker 运行。</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker pull servicecomb/service-center
-docker run -d -p 30100:30100 servicecomb/service-center:latest
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
+docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
+</code></pre></div></div>
 
 <p><em>您可以通过阅读<a href="/cn/users/setup-environment/#运行service-center">环境配置</a>获取在本地以二进制方式运行<strong>Service Center</strong>和<strong>front</strong>的方法。</em></p>
 
@@ -509,67 +536,59 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
   <li>
     <p>2、 创建 <strong>mersher_webapp</strong> 用于为<strong>httpserver_webapp</strong>服务： 在mersher目录下执行下列linux命令创建mersher_webapp，此处除了可执行文件，还需要拷贝conf</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir /usr/local/src/mersher_webapp
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /usr/local/src/mersher_webapp
 cp ./mesher /usr/local/src/mersher_webapp
-cp -r ./conf /usr/local/src/mersher_webapp
-</code></pre>
-    </div>
+cp <span class="nt">-r</span> ./conf /usr/local/src/mersher_webapp
+</code></pre></div>    </div>
 
     <p>更改conf中配置文件，microservice.yaml中的<strong>服务name</strong>，从hellomesher改为<strong>webapp</strong>；更改chassis.yaml中监听的服务地址，从本地回环（127.0.0.1）地址改为<strong>内网ip</strong>（linux下通过ifconfig查看，如192.168.88.64）:</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40101
-listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30101
-listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30102
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40101
+listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30101
+listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30102
+</code></pre></div>    </div>
   </li>
   <li>
     <p>3、 创建<strong>mersher_calculator</strong></p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir /usr/local/src/mersher_calculator
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /usr/local/src/mersher_calculator
 cp ./mesher /usr/local/src/mersher_calculator
-cp -r ./conf /usr/local/src/mersher_calculator
-</code></pre>
-    </div>
+cp <span class="nt">-r</span> ./conf /usr/local/src/mersher_calculator
+</code></pre></div>    </div>
 
     <p>更改conf中配置文件，分别更改<strong>microservice.yaml</strong>中的<strong>服务name</strong>为体质指数微服务名<strong>calculator</strong>；<br />
 更改<strong>mersher_calculator</strong>配置<strong>chassis.yaml</strong>监听的地址和端口：</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40107
-listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30111
-listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30112
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40107
+listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30111
+listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30112
+</code></pre></div>    </div>
   </li>
   <li>
     <p>4、 启动mersher服务，分别进入<strong>mersher_webapp</strong>和<strong>mersher_calculator</strong>，启动服务，其中需要设置mersher_calculator的<strong>SPECIFIC_ADDR</strong>地址，该地址用于将mersher和http服务绑定起来；</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_calculator
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_calculator
 <span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4540
 ./mersher
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_webapp
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_webapp
 ./mersher
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>5、 启动<strong>httpserver_webapp</strong>服务：</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_webapp
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_webapp
 node ./httpserver_webapp.js
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>6、 <strong>httpserver_calculator</strong>作为体质指数计算服务，需要安装python2.7，依赖BaseHTTPServer包：</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_calculator
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_calculator
 ./httpserver_calculator.py
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ul>
 
@@ -684,6 +703,14 @@ node ./httpserver_webapp.js
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

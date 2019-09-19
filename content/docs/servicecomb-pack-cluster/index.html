@@ -36,8 +36,8 @@
 <meta property="og:title" content="ServiceComb Pack 0.4.0 Cluster : Implementation">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-cluster/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-cluster/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-cluster/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-cluster/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/docs/quick-start/">Quick Start</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/users/">Users</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/developers/">Developers</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/year-archive/">Blogs</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/faqs/">FAQ</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/release/">Downloads</a>
+
               
+                <a href="/users/">Resources</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Quick Start</a></li>
+                
+                <li><a href="/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -381,25 +409,23 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
   <li>Start Two Alphas.</li>
 </ul>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
---server.port<span class="o">=</span>8090 <span class="se">\</span>
---alpha.server.port<span class="o">=</span>8080 <span class="se">\</span>
---spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
---spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
---spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
---alpha.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
+<span class="nt">--server</span>.port<span class="o">=</span>8090 <span class="se">\</span>
+<span class="nt">--alpha</span>.server.port<span class="o">=</span>8080 <span class="se">\</span>
+<span class="nt">--spring</span>.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+<span class="nt">--spring</span>.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+<span class="nt">--spring</span>.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+<span class="nt">--alpha</span>.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></div>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
---server.port<span class="o">=</span>8091 <span class="se">\</span>
---alpha.server.port<span class="o">=</span>8081 <span class="se">\</span>
---spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
---spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
---spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
---alpha.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
+<span class="nt">--server</span>.port<span class="o">=</span>8091 <span class="se">\</span>
+<span class="nt">--alpha</span>.server.port<span class="o">=</span>8081 <span class="se">\</span>
+<span class="nt">--spring</span>.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+<span class="nt">--spring</span>.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+<span class="nt">--spring</span>.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+<span class="nt">--alpha</span>.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></div>
 
 <ul>
   <li>Who Is Master</li>
@@ -407,15 +433,13 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 
 <p><code class="highlighter-rouge">Master Node</code> This alpha is the master</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>01:31:07.032 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Master Node
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01:31:07.032 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Master Node
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">Slave Node</code> This alpha is the slave</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>01:31:31.059 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Slave Node
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01:31:31.059 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Slave Node
+</code></pre></div></div>
 
 <ul>
   <li>Switch Master Nodes</li>
@@ -427,7 +451,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 
 <p>Event scanning is implemented by <code class="highlighter-rouge">EventScanner.java</code> , initialize it in <code class="highlighter-rouge">AlphaConfig.java</code> , you can enable it by setting the parameter ‘alpha.event.scanner.enabled=true’, it will be instantiated EventScanner. The variable nodeStatus is the node type(Master or Slave). Later, I will introduce how <code class="highlighter-rouge">nodeStatus</code> is initialized.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Bean</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
 <span class="n">TxConsistentService</span> <span class="nf">txConsistentService</span><span class="o">(</span>
   <span class="nd">@Value</span><span class="o">(</span><span class="s">"${alpha.event.pollingInterval:500}"</span><span class="o">)</span> <span class="kt">int</span> <span class="n">eventPollingInterval</span><span class="o">,</span>
   <span class="nd">@Value</span><span class="o">(</span><span class="s">"${alpha.event.scanner.enabled:true}"</span><span class="o">)</span> <span class="kt">boolean</span> <span class="n">eventScannerEnabled</span><span class="o">,</span>
@@ -445,12 +469,11 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
     <span class="n">TxConsistentService</span> <span class="n">consistentService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TxConsistentService</span><span class="o">(</span><span class="n">eventRepository</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">consistentService</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The pollEvents method of <code class="highlighter-rouge">EventScanner.java</code> for scanning events, If the master node <code class="highlighter-rouge">nodeStatus.isMaster()</code> returns true.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">pollEvents</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">pollEvents</span><span class="o">()</span> <span class="o">{</span>
   <span class="n">scheduler</span><span class="o">.</span><span class="na">scheduleWithFixedDelay</span><span class="o">(</span>
     <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="c1">// only pull the events when working in the master mode</span>
@@ -469,12 +492,11 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
     <span class="n">eventPollingInterval</span><span class="o">,</span>
     <span class="n">MILLISECONDS</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Construct NodeStatus in <code class="highlighter-rouge">AlphaConfig.java</code> by the following to ensure that the event scan will work regardless of whether you have configured the <code class="highlighter-rouge">alpha.cluster.master.enabled</code> parameter, Here you can see the node is a slave just after startup when cluster mode is enabled. Later, I will introduce how to switch to master.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="nd">@Bean</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Bean</span>
   <span class="n">NodeStatus</span> <span class="nf">nodeStatus</span> <span class="o">(){</span>
     <span class="k">if</span><span class="o">(</span><span class="n">masterEnabled</span><span class="o">){</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nf">NodeStatus</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">SLAVE</span><span class="o">);</span>
@@ -485,12 +507,11 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 
   <span class="nd">@Autowired</span>
   <span class="n">NodeStatus</span> <span class="n">nodeStatus</span><span class="o">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">ClusterLockService.java</code> is in charge of node state switching, It periodically perform lock preemption and set the node as a master after successful preemption.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="nd">@Autowired</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Autowired</span>
   <span class="n">LockProvider</span> <span class="n">lockProvider</span><span class="o">;</span>
   <span class="o">...</span>
   <span class="o">...</span>
@@ -515,8 +536,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
       <span class="n">lockExecuted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
     <span class="o">}</span>
   <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="lock-architecture">Lock architecture</h2>
 
@@ -592,15 +612,14 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
   </li>
 </ul>
 
-<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">master_lock</span> <span class="p">(</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">master_lock</span> <span class="p">(</span>
   <span class="n">serviceName</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">not</span> <span class="k">NULL</span><span class="p">,</span>
   <span class="n">expireTime</span> <span class="n">datetime</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
   <span class="n">lockedTime</span> <span class="n">datetime</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
   <span class="n">instanceId</span>  <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">NULL</span><span class="p">,</span>
   <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">serviceName</span><span class="p">)</span>
 <span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>serviceName Service name, this field takes the value <code class="highlighter-rouge">$ {spring.application.name}</code></li>
@@ -625,7 +644,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
       <li>Exception caught and lock failed if there are records with the same service name field in the table</li>
     </ul>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
    <span class="nd">@Modifying</span>
    <span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"INSERT INTO master_lock "</span>
        <span class="o">+</span> <span class="s">"(serviceName, expireTime, lockedTime, instanceId) "</span>
@@ -636,8 +655,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"expireTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">expireTime</span><span class="o">,</span>
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"lockedTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">lockedTime</span><span class="o">,</span>
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"instanceId"</span><span class="o">)</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">);</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>If the initLock lock fails, try to update the lock by calling the updateLock method in <code class="highlighter-rouge">MasterLockEntityRepository.java</code>.</p>
@@ -647,7 +665,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
       <li>If the record expireTime of the same service name is less than the current lock time, the update is successful and the lock is successful.</li>
     </ul>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
    <span class="nd">@Modifying</span><span class="o">(</span><span class="n">clearAutomatically</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
    <span class="nd">@Query</span><span class="o">(</span><span class="s">"UPDATE org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.MasterLock t "</span>
        <span class="o">+</span> <span class="s">"SET t.expireTime = :expireTime"</span>
@@ -659,8 +677,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"lockedTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">lockedTime</span><span class="o">,</span>
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"expireTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">expireTime</span><span class="o">,</span>
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"instanceId"</span><span class="o">)</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">);</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>UnLock</p>
@@ -1004,6 +1021,14 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Connect Us</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

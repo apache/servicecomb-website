@@ -36,8 +36,8 @@
 <meta property="og:title" content="Howto Upgrade to Zipkin2">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/howto-upgrade-topzipkin2/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/howto-upgrade-topzipkin2/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/howto-upgrade-topzipkin2/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/howto-upgrade-topzipkin2/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/docs/quick-start/">Quick Start</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/users/">Users</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/developers/">Developers</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/year-archive/">Blogs</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/faqs/">FAQ</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/release/">Downloads</a>
+
               
+                <a href="/users/">Resources</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Quick Start</a></li>
+                
+                <li><a href="/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -416,7 +444,7 @@
 <h3 id="modify-the-maven-dependencies-to-use-the-target-version-of-related-libraries">Modify the maven dependencies to use the target version of related libraries.</h3>
 <p>Change the group <code class="highlighter-rouge">io.zipkin.java</code> and <code class="highlighter-rouge">io.zipkin.reporter</code> to <code class="highlighter-rouge">io.zipkin.zipkin2</code> and <code class="highlighter-rouge">io.zipkin.reporter2</code> respectively.</p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>java-chassis-dependencies/pom.xml
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java-chassis-dependencies/pom.xml
 <span class="gu">@@ -50,8 +50,8 @@
 </span>     &lt;cxf.version&gt;3.1.6&lt;/cxf.version&gt;
      &lt;logback.version&gt;1.1.7&lt;/logback.version&gt;
@@ -458,14 +486,13 @@ handlers/handler-tracing-zipkin/pom.xml
      &lt;/dependency&gt;
      &lt;dependency&gt;
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="make-brave-to-use-zipkin2-instead-of-zipkin">Make brave to use zipkin2 instead of zipkin</h3>
 
 <p>Change the zipkin.xxx import to zipkin2.xxx on imports, and most importantly, use <code class="highlighter-rouge">spanReporter()</code> instead of <code class="highlighter-rouge">reporter()</code> for generating reporter for brave, change the api path to /api/v2/xxx when creating sender.</p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
 <span class="gu">@@ -31,11 +31,11 @@
 </span> import brave.http.HttpTracing;
  import brave.propagation.CurrentTraceContext;
@@ -499,40 +526,37 @@ handlers/handler-tracing-zipkin/pom.xml
 </span><span class="gi">+        .spanReporter(reporter)
 </span>         .build();
    }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Note</strong>:</p>
 
 <p>In the <a href="https://github.com/openzipkin/brave/releases/tag/4.7.1">brave release notes</a>, it’s stated that we need to use <code class="highlighter-rouge">create()</code> instead of <code class="highlighter-rouge">builder()</code></p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
    /** Configuration for how to buffer spans into messages for Zipkin */
 <span class="gd">-  @Bean Reporter&lt;Span&gt; reporter() {
 -    return AsyncReporter.builder(sender()).build();
 </span><span class="gi">+  @Bean Reporter&lt;Span&gt; spanReporter() {
 +    return AsyncReporter.create(sender()).build();
 </span>   }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>But this will not work. In <code class="highlighter-rouge">zipkin2.Reporter</code>, the <code class="highlighter-rouge">create(sender)</code> is actually equivalent to <code class="highlighter-rouge">builder(sender).build()</code></p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">&lt;</span><span class="n">Span</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">&lt;</span><span class="n">Span</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="o">(</span><span class="k">new</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
   <span class="o">}</span>
   
   <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span> <span class="nf">builder</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">);</span>
   <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="make-changes-according-to-the-changes-of-zipkinspan-and-zipkin2span">Make changes according to the changes of zipkin.Span and zipkin2.Span.</h3>
 
 <p>We do not use zipkin.Span in our production code, but we do use it in our tests. Those changes are quite straight forward, we just change the accessing of fields to calling methods as described in the What’s Changed section.</p>
 
-<div class="language-diff highlighter-rouge"><pre class="highlight"><code>tracing/tracing-zipkin/src/test/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tracing/tracing-zipkin/src/test/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
 <span class="gu">@@ -45,7 +45,7 @@
 </span> import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
  import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.CustomSpanTask;
@@ -587,8 +611,7 @@ handlers/handler-tracing-zipkin/pom.xml
 </span>           .build();
      }
    }
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="support-both-v1-and-v2-api-of-zipkin-server">Support both v1 and v2 api of zipkin server.</h3>
 
@@ -596,11 +619,10 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p>Supporting v1 api is built into zipkin2, so we do not need to rely on the v1 libraries. Just use the <code class="highlighter-rouge">SpanBytesEncoder.JSON_V1</code> when building reporter and change the sender api path.</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">sender</span> <span class="o">=</span> <span class="n">URLConnectionSender</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"http://localhost:9411/api/v1/spans"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sender</span> <span class="o">=</span> <span class="n">URLConnectionSender</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"http://localhost:9411/api/v1/spans"</span><span class="o">)</span>
 <span class="n">reporter</span> <span class="o">=</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)</span>
                         <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">SpanBytesEncoder</span><span class="o">.</span><span class="na">JSON_V1</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>That’s all, for the complete changes, please refer the <a href="https://github.com/apache/incubator-servicecomb-java-chassis/pull/488">pull request</a> for the complete changes.</p>
 
@@ -928,6 +950,14 @@ handlers/handler-tracing-zipkin/pom.xml
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Connect Us</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

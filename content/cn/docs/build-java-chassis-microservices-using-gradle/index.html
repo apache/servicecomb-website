@@ -36,8 +36,8 @@
 <meta property="og:title" content="使用gradle构建基于Java Chassis开发的微服务">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/build-java-chassis-microservices-using-gradle/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/build-java-chassis-microservices-using-gradle/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/build-java-chassis-microservices-using-gradle/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/build-java-chassis-microservices-using-gradle/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -377,7 +405,7 @@
 
 <p>在maven中，Java Chassis的依赖管理通过以下方式即可引入：</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>   <span class="nt">&lt;dependencyManagement&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nt">&lt;dependencyManagement&gt;</span>
      <span class="nt">&lt;dependencies&gt;</span>
        <span class="nt">&lt;dependency&gt;</span>
          <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -388,8 +416,7 @@
        <span class="nt">&lt;/dependency&gt;</span>
      <span class="nt">&lt;/dependencies&gt;</span>
    <span class="nt">&lt;/dependencyManagement&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在gradle中，则需要以下三步完成，具体可参考 ：<a href="https://github.com/apache/incubator-servicecomb-java-chassis/pull/640/files#diff-8d0fdb4970d74d053b6585c3d5ae4cc2R36">Java Chassis的PR-640</a>。</p>
 
@@ -397,7 +424,7 @@
   <li>
     <p>声明使用maven仓库及依赖管理插件的依赖</p>
 
-    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
+    <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
     <span class="k">repositories</span> <span class="o">{</span>
         <span class="n">mavenLocal</span><span class="o">()</span>
         <span class="n">mavenCentral</span><span class="o">()</span>
@@ -406,26 +433,23 @@
         <span class="n">classpath</span><span class="o">(</span><span class="s1">'io.spring.gradle:dependency-management-plugin:1.0.4.RELEASE'</span><span class="o">)</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>启用依赖管理插件</p>
 
-    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'io.spring.dependency-management'</span>
-</code></pre>
-    </div>
+    <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'io.spring.dependency-management'</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>声明Java Chassis的统一依赖管理</p>
 
-    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">dependencyManagement</span> <span class="o">{</span>
+    <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dependencyManagement</span> <span class="o">{</span>
     <span class="n">imports</span> <span class="o">{</span>
         <span class="n">mavenBom</span> <span class="s1">'org.apache.servicecomb:java-chassis-dependencies:1.0.0-m1'</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ol>
 
@@ -441,7 +465,7 @@
       <li>
         <p>声明使用maven仓库及Spring Boot插件的依赖</p>
 
-        <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
+        <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">buildscript</span> <span class="o">{</span>
     <span class="k">dependencies</span> <span class="o">{</span>
         <span class="n">classpath</span><span class="o">(</span><span class="s2">"org.springframework.boot:spring-boot-gradle-plugin:1.4.5.RELEASE"</span><span class="o">)</span>
     <span class="o">}</span>
@@ -450,15 +474,13 @@
         <span class="n">mavenCentral</span><span class="o">()</span>
     <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-        </div>
+</code></pre></div>        </div>
       </li>
       <li>
         <p>启用Spring Boot插件</p>
 
-        <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'org.springframework.boot'</span>
-</code></pre>
-        </div>
+        <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'org.springframework.boot'</span>
+</code></pre></div>        </div>
       </li>
     </ol>
   </li>
@@ -467,11 +489,10 @@
 
     <p>非Spring Boot应用只需要在<code class="highlighter-rouge">build.gradle</code>文件中使用<code class="highlighter-rouge">application</code>插件并指明应用入口方法即可：</p>
 
-    <div class="language-gradle highlighter-rouge"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'application'</span>
+    <div class="language-gradle highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">apply</span> <span class="nl">plugin:</span> <span class="s1">'application'</span>
 
 <span class="n">mainClassName</span> <span class="o">=</span> <span class="s1">'org.packageName.XXXMain'</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ol>
 
@@ -791,6 +812,14 @@
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

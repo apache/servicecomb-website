@@ -36,8 +36,8 @@
 <meta property="og:title" content="Stress test on Company Demo with Jmeter in Kubernetes Cluster">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/stress-test-on-company-with-jmeter-in-k8s/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/stress-test-on-company-with-jmeter-in-k8s/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/stress-test-on-company-with-jmeter-in-k8s/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/stress-test-on-company-with-jmeter-in-k8s/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/docs/quick-start/">Quick Start</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/users/">Users</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/developers/">Developers</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/year-archive/">Blogs</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/faqs/">FAQ</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/release/">Downloads</a>
+
               
+                <a href="/users/">Resources</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Quick Start</a></li>
+                
+                <li><a href="/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -392,10 +420,9 @@
 </ul>
 
 <p>You can get the test plan from github.</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>  git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop
   <span class="nb">cd </span>ServiceComb-Company-WorkShop/stress-tests
-</code></pre>
-</div>
+</code></pre></div></div>
 <p class="figure-caption"><img src="/assets/images/company_test_plan.png" alt="fig-1 JMeter test plan" class="align-center" />
 fig-1 JMeter test plan</p>
 
@@ -403,16 +430,14 @@ fig-1 JMeter test plan</p>
 
 <p>Then comes to the <em>setUp</em> thread group. It does the authentication job. The build-in way to authenticate in JMeter is the <em>HTTP Cookie Manager</em> as cookie is being used widely over web applications. However, our workshop demo uses the token based authentication instead of cookie based authentication. We need to take a detour to get authenticate done in JMeter.   The <em>Remove header pre processor</em> uses the following script to avoid unnecessary headers being injected into login requests.</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>import org.apache.jmeter.protocol.http.control.Header;
-sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="o">(</span><span class="s2">"Authorization"</span><span class="o">)</span>;
-</code></pre>
-</div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import org.apache.jmeter.protocol.http.control.Header<span class="p">;</span>
+sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="o">(</span><span class="s2">"Authorization"</span><span class="o">)</span><span class="p">;</span>
+</code></pre></div></div>
 
 <p>Then we retrieve login credential in the <em>Set up Login</em> request. The <em>authorization_extractor</em> is a <em>Regular Expression Extractor</em> used to extract the value of <em>Authorization</em> header. As variables can not pass from one thread group to another, it need to convert to the global property and the script in <em>BeanShell PostProcessor</em> does the job.</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="k">${</span><span class="nv">__setProperty</span><span class="p">(Authorization,</span><span class="k">${</span><span class="nv">Authorization</span><span class="k">}</span><span class="p">,)</span><span class="k">}</span>
-</code></pre>
-</div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">${</span><span class="nv">__setProperty</span><span class="p">(Authorization,</span><span class="k">${</span><span class="nv">Authorization</span><span class="k">}</span><span class="p">,)</span><span class="k">}</span>
+</code></pre></div></div>
 
 <p>The last part of our test plan is the stress tests perform on our services.  We test three endpoints as they all pass from the manager service to the other two microservices, namely worker and beekeeper. Before we test, we disable the caching capability by enabling <em>StressTest</em> profile in manager so that the worker service and beekeeper service can serve the incoming computing task all the time.  Besides, we simplify the computing task by setting the request argument to be just 1.</p>
 
@@ -431,9 +456,8 @@ sampler.getHeaderManager<span class="o">()</span>.removeHeaderNamed<span class="
   <li>
     <p>Run the tests. Using 200 threads to generate requests concurrently, and set the duration to be 600 seconds.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code> jmeter -n -t workshop.jmx -j workshop.log -l workshop.jtl -Jthreads<span class="o">=</span>200 -Jduration<span class="o">=</span>600
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> jmeter <span class="nt">-n</span> <span class="nt">-t</span> workshop.jmx <span class="nt">-j</span> workshop.log <span class="nt">-l</span> workshop.jtl <span class="nt">-Jthreads</span><span class="o">=</span>200 <span class="nt">-Jduration</span><span class="o">=</span>600
+</code></pre></div>    </div>
   </li>
 </ul>
 
@@ -456,7 +480,7 @@ fig-4 CPU Load on various concurrency</p>
 <p>To find out why the performance stuck at the concurrency of 15, we checked the monitor data from <a href="https://github.com/kubernetes/heapster">Heapster</a> as fig-4 shows. Apparently, <strong>manager service became the bottleneck of the whole system.</strong> It reached the maximum cpu load when the throughput was around 1000 req/s. Other services increased much slower than manager service and required less resources.</p>
 
 <p>As manager service logs directly to the stdout and the JMeter test client running on a single host may not simulate enough concurrency simultaneously. As such, we tested on different scenes of log settings(log4j1 stdout, log4j2 stdout, log4j2 asynchronous, none) at the concurrency of 200. The <em>asynchronous</em> log settings in <em>log4j2.xml</em> file is as follows:</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span>
 <span class="nt">&lt;Configuration</span> <span class="na">status=</span><span class="s">"INFO"</span><span class="nt">&gt;</span>
   <span class="nt">&lt;Appenders&gt;</span>
     <span class="nt">&lt;RandomAccessFile</span> <span class="na">name=</span><span class="s">"RandomAccessFile"</span> <span class="na">fileName=</span><span class="s">"manager.log"</span> <span class="na">immediateFlush=</span><span class="s">"false"</span> <span class="na">append=</span><span class="s">"false"</span><span class="nt">&gt;</span>
@@ -469,32 +493,28 @@ fig-4 CPU Load on various concurrency</p>
     <span class="nt">&lt;/asyncRoot&gt;</span>
   <span class="nt">&lt;/Loggers&gt;</span>
 <span class="nt">&lt;/Configuration&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>Besides, we also need to add the <em>disruptor</em> dependency to enable the asynchronous log settings.</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>com.lmax<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>disruptor<span class="nt">&lt;/artifactId&gt;</span>
   <span class="nt">&lt;version&gt;</span>3.3.6<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>The <em>none</em> log settings just replace the <em>info</em> logging level to <em>off</em> in the above setting. We also tested on distributed JMeter test client environment. Running Jmeter in distributed mode takes two steps:</p>
 
 <ol>
   <li>
     <p>run JMeter slave on each test node, the command is as follows:</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter-server -Djava.rmi.server.hostname<span class="o">=</span><span class="k">$(</span>ifconfig eth0 | grep <span class="s2">"inet addr"</span> | awk <span class="s1">'{print $2}'</span> | cut -d <span class="s2">":"</span> -f2<span class="k">)</span>
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter-server <span class="nt">-Djava</span>.rmi.server.hostname<span class="o">=</span><span class="k">$(</span>ifconfig eth0 | <span class="nb">grep</span> <span class="s2">"inet addr"</span> | awk <span class="s1">'{print $2}'</span> | cut <span class="nt">-d</span> <span class="s2">":"</span> <span class="nt">-f2</span><span class="k">)</span>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>run JMeter master, the command is as follows:</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>jmeter -n -R host1,host2 -t workshop.jmx -j workshop.log -l workshop.jtl -Gmin<span class="o">=</span>1 -Gmax<span class="o">=</span>2 -Gthreads<span class="o">=</span>200 -Gduration<span class="o">=</span>600
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter <span class="nt">-n</span> <span class="nt">-R</span> host1,host2 <span class="nt">-t</span> workshop.jmx <span class="nt">-j</span> workshop.log <span class="nt">-l</span> workshop.jtl <span class="nt">-Gmin</span><span class="o">=</span>1 <span class="nt">-Gmax</span><span class="o">=</span>2 <span class="nt">-Gthreads</span><span class="o">=</span>200 <span class="nt">-Gduration</span><span class="o">=</span>600
+</code></pre></div>    </div>
 
     <p class="notice--warning"><em>Note:</em> JMeter property does not work in distributed mode. It needs to be declared as a global property. That’s why We use <em>-G</em> option  here instead of <em>-J</em> option.</p>
   </li>
@@ -852,6 +872,14 @@ fig-6 Memory Usage of different services</p>
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Connect Us</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

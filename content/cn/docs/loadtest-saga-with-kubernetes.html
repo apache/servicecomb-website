@@ -36,8 +36,8 @@
 <meta property="og:title" content="使用Kubernetes对Saga进行压力测试">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/loadtest-saga-with-kubernetes">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/loadtest-saga-with-kubernetes">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/loadtest-saga-with-kubernetes">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/loadtest-saga-with-kubernetes">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -389,20 +417,18 @@
 
 <p>我们的demo项目由Java编写、maven作为依赖管理工具，在项目中引入了fabric8插件，编译程序时可以顺便将jar包构建成docker镜像。首先，我们构建alpha-server镜像：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span><span class="nb">cd </span>alpha/alpha-server
-<span class="gp">$ </span>mvn clean install -Pdocker
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>alpha/alpha-server
+<span class="nv">$ </span>mvn clean install <span class="nt">-Pdocker</span>
+</code></pre></div></div>
 
 <p>然后进入demo项目路径<code class="highlighter-rouge">saga-demo/saga-spring-demo</code>，执行相同的maven构建命令，构建完成后，我们可以看到产生了4个相关镜像：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>docker images | grep SNAPHOST  <span class="c"># {version}-SNAPSHOT是构建过程中使用的镜像标签</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker images | <span class="nb">grep </span>SNAPHOST  <span class="c"># {version}-SNAPSHOT是构建过程中使用的镜像标签</span>
 alpha-server:0.3.0-SNAPSHOT
 booking:0.3.0-SNAPSHOT
 car:0.3.0-SNAPSHOT
 hotel:0.3.0-SNAPSHOT
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>至此，我们已经构建好所需镜像，下一步便是编写Kubernetes所需的资源文件，这一步我们不再赘述，项目中已经有写好的yaml文件，路径在<code class="highlighter-rouge">saga-demo/saga-k8s-resources</code>，目录结构如下：</p>
 
@@ -425,19 +451,17 @@ hotel:0.3.0-SNAPSHOT
 
 <p>我们通过最基础的deployment和service对项目进行部署，程序之间通过域名互相访问，通过<code class="highlighter-rouge">kubectl</code>命令对Kubernetes资源进行部署：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl create ns servicecomb <span class="c"># 默认所有服务都在servicecomb namespace下</span>
-<span class="gp">$ </span>kubectl apply -f ./base
-<span class="gp">$ </span>kubectl apply -f ./spring-demo
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl create ns servicecomb <span class="c"># 默认所有服务都在servicecomb namespace下</span>
+<span class="nv">$ </span>kubectl apply <span class="nt">-f</span> ./base
+<span class="nv">$ </span>kubectl apply <span class="nt">-f</span> ./spring-demo
+</code></pre></div></div>
 
 <p>我们通过<code class="highlighter-rouge">kubectl exec</code>命令进入一个pod，通过curl命令测试booking程序：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl <span class="nb">exec</span> -it -n servicecomb alpha-server-xxxxx
-<span class="gp">$ </span>curl http://booking.servicecomb:8083/booking/test/2/2
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl <span class="nb">exec</span> <span class="nt">-it</span> <span class="nt">-n</span> servicecomb alpha-server-xxxxx
+<span class="nv">$ </span>curl http://booking.servicecomb:8083/booking/test/2/2
 resp: OK
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>至此，我们的demo项目就已经运行起来了。</p>
 
@@ -449,9 +473,8 @@ resp: OK
 
 <p>部署ConfigMap命令如下：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl apply -f spring-demo/test/jmeter.configmap.yaml
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl apply <span class="nt">-f</span> spring-demo/test/jmeter.configmap.yaml
+</code></pre></div></div>
 
 <h3 id="jmeter-镜像改造">JMeter 镜像改造</h3>
 
@@ -459,19 +482,17 @@ resp: OK
 
 <p>这样一来，我们还需要对JMeter服务进行一些小改造，当执行完JMeter测试后，我们通过一个脚本将测试结果目录打包上传到jmeter-collector服务。这些改造都已经完成并做好了相应的镜像，直接使用项目中的资源即可：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl apply -f spring-demo/test/jmeter.yaml
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl apply <span class="nt">-f</span> spring-demo/test/jmeter.yaml
+</code></pre></div></div>
 
 <p>现在，我们已经配置好JMeter相关资源，执行<code class="highlighter-rouge">kubectl logs</code>检查JMeter运行状况：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl get pod -n servicecomb | grep spring-demo-jmeter
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl get pod <span class="nt">-n</span> servicecomb | <span class="nb">grep </span>spring-demo-jmeter
 spring-demo-jmeter-xxxxx
-<span class="gp">$ </span>kubectl logs -f -n servicecomb pring-demo-jmeter-xxxxx
+<span class="nv">$ </span>kubectl logs <span class="nt">-f</span> <span class="nt">-n</span> servicecomb pring-demo-jmeter-xxxxx
 ...
 summary +    420 <span class="k">in </span>00:00:22 <span class="o">=</span>   18.8/s Avg:   214 Min:   111 Max:   471 Err:   207 <span class="o">(</span>49.29%<span class="o">)</span> Active: 12 Started: 12 Finished: 0
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>可以看到JMeter已经开始逐步增加测试线程进行压测了。</p>
 
@@ -489,7 +510,7 @@ summary +    420 <span class="k">in </span>00:00:22 <span class="o">=</span>   1
 
 <p>首先，调用<code class="highlighter-rouge">kubectl edit</code>命令，编辑jmeter-collector服务：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="gp">$ </span>kubectl edit svc -n servicecomb jmeter-collector
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl edit svc <span class="nt">-n</span> servicecomb jmeter-collector
 <span class="c"># in the editor:</span>
 spec:
   <span class="nb">type</span>: NodePort <span class="c">## 插入此行，注意yaml文件空格缩进</span>
@@ -498,8 +519,7 @@ spec:
   - port: 80
   targetPort: 8883
   <span class="c">#....</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在笔者的环境中，制定了IP为192.168.43.70的节点作为NodePort的IP，对外暴露80端口，因此，在浏览器中直接访问<code class="highlighter-rouge">http://192.168.43.70</code>即可查看测试报告的结果了，结果如下图所示：</p>
 
@@ -830,6 +850,14 @@ spec:
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

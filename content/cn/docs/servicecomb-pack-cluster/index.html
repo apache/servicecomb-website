@@ -36,8 +36,8 @@
 <meta property="og:title" content="ServiceComb Pack 0.4.0 Cluster : 集群实现">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-pack-cluster/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-pack-cluster/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-pack-cluster/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-pack-cluster/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -384,25 +412,23 @@
   <li>启动两个节点</li>
 </ul>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
-  --server.port<span class="o">=</span>8090 <span class="se">\</span>
-  --alpha.server.port<span class="o">=</span>8080 <span class="se">\</span>
-  --spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
-  --spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
-  --spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
-  --alpha.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
+  <span class="nt">--server</span>.port<span class="o">=</span>8090 <span class="se">\</span>
+  <span class="nt">--alpha</span>.server.port<span class="o">=</span>8080 <span class="se">\</span>
+  <span class="nt">--spring</span>.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+  <span class="nt">--spring</span>.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+  <span class="nt">--spring</span>.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+  <span class="nt">--alpha</span>.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></div>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
-  --server.port<span class="o">=</span>8091 <span class="se">\</span>
-  --alpha.server.port<span class="o">=</span>8081 <span class="se">\</span>
-  --spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
-  --spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
-  --spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
-  --alpha.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> alpha-server-0.4.0-SNAPSHOT-exec.jar <span class="se">\</span>
+  <span class="nt">--server</span>.port<span class="o">=</span>8091 <span class="se">\</span>
+  <span class="nt">--alpha</span>.server.port<span class="o">=</span>8081 <span class="se">\</span>
+  <span class="nt">--spring</span>.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+  <span class="nt">--spring</span>.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+  <span class="nt">--spring</span>.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+  <span class="nt">--alpha</span>.cluster.master.enabled<span class="o">=</span><span class="nb">true</span>
+</code></pre></div></div>
 
 <ul>
   <li>节点类型信息查看</li>
@@ -410,15 +436,13 @@
 
 <p>在日志中看到 <code class="highlighter-rouge">Master Node</code> 则表示这个进程是主节点</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>01:31:07.032 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Master Node 
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01:31:07.032 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Master Node 
+</code></pre></div></div>
 
 <p>在日志中看到 <code class="highlighter-rouge">Slave Node</code> 则表示这个进程是从节点</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>01:31:31.059 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Slave Node
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01:31:31.059 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Slave Node
+</code></pre></div></div>
 
 <ul>
   <li>节点切换</li>
@@ -430,7 +454,7 @@
 
 <p>事务扫描是通过 <code class="highlighter-rouge">EventScanner.java</code> 实现的，并且在 <code class="highlighter-rouge">AlphaConfig.java</code> 中进行初始化，可以看到在 <code class="highlighter-rouge">new EventScanner</code> 代码执行前进行了eventScannerEnabled判断，这个参数就是通过<code class="highlighter-rouge">alpha.event.scanner.enabled</code> 指定的（默认是true），然后传入了<code class="highlighter-rouge">nodeStatus</code> 对象，这个对象就记录着这个节点的状态（主节点或者从节点），后边会讲解 <code class="highlighter-rouge">nodeStatus</code> 是如何构造的。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Bean</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
 <span class="n">TxConsistentService</span> <span class="nf">txConsistentService</span><span class="o">(</span>
   <span class="nd">@Value</span><span class="o">(</span><span class="s">"${alpha.event.pollingInterval:500}"</span><span class="o">)</span> <span class="kt">int</span> <span class="n">eventPollingInterval</span><span class="o">,</span>
   <span class="nd">@Value</span><span class="o">(</span><span class="s">"${alpha.event.scanner.enabled:true}"</span><span class="o">)</span> <span class="kt">boolean</span> <span class="n">eventScannerEnabled</span><span class="o">,</span>
@@ -448,12 +472,11 @@
     <span class="n">TxConsistentService</span> <span class="n">consistentService</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TxConsistentService</span><span class="o">(</span><span class="n">eventRepository</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">consistentService</span><span class="o">;</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><code class="highlighter-rouge">EventScanner.java</code> 的 pollEvents 方法进行定时事务扫描，并使用 <code class="highlighter-rouge">nodeStatus.isMaster()</code> 判断自己是否是主节点，只有主节点才允许执行。看到这里大家应该知道 <code class="highlighter-rouge">nodeStatus.isMaster()</code> 是我们判断主节点的关键对象，那么 <code class="highlighter-rouge">NodeStatus.java</code> 是如何被创建并初始化的呢</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">pollEvents</span><span class="o">()</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">pollEvents</span><span class="o">()</span> <span class="o">{</span>
 	<span class="n">scheduler</span><span class="o">.</span><span class="na">scheduleWithFixedDelay</span><span class="o">(</span>
 	    <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
 	      <span class="c1">// only pull the events when working in the master mode</span>
@@ -472,12 +495,11 @@
 	    <span class="n">eventPollingInterval</span><span class="o">,</span>
 	    <span class="n">MILLISECONDS</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>我们在 <code class="highlighter-rouge">AlphaConfig.java</code>  中通过以下方式创建实例，以确保无论您是否指定了 <code class="highlighter-rouge">alpha.cluster.master.enabled</code> 参数事务扫描都可以正常工作，在这里可以看到当我们开启了集群模式后节点刚启动的时候状态是Slave，下面会说明状态是如何切换到Master的。</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Bean</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
 <span class="n">NodeStatus</span> <span class="nf">nodeStatus</span> <span class="o">(){</span>
 <span class="k">if</span><span class="o">(</span><span class="n">masterEnabled</span><span class="o">){</span>
   <span class="k">return</span> <span class="k">new</span> <span class="nf">NodeStatus</span><span class="o">(</span><span class="n">NodeStatus</span><span class="o">.</span><span class="na">TypeEnum</span><span class="o">.</span><span class="na">SLAVE</span><span class="o">);</span>
@@ -488,12 +510,11 @@
 
 <span class="nd">@Autowired</span>
 <span class="n">NodeStatus</span> <span class="n">nodeStatus</span><span class="o">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>控制节点状态切换的是 <code class="highlighter-rouge">ClusterLockService.java</code> ,这个服务会定时执行锁抢占，抢占成功后设置本节点为Master，否则为Slave</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Autowired</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span>
 <span class="n">LockProvider</span> <span class="n">lockProvider</span><span class="o">;</span>
 <span class="o">...</span>
 <span class="o">...</span>
@@ -518,8 +539,7 @@
   <span class="n">lockExecuted</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
 <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="加锁服务基础类">加锁服务基础类</h2>
 
@@ -595,15 +615,14 @@
   </li>
 </ul>
 
-<div class="language-sql highlighter-rouge"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">master_lock</span> <span class="p">(</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">IF</span> <span class="k">NOT</span> <span class="k">EXISTS</span> <span class="n">master_lock</span> <span class="p">(</span>
   <span class="n">serviceName</span> <span class="n">varchar</span><span class="p">(</span><span class="mi">36</span><span class="p">)</span> <span class="k">not</span> <span class="k">NULL</span><span class="p">,</span>
   <span class="n">expireTime</span> <span class="n">datetime</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
   <span class="n">lockedTime</span> <span class="n">datetime</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="k">DEFAULT</span> <span class="k">CURRENT_TIMESTAMP</span><span class="p">,</span>
   <span class="n">instanceId</span>  <span class="n">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">not</span> <span class="k">NULL</span><span class="p">,</span>
   <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">serviceName</span><span class="p">)</span>
 <span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <ul>
   <li>serviceName 服务名，这个字段取值  <code class="highlighter-rouge">${spring.application.name}</code></li>
@@ -628,7 +647,7 @@
       <li>如果表中存在serviceName字段相同的记录，则捕获异常加锁失败</li>
     </ul>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
    <span class="nd">@Modifying</span>
    <span class="nd">@Query</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"INSERT INTO master_lock "</span>
        <span class="o">+</span> <span class="s">"(serviceName, expireTime, lockedTime, instanceId) "</span>
@@ -639,8 +658,7 @@
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"expireTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">expireTime</span><span class="o">,</span>
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"lockedTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">lockedTime</span><span class="o">,</span>
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"instanceId"</span><span class="o">)</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">);</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>如果 initLock加锁失败，则尝试调用 <code class="highlighter-rouge">MasterLockEntityRepository.java</code> 中的 updateLock 方法尝试更新锁</p>
@@ -650,7 +668,7 @@
       <li>表中存在的本服务记录 expireTime 小于当前锁定时间 ，则更新成功并返回加锁成功（表示上一个锁定周期并没有实例进行锁定更新操作）</li>
     </ul>
 
-    <div class="language-java highlighter-rouge"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nd">@Transactional</span>
    <span class="nd">@Modifying</span><span class="o">(</span><span class="n">clearAutomatically</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
    <span class="nd">@Query</span><span class="o">(</span><span class="s">"UPDATE org.apache.servicecomb.pack.alpha.server.cluster.master.provider.jdbc.jpa.MasterLock t "</span>
        <span class="o">+</span> <span class="s">"SET t.expireTime = :expireTime"</span>
@@ -662,8 +680,7 @@
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"lockedTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">lockedTime</span><span class="o">,</span>
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"expireTime"</span><span class="o">)</span> <span class="n">Date</span> <span class="n">expireTime</span><span class="o">,</span>
        <span class="nd">@Param</span><span class="o">(</span><span class="s">"instanceId"</span><span class="o">)</span> <span class="n">String</span> <span class="n">instanceId</span><span class="o">);</span>
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>释放锁 unLock</p>
@@ -1007,6 +1024,14 @@
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

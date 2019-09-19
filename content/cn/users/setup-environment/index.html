@@ -36,8 +36,8 @@
 <meta property="og:title" content="环境配置">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/setup-environment/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/setup-environment/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/users/setup-environment/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/users/setup-environment/">
 
 
 
@@ -79,7 +79,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -151,7 +151,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -161,58 +161,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a class="active" href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a class="active" href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -399,15 +427,13 @@
   <div id="linux" class="tab-pane fade">
         <ol>
           <li>下载服务注册中心可执行文件压缩包并解压缩
-            <div class="language-bash highlighter-rouge"><pre class="highlight"><code>wget http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64.tar.gz
-tar xvf apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64.tar.gz
-</code></pre>
-            </div>
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64.tar.gz
+<span class="nb">tar </span>xvf apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64.tar.gz
+</code></pre></div>            </div>
           </li>
           <li>运行服务注册中心
-            <div class="language-bash highlighter-rouge"><pre class="highlight"><code>bash apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64/start-service-center.sh
-</code></pre>
-            </div>
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64/start-service-center.sh
+</code></pre></div>            </div>
           </li>
         </ol>
 
@@ -423,10 +449,9 @@ tar xvf apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64.tar.gz
   </li>
 </ol>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker pull servicecomb/service-center
-docker run -d -p 30100:30100 servicecomb/service-center:latest
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
+docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
+</code></pre></div></div>
 
 <p class="notice--warning"><strong>注意事项：</strong> 服务注册中心运行后绑定的IP为：<em>http://127.0.0.1:30100</em>。<br />
 如使用Docker Toolbox，可通过 <code class="highlighter-rouge">docker-machine ip</code> 获取服务绑定IP地址。</p>
@@ -464,106 +489,95 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 <h5 id="第一步">第一步</h5>
 <p>在所有的VM上从<a href="https://github.com/apache/servicecomb-service-center/releases">ServiceComb官网</a>下载最新版本的Service Center并解压：</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>tar -xvf service-center-X.X.X-linux-amd64.tar.gz
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> service-center-X.X.X-linux-amd64.tar.gz
+</code></pre></div></div>
 
 <p>提示：请不要按stand-alone提示的方式执行start-service-center.sh，因为这样会启动内置的etcd。</p>
 
 <h5 id="第二步">第二步</h5>
 <p>编辑ServcieComb的配置文件，修改ip/port以及etcd地址：</p>
 <h6 id="vm1">VM1</h6>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi conf/app.conf
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi conf/app.conf
+</code></pre></div></div>
 
 <p>修改下面的配置 :</p>
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>httpaddr = 10.12.0.1
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>httpaddr = 10.12.0.1
 manager_cluster = "10.12.0.4:2379"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>然后启动Service Center :</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>./service-center
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./service-center
+</code></pre></div></div>
 
 <h6 id="vm2">VM2</h6>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi conf/app.conf
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi conf/app.conf
+</code></pre></div></div>
 
 <p>修改下面的配置 :</p>
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>httpaddr = 10.12.0.2
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>httpaddr = 10.12.0.2
 manager_cluster = "10.12.0.4:2379"
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>然后启动Service Center :</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>./service-center
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./service-center
+</code></pre></div></div>
 
 <p>提示：在<code class="highlighter-rouge">manger_cluster</code>配置中你可以填写多个在etcd群集中的etcd实例地址：</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>manager_cluster= "10.12.0.4:2379,10.12.0.X:2379,10.12.0.X:2379"
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manager_cluster= "10.12.0.4:2379,10.12.0.X:2379,10.12.0.X:2379"
+</code></pre></div></div>
 
 <h5 id="第三步">第三步</h5>
 <p>验证你部署完毕的Service Center实例 :</p>
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>curl http://10.12.0.1:30101/v4/default/registry/health
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://10.12.0.1:30101/v4/default/registry/health
+</code></pre></div></div>
 <p>将会返回下面的内容 :</p>
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"instances"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"instances"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e9e976f9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e9e976f9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                 </span><span class="s2">"rest://10.12.0.1:30100"</span><span class="w">
             </span><span class="p">],</span><span class="w">
-            </span><span class="nt">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_1"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+            </span><span class="s2">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
             </span><span class="p">},</span><span class="w">
-            </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="w">
+            </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="w">
         </span><span class="p">},</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16d4cb35f9e011e7a58a286ed488ff9f"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="s2">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16d4cb35f9e011e7a58a286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
                 </span><span class="s2">"rest://10.12.0.2:30100"</span><span class="w">
             </span><span class="p">],</span><span class="w">
-            </span><span class="nt">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_2"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-                </span><span class="nt">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
-                </span><span class="nt">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+            </span><span class="s2">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_2"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
             </span><span class="p">},</span><span class="w">
-            </span><span class="nt">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="w">
+            </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="w">
         </span><span class="p">}</span><span class="w">
     </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <p>我们可以看到Service Center能够自动发现所有正在集群中运行的实例，<a href="https://github.com/apache/servicecomb-java-chassis">Java-Chassis SDK</a>将使用这个特性至少找到一个Service Center实例。</p>
 
 <p>在你的microservice.yaml中你可以填写一个或多个Service Center实例，如果<a href="https://github.com/apache/servicecomb-java-chassis">Java-Chassis SDK</a>发现配置的第一个地址（实例）失败，它将会自动使用下一个地址（实例）：</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">service</span><span class="pi">:</span>
-    <span class="s">registry</span><span class="pi">:</span>
-      <span class="s">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://10.12.0.1:30100,http://10.12.0.2:30100"</span>
-      <span class="s">autodiscovery</span><span class="pi">:</span> <span class="s">true</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">service</span><span class="pi">:</span>
+    <span class="na">registry</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://10.12.0.1:30100,http://10.12.0.2:30100"</span>
+      <span class="na">autodiscovery</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
 <p>上面的例子里包含了我们已经配置好的两个Service Center实例。</p>
 
         
@@ -651,6 +665,14 @@ manager_cluster = "10.12.0.4:2379"
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

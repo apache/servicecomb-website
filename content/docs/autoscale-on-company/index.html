@@ -36,8 +36,8 @@
 <meta property="og:title" content="On-demand Resource Control for Micro-serviced Company by Autoscale">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/autoscale-on-company/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/autoscale-on-company/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/autoscale-on-company/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/autoscale-on-company/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/docs/quick-start/">Quick Start</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/users/">Users</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/developers/">Developers</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/year-archive/">Blogs</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/faqs/">FAQ</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/release/">Downloads</a>
+
               
+                <a href="/users/">Resources</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Quick Start</a></li>
+                
+                <li><a href="/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -380,82 +408,74 @@
 
 <p>Get one-click installing scripts in the <a href="https://github.com/zenlinTechnofreak/LinuxCon-Beijing-WorkShop/tree/autoscal/kubernetes/heapster/deploy">author’s repo</a>，update value of api-server as following and run kube.sh to start,</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>vi LinuxCon-Beijing-WorkShop/kubernetes/heapster/deploy/kube-config/influxdb/heapster.yaml
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi LinuxCon-Beijing-WorkShop/kubernetes/heapster/deploy/kube-config/influxdb/heapster.yaml
+</code></pre></div></div>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spec</span><span class="pi">:</span>
-  <span class="s">replicas</span><span class="pi">:</span> <span class="s">1</span>
-  <span class="s">template</span><span class="pi">:</span>
-    <span class="s">metadata</span><span class="pi">:</span>
-      <span class="s">labels</span><span class="pi">:</span>
-        <span class="s">task</span><span class="pi">:</span> <span class="s">monitoring</span>
-        <span class="s">k8s-app</span><span class="pi">:</span> <span class="s">heapster</span>
-    <span class="s">spec</span><span class="pi">:</span>
-      <span class="s">serviceAccountName</span><span class="pi">:</span> <span class="s">heapster</span>
-      <span class="s">containers</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">name</span><span class="pi">:</span> <span class="s">heapster</span>
-        <span class="s">image</span><span class="pi">:</span> <span class="s">gcr.io/google_containers/heapster-amd64:v1.4.1</span>
-        <span class="s">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
-        <span class="s">command</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="na">template</span><span class="pi">:</span>
+    <span class="na">metadata</span><span class="pi">:</span>
+      <span class="na">labels</span><span class="pi">:</span>
+        <span class="na">task</span><span class="pi">:</span> <span class="s">monitoring</span>
+        <span class="na">k8s-app</span><span class="pi">:</span> <span class="s">heapster</span>
+    <span class="na">spec</span><span class="pi">:</span>
+      <span class="na">serviceAccountName</span><span class="pi">:</span> <span class="s">heapster</span>
+      <span class="na">containers</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">heapster</span>
+        <span class="na">image</span><span class="pi">:</span> <span class="s">gcr.io/google_containers/heapster-amd64:v1.4.1</span>
+        <span class="na">imagePullPolicy</span><span class="pi">:</span> <span class="s">IfNotPresent</span>
+        <span class="na">command</span><span class="pi">:</span>
         <span class="pi">-</span> <span class="s">/heapster</span>
 <span class="c1">#use 'kubernetes' directly if installed inside the cluster</span>
         <span class="pi">-</span> <span class="s">--source=kubernetes</span>
 <span class="c1">#use the practical api-server address if installed outside the cluster</span>
 <span class="c1">#        - --source=kubernetes:http://10.229.43.65:6443?inClusterConfig=false</span>
          <span class="pi">-</span> <span class="s">--sink=influxdb:http://monitoring-influxdb:8086</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="start-company-demo">Start Company Demo</h3>
 
 <p>Download Company source code, restricted resources, creating auto-scaller,</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
 
 <span class="nb">cd </span>LinuxCon-Beijing-WorkShop/kubernetes/
 
 bash start-autoscale.sh 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>In Company’s deployment script, filed of resources is added to limit  200 milli-cores to each pod(1000 milli-cores equal to 1 core),</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code>    <span class="s">resources</span><span class="pi">:</span>
-      <span class="s">limits</span><span class="pi">:</span>
-        <span class="s">cpu</span><span class="pi">:</span> <span class="s">200m</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="na">resources</span><span class="pi">:</span>
+      <span class="na">limits</span><span class="pi">:</span>
+        <span class="na">cpu</span><span class="pi">:</span> <span class="s">200m</span>
+</code></pre></div></div>
 <p>In script start-autoscale.sh, each command create a Horizontal Pod Autoscaler that maintains between 1 and 10 replicas of the Pods controlled by its deployment created. HPA will increase and decrease the number of replicas (via the deployment) to maintain an average CPU utilization across all Pods of 50%(this means average CPU usage of 100 milli-cores),</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="c"># Create Horizontal Pod Autoscaler</span>
-kubectl autoscale deployment zipkin --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
-kubectl autoscale deployment company-bulletin-board --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
-kubectl autoscale deployment company-worker --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
-kubectl autoscale deployment company-doorman --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
-kubectl autoscale deployment company-manager --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
-kubectl autoscale deployment company-beekeeper --cpu-percent<span class="o">=</span>50 --min<span class="o">=</span>1 --max<span class="o">=</span>10
-</code></pre>
-</div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Create Horizontal Pod Autoscaler</span>
+kubectl autoscale deployment zipkin <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
+kubectl autoscale deployment company-bulletin-board <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
+kubectl autoscale deployment company-worker <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
+kubectl autoscale deployment company-doorman <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
+kubectl autoscale deployment company-manager <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
+kubectl autoscale deployment company-beekeeper <span class="nt">--cpu-percent</span><span class="o">=</span>50 <span class="nt">--min</span><span class="o">=</span>1 <span class="nt">--max</span><span class="o">=</span>10
+</code></pre></div></div>
 
 <p>HPA can be created after running start-autoscale.sh, get HPA status by the following command,</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code> kubectl get hpa
-</code></pre>
-</div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code> kubectl get hpa
+</code></pre></div></div>
 
 <h3 id="start-pressure-testing">Start Pressure Testing</h3>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nb">export</span> <span class="nv">$HOST</span><span class="o">=</span>&lt;heapster-ip&gt;:&lt;heapster-port&gt;
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export</span> <span class="nv">$HOST</span><span class="o">=</span>&lt;heapster-ip&gt;:&lt;heapster-port&gt;
 bash LinuxCon-Beijing-WorkShop/kubernetes/stress-test.sh
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>The script enable a dead loop, request to Company to calculate fibonacci number 200 times in each second, causing pressure on Company,</p>
 
-<div class="language-shell highlighter-rouge"><pre class="highlight"><code><span class="nv">FIBONA_NUM</span><span class="o">=</span><span class="sb">`</span>curl -s -H <span class="s2">"Authorization: </span><span class="nv">$Authorization</span><span class="s2">"</span> -XGET <span class="s2">"http://</span><span class="nv">$HOST</span><span class="s2">/worker/fibonacci/term?n=6"</span><span class="sb">`</span>
-</code></pre>
-</div>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">FIBONA_NUM</span><span class="o">=</span><span class="sb">`</span>curl <span class="nt">-s</span> <span class="nt">-H</span> <span class="s2">"Authorization: </span><span class="nv">$Authorization</span><span class="s2">"</span> <span class="nt">-XGET</span> <span class="s2">"http://</span><span class="nv">$HOST</span><span class="s2">/worker/fibonacci/term?n=6"</span><span class="sb">`</span>
+</code></pre></div></div>
 
 <h2 id="testing-result">Testing Result</h2>
 
@@ -825,6 +845,14 @@ Fig 5    HPA Data of The End</p>
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Connect Us</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

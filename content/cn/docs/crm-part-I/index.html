@@ -36,8 +36,8 @@
 <meta property="og:title" content="客户管理系统微服务化实战-PartI">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/crm-part-I/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/crm-part-I/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/crm-part-I/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/crm-part-I/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -512,24 +540,22 @@
   <li>Header： 声明Token的类型也就是JWT，以及加密算法，例如：</li>
 </ol>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"typ"</span><span class="p">:</span><span class="w"> </span><span class="s2">"JWT"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"alg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HS256"</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <ol>
   <li>Playload：存放有效信息，既包含标准签发者、用户、签发时间、过期时间，唯一标识等信息；也可以存放用户自定义的声明信息，例如权限控制相关的内容，例如：</li>
 </ol>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nt">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YangYong Zheng"</span><span class="p">,</span><span class="w">
-  </span><span class="nt">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1516239022</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sub"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567890"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"YangYong Zheng"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iat"</span><span class="p">:</span><span class="w"> </span><span class="mi">1516239022</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <ol>
   <li>Signature：签名信息，包含Header和Playload的原始信息（Base64编码过）以及签名过后的信息。</li>
@@ -564,7 +590,7 @@
 <h5 id="第二步使用mysql持久化用户信息">第二步：使用MySQL持久化用户信息</h5>
 <p>用户微服务需要持久化用户信息，我们使用MySQL数据库，ORM使用Spring Data JPA：</p>
 <h6 id="引入依赖">引入依赖</h6>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>mysql<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>mysql-connector-java<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
@@ -572,10 +598,9 @@
   <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <h6 id="定义存储user信息的userentity实体">定义存储User信息的UserEntity实体</h6>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Entity</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
 <span class="nd">@Table</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"T_User"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserEntity</span> <span class="o">{</span>
   <span class="nd">@Id</span>
@@ -607,31 +632,28 @@
     <span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>在CodeFist模式下，Spring Data JPA会在数据库中自动创建T_User表与此实体映射。</p>
 
 <h6 id="实现userentity实体的repository">实现UserEntity实体的Repository</h6>
 <p>我们继承JPA的PagingAndSortingRepository来实现ORM操作</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Repository</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
 <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserRepository</span> <span class="kd">extends</span> <span class="n">PagingAndSortingRepository</span><span class="o">&lt;</span><span class="n">UserEntity</span><span class="o">,</span> <span class="n">Long</span><span class="o">&gt;</span> <span class="o">{</span>
   <span class="n">UserEntity</span> <span class="nf">findByName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h6 id="配置数据库连接">配置数据库连接</h6>
 <p>在项目的<code class="highlighter-rouge">resources</code>目录下新增<code class="highlighter-rouge">application.properties</code>文件，写入数据库连接信息：</p>
 
-<div class="language-properties highlighter-rouge"><pre class="highlight"><code><span class="py">spring.datasource.url</span><span class="p">=</span><span class="s">jdbc:mysql://localhost:3306/user_db?useSSL=false</span>
+<div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">spring.datasource.url</span><span class="p">=</span><span class="s">jdbc:mysql://localhost:3306/user_db?useSSL=false</span>
 <span class="py">spring.datasource.username</span><span class="p">=</span><span class="s">root</span>
 <span class="py">spring.datasource.password</span><span class="p">=</span><span class="s">pwd</span>
-<span class="err">spring.jpa.hibernate.ddl-</span><span class="py">auto</span><span class="p">=</span><span class="s">update</span>
+<span class="py">spring.jpa.hibernate.ddl-auto</span><span class="p">=</span><span class="s">update</span>
 <span class="py">spring.jpa.properties.hibernate.dialect</span><span class="p">=</span><span class="s">org.hibernate.dialect.MySQL5Dialect</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <blockquote>
   <p>提示：关于Spring Data JPA的更多资料请参见<a href="https://projects.spring.io/spring-data-jpa/">这篇文档</a>，为了能够简化依赖的引入我们实际上使用的是Spring Boot JPA Starter，详细的例子请参见<a href="https://spring.io/guides/gs/accessing-data-jpa/">这篇文档</a>。</p>
@@ -640,20 +662,19 @@
 <h5 id="第三步实现jwt认证">第三步：实现JWT认证</h5>
 <h6 id="定义jwt接口">定义JWT接口</h6>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">TokenStore</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">TokenStore</span> <span class="o">{</span>
   <span class="n">String</span> <span class="nf">generate</span><span class="o">(</span><span class="n">String</span> <span class="n">userName</span><span class="o">);</span>
 
   <span class="kt">boolean</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>generate用于生成Token，validate用于验证Token是否正确。</p>
 
 <h6 id="实现tokenstore">实现TokenStore</h6>
 <p>我们使用<a href="https://github.com/jwtk/jjwt">jjwt</a>提供的JWT实现，创建JwtTokenStore类，继承TokenStore接口，并重写方法：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Component</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
 <span class="nd">@Component</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">JwtTokenStore</span> <span class="kd">implements</span> <span class="n">TokenStore</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">JwtTokenStore</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
@@ -690,23 +711,21 @@
     <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="第四步实现用户服务">第四步：实现用户服务</h5>
 <h6 id="定义userservice接口">定义UserService接口</h6>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="o">{</span>
   <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">logon</span><span class="o">(</span><span class="n">UserDTO</span> <span class="n">user</span><span class="o">);</span>
   <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">login</span><span class="o">(</span><span class="n">UserDTO</span> <span class="n">user</span><span class="o">);</span>
 <span class="o">}</span>
 
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>logon用于新用户注册，login用于用户登录验证，UserDTO用于参数传递：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDTO</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDTO</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
   <span class="kd">private</span> <span class="n">String</span> <span class="n">password</span><span class="o">;</span>
   <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
@@ -722,13 +741,12 @@
     <span class="k">this</span><span class="o">.</span><span class="na">password</span> <span class="o">=</span> <span class="n">password</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h6 id="实现并发布userservice">实现并发布UserService</h6>
 <p>创建UserServiceImpl，继承<code class="highlighter-rouge">UserService</code>接口：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"user"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"user"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserServiceImpl</span> <span class="kd">implements</span> <span class="n">UserService</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">UserRepository</span> <span class="n">repository</span><span class="o">;</span>
@@ -785,8 +803,7 @@
     <span class="k">return</span> <span class="n">headers</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>登录成功后，会从TokenStore生成Token，并将其写入Key为<code class="highlighter-rouge">AUTHORIZATION</code>的Header。</p>
 
@@ -832,9 +849,8 @@
 
 <p>Edge服务将在<code class="highlighter-rouge">9090</code>端口上接受http rest调用，我们设计了下面的转发规则：</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>http://{edge-host-name}:9090/{ServiceComb微服务Name}/{服务路径&amp;参数}
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://{edge-host-name}:9090/{ServiceComb微服务Name}/{服务路径&amp;参数}
+</code></pre></div></div>
 
 <p>用户微服务名（<code class="highlighter-rouge">service_description.name</code>）是<code class="highlighter-rouge">user-service</code>，因此login调用URL：<em>cse://user-service/login</em>可以通过：<em>http://{edge-host-name}:9090/user-service/login</em> 访问。</p>
 
@@ -842,11 +858,10 @@
 
 <p>到此我们还可以再做一点点改进，引入一个自定义配置<code class="highlighter-rouge">edge.routing-short-path.{简称}</code>，映射微服务名：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>edge:
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>edge:
   routing-short-path:
     user: user-service
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>上面的配置代表：<em>http://{edge-host-name}:9090/user/login</em> 等效于：<em>http://{edge-host-name}:9090/user-service/login</em> ，如此一来：</p>
 <ol>
@@ -856,17 +871,16 @@
 
 <h2 id="53-实现边缘服务">5.3 实现边缘服务</h2>
 <h5 id="第一步引入edge-core依赖">第一步：引入Edge Core依赖</h5>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
   <span class="nt">&lt;artifactId&gt;</span>edge-core<span class="nt">&lt;/artifactId&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="第二步编写调度器dispatcher">第二步：编写调度器Dispatcher</h5>
 <p>Edge服务的核心就是调度器Dispatcher，ServiceComb Edge Core中的Dispatcher基于高性能的Vertx Reactive，轻松应对百万量级API请求的挑战；只需要继承AbstractEdgeDispatcher抽象类，添加对应的逻辑即可：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EdgeDispatcher</span> <span class="kd">extends</span> <span class="n">AbstractEdgeDispatcher</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EdgeDispatcher</span> <span class="kd">extends</span> <span class="n">AbstractEdgeDispatcher</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">EdgeDispatcher</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
   <span class="c1">//此Dispatcher的优先级，Order级越小，路由策略优先级越高</span>
@@ -903,38 +917,35 @@
     <span class="n">edgeInvocation</span><span class="o">.</span><span class="na">edgeInvoke</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="第三步加载调度器dispatcher">第三步：加载调度器Dispatcher</h5>
 <p>ServiceComb Edge使用SPI（Service Provider Interface）的方式加载已经编写好的调度器Dispatcher，在resources目录下创建<code class="highlighter-rouge">META-INF.services/org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher</code>配置文件，写入上一步EdgeDispatcher的类全名：</p>
 
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>{EdgeDispatcher的包名}.EdgeDispatcher
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{EdgeDispatcher的包名}.EdgeDispatcher
+</code></pre></div></div>
 
 <h5 id="第四步配置microserviceyaml">第四步：配置microservice.yaml</h5>
 <p>边缘服务本身也是一个微服务，同样需要配置microservice.yaml：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">scaffold</span>
-<span class="s">service_description</span><span class="pi">:</span>
-  <span class="s">name</span><span class="pi">:</span> <span class="s">edge-service</span>
-  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
-<span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">service</span><span class="pi">:</span>
-    <span class="s">registry</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">scaffold</span>
+<span class="na">service_description</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">edge-service</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">service</span><span class="pi">:</span>
+    <span class="na">registry</span><span class="pi">:</span>
       <span class="c1">#配置ServiceCenter使得Edge能够发现其他微服务</span>
-      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
   <span class="c1">#配置Rest Endpoint</span>
-  <span class="s">rest</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:9090</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:9090</span>
 
 <span class="c1">#自定义的简称机制配置（这是我们自行扩展实现的）</span>
-<span class="s">edge</span><span class="pi">:</span>
-  <span class="s">routing-short-path</span><span class="pi">:</span>
-    <span class="s">user</span><span class="pi">:</span> <span class="s">user-service</span>
-</code></pre>
-</div>
+<span class="na">edge</span><span class="pi">:</span>
+  <span class="na">routing-short-path</span><span class="pi">:</span>
+    <span class="na">user</span><span class="pi">:</span> <span class="s">user-service</span>
+</code></pre></div></div>
 
 <blockquote>
   <p>提示：</p>
@@ -1003,13 +1014,12 @@
 <h2 id="62-实现统一认证">6.2 实现统一认证</h2>
 <h5 id="第一步发布认证服务">第一步：发布认证服务</h5>
 <h6 id="定义authenticationservice">定义AuthenticationService</h6>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
   <span class="n">String</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <h6 id="实现并发布authenticationservice">实现并发布AuthenticationService</h6>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"authentication"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"authentication"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationServiceImpl</span> <span class="kd">implements</span> <span class="n">AuthenticationService</span> <span class="o">{</span>
 
@@ -1030,11 +1040,10 @@
     <span class="k">return</span> <span class="n">userName</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h5 id="第二步实现统一认证authenticationfilter">第二步：实现统一认证AuthenticationFilter</h5>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationFilter</span> <span class="kd">implements</span> <span class="n">HttpServerFilter</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationFilter</span> <span class="kd">implements</span> <span class="n">HttpServerFilter</span> <span class="o">{</span>
 
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">RestTemplate</span> <span class="n">template</span> <span class="o">=</span> <span class="n">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
 
@@ -1083,29 +1092,26 @@
     <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>别忘了通过SPI机制加载它，在<code class="highlighter-rouge">resources\META-INF\services</code>目录中创建<code class="highlighter-rouge">org.apache.servicecomb.common.rest.filter.HttpServerFilter</code>文件：</p>
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>org.apache.servicecomb.scaffold.edge.filter.AuthenticationFilter
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.apache.servicecomb.scaffold.edge.filter.AuthenticationFilter
+</code></pre></div></div>
 
 <h5 id="第三步在用户微服务中增加修改密码的功能用于验证">第三步：在用户微服务中增加修改密码的功能用于验证</h5>
 <p>现有的<code class="highlighter-rouge">login</code>和<code class="highlighter-rouge">logon</code>都无需认证，因此我们在用户微服务中增加需要认证的修改密码的功能用于验证统一认证。</p>
 <h6 id="在userservice中添加修改密码">在UserService中添加修改密码</h6>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="o">{</span>
   <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">logon</span><span class="o">(</span><span class="n">UserDTO</span> <span class="n">user</span><span class="o">);</span>
 
   <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">login</span><span class="o">(</span><span class="n">UserDTO</span> <span class="n">user</span><span class="o">);</span>
   <span class="c1">//需要认证的修改密码功能</span>
   <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">changePassword</span><span class="o">(</span><span class="n">UserUpdateDTO</span> <span class="n">userUpdate</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h6 id="在userserviceimpl中实现修改密码">在UserServiceImpl中实现修改密码</h6>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@Override</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span>
 <span class="nd">@PostMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"changePassword"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Boolean</span><span class="o">&gt;</span> <span class="nf">changePassword</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">UserUpdateDTO</span> <span class="n">userUpdate</span><span class="o">)</span> <span class="o">{</span>
   <span class="k">if</span> <span class="o">(</span><span class="n">validateUserUpdate</span><span class="o">(</span><span class="n">userUpdate</span><span class="o">))</span> <span class="o">{</span>
@@ -1122,15 +1128,13 @@
   <span class="o">}</span>
   <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">BAD_REQUEST</span><span class="o">,</span> <span class="s">"incorrect user"</span><span class="o">);</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="63-验证实现的统一认证">6.3 验证实现的统一认证</h2>
 <h5 id="确认authenticationfilter在edge服务中成功加载">确认AuthenticationFilter在Edge服务中成功加载</h5>
 <p>在Edge服务的启动日志中能够找到：</p>
-<div class="language-text highlighter-rouge"><pre class="highlight"><code>2018-07-13 14:38:48,756 [INFO]   1. org.apache.servicecomb.scaffold.edge.filter.AuthenticationFilter. org.apache.servicecomb.foundation.common.utils.SPIServiceUtils.loadSortedService(SPIServiceUtils.java:79)
-</code></pre>
-</div>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2018-07-13 14:38:48,756 [INFO]   1. org.apache.servicecomb.scaffold.edge.filter.AuthenticationFilter. org.apache.servicecomb.foundation.common.utils.SPIServiceUtils.loadSortedService(SPIServiceUtils.java:79)
+</code></pre></div></div>
 
 <h5 id="用户登录">用户登录</h5>
 <p>使用zhengyangyong登录：</p>
@@ -1169,9 +1173,8 @@
 
 <h1 id="7小结">7.小结</h1>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>本文详细介绍了如何使用http://start.servicecomb.io脚手架快速构建微服务项目、使用领域驱动设计（Domain-Driven Design，DDD）设计地产CRM系统、使用Edge Service构建统一认证边缘服务等内容。至此，一个地产客户关系管理系统的骨架已经初步搭建起来，剩下的模块，我们将在接下来的文章里详细介绍。
-</code></pre>
-</div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>本文详细介绍了如何使用http://start.servicecomb.io脚手架快速构建微服务项目、使用领域驱动设计（Domain-Driven Design，DDD）设计地产CRM系统、使用Edge Service构建统一认证边缘服务等内容。至此，一个地产客户关系管理系统的骨架已经初步搭建起来，剩下的模块，我们将在接下来的文章里详细介绍。
+</code></pre></div></div>
 
 
         
@@ -1510,6 +1513,14 @@
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

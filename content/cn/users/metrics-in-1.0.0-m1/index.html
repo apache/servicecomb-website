@@ -36,8 +36,8 @@
 <meta property="og:title" content="1.0.0-m1版本中的监控">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-in-1.0.0-m1/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-in-1.0.0-m1/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-in-1.0.0-m1/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-in-1.0.0-m1/">
 
 
 
@@ -79,7 +79,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -151,7 +151,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -161,58 +161,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a class="active" href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a class="active" href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -594,35 +622,33 @@ name包括：</p>
 <h3 id="全局配置">全局配置</h3>
 <p>请在microservice.yaml中添加如下配置项：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
-<span class="s">service_description</span><span class="pi">:</span>
-  <span class="s">name</span><span class="pi">:</span> <span class="s">demoService</span>
-  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
+<span class="na">service_description</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">demoService</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
 
-<span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">metrics</span><span class="pi">:</span>
+<span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">metrics</span><span class="pi">:</span>
     <span class="c1">#时间窗间隔，单位毫秒,默认为5000（5秒）</span>
-    <span class="s">window_time</span><span class="pi">:</span> <span class="s">5000</span>
-</code></pre>
-</div>
+    <span class="na">window_time</span><span class="pi">:</span> <span class="s">5000</span>
+</code></pre></div></div>
 
 <p><strong>为了降低Metrics理解和使用难度，我们暂时不支持多周期</strong></p>
 
 <h3 id="依赖配置">依赖配置</h3>
 <p>只需要添加metrics-core依赖即可：</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>metrics-core<span class="nt">&lt;/artifactId&gt;</span>
       <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="如何获取数据">如何获取数据</h2>
 <p>配置好Metrics后，你可以通过如下两种方式获取Metrics数据：</p>
 <h3 id="通过发布接口获取">通过发布接口获取</h3>
 <p>当微服务启动后，metrics-core会自动以Springmvc的方式发布服务：</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"metricsEndpoint"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"metricsEndpoint"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/metrics"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MetricsPublisher</span> <span class="o">{</span>
   <span class="nd">@ApiResponses</span><span class="o">({</span>
@@ -634,31 +660,28 @@ name包括：</p>
     <span class="k">return</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>因此，如果你在microservice.yaml中配置了rest provider，例如：</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">service</span><span class="pi">:</span>
-    <span class="s">registry</span><span class="pi">:</span>
-      <span class="s">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
-  <span class="s">rest</span><span class="pi">:</span>
-    <span class="s">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
-</code></pre>
-</div>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">service</span><span class="pi">:</span>
+    <span class="na">registry</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre></div></div>
 <p>你就可以通过http://localhost:8080/metrics 直接获取到数据，打开浏览器输入此URL就可以看到返回结果。</p>
 
 <h3 id="直接获取">直接获取</h3>
 <p>从上面的代码可以看到，数据提供的入口是org.apache.servicecomb.metrics.core.MonitorManager，因此如果你希望自己开发数据发布程序，只需要获取它即可。</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">MonitorManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MonitorManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
 <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">manager</span><span class="o">.</span><span class="na">measure</span><span class="o">();</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>提示：Servo已经被Netflix标记为DEPRECATED，我们将在1.0.0-m2中使用Netflix spectator替换，获取数据的接口会有调整</strong></p>
 
 <h2 id="如何使用数据">如何使用数据</h2>
 <p>Metrics数据将以Map&lt;String, Double&gt;的形式输出，为了能够方便用户获取指定Metric的值，提供了org.apache.servicecomb.foundation.metrics.publish.MetricsLoader工具类：</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code>    <span class="c1">//模拟MonitorManager.getInstance().measure()获取所有的Metrics值</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//模拟MonitorManager.getInstance().measure()获取所有的Metrics值</span>
     <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
     <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"X(K1=1,K2=2,K3=3)"</span><span class="o">,</span> <span class="mf">100.0</span><span class="o">);</span>
     <span class="n">metrics</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"X(K1=1,K2=20,K3=30)"</span><span class="o">,</span> <span class="mf">200.0</span><span class="o">);</span>
@@ -681,8 +704,7 @@ name包括：</p>
 
     <span class="c1">//从层次结构中通过Tag匹配获取Metric的值</span>
     <span class="n">node</span><span class="o">.</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"1"</span><span class="o">).</span><span class="na">getChildrenNode</span><span class="o">(</span><span class="s">"20"</span><span class="o">).</span><span class="na">getFirstMatchMetricValue</span><span class="o">(</span><span class="s">"K3"</span><span class="o">,</span><span class="s">"30"</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p><em>demo/perf/PerfMetricsFilePublisher.java提供了MetricsLoader更详细的使用示例</em></p>
 
 <h2 id="如何扩展">如何扩展</h2>
@@ -716,7 +738,7 @@ name包括：</p>
 </table>
 
 <p>以处理订单这个场景为例：</p>
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderController</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OrderController</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">Counter</span> <span class="n">orderCount</span><span class="o">;</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">Counter</span> <span class="n">orderTps</span><span class="o">;</span>
   <span class="kd">private</span> <span class="kd">final</span> <span class="n">Timer</span> <span class="n">averageLatency</span><span class="o">;</span>
@@ -751,26 +773,24 @@ name包括：</p>
     <span class="k">this</span><span class="o">.</span><span class="na">maxLatency</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">TimeUnit</span><span class="o">.</span><span class="na">NANOSECONDS</span><span class="o">.</span><span class="na">toMillis</span><span class="o">(</span><span class="n">totalTime</span><span class="o">));</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>注意事项：</p>
 
 <p>1.通过MonitorManager获取Monitor传递name和tag数组，最终输出的ID是它们连接后的字符串，所以请保持唯一性，上面的例子输出的Metrics为：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span><span class="n">Double</span><span class="o">&gt;</span> <span class="n">metrics</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">();</span>
 
 <span class="c1">//metrics的keySet()将包含：</span>
 <span class="c1">//	订单数量(商品名=levis jeans,型号=512)</span>
 <span class="c1">//	生成订单(统计项=事务每秒)</span>
 <span class="c1">//	生成订单(统计项=平均生成时间,单位=MILLISECONDS)</span>
 <span class="c1">//	生成订单(统计项=最大生成时间,单位=MILLISECONDS)</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>2.MonitorManager获取Monitor的方法均为<strong>获取或创建</strong>，因此多次传递相同的name和tag数组返回的是同一个计数器：</p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="n">Counter</span> <span class="n">counter1</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"订单数量"</span><span class="o">,</span> <span class="s">"商品名"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"型号"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Counter</span> <span class="n">counter1</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"订单数量"</span><span class="o">,</span> <span class="s">"商品名"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"型号"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
 <span class="n">Counter</span> <span class="n">counter2</span> <span class="o">=</span> <span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">getCounter</span><span class="o">(</span><span class="s">"订单数量"</span><span class="o">,</span> <span class="s">"商品名"</span><span class="o">,</span> <span class="s">"levis jeans"</span><span class="o">,</span> <span class="s">"型号"</span><span class="o">,</span> <span class="s">"512"</span><span class="o">);</span>
 
 <span class="n">counter1</span><span class="o">.</span><span class="na">increment</span><span class="o">();</span>
@@ -779,8 +799,7 @@ name包括：</p>
 <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter1</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
 <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span><span class="n">counter2</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
 <span class="n">Assert</span><span class="o">.</span><span class="na">assertEquals</span><span class="o">(</span><span class="mf">2.0</span><span class="o">,</span><span class="n">MonitorManager</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">measure</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="s">"订单数量(商品名=levis jeans,型号=512)"</span><span class="o">),</span><span class="mi">0</span><span class="o">);</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>获取Monitor的方法性能较低，请在初始化阶段一次获取所需的Monitor，然后将它们缓存起来，请参照前面OrderController的做法。</strong></p>
 
@@ -878,6 +897,14 @@ name包括：</p>
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

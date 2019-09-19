@@ -36,8 +36,8 @@
 <meta property="og:title" content="ServiceComb Pack 0.4.0 Integrated Discovery Service : Consul">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-consul/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-consul/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-consul/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/servicecomb-pack-consul/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/docs/quick-start/">Quick Start</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/users/">Users</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/developers/">Developers</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/year-archive/">Blogs</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/faqs/">FAQ</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/release/">Downloads</a>
+
               
+                <a href="/users/">Resources</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Quick Start</a></li>
+                
+                <li><a href="/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -378,9 +406,8 @@
   <li>Start Consul with Docker, please refer to the official website <a href="https://www.consul.io">https://www.consul.io</a> for more ways</li>
 </ul>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker run -d -p 8500:8500 consul
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="nt">-p</span> 8500:8500 consul
+</code></pre></div></div>
 
 <ul>
   <li>Consul UI</li>
@@ -394,18 +421,17 @@
 
 <p>Enable registration to Consul with the parameter <code class="highlighter-rouge">spring.cloud.consul.enabled = true</code></p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>java -jar alpha-server-0.4.0-exec.jar <span class="se">\</span>
-  --server.port<span class="o">=</span>8090 <span class="se">\</span>
-  --alpha.server.port<span class="o">=</span>8080 <span class="se">\</span>
-  --spring.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
-  --spring.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
-  --spring.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
-  --spring.cloud.consul.enabled<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-  --spring.cloud.consul.host<span class="o">=</span>0.0.0.0 <span class="se">\</span>
-  --spring.cloud.consul.port<span class="o">=</span>8500 <span class="se">\</span>
-  --spring.profiles.active<span class="o">=</span>prd 
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> alpha-server-0.4.0-exec.jar <span class="se">\</span>
+  <span class="nt">--server</span>.port<span class="o">=</span>8090 <span class="se">\</span>
+  <span class="nt">--alpha</span>.server.port<span class="o">=</span>8080 <span class="se">\</span>
+  <span class="nt">--spring</span>.datasource.url<span class="o">=</span><span class="s2">"jdbc:postgresql://127.0.0.1:5432/saga?useSSL=false"</span> <span class="se">\</span>
+  <span class="nt">--spring</span>.datasource.username<span class="o">=</span>saga-user <span class="se">\</span>
+  <span class="nt">--spring</span>.datasource.password<span class="o">=</span>saga-password <span class="se">\</span>
+  <span class="nt">--spring</span>.cloud.consul.enabled<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+  <span class="nt">--spring</span>.cloud.consul.host<span class="o">=</span>0.0.0.0 <span class="se">\</span>
+  <span class="nt">--spring</span>.cloud.consul.port<span class="o">=</span>8500 <span class="se">\</span>
+  <span class="nt">--spring</span>.profiles.active<span class="o">=</span>prd 
+</code></pre></div></div>
 <p><strong>Note:</strong> Check out for Consul more details <a href="https://cloud.spring.io/spring-cloud-consul/spring-cloud-consul.html">Spring Cloud Consul 2.x</a> <a href="https://cloud.spring.io/spring-cloud-consul/1.3.x/single/spring-cloud-consul.html">Spring Cloud Consul 1.x</a></p>
 
 <p>After Alpha is launched, you can see that you have registered to Consul</p>
@@ -414,27 +440,26 @@
 
 <p>Use <code class="highlighter-rouge">curl http://0.0.0.0:8500/v1/agent/services</code> You can see that Alpha’s gRPC address and port have been registered in Consul’s Tags</p>
 
-<div class="language-json highlighter-rouge"><pre class="highlight"><code><span class="p">{</span><span class="w">
-    </span><span class="nt">"servicecomb-alpha-server-0-0-0-0-336b06581fb5b92ed91c7ade3fdafa88"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nt">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"servicecomb-alpha-server-0-0-0-0-336b06581fb5b92ed91c7ade3fdafa88"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"Service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"servicecomb-alpha-server"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"Tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"servicecomb-alpha-server-0-0-0-0-336b06581fb5b92ed91c7ade3fdafa88"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"ID"</span><span class="p">:</span><span class="w"> </span><span class="s2">"servicecomb-alpha-server-0-0-0-0-336b06581fb5b92ed91c7ade3fdafa88"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"servicecomb-alpha-server"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Tags"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
             </span><span class="s2">"alpha-server-host=0.0.0.0"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"alpha-server-port=8080"</span><span class="p">,</span><span class="w">
             </span><span class="s2">"secure=false"</span><span class="w">
         </span><span class="p">],</span><span class="w">
-        </span><span class="nt">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
-        </span><span class="nt">"Port"</span><span class="p">:</span><span class="w"> </span><span class="mi">8090</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.168.1.116"</span><span class="p">,</span><span class="w">
-        </span><span class="nt">"Weights"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nt">"Passing"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-            </span><span class="nt">"Warning"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+        </span><span class="s2">"Meta"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+        </span><span class="s2">"Port"</span><span class="p">:</span><span class="w"> </span><span class="mi">8090</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.168.1.116"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"Weights"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"Passing"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"Warning"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
         </span><span class="p">},</span><span class="w">
-        </span><span class="nt">"EnableTagOverride"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+        </span><span class="s2">"EnableTagOverride"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre>
-</div>
+</span></code></pre></div></div>
 
 <h3 id="configuring-the-omega-side">Configuring the Omega side</h3>
 
@@ -446,30 +471,28 @@
 
 <p>add dependencies</p>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
 	<span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb.pack<span class="nt">&lt;/groupId&gt;</span>
 	<span class="nt">&lt;artifactId&gt;</span>omega-spring-cloud-consul-starter<span class="nt">&lt;/artifactId&gt;</span>
 	<span class="nt">&lt;version&gt;</span>${pack.version}<span class="nt">&lt;/version&gt;</span>
 <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>Add the following to <code class="highlighter-rouge">application.yaml</code></p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">spring</span><span class="pi">:</span>
-  <span class="s">cloud</span><span class="pi">:</span>
-    <span class="s">consul</span><span class="pi">:</span>
-      <span class="s">discovery</span><span class="pi">:</span>
-<span class="err">      	</span><span class="s">register</span><span class="pi">:</span> <span class="s">false</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spring</span><span class="pi">:</span>
+  <span class="na">cloud</span><span class="pi">:</span>
+    <span class="na">consul</span><span class="pi">:</span>
+      <span class="na">discovery</span><span class="pi">:</span>
+<span class="err">      	</span><span class="na">register</span><span class="pi">:</span> <span class="no">false</span>
       <span class="s">host</span><span class="pi">:</span> <span class="s">0.0.0.0</span>
       <span class="s">port</span><span class="pi">:</span> <span class="s">8500</span>
       
-<span class="s">alpha</span><span class="pi">:</span>
-  <span class="s">cluster</span><span class="pi">:</span>
-    <span class="s">register</span><span class="pi">:</span>
-      <span class="s">type</span><span class="pi">:</span> <span class="s">consul</span>
-</code></pre>
-</div>
+<span class="na">alpha</span><span class="pi">:</span>
+  <span class="na">cluster</span><span class="pi">:</span>
+    <span class="na">register</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">consul</span>
+</code></pre></div></div>
 
 <ul>
   <li>
@@ -504,7 +527,7 @@
   </tbody>
 </table>
 
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>   <span class="nt">&lt;dependencyManagement&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="nt">&lt;dependencyManagement&gt;</span>
      <span class="nt">&lt;dependencies&gt;</span>
        <span class="nt">&lt;dependency&gt;</span>
          <span class="nt">&lt;groupId&gt;</span>org.springframework.cloud<span class="nt">&lt;/groupId&gt;</span>
@@ -513,8 +536,7 @@
        <span class="nt">&lt;/dependency&gt;</span>
      <span class="nt">&lt;/dependencies&gt;</span>
    <span class="nt">&lt;/dependencyManagement&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Note:</strong> If you define <code class="highlighter-rouge">spring.application.name</code> parameter when start Alpha,  You need to specify this service name in Omega via the parameter <code class="highlighter-rouge">alpha.cluster.serviceId</code></p>
 
@@ -842,6 +864,14 @@
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Connect Us</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

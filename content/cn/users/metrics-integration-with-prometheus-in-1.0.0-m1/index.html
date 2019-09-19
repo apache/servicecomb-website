@@ -36,8 +36,8 @@
 <meta property="og:title" content="1.0.0-m1版本中的监控如何集成prometheus">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/">
 
 
 
@@ -79,7 +79,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -151,7 +151,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -161,58 +161,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a class="active" href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a class="active" href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -372,7 +400,7 @@
 <p>由于Java Chassis由Java语言开发，我们使用<a href="https://github.com/prometheus/client_java">prometheus java client</a>中的Simple Client作为对接SDK，版本为0.1.0。<br />
 Prometheus推荐Pull模式拉取Metrics数据，被监控微服务作为Producer发布数据provider接口，我们采用Simple HTTP Server发布微服务采集到的Metrics数据。<br />
 作为一个集成（可选）模块，代码在metrics-integration/metrics-prometheus中，你可以看到它依赖：</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
     <span class="nt">&lt;groupId&gt;</span>io.prometheus<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>simpleclient<span class="nt">&lt;/artifactId&gt;</span>
   <span class="nt">&lt;/dependency&gt;</span>
@@ -385,64 +413,60 @@ Prometheus推荐Pull模式拉取Metrics数据，被监控微服务作为Producer
     <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
     <span class="nt">&lt;artifactId&gt;</span>metrics-core<span class="nt">&lt;/artifactId&gt;</span>
   <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <p>因此一旦集成Prometheus引入了metrics-prometheus依赖后，不再需要添加metrics-core的依赖。</p>
 
 <h2 id="如何配置">如何配置</h2>
 <p>开启对接prometheus非常简单：</p>
 <h3 id="全局配置">全局配置</h3>
 <p>microservice.yaml中有如下配置项：</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
-<span class="s">service_description</span><span class="pi">:</span>
-  <span class="s">name</span><span class="pi">:</span> <span class="s">demoService</span>
-  <span class="s">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">demo</span>
+<span class="na">service_description</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">demoService</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
 
-<span class="s">servicecomb</span><span class="pi">:</span>
-  <span class="s">metrics</span><span class="pi">:</span>
-    <span class="s">prometheus</span><span class="pi">:</span>
+<span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">metrics</span><span class="pi">:</span>
+    <span class="na">prometheus</span><span class="pi">:</span>
       <span class="c1">#prometheus provider的端口</span>
-      <span class="s">port</span><span class="pi">:</span> <span class="s">9696</span>
-</code></pre>
-</div>
+      <span class="na">port</span><span class="pi">:</span> <span class="s">9696</span>
+</code></pre></div></div>
 <p><em>如果不做配置，默认端口为9696</em></p>
 <h3 id="依赖配置">依赖配置</h3>
 <p>只需要添加metrics-prometheus依赖即可：</p>
-<div class="language-xml highlighter-rouge"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
       <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
       <span class="nt">&lt;artifactId&gt;</span>metrics-prometheus<span class="nt">&lt;/artifactId&gt;</span>
       <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
     <span class="nt">&lt;/dependency&gt;</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 <h3 id="配置prometheus的prometheusyml">配置Prometheus的prometheus.yml</h3>
 <p>你需要在prometheus.yml中配置数据采集job，例如</p>
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">scrape_configs</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">scrape_configs</span><span class="pi">:</span>
   <span class="c1"># The job name is added as a label `job=&lt;job_name&gt;` to any timeseries scraped from this config.</span>
-  <span class="pi">-</span> <span class="s">job_name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">prometheus'</span>
+  <span class="pi">-</span> <span class="na">job_name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">prometheus'</span>
 
     <span class="c1"># metrics_path defaults to '/metrics'</span>
     <span class="c1"># scheme defaults to 'http'.</span>
 
-    <span class="s">static_configs</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9090'</span><span class="pi">]</span>
+    <span class="na">static_configs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9090'</span><span class="pi">]</span>
 
-  <span class="pi">-</span> <span class="s">job_name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">servicecomb'</span>
+  <span class="pi">-</span> <span class="na">job_name</span><span class="pi">:</span> <span class="s1">'</span><span class="s">servicecomb'</span>
 
     <span class="c1"># metrics_path defaults to '/metrics'</span>
     <span class="c1"># scheme defaults to 'http'.</span>
 
-    <span class="s">static_configs</span><span class="pi">:</span>
-      <span class="pi">-</span> <span class="s">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9696'</span><span class="pi">]</span>
-</code></pre>
-</div>
+    <span class="na">static_configs</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">targets</span><span class="pi">:</span> <span class="pi">[</span><span class="s1">'</span><span class="s">localhost:9696'</span><span class="pi">]</span>
+</code></pre></div></div>
 <p>其中job_name: ‘servicecomb’即自定义的job配置，目标是本地微服务localhost:9696，关于prometheus.yml的配置更多信息可以参考<a href="https://prometheus.io/docs/prometheus/latest/configuration/configuration/">这篇文章</a>。</p>
 
 <h3 id="验证输出">验证输出</h3>
 <p>Prometheus Simple HTTP Server使用/metrics作为默认URL，metrics-prometheus会使用9696作为默认端口，微服务启动后你可以使用http://localhost:9696/metrics 访问它。</p>
 
 <p>使用Prometheus Simple HTTP Server接口发布的数据是Prometheus采集的标准格式：</p>
-<div class="language-text highlighter-rouge"><pre class="highlight"><code># HELP ServiceComb Metrics ServiceComb Metrics
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code># HELP ServiceComb Metrics ServiceComb Metrics
 # TYPE ServiceComb Metrics untyped
 jvm{name="cpuRunningThreads",statistic="gauge",} 45.0
 jvm{name="heapMax",statistic="gauge",} 3.786407936E9
@@ -461,8 +485,7 @@ servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="produce
 jvm{name="nonHeapUsed",statistic="gauge",} 5.9361032E7
 servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="latency",status="200",unit="MILLISECONDS",} 0.0
 servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="producer",stage="queue",statistic="max",status="200",unit="MILLISECONDS",} 0.0
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h3 id="配置grafana可选">配置Grafana（可选）</h3>
 <p>如何在Grafana中添加Prometheus作为数据源请参考<a href="https://prometheus.io/docs/visualization/grafana/">这篇文章</a>。</p>
@@ -560,6 +583,14 @@ servicecomb_invocation_calculator_calculatorRestEndpoint_calculate{role="produce
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

@@ -36,8 +36,8 @@
 <meta property="og:title" content="如何设计一个优质的微服务框架：Apache ServiceComb 的开放性设计">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/open-design/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/cn/docs/open-design/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/open-design/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/open-design/">
 
 
 
@@ -84,7 +84,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -156,7 +156,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -166,58 +166,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/docs/quick-start/">快速入门</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/users/">用户手册</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">主页</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/developers/">开发者手册</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/year-archive/">博文</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/cn/faqs/">常见问题</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/cn/release/">下载</a>
+
               
+                <a href="/cn/users/">资料</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                
+                <li><a href="/cn/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -314,8 +342,8 @@
 
       
         <li>
-          <a href="https://github.com/ServiceComb" itemprop="sameAs">
-            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub
+          <a href="https://github.com/search?q=org:apache+ServiceComb&unscoped_q=ServiceComb" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub<br>
           </a>
         </li>
       
@@ -430,7 +458,7 @@
 
 <p><strong>RPC 方式的 Provider</strong></p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"hello"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"hello"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span><span class="o">{</span>
   <span class="nd">@Override</span>
   <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
@@ -442,14 +470,13 @@
     <span class="k">return</span><span class="s">"Helloperson"</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>JAX-RS 方式的 Provider</strong></p>
 
 <p><em>代码片段来自于 <a href="https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/jaxrs-sample">Apache ServiceComb JAX-RS sample</a></em></p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"jaxrsHello"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"jaxrsHello"</span><span class="o">)</span>
 <span class="nd">@Path</span><span class="o">(</span><span class="s">"/jaxrshello"</span><span class="o">)</span>
 <span class="nd">@Produces</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">JaxrsHelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span><span class="o">{</span>
@@ -468,14 +495,13 @@
     <span class="k">return</span><span class="s">"Helloperson"</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>Spring MVC 方式的 Provider</strong></p>
 
 <p><em>代码片段来自于 <a href="https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/springmvc-sample">Apache ServiceComb Spring MVC sample</a></em></p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"springmvcHello"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"springmvcHello"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/springmvchello"</span><span class="o">,</span><span class="n">produces</span><span class="o">=</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span><span class="o">{</span>
 
@@ -491,16 +517,14 @@
     <span class="k">return</span><span class="s">"Helloperson"</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><strong>RPC 方式访问上述三种服务的 Consumer</strong></p>
 
-<div class="language-java highlighter-rouge"><pre class="highlight"><code><span class="nd">@RpcReference</span><span class="o">(</span><span class="n">microserviceName</span><span class="o">=</span><span class="s">"hello"</span><span class="o">,</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"hello"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RpcReference</span><span class="o">(</span><span class="n">microserviceName</span><span class="o">=</span><span class="s">"hello"</span><span class="o">,</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"hello"</span><span class="o">)</span>
 <span class="kd">private</span> <span class="n">Hello</span> <span class="n">hello</span><span class="o">;</span>
 <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">hello</span><span class="o">.</span><span class="na">sayHi</span><span class="o">(</span><span class="s">"JavaChassis"</span><span class="o">));</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><em>以上代码片段全部出自 <a href="https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/">Apache ServiceComb Samples</a>，有兴趣者可阅读了解或贡献更多的智慧。</em></p>
 
@@ -524,24 +548,22 @@
 
 <p>对于 Java 开发者，下面的代码片段是日常所打交道的：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">User</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">User</span><span class="pi">:</span>
   <span class="s">type:object</span>
   <span class="s">properties</span><span class="pi">:</span>
-<span class="s">age</span><span class="pi">:</span>
+<span class="na">age</span><span class="pi">:</span>
   <span class="s">type:integer</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p>如果开发人员有丰富的跨语言开发经验，可以看出 Swagger 在解决跨语言编程方面API定义冲突的努力， 如 Swagger 通过 format 来定义数据类型的存储格式，以解决不同的语言在数据类型表示上的差异：</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">User</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">User</span><span class="pi">:</span>
   <span class="s">type:object</span>
   <span class="s">properties</span><span class="pi">:</span>
-<span class="s">age</span><span class="pi">:</span>
+<span class="na">age</span><span class="pi">:</span>
   <span class="s">type:integer</span>
   <span class="s">format:int32</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <p><a href="http://servicecomb.incubator.apache.org/cn/">开源微服务框架 Apache SerivceComb</a> 既遵循常规开发规范也特别关注开发效率。开发者可以先写接口定义后写代码， 也可直接通过自己熟悉的方式编写写代码， 两种方式都会生成 <a href="http://servicecomb.incubator.apache.org/cn/users/service-contract/">服务契约</a>（Open API 描述文件），并且将内容注册到<a href="https://github.com/apache/incubator-servicecomb-service-center">服务中心</a>。使用者可以从服务中心下载相关的服务契约进行开发。 Apache ServiceComb 的各种治理结构也是基于契约的，可以让开发者独立于业务实现对系统进行统一的管控治理。</p>
 
@@ -577,13 +599,12 @@
 
 <p>在 Apache ServiceComb 框架中，<a href="http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/">切换协议</a>非常简单，不需要修改一行业务代码。多个协议共存也是允许的。</p>
 
-<div class="language-yaml highlighter-rouge"><pre class="highlight"><code><span class="s">ServiceComb</span><span class="pi">:</span>
-  <span class="s">rest</span><span class="pi">:</span>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">ServiceComb</span><span class="pi">:</span>
+  <span class="na">rest</span><span class="pi">:</span>
     <span class="s">address:0.0.0.0:8084</span>
-  <span class="s">highway</span><span class="pi">:</span>
+  <span class="na">highway</span><span class="pi">:</span>
     <span class="s">address:0.0.0.0:8094</span>
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="扩展性">扩展性</h2>
 
@@ -1011,6 +1032,14 @@
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">联系我们</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

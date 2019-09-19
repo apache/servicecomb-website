@@ -36,8 +36,8 @@
 <meta property="og:title" content="Mersher Quick Start">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/mersher-quick-start/">
 
 
 
@@ -79,7 +79,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -151,7 +151,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -161,58 +161,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/docs/quick-start/">Quick Start</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/users/">Users</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/developers/">Developers</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/year-archive/">Blogs</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/faqs/">FAQ</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a href="/release/">Downloads</a>
+
               
+                <a href="/users/">Resources</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Quick Start</a></li>
+                
+                <li><a href="/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -437,10 +465,9 @@
 
 <p>In the <strong>ServiceComb</strong> microservices framework, <strong>Service Center</strong> provides service registration and service discovery.</p>
 
-<div class="language-bash highlighter-rouge"><pre class="highlight"><code>docker pull servicecomb/service-center
-docker run -d -p 30100:30100 servicecomb/service-center:latest
-</code></pre>
-</div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
+docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
+</code></pre></div></div>
 
 <p><em>Reference to <a href="/users/setup-environment/#运行service-center">service center deployment</a> to learn deploying Service Center and front as a local binary.</em></p>
 
@@ -487,67 +514,59 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
   <li>
     <p>2 Create <strong>mersher_webapp</strong> which serves for <strong>httpserver_webapp</strong>. In the mersher directory execute the following linux command to create mersher_webapp. In order to the run mersher you also need to copy the conf.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir /usr/local/src/mersher_webapp
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /usr/local/src/mersher_webapp
 cp ./mesher /usr/local/src/mersher_webapp
-cp -r ./conf /usr/local/src/mersher_webapp
-</code></pre>
-    </div>
+cp <span class="nt">-r</span> ./conf /usr/local/src/mersher_webapp
+</code></pre></div>    </div>
 
     <p>Change <strong>service name</strong> in microservice.yaml from hellemesher to <strong>webapp</strong>. Change the listening service address in chassis.yaml from 127.0.0.1 to <strong>intranet ip</strong>(Viewed by cmd ifconfig in linux, such as 192.168.88.64).</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40101
-listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30101
-listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30102
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40101
+listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30101
+listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30102
+</code></pre></div>    </div>
   </li>
   <li>
     <p>3 Create mersher_calculator service.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>mkdir /usr/local/src/mersher_calculator
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /usr/local/src/mersher_calculator
 cp ./mesher /usr/local/src/mersher_calculator
-cp -r ./conf /usr/local/src/mersher_calculator
-</code></pre>
-    </div>
+cp <span class="nt">-r</span> ./conf /usr/local/src/mersher_calculator
+</code></pre></div>    </div>
 
     <p>Change the <strong>service name</strong> in conf file <strong>microservice.yaml</strong> from hellemesher to <strong>calculator</strong>.<br />
 Change the listening address and port in conf file <strong>chassis.yaml</strong>.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  -----》  listenAddress: 192.168.88.64:40107
-listenAddress: 127.0.0.1:30101  -----》  listenAddress: 192.168.88.64:30111
-listenAddress: 127.0.0.1:30102  -----》  listenAddress: 192.168.88.64:30112
-</code></pre>
-    </div>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40107
+listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30111
+listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30112
+</code></pre></div>    </div>
   </li>
   <li>
     <p>4 Run mersher_webapp and mersher_calculator respectively by cmd.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_calculator
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_calculator
 <span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4540
 ./mersher
-</code></pre>
-    </div>
+</code></pre></div>    </div>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_webapp
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mersher_webapp
 ./mersher
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>5 Run <strong>httpserver_webapp</strong>.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_webapp
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_webapp
 node ./httpserver_webapp.js
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>6 Run <strong>httpserver_calculator</strong> program as BMI calculator. You need to install python2.7 and this service relies on package BaseHTTPServer.</p>
 
-    <div class="language-bash highlighter-rouge"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_calculator
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_calculator
 ./httpserver_calculator.py
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
 </ul>
 
@@ -662,6 +681,14 @@ node ./httpserver_webapp.js
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Connect Us</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>

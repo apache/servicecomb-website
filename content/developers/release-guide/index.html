@@ -36,8 +36,8 @@
 <meta property="og:title" content="Release guide for ServiceComb">
 
 
-  <link rel="canonical" href="http://github.com/pages/apache/incubator-servicecomb-website/developers/release-guide/">
-  <meta property="og:url" content="http://github.com/pages/apache/incubator-servicecomb-website/developers/release-guide/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/developers/release-guide/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/developers/release-guide/">
 
 
 
@@ -81,7 +81,7 @@
       "@context" : "http://schema.org",
       "@type" : "Person",
       "name" : "Apache ServiceComb",
-      "url" : "http://github.com/pages/apache/incubator-servicecomb-website",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
       "sameAs" : null
     }
   </script>
@@ -119,8 +119,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
 
 <!--[if lte IE 9]>
   <style>
@@ -153,7 +153,7 @@
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
 <![endif]-->
-    <div class="masthead">
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
   <div class="masthead__inner-wrap">
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
@@ -163,58 +163,86 @@
         <ul class="visible-links">
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/docs/quick-start/">Quick Start</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/users/">Users</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a class="active" href="/developers/">Developers</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/year-archive/">Blogs</a>
-              
-            </li>
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
           
             
-            <li class="masthead__menu-item">
-              
-              
-              
-                <a href="/faqs/">FAQ</a>
-              
-            </li>
+          
           
             
-            <li class="masthead__menu-item">
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
               
               
               
-                <a class="active" href="/release/">Downloads</a>
+
               
+                <a href="/users/">Resources</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Quick Start</a></li>
+                
+                <li><a href="/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
             </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a class="active" href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a class="active" href="/release/">Downloads</a>
+                
+              </li>
+            
           
         </ul>
         <button><div class="navicon"></div></button>
@@ -262,7 +290,7 @@
           
           
 
-          <a href="/developers/"><span class="nav__sub-title nav__sub-title-with-url">Developer Guide</span></a>
+          <a href="/developers/"><span class="nav__sub-title nav__sub-title-with-url">Projects</span></a>
         
 
         
@@ -424,7 +452,7 @@
 <p>As ServiceComb Java Chassis and Saga are using maven for the release, you should do some maven 2 setup before releasing these two projects.
 Before you deploy anything to the maven repository using Maven 2, you should configure your ~/.m2/settings.xml file so that the file permissions of the deployed artifacts are group writable. If you do not do this, other developers will not able to overwrite your SNAPSHOT releases with newer versions. The settings follow the <a href="http://maven.apache.org/developers/committer-settings.html">guidelines</a> used by the Maven project. Please pay particular attention to the <a href="http://maven.apache.org/guides/mini/guide-encryption.html">password encryption recommendations</a>.</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;settings&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;settings&gt;
   ...
   &lt;servers&gt;
     &lt;!-- Per http://maven.apache.org/developers/committer-settings.html --&gt;
@@ -471,8 +499,7 @@ Before you deploy anything to the maven repository using Maven 2, you should con
   &lt;/profiles&gt;
 ...
 &lt;/settings&gt;
-</code></pre>
-</div>
+</code></pre></div></div>
 
 <h2 id="major-steps-for-doing-service-center-release">Major Steps for doing Service-Center Release</h2>
 
@@ -480,11 +507,10 @@ Before you deploy anything to the maven repository using Maven 2, you should con
 
 <ol>
   <li>Clone the service-center code.
-    <div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-service-center.git
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-service-center.git
 cd servicecomb-service-center
 gvt restore
-</code></pre>
-    </div>
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Create a Tag from the master branch based on the version number which needs to be released.</p>
@@ -570,14 +596,12 @@ gvt restore
 
 <ol>
   <li>Clone the java-chassis code.
-    <div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-java-chassis.git
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-java-chassis.git
+</code></pre></div>    </div>
   </li>
   <li>Cut the release using perl command to replace all the versions in pom.xml files
-    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Create a Tag from the master branch using the version number.</p>
@@ -595,9 +619,8 @@ gvt restore
     <p>Update the apache account username and password in the settings file.</p>
   </li>
   <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Once every thing is uploaded then use the staging repo to verify the build using Company workshop.</p>
@@ -670,17 +693,15 @@ gvt restore
 <p><strong><em>Make and Verify the Release</em></strong></p>
 <ol>
   <li>Clone the saga code.
-    <div class="highlighter-rouge"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-saga.git
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-saga.git
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Cut the release using per command to replace all the versions in pom.xml files</p>
   </li>
   <li>Create a Tag from the master branch using the version number.
-    <div class="highlighter-rouge"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Clear all the redundant servicecomb releases in repository.apache.org</p>
@@ -695,9 +716,8 @@ gvt restore
     <p>Update the apache account username and password in the settings.xml file.</p>
   </li>
   <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><pre class="highlight"><code>mvn deploy -DskipTests -Ppassphrase -Prelease
-</code></pre>
-    </div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Ppassphrase -Prelease
+</code></pre></div>    </div>
   </li>
   <li>
     <p>Once every thing is uploaded then use the staging repo to verify the build using the acceptance test.</p>
@@ -875,6 +895,14 @@ gvt restore
         </li>
         <li>
             <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Connect Us</p>
+        <li>
+          <img src="/assets/images/QRcode.png"/>
         </li>
       </ul>
     </div>
