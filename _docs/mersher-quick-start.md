@@ -108,6 +108,8 @@ _Reference to [service center deployment](/users/setup-environment/#运行servic
 
   ```bash
   cd /usr/local/src/httpserver_webapp
+  npm install
+  export http_proxy=http://127.0.0.1:30101
   node ./httpserver_webapp.js
   ```
 
