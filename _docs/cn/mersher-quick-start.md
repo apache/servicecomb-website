@@ -118,6 +118,8 @@ _您可以通过阅读[环境配置](/cn/users/setup-environment/#运行service-
 
   ```bash
   cd /usr/local/src/httpserver_webapp
+  npm install
+  export http_proxy=http://127.0.0.1:30101
   node ./httpserver_webapp.js
   ```
 
