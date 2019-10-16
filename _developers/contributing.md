@@ -45,6 +45,7 @@ We recommend to work on the code from  [Github](https://github.com/search?q=org%
 | [Service Center](https://github.com/apache/servicecomb-service-center)               | Service registration and discovery | Go       |
 | [Saga](https://github.com/apache/servicecomb-saga)                                   | Data Eventually Consistency Solution for Microservice | Java     |
 | [Website](https://github.com/apache/servicecomb-website) | ServiceComb Website | Markdown |
+| [Kie](https://github.com/apache/servicecomb-kie) | Service for configuration management | Go |
 
 If you intend to work on the code and provide patches and other work you want to submit to the Apache ServiceComb projects, then you can fork the project on github and work on your own fork. The custom work you do should be done on branches you create, which can then be committed and pushed upstream, and then submitted to Apache ServiceComb as PRs (pull requests). You can find many resources online how to work on github projects and how to submit work to these projects.
 
