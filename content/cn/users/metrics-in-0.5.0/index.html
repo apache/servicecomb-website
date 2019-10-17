@@ -357,7 +357,7 @@
     <meta itemprop="headline" content="0.5.0版本中的监控">
     <meta itemprop="description" content="0.5.0版本中的监控">
     
-    <meta itemprop="dateModified" content="December 30, 2017">
+    <meta itemprop="dateModified" content="December 29, 2017">
 
     <div class="page__inner-wrap">
       
@@ -403,7 +403,7 @@
 <p>0.5.0版本的Metrics会在Java Chassis的Invocation中埋入计数器，也会使用Hystrix收集TPS和Latency，同时收集微服务实例的CPU使用率和内存使用量，最终通过输出日志的方式输出收集到的Metrics数据。<br />
 输入日志使用的是SLF4J作为日志框架，未与任何具体的日志框架绑定，我们会通过定向Logger名输出的方式将不同的Metrics输出为一个个独立的文件，因此需要在你的日志配置中添加对应的配置项，<a href="https://stackoverflow.com/questions/9652032/how-can-i-create-2-separate-log-files-with-one-log4j-config-file">这篇文章</a>详细说明了如果使用Log4j作为日志实现如何配置，而<a href="https://stackoverflow.com/questions/36643692/log4j2-multiple-appenders-the-same-output-is-written-to-multiple-files">这篇文章</a>则详细介绍了如果使用Log4j2作为日志需要如何配置。<br />
 Logger名指的是LoggerFactory.getLogger后的第一个参数：</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">log</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">"${Logger名}"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">static</span> <span class="kd">final</span> <span class="nc">Logger</span> <span class="n">log</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">"${Logger名}"</span><span class="o">);</span>
 <span class="n">log</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">"${Metric数据}"</span><span class="o">);</span>
 </code></pre></div></div>
 <p><strong>为不影响调试，log的输出级别为trace</strong></p>
@@ -491,9 +491,9 @@ Logger名指的是LoggerFactory.getLogger后的第一个参数：</p>
 <span class="na">servicecomb</span><span class="pi">:</span>
   <span class="na">metrics</span><span class="pi">:</span>
     <span class="c1">#metrics数据采集时间（同样是写文件间隔），单位秒</span>
-    <span class="na">polltime</span><span class="pi">:</span> <span class="s">5</span>
+    <span class="na">polltime</span><span class="pi">:</span> <span class="m">5</span>
     <span class="c1">#如果metric是浮点数，输出结果保留几位小数，默认为1</span>
-    <span class="na">round_places</span><span class="pi">:</span> <span class="s">1</span>
+    <span class="na">round_places</span><span class="pi">:</span> <span class="m">1</span>
     <span class="na">file</span><span class="pi">:</span>
       <span class="c1">#是否启用文件输出</span>
       <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>

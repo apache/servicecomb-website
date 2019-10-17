@@ -521,7 +521,7 @@
 <span class="o">}</span>
 
 <span class="nd">@Service</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorServiceImpl</span> <span class="kd">implements</span> <span class="n">CalculatorService</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorServiceImpl</span> <span class="kd">implements</span> <span class="nc">CalculatorService</span> <span class="o">{</span>
   <span class="nd">@Override</span>
   <span class="kd">public</span> <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">height</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">weight</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
@@ -548,12 +548,12 @@
 <p>Expose calculator service’s restful endpoint:</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"calculatorRestEndpoint"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorRestEndpoint</span> <span class="kd">implements</span> <span class="n">CalculatorEndpoint</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorRestEndpoint</span> <span class="kd">implements</span> <span class="nc">CalculatorEndpoint</span> <span class="o">{</span>
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="n">CalculatorService</span> <span class="n">calculatorService</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">CalculatorService</span> <span class="n">calculatorService</span><span class="o">;</span>
 
   <span class="nd">@Autowired</span>
-  <span class="kd">public</span> <span class="nf">CalculatorRestEndpoint</span><span class="o">(</span><span class="n">CalculatorService</span> <span class="n">calculatorService</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nf">CalculatorRestEndpoint</span><span class="o">(</span><span class="nc">CalculatorService</span> <span class="n">calculatorService</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">calculatorService</span> <span class="o">=</span> <span class="n">calculatorService</span><span class="o">;</span>
   <span class="o">}</span>
 
@@ -585,8 +585,8 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorApplication</span> <span class="o">{</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">CalculatorApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">CalculatorApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -639,7 +639,7 @@
     <span class="na">enabled</span><span class="pi">:</span> <span class="no">false</span>
 
 <span class="na">server</span><span class="pi">:</span>
-  <span class="na">port</span><span class="pi">:</span> <span class="s">8889</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">8889</span>
 </code></pre></div></div>
 <p>Enable service discovery with zuul by putting the application information and service center address in <code class="highlighter-rouge">microservice.yaml</code>.</p>
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">bmi</span>
@@ -657,8 +657,8 @@
 <span class="nd">@EnableZuulProxy</span>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GatewayApplication</span> <span class="o">{</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">GatewayApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">GatewayApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
