@@ -20,7 +20,7 @@ last_modified_at: 2018-05-20T19:18:43+08:00
 ## 初次接触
 有下面的方式加入ServcieComb社区：
 
-- 订阅我们的[邮件列表](http://servicecomb.apache.org/cn/developers/subscribe-mail-list)，并为您关注的话题发表意见； 
+- 订阅我们的[邮件列表](http://servicecomb.apache.org/cn/developers/subscribe-mail-list)，并为您关注的话题发表意见；
 - 来[Gitter](https://gitter.im/ServiceCombUsers/Lobby)和大家打个招呼吧！
 
 ## 改进文档
@@ -38,11 +38,18 @@ last_modified_at: 2018-05-20T19:18:43+08:00
 
 ServiceComb的所有项目都在 [Github](https://github.com/search?q=org%3Aapache+servicecomb)上，包含下面几个子项目：
 
-| 项目名 | 项目介绍 | 语言 |
+| 项目名                                                                        | 项目简介                   | 编程语言 |
 |-------------------------------------------------------------------------------|----------------------------|----------|
-| [Java Chassis](https://github.com/apache/servicecomb-java-chassis)      | Java微服务框架（SDK） | Java     |
-| [Service Center](https://github.com/apache/servicecomb-service-center)               | 服务注册和发现 | Go       |
-| [Saga](https://github.com/apache/servicecomb-saga)                                   | 微服务最终一致性解决方案 | Java     |
-| [Website](https://github.com/apache/servicecomb-website) | ServiceComb主站 | Markdown |
+| [servicecomb-java-chassis](https://github.com/apache/servicecomb-java-chassis)       | Java微服务框架（SDK）      | Java     |
+| [servicecomb-service-center](https://github.com/apache/servicecomb-service-center)               | 服务中心（服务注册及发现） | Golang       |
+| [servicecomb-pack](https://github.com/apache/servicecomb-pack)                                   | 支持Saga/TCC等多协议的分布式事务方案   | Java     |
+| [servicecomb-mesher](https://github.com/apache/servicecomb-Mesher)       | 微服务网格      | Golang    |
+| [servicecomb-kie](https://github.com/apache/servicecomb-kie)                                   |  微服务配置管理中心  | Golang    |
+| [servicecomb-toolkit](https://github.com/apache/servicecomb-toolkit)               | 基于契约的微服务开发工具 | Java       |
+| [servicecomb-samples](https://github.com/apache/servicecomb-samples)                                   | 提供了微服务示例   | Java     |
+| [servicecomb-fence](https://github.com/apache/servicecomb-fence)               | ServiceComb Java-chassis安全认证解决方案 | Java       |
+| [servicecomb-docs](https://github.com/apache/servicecomb-docs) | ServiceComb用户手册            | CSS |
+| [servicecomb-website](https://github.com/apache/servicecomb-website) | ServiceComb网站            | HTML |
+| [servicecomb-saga-actuator](https://github.com/apache/servicecomb-saga-actuator)                                   | 集中式Saga事务协调器 （归档）   | Java     |
 
 如果希望给ServiceComb提交代码，您需要从github上fork对应的项目至您的项目空间下，为您提交的代码创建一个新的分支，添加源项目为upstream，并提交PR，更详细的步骤可以参考[这篇文档](http://servicecomb.apache.org/cn/developers/submit-codes/)。
