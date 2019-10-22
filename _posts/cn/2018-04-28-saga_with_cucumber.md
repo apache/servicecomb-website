@@ -207,7 +207,7 @@ Saga在Cucumber中集成了byteman注入一个超时异常，测试Saga对超时
 
    ```yaml
    RULE set the saga timeout to 5s
-   INTERFACE org.apache.servicecomb.saga.omega.context.annotations.SagaStart
+   INTERFACE org.apache.servicecomb.pack.omega.context.annotations.SagaStart
    METHOD timeout
    AT EXIT
    IF TRUE
@@ -215,7 +215,7 @@ Saga在Cucumber中集成了byteman注入一个超时异常，测试Saga对超时
    ENDRULE
 
    RULE sleep when postBooking until timeout happens
-   CLASS org.apache.servicecomb.saga.demo.pack.booking.BookingController
+   CLASS org.apache.servicecomb.pack.demo.pack.booking.BookingController
    METHOD postBooking
    AT ENTRY
    IF TRUE

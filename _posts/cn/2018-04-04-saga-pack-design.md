@@ -99,12 +99,12 @@ omega的使用很简单，以一个简化的转账业务为例，同一笔转账
 1. 引入依赖
    ```xml
    <dependency>
-     <groupId>org.apache.servicecomb.saga</groupId>
+     <groupId>org.apache.servicecomb.pack</groupId>
      <artifactId>omega-spring-starter</artifactId>
      <version>0.1.0</version>
    </dependency>
    <dependency>
-     <groupId>org.apache.servicecomb.saga</groupId>
+     <groupId>org.apache.servicecomb.pack</groupId>
      <artifactId>omega-transport-resttemplate</artifactId>
      <version>0.1.0</version>
    </dependency>
