@@ -12,7 +12,7 @@ excerpt: '开箱即用、高性能、兼容流行生态、支持多语言的一�
     <a href="/cn/release" class="home-button btn--info">下载</a>
 </div>
 <div class="button-group def-inline-block">
-    <a href="/cn/docs/quick-start/" class="home-button btn--info">快速入门</a>
+    <a href="/cn/docs/quick-start/" class="home-button btn--info">开始</a>
 </div>'
 
 intro:
