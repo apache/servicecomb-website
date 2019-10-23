@@ -1,9 +1,9 @@
 {% if page.author_profile or layout.author_profile or page.sidebar %}
   <div class="sidebar sticky">
       {% if page.lang == 'cn' %}
-      <div class="back-to-home">{{ site.data.ui-text[page.lang].breadcrumb_home_label | default: "Home" }} > <a href="/cn/">ServiceComb</a></div>
+      <div class="back-to-home"><a href="/cn/">{{ site.data.ui-text[page.lang].breadcrumb_home_label | default: "Home" }}</a> > {{ page.title }}</div>
       {% else %}
-      <div class="back-to-home">{{ site.data.ui-text[page.lang].breadcrumb_home_label | default: "Home" }} > <a href="/">ServiceComb</a></div>
+      <div class="back-to-home"><a href="/">{{ site.data.ui-text[page.lang].breadcrumb_home_label | default: "Home" }}</a> > {{ page.title }}</div>
       {% endif %}
   {% if page.author_profile or layout.author_profile %}{% include author-profile.html %}{% endif %}
   {% if page.sidebar %}
