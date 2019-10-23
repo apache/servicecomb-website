@@ -37,6 +37,9 @@ intro:
 
 <ul>
   <li>
+    <a href='/cn/docs/servicecomb-accept-newcapec-institute-code-donation'>Apache ServiceComb 社区接受新开普软件研究院的代码捐赠</a>
+  </li>
+  <li>
     <a href='/cn/docs/Apache-ServiceComb-Meetup-2019-Shanghai-KubeCon+CloudNative+OSS-Report'>Apache ServiceComb 社区meetup及新品发布</a>
   </li>
   <li>
