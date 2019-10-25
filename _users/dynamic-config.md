@@ -2,7 +2,7 @@
 title: "Dynamic Configuration"
 lang: en
 ref: customized-tracing
-permalink: /users/dynamic-config/
+permalink: /docs/users/dynamic-config/
 excerpt: "Dynamic Configuration"
 last_modified_at: 2018-01-15T15:01:43-04:00
 redirect_from:

@@ -1,0 +1,959 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Communication Protocol - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="Communication Protocol">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="Communication Protocol">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/users/communicate-protocol/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/users/communicate-protocol/">
+
+
+
+  <meta property="og:description" content="Communication Protocol">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Communication Protocol">
+  <meta name="twitter:description" content="Communication Protocol">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a class="active" href="/docs/users/">Documentation</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Get started</a></li>
+                
+                <li><a href="/docs/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/users/communicate-protocol/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/">Home</a> > Communication Protocol</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Java Chassis User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/java-chassis/en_US/index.html" class="">1.2.1</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Saga User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/saga/en_US/index.html" class="">0.5.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ServiceCenter User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/service-center/en_US/index.html" class="">1.2.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kie User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/kie/0.1.0/index.html" class="">0.1.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mesher User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/mesher/1.6.3/index.html" class="">1.6.3</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Communication Protocol">
+    <meta itemprop="description" content="Communication Protocol">
+    
+    <meta itemprop="dateModified" content="August 16, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Communication Protocol
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#communication-protocol" id="markdown-toc-communication-protocol">Communication Protocol</a>    <ul>
+      <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+      <li><a href="#precautions" id="markdown-toc-precautions">Precautions</a></li>
+    </ul>
+  </li>
+  <li><a href="#thread-model" id="markdown-toc-thread-model">Thread Model</a>    <ul>
+      <li><a href="#concept-description-1" id="markdown-toc-concept-description-1">Concept Description</a></li>
+      <li><a href="#thread-model-1" id="markdown-toc-thread-model-1">Thread Model</a></li>
+    </ul>
+  </li>
+  <li><a href="#rest-over-servlet" id="markdown-toc-rest-over-servlet">REST over Servlet</a>    <ul>
+      <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a></li>
+      <li><a href="#sample-code" id="markdown-toc-sample-code">Sample Code</a></li>
+    </ul>
+  </li>
+  <li><a href="#rest-over-vertx" id="markdown-toc-rest-over-vertx">REST over Vertx</a>    <ul>
+      <li><a href="#configuration-1" id="markdown-toc-configuration-1">Configuration</a></li>
+      <li><a href="#sample-code-1" id="markdown-toc-sample-code-1">Sample Code</a></li>
+    </ul>
+  </li>
+  <li><a href="#highway-rpc-protocol" id="markdown-toc-highway-rpc-protocol">Highway RPC Protocol</a>    <ul>
+      <li><a href="#concept-description-2" id="markdown-toc-concept-description-2">Concept Description</a></li>
+      <li><a href="#configuration-2" id="markdown-toc-configuration-2">Configuration</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="communication-protocol">Communication Protocol</h2>
+<h3 id="concept-description">Concept Description</h3>
+
+<p>ServiceComb uses two network channels, REST and Highway, both supporting encrypted Transport Layer Security (TLS) transmission. The REST channel releases services in the standard RESTful form. The consumer can send requests using http client.</p>
+
+<h3 id="precautions">Precautions</h3>
+
+<p>Serialization of parameters and the returned values:</p>
+
+<p>Currently, the body parameters of the REST channel support only the application/json serialization. To send form-type parameters to the server, construct a body of the application/json format at the consumer end. Do not send the form type parameters in multipart/form-data format.</p>
+
+<p>Currently, the REST channel supports the application/json and text/plain serialization. A provider uses produces to declare that it has the serialization capability. The consumer specifies the serialization mode of the returned values by setting parameters regarding the requested Accept header. Data serialized in application/json serialization mode is returned by default.</p>
+
+<h2 id="thread-model">Thread Model</h2>
+<h3 id="concept-description-1">Concept Description</h3>
+
+<p>This section describes the thread model for ServiceComb microservices and the relationship between the I/O and service threads.</p>
+
+<h3 id="thread-model-1">Thread Model</h3>
+
+<p>The complete thread model of CSE is shown in the following figure.</p>
+
+<p><img src="/assets/images/thread-model-en.png" alt="" /></p>
+
+<blockquote>
+  <ol>
+    <li>When a service thread is called for the first time, it binds to a network thread to avoid thread conflicts caused by switching among different network threads.</li>
+    <li>After the service thread bound to a network thread, it will bind to a connection of the network to avoid thread conflicts.</li>
+  </ol>
+</blockquote>
+
+<ul>
+  <li>Multiple network threads (eventloop) can be bound to both the client and the server. The number of network threads is two times the quantity of the CPU cores by default. Multiple connections can be configured for each network thread, and the default number is 1. The Rest and Highway network channels are supported. For details about these configurations, see following sections:
+    <ul>
+      <li><a href="/users/communicate-protocol#rest-over-servlet">REST over Servlet</a></li>
+      <li><a href="/users/communicate-protocol/#rest-over-vertx">REST over Vertx</a></li>
+      <li><a href="/users/communicate-protocol/#highway-rpc协议">Highway RPC Protocol</a></li>
+    </ul>
+  </li>
+  <li>You can configure the service thread pool executor for the client, and the thread granularity can be schemaId: operation.</li>
+</ul>
+
+<p>Add the executors in the microservice.yaml file and configure an independent service thread pool for schemaId: operation:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span> 
+  <span class="na">executors</span><span class="pi">:</span> 
+    <span class="na">Provider</span><span class="pi">:</span> 
+      <span class="pi">[</span><span class="nv">schemaId</span><span class="pi">]</span><span class="s">.[operation]</span>
+</code></pre></div></div>
+
+<h2 id="rest-over-servlet">REST over Servlet</h2>
+<h3 id="configuration">Configuration</h3>
+
+<p>　　REST over Servlet is deployed and runs using a web container. You need to create a servlet project to pack the microservice, load it to the web container, and then start it. To pack a microservice, you can either fully configure it in the web.xml, or configure its listener and urlPattern in the web.xml and microservice.yaml files, respectively.</p>
+
+<ul>
+  <li>
+    <p>Configure the microservice in the web.xml file.</p>
+
+    <p>The web.xml file is under the src/main/webapp/WEB_INF directory of the project, and its content is as follows:</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
+   <span class="nt">&lt;context-param&gt;</span> 
+     <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>  
+     <span class="nt">&lt;param-value&gt;</span>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml<span class="nt">&lt;/param-value&gt;</span> 
+   <span class="nt">&lt;/context-param&gt;</span>  
+   <span class="nt">&lt;listener&gt;</span> 
+     <span class="nt">&lt;listener-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span> 
+   <span class="nt">&lt;/listener&gt;</span>  
+   <span class="nt">&lt;servlet&gt;</span> 
+     <span class="nt">&lt;servlet-name&gt;</span>RestServlet<span class="nt">&lt;/servlet-name&gt;</span>  
+     <span class="nt">&lt;servlet-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServlet<span class="nt">&lt;/servlet-class&gt;</span>  
+     <span class="nt">&lt;load-on-startup&gt;</span>1<span class="nt">&lt;/load-on-startup&gt;</span>  
+     <span class="nt">&lt;async-supported&gt;</span>true<span class="nt">&lt;/async-supported&gt;</span> 
+   <span class="nt">&lt;/servlet&gt;</span>  
+   <span class="nt">&lt;servlet-mapping&gt;</span> 
+     <span class="nt">&lt;servlet-name&gt;</span>RestServlet<span class="nt">&lt;/servlet-name&gt;</span>  
+     <span class="nt">&lt;url-pattern&gt;</span>/rest/*<span class="nt">&lt;/url-pattern&gt;</span> 
+   <span class="nt">&lt;/servlet-mapping&gt;</span> 
+ <span class="nt">&lt;/web-app&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Configure the listener in the web.xml file and urlPattern in the microservice.yaml file.</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;web-app</span> <span class="na">xmlns=</span><span class="s">"http://java.sun.com/xml/ns/javaee"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xsi:schemaLocation=</span><span class="s">"http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"</span> <span class="na">version=</span><span class="s">"3.0"</span><span class="nt">&gt;</span>  
+   <span class="nt">&lt;context-param&gt;</span> 
+     <span class="nt">&lt;param-name&gt;</span>contextConfigLocation<span class="nt">&lt;/param-name&gt;</span>  
+     <span class="nt">&lt;param-value&gt;</span>classpath*:META-INF/spring/*.bean.xml classpath*:app-config.xml<span class="nt">&lt;/param-value&gt;</span> 
+   <span class="nt">&lt;/context-param&gt;</span>  
+   <span class="nt">&lt;listener&gt;</span> 
+     <span class="nt">&lt;listener-class&gt;</span>org.apache.servicecomb.transport.rest.servlet.RestServletContextListener<span class="nt">&lt;/listener-class&gt;</span> 
+   <span class="nt">&lt;/listener&gt;</span> 
+ <span class="nt">&lt;/web-app&gt;</span>
+</code></pre></div>    </div>
+
+    <p>In the microservice.yaml file, add a row to specify the urlPattern：</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="s">servicecomb.rest.servlet.urlPattern</span><span class="pi">:</span> <span class="s">/rest/*</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>The two method are equivalent, and they both require that the following dependencies be added in the pox.xml file:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
+  <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
+  <span class="nt">&lt;artifactId&gt;</span>transport-rest-servlet<span class="nt">&lt;/artifactId&gt;</span> 
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>Configuration items that need to be set in the microservice.yaml file are described in Table 1:</p>
+
+<p>Table 1 Configuration items of REST over Servlet</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default Value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">servicecomb.rest.address</td>
+      <td style="text-align: left">0.0.0.0:8080</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the server listening IP address.</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.rest.timeout</td>
+      <td style="text-align: left">3000</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the timeout duration</td>
+      <td style="text-align: left">The unit is ms.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.request.timeout</td>
+      <td style="text-align: left">30000</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the request timeout duration.</td>
+      <td style="text-align: left">The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.references.[服务名].transport</td>
+      <td style="text-align: left">rest</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the accessed transport type.</td>
+      <td style="text-align: left">The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.references.[服务名].version-rule</td>
+      <td style="text-align: left">latest</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the version of the accessed instance.</td>
+      <td style="text-align: left">The configuration of this parameter for REST over Servlet is the same as that for REST over Vertx.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="sample-code">Sample Code</h3>
+
+<p>The following is an example of the configuration in the microservice.yaml file for REST over Servlet:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+    <span class="na">timeout</span><span class="pi">:</span> <span class="s">3000</span>
+</code></pre></div></div>
+
+<h2 id="rest-over-vertx">REST over Vertx</h2>
+<h3 id="configuration-1">Configuration</h3>
+
+<p>The REST over Vertx communication channel uses the standalone running mode that can be started using the main function. In the main function, you need to initialize logs and load service configuration. The code is as follow:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.BeanUtils</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.apache.servicecomb.foundation.common.utils.Log4jUtils</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MainServer</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+  <span class="err">　</span><span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span><span class="c1">//Log initialization</span>
+  <span class="err">　</span><span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span> <span class="c1">// Spring bean initialization</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>To use the REST over Vertx communication channel, you need to add the following dependencies in the maven pom.xml file:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+　　<span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+　　<span class="nt">&lt;artifactId&gt;</span>transport-rest-vertx<span class="nt">&lt;/artifactId&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>Configuration items that need to be set in the microservice.yaml file are described as follows:</p>
+
+<p>Table 2 Configuration items of REST over Vertx</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default Value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">servicecomb.rest.address</td>
+      <td style="text-align: left">0.0.0.0:8080</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the server listening IP address.</td>
+      <td style="text-align: left">Only service providers require this parameter.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.rest.server.thread-count</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of server threads.</td>
+      <td style="text-align: left">Only service providers require this parameter.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.rest.client.thread-count</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of client network threads.</td>
+      <td style="text-align: left">Only service consumers require this parameter.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.rest.client.connection-pool-per-thread</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of connection pools in each client thread.</td>
+      <td style="text-align: left">Only service consumers require this parameter.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.request.timeout</td>
+      <td style="text-align: left">30000</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the request timeout duration.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.references.[服务名].transport</td>
+      <td style="text-align: left">rest</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the accessed transport type.</td>
+      <td style="text-align: left">Only service consumers require this parameter.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.references.[服务名].version-rule</td>
+      <td style="text-align: left">latest</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the version of the accessed instance.</td>
+      <td style="text-align: left">Only service consumers require this parameter. You can set it to latest, a version range such as 1.0.0+ or 1.0.0-2.0.2, or a specific version number. For details, see the API description of the service center.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="sample-code-1">Sample Code</h3>
+
+<p>An example of the configuration in the microservice.yaml file for REST over Vertx is as follows:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+    <span class="na">thread-count</span><span class="pi">:</span> <span class="s">1</span>
+  <span class="na">references</span><span class="pi">:</span>
+    <span class="na">hello</span><span class="pi">:</span>
+      <span class="na">transport</span><span class="pi">:</span> <span class="s">rest</span>
+      <span class="na">version-rule</span><span class="pi">:</span> <span class="s">0.0.1</span>
+</code></pre></div></div>
+
+<h2 id="highway-rpc-protocol">Highway RPC Protocol</h2>
+<h3 id="concept-description-2">Concept Description</h3>
+
+<p>Highway is a high-performance proprietary protocol of ServiceComb, and you can use it in scenarios having special performance requirements.</p>
+
+<h3 id="configuration-2">Configuration</h3>
+
+<p>To use the Highway communication channel, you need to add the following dependencies in the maven pom.xml file:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span> 
+  <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>  
+  <span class="nt">&lt;artifactId&gt;</span>transport-highway<span class="nt">&lt;/artifactId&gt;</span> 
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>Configuration items that need to be set in the microservice.yaml file are described as follows:</p>
+
+<p>Table 3 Configuration items of Highway</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default Value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remark</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">servicecomb.highway.address</td>
+      <td style="text-align: left">0.0.0.0:7070</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the server listening IP address.</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.highway.server.thread-count</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of server network threads.</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.highway.client.thread-count</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of client network threads.</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.highway.client.connection-pool-per-thread</td>
+      <td style="text-align: left">1</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of connection pools in each client thread.</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.request.timeout</td>
+      <td style="text-align: left">30000</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the request timeout duration.</td>
+      <td style="text-align: left">The configuration of this parameter for Highway is the same as that for REST over Vertx.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.references.[服务名].transport</td>
+      <td style="text-align: left">rest</td>
+      <td style="text-align: left"> </td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the accessed transport type.</td>
+      <td style="text-align: left">The configuration of this parameter for Highway is the same as that for REST over Vertx.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.references.[服务名].version-rule</td>
+      <td style="text-align: left">latest</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the version of the accessed instance.</td>
+      <td style="text-align: left">The configuration of this parameter for Highway is the same as that for REST over Vertx.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>###</p>
+
+<p>An example of the configuration in the microservice.yaml file for Highway is as follows:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">highway</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7070</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Get started</a></li>
+        <li><a href="/users/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">Foundation</a></li>
+        <li><a href="http://www.apache.org/licenses/">License</a></li>
+        <li><a href="http://www.apache.org/events/current-event">Events</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_users/communicate-protocol.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="/security">Security</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

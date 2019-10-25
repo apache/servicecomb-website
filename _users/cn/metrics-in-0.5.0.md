@@ -2,7 +2,7 @@
 title: "0.5.0版本中的监控"
 lang: cn
 ref: metrics
-permalink: /cn/users/metrics-in-0.5.0/
+permalink: /cn/docs/users/metrics-in-0.5.0/
 excerpt: "0.5.0版本中的监控"
 last_modified_at: 2017-12-29T14:01:43-04:00
 redirect_from:

@@ -2,7 +2,7 @@
 title: "Customized Tracing"
 lang: en
 ref: customized-tracing
-permalink: /users/customized-tracing/
+permalink: /docs/users/customized-tracing/
 excerpt: "Dotting for Customized Tracing"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

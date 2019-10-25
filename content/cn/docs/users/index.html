@@ -1,0 +1,588 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Java Chassis系统架构 - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="Java Chassis系统架构">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="Java Chassis系统架构">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/users/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/users/">
+
+
+
+  <meta property="og:description" content="Java Chassis系统架构">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Java Chassis系统架构">
+  <meta name="twitter:description" content="Java Chassis系统架构">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">首页</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a class="active" href="/cn/docs/users/">文档</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">入门指南</a></li>
+                
+                <li><a href="/cn/docs/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/users/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/cn/">首页</a> > Java Chassis系统架构</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Java-chassis用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/java-chassis/zh_CN/index.html" class="">1.2.1</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Saga用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/saga/zh_CN/index.html" class="">0.5.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ServiceCenter用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/service-center/zh_CN/index.html" class="">1.2.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Java Chassis系统架构">
+    <meta itemprop="description" content="Java Chassis系统架构">
+    
+    <meta itemprop="dateModified" content="June 14, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Java Chassis系统架构
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#框架概述" id="markdown-toc-框架概述">框架概述</a></li>
+  <li><a href="#主要设计意图" id="markdown-toc-主要设计意图">主要设计意图</a></li>
+  <li><a href="#模块说明" id="markdown-toc-模块说明">模块说明</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="框架概述">框架概述</h2>
+<p><img src="/assets/images/servicecomb-models.png" alt="ServiceComb Model" class="align-center" /></p>
+
+<h2 id="主要设计意图">主要设计意图</h2>
+
+<p>1.编程模型和通信模型分离，不同的编程模型可以灵活组合不同的通信模型。应用开发者在开发阶段只关注接口开发，部署阶段灵活切换通信方式；支持legacy系统的切换，legacy系统只需要修改服务发布的配置文件（或者annotation），而不需要修改代码。</p>
+
+<p>现阶段支持SpringMVC、JAX-RS和透明RPC三种开发方式。</p>
+
+<p>2.内建API-first支持。通过契约规范化微服务开发，实现跨语言的通信，并支持配套的软件工具链（契约生成代码、代码生成契约等）开发，构建完整的开发生态。</p>
+
+<p>3.定义了常用的微服务运行模型，将微服务从发现到交互过程中的各种容错手段都封装起来。该运行模型支持自定义和扩展。</p>
+
+<h2 id="模块说明">模块说明</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">类型</th>
+      <th style="text-align: left">artifact id</th>
+      <th style="text-align: left">是否可选</th>
+      <th style="text-align: left">功能说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">编程模型</td>
+      <td style="text-align: left">provider-pojo</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">提供RPC开发模式</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">编程模型</td>
+      <td style="text-align: left">provider-jaxrs</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">提供JAX RS开发模式</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">编程模型</td>
+      <td style="text-align: left">provider-springmvc</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">提供Spring MVC开发模式</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">通信模型</td>
+      <td style="text-align: left">transport-rest-vertx</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">运行于HTTP之上的开发框架，不依赖WEB容器，应用打包为可执行jar</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">通信模型</td>
+      <td style="text-align: left">transport-rest-servlet</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">运行于WEB容器的开发框架，应用打包为war包</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">通信模型</td>
+      <td style="text-align: left">transport-highway</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">提供高性能的私有通信协议，仅用于java之间互通。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">运行模型</td>
+      <td style="text-align: left">handler-loadbalance</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">负载均衡模块。提供各种路由策略和配置方法。一般客户端使用。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">运行模型</td>
+      <td style="text-align: left">handler-bizkeeper</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">和服务治理相关的功能，比如隔离、熔断、容错。</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">运行模型</td>
+      <td style="text-align: left">handler-tracing</td>
+      <td style="text-align: left">是</td>
+      <td style="text-align: left">调用链跟踪模块，对接监控系统，吐出打点数据。</td>
+    </tr>
+  </tbody>
+</table>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_users/cn/servicecomb-introduction.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,609 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>使用内置Edge模块实现边缘服务 - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="使用内置Edge模块实现边缘服务">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="使用内置Edge模块实现边缘服务">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/users/edge-in-1.0.0-m1/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/users/edge-in-1.0.0-m1/">
+
+
+
+  <meta property="og:description" content="使用内置Edge模块实现边缘服务">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="使用内置Edge模块实现边缘服务">
+  <meta name="twitter:description" content="使用内置Edge模块实现边缘服务">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">首页</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a class="active" href="/cn/docs/users/">文档</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">入门指南</a></li>
+                
+                <li><a href="/cn/docs/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/users/edge-in-1.0.0-m1/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/cn/">首页</a> > 使用内置Edge模块实现边缘服务</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Java-chassis用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/java-chassis/zh_CN/index.html" class="">1.2.1</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Saga用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/saga/zh_CN/index.html" class="">0.5.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ServiceCenter用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/service-center/zh_CN/index.html" class="">1.2.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="使用内置Edge模块实现边缘服务">
+    <meta itemprop="description" content="使用内置Edge模块实现边缘服务">
+    
+    <meta itemprop="dateModified" content="April 03, 2018">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">使用内置Edge模块实现边缘服务
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#edge特性" id="markdown-toc-edge特性">Edge特性</a>    <ul>
+      <li><a href="#与微服务松耦合" id="markdown-toc-与微服务松耦合">与微服务松耦合</a></li>
+      <li><a href="#自动匹配版本" id="markdown-toc-自动匹配版本">自动匹配版本</a></li>
+      <li><a href="#支持consumer治理" id="markdown-toc-支持consumer治理">支持Consumer治理</a></li>
+      <li><a href="#默认使用reactive工作模式" id="markdown-toc-默认使用reactive工作模式">默认使用Reactive工作模式</a></li>
+    </ul>
+  </li>
+  <li><a href="#开发edge-service" id="markdown-toc-开发edge-service">开发Edge Service</a>    <ul>
+      <li><a href="#引入依赖" id="markdown-toc-引入依赖">引入依赖</a></li>
+      <li><a href="#开发dispatcher" id="markdown-toc-开发dispatcher">开发Dispatcher</a></li>
+      <li><a href="#加载dispatcher" id="markdown-toc-加载dispatcher">加载Dispatcher</a></li>
+      <li><a href="#扩展handler可选" id="markdown-toc-扩展handler可选">扩展Handler（可选）</a></li>
+    </ul>
+  </li>
+  <li><a href="#参考示例" id="markdown-toc-参考示例">参考示例</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p>微服务框架从1.0.0-m1版本开始提供内置Edge模块，请通过查看用户手册和Release Note获取更多信息，我们也会继续追加新特性新功能，欢迎订阅ServiceComb邮件列表(dev-subscribe@servicecomb.apache.org)参与讨论。</p>
+
+<h2 id="edge特性">Edge特性</h2>
+<h3 id="与微服务松耦合">与微服务松耦合</h3>
+<p>Edge Service仅仅转发微服务请求，与目标微服务之间没有任何依赖关系。</p>
+
+<h3 id="自动匹配版本">自动匹配版本</h3>
+<p>默认情况下，Edge Service会自动匹配版本操作，例如微服务：</p>
+<ul>
+  <li>在1.0.0版本中提供了Operation1</li>
+  <li>在1.1.0版本中提供了Operation1和Operation2</li>
+</ul>
+
+<p>Edge Service转发Operation1的请求将允许1.0.0版本和1.1.0版本的微服务实例，转发Operation2时，只会选择1.1.0版本的微服务实例。</p>
+
+<h3 id="支持consumer治理">支持Consumer治理</h3>
+<p>支持所有Java Chassis Consumer治理Handler，也支持用户扩展Handler。</p>
+
+<h3 id="默认使用reactive工作模式">默认使用Reactive工作模式</h3>
+<p>由于Edge Service转发所有API调用，对性能有较高要求，所以默认使用Reactive模式工作，请不要在转发流程代码中增加阻塞操作，例如：</p>
+<ul>
+  <li>数据库查询、远程调用等；</li>
+  <li>sleep、wait等；</li>
+  <li>大循环或耗时操作等。</li>
+</ul>
+
+<h2 id="开发edge-service">开发Edge Service</h2>
+<h3 id="引入依赖">引入依赖</h3>
+<p>只需要引入edge-core依赖即可：</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+  <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+  <span class="nt">&lt;artifactId&gt;</span>edge-core<span class="nt">&lt;/artifactId&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<h3 id="开发dispatcher">开发Dispatcher</h3>
+<p>要实现Edge Service转发功能，需要开发Dispatcher并继承接口org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher或org.apache.servicecomb.transport.rest.vertx.AbstractVertxHttpDispatcher，重写其中的三个方法：</p>
+<h4 id="getorder方法">getOrder方法</h4>
+<p>Dispatcher向Vertx注入路由规则时的优先顺序，值越小优先级越高。</p>
+
+<h4 id="init方法">init方法</h4>
+<p>初始化Dispatcher的路由规则，使用的是<a href="https://vertx.io/docs/vertx-web/java/#_routing_by_exact_path">Vertx路由规则</a>，例如我们添加两条匹配策略：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">Router</span> <span class="n">router</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">failureHandler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onFailure</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onRequest</span><span class="o">);</span>
+
+  <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">failureHandler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onFailure</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onRequest</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>/([^\/]+)/([^\/]+)/(.*) : 这条策略我们希望匹配带版本的微服务请求，例如/user-service/v0/validate；</li>
+  <li>/([^\/]+)/(.*) : 这条策略用于匹配不带版本的微服务请求，例如/user-service/validate。</li>
+</ol>
+
+<h4 id="onrequest方法">onRequest方法</h4>
+<p>转发策略，方法原型为：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">onRequest</span><span class="o">(</span><span class="n">RoutingContext</span> <span class="n">context</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>从context中可以获取到请求目标微服务名，path等信息，之后创建EdgeInvocation并初始化，完成调用：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EdgeInvocation</span> <span class="n">edgeInvocation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EdgeInvocation</span><span class="o">();</span>
+<span class="n">edgeInvocation</span><span class="o">.</span><span class="na">setVersionRule</span><span class="o">(</span><span class="n">versionRule</span><span class="o">);</span>
+<span class="n">edgeInvocation</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">serviceName</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="n">path</span><span class="o">,</span> <span class="n">httpServerFilters</span><span class="o">);</span>
+<span class="n">edgeInvocation</span><span class="o">.</span><span class="na">edgeInvoke</span><span class="o">();</span>
+</code></pre></div></div>
+
+<h3 id="加载dispatcher">加载Dispatcher</h3>
+<p>Edge Service使用SPI机制加载用户自定义的VertxHttpDispatcher，我们在resources文件夹下创建META-INF/services文件夹，之后添加org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher文件，在文件中，添加写好的Dispatcher即可：</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{your-package-path}.XXXDispatcher
+</code></pre></div></div>
+
+<h3 id="扩展handler可选">扩展Handler（可选）</h3>
+<p>由于Edge Service需要承载统一认证、集中监控等功能，我们推荐扩展Handler的方式实现，在demo-edge中的edge-service中有AuthHandler的示例。</p>
+
+<h2 id="参考示例">参考示例</h2>
+<p>我们在Java Chassis源代码的demo/demo-edge中完整展示了如何实现Edge Service并验证它的能力：</p>
+<ol>
+  <li>edge-service微服务：Edge Service，包含AuthHandler；</li>
+  <li>authentication微服务：模拟认证微服务,处理AuthHandler的请求；</li>
+  <li>business-x.x.x微服务：模拟不同版本的业务微服务，Edge Service会将请求转发给它们；</li>
+  <li>consumer：模拟前端（用户）调用Edge Service，包含了指定版本的验证。</li>
+</ol>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_users/cn/edge-in-1.0.0-m1.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

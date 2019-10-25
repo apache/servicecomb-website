@@ -2,7 +2,7 @@
 title: "Develop Microservice with SpringMVC"
 lang: en
 ref: develop-with-springmvc
-permalink: /users/develop-with-springmvc/
+permalink: /docs/users/develop-with-springmvc/
 excerpt: "Develop Microservice with SpringMVC"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

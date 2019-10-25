@@ -2,7 +2,7 @@
 title: "服务接口约束"
 lang: cn
 ref: service-interface-constraints
-permalink: /cn/users/service-interface-constraints/
+permalink: /cn/docs/users/service-interface-constraints/
 excerpt: "服务接口约束"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

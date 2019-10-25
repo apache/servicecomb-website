@@ -2,7 +2,7 @@
 title: "Service Definition"
 lang: en
 ref: service-definition
-permalink: /users/service-definition/
+permalink: /docs/users/service-definition/
 excerpt: "Service Definition"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

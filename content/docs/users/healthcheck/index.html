@@ -1,0 +1,637 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>HealthCheck - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="HealthCheck">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="HealthCheck">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/users/healthcheck/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/users/healthcheck/">
+
+
+
+  <meta property="og:description" content="HealthCheck">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="HealthCheck">
+  <meta name="twitter:description" content="HealthCheck">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a class="active" href="/docs/users/">Documentation</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Get started</a></li>
+                
+                <li><a href="/docs/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/users/healthcheck/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/">Home</a> > HealthCheck</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Java Chassis User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/java-chassis/en_US/index.html" class="">1.2.1</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Saga User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/saga/en_US/index.html" class="">0.5.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ServiceCenter User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/service-center/en_US/index.html" class="">1.2.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kie User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/kie/0.1.0/index.html" class="">0.1.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mesher User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/mesher/1.6.3/index.html" class="">1.6.3</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="HealthCheck">
+    <meta itemprop="description" content="HealthCheck">
+    
+    <meta itemprop="dateModified" content="December 30, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">HealthCheck
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#introduction" id="markdown-toc-introduction">Introduction</a></li>
+  <li><a href="#how-to-use" id="markdown-toc-how-to-use">How to use</a>    <ul>
+      <li><a href="#implement-custom-healthcheck" id="markdown-toc-implement-custom-healthcheck">Implement custom HealthCheck</a></li>
+      <li><a href="#verify-healthcheck" id="markdown-toc-verify-healthcheck">Verify HealthCheck</a></li>
+    </ul>
+  </li>
+  <li><a href="#other-reference" id="markdown-toc-other-reference">Other Reference</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<p>Java Chassis had support HealthCheck since 1.0.0-m1.</p>
+
+<h2 id="introduction">Introduction</h2>
+<p>Microservice always depend on many middlewares like database, message queue etc. Also depend on other microservices. When microservice is unavailable, may caused by database, we need record details into log file or show details on dashboard: database disk had full? database accress right had invalid? or database accress user and password had changed? not only a DOWN state, details can help dev ops find where is the problem and solve it faster.</p>
+
+<p>HealthCheck provide an extensible mechanism, user can create custom check point in order to probe whether the core dependencies are available, if any one is unavailable, report the details:</p>
+
+<p><img src="/assets/images/HealthCheck.png" alt="HealthCheck" /></p>
+
+<h2 id="how-to-use">How to use</h2>
+<h3 id="implement-custom-healthcheck">Implement custom HealthCheck</h3>
+<p>It is easy to implement Java Chassis HealthCheck, implements from <code class="highlighter-rouge">org.apache.servicecomb.foundation.metrics.health.HealthChecker</code> interface and override these methods:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Method Name</th>
+      <th style="text-align: left">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">getName</td>
+      <td style="text-align: left">Return the name of HealthChecker, please make sure do not duplicated, otherwise the results of same name will merged</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">check</td>
+      <td style="text-align: left">Concrete implementation of Check logic</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Example:</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySqlHealthChecker</span> <span class="kd">implements</span> <span class="n">HealthChecker</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="s">"mysql"</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">HealthCheckResult</span> <span class="nf">check</span><span class="o">()</span> <span class="o">{</span>
+    <span class="c1">//add your health check code here</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">connection</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">"jdbc:mysql://localhost:3306/test_db?useSSL=false"</span><span class="o">,</span> <span class="s">"root"</span><span class="o">,</span> <span class="s">"pwd"</span><span class="o">);</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">HealthCheckResult</span><span class="o">(</span><span class="kc">true</span><span class="o">,</span> <span class="s">"local mysql health check"</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">LOG</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Cannot connect the localhost mysql. "</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="nf">HealthCheckResult</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="s">"local mysql health check"</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">connection</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">LOG</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Close connect the localhost mysql error. "</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>We use SPI to load it, create an new file named <code class="highlighter-rouge">org.apache.servicecomb.foundation.metrics.health.HealthChecker</code> under <code class="highlighter-rouge">esource/META-INF/services</code> folder, write class name of your HealthChecker into it, like:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.apache.servicecomb.samples.metrics.extendhealthcheck.MySqlHealthChecker
+</code></pre></div></div>
+
+<h3 id="verify-healthcheck">Verify HealthCheck</h3>
+<p>After microservice startup, HealthCheck will publish use Rest endpoint, the publish address is same as <code class="highlighter-rouge">servicecomb.rest.address</code>, if had configure in <code class="highlighter-rouge">microservice.yaml</code> like:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:8080</span>
+</code></pre></div></div>
+
+<p>We can get HealthCheck final result by accress http://localhost:8080/health , also can get detail results by accress http://localhost:8080/health/detail .</p>
+
+<blockquote>
+  <p>NOTE:</p>
+  <ol>
+    <li>The implementation of Rest publish is in metrics-core, so need import this dependency;</li>
+    <li>The result of /health is the final result of all HealthCheckers, true or false, if healthy result of any HealthChecker return false, then this value will false.</li>
+  </ol>
+</blockquote>
+
+<h2 id="other-reference">Other Reference</h2>
+<p>We had provided a sample at samples/metrics-extend-healthcheck.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Get started</a></li>
+        <li><a href="/users/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">Foundation</a></li>
+        <li><a href="http://www.apache.org/licenses/">License</a></li>
+        <li><a href="http://www.apache.org/events/current-event">Events</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_users/healthcheck.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="/security">Security</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -2,7 +2,7 @@
 title: "使用Rest Template方式开发"
 lang: cn
 ref: develop-with-rest-template
-permalink: /cn/users/develop-with-rest-template/
+permalink: /cn/docs/users/develop-with-rest-template/
 excerpt: "使用Rest Template方式开发"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

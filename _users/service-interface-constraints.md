@@ -2,7 +2,7 @@
 title: "API Constraints"
 lang: en
 ref: service-interface-constraints
-permalink: /users/service-interface-constraints/
+permalink: /docs/users/service-interface-constraints/
 excerpt: "API Constraints"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

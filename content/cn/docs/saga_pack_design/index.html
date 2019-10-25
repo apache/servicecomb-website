@@ -197,14 +197,14 @@
               
 
               
-                <a href="/cn/users/">文档</a>
+                <a href="/cn/docs/users/">文档</a>
               
 
               <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
                 
-                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                <li><a href="/cn/docs/quick-start/" class="">入门指南</a></li>
                 
-                <li><a href="/cn/users/" class="">用户手册</a></li>
+                <li><a href="/cn/docs/users/" class="">用户手册</a></li>
                 
                 <li><a href="/cn/slides/" class="">大咖视频</a></li>
                 
@@ -510,25 +510,25 @@
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@SpringBootApplication</span>
  <span class="nd">@EnableOmega</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
-   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-     <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">Application</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+   <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+     <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">Application</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
    <span class="o">}</span>
  <span class="o">}</span>
 </code></pre></div>    </div>
     <p>2.2 在全局事务的起点添加 <code class="highlighter-rouge">@SagaStart</code> 的注解。</p>
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@SagaStart</span><span class="o">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="o">)</span>
- <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">transferMoney</span><span class="o">(</span><span class="nc">String</span> <span class="n">from</span><span class="o">,</span> <span class="nc">String</span> <span class="n">to</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+ <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">transferMoney</span><span class="o">(</span><span class="n">String</span> <span class="n">from</span><span class="o">,</span> <span class="n">String</span> <span class="n">to</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
    <span class="n">transferOut</span><span class="o">(</span><span class="n">from</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
    <span class="n">transferIn</span><span class="o">(</span><span class="n">to</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
  <span class="o">}</span>
 </code></pre></div>    </div>
     <p>2.3 在子事务处添加 <code class="highlighter-rouge">@Compensable</code> 的注解并指明其对应的补偿方法。其中，补偿方法的形参列表需与子事务方法的形参列表保持一致。</p>
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Compensable</span><span class="o">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="o">,</span> <span class="n">compensationMethod</span><span class="o">=</span><span class="s">"cancel"</span><span class="o">)</span>
- <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">transferOut</span><span class="o">(</span><span class="nc">String</span> <span class="n">from</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+ <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">transferOut</span><span class="o">(</span><span class="n">String</span> <span class="n">from</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
    <span class="n">repo</span><span class="o">.</span><span class="na">reduceBalanceByUsername</span><span class="o">(</span><span class="n">from</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
  <span class="o">}</span>
     
- <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">cancel</span><span class="o">(</span><span class="nc">String</span> <span class="n">from</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+ <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">cancel</span><span class="o">(</span><span class="n">String</span> <span class="n">from</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
    <span class="n">repo</span><span class="o">.</span><span class="na">addBalanceByUsername</span><span class="o">(</span><span class="n">from</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
  <span class="o">}</span>
 </code></pre></div>    </div>
@@ -836,7 +836,7 @@
     <div class="col">
       <ul>
         <p class="header">资源</p>
-        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
         <li><a href="/cn/users/">用户指南</a></li>
         <li><a href="/cn/slides/">资料</a></li>
         <li><a href="/cn/users/faq/">常见问题</a></li>

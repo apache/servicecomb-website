@@ -1,0 +1,621 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>使用confd和Nginx做边缘服务 - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="使用confd和Nginx做边缘服务">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="使用confd和Nginx做边缘服务">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/users/edging-service/nginx/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/users/edging-service/nginx/">
+
+
+
+  <meta property="og:description" content="使用confd和Nginx做边缘服务">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="使用confd和Nginx做边缘服务">
+  <meta name="twitter:description" content="使用confd和Nginx做边缘服务">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">首页</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a class="active" href="/cn/docs/users/">文档</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">入门指南</a></li>
+                
+                <li><a href="/cn/docs/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/users/edging-service/nginx/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/cn/">首页</a> > 使用confd和Nginx做边缘服务</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Java-chassis用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/java-chassis/zh_CN/index.html" class="">1.2.1</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Saga用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/saga/zh_CN/index.html" class="">0.5.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ServiceCenter用户手册</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/service-center/zh_CN/index.html" class="">1.2.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="使用confd和Nginx做边缘服务">
+    <meta itemprop="description" content="使用confd和Nginx做边缘服务">
+    
+    <meta itemprop="dateModified" content="August 16, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">使用confd和Nginx做边缘服务
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#概念阐述" id="markdown-toc-概念阐述">概念阐述</a>    <ul>
+      <li><a href="#confd" id="markdown-toc-confd"><strong>confd</strong></a></li>
+      <li><a href="#nginx" id="markdown-toc-nginx"><strong>Nginx</strong></a></li>
+    </ul>
+  </li>
+  <li><a href="#场景描述" id="markdown-toc-场景描述">场景描述</a></li>
+  <li><a href="#对接服务中心" id="markdown-toc-对接服务中心">对接服务中心</a>    <ul>
+      <li><a href="#方法一http调用" id="markdown-toc-方法一http调用"><strong>方法一：http调用</strong></a></li>
+      <li><a href="#方法二使用servicecomb开源代码接口" id="markdown-toc-方法二使用servicecomb开源代码接口"><strong>方法二：使用servicecomb开源代码接口</strong></a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="概念阐述">概念阐述</h2>
+
+<h3 id="confd"><strong>confd</strong></h3>
+
+<p>confd是一个轻量级的配置管理工具，源码地址：<a href="https://github.com/kelseyhightower/confd">https://github.com/kelseyhightower/confd</a>，它可以将配置信息存储在etcd、consul、dynamodb、redis以及zookeeper等。confd定期会从这些存储节点pull最新的配置，然后重新加载服务，完成配置文件的更新。</p>
+
+<h3 id="nginx"><strong>Nginx</strong></h3>
+
+<p>Nginx (engine x)是一个高性能的HTTP和反向代理服务器，具有负载均衡的功能。详情请参考<a href="http://www.nginx.cn/doc/">http://www.nginx.cn/doc/</a>。本小节介绍的服务主要使用到的是Nginx的http代理功能。</p>
+
+<h2 id="场景描述">场景描述</h2>
+
+<p>本小节介绍的技术是使用nginx+confd做边缘服务，同时可以对接ServiceComb微服务框架中的服务中心，从服务中心中拉去服务信息通过confd动态更新nginx的配置。</p>
+
+<p>使用nginx+confd动态反向代理的实现步骤可参考文章<a href="http://www.cnblogs.com/Anker/p/6112022.html">http://www.cnblogs.com/Anker/p/6112022.html</a>，本节主要介绍confd如何对接ServiceComb框架的服务中心。</p>
+
+<h2 id="对接服务中心">对接服务中心</h2>
+
+<p>本节介绍的技术核心在于如何使得confd获取到服务中心的服务信息，服务中心开放了以下接口供外部调用：</p>
+
+<h3 id="方法一http调用"><strong>方法一：http调用</strong></h3>
+
+<p>服务中心开放http接口均需要添加租户头部信息：“X-Tenant-Name:tenantName”，tenameName为租户名，默认为default，例如”X-Tenant-Name:default”。</p>
+
+<ul>
+  <li>
+    <p>检查服务中心健康状态</p>
+
+    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/health
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>获取所有微服务信息</p>
+
+    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/microservices
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>获取指定id的微服务信息</p>
+  </li>
+</ul>
+
+<blockquote>
+  <ol>
+    <li>
+      <p>首先根据微服务信息获取serviceId</p>
+
+      <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">GET 127.0.0.1:9980/registry/v3/existence?type=microservice&amp;appId={appId}&amp;serviceName={serviceName}&amp;version={version}
+</span></code></pre></div>      </div>
+    </li>
+    <li>
+      <p>根据上述接口返回的serviceId获取微服务完整信息</p>
+
+      <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">GET 127.0.0.1:9980/registry/v3/microservices/{serviceId}
+</span></code></pre></div>      </div>
+    </li>
+  </ol>
+</blockquote>
+
+<ul>
+  <li>
+    <p>获取指定微服务的所有实例信息</p>
+
+    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/microservices/{serviceId}/instances
+</span></code></pre></div>    </div>
+    <p>需要在header中添加：”X-ConsumerId:{serviceId}”。</p>
+  </li>
+  <li>
+    <p>查找微服务实例信息</p>
+
+    <div class="language-http highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> GET 127.0.0.1:9980/registry/v3/instances?appId={appId}&amp;serviceName={serviceName}&amp;version={version}
+</span></code></pre></div>    </div>
+    <p>需要在header中添加”X-ConsumerId:{serviceId}”。</p>
+  </li>
+</ul>
+
+<p>注意：在实际开发中请访问实际的service-center访问地址，并将上述url中{}的变量替换成具体值，http返回的数据均为json格式</p>
+
+<h3 id="方法二使用servicecomb开源代码接口"><strong>方法二：使用servicecomb开源代码接口</strong></h3>
+
+<p>在开发微服务应用，只需要调用servicecomb框架代码中的工具类RegistryUtil.java中提供的接口，即可获取服务中心的信息，接口描述如下：</p>
+
+<ul>
+  <li>获取所有微服务信息
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">Microservice</span><span class="o">&gt;</span> <span class="nf">getAllMicroservices</span><span class="o">();</span>
+</code></pre></div>    </div>
+  </li>
+  <li>获取微服务唯一标识
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">String</span> <span class="nf">getMicroserviceId</span><span class="o">(</span><span class="n">String</span> <span class="n">appId</span><span class="o">,</span> <span class="n">String</span> <span class="n">microserviceName</span><span class="o">,</span> <span class="n">String</span> <span class="n">versionRule</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>根据微服务唯一标识查询微服务静态信息
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">Microservice</span> <span class="nf">getMicroservice</span><span class="o">(</span><span class="n">String</span> <span class="n">microserviceId</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>根据多个微服务唯一标识查询所有微服务实例信息
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">MicroserviceInstance</span><span class="o">&gt;</span> <span class="nf">getMicroserviceInstance</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerId</span><span class="o">,</span> <span class="n">String</span> <span class="n">providerId</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>按照app+interface+version查询实例endpoints信息
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">List</span><span class="o">&lt;</span><span class="n">MicroserviceInstance</span><span class="o">&gt;</span> <span class="nf">findServiceInstance</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerId</span><span class="o">,</span> <span class="n">String</span> <span class="n">appId</span><span class="o">,</span> <span class="n">String</span> <span class="n">serviceName</span><span class="o">,</span><span class="n">String</span> <span class="n">versionRule</span><span class="o">);</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>通过上述http接口可获取到服务中心的微服务和其实例的信息，从而通过confd动态更新nginx配置。</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_users/cn/nginx.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Get started &mdash; go-chassis  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Discovery" href="discovery.html" />
+    <link rel="prev" title="Use Istio as control plane" href="../istio-guides.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> go-chassis
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentations</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introductions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../get-started.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">User guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../istio-guides.html">Use Istio as control plane</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Get started</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-routing-tags-in-istio">The routing tags in Istio</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="discovery.html">Discovery</a></li>
+<li class="toctree-l2"><a class="reference internal" href="router.html">Route Rule</a></li>
+<li class="toctree-l2"><a class="reference internal" href="egress.html">Egress</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../sidecar.html">Sidcar-injector Deployment and Usage</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">go-chassis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../istio-guides.html">Use Istio as control plane</a> &raquo;</li>
+        
+      <li>Get started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/istio/getstarted.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="get-started">
+<h1>Get started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h1>
+<p>Istio Pilot can be configured as the service discovery component for mesher. By default the Pilot plugin is not compiled into mesher binary. To make mesher work with Pilot, import the plugin in mesher’s entrypoint source code:</p>
+<div class="highlight-go notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nx">_</span> <span class="s">&quot;github.com/apache/servicecomb-mesher/plugins/registry/istiov2&quot;</span>
+</pre></div>
+</div>
+<p>Then the Pilot plugin will be installed when mesher starts. Next step, configure Pilot as service discovery in <code class="docutils literal notranslate"><span class="pre">chassis.yaml</span></code>:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">cse</span><span class="p">:</span>
+  <span class="nt">service</span><span class="p">:</span>
+    <span class="nt">registry</span><span class="p">:</span>
+      <span class="nt">registrator</span><span class="p">:</span>
+        <span class="nt">disabled</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+      <span class="nt">serviceDiscovery</span><span class="p">:</span>
+        <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">pilotv2</span>
+        <span class="nt">address</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">grpc://istio-pilot.istio-system:15010</span>
+</pre></div>
+</div>
+<p>Since mesher doesn’t have to register the service to Pilot, the registrator config item should be disabled. Make serviceDiscovery.type to be pilotv2, to get service information by xDS v2 API(the v1 API is deprecated).</p>
+<div class="section" id="the-routing-tags-in-istio">
+<h2>The routing tags in Istio<a class="headerlink" href="#the-routing-tags-in-istio" title="Permalink to this headline">¶</a></h2>
+<p>In the original mesher configuration, user can specify tag based route rules, as described below:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="c1">## router.yaml</span>
+<span class="nt">router</span><span class="p">:</span>
+  <span class="nt">infra</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">cse</span>
+<span class="nt">routeRule</span><span class="p">:</span>
+  <span class="nt">targetService</span><span class="p">:</span>
+    <span class="p p-Indicator">-</span> <span class="nt">precedence</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">2</span>
+      <span class="nt">route</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">tags</span><span class="p">:</span>
+          <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+        <span class="nt">weight</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">40</span>
+      <span class="p p-Indicator">-</span> <span class="nt">tags</span><span class="p">:</span>
+          <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v2</span>
+          <span class="nt">debug</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+        <span class="nt">weight</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">40</span>
+      <span class="p p-Indicator">-</span> <span class="nt">tags</span><span class="p">:</span>
+          <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v3</span>
+        <span class="nt">weight</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">20</span>
+</pre></div>
+</div>
+<p>Then in a typical Istio environment, which is likely to be Kubernetes cluster, user can specify the DestinationRules for targetService with the same tags:</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">apiVersion</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">networking.istio.io/v1alpha3</span>
+<span class="nt">kind</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">DestinationRule</span>
+<span class="nt">metadata</span><span class="p">:</span>
+  <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">targetService</span>
+<span class="nt">spec</span><span class="p">:</span>
+  <span class="nt">host</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">targetService</span>
+  <span class="nt">subsets</span><span class="p">:</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+    <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v1</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v2</span>
+    <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v2</span>
+      <span class="nt">debug</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v3</span>
+    <span class="nt">labels</span><span class="p">:</span>
+      <span class="nt">version</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">v3</span>
+</pre></div>
+</div>
+<p>Notice that the subsets’ tags are the same with those in <code class="docutils literal notranslate"><span class="pre">router.yaml</span></code>, then mesher’s tag based load balancing strategy works as it originally does.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="discovery.html" class="btn btn-neutral float-right" title="Discovery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../istio-guides.html" class="btn btn-neutral float-left" title="Use Istio as control plane" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, xiaoliang
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

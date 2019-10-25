@@ -2,7 +2,7 @@
 title: "使用Service Center和治理中心管理Spring Cloud应用"
 lang: cn
 ref: manage_springcloud_application_using_sc_and_gs
-permalink: /cn/users/manage_springcloud_application_using_sc_and_gs/
+permalink: /cn/docs/users/manage_springcloud_application_using_sc_and_gs/
 excerpt: "使用Service Center和治理中心管理Spring Cloud应用"
 last_modified_at: 2018-04-23T15:01:43-04:00
 redirect_from:

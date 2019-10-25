@@ -1,0 +1,234 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Before you start &mdash; go-chassis  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Quick start" href="install.html" />
+    <link rel="prev" title="Get started" href="../get-started.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> go-chassis
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentations</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introductions</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../get-started.html">Get started</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Before you start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Quick start</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">User guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../istio-guides.html">Use Istio as control plane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sidecar.html">Sidcar-injector Deployment and Usage</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">go-chassis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../get-started.html">Get started</a> &raquo;</li>
+        
+      <li>Before you start</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/getstarted/minimum.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="before-you-start">
+<h1>Before you start<a class="headerlink" href="#before-you-start" title="Permalink to this headline">¶</a></h1>
+<p>Before you start, you must know what you gonna do if you use mesher as your sidecar proxy.</p>
+<p>Assume you launched 2 services,
+each of service has a dedicated mesher as sidecar proxy.</p>
+<p>The network traffic will be: ServiceA-&gt;mesherA-&gt;mesherB-&gt;ServiceB.</p>
+<p>To run mesher along with your services, you need to set minimum configurations as below:</p>
+<ol class="simple">
+<li><p>Give mesher your service name in microservice.yaml file</p></li>
+<li><p>Set service discovery service(service center, Istio etc) configurations in chassis.yaml</p></li>
+<li><p>export HTTP_PROXY=http://127.0.0.1:30101 as your service runtime environment</p></li>
+<li><p>(optional)Give mesher your service port list by ENV SERVICE_PORTS or CLI –service-ports</p></li>
+</ol>
+<p>After the configurations, assume you serviceB is listening at 127.0.0.1:8080</p>
+<p>the serviceA must use http://ServiceB:8080/{api_path} to access ServiceB</p>
+<p>Now you can launch as many as serviceA and serviceB to make this system become a distributed system</p>
+<p><strong>Notice</strong>:</p>
+<blockquote>
+<div><blockquote>
+<div><p>consumer need to use http://provider_name:provider_port/ to access provider,
+instead of http://provider_ip:provider_port/.
+if you choose to set step4, then you can simply use http://provider_name/ to access provider</p>
+</div></blockquote>
+</div></blockquote>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="install.html" class="btn btn-neutral float-right" title="Quick start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../get-started.html" class="btn btn-neutral float-left" title="Get started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, xiaoliang
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

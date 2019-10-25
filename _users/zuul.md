@@ -2,7 +2,7 @@
 title: "Using Zuul for Edge Service"
 lang: en
 ref: edging-service-zuul
-permalink: /users/edging-service/zuul/
+permalink: /docs/users/edging-service/zuul/
 excerpt: "Using Zuul for Edge Service"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

@@ -1,5 +1,5 @@
 ---
-title: "Quick Start"
+title: "Get started"
 lang: en
 ref: quick-start
 permalink: /docs/quick-start/

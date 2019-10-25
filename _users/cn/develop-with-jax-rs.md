@@ -2,7 +2,7 @@
 title: "用JAX-RS开发微服务"
 lang: cn
 ref: develop-with-jax-rs
-permalink: /cn/users/develop-with-jax-rs/
+permalink: /cn/docs/users/develop-with-jax-rs/
 excerpt: "用JAX-RS开发微服务"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

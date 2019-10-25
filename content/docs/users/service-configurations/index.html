@@ -1,0 +1,805 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Service Configurations - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="Service Configurations">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="Service Configurations">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/users/service-configurations/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/users/service-configurations/">
+
+
+
+  <meta property="og:description" content="Service Configurations">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Service Configurations">
+  <meta name="twitter:description" content="Service Configurations">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a class="active" href="/docs/users/">Documentation</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Get started</a></li>
+                
+                <li><a href="/docs/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/users/service-configurations/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/">Home</a> > Service Configurations</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Java Chassis User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/java-chassis/en_US/index.html" class="">1.2.1</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Saga User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/saga/en_US/index.html" class="">0.5.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ServiceCenter User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/service-center/en_US/index.html" class="">1.2.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kie User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/kie/0.1.0/index.html" class="">0.1.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mesher User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/mesher/1.6.3/index.html" class="">1.6.3</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Service Configurations">
+    <meta itemprop="description" content="Service Configurations">
+    
+    <meta itemprop="dateModified" content="August 16, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Service Configurations
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#load-balancing-policy" id="markdown-toc-load-balancing-policy">Load Balancing Policy</a></li>
+  <li><a href="#rate-limiting-policy" id="markdown-toc-rate-limiting-policy">Rate Limiting Policy</a>    <ul>
+      <li><a href="#scenario" id="markdown-toc-scenario">Scenario</a></li>
+      <li><a href="#precautions" id="markdown-toc-precautions">Precautions</a></li>
+      <li><a href="#configuration" id="markdown-toc-configuration">Configuration</a></li>
+    </ul>
+  </li>
+  <li><a href="#fallback-policy" id="markdown-toc-fallback-policy">Fallback Policy</a>    <ul>
+      <li><a href="#concept-description" id="markdown-toc-concept-description">Concept Description</a></li>
+      <li><a href="#scenario-1" id="markdown-toc-scenario-1">Scenario</a></li>
+      <li><a href="#configuration-1" id="markdown-toc-configuration-1">Configuration</a></li>
+    </ul>
+  </li>
+  <li><a href="#sample-code" id="markdown-toc-sample-code">Sample Code</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="load-balancing-policy">Load Balancing Policy</h2>
+<p>The content of this page has been outdated, please refer to <a href="https://docs.servicecomb.io/java-chassis/en_US/references-handlers/loadbalance.html">Load Balancing</a></p>
+
+<h2 id="rate-limiting-policy">Rate Limiting Policy</h2>
+<h3 id="scenario">Scenario</h3>
+
+<p>Users at the provider end can use the rate limiting policy to limit the maximum number of requests sent from a specified microservice per second.</p>
+
+<h3 id="precautions">Precautions</h3>
+
+<ol>
+  <li>There may be a small different between the rate limit and actual traffic.</li>
+  <li>The rate limit function at the provider end is for service rather than security purpose. To prevent distributed denial of service(DDos) attacks, you need to take other measures.</li>
+  <li>Traffic control is a microservice-level rather than process-level function.</li>
+</ol>
+
+<h3 id="configuration">Configuration</h3>
+
+<p>　　Rate limiting policies are configured in the microservice.yaml file. For related configuration items, see Table 2. To enable the rate limiting policy at the provider end, you also need to configure the rate limiting handler on the server in the processing chain and add dependencies in the pom.xml file.</p>
+
+<p>　　An example of microservice.yaml file configuration is as follows,</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">handler</span><span class="pi">:</span>
+    <span class="na">chain</span><span class="pi">:</span>
+      <span class="na">Provider</span><span class="pi">:</span>
+        <span class="na">default</span><span class="pi">:</span> <span class="s">qps-flowcontrol-provider</span>
+</code></pre></div></div>
+
+<p>　　Add dependencies of handler-flowcontrol-qps in the pom.xml file,</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>handler-flowcontrol-qps<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>1.0.0-m1<span class="nt">&lt;/version&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p>　　<strong>Table2 Configuration items of the QPS rate limit</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default Value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.enabled</td>
+      <td style="text-align: left">true</td>
+      <td style="text-align: left">true/false</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies whether to enable traffic control  at the provider end.</td>
+      <td style="text-align: left">-</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.limit.[ServiceName]</td>
+      <td style="text-align: left">2147483647（max int）</td>
+      <td style="text-align: left">(0,2147483647]，Integer</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of requests allowed per second.</td>
+      <td style="text-align: left">This parameter can only be configured for microservice</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.flowcontrol.Provider.qps.global.limit</td>
+      <td style="text-align: left">2147483647（max int）</td>
+      <td style="text-align: left">(0,2147483647]，Integer</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the total number of requests allowed per second at the provider end</td>
+      <td style="text-align: left">If no configuration is set for any specific microservices, this parameter takes effect</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>##</p>
+<h2 id="fallback-policy">Fallback Policy</h2>
+
+<h3 id="concept-description">Concept Description</h3>
+
+<p>A fallback policy is used when a service request is abnormal.</p>
+
+<p>There are three key concepts in fallback: isolation, fallbreak, and fault tolerance:</p>
+
+<ul>
+  <li>Isolation is an exception detection mechanism. Two common items that need to be detected are timeout duration and the number of concurrent requests.</li>
+  <li>Fallbreak is an exception response mechanism, and it depends on isolation. Fallbreak is triggered based on the error rate. Two common items need to set are the number of requests to collect and error rate.</li>
+  <li>Fault tolerance is an exception handling mechanism that depends on fallbreak. Fault tolerance is called after a fallbreak. For fault tolerance, you need to set the number of fault tolerance call items.</li>
+</ul>
+
+<p>During fallback, if M(the threshold) errors are detected in N requests, the consumer will no longer send requests  and the fault tolerance mechanism will be enabled. The preceding fallback process is accepted in Netflix Hystrix and helps you configure the parameters. Obtain information about the parameter configuration at <a href="https://github.com/Netflix/Hystrix/wiki/Configuration">https://github.com/Netflix/Hystrix/wiki/Configuration</a>. Currently, ServiceComb provides two types of fault tolerance modes: returning null values and throwing exceptions.</p>
+
+<h3 id="scenario-1">Scenario</h3>
+
+<p>By configuring a fallback policy, you can handler microservice exceptions.</p>
+
+<h3 id="configuration-1">Configuration</h3>
+
+<p>　　Configuration items of fallback policies are as follows:</p>
+
+<p>　　<strong>Table 3 Configuration items of the fallback policy</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Configuration Item</th>
+      <th style="text-align: left">Default value</th>
+      <th style="text-align: left">Value Range</th>
+      <th style="text-align: left">Mandatory</th>
+      <th style="text-align: left">Description</th>
+      <th style="text-align: left">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">servicecomb.isolation.timeout.enabled</td>
+      <td style="text-align: left">FALSE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies whether to enable timeout detection.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.isolation.timeoutInMilliseconds</td>
+      <td style="text-align: left">30000</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the timeout duration threshold.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.isolation.maxConcurrentRequests</td>
+      <td style="text-align: left">10</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the maximum number of concurrent requests.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.enabled</td>
+      <td style="text-align: left">TRUE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies whether to enable fallbreak.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.forceOpen</td>
+      <td style="text-align: left">FALSE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies that fallbreak is enable regardless of the number of failed requests or the error rate.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.forceClosed</td>
+      <td style="text-align: left">FALSE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies that fallbreak can be implemented at any time.</td>
+      <td style="text-align: left">If this parameter and servicecomb.circuitBreaker.forceOpen both need to be configured, servicecomb.circuitBreaker.forceOpen has priority.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.sleepWindowInMilliseconds</td>
+      <td style="text-align: left">15000</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the duration needed to recover from fallbreak.</td>
+      <td style="text-align: left">After the recovery, the number of failed requests will be recalculated. Note: If the consumer fails to send a request to the provider after the recovery, fallbreak is enabled again.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.requestVolumeThreshold</td>
+      <td style="text-align: left">20</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the threshold of failed requests sent within 10 seconds. If the threshold is reached, fallbreak is triggered.</td>
+      <td style="text-align: left">Ten seconds will be divided into ten 1 seconds, and the error rate is calculated 1 second later after an error occurred. Therefore, fallbreak can be implemented at least 1 second after the call.</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.circuitBreaker.errorThresholdPercentage</td>
+      <td style="text-align: left">50</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the threshold of error rate. If the threshold is reached, fallbreak is triggered.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.fallback.enabled</td>
+      <td style="text-align: left">TRUE</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies whether to enable troubleshooting measures after an error occurred.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.fallback.maxConcurrentRequests</td>
+      <td style="text-align: left">10</td>
+      <td style="text-align: left">-</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the number of fault tolerance(servicecomb.fallbackpolicy.policy) requests concurrently called. If the value exceeds 10, the measures will no longer be called, and exception are returned.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+    <tr>
+      <td style="text-align: left">servicecomb.fallbackpolicy.policy</td>
+      <td style="text-align: left">throwexception</td>
+      <td style="text-align: left">returnnulll | throwexception</td>
+      <td style="text-align: left">No</td>
+      <td style="text-align: left">Specifies the error handling policies after an error occurred.</td>
+      <td style="text-align: left"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p class="notice--warning"><strong>Caution:</strong> Be cautious when setting servicecomb.isolation.timeout.enabled to TRUE, All processes are asynchronously processed in the system, and any error value returned by an intermediate process because the set timeout duration is reached can cause failure of the follow-up processes. Therefore, you are advised to keep the default value FALSE for servicecomb.isolation.timeout.enabled. For timeout duration from the network aspect, you are advised to set servicecomb.request.timeout=30000.</p>
+
+<h2 id="sample-code">Sample Code</h2>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">handler</span><span class="pi">:</span>
+    <span class="na">chain</span><span class="pi">:</span>
+      <span class="na">Consumer</span><span class="pi">:</span>
+        <span class="na">default</span><span class="pi">:</span> <span class="s">bizkeeper-consumer</span>
+  <span class="na">isolation</span><span class="pi">:</span>
+    <span class="na">Consumer</span><span class="pi">:</span>
+      <span class="na">timeout</span><span class="pi">:</span>
+        <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+      <span class="na">timeoutInMilliseconds</span><span class="pi">:</span> <span class="s">30000</span>
+  <span class="na">circuitBreaker</span><span class="pi">:</span>
+    <span class="na">Consumer</span><span class="pi">:</span>
+      <span class="na">sleepWindowInMilliseconds</span><span class="pi">:</span> <span class="s">15000</span>
+      <span class="na">requestVolumeThreshold</span><span class="pi">:</span> <span class="s">20</span>
+  <span class="na">fallback</span><span class="pi">:</span>
+    <span class="na">Consumer</span><span class="pi">:</span>
+      <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+  <span class="na">fallbackpolicy</span><span class="pi">:</span>
+    <span class="na">Consumer</span><span class="pi">:</span>
+      <span class="na">policy</span><span class="pi">:</span> <span class="s">throwexception</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>NOTE:</strong></p>
+
+  <p>You need to enable service governance for fallback, The provider handler is <code class="highlighter-rouge">bizkeeper-provider</code>, and the consumer handler is <code class="highlighter-rouge">bizkeeper-consumer</code>. If <code class="highlighter-rouge">Consumer:</code>/<code class="highlighter-rouge">Provider:</code> was omitted, your configuration would not work, and service governance would be enabled with default configuration.</p>
+</blockquote>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Get started</a></li>
+        <li><a href="/users/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">Foundation</a></li>
+        <li><a href="http://www.apache.org/licenses/">License</a></li>
+        <li><a href="http://www.apache.org/events/current-event">Events</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_users/service-configurations.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="/security">Security</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

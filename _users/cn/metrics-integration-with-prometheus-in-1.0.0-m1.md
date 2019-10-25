@@ -2,8 +2,8 @@
 title: "1.0.0-m1版本中的监控如何集成prometheus"
 lang: cn
 ref: metrics
-permalink: /cn/users/metrics-integration-with-prometheus-in-1.0.0-m1/
-excerpt: "1.0.0-m1版本中的监控如何集成prometheus"
+permalink: /cn/docs/users/metrics-integration-with-prometheus-in-1.0.0-m1/
+excerpt: "1.0.0-m1版本中的监控如何集成普罗米修斯"
 last_modified_at: 2018-1-2T10:01:43-04:00
 redirect_from:
   - /theme-setup/

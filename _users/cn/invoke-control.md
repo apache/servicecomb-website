@@ -2,7 +2,7 @@
 title: "调用控制"
 lang: cn
 ref: invoke-control
-permalink: /cn/users/invoke-control/
+permalink: /cn/docs/users/invoke-control/
 excerpt: "调用控制"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

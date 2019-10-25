@@ -197,14 +197,14 @@
               
 
               
-                <a href="/cn/users/">文档</a>
+                <a href="/cn/docs/users/">文档</a>
               
 
               <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
                 
-                <li><a href="/cn/docs/quick-start/" class="">快速入门</a></li>
+                <li><a href="/cn/docs/quick-start/" class="">入门指南</a></li>
                 
-                <li><a href="/cn/users/" class="">用户手册</a></li>
+                <li><a href="/cn/docs/users/" class="">用户手册</a></li>
                 
                 <li><a href="/cn/slides/" class="">大咖视频</a></li>
                 
@@ -399,11 +399,11 @@
 
 <p>项目代码中经常会用到各种配置项，比如下面的代码中是从系统环境变量中获取<code class="highlighter-rouge">prop</code> :</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">prop</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">myProperty</span><span class="o">);</span>
-<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="no">DEFAULT_VALUE</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">prop</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">myProperty</span><span class="o">);</span>
+<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">DEFAULT_VALUE</span><span class="o">;</span>
 <span class="k">try</span> <span class="o">{</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="nc">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">prop</span><span class="o">);</span>
-<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">prop</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
     <span class="c1">// handle format issues</span>
 <span class="o">}</span>
 <span class="n">myMethod</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
@@ -623,11 +623,11 @@
     <p>init函数实现固定时间间隔或实时获取配置中心的配置项逻辑。<code class="highlighter-rouge">ApolloClient</code>中<code class="highlighter-rouge">refreshApolloConfig</code>函数启动了一个定时执行的线程刷新配置项：</p>
 
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">refreshApolloConfig</span><span class="o">()</span> <span class="o">{</span>
-    <span class="no">EXECUTOR</span>
-        <span class="o">.</span><span class="na">scheduleWithFixedDelay</span><span class="o">(</span><span class="k">new</span> <span class="nc">ConfigRefresh</span><span class="o">(</span><span class="n">serviceUri</span><span class="o">),</span> 
+    <span class="n">EXECUTOR</span>
+        <span class="o">.</span><span class="na">scheduleWithFixedDelay</span><span class="o">(</span><span class="k">new</span> <span class="n">ConfigRefresh</span><span class="o">(</span><span class="n">serviceUri</span><span class="o">),</span> 
                                 <span class="n">firstRefreshInterval</span><span class="o">,</span> 
                                 <span class="n">refreshInterval</span><span class="o">,</span> 
-                                <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+                                <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
   <span class="o">}</span>
 </code></pre></div>    </div>
 
@@ -938,7 +938,7 @@
     <div class="col">
       <ul>
         <p class="header">资源</p>
-        <li><a href="/cn/docs/quick-start/">快速入门</a></li>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
         <li><a href="/cn/users/">用户指南</a></li>
         <li><a href="/cn/slides/">资料</a></li>
         <li><a href="/cn/users/faq/">常见问题</a></li>

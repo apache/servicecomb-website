@@ -2,7 +2,7 @@
 title: "HealthCheck"
 lang: en
 ref: healthcheck
-permalink: /users/healthcheck/
+permalink: /docs/users/healthcheck/
 excerpt: "HealthCheck"
 last_modified_at: 2017-12-30T10:01:43-04:00
 redirect_from:

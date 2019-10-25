@@ -2,7 +2,7 @@
 title: "Service Using API Definitions"
 lang: en
 ref: use-service-contract
-permalink: /users/use-service-contract/
+permalink: /docs/users/use-service-contract/
 excerpt: "Service Using API Definitions"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

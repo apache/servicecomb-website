@@ -2,7 +2,7 @@
 title: "自定义调用链打点"
 lang: cn
 ref: customized-tracing
-permalink: /cn/users/customized-tracing/
+permalink: /cn/docs/users/customized-tracing/
 excerpt: "自定义调用链打点"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

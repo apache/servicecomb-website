@@ -1,5 +1,5 @@
 ---
-title: Mersher Quick Start
+title: Mersher Get started
 lang: en
 ref: mersher-quick-start
 permalink: /docs/mersher-quick-start/

@@ -1,0 +1,743 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Setup Environment - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="Setup Environment">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="Setup Environment">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/users/setup-environment/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/users/setup-environment/">
+
+
+
+  <meta property="og:description" content="Setup Environment">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Setup Environment">
+  <meta name="twitter:description" content="Setup Environment">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a class="active" href="/docs/users/">Documentation</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/quick-start/" class="">Get started</a></li>
+                
+                <li><a href="/docs/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/users/setup-environment/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/">Home</a> > Setup Environment</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          <span class="nav__sub-title">Java Chassis User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/java-chassis/en_US/index.html" class="">1.2.1</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Saga User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/saga/en_US/index.html" class="">0.5.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">ServiceCenter User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="https://docs.servicecomb.io/service-center/en_US/index.html" class="">1.2.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Kie User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/kie/0.1.0/index.html" class="">0.1.0</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mesher User Guide</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/mesher/1.6.3/index.html" class="">1.6.3</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Setup Environment">
+    <meta itemprop="description" content="Setup Environment">
+    
+    <meta itemprop="dateModified" content="April 13, 2018">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Setup Environment
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#setup-local-java-develop-environment" id="markdown-toc-setup-local-java-develop-environment">Setup Local Java Develop Environment</a></li>
+  <li><a href="#starting-service-center" id="markdown-toc-starting-service-center">Starting Service Center</a>    <ul>
+      <li><a href="#starting-stand-alone-service-center" id="markdown-toc-starting-stand-alone-service-center">Starting Stand-alone Service Center</a></li>
+      <li><a href="#starting-clustered-service-center" id="markdown-toc-starting-clustered-service-center">Starting Clustered Service Center</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="setup-local-java-develop-environment">Setup Local Java Develop Environment</h2>
+
+<ul>
+  <li>
+    <p>Setup git，Refer to <a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git">How to setup git</a></p>
+  </li>
+  <li>
+    <p>Setup JDK 1.8，Refer to <a href="https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html" target="_blank">How to setup JDK</a>。</p>
+  </li>
+  <li>
+    <p>Setup Maven 3.x，Refer to <a href="https://maven.apache.org/install.html" target="_blank">How to setup Maven</a>。</p>
+  </li>
+  <li>
+    <p>Setup IntelliJ Idea IDE，Refer to <a href="https://www.jetbrains.com/help/idea/installing-and-launching.html" target="_blank">How to setup IntelliJ</a>。</p>
+  </li>
+</ul>
+
+<h2 id="starting-service-center">Starting Service Center</h2>
+<h3 id="starting-stand-alone-service-center">Starting Stand-alone Service Center</h3>
+<p>There are two ways to start a stand-alone service center service:</p>
+
+<ol>
+  <li>
+    <p>Start from installation package</p>
+
+    <ul class="nav nav-tabs">
+  <li data-toggle="tab" class="active"><a data-toggle="tab" href="#windows">Windows</a></li>
+  <li data-toggle="tab"><a data-toggle="tab" href="#linux">Linux</a></li>
+</ul>
+
+    <div class="tab-content">
+  <div id="windows" class="tab-pane active">
+        <ol>
+          <li>Download <a href="http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/apache-servicecomb-incubating-service-center-1.0.0-m2-windows-amd64.tar.gz">the installation package of ServiceCenter</a></li>
+          <li>Decompress the installation package into the installation directory.</li>
+          <li>Start Local ServiceCenter from <strong>start-service-center.bat</strong> file</li>
+        </ol>
+      </div>
+ <div id="linux" class="tab-pane fade">
+        <ol>
+          <li>Download and Decompress command:
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>wget http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64.tar.gz
+<span class="nb">tar </span>xvf apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64.tar.gz
+</code></pre></div>            </div>
+          </li>
+          <li>Start local service center command:
+            <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash apache-servicecomb-incubating-service-center-1.0.0-m2-linux-amd64/start-service-center.sh
+</code></pre></div>            </div>
+          </li>
+        </ol>
+
+        <p class="notice--warning">NOTE：Frontend will bind ipv6 address under Linux, so browser may report error, fix method：Modify httpaddr in conf/app.conf with a reachable ip, then modify <code class="highlighter-rouge">ip : 'http://127.0.0.1'</code> in app/appList/apiList.js with same ip, final restart ServiceCenter.</p>
+
+      </div>
+</div>
+
+    <p class="notice--warning">NOTE：The OS must be 64-bit.</p>
+  </li>
+  <li>
+    <p>Start from Docker</p>
+  </li>
+</ol>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
+docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
+</code></pre></div></div>
+
+<p class="notice--warning"><strong>NOTE：</strong> Running Service Center will bind on: <em>http://127.0.0.1:30100</em>。<br />
+If using Docker Toolbox，command <code class="highlighter-rouge">docker-machine ip</code> can be used to get binded IP address.</p>
+
+<h3 id="starting-clustered-service-center">Starting Clustered Service Center</h3>
+<p>As Service-center is a stateless application so it can be seamlessly deployed in cluster mode to achieve HA.</p>
+
+<p>SC is dependent on the <a href="https://github.com/coreos/etcd">etcd</a> to store the micro-services information so you can opt for running etcd standalone or in <a href="https://coreos.com/etcd/docs/latest/op-guide/runtime-configuration.html">cluster</a> mode.</p>
+
+<p>Notice: We strongly recommend running etcd in cluster mode in order to get the perfect HA ability. In this <a href="https://coreos.com/etcd/docs/latest/op-guide/runtime-configuration.html">document</a> we can know it is highly recommended to always have a cluster size greater than two in production in order to prevent Majority Failure.</p>
+
+<p>Once you are done with installing the etcd either in cluster or standalone mode then you can follow the below steps to run the Service-Center.</p>
+
+<p>Let’s assume you want to install 2 instances of Service-Center on VM with following details</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Name</th>
+      <th style="text-align: center">Address</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">VM1</td>
+      <td style="text-align: center">10.12.0.1</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">VM2</td>
+      <td style="text-align: center">10.12.0.2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Here we assume your etcd is running on http://10.12.0.4:2379 (you can follow <a href="https://github.com/coreos/etcd/blob/master/Documentation/op-guide/container.md">this</a> guide to install etcd in cluster mode.)</p>
+
+<h5 id="step-1">Step 1</h5>
+<p>Download the SC release from <a href="https://github.com/apache/incubator-servicecomb-service-center/releases">here</a> on all the VM’s.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> service-center-X.X.X-linux-amd64.tar.gz
+</code></pre></div></div>
+
+<p>Note: Please don’t run start-service-center.sh as it will also start the built-in etcd.</p>
+
+<h5 id="step-2">Step 2</h5>
+<p>Edit the configuration of the ip/port on which SC will run and etcd ip</p>
+<h6 id="vm1">VM1</h6>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi conf/app.conf
+</code></pre></div></div>
+
+<p>Replace the below values :</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>httpaddr = 10.12.0.1
+manager_cluster = "10.12.0.4:2379"
+</code></pre></div></div>
+
+<p>Then start the Service-center :</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./service-center
+</code></pre></div></div>
+
+<h6 id="vm2">VM2</h6>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vi conf/app.conf
+</code></pre></div></div>
+
+<p>Replace the below values :</p>
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>httpaddr = 10.12.0.2
+manager_cluster = "10.12.0.4:2379"
+</code></pre></div></div>
+
+<p>Then start the Service-center :</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./service-center
+</code></pre></div></div>
+
+<p>Note: In <code class="highlighter-rouge">manger_cluster</code> you can put the multiple instances of etcd in the cluster like :</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manager_cluster= "10.12.0.4:2379,10.12.0.X:2379,10.12.0.X:2379"
+</code></pre></div></div>
+
+<h5 id="step-3">Step 3</h5>
+<p>Verify your instances via :</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://10.12.0.1:30101/v4/default/registry/health
+</code></pre></div></div>
+<p>Will return :</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"instances"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e9e976f9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"rest://10.12.0.1:30100"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_1"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012543"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"instanceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"16d4cb35f9e011e7a58a286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"serviceId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d6e99f4cf9df11e7a72b286ed488ff9f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"endpoints"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"rest://10.12.0.2:30100"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"hostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"service_center_10_12_0_2"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"UP"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"healthCheck"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"mode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"push"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"interval"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"times"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"timestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"modTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1516012650"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>As we can see here the Service-Center can auto-discover all the instances of the Service-Center running in cluster, this auto-discovery feature is used by the <a href="https://github.com/apache/incubator-servicecomb-java-chassis">Java-Chassis SDK</a> to auto-discover all the instances of the Service-Center by knowing at least one IP of Service-Center running in cluster.</p>
+
+<p>In your microservice.yaml you can provide the SC IP of both the instance or any one instance, sdk can auto-discover other instances and use the other instances to get microservice details in case of failure of the first one.</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">service</span><span class="pi">:</span>
+    <span class="na">registry</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://10.12.0.1:30100,http://10.12.0.2:30100"</span>
+      <span class="na">autodiscovery</span><span class="pi">:</span> <span class="no">true</span>
+</code></pre></div></div>
+<p>In this case sdk will be able to discover all the instances of SC in cluster.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Get started</a></li>
+        <li><a href="/users/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">Foundation</a></li>
+        <li><a href="http://www.apache.org/licenses/">License</a></li>
+        <li><a href="http://www.apache.org/events/current-event">Events</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_users/setup-environment.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="/security">Security</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>
