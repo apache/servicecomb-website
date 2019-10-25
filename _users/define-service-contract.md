@@ -2,7 +2,7 @@
 title: "Service Contract"
 lang: en
 ref: service-contract
-permalink: /users/service-contract/
+permalink: /docs/users/service-contract/
 excerpt: "Service Contract"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

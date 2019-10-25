@@ -2,7 +2,7 @@
 title: "健康检查"
 lang: cn
 ref: healthcheck
-permalink: /cn/users/healthcheck/
+permalink: /cn/docs/users/healthcheck/
 excerpt: "健康检查"
 last_modified_at: 2017-12-30T10:01:43-04:00
 redirect_from:

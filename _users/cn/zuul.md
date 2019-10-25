@@ -2,7 +2,7 @@
 title: "使用Zuul做边缘服务"
 lang: cn
 ref: edging-service-zuul
-permalink: /cn/users/edging-service/zuul/
+permalink: /cn/docs/users/edging-service/zuul/
 excerpt: "使用Zuul做边缘服务"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

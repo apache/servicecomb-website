@@ -2,7 +2,7 @@
 title: "Using Confd and Nginx for Edge Service"
 lang: en
 ref: edging-service-nginx
-permalink: /users/edging-service/nginx/
+permalink: /docs/users/edging-service/nginx/
 excerpt: "Using Confd and Nginx for Edge Service"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

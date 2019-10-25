@@ -2,7 +2,7 @@
 title: "服务配置"
 lang: cn
 ref: service-configurations
-permalink: /cn/users/service-configurations/
+permalink: /cn/docs/users/service-configurations/
 excerpt: "服务配置"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

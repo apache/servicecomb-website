@@ -2,7 +2,7 @@
 title: "使用TLS通信"
 lang: cn
 ref: use-tls
-permalink: /cn/users/use-tls/
+permalink: /cn/docs/users/use-tls/
 excerpt: "使用TLS通信"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

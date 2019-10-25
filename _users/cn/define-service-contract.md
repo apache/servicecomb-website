@@ -2,7 +2,7 @@
 title: "服务契约"
 lang: cn
 ref: service-contract
-permalink: /cn/users/service-contract/
+permalink: /cn/docs/users/service-contract/
 excerpt: "服务契约"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

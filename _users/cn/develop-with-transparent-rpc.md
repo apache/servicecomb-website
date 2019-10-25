@@ -2,7 +2,7 @@
 title: "用透明RPC开发微服务"
 lang: cn
 ref: develop-with-transparent-rpc
-permalink: /cn/users/develop-with-transparent-rpc/
+permalink: /cn/docs/users/develop-with-transparent-rpc/
 excerpt: "用透明RPC开发微服务"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

@@ -2,7 +2,7 @@
 title: "程序启动逻辑"
 lang: cn
 ref: application-boot-process
-permalink: /cn/users/application-boot-process/
+permalink: /cn/docs/users/application-boot-process/
 excerpt: "程序启动逻辑"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

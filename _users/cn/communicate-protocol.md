@@ -2,7 +2,7 @@
 title: "通信协议"
 lang: cn
 ref: communicate-protocol
-permalink: /cn/users/communicate-protocol/
+permalink: /cn/docs/users/communicate-protocol/
 excerpt: "通信协议"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

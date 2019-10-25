@@ -2,7 +2,7 @@
 title: "环境配置"
 lang: cn
 ref: setup-environment
-permalink: /cn/users/setup-environment/
+permalink: /cn/docs/users/setup-environment/
 excerpt: "环境配置"
 last_modified_at: 2018-04-13T10:01:43-04:00
 ---

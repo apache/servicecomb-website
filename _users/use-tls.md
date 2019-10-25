@@ -2,7 +2,7 @@
 title: "Using TLS for Communication"
 lang: en
 ref: use-tls
-permalink: /users/use-tls/
+permalink: /docs/users/use-tls/
 excerpt: "Using TLS for Communication"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

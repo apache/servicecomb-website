@@ -2,7 +2,7 @@
 title: "Metrics how integration with prometheus in 1.0.0-m1"
 lang: en
 ref: metrics
-permalink: /users/metrics-integration-with-prometheus-in-1.0.0-m1/
+permalink: /docs/users/metrics-integration-with-prometheus-in-1.0.0-m1/
 excerpt: "Metrics how integration with prometheus in 1.0.0-m1"
 last_modified_at: 2018-1-2T10:01:43-04:00
 redirect_from:

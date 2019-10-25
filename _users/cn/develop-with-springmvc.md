@@ -2,7 +2,7 @@
 title: "用SpringMVC开发微服务"
 lang: cn
 ref: develop-with-springmvc
-permalink: /cn/users/develop-with-springmvc/
+permalink: /cn/docs/users/develop-with-springmvc/
 excerpt: "用SpringMVC开发微服务"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

@@ -2,7 +2,7 @@
 title: "Huawei Cloud FAQ"
 lang: en
 ref: huawei-cloud-faq
-permalink: /users/huawei-cloud-faq/
+permalink: /docs/users/huawei-cloud-faq/
 excerpt: "Huawei Cloud FAQ"
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

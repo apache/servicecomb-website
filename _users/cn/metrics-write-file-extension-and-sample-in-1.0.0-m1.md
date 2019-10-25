@@ -2,7 +2,7 @@
 title: "1.0.0-m1版本写文件扩展和示例"
 lang: cn
 ref: metrics
-permalink: /cn/users/metrics-write-file-extension-and-sample-in-1.0.0-m1/
+permalink: /cn/docs/users/metrics-write-file-extension-and-sample-in-1.0.0-m1/
 excerpt: "1.0.0-m1版本写文件扩展和示例"
 last_modified_at: 2017-12-29T10:01:43-04:00
 redirect_from:

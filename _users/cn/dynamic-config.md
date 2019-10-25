@@ -2,7 +2,7 @@
 title: "动态配置"
 lang: cn
 ref: customized-tracing
-permalink: /cn/users/dynamic-config/
+permalink: /cn/docs/users/dynamic-config/
 excerpt: "动态配置"
 last_modified_at: 2018-01-11T15:01:43-04:00
 redirect_from:

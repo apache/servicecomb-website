@@ -2,7 +2,7 @@
 title: "用Spring Boot Starter开发微服务"
 lang: cn
 ref: develop-with-spring-boot-starter
-permalink: /cn/users/develop-with-spring-boot-starter/
+permalink: /cn/docs/users/develop-with-spring-boot-starter/
 excerpt: "用Spring Boot Starter开发微服务"
 last_modified_at: 2018-04-23T15:01:43-04:00
 redirect_from:

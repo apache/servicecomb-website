@@ -2,7 +2,7 @@
 title: "Java Chassis系统架构"
 lang: cn
 ref: servicecomb-introduction
-permalink: /cn/users/
+permalink: /cn/docs/users/
 excerpt: "Java Chassis系统架构"
 last_modified_at: 2017-06-14T10:01:43-04:00
 redirect_from:
