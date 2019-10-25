@@ -1,5 +1,5 @@
 ---
-title: "快速入门"
+title: "入门指南"
 lang: cn
 ref: quick-start
 permalink: /cn/docs/quick-start/

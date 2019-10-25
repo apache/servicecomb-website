@@ -2,7 +2,7 @@
 title: "Local Development and Test"
 lang: en
 ref: huawei-cloud
-permalink: /users/local-develop-test/
+permalink: /docs/users/local-develop-test/
 excerpt: "Local Development and Test"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

@@ -2,7 +2,7 @@
 title: "Java Chassis Architecture"
 lang: en
 ref: servicecomb-introduction
-permalink: /users/
+permalink: /docs/users/
 excerpt: "Java Chassis Architecture"
 last_modified_at: 2017-06-14T10:01:43-04:00
 redirect_from:

@@ -2,7 +2,7 @@
 title: "部署模式"
 lang: cn
 ref: deploy-mode
-permalink: /cn/users/deploy-mode/
+permalink: /cn/docs/users/deploy-mode/
 excerpt: "部署模式"
 last_modified_at: 2018-05-25T10:01:43-04:00
 ---

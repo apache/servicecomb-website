@@ -2,7 +2,7 @@
 title: "Running Mode"
 lang: en
 ref: run-mode
-permalink: /users/run-mode/
+permalink: /docs/users/run-mode/
 excerpt: "Running Mode"
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

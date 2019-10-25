@@ -2,7 +2,7 @@
 title: "本地开发与测试"
 lang: cn
 ref: huawei-cloud
-permalink: /cn/users/local-develop-test/
+permalink: /cn/docs/users/local-develop-test/
 excerpt: "本地开发与测试"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

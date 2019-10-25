@@ -2,7 +2,7 @@
 title: "Service Configurations"
 lang: en
 ref: service-configurations
-permalink: /users/service-configurations/
+permalink: /docs/users/service-configurations/
 excerpt: "Service Configurations"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

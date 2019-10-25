@@ -2,7 +2,7 @@
 title: "Develop with RPC"
 lang: en
 ref: develop-with-rpc
-permalink: /users/develop-with-rpc/
+permalink: /docs/users/develop-with-rpc/
 excerpt: "Develop with RPC"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

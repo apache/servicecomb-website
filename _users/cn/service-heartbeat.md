@@ -2,7 +2,7 @@
 title: "服务心跳"
 lang: cn
 ref: service-heartbeat
-permalink: /cn/users/service-heartbeat/
+permalink: /cn/docs/users/service-heartbeat/
 excerpt: "服务心跳"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

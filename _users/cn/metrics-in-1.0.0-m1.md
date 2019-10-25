@@ -2,7 +2,7 @@
 title: "1.0.0-m1版本中的监控"
 lang: cn
 ref: metrics
-permalink: /cn/users/metrics-in-1.0.0-m1/
+permalink: /cn/docs/users/metrics-in-1.0.0-m1/
 excerpt: "1.0.0-m1版本中的监控"
 last_modified_at: 2017-12-30T10:01:43-04:00
 redirect_from:

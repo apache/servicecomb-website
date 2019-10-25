@@ -2,7 +2,7 @@
 title: "ServiceComb Java Chassis Edge Service"
 lang: en
 ref: edge
-permalink: /users/edge-in-1.0.0-m1/
+permalink: /docs/users/edge-in-1.0.0-m1/
 excerpt: "ServiceComb Java Chassis Edge Service"
 last_modified_at: 2018-4-3T10:01:43-04:00
 redirect_from:

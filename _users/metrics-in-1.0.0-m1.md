@@ -2,7 +2,7 @@
 title: "Metrics in 1.0.0-m1"
 lang: en
 ref: metrics
-permalink: /users/metrics-in-1.0.0-m1/
+permalink: /docs/users/metrics-in-1.0.0-m1/
 excerpt: "Metrics in 1.0.0-m1"
 last_modified_at: 2017-12-30T10:01:43-04:00
 redirect_from:

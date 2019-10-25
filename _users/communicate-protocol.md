@@ -2,7 +2,7 @@
 title: "Communication Protocol"
 lang: en
 ref: communicate-protocol
-permalink: /users/communicate-protocol/
+permalink: /docs/users/communicate-protocol/
 excerpt: "Communication Protocol"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

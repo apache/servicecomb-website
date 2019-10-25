@@ -2,7 +2,7 @@
 title: "使用内置Edge模块实现边缘服务"
 lang: cn
 ref: edge
-permalink: /cn/users/edge-in-1.0.0-m1/
+permalink: /cn/docs/users/edge-in-1.0.0-m1/
 excerpt: "使用内置Edge模块实现边缘服务"
 last_modified_at: 2018-4-3T10:01:43-04:00
 redirect_from:

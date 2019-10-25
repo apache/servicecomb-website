@@ -2,7 +2,7 @@
 title: "使用confd和Nginx做边缘服务"
 lang: cn
 ref: edging-service-nginx
-permalink: /cn/users/edging-service/nginx/
+permalink: /cn/docs/users/edging-service/nginx/
 excerpt: "使用confd和Nginx做边缘服务"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

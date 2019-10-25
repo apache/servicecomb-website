@@ -2,7 +2,7 @@
 title: "Distributed Tracing"
 lang: en
 ref: distributed-tracing
-permalink: /users/distributed-tracing/
+permalink: /docs/users/distributed-tracing/
 excerpt: "Distributed Tracing"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

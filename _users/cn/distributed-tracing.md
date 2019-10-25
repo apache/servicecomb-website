@@ -2,7 +2,7 @@
 title: "分布式调用链追踪"
 lang: cn
 ref: distributed-tracing
-permalink: /cn/users/distributed-tracing/
+permalink: /cn/docs/users/distributed-tracing/
 excerpt: "分布式调用链追踪"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

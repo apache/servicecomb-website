@@ -2,7 +2,7 @@
 title: "Develop Microservice with Spring Boot Starter"
 lang: en
 ref: develop-with-spring-boot-starter
-permalink: /users/develop-with-spring-boot-starter/
+permalink: /docs/users/develop-with-spring-boot-starter/
 excerpt: "Develop Microservice with Spring Boot Starter"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

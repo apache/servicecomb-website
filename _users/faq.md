@@ -2,7 +2,7 @@
 title: "FAQ"
 lang: en
 ref: faq
-permalink: /users/faq/
+permalink: /docs/users/faq/
 excerpt: "FAQ"
 last_modified_at: 2017-06-06T10:01:43-04:00
 redirect_from:

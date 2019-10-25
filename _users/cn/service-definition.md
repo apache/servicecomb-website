@@ -2,7 +2,7 @@
 title: "服务定义"
 lang: cn
 ref: service-definition
-permalink: /cn/users/service-definition/
+permalink: /cn/docs/users/service-definition/
 excerpt: "服务定义"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

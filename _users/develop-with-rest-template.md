@@ -2,7 +2,7 @@
 title: "Develop with Rest Template"
 lang: en
 ref: develop-with-rest-template
-permalink: /users/develop-with-rest-template/
+permalink: /docs/users/develop-with-rest-template/
 excerpt: "Develop with Rest Template"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

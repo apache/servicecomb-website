@@ -2,7 +2,7 @@
 title: "Using the Service Center and Governance Center to Manage the Spring Cloud Application"
 lang: en
 ref: manage_springcloud_application_using_sc_and_gs
-permalink: /users/manage_springcloud_application_using_sc_and_gs/
+permalink: /docs/users/manage_springcloud_application_using_sc_and_gs/
 excerpt: "Using the Service Center and Governance Center to Manage the Spring Cloud Application"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

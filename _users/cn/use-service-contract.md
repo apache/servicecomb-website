@@ -2,7 +2,7 @@
 title: "使用服务契约"
 lang: cn
 ref: use-service-contract
-permalink: /cn/users/use-service-contract/
+permalink: /cn/docs/users/use-service-contract/
 excerpt: "使用服务契约"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

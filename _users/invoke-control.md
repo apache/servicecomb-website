@@ -2,7 +2,7 @@
 title: "Invoke Control"
 lang: en
 ref: invoke-control
-permalink: /users/invoke-control/
+permalink: /docs/users/invoke-control/
 excerpt: "Invoke Control"
 last_modified_at: 2017-08-15T15:01:43-04:00
 redirect_from:

@@ -2,7 +2,7 @@
 title: "Setup Environment"
 lang: en
 ref: setup-environment
-permalink: /users/setup-environment/
+permalink: /docs/users/setup-environment/
 excerpt: "Setup Environment"
 last_modified_at: 2018-04-13T10:01:43-04:00
 ---
