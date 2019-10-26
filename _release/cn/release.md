@@ -28,6 +28,8 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 * [ServiceComb Mesher 1.6.3](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-mesher/1.6.3/){:target="_blank"} (released on 2019-9-9)
 
+* [ServiceComb Kie 0.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-kie/0.1.0/){:target="_blank"} (released on 2019-10-26)
+
 **先前发行版本 :**
 
 * [ServiceComb Service-Center 1.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.1.0/){:target="_blank"} (released on 2018-11-30)
