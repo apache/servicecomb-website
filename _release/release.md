@@ -28,6 +28,8 @@ Only current recommended releases are available on the main distribution site an
 
 * [ServiceComb Mesher 1.6.3](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-mesher/1.6.3/){:target="_blank"} (released on 2019-9-9)
 
+* [ServiceComb Kie 0.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-kie/0.1.0/){:target="_blank"} (released on 2019-10-26)
+
 **Earlier Releases :**
 * [ServiceComb Service-Center 1.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.1.0/){:target="_blank"} (released on 2018-11-30)
 * [ServiceComb Service-Center 1.0.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0/){:target="_blank"} (released on 2018-08-02)
