@@ -22,6 +22,9 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
+    <a href='/cn/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis 发布1.3.0</a>
+  </li>
+  <li>
     <a href='/cn/release/'>Apache ServiceComb 发布正式版 1.2.0</a>
   </li>
   <li>
@@ -29,9 +32,6 @@ intro:
   </li>
   <li>
     <a href='/cn/release/toolkit-downloads'>Apache ServiceComb Toolkit 发布0.1.0</a>
-  </li>
-  <li>
-    <a href='/cn/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis 发布1.2.1</a>
   </li>
 </ul>
 
