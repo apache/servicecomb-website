@@ -22,6 +22,9 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
+    <a href='/cn/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis 发布1.3.0</a>
+  </li>
+  <li>
     <a href='/cn/release/'>Apache ServiceComb 发布正式版 1.2.0</a>
   </li>
   <li>
@@ -30,12 +33,12 @@ intro:
   <li>
     <a href='/cn/release/toolkit-downloads'>Apache ServiceComb Toolkit 发布0.1.0</a>
   </li>
-  <li>
-    <a href='/cn/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis 发布1.2.1</a>
-  </li>
 </ul>
 
 <ul>
+  <li>
+    <a href='/cn/docs/servicecomb-accept-newcapec-institute-code-donation'>Apache ServiceComb 社区接受新开普软件研究院的代码捐赠</a>
+  </li>
   <li>
     <a href='/cn/docs/Apache-ServiceComb-Meetup-2019-Shanghai-KubeCon+CloudNative+OSS-Report'>Apache ServiceComb 社区meetup及新品发布</a>
   </li>
