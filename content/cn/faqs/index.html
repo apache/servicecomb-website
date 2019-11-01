@@ -308,7 +308,7 @@
     <meta itemprop="headline" content="常见问题">
     <meta itemprop="description" content="常见问题">
     
-    <meta itemprop="dateModified" content="October 30, 2017">
+    <meta itemprop="dateModified" content="October 29, 2017">
 
     <div class="page__inner-wrap">
       
@@ -390,7 +390,7 @@
 
     <p>A: 对于正常的返回值，可以通过SwaggerAnnotation实现，例如：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">code</span> <span class="o">=</span> <span class="mi">300</span><span class="o">,</span> <span class="n">response</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">message</span> <span class="o">=</span> <span class="s">""</span><span class="o">)</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">code</span> <span class="o">=</span> <span class="mi">300</span><span class="o">,</span> <span class="n">response</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">message</span> <span class="o">=</span> <span class="s">""</span><span class="o">)</span>
  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">test</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">)</span> <span class="o">{</span>
    <span class="k">return</span> <span class="mi">100</span><span class="o">;</span>
  <span class="o">}</span>
@@ -398,17 +398,17 @@
 
     <p>对于异常的返回值，可以通过抛出自定义的InvocationException实现，例如：、</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="n">String</span> <span class="nf">testException</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
-   <span class="n">String</span> <span class="n">strCode</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">code</span><span class="o">);</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="nc">String</span> <span class="nf">testException</span><span class="o">(</span><span class="kt">int</span> <span class="n">code</span><span class="o">)</span> <span class="o">{</span>
+   <span class="nc">String</span> <span class="n">strCode</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">code</span><span class="o">);</span>
      <span class="k">switch</span> <span class="o">(</span><span class="n">code</span><span class="o">)</span> <span class="o">{</span>
        <span class="k">case</span> <span class="mi">200</span><span class="o">:</span>
          <span class="k">return</span> <span class="n">strCode</span><span class="o">;</span>
        <span class="k">case</span> <span class="mi">456</span><span class="o">:</span>
          <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="n">strCode</span><span class="o">,</span> <span class="n">strCode</span> <span class="o">+</span> <span class="s">" error"</span><span class="o">);</span>
        <span class="k">case</span> <span class="mi">556</span><span class="o">:</span>
-         <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="n">strCode</span><span class="o">,</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">strCode</span> <span class="o">+</span> <span class="s">" error"</span><span class="o">));</span>
+         <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="n">strCode</span><span class="o">,</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">strCode</span> <span class="o">+</span> <span class="s">" error"</span><span class="o">));</span>
        <span class="k">case</span> <span class="mi">557</span><span class="o">:</span>
-         <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="n">strCode</span><span class="o">,</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">strCode</span> <span class="o">+</span> <span class="s">" error"</span><span class="o">)));</span>
+         <span class="k">throw</span> <span class="k">new</span> <span class="nf">InvocationException</span><span class="o">(</span><span class="n">code</span><span class="o">,</span> <span class="n">strCode</span><span class="o">,</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">strCode</span> <span class="o">+</span> <span class="s">" error"</span><span class="o">)));</span>
        <span class="k">default</span><span class="o">:</span>
          <span class="k">break</span><span class="o">;</span>
      <span class="o">}</span>
@@ -564,17 +564,17 @@
     <p>A:
  透传数据塞入：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">CseHttpEntity</span><span class="o">&lt;</span><span class="n">xxxx</span><span class="o">.</span><span class="na">class</span><span class="o">&gt;</span> <span class="n">httpEntity</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CseHttpEntity</span><span class="o">&lt;&gt;(</span><span class="n">xxx</span><span class="o">);</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">CseHttpEntity</span><span class="o">&lt;</span><span class="n">xxxx</span><span class="o">.</span><span class="na">class</span><span class="o">&gt;</span> <span class="n">httpEntity</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CseHttpEntity</span><span class="o">&lt;&gt;(</span><span class="n">xxx</span><span class="o">);</span>
  <span class="c1">//透传内容</span>
  <span class="n">httpEntity</span><span class="o">.</span><span class="na">addContext</span><span class="o">(</span><span class="s">"contextKey"</span><span class="o">,</span><span class="s">"contextValue"</span><span class="o">);</span>
- <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="n">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">().</span><span class="na">exchange</span><span class="o">(</span><span class="s">"cse://springmvc/springmvchello/sayhello"</span><span class="o">,</span><span class="n">HttpMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span><span class="n">httpEntity</span><span class="o">,</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+ <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="nc">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">().</span><span class="na">exchange</span><span class="o">(</span><span class="s">"cse://springmvc/springmvchello/sayhello"</span><span class="o">,</span><span class="nc">HttpMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">,</span><span class="n">httpEntity</span><span class="o">,</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 </code></pre></div>    </div>
 
     <p>透传数据获取：</p>
 
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Override</span>
- <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/sayhello"</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
- <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">Person</span> <span class="n">person</span><span class="o">,</span><span class="n">InvocationContext</span> <span class="n">context</span><span class="o">){</span>
+ <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/sayhello"</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
+ <span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">Person</span> <span class="n">person</span><span class="o">,</span><span class="nc">InvocationContext</span> <span class="n">context</span><span class="o">){</span>
    <span class="c1">//透传数据获取</span>
    <span class="n">context</span><span class="o">.</span><span class="na">getContext</span><span class="o">();</span>
    <span class="k">return</span> <span class="s">"Hello person "</span> <span class="o">+</span> <span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
@@ -586,11 +586,11 @@
 
     <p>A:</p>
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Override</span>
- <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/sayhello"</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
- <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">Person</span> <span class="n">person</span><span class="o">){</span>
-   <span class="n">InvocationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">ContextUtils</span><span class="o">.</span><span class="na">getInvocationContext</span><span class="o">();</span>
+ <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/sayhello"</span><span class="o">,</span><span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
+ <span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">Person</span> <span class="n">person</span><span class="o">){</span>
+   <span class="nc">InvocationContext</span> <span class="n">context</span> <span class="o">=</span> <span class="nc">ContextUtils</span><span class="o">.</span><span class="na">getInvocationContext</span><span class="o">();</span>
    <span class="c1">//自定义状态码</span>
-   <span class="n">context</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">Status</span><span class="o">.</span><span class="na">CREATED</span><span class="o">);</span>
+   <span class="n">context</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="nc">Status</span><span class="o">.</span><span class="na">CREATED</span><span class="o">);</span>
    <span class="k">return</span> <span class="s">"Hello person "</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
  <span class="o">}</span>
 </code></pre></div>    </div>
@@ -608,10 +608,10 @@
 
     <p>A: 如果使用http rest方式（使用transport-rest-vertx依赖）可以用下面这种方式获取：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">AbstractProducerContextArgMapper</span> <span class="n">httpRequestCreator</span> <span class="o">=</span> <span class="o">(</span><span class="n">AbstractProducerContextArgMapper</span><span class="o">)</span><span class="n">invocation</span><span class="o">.</span><span class="na">getHandlerContext</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">RestConst</span><span class="o">.</span><span class="na">HTTP_REQUEST_CREATOR</span><span class="o">);</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nc">AbstractProducerContextArgMapper</span> <span class="n">httpRequestCreator</span> <span class="o">=</span> <span class="o">(</span><span class="nc">AbstractProducerContextArgMapper</span><span class="o">)</span><span class="n">invocation</span><span class="o">.</span><span class="na">getHandlerContext</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="nc">RestConst</span><span class="o">.</span><span class="na">HTTP_REQUEST_CREATOR</span><span class="o">);</span>
  <span class="k">if</span><span class="o">(</span><span class="n">httpRequestCreator</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
-   <span class="n">HttpServletRequest</span> <span class="n">req</span> <span class="o">=</span> <span class="o">(</span><span class="n">HttpServletRequest</span><span class="o">)</span><span class="n">httpRequestCreator</span><span class="o">.</span><span class="na">createContextArg</span><span class="o">(</span><span class="n">invocation</span><span class="o">);</span>
-   <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">getRemoteHost</span><span class="o">());</span>
+   <span class="nc">HttpServletRequest</span> <span class="n">req</span> <span class="o">=</span> <span class="o">(</span><span class="nc">HttpServletRequest</span><span class="o">)</span><span class="n">httpRequestCreator</span><span class="o">.</span><span class="na">createContextArg</span><span class="o">(</span><span class="n">invocation</span><span class="o">);</span>
+   <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">req</span><span class="o">.</span><span class="na">getRemoteHost</span><span class="o">());</span>
  <span class="o">}</span>
 </code></pre></div>    </div>
 
@@ -743,7 +743,7 @@
 
     <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="na">servicecomb</span><span class="pi">:</span>
    <span class="na">request</span><span class="pi">:</span>
-     <span class="na">timeout</span><span class="pi">:</span> <span class="s">30000</span>
+     <span class="na">timeout</span><span class="pi">:</span> <span class="m">30000</span>
 </code></pre></div>    </div>
   </li>
   <li>
@@ -844,8 +844,8 @@
 
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OutputForTest</span><span class="o">{</span>
 <span class="nd">@JsonIgnore</span>
-<span class="kd">private</span> <span class="n">String</span> <span class="n">outputId</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-<span class="kd">private</span> <span class="n">String</span> <span class="n">inputId</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="kd">private</span> <span class="nc">String</span> <span class="n">outputId</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="kd">private</span> <span class="nc">String</span> <span class="n">inputId</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 <span class="o">...</span>
 <span class="o">}</span>
 </code></pre></div>    </div>

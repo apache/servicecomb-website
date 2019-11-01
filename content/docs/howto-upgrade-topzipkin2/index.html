@@ -444,9 +444,9 @@
 <h3 id="modify-the-maven-dependencies-to-use-the-target-version-of-related-libraries">Modify the maven dependencies to use the target version of related libraries.</h3>
 <p>Change the group <code class="highlighter-rouge">io.zipkin.java</code> and <code class="highlighter-rouge">io.zipkin.reporter</code> to <code class="highlighter-rouge">io.zipkin.zipkin2</code> and <code class="highlighter-rouge">io.zipkin.reporter2</code> respectively.</p>
 
-<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java-chassis-dependencies/pom.xml
-<span class="gu">@@ -50,8 +50,8 @@
-</span>     &lt;cxf.version&gt;3.1.6&lt;/cxf.version&gt;
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">java-chassis-dependencies/pom.xml
+@@ -50,8 +50,8 @@</span>
+     &lt;cxf.version&gt;3.1.6&lt;/cxf.version&gt;
      &lt;logback.version&gt;1.1.7&lt;/logback.version&gt;
      &lt;brave.version&gt;4.13.1&lt;/brave.version&gt;
 <span class="gd">-    &lt;zipkin.version&gt;1.24.0&lt;/zipkin.version&gt;
@@ -456,8 +456,8 @@
 </span>   &lt;/properties&gt;
  
    &lt;dependencyManagement&gt;
-<span class="gu">@@ -646,7 +646,7 @@
-</span> 
+<span class="p">@@ -646,7 +646,7 @@</span>
+ 
        &lt;!-- zipkin dependencies --&gt;
        &lt;dependency&gt;
 <span class="gd">-        &lt;groupId&gt;io.zipkin.java&lt;/groupId&gt;
@@ -465,8 +465,8 @@
 </span>         &lt;artifactId&gt;zipkin&lt;/artifactId&gt;
          &lt;version&gt;${zipkin.version}&lt;/version&gt;
        &lt;/dependency&gt;
-<span class="gu">@@ -661,7 +661,7 @@
-</span>         &lt;version&gt;${brave.version}&lt;/version&gt;
+<span class="p">@@ -661,7 +661,7 @@</span>
+         &lt;version&gt;${brave.version}&lt;/version&gt;
        &lt;/dependency&gt;
        &lt;dependency&gt;
 <span class="gd">-        &lt;groupId&gt;io.zipkin.reporter&lt;/groupId&gt;
@@ -476,8 +476,8 @@
        &lt;/dependency&gt;
 
 handlers/handler-tracing-zipkin/pom.xml
-<span class="gu">@@ -50,7 +50,7 @@
-</span>       &lt;artifactId&gt;brave&lt;/artifactId&gt;
+<span class="p">@@ -50,7 +50,7 @@</span>
+       &lt;artifactId&gt;brave&lt;/artifactId&gt;
      &lt;/dependency&gt;
      &lt;dependency&gt;
 <span class="gd">-      &lt;groupId&gt;io.zipkin.reporter&lt;/groupId&gt;
@@ -492,9 +492,9 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p>Change the zipkin.xxx import to zipkin2.xxx on imports, and most importantly, use <code class="highlighter-rouge">spanReporter()</code> instead of <code class="highlighter-rouge">reporter()</code> for generating reporter for brave, change the api path to /api/v2/xxx when creating sender.</p>
 
-<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
-<span class="gu">@@ -31,11 +31,11 @@
-</span> import brave.http.HttpTracing;
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
+@@ -31,11 +31,11 @@</span>
+ import brave.http.HttpTracing;
  import brave.propagation.CurrentTraceContext;
  import org.apache.servicecomb.config.DynamicProperties;
 <span class="gd">-import zipkin.Span;
@@ -510,8 +510,8 @@ handlers/handler-tracing-zipkin/pom.xml
 </span> 
  @Configuration
  class TracingConfiguration {
-<span class="gu">@@ -56,14 +56,15 @@ Sender sender(DynamicProperties dynamicProperties) {
-</span>     return AsyncReporter.builder(sender).build();
+<span class="p">@@ -56,14 +56,15 @@</span> Sender sender(DynamicProperties dynamicProperties) {
+     return AsyncReporter.builder(sender).build();
    }
  
 <span class="gi">+
@@ -543,12 +543,12 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p>But this will not work. In <code class="highlighter-rouge">zipkin2.Reporter</code>, the <code class="highlighter-rouge">create(sender)</code> is actually equivalent to <code class="highlighter-rouge">builder(sender).build()</code></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">&lt;</span><span class="n">Span</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="o">(</span><span class="k">new</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">AsyncReporter</span><span class="o">&lt;</span><span class="nc">Span</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="nc">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="k">new</span> <span class="nc">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
   <span class="o">}</span>
   
-  <span class="kd">public</span> <span class="kd">static</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span> <span class="nf">builder</span><span class="o">(</span><span class="n">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span> <span class="nf">builder</span><span class="o">(</span><span class="nc">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nc">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">);</span>
   <span class="o">}</span>
 </code></pre></div></div>
 
@@ -556,9 +556,9 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p>We do not use zipkin.Span in our production code, but we do use it in our tests. Those changes are quite straight forward, we just change the accessing of fields to calling methods as described in the What’s Changed section.</p>
 
-<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tracing/tracing-zipkin/src/test/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
-<span class="gu">@@ -45,7 +45,7 @@
-</span> import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
+<div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">tracing/tracing-zipkin/src/test/java/org/apache/servicecomb/tracing/zipkin/ZipkinSpanAspectTest.java 
+@@ -45,7 +45,7 @@</span>
+ import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication;
  import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.CustomSpanTask;
  import org.apache.servicecomb.tracing.zipkin.app.ZipkinSpanTestApplication.SomeSlowTask;
 <span class="gd">-import zipkin.Span;
@@ -566,8 +566,8 @@ handlers/handler-tracing-zipkin/pom.xml
 </span> 
  @RunWith(SpringRunner.class)
  @SpringBootTest(classes = {ZipkinSpanTestApplication.class, TracingConfig.class})
-<span class="gu">@@ -74,8 +74,8 @@ public void reportedSpanContainsAnnotatedMethodInfo() throws Exception {
-</span> 
+<span class="p">@@ -74,8 +74,8 @@</span> public void reportedSpanContainsAnnotatedMethodInfo() throws Exception {
+ 
      await().atMost(2, SECONDS).until(() -&gt; !spans.isEmpty());
  
 <span class="gd">-    zipkin.Span span = spans.poll();
@@ -577,8 +577,8 @@ handlers/handler-tracing-zipkin/pom.xml
 </span>     assertThat(tracedValues(span), contains(SomeSlowTask.class.getMethod("crawl").toString()));
    }
    
-<span class="gu">@@ -84,17 +84,17 @@ public void reportCustomSpanInfomation() throws Exception {
-</span>     customSpanTask.invoke();
+<span class="p">@@ -84,17 +84,17 @@</span> public void reportCustomSpanInfomation() throws Exception {
+     customSpanTask.invoke();
      await().atMost(2, SECONDS).until(() -&gt; !spans.isEmpty());
    
 <span class="gd">-    zipkin.Span span = spans.poll();
@@ -602,8 +602,8 @@ handlers/handler-tracing-zipkin/pom.xml
 </span>         .distinct()
          .collect(Collectors.toList());
    }
-<span class="gu">@@ -110,7 +110,7 @@ public void reportCustomSpanInfomation() throws Exception {
-</span>     Tracing tracing(Queue&lt;Span&gt; spans) {
+<span class="p">@@ -110,7 +110,7 @@</span> public void reportCustomSpanInfomation() throws Exception {
+     Tracing tracing(Queue&lt;Span&gt; spans) {
        return Tracing.newBuilder()
            .currentTraceContext(new StrictCurrentTraceContext())
 <span class="gd">-          .reporter(spans::add)
@@ -619,9 +619,9 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p>Supporting v1 api is built into zipkin2, so we do not need to rely on the v1 libraries. Just use the <code class="highlighter-rouge">SpanBytesEncoder.JSON_V1</code> when building reporter and change the sender api path.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sender</span> <span class="o">=</span> <span class="n">URLConnectionSender</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"http://localhost:9411/api/v1/spans"</span><span class="o">)</span>
-<span class="n">reporter</span> <span class="o">=</span> <span class="n">AsyncReporter</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)</span>
-                        <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="n">SpanBytesEncoder</span><span class="o">.</span><span class="na">JSON_V1</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sender</span> <span class="o">=</span> <span class="nc">URLConnectionSender</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"http://localhost:9411/api/v1/spans"</span><span class="o">)</span>
+<span class="n">reporter</span> <span class="o">=</span> <span class="nc">AsyncReporter</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)</span>
+                        <span class="o">.</span><span class="na">build</span><span class="o">(</span><span class="nc">SpanBytesEncoder</span><span class="o">.</span><span class="na">JSON_V1</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>That’s all, for the complete changes, please refer the <a href="https://github.com/apache/incubator-servicecomb-java-chassis/pull/488">pull request</a> for the complete changes.</p>
@@ -777,6 +777,35 @@ handlers/handler-tracing-zipkin/pom.xml
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/cn/docs/servicecomb-accept-newcapec-institute-code-donation/" rel="permalink">Apache ServiceComb社区接受新开普软件研究院的代码捐赠
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache Servicecomb社区接受新开普软件研究院的代码捐赠
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/cn/docs/use-oas-validator-help-standardize-oas-spec/" rel="permalink">使用OAS Validator帮助你规范OpenAPI Spec文档
 </a>
       
@@ -840,35 +869,6 @@ handlers/handler-tracing-zipkin/pom.xml
       
     </h2>
     <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT)
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  2 minute read
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/cn/docs/how-to-do-microservice-accept-test/" rel="permalink">如何给微服务架构的项目做验收测试？
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">本文将介绍如何给微服务架构的项目做验收测试
 </p>
     
       <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 

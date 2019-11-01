@@ -460,14 +460,14 @@
 
         <p>在step_definition中使用正则的方式对应feature中定义的的测试条件，触发测试并验证结果。如：</p>
 
-        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">Given</span><span class="o">(</span><span class="s">"^Car Service is up and running$"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
-      <span class="n">probe</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">CAR_SERVICE_ADDRESS</span><span class="o">));</span>
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">Given</span><span class="o">(</span><span class="s">"^Car Service is up and running$"</span><span class="o">,</span> <span class="o">()</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">probe</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="no">CAR_SERVICE_ADDRESS</span><span class="o">));</span>
     <span class="o">});</span>
 </code></pre></div>        </div>
 
         <p>上面代码对应feature中第一个测试前提条件<code class="highlighter-rouge">Given car service is up and running</code>，<code class="highlighter-rouge">probe</code>函数式方位<code class="highlighter-rouge">Car</code>服务的一个Rest接口验证返回状态码来判断<code class="highlighter-rouge">Car</code>是否正常启动运行。接下来四个<code class="highlighter-rouge">Given</code>与此类似。</p>
 
-        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">When</span><span class="o">(</span><span class="s">"^User ([A-Za-z]+) requests to book ([0-9]+) cars and ([0-9]+) rooms$"</span><span class="o">,</span> <span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">When</span><span class="o">(</span><span class="s">"^User ([A-Za-z]+) requests to book ([0-9]+) cars and ([0-9]+) rooms$"</span><span class="o">,</span> <span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received request from user {} to book {} cars and {} rooms"</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">);</span>
 
       <span class="n">given</span><span class="o">()</span>
@@ -475,26 +475,26 @@
           <span class="o">.</span><span class="na">pathParam</span><span class="o">(</span><span class="s">"rooms"</span><span class="o">,</span> <span class="n">rooms</span><span class="o">)</span>
           <span class="o">.</span><span class="na">pathParam</span><span class="o">(</span><span class="s">"cars"</span><span class="o">,</span> <span class="n">cars</span><span class="o">)</span>
           <span class="o">.</span><span class="na">when</span><span class="o">()</span>
-          <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"booking.service.address"</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/booking/{name}/{rooms}/{cars}"</span><span class="o">);</span>
+          <span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"booking.service.address"</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/booking/{name}/{rooms}/{cars}"</span><span class="o">);</span>
     <span class="o">});</span>
 </code></pre></div>        </div>
 
         <p>此段代码解析feature中定义的<code class="highlighter-rouge">When User Sean requests to book 2 cars and 1 rooms</code>事件，解析出用户、预定车辆和房间数量参数并向<code class="highlighter-rouge">Booking</code>服务发出<code class="highlighter-rouge">POST</code>方法的请求，然后在下面代码的<code class="highlighter-rouge">Then</code>中验证结果：</p>
 
-        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Then</span><span class="o">(</span><span class="s">"^Alpha records the following events$"</span><span class="o">,</span> <span class="o">(</span><span class="n">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-      <span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;[]&gt;</span> <span class="n">columnStrippingConsumer</span> <span class="o">=</span> <span class="n">dataMap</span> <span class="o">-&gt;</span> <span class="o">{</span>
-        <span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">:</span> <span class="n">dataMap</span><span class="o">)</span>
+        <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Then</span><span class="o">(</span><span class="s">"^Alpha records the following events$"</span><span class="o">,</span> <span class="o">(</span><span class="nc">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;[]&gt;</span> <span class="n">columnStrippingConsumer</span> <span class="o">=</span> <span class="n">dataMap</span> <span class="o">-&gt;</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">:</span> <span class="n">dataMap</span><span class="o">)</span>
           <span class="n">map</span><span class="o">.</span><span class="na">keySet</span><span class="o">().</span><span class="na">retainAll</span><span class="o">(</span><span class="n">dataTable</span><span class="o">.</span><span class="na">topCells</span><span class="o">());</span>
       <span class="o">};</span>
-      <span class="n">dataMatches</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">ALPHA_REST_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/events"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="n">columnStrippingConsumer</span><span class="o">);</span>
+      <span class="n">dataMatches</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="no">ALPHA_REST_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/events"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="n">columnStrippingConsumer</span><span class="o">);</span>
     <span class="o">});</span>
 
- <span class="n">And</span><span class="o">(</span><span class="s">"^Car Service contains the following booking orders$"</span><span class="o">,</span> <span class="o">(</span><span class="n">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-      <span class="n">dataMatches</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">CAR_SERVICE_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/bookings"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="n">NO_OP_CONSUMER</span><span class="o">);</span>
+ <span class="nc">And</span><span class="o">(</span><span class="s">"^Car Service contains the following booking orders$"</span><span class="o">,</span> <span class="o">(</span><span class="nc">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">dataMatches</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="no">CAR_SERVICE_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/bookings"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="no">NO_OP_CONSUMER</span><span class="o">);</span>
     <span class="o">});</span>
 
-    <span class="n">And</span><span class="o">(</span><span class="s">"^Hotel Service contains the following booking orders$"</span><span class="o">,</span> <span class="o">(</span><span class="n">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
-      <span class="n">dataMatches</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">HOTEL_SERVICE_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/bookings"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="n">NO_OP_CONSUMER</span><span class="o">);</span>
+    <span class="nc">And</span><span class="o">(</span><span class="s">"^Hotel Service contains the following booking orders$"</span><span class="o">,</span> <span class="o">(</span><span class="nc">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+      <span class="n">dataMatches</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="no">HOTEL_SERVICE_ADDRESS</span><span class="o">)</span> <span class="o">+</span> <span class="s">"/bookings"</span><span class="o">,</span> <span class="n">dataTable</span><span class="o">,</span> <span class="no">NO_OP_CONSUMER</span><span class="o">);</span>
     <span class="o">});</span>
 </code></pre></div>        </div>
 
@@ -513,7 +513,7 @@
     <p>由于房源紧张，限制每个用户最多预订2间房，当用户预订超过2间时会抛出异常：</p>
 
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Compensable</span><span class="o">(</span><span class="n">compensationMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
-  <span class="kt">void</span> <span class="nf">order</span><span class="o">(</span><span class="n">HotelBooking</span> <span class="n">booking</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kt">void</span> <span class="nf">order</span><span class="o">(</span><span class="nc">HotelBooking</span> <span class="n">booking</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">booking</span><span class="o">.</span><span class="na">getAmount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="o">)</span> <span class="o">{</span>
       <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"can not order the rooms large than two"</span><span class="o">);</span>
     <span class="o">}</span>
@@ -587,7 +587,7 @@
 
     <p>除了上面例子中通过命令行指定javaagent指定byteman 规则文件的加载方式外，还可以通过Java代码的方式加载，如下</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Submit</span> <span class="n">bm</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Submit</span><span class="o">(</span><span class="n">address</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Submit</span> <span class="n">bm</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Submit</span><span class="o">(</span><span class="n">address</span><span class="o">,</span> <span class="n">port</span><span class="o">);</span>
 <span class="n">bm</span><span class="o">.</span><span class="na">addRulesFromFiles</span><span class="o">(</span><span class="n">rules</span><span class="o">);</span>
 </code></pre></div>    </div>
 
@@ -610,7 +610,7 @@
 <span class="s">METHOD timeout</span>
 <span class="s">AT EXIT</span>
 <span class="s">IF TRUE</span>
-<span class="s">DO RETURN 5</span>
+<span class="s">DO RETURN </span><span class="m">5</span>
 <span class="s">ENDRULE</span>
 
 <span class="s">RULE sleep when postBooking until timeout happens</span>
@@ -658,11 +658,11 @@
   <li>
     <p>step_definition解析</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">Given</span><span class="o">(</span><span class="s">"^Install the byteman script ([A-Za-z0-9_\\.]+) to ([A-Za-z]+) Service$"</span><span class="o">,</span> <span class="o">(</span><span class="n">String</span> <span class="n">script</span><span class="o">,</span> <span class="n">String</span> <span class="n">service</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nc">Given</span><span class="o">(</span><span class="s">"^Install the byteman script ([A-Za-z0-9_\\.]+) to ([A-Za-z]+) Service$"</span><span class="o">,</span> <span class="o">(</span><span class="nc">String</span> <span class="n">script</span><span class="o">,</span> <span class="nc">String</span> <span class="n">service</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Install the byteman script {} to {} service"</span><span class="o">,</span> <span class="n">script</span><span class="o">,</span> <span class="n">service</span><span class="o">);</span>
-      <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">rules</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+      <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">rules</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
       <span class="n">rules</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"target/test-classes/"</span> <span class="o">+</span> <span class="n">script</span><span class="o">);</span>
-      <span class="n">Submit</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">getBytemanSubmit</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+      <span class="nc">Submit</span> <span class="n">bm</span> <span class="o">=</span> <span class="n">getBytemanSubmit</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
       <span class="n">bm</span><span class="o">.</span><span class="na">addRulesFromFiles</span><span class="o">(</span><span class="n">rules</span><span class="o">);</span>
     <span class="o">});</span>
 </code></pre></div>    </div>
@@ -870,6 +870,35 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/cn/docs/servicecomb-accept-newcapec-institute-code-donation/" rel="permalink">Apache ServiceComb社区接受新开普软件研究院的代码捐赠
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache Servicecomb社区接受新开普软件研究院的代码捐赠
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/cn/docs/use-oas-validator-help-standardize-oas-spec/" rel="permalink">使用OAS Validator帮助你规范OpenAPI Spec文档
 </a>
       
@@ -933,35 +962,6 @@
       
     </h2>
     <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT)
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  2 分钟 阅读
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/cn/docs/how-to-do-microservice-accept-test/" rel="permalink">如何给微服务架构的项目做验收测试？
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">本文将介绍如何给微服务架构的项目做验收测试
 </p>
     
       <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 

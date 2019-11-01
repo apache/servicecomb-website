@@ -531,7 +531,7 @@
          <span class="na">test</span><span class="pi">:</span> <span class="pi">[</span><span class="s2">"</span><span class="s">CMD-SHELL"</span><span class="pi">,</span> <span class="s2">"</span><span class="s">nc</span><span class="nv"> </span><span class="s">-z</span><span class="nv"> </span><span class="s">localhost</span><span class="nv"> </span><span class="s">3306</span><span class="nv"> </span><span class="s">&amp;&gt;</span><span class="nv"> </span><span class="s">/dev/null;</span><span class="nv"> </span><span class="s">echo</span><span class="nv"> </span><span class="s">$$?"</span><span class="pi">]</span>
          <span class="na">interval</span><span class="pi">:</span> <span class="s">30s</span>
          <span class="na">timeout</span><span class="pi">:</span> <span class="s">10s</span>
-         <span class="na">retries</span><span class="pi">:</span> <span class="s">5</span>
+         <span class="na">retries</span><span class="pi">:</span> <span class="m">5</span>
 
    <span class="na">car-rental-service</span><span class="pi">:</span>
      <span class="na">image</span><span class="pi">:</span> <span class="s2">"</span><span class="s">car-rental-service:0.0.2-SNAPSHOT"</span>
@@ -605,101 +605,101 @@
     <p>参照 <a href="https://github.com/apache/servicecomb-saga/blob/master/docs/api/api.md">Saga API</a> 说明，设定各服务的事务、补偿、依赖和恢复参数，并保存为 <em>request.json</em> 文件</p>
 
     <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="w"> </span><span class="p">{</span><span class="w">
-   </span><span class="s2">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BackwardRecovery"</span><span class="p">,</span><span class="w">
-   </span><span class="s2">"requests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+   </span><span class="nl">"policy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BackwardRecovery"</span><span class="p">,</span><span class="w">
+   </span><span class="nl">"requests"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
      </span><span class="p">{</span><span class="w">
-       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-car"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"car-rental-service"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/rentals"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-car"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"car-rental-service"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/rentals"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
-       </span><span class="s2">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/rentals"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="nl">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/rentals"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">}</span><span class="w">
      </span><span class="p">},</span><span class="w">
      </span><span class="p">{</span><span class="w">
-       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-hotel"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hotel-reservation-service"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/reservations"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-hotel"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"hotel-reservation-service"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/reservations"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
-       </span><span class="s2">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/reservations"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="nl">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/reservations"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">}</span><span class="w">
      </span><span class="p">},</span><span class="w">
      </span><span class="p">{</span><span class="w">
-       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-flight"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flight-booking-service"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/bookings"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-flight"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flight-booking-service"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/bookings"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
-       </span><span class="s2">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/bookings"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="nl">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/bookings"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">}</span><span class="w">
      </span><span class="p">},</span><span class="w">
      </span><span class="p">{</span><span class="w">
-       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-payment"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-service"</span><span class="p">,</span><span class="w">
-       </span><span class="s2">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"request-payment"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rest"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"serviceName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"payment-service"</span><span class="p">,</span><span class="w">
+       </span><span class="nl">"parents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
          </span><span class="s2">"request-car"</span><span class="p">,</span><span class="w">
          </span><span class="s2">"request-flight"</span><span class="p">,</span><span class="w">
          </span><span class="s2">"request-hotel"</span><span class="w">
        </span><span class="p">],</span><span class="w">
-       </span><span class="s2">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/payments"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="nl">"transaction"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"post"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/payments"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">},</span><span class="w">
-       </span><span class="s2">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-         </span><span class="s2">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/payments"</span><span class="p">,</span><span class="w">
-         </span><span class="s2">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-           </span><span class="s2">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-             </span><span class="s2">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
+       </span><span class="nl">"compensation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+         </span><span class="nl">"method"</span><span class="p">:</span><span class="w"> </span><span class="s2">"put"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"path"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/payments"</span><span class="p">,</span><span class="w">
+         </span><span class="nl">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+           </span><span class="nl">"form"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+             </span><span class="nl">"customerId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mike"</span><span class="w">
            </span><span class="p">}</span><span class="w">
          </span><span class="p">}</span><span class="w">
        </span><span class="p">}</span><span class="w">

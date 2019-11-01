@@ -540,8 +540,8 @@
 <span class="c1">//这个注解使Spring能够自动配置ServiceComb模块</span>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloApplication</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">HelloApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">HelloApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
@@ -561,7 +561,7 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloController</span> <span class="o">{</span>
 
     <span class="nd">@GetMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/hello/{name}"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">"name"</span><span class="o">)</span> <span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">hello</span><span class="o">(</span><span class="nd">@PathVariable</span><span class="o">(</span><span class="s">"name"</span><span class="o">)</span> <span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="s">"Hello, "</span> <span class="o">+</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -648,7 +648,7 @@
   <span class="na">routes</span><span class="pi">:</span>         <span class="c1"># 定义路由转发规则。凡是匹配/helloservice/**的路由都会转发到helloservice服务</span>
     <span class="na">helloservice</span><span class="pi">:</span> <span class="s">/helloservice/**</span>
 <span class="na">server</span><span class="pi">:</span>            
-  <span class="na">port</span><span class="pi">:</span> <span class="s">8080</span>     <span class="c1">#SpringBoot框架的配置，服务启动端口</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">8080</span>     <span class="c1">#SpringBoot框架的配置，服务启动端口</span>
 </code></pre></div></div>
 <p>新建ServiceComb配置文件src/main/resources/microservice.yaml，内容如下</p>
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">helloworld</span>   <span class="c1"># 应用ID</span>
@@ -674,8 +674,8 @@
 <span class="nd">@EnableZuulProxy</span>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZuulApplication</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ZuulApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">ZuulApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -710,21 +710,21 @@
 <span class="nt">&lt;script&gt;</span>
     <span class="kd">function</span> <span class="nx">testCall</span><span class="p">()</span> <span class="p">{</span>
 
-        <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">"#username"</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="nx">username</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="dl">"</span><span class="s2">#username</span><span class="dl">"</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
 
         <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">username</span><span class="p">){</span>
             <span class="k">return</span>
         <span class="p">}</span>
 
         <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-            <span class="na">url</span><span class="p">:</span> <span class="s2">"/helloservice/hello/"</span><span class="o">+</span><span class="nx">username</span><span class="p">,</span>
+            <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">/helloservice/hello/</span><span class="dl">"</span><span class="o">+</span><span class="nx">username</span><span class="p">,</span>
             <span class="na">success</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">resultDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"resultDiv"</span><span class="p">);</span>
+                <span class="kd">var</span> <span class="nx">resultDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">resultDiv</span><span class="dl">"</span><span class="p">);</span>
                 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
                 <span class="nx">resultDiv</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
             <span class="p">},</span>
             <span class="na">error</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-                <span class="kd">var</span> <span class="nx">resultDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"resultDiv"</span><span class="p">);</span>
+                <span class="kd">var</span> <span class="nx">resultDiv</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="dl">"</span><span class="s2">resultDiv</span><span class="dl">"</span><span class="p">);</span>
                 <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
                 <span class="nx">resultDiv</span><span class="p">.</span><span class="nx">innerText</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
             <span class="p">}</span>
@@ -903,6 +903,35 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/cn/docs/servicecomb-accept-newcapec-institute-code-donation/" rel="permalink">Apache ServiceComb社区接受新开普软件研究院的代码捐赠
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache Servicecomb社区接受新开普软件研究院的代码捐赠
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/cn/docs/use-oas-validator-help-standardize-oas-spec/" rel="permalink">使用OAS Validator帮助你规范OpenAPI Spec文档
 </a>
       
@@ -966,35 +995,6 @@
       
     </h2>
     <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT)
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  2 分钟 阅读
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/cn/docs/how-to-do-microservice-accept-test/" rel="permalink">如何给微服务架构的项目做验收测试？
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">本文将介绍如何给微服务架构的项目做验收测试
 </p>
     
       <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 

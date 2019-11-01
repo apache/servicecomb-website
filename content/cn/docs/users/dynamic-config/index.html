@@ -357,7 +357,7 @@
     <meta itemprop="headline" content="动态配置">
     <meta itemprop="description" content="动态配置">
     
-    <meta itemprop="dateModified" content="January 12, 2018">
+    <meta itemprop="dateModified" content="January 11, 2018">
 
     <div class="page__inner-wrap">
       
@@ -458,7 +458,7 @@
        <span class="na">clusters</span><span class="pi">:</span> <span class="s">default</span>
        <span class="na">namespace</span><span class="pi">:</span> <span class="s">application</span>
        <span class="na">token</span><span class="pi">:</span> <span class="s">testtoken</span>
-       <span class="na">refreshInterval</span><span class="pi">:</span> <span class="s">10</span>
+       <span class="na">refreshInterval</span><span class="pi">:</span> <span class="m">10</span>
 </code></pre></div></div>
 <p>​	<code class="highlighter-rouge">apollo.config</code>下的配置项是用户创建的应用参数，包括服务地址，用户名，集群，namespace，token等参数。这些参数可以在配置中心页面项目信息栏中查到。需要注意的是<code class="highlighter-rouge">refreshInterval: 10</code>表示应用会每隔10秒去配置中心查询一次最新的配置信息，不配置此项默认刷新周期为30秒。
   <code class="highlighter-rouge">serviceName</code>对应Apollo中的第三发应用ID: <code class="highlighter-rouge">AppId</code>.</p>
@@ -470,14 +470,14 @@
 <p>​	代码中可以使用<code class="highlighter-rouge">DynamicPropertyFactory.getInstance().getProperty()</code>方法来获取具体的配置项值，<code class="highlighter-rouge">getProperty</code>方法可以根据配置项具体的类型来灵活使用，比如<code class="highlighter-rouge">getIntProperty()</code>,<code class="highlighter-rouge">getStringProperty()</code>等。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">XXX</span> <span class="o">{</span>
-      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-        <span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
-        <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+        <span class="nc">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
         <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-          <span class="n">DynamicIntProperty</span> <span class="n">timeout</span> <span class="o">=</span> <span class="n">DynamicPropertyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span>
+          <span class="nc">DynamicIntProperty</span> <span class="n">timeout</span> <span class="o">=</span> <span class="nc">DynamicPropertyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span>
             <span class="n">getIntProperty</span><span class="o">(</span><span class="s">"timeout"</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
-          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">timeout</span><span class="o">);</span>
-          <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">timeout</span><span class="o">);</span>
+          <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>
         <span class="o">}</span>
       <span class="o">}</span>
     <span class="o">}</span>

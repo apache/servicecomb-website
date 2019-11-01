@@ -459,14 +459,14 @@
 <p><strong>RPC 方式的 Provider</strong></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"hello"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">HelloImpl</span> <span class="kd">implements</span> <span class="nc">Hello</span><span class="o">{</span>
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
     <span class="k">return</span><span class="s">"Hello"</span><span class="o">+</span><span class="n">name</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">){</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nc">Person</span> <span class="n">person</span><span class="o">){</span>
     <span class="k">return</span><span class="s">"Helloperson"</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
@@ -478,20 +478,20 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"jaxrsHello"</span><span class="o">)</span>
 <span class="nd">@Path</span><span class="o">(</span><span class="s">"/jaxrshello"</span><span class="o">)</span>
-<span class="nd">@Produces</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JaxrsHelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span><span class="o">{</span>
+<span class="nd">@Produces</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JaxrsHelloImpl</span> <span class="kd">implements</span> <span class="nc">Hello</span><span class="o">{</span>
 
   <span class="nd">@Path</span><span class="o">(</span><span class="s">"/sayhi"</span><span class="o">)</span>
   <span class="nd">@POST</span>
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
     <span class="k">return</span><span class="s">"Hello"</span><span class="o">+</span><span class="n">name</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="nd">@Path</span><span class="o">(</span><span class="s">"/sayhello"</span><span class="o">)</span>
   <span class="nd">@POST</span>
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="n">Person</span> <span class="n">person</span><span class="o">){</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nc">Person</span> <span class="n">person</span><span class="o">){</span>
     <span class="k">return</span><span class="s">"Helloperson"</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
@@ -502,18 +502,18 @@
 <p><em>代码片段来自于 <a href="https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/springmvc-sample">Apache ServiceComb Spring MVC sample</a></em></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"springmvcHello"</span><span class="o">)</span>
-<span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/springmvchello"</span><span class="o">,</span><span class="n">produces</span><span class="o">=</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="kd">implements</span> <span class="n">Hello</span><span class="o">{</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/springmvchello"</span><span class="o">,</span><span class="n">produces</span><span class="o">=</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcHelloImpl</span> <span class="kd">implements</span> <span class="nc">Hello</span><span class="o">{</span>
 
   <span class="nd">@Override</span>
-  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/sayhi"</span><span class="o">,</span><span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
-  <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"name"</span><span class="o">)</span><span class="n">String</span> <span class="n">name</span><span class="o">){</span>
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/sayhi"</span><span class="o">,</span><span class="n">method</span><span class="o">=</span><span class="nc">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayHi</span><span class="o">(</span><span class="nd">@RequestParam</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"name"</span><span class="o">)</span><span class="nc">String</span> <span class="n">name</span><span class="o">){</span>
     <span class="k">return</span><span class="s">"Hello"</span><span class="o">+</span><span class="n">name</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/sayhello"</span><span class="o">,</span><span class="n">method</span><span class="o">=</span><span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
-  <span class="kd">public</span> <span class="n">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">Person</span> <span class="n">person</span><span class="o">){</span>
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span><span class="o">=</span><span class="s">"/sayhello"</span><span class="o">,</span><span class="n">method</span><span class="o">=</span><span class="nc">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">sayHello</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">Person</span> <span class="n">person</span><span class="o">){</span>
     <span class="k">return</span><span class="s">"Helloperson"</span><span class="o">+</span><span class="n">person</span><span class="o">.</span><span class="na">getName</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
@@ -522,8 +522,8 @@
 <p><strong>RPC 方式访问上述三种服务的 Consumer</strong></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RpcReference</span><span class="o">(</span><span class="n">microserviceName</span><span class="o">=</span><span class="s">"hello"</span><span class="o">,</span><span class="n">schemaId</span><span class="o">=</span><span class="s">"hello"</span><span class="o">)</span>
-<span class="kd">private</span> <span class="n">Hello</span> <span class="n">hello</span><span class="o">;</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">hello</span><span class="o">.</span><span class="na">sayHi</span><span class="o">(</span><span class="s">"JavaChassis"</span><span class="o">));</span>
+<span class="kd">private</span> <span class="nc">Hello</span> <span class="n">hello</span><span class="o">;</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">hello</span><span class="o">.</span><span class="na">sayHi</span><span class="o">(</span><span class="s">"JavaChassis"</span><span class="o">));</span>
 </code></pre></div></div>
 
 <p><em>以上代码片段全部出自 <a href="https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/">Apache ServiceComb Samples</a>，有兴趣者可阅读了解或贡献更多的智慧。</em></p>
@@ -859,6 +859,35 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/cn/docs/servicecomb-accept-newcapec-institute-code-donation/" rel="permalink">Apache ServiceComb社区接受新开普软件研究院的代码捐赠
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache Servicecomb社区接受新开普软件研究院的代码捐赠
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/cn/docs/use-oas-validator-help-standardize-oas-spec/" rel="permalink">使用OAS Validator帮助你规范OpenAPI Spec文档
 </a>
       
@@ -922,35 +951,6 @@
       
     </h2>
     <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT)
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  2 分钟 阅读
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/cn/docs/how-to-do-microservice-accept-test/" rel="permalink">如何给微服务架构的项目做验收测试？
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">本文将介绍如何给微服务架构的项目做验收测试
 </p>
     
       <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
