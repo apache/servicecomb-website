@@ -5,7 +5,7 @@ ref: servicecomb-accept-newcapec-institute-code-donation
 permalink: /cn/docs/servicecomb-accept-newcapec-institute-code-donation/
 excerpt: "Apache Servicecomb社区接受新开普软件研究院的代码捐赠"
 last_modified_at: 2019-10-29T10:24:43+08:00
-author: Dean Lee
+author: Daniel Qian
 tags: [微服务]
 redirect_from:
   - /theme-setup/

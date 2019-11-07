@@ -5,7 +5,7 @@ ref: servicecomb-accept-newcapec-institute-code-donation
 permalink: /docs/servicecomb-accept-newcapec-institute-code-donation/
 excerpt: "Apache ServiceComb Accept Code Donation From NewCapec Institute"
 last_modified_at: 2019-11-07T09:24:43+08:00
-author: Dean Lee
+author: Daniel Qian
 tags: [microservice]
 redirect_from:
   - /theme-setup/
