@@ -25,7 +25,7 @@ intro:
     <a href='/cn/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis 发布1.3.0</a>
   </li>
   <li>
-    <a href='/cn/release/'>Apache ServiceComb 发布正式版 1.2.0</a>
+    <a href='/cn/release/service-center-downloads/'>Apache ServiceComb Service-Center 发布 1.3.0</a>
   </li>
   <li>
     <a href='/cn/release/pack-downloads'>Apache ServiceComb Pack 发布0.5.0</a>

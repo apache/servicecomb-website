@@ -14,13 +14,13 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 **稳定发布版 - 最新版本:**
 
+* [ServiceComb Service-Center 1.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.3.0/){:target="_blank"} (released on 2019-04-06)
+
 * [ServiceComb Toolkit 0.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-toolkit/0.1.0/){:target="_blank"} (released on 2019-09-03)
 
 * [ServiceComb Pack 0.5.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.5.0/){:target="_blank"} (released on 2019-08-26)
 
 * [ServiceComb Java-Chassis 1.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-java-chassis/1.3.0/){:target="_blank"} (released on 2019-10-31)
-
-* [ServiceComb Service-Center 1.2.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.2.0/){:target="_blank"} (released on 2019-04-06)
 
 * [ServiceComb Saga Actuator 0.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga-actuator/0.3.0/){:target="_blank"} (released on 2018-12-18)
 
@@ -32,6 +32,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 **先前发行版本 :**
 
+* [ServiceComb Service-Center 1.2.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.2.0/){:target="_blank"} (released on 2019-04-06)
 * [ServiceComb Service-Center 1.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.1.0/){:target="_blank"} (released on 2018-11-30)
 * [ServiceComb Service-Center 1.0.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0/){:target="_blank"} (released on 2018-08-02)
 * [ServiceComb Service-Center 1.0.0-m2](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
