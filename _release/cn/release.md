@@ -14,7 +14,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 **稳定发布版 - 最新版本:**
 
-* [ServiceComb Service-Center 1.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.3.0/){:target="_blank"} (released on 2019-04-06)
+* [ServiceComb Service-Center 1.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.3.0/){:target="_blank"} (released on 2019-11-07)
 
 * [ServiceComb Toolkit 0.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-toolkit/0.1.0/){:target="_blank"} (released on 2019-09-03)
 
