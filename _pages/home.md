@@ -37,6 +37,9 @@ intro:
 
 <ul>
   <li>
+    <a href='/docs/servicecomb-accept-newcapec-institute-code-donation'>Apache ServiceComb  accept code donation from NewCapec Institute</a>
+  </li>
+  <li>
     <a href='/docs/Apache-ServiceComb-Meetup-2019-Shanghai-KubeCon+CloudNative+OSS-Report'>Apache ServiceComb Meetup and new projects release</a>
   </li>
   <li>
