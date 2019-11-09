@@ -14,41 +14,41 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 **稳定发布版 - 最新版本:**
 
-* [ServiceComb Service-Center 1.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.3.0/){:target="_blank"} (released on 2019-11-07)
+* [ServiceComb Service-Center 1.3.0](/release/service-center-downloads/){:target="_blank"} (released on 2019-11-07)
 
-* [ServiceComb Toolkit 0.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-toolkit/0.1.0/){:target="_blank"} (released on 2019-09-03)
+* [ServiceComb toolkit 0.1.0](/release/toolkit-downloads/){:target="_blank"} (released on 2019-09-04)
 
-* [ServiceComb Pack 0.5.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.5.0/){:target="_blank"} (released on 2019-08-26)
+* [ServiceComb Pack 0.5.0](/release/servicecomb-pack-downloads/){:target="_blank"} (released on 2019-08-26)
 
-* [ServiceComb Java-Chassis 1.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-java-chassis/1.3.0/){:target="_blank"} (released on 2019-10-31)
+* [ServiceComb Java-Chassis 1.3.0](/release/servicecomb-java-chassis-downloads/){:target="_blank"} (released on 2019-10-31)
 
-* [ServiceComb Saga Actuator 0.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga-actuator/0.3.0/){:target="_blank"} (released on 2018-12-18)
+* [ServiceComb Saga Actuator 0.3.0](/release/servicecomb-saga-actuator-downloads/){:target="_blank"} (released on 2018-12-18)
 
-* [ServiceComb Saga 0.2.1](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-saga/0.2.1/){:target="_blank"} (released on 2018-11-23)
+* [ServiceComb Saga 0.2.1](/release/servicecomb-saga-downloads/){:target="_blank"} (released on 2018-11-23)
 
-* [ServiceComb Mesher 1.6.3](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-mesher/1.6.3/){:target="_blank"} (released on 2019-9-9)
+* [ServiceComb Mesher 1.6.3](/release/servicecomb-mesher-downloads/){:target="_blank"} (released on 2019-9-9)
 
-* [ServiceComb Kie 0.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-kie/0.1.0/){:target="_blank"} (released on 2019-10-26)
+* [ServiceComb Kie 0.1.0](/release/servicecomb-kie-downloads/){:target="_blank"} (released on 2019-10-26)
 
 **先前发行版本 :**
 
-* [ServiceComb Service-Center 1.2.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.2.0/){:target="_blank"} (released on 2019-04-06)
-* [ServiceComb Service-Center 1.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-service-center/1.1.0/){:target="_blank"} (released on 2018-11-30)
-* [ServiceComb Service-Center 1.0.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0/){:target="_blank"} (released on 2018-08-02)
-* [ServiceComb Service-Center 1.0.0-m2](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
-* [ServiceComb Service-Center 1.0.0-m1](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-service-center/1.0.0-m1/){:target="_blank"} (released on 2018-03-27)
+* [ServiceComb Service-Center 1.2.0](/release/service-center-downloads/){:target="_blank"} (released on 2019-04-06)
+* [ServiceComb Service-Center 1.1.0](/release/service-center-downloads/){:target="_blank"} (released on 2018-11-30)
+* [ServiceComb Service-Center 1.0.0](/release/service-center-downloads/){:target="_blank"} (released on 2018-08-02)
+* [ServiceComb Service-Center 1.0.0-m2](/release/service-center-downloads/){:target="_blank"} (released on 2018-06-21)
+* [ServiceComb Service-Center 1.0.0-m1](/release/service-center-downloads/){:target="_blank"} (released on 2018-03-27)
 
-* [ServiceComb Java-Chassis 1.2.1](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-java-chassis/1.2.1/){:target="_blank"} (released on 2019-05-19)
-* [ServiceComb Java-Chassis 1.2.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-java-chassis/1.2.0/){:target="_blank"} (released on 2019-04-12)
-* [ServiceComb Java-Chassis 1.1.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-java-chassis/1.1.0/){:target="_blank"} (released on 2018-11-30)
-* [ServiceComb Java-Chassis 1.0.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0/){:target="_blank"} (released on 2018-08-02)
-* [ServiceComb Java-Chassis 1.0.0-m2](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/){:target="_blank"} (released on 2018-06-21)
-* [ServiceComb Java-Chassis 1.0.0-m1](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m1/){:target="_blank"} (released on 2018-04-02)
+* [ServiceComb Java-Chassis 1.2.1](/release/servicecomb-java-chassis-downloads/){:target="_blank"} (released on 2019-05-19)
+* [ServiceComb Java-Chassis 1.2.0](/release/servicecomb-java-chassis-downloads/){:target="_blank"} (released on 2019-04-12)
+* [ServiceComb Java-Chassis 1.1.0](/release/servicecomb-java-chassis-downloads/){:target="_blank"} (released on 2018-11-30)
+* [ServiceComb Java-Chassis 1.0.0](/release/servicecomb-java-chassis-downloads/){:target="_blank"} (released on 2018-08-02)
+* [ServiceComb Java-Chassis 1.0.0-m2](/release/servicecomb-java-chassis-downloads/){:target="_blank"} (released on 2018-06-21)
+* [ServiceComb Java-Chassis 1.0.0-m1](/release/servicecomb-java-chassis-downloads/){:target="_blank"} (released on 2018-04-02)
 
-* [ServiceComb Pack 0.4.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.4.0/){:target="_blank"} (released on 2019-04-06)
-* [ServiceComb Pack 0.3.0](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-pack/0.3.0/){:target="_blank"} (released on 2019-01-02)
-* [ServiceComb Saga 0.2.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-saga/0.2.0/){:target="_blank"} (released on 2018-06-21)
-* [ServiceComb Saga 0.1.0](http://archive.apache.org/dist/incubator/servicecomb/incubator-servicecomb-saga/0.1.0/){:target="_blank"} (released on 2018-03-27)
+* [ServiceComb Pack 0.4.0](/release/servicecomb-pack-downloads/){:target="_blank"} (released on 2019-04-06)
+* [ServiceComb Pack 0.3.0](/release/servicecomb-pack-downloads/){:target="_blank"} (released on 2019-01-02)
+* [ServiceComb Saga 0.2.0](/release/servicecomb-saga-downloads/){:target="_blank"} (released on 2018-06-21)
+* [ServiceComb Saga 0.1.0](/release/servicecomb-saga-downloads/){:target="_blank"} (released on 2018-03-27)
 
 
 **注意:**
