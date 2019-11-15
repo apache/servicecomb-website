@@ -16,11 +16,13 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | ----------------- | ----------------------- | ------------- | ---- |
 | acsukesh          |  Sukesh A C             |  Huawei       |  *   |
 | asifdxtream       |  Mohammad Asif Siddiqui |  Huawei       |  *   |
+| chanjarster       |  Daniel Qian            |  NewCapec     |      |
 | cherrylzhao       |  Zhao Jun               |  JD.com       |      |
 | ericlee           |  Li Dagang (Eric)       |  Tencent      |  *   |
 | jbonofre          |  Jean-Baptiste Onofre   |  Talend       |  *   |
 | liubao68          |  Liu Bao                |  Huawei       |  *   |
 | little-cui        |  Cui Yihua              |  Huawei       |  *   |
+| mabin             |  Ma Bin                 |  Huawei       |  *   |
 | ningjiang         |  Jiang Ning (Willem)    |  Huawei       |  *   |
 | rvs               |  Roman Shaposhnik       |  Stealth      |  *   |
 | seanyinx          |  Yin Xiang (Sean)       |  Syswin       |  *   |
@@ -40,18 +42,16 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | Github ID         | Name                   | Organization |
 | ----------------- | ---------------------- | ------------ |
 | aseTo2016         |                        |              |
-| chanjarster       | Daniel Qian            | SupWisdom    |
 | crystaldust       | Ju Zheng               | Huawei       |
 | imlidian          | Li Dian                | Huawei       |
 | imlijinting       | Li Jinting             | PICC         |
-| jeremyxu2010      | Xu Xinjie              | Tencent     
+| jeremyxu2010      | Xu Xinjie              | Tencent      |
 | jyseanl           | Sean Li                | Pactera      |
 | KomachiSion       | Yang Yi                | JD.com       |
 | laijianbin        | Lai Jianbin            |              |
 | lijasonvip        | Li bo                  |              |
 | Lionelpang        | Pang Mingshi           |              |
 | liuzhenyang       |                        |              |
-| MabinGo           | Ma Bin                 | Huawei       |
 | maheshrajus       | Mahesh Raju Somalaraju |              |
 | mt-monster        |                        | Huawei       |
 | oliugian          | Fu Chungen             | Huawei       |
