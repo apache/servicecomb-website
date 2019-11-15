@@ -19,35 +19,35 @@
 
 
 
-<title>成为Committer - Apache ServiceComb</title>
+<title>SonarCloud集成指南 - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="成为committer">
+<meta name="description" content="SonarCloud集成指南">
 
 
 
 
-<meta name="author" content="">
+<meta name="author" content="Daniel Qian">
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="成为Committer">
+<meta property="og:title" content="SonarCloud集成指南">
 
 
-  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/developers/becomming-a-commiter">
-  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/developers/becomming-a-commiter">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/developers/sonarcloud-how-to/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/developers/sonarcloud-how-to/">
 
 
 
-  <meta property="og:description" content="成为committer">
+  <meta property="og:description" content="SonarCloud集成指南">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="成为Committer">
-  <meta name="twitter:description" content="成为committer">
+  <meta name="twitter:title" content="SonarCloud集成指南">
+  <meta name="twitter:description" content="SonarCloud集成指南">
   <meta name="twitter:url" content="">
 
   
@@ -55,6 +55,8 @@
     
   
 
+  
+    <meta name="twitter:creator" content="@">
   
 
 
@@ -249,7 +251,7 @@
           
             
             
-            <a href=/developers/becomming-a-commiter>English</a>
+            <a href=/developers/sonarcloud-how-to/>English</a>
           
         </div>
       </nav>
@@ -266,7 +268,7 @@
   
   <div class="sidebar sticky">
       
-      <div class="back-to-home"><a href="/cn/">首页</a> > 成为Committer</div>
+      <div class="back-to-home"><a href="/cn/">首页</a> > SonarCloud集成指南</div>
       
   
   
@@ -448,16 +450,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="成为Committer">
-    <meta itemprop="description" content="成为committer">
+    <meta itemprop="headline" content="SonarCloud集成指南">
+    <meta itemprop="description" content="SonarCloud集成指南">
     
-    <meta itemprop="dateModified" content="June 19, 2018">
+    <meta itemprop="dateModified" content="November 15, 2019">
 
     <div class="page__inner-wrap">
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">成为Committer
+            <h1 class="page__title" itemprop="headline">SonarCloud集成指南
 </h1>
             
           </header>
@@ -465,32 +467,50 @@
       
 
       <section class="page__content" itemprop="text">
-        <p>ServiceComb 是按照Apache的做事方式来构建社区的，任何人只要他为社区做出了足够的贡献争获取到足够的信任就可以成为代码提交者。</p>
-
-<h2 id="参与社区贡献">参与社区贡献</h2>
-
-<ul>
-  <li><a href="/release">下载发行版</a></li>
-  <li><a href="mailto:dev@servicecomb.apache.org">参加邮件列表讨论</a></li>
-  <li><a href="https://issues.apache.org/jira/projects/SCB/">提交Bug或者提交新的功能需求</a></li>
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#步骤" id="markdown-toc-步骤">步骤</a></li>
+  <li><a href="#参考资料" id="markdown-toc-参考资料">参考资料</a></li>
 </ul>
 
-<p>参见 <a href="/developers/contributing">贡献社区</a> 获取更多成为贡献者的指导建议。</p>
+  </nav>
+</aside>
 
-<p>ServiceComb采用了与Apache基金会相同的精英治理模式。 一旦您对项目表现出足够的持续承诺并赢得了信任，PMC可能会邀请您成为提交者。</p>
+<p>本文向大家介绍如何在Apache ServiceComb中集成SonarCloud。</p>
 
-<p>除了编码之外，还有多种贡献方式可以在ServiceComb社区中建立信任。例如代码审查，设计讨论，用户支持，社区拓展，文档，项目管理等。</p>
+<h2 id="步骤">步骤</h2>
 
-<h2 id="新提交者流程">新提交者流程</h2>
+<ol>
+  <li>首先你是Github的Apache组织的成员。</li>
+  <li>用你的Github账号登录 <a href="https://sonarcloud.io">sonarcloud.io</a>。</li>
+  <li>在 <a href="https://issues.apache.org/jira/projects/INFRA/">Jira Infrastructure </a> 创建一个JIRA请求在SonarCloud中创建项目，样式可参考<a href="https://issues.apache.org/jira/browse/INFRA-19444">这个</a>。在这个JIRA中要提供仓库的Github地址，project-key（在SonarCloud中唯一表示你项目的ID），作为项目Admin的Github账号，一般来说就是你自己。</li>
+  <li>等待INFRA团队替你创建项目。然后你能在SonarCloud中看到了。</li>
+  <li>根据SonarCloud中的指示修改你的<code class="highlighter-rouge">.travis.yml</code></li>
+</ol>
 
-<p>ServiceComb社区参照Apache<a href="http://community.apache.org/newcommitter.html">发展新提交者流程</a>来发展新的提交者。</p>
+<p>注意：</p>
+
+<p>因为Travis不支持在PR中启用SonarCloud集成，因此你需要对构建脚本做类似下面的改动：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"TRAVIS_PULL_REQUEST=</span><span class="nv">$TRAVIS_PULL_REQUEST</span><span class="s2">"</span>
+<span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$TRAVIS_PULL_REQUEST</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"false"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+  </span><span class="nb">echo</span> <span class="s2">"Not a pull request build, running build with sonar"</span>
+  mvn ... sonar:sonar <span class="nt">-Dsonar</span>.projectKey<span class="o">=</span>&lt;project-key&gt;
+<span class="k">else
+  </span><span class="nb">echo</span> <span class="s2">"Pull request build or local build"</span>
+  mvn ...
+<span class="k">fi</span><span class="p">;</span>
+</code></pre></div></div>
+
+<h2 id="参考资料">参考资料</h2>
 
 <ul>
-  <li>在 @private 中进行投票.</li>
-  <li>如果投票通过，项目管理委员会将向新发展的代码提交这发送邀请邮件，邮件同时抄送 @private。</li>
-  <li>将代码提交者信息刷新到<a href="/developers/team">开发团队</a></li>
-  <li><a href="/developers/setup-committer-rights/">设置提交权限信息</a></li>
+  <li><a href="https://cwiki.apache.org/confluence/display/INFRA/SonarQube+Analysis">Apache CWiki - SonarQube Analysis</a></li>
+  <li><a href="https://docs.travis-ci.com/user/sonarcloud/">Travis - SonarCloud</a></li>
 </ul>
+
 
         
       </section>
@@ -558,7 +578,7 @@
       <ul>
         <p class="header">贡献</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_developers/cn/becomming-a-committer.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_developers/cn/sonarcloud-how-to.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
         <li><a href="/cn/security">安全</a></li>
       </ul>
