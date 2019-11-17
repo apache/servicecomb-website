@@ -22,9 +22,18 @@ This guide helps you to integrate SonarCloud in your Travis build.
 4. Wait for the INFRA team creating the project, after that you will see it at SonarCloud.
 5. Follow the SonarCloud instructions modify project's `.travis.yml`
 
-Notice:
+### About Shallow Clone
 
-Because Travis doesn't support SonarCloud in PR build, you should modify your build script like this:
+Travis [use shallow clone by default](https://docs.travis-ci.com/user/customizing-the-build/#git-clone-depth), and SonarCloud needs commit information, so you need to disable shallow clone:
+
+```yaml
+git:
+  depth: false
+```
+
+### About PR
+
+Travis doesn't support SonarCloud in PR build, you should modify your build script like this:
 
 ```bash
 echo "TRAVIS_PULL_REQUEST=$TRAVIS_PULL_REQUEST"
