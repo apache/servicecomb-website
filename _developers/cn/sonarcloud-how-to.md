@@ -22,7 +22,16 @@ redirect_from:
 4. 等待INFRA团队替你创建项目。然后你能在SonarCloud中看到了。
 5. 根据SonarCloud中的指示修改你的`.travis.yml`
 
-注意：
+### 关于浅克隆
+
+Travis[默认使用浅克隆](https://docs.travis-ci.com/user/customizing-the-build/#git-clone-depth)，而 SonarCloud需要commit信息，因此你需要禁用浅克隆：
+
+```yaml
+git:
+  depth: false
+```
+
+### 关于PR
 
 因为Travis不支持在PR中启用SonarCloud集成，因此你需要对构建脚本做类似下面的改动：
 
