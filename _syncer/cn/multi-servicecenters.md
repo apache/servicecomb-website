@@ -24,22 +24,23 @@ last_modified_at: 2019-11-12T00:50:43-55:00
    2. [JDK 1.8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
    3. [Maven 3.x](https://maven.apache.org/install.html)
    4. [Go 1.11.4](https://golang.google.cn/dl/)
-   5. [ServiceComb Service-Center 1.3.0](/cn/release/service-center-downloads/)  
+  
+### 运行前的准备：
+1. [安装 ServiceCenter发布包（>=1.3.0）](/cn/docs/service-center/install/) 
+```bash
+$ project_dir=`pwd`
+$ tar -zxvf  apache-servicecomb-service-center-1.3.0-linux-amd64.tar.gz
+```
+2. 下载[样例源码](https://github.com/apache/servicecomb-service-center/tree/master/syncer/samples/multi-servicecenters)
+```bash
+git clone https://github.com/apache/servicecomb-service-center.git
+cd ${project_dir}/servicecomb-service-center/syncer
+```
 
 ### 步骤1：启动Eureka环境和服务
 机器： 10.0.0.10  
 #### 1. 编译项目
 ```bash
-# 记录当前目录
-$ project_dir=`pwd`
-
-# 下载源码
-$ git clone https://github.com/apache/servicecomb-service-center.git
-
-# 编译 Syncer
-$ cd servicecomb-service-center/syncer
-$ GO111MODULE=on go build
-
 # 编译 EurekaServer 和 AccountServer
 $ cd samples/multi-servicecenters/eureka
 $ mvn clean install
@@ -117,8 +118,8 @@ $ mvn spring-boot:run
 
 #### 4. 启动Syncer
 ```bash
-$ cd ${project_dir}/servicecomb-service-center/syncer
-$ ./syncer daemon --sc-addr http://10.0.0.10:8761/eureka --bind-addr 10.0.0.10:30190 --rpc-addr 10.0.0.10:30191 --sc-plugin=eureka
+$ cd ${project_dir}/apache-servicecomb-service-center-1.3.0-linux-amd64/
+$ ./syncer daemon --sc-addr http://10.0.0.10:8761/eureka --bind-addr 10.0.0.10:30190 --rpc-addr 10.0.0.10:30191 --sc-plugin=eureka  --node eureka
 
 # 出现如下字样则为成功
 2019-09-19T17:28:28.809+0800	INFO	etcd/agent.go:55	start etcd success
@@ -131,32 +132,12 @@ $ ./syncer daemon --sc-addr http://10.0.0.10:8761/eureka --bind-addr 10.0.0.10:3
 机器： 10.0.0.11  
 #### 1. 编译项目
 ```bash
-# 记录当前目录
-$ project_dir=`pwd`
-
-# 下载源码
-$ git clone https://github.com/apache/servicecomb-service-center.git
-
-# 编译 Syncer
-$ cd servicecomb-service-center/syncer
-$ GO111MODULE=on go build
-
-# 编译 HelloServer
-$ cd samples/multi-servicecenters/servicecenter/hello-server/
+$ cd ${project_dir}/servicecomb-service-center/syncer/samples/multi-servicecenters/servicecenter/hello-server/
 $ GO111MODULE=on go build
 ```  
 #### 2. 启动Servicecenter
-- 下载ServiceCenter项目
-```bash
-$ cd ${project_dir}
-
-# 下载 ServiceCenter 1.2.0版本包
-$ curl -O https://mirrors.tuna.tsinghua.edu.cn/apache/servicecomb/servicecomb-service-center/1.2.0/apache-servicecomb-service-center-1.2.0-linux-amd64.tar.gz
-$ tar -zxvf apache-servicecomb-service-center-1.2.0-linux-amd64.tar.gz
-```
-
 - 修改启动配置：  
-   文件位置：${project_dir}/apache-servicecomb-service-center-1.2.0-linux-amd64/conf/app.conf  
+   文件位置：${project_dir}/apache-servicecomb-service-center-1.3.0-linux-amd64/conf/app.conf  
 ```conf
 frontend_host_ip = 10.0.0.11
 frontend_host_port = 30103
@@ -174,7 +155,7 @@ httpport = 30100
 
 - 启动 ServiceCenter 和 Frontend
 ```bash
-$ cd ${project_dir}/apache-servicecomb-service-center-1.2.0-linux-amd64
+$ cd ${project_dir}/apache-servicecomb-service-center-1.3.0-linux-amd64
 
 # 启动 ServiceCenter
 $ ./start-service-center.sh
@@ -219,15 +200,15 @@ $ ./hello-server
 
 #### 4.启动Syncer
 ```bash
-$ cd ${project_dir}/servicecomb-service-center/syncer
-$ ./syncer daemon --sc-addr http://10.0.0.11:30100 --bind-addr 10.0.0.11:30190 --rpc-addr 10.0.0.11:30191 --sc-plugin=servicecenter --join-addr 10.0.0.10:30190
+$ cd ${project_dir}/apache-servicecomb-service-center-1.3.0-linux-amd64/
+$ ./syncer daemon --sc-addr http://10.0.0.11:30100 --bind-addr 10.0.0.11:30190 --rpc-addr 10.0.0.11:30191 --sc-plugin=servicecenter --join-addr 10.0.0.10:30190 --node servicecenter
 
 # 出现以下内容则为Syncer成功启动，并同步了对方的实例
 2019-09-19T18:44:35.536+0800	DEBUG	server/handler.go:62	is leader: true
 2019-09-19T18:44:35.536+0800	DEBUG	server/handler.go:79	Receive serf user event
-2019-09-19T18:44:35.536+0800	DEBUG	serf/agent.go:130	member = xxxxxa, groupName = 0204d59328090c2f4449a088d4e0f1d8
-2019-09-19T18:44:35.536+0800	DEBUG	serf/agent.go:130	member = xxxxxb, groupName = 34f53a9520a11c01f02f58f733e856b3
-2019-09-19T18:44:35.536+0800	DEBUG	server/handler.go:97	Going to pull data from xxxxxb 10.0.0.10:30191
+2019-09-19T18:44:35.536+0800	DEBUG	serf/agent.go:130	member = servicecenter, groupName = 0204d59328090c2f4449a088d4e0f1d8
+2019-09-19T18:44:35.536+0800	DEBUG	serf/agent.go:130	member = eureka, groupName = 34f53a9520a11c01f02f58f733e856b3
+2019-09-19T18:44:35.536+0800	DEBUG	server/handler.go:97	Going to pull data from eureka 10.0.0.10:30191
 2019-09-19T18:44:35.536+0800	INFO	grpc/client.go:76	Create new grpc connection to 10.0.0.10:30191
 2019-09-19T18:44:35.538+0800	DEBUG	servicecenter/servicecenter.go:87	create service success orgServiceID= account-server, curServiceID = 80784229255ec96d90353e3c041bdf3586fdbbae
 2019-09-19T18:44:35.538+0800	DEBUG	servicecenter/servicecenter.go:90	trying to do registration of instance, instanceID = 10.0.0.10:account-server:8090

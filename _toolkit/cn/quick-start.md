@@ -11,8 +11,8 @@ last_modified_at: 2019-11-12T00:50:43-55:00
 ## 一键式微服务开发工具 Toolkit
 Apache ServiceComb Toolkit 是基于契约的微服务开发工具套件。提供契约、代码、文档相互转换及校验的能力，帮助用户一键式快速构建基于流行微服务框架和流行编程模型的微服务工程，降低微服务入门成本，使用户聚焦业务开发，提升遗留系统重构、开发效率。  
  
-## 3 快速入门
-### 3.1 从源码构建工具和插件
+## 快速入门
+### 1 从源码构建工具和插件
 构建环境要求:
 
 * [Java 8](http://java.oracle.com)
@@ -29,8 +29,8 @@ $ mvn clean install
 ```
 
 
-### 使用toolkit-maven-plugin插件
-#### 1 配置
+### 2 使用toolkit-maven-plugin插件
+#### 2.1 配置
 在maven项目的pom文件中配置
 ```xml
 <plugin>
@@ -75,7 +75,7 @@ $ mvn clean install
 </plugin>
 ```
 
-#### 2 命令
+#### 2.2 命令
 ```shell
 # 生成契约，文档和微服务工程
 mvn toolkit:generate
@@ -84,7 +84,7 @@ mvn toolkit:generate
 mvn toolkit:verify
 ```
 
-#### 2.1 解析代码，生成微服务代码工程、OpenAPI规范契约、文档
+#### 2.2.1 解析代码，生成微服务代码工程、OpenAPI规范契约、文档
 
 配置项(不显式设置 `<configuration>` 则使用默认配置)
 例：
@@ -118,7 +118,7 @@ mvn toolkit:generate
 代码生成契约时,restful接口方法修饰符必须指定为public
 
 
-#### 2.2 解析契约，生成微服务工程、文档
+#### 2.2.2 解析契约，生成微服务工程、文档
 
 配置项(不显式设置 `<configuration>` 则使用默认配置)
 例：
@@ -148,7 +148,7 @@ mvn toolkit:generate
 mvn toolkit:generate
 ```
 
-#### 2.3 代码和契约一致性校验
+#### 2.2.3 代码和契约一致性校验
 
 配置项
 例：
