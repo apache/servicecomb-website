@@ -1,6 +1,6 @@
 ---
 title: "Communication on differ-structure servicecenters"
-lang: cn
+lang: en
 ref: install
 permalink: /docs/syncer/multi-servicecenters/
 excerpt: "Learn how to use differ-structure, multi-service center synchronization tool"
