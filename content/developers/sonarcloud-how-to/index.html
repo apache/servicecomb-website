@@ -437,7 +437,11 @@
 <nav class="toc">
     <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
 <ul class="toc__menu" id="markdown-toc">
-  <li><a href="#steps" id="markdown-toc-steps">Steps</a></li>
+  <li><a href="#steps" id="markdown-toc-steps">Steps</a>    <ul>
+      <li><a href="#about-shallow-clone" id="markdown-toc-about-shallow-clone">About Shallow Clone</a></li>
+      <li><a href="#about-pr" id="markdown-toc-about-pr">About PR</a></li>
+    </ul>
+  </li>
   <li><a href="#references" id="markdown-toc-references">References</a></li>
 </ul>
 
@@ -456,9 +460,17 @@
   <li>Follow the SonarCloud instructions modify project’s <code class="highlighter-rouge">.travis.yml</code></li>
 </ol>
 
-<p>Notice:</p>
+<h3 id="about-shallow-clone">About Shallow Clone</h3>
 
-<p>Because Travis doesn’t support SonarCloud in PR build, you should modify your build script like this:</p>
+<p>Travis <a href="https://docs.travis-ci.com/user/customizing-the-build/#git-clone-depth">use shallow clone by default</a>, and SonarCloud needs commit information, so you need to disable shallow clone:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">git</span><span class="pi">:</span>
+  <span class="na">depth</span><span class="pi">:</span> <span class="no">false</span>
+</code></pre></div></div>
+
+<h3 id="about-pr">About PR</h3>
+
+<p>Travis doesn’t support SonarCloud in PR build, you should modify your build script like this:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"TRAVIS_PULL_REQUEST=</span><span class="nv">$TRAVIS_PULL_REQUEST</span><span class="s2">"</span>
 <span class="k">if</span> <span class="o">[</span> <span class="s2">"</span><span class="nv">$TRAVIS_PULL_REQUEST</span><span class="s2">"</span> <span class="o">==</span> <span class="s2">"false"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
