@@ -12,7 +12,7 @@ excerpt: 'Open-Source, Full-Stack Microservice Solution.With out of the box, hig
     <a href="/release" class="home-button btn--info">Download</a>
 </div>
 <div class="button-group def-inline-block">
-    <a href="/docs/quick-start/" class="home-button btn--info">Get started</a>
+    <a href="/docs/getting-started/" class="home-button btn--info">Get started</a>
 </div>'
 
 intro:
