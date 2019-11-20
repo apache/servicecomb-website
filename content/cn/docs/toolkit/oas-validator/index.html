@@ -1,0 +1,1282 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>OpenAPI V3 Spec校验工具 - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="了解如何使用OpenAPI V3 Spec校验工具">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="OpenAPI V3 Spec校验工具">
+
+
+  <link rel="canonical" href="http://localhost:4000/cn/docs/toolkit/oas-validator/">
+  <meta property="og:url" content="http://localhost:4000/cn/docs/toolkit/oas-validator/">
+
+
+
+  <meta property="og:description" content="了解如何使用OpenAPI V3 Spec校验工具">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="OpenAPI V3 Spec校验工具">
+  <meta name="twitter:description" content="了解如何使用OpenAPI V3 Spec校验工具">
+  <meta name="twitter:url" content="http://localhost:4000/cn/docs/toolkit/oas-validator/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="http://localhost:4000/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css?v=1">
+<link rel="stylesheet" href="http://localhost:4000/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="http://localhost:4000/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="http://localhost:4000/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/">首页</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/developers/">项目</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a href="http://localhost:4000/cn/docs/users/">文档</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="http://localhost:4000/cn/docs/quick-start/" class="">入门指南</a></li>
+                
+                <li><a href="http://localhost:4000/cn/docs/users/" class="">用户手册</a></li>
+                
+                <li><a href="http://localhost:4000/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="http://localhost:4000/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/release/">下载</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/toolkit/oas-validator/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/cn/">首页</a> > OpenAPI V3 Spec校验工具</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="http://localhost:4000/cn/docs/getting-started/"><span class="nav__sub-title nav__sub-title-with-url">入门指南</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">服务中心 Service-Center</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/service-center/install/" class="">环境安装</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/service-center/registration-discovery/" class="">服务注册发现</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">基于java微服务SDK开发微服务应用</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-bmi/" class="">体质指数微服务应用快速开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/" class="">微服务开发进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/load-balance/" class="">负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/flow-control/" class="">流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/service-management/" class="">服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/distributed-tracing/" class="">分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">使用mersher接入servicecomb微服务体系</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/" class="">mersher进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-load-balance/" class="">mersher负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-flow-control/" class="">mersher流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-service-management/" class="">mersher服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="">mersher分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">一键微服务开发工具 Toolkit</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/toolkit/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/toolkit/oas-validator/" class="active">OpenAPI V3 Spec校验工具</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">异构、多服务中心通讯 Syncer</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/syncer/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/syncer/multi-servicecenters/" class="">异构服务中心通讯</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="OpenAPI V3 Spec校验工具">
+    <meta itemprop="description" content="了解如何使用OpenAPI V3 Spec校验工具">
+    
+    <meta itemprop="dateModified" content="November 12, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">OpenAPI V3 Spec校验工具
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#项目结构" id="markdown-toc-项目结构">项目结构</a></li>
+  <li><a href="#合规性校验" id="markdown-toc-合规性校验">合规性校验</a>    <ul>
+      <li><a href="#一些字符串匹配规则" id="markdown-toc-一些字符串匹配规则">一些字符串匹配规则</a></li>
+      <li><a href="#openapi-object-doc" id="markdown-toc-openapi-object-doc">OpenAPI Object doc</a></li>
+      <li><a href="#info-object-doc" id="markdown-toc-info-object-doc">Info Object doc</a></li>
+      <li><a href="#tag-object-doc" id="markdown-toc-tag-object-doc">Tag Object doc</a></li>
+      <li><a href="#paths-object-doc" id="markdown-toc-paths-object-doc">Paths Object doc</a></li>
+      <li><a href="#path-item-object-doc" id="markdown-toc-path-item-object-doc">Path Item Object doc</a></li>
+      <li><a href="#operation-object-doc" id="markdown-toc-operation-object-doc">Operation Object doc</a></li>
+      <li><a href="#parameter-object-doc" id="markdown-toc-parameter-object-doc">Parameter Object doc</a></li>
+      <li><a href="#request-body-object-doc" id="markdown-toc-request-body-object-doc">Request Body Object doc</a></li>
+      <li><a href="#media-type-object-doc" id="markdown-toc-media-type-object-doc">Media Type Object doc</a></li>
+      <li><a href="#responses-object-doc" id="markdown-toc-responses-object-doc">Responses Object doc</a></li>
+      <li><a href="#response-object-doc" id="markdown-toc-response-object-doc">Response Object doc</a></li>
+      <li><a href="#schema-object-doc" id="markdown-toc-schema-object-doc">Schema Object doc</a></li>
+      <li><a href="#encoding-object-doc" id="markdown-toc-encoding-object-doc">Encoding Object doc</a></li>
+      <li><a href="#header-object-doc" id="markdown-toc-header-object-doc">Header Object doc</a></li>
+      <li><a href="#components-object-doc" id="markdown-toc-components-object-doc">Components Object doc</a></li>
+    </ul>
+  </li>
+  <li><a href="#兼容性检查" id="markdown-toc-兼容性检查">兼容性检查</a>    <ul>
+      <li><a href="#paths-object-doc-1" id="markdown-toc-paths-object-doc-1">Paths Object doc</a></li>
+      <li><a href="#path-item-object-doc-1" id="markdown-toc-path-item-object-doc-1">Path Item Object doc</a></li>
+      <li><a href="#operation-object-doc-1" id="markdown-toc-operation-object-doc-1">Operation Object doc</a></li>
+      <li><a href="#parameter-object-doc-1" id="markdown-toc-parameter-object-doc-1">Parameter Object doc</a></li>
+      <li><a href="#request-body-object-doc-1" id="markdown-toc-request-body-object-doc-1">Request Body Object doc</a></li>
+      <li><a href="#media-type-object-doc-1" id="markdown-toc-media-type-object-doc-1">Media Type Object doc</a></li>
+      <li><a href="#responses-object-doc-1" id="markdown-toc-responses-object-doc-1">Responses Object doc</a></li>
+      <li><a href="#response-object-doc-1" id="markdown-toc-response-object-doc-1">Response Object doc</a></li>
+      <li><a href="#schema-object-doc-1" id="markdown-toc-schema-object-doc-1">Schema Object doc</a></li>
+      <li><a href="#用做请求时" id="markdown-toc-用做请求时">用做请求时</a></li>
+      <li><a href="#用做响应时" id="markdown-toc-用做响应时">用做响应时</a></li>
+      <li><a href="#encoding-object-doc-1" id="markdown-toc-encoding-object-doc-1">Encoding Object doc</a></li>
+      <li><a href="#header-object-doc-1" id="markdown-toc-header-object-doc-1">Header Object doc</a></li>
+      <li><a href="#components-object-doc-1" id="markdown-toc-components-object-doc-1">Components Object doc</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="项目结构">项目结构</h2>
+
+<ul>
+  <li>oas-validator-core，核心API及骨架实现</li>
+  <li>oas-validator-core-spring，骨架的Spring Boot Starter</li>
+  <li>oas-validator-test，核心API的测试帮助类</li>
+  <li>oas-validator-compliance，合规性校验实现</li>
+  <li>oas-validator-compliance-spring，合规性校验的Spring Boot Starter</li>
+  <li>oas-validator-compatibility，兼容性校验实现</li>
+  <li>oas-validator-compatibility-spring，兼容性校验实现的Spring Boot Starter</li>
+  <li>oas-validator-web，校验工具的操作UI</li>
+</ul>
+
+<h2 id="合规性校验">合规性校验</h2>
+
+<p>OAS必须符合<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md">OAS 3.0.2规范</a>（比如属性的名称、REQUIED要求）。除此之外则是我们自己的定义的合规性检查。</p>
+
+<h3 id="一些字符串匹配规则">一些字符串匹配规则</h3>
+
+<ul>
+  <li><a name="lower-camel-case"></a>Lower Camel Case：首字母小写的驼峰，对应的正则<code class="highlighter-rouge">^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$</code></li>
+  <li><a name="upper-camel-case"></a>Upper Camel Case：首字母大写的驼峰，对应的正则<code class="highlighter-rouge">^[A-Z]([a-z0-9]+[A-Z]?)*$</code></li>
+  <li><a name="upper-hyphen-case"></a>Upper Hyphen Case：单词首字母大写，多个单词用<code class="highlighter-rouge">-</code>连接，比如<code class="highlighter-rouge">Content-Type</code>、<code class="highlighter-rouge">Accept</code>、<code class="highlighter-rouge">X-Rate-Limit-Limit</code>。对应的正则：<code class="highlighter-rouge">^([A-Z][a-z0-9]*-)*([A-Z][a-z0-9]*)$</code></li>
+</ul>
+
+<h3 id="openapi-object-doc">OpenAPI Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">doc</a></h3>
+
+<p><a name="openapi-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">openapi</code>属性必须为3.0.x且&gt;=3.0.2</li>
+  <li><code class="highlighter-rouge">info</code>属性见<a href="#info-compliance">Info Object合规性检查</a></li>
+  <li><code class="highlighter-rouge">paths</code>属性，必须提供见<a href="#paths-compliance">Paths Object合规性检查</a></li>
+  <li><code class="highlighter-rouge">components</code>属性见<a href="#components-compliance">Components Object合规性检查</a></li>
+  <li><code class="highlighter-rouge">tags</code>属性，至少提供一个<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>
+    <ul>
+      <li>见<a href="#tag-compliance">Tag Object合规性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">security</code>属性，不允许提供</li>
+</ul>
+
+<h3 id="info-object-doc">Info Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#infoObject">doc</a></h3>
+
+<p><a name="info-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code>属性，必须填写</li>
+</ul>
+
+<h3 id="tag-object-doc">Tag Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">doc</a></h3>
+
+<p><a name="tag-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">name</code>属性，必须是<a href="#upper-camel-case">Upper Camel Case</a></li>
+  <li><code class="highlighter-rouge">description</code>属性，必须填写</li>
+  <li>不得存在<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>没有引用过的tag</li>
+</ul>
+
+<h3 id="paths-object-doc">Paths Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#paths-object">doc</a></h3>
+
+<p><a name="paths-compliance"></a></p>
+
+<ul>
+  <li>path必须是<a href="#lower-camel-case">Lower Camel Case</a>，包括<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#path-templating">Path Templating</a>中的变量
+    <ul>
+      <li>见<a href="#path-item-compliance">Path Item Object合规性检查</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="path-item-object-doc">Path Item Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject">doc</a></h3>
+
+<p><a name="path-item-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">get/post/put/delete/...</code>属性，见<a href="operation-compliance">Operation Object合规性检查</a></li>
+  <li><code class="highlighter-rouge">parameters</code>属性，见<a href="#parameter-compliance">Parameter Object合规性检查</a></li>
+</ul>
+
+<h3 id="operation-object-doc">Operation Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">doc</a></h3>
+
+<p><a name="operation-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">summary</code>属性、必须填写</li>
+  <li><code class="highlighter-rouge">operationId</code>属性，且<a href="#lower-camel-case">Lower Camel Case</a></li>
+  <li><code class="highlighter-rouge">parameters</code>属性，见<a href="#parameter-compliance">Parameter Object合规性检查</a></li>
+  <li><code class="highlighter-rouge">requestBody</code>属性，见<a href="#request-body-compliance">Request Body Object合规性检查</a></li>
+  <li><code class="highlighter-rouge">responses</code>属性，见<a href="#responses-compliance">Responses Object合规性检查</a></li>
+  <li>
+    <p><code class="highlighter-rouge">tags</code>属性，且只能写一个tag，且必须在<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a> 的 <code class="highlighter-rouge">tags</code>属性里所定义的范围内</p>
+  </li>
+  <li><code class="highlighter-rouge">servers</code>属性，不允许提供</li>
+</ul>
+
+<h3 id="parameter-object-doc">Parameter Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">doc</a></h3>
+
+<p><a name="parameter-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code>属性，必须填写</li>
+  <li><code class="highlighter-rouge">name</code>属性
+    <ul>
+      <li>如果<code class="highlighter-rouge">in</code>为path、query、cookie，则那么必须是<a href="#lower-camel-case">Lower Camel Case</a></li>
+      <li>如果<code class="highlighter-rouge">in</code>为header，则那么必须是<a href="#upper-hyphen-case">Upper Hyphen Case</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">schema</code>属性，见<a href="#schema-compliance">Schema Object合规性检查</a></li>
+  <li><code class="highlighter-rouge">content</code>属性，见<a href="#media-type-compliance">Media Type Object合规性检查</a></li>
+</ul>
+
+<h3 id="request-body-object-doc">Request Body Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject">doc</a></h3>
+
+<p><a name="request-body-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code>属性，必须填写</li>
+  <li><code class="highlighter-rouge">content</code>属性，见<a href="#media-type-compliance">Media Type Object合规性检查</a></li>
+</ul>
+
+<h3 id="media-type-object-doc">Media Type Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object">doc</a></h3>
+
+<p><a name="media-type-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">schema</code>属性，必须填写。见<a href="#schema-compliance">Schema Object合规性检查</a></li>
+  <li><code class="highlighter-rouge">encoding</code>属性，见<a href="#encoding-compliance">Encoding Object合规性检查</a></li>
+</ul>
+
+<h3 id="responses-object-doc">Responses Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responsesObject">doc</a></h3>
+
+<p><a name="responses-compliance"></a></p>
+
+<ul>
+  <li>见<a href="#response-compliance">Response Object合规性检查</a></li>
+</ul>
+
+<h3 id="response-object-doc">Response Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#response-object">doc</a></h3>
+
+<p><a name="response-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code>属性，必须填写</li>
+  <li><code class="highlighter-rouge">headers</code>属性，name（<code class="highlighter-rouge">headers</code>的key）必须是<a href="#upper-hyphen-case">Upper Hyphen Case</a>
+    <ul>
+      <li>见<a href="#header-compliance">Header Object合规性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">content</code>属性，见<a href="#media-type-compliance">Media Type Object合规性检查</a></li>
+</ul>
+
+<h3 id="schema-object-doc">Schema Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">doc</a></h3>
+
+<p><a name="schema-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">title</code>属性，如果上级是<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">Schema Object</a>或<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">Components Object</a>，那么必须填写</li>
+  <li><code class="highlighter-rouge">properties</code>属性，name（<code class="highlighter-rouge">properties</code>的key）必须是<a href="#lower-camel-case">Lower Camel Case</a>
+    <ul>
+      <li>Sub Schema见<a href="#schema-compliance">Schema Object合规性检查</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="encoding-object-doc">Encoding Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#encodingObject">doc</a></h3>
+
+<p><a name="encoding-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">headers</code>属性，name（<code class="highlighter-rouge">headers</code>的key）必须是<a href="#upper-hyphen-case">Upper Hyphen Case</a>
+    <ul>
+      <li>见<a href="#header-compliance">Header Object合规性检查</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="header-object-doc">Header Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">doc</a></h3>
+
+<p><a name="header-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code>属性，必须填写</li>
+  <li><code class="highlighter-rouge">schema</code>属性，见<a href="#schema-compliance">Schema Object合规性检查</a></li>
+  <li><code class="highlighter-rouge">content</code>属性，见<a href="#media-type-compliance">Media Type Object合规性检查</a></li>
+</ul>
+
+<h3 id="components-object-doc">Components Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">doc</a></h3>
+
+<p><a name="components-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">schemas</code>属性，name必须是<a href="#upper-camel-case">Upper Camel Case</a>
+    <ul>
+      <li>见<a href="#schema-compliance">Schema Object合规性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">responses</code>属性，name必须是<a href="#upper-camel-case">Upper Camel Case</a>
+    <ul>
+      <li>见<a href="#response-compliance">Response Object合规性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">parameters</code>属性，name必须是<a href="#upper-camel-case">Upper Camel Case</a>
+    <ul>
+      <li>见<a href="#parameter-compliance">Parameter Object合规性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">examples</code>属性，name必须是<a href="#upper-camel-case">Upper Camel Case</a></li>
+  <li><code class="highlighter-rouge">requestBodies</code>属性，name必须是<a href="#upper-camel-case">Upper Camel Case</a>
+    <ul>
+      <li>见<a href="#request-body-compliance">Request Body合规性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">headers</code>属性，name必须是<a href="#upper-hyphen-case">Upper Hyphen Case</a>
+    <ul>
+      <li>见<a href="#header-compliance">Header合规性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">links</code>属性，name必须是<a href="#upper-camel-case">Upper Camel Case</a></li>
+  <li><code class="highlighter-rouge">callbacks</code>属性，name必须是<a href="#upper-camel-case">Upper Camel Case</a></li>
+</ul>
+
+<h2 id="兼容性检查">兼容性检查</h2>
+
+<p>对新旧两个版本的OAS做兼容性检查。</p>
+
+<p>OAS可以使用<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object">Reference Object</a>来描述Spec，两个不同的OAS会出现描述不同但语义相同的情况。比如下面的旧OAS没有使用<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object">Reference Object</a>，而新OAS则使用了的情况：</p>
+
+<p>旧OAS</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">openapi</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.0.0"</span>
+<span class="na">info</span><span class="pi">:</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
+  <span class="na">title</span><span class="pi">:</span> <span class="s">Swagger Petstore</span>
+  <span class="na">license</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">MIT</span>
+<span class="na">servers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">url</span><span class="pi">:</span> <span class="s">http://petstore.swagger.io/v1</span>
+<span class="na">paths</span><span class="pi">:</span>
+  <span class="s">/pets</span><span class="pi">:</span>
+    <span class="na">post</span><span class="pi">:</span>
+      <span class="na">summary</span><span class="pi">:</span> <span class="s">List all pets</span>
+      <span class="na">operationId</span><span class="pi">:</span> <span class="s">listPets</span>
+      <span class="na">requestBody</span><span class="pi">:</span>
+        <span class="na">content</span><span class="pi">:</span>
+          <span class="s">application/json</span><span class="pi">:</span>
+            <span class="na">schema</span><span class="pi">:</span>
+              <span class="na">type</span><span class="pi">:</span> <span class="s">array</span>
+              <span class="na">items</span><span class="pi">:</span>
+                <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+                <span class="na">properties</span><span class="pi">:</span>
+                  <span class="na">Foo</span><span class="pi">:</span>
+                    <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+      <span class="na">responses</span><span class="pi">:</span>
+        <span class="s1">'</span><span class="s">200'</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s">A paged array of pets</span>
+</code></pre></div></div>
+
+<p>新OAS</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">paths</span><span class="pi">:</span>
+  <span class="s">/pets</span><span class="pi">:</span>
+    <span class="na">post</span><span class="pi">:</span>
+      <span class="na">operationId</span><span class="pi">:</span> <span class="s">listPets</span>
+      <span class="na">requestBody</span><span class="pi">:</span>
+        <span class="na">content</span><span class="pi">:</span>
+          <span class="s">application/json</span><span class="pi">:</span> 
+            <span class="na">schema</span><span class="pi">:</span>
+              <span class="s">$ref</span><span class="pi">:</span> <span class="s1">'</span><span class="s">#/components/schemas/Foo'</span>
+      <span class="na">responses</span><span class="pi">:</span>
+        <span class="s1">'</span><span class="s">200'</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s">A paged array of pets</span>
+<span class="na">components</span><span class="pi">:</span>
+  <span class="na">schemas</span><span class="pi">:</span>
+    <span class="na">Foo</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">array</span>
+      <span class="na">items</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+        <span class="na">properties</span><span class="pi">:</span>
+          <span class="na">Foo</span><span class="pi">:</span>
+            <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+</code></pre></div></div>
+
+<p>因此在检查兼容性的时候会将新旧OAS的<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object">Reference Object</a>做解析，然后再检查，下面是一段<a href="https://github.com/swagger-api/swagger-parser">swagger-parser</a>的例子：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">OpenAPIV3Parser</span> <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OpenAPIV3Parser</span><span class="o">();</span>
+
+<span class="nc">ParseOptions</span> <span class="n">parseOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ParseOptions</span><span class="o">();</span>
+<span class="n">parseOptions</span><span class="o">.</span><span class="na">setResolve</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">parseOptions</span><span class="o">.</span><span class="na">setResolveCombinators</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">parseOptions</span><span class="o">.</span><span class="na">setResolveFully</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">parseOptions</span><span class="o">.</span><span class="na">setFlatten</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+
+<span class="nc">SwaggerParseResult</span> <span class="n">parseResult</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="na">readContents</span><span class="o">(</span><span class="n">content</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">parseOptions</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>因此，检查下来如果发现不兼容，那么所报告的位置会和原文档有所不同。</p>
+
+<h3 id="paths-object-doc-1">Paths Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#paths-object">doc</a></h3>
+
+<p><a name="paths-compatibility"></a></p>
+
+<ul>
+  <li>新OAS必须包含旧OAS的所有的<code class="highlighter-rouge">path</code>，如果<code class="highlighter-rouge">path</code>使用了<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#path-templating">Path Templating</a>，只要变量名发生了变化，那么即使语义上相同也会被认为不同，比如<code class="highlighter-rouge">/pets/{foo}</code>和<code class="highlighter-rouge">/pets/{bar}</code>会被认定为不同。
+    <ul>
+      <li>见<a href="#path-item-compatibility">Path Item Object兼容性检查</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="path-item-object-doc-1">Path Item Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject">doc</a></h3>
+
+<p><a name="path-item-compatibility"></a></p>
+
+<ul>
+  <li>新OAS必须包含旧OAS的所有的get/put/post/delete/…<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a></li>
+</ul>
+
+<h3 id="operation-object-doc-1">Operation Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">doc</a></h3>
+
+<p><a name="operation-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">operationId</code>属性，新旧OAS必须完全一致。</li>
+  <li><code class="highlighter-rouge">parameters</code>属性，对它检查须在考虑到<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#user-content-pathitemparameters">Path Item Object parameters属性</a>的情况下进行：
+    <ul>
+      <li>新OAS可以新增<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>，但是新增的<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>的<code class="highlighter-rouge">required</code>属性必须为<code class="highlighter-rouge">false</code></li>
+      <li>新OAS可以删除<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a></li>
+      <li>针对单个<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>的修改的检查见<a href="#parameter-compatibility">Parameter Object兼容性检查</a>（在同一个<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a>下<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>依靠<code class="highlighter-rouge">name</code>和<code class="highlighter-rouge">in</code>两个属性作为ID）。</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">requestBody</code>属性，见<a href="#request-body-compatibility">Request Body Object兼容性检查</a></li>
+  <li><code class="highlighter-rouge">responses</code>属性，见<a href="#responses-compatibility">Responses Object兼容性检查</a></li>
+</ul>
+
+<h3 id="parameter-object-doc-1">Parameter Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">doc</a></h3>
+
+<p><a name="parameter-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">required</code>属性，只允许<code class="highlighter-rouge">true(旧) -&gt; false(新)</code></li>
+  <li><code class="highlighter-rouge">allowEmptyValue</code>属性，只允许<code class="highlighter-rouge">false(旧) -&gt; true(新)</code>的变化</li>
+  <li><code class="highlighter-rouge">style</code>属性，新旧OAS必须保持一致</li>
+  <li><code class="highlighter-rouge">explode</code>属性，新旧OAS必须保持一致</li>
+  <li><code class="highlighter-rouge">allowReserved</code>属性，只允许<code class="highlighter-rouge">false(旧) -&gt; true(新)</code>的变化</li>
+  <li><code class="highlighter-rouge">schema</code>属性，见<a href="#schema-compatibility">Schema Object兼容性检查</a></li>
+  <li><code class="highlighter-rouge">content</code>属性，新OAS必须包含旧OAS的所有media type（<code class="highlighter-rouge">content</code>的key），且不能新增media type
+    <ul>
+      <li>见<a href="#media-type-compatibility">Media Type Object兼容性检查</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="request-body-object-doc-1">Request Body Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject">doc</a></h3>
+
+<p><a name="request-body-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">content</code>属性，新OAS必须包含旧OAS的所有media type（<code class="highlighter-rouge">content</code>的key）
+    <ul>
+      <li>见<a href="#media-type-compatibility">Media Type Object兼容性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">required</code>属性，只允许<code class="highlighter-rouge">true(旧) -&gt; false(新)</code>的变化</li>
+</ul>
+
+<h3 id="media-type-object-doc-1">Media Type Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object">doc</a></h3>
+
+<p><a name="media-type-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">schema</code>属性，见<a href="#schema-compatibility">Schema Object兼容性检查</a></li>
+  <li><code class="highlighter-rouge">encoding</code>属性，该属性仅适用于<code class="highlighter-rouge">requestBody</code>，因此新旧OAS的property name（<code class="highlighter-rouge">encoding</code>的key）必须完全一致
+    <ul>
+      <li>见<a href="#encoding-compatibility">Encoding Object兼容性检查</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="responses-object-doc-1">Responses Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responsesObject">doc</a></h3>
+
+<p><a name="responses-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">default</code>属性，如果旧OAS没有定义<code class="highlighter-rouge">default</code>，那么新OAS也不能定义<code class="highlighter-rouge">default</code>。</li>
+  <li><code class="highlighter-rouge">{Http Status Code}</code>属性，新OAS不允许新增。</li>
+  <li>见<a href="#response-compatibility">Response Object兼容性检查</a></li>
+</ul>
+
+<h3 id="response-object-doc-1">Response Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#response-object">doc</a></h3>
+
+<p><a name="response-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">headers</code>属性，新OAS必须包含旧OAS的所有header name（<code class="highlighter-rouge">headers</code>的key），可以新增header name
+    <ul>
+      <li><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">Header Object</a>见<a href="#header-compatibility">Header Object兼容性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">content</code>属性，新OAS必须包含旧OAS的所有media type（<code class="highlighter-rouge">content</code>的key），可以新增media type
+    <ul>
+      <li><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object">Media Type Object</a>见<a href="#media-type-compatibility">Media Type Object兼容性检查</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="schema-object-doc-1">Schema Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">doc</a></h3>
+
+<p><a name="schema-compatibility"></a></p>
+
+<p>OAS中定义，Schema Object可以直接或间接用在：</p>
+
+<ul>
+  <li>请求类：<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>、<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject">Request Body Object</a>、<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">Header Object</a></li>
+  <li>响应类：<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">Header Object</a>、<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#response-object">Response Object</a></li>
+</ul>
+
+<p>不同用途的兼容性检查规则有所不同。</p>
+
+<h3 id="用做请求时">用做请求时</h3>
+
+<p>原则上，当Schema Object用在请求时，只允许从紧到松的变化。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">type, format</code>组合所允许的变化范围</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>旧(type,format)</th>
+      <th>新(type,format)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>integer, null</td>
+      <td>integer, int64<br />number, double<br />number, null</td>
+    </tr>
+    <tr>
+      <td>integer, int32</td>
+      <td>integer, int64<br />integer, null<br />number, float<br />number, double<br />number, null</td>
+    </tr>
+    <tr>
+      <td>integer, int64</td>
+      <td>integer, null<br />number, double<br />number, null</td>
+    </tr>
+    <tr>
+      <td>number, null</td>
+      <td>number, double</td>
+    </tr>
+    <tr>
+      <td>number, float</td>
+      <td>number, null<br />number, double</td>
+    </tr>
+    <tr>
+      <td>number, double</td>
+      <td>number, null</td>
+    </tr>
+    <tr>
+      <td>string, null</td>
+      <td>string, password</td>
+    </tr>
+    <tr>
+      <td>string, password</td>
+      <td>string, null</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><code class="highlighter-rouge">allOf</code>、<code class="highlighter-rouge">oneOf</code>、<code class="highlighter-rouge">anyOf</code>属性，在combine之后再做检查</li>
+  <li><code class="highlighter-rouge">multipleOf</code>属性，如果旧OAS为null。新OAS必须==旧OAS或者新OAS是旧OAS的因子，比如6(旧)-&gt;3(新)</li>
+  <li><code class="highlighter-rouge">maximum</code>、<code class="highlighter-rouge">maxLength</code>、<code class="highlighter-rouge">maxItems</code>、<code class="highlighter-rouge">maxProperties</code>，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须&gt;=旧OAS。</li>
+  <li><code class="highlighter-rouge">minimum</code>、<code class="highlighter-rouge">minLenght</code>、<code class="highlighter-rouge">minItems</code>、<code class="highlighter-rouge">minProperties</code>，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须&lt;=旧OAS。</li>
+  <li><code class="highlighter-rouge">exclusiveMaximum</code>、<code class="highlighter-rouge">exclusiveMinimum</code>属性，仅允许<code class="highlighter-rouge">true(旧)-&gt;false(新)</code>的变化</li>
+  <li><code class="highlighter-rouge">uniqueItems</code>属性，只允许<code class="highlighter-rouge">true(旧)-&gt;false(新)</code>的变化。</li>
+  <li><code class="highlighter-rouge">required</code>属性，新OAS必须==旧OAS，或者新OAS是旧OAS的子集。</li>
+  <li><code class="highlighter-rouge">enum</code>属性，新OAS必须==旧OAS，或者新OAS是旧OAS的超集。</li>
+  <li><code class="highlighter-rouge">properties</code>属性，新OAS可以新增property name（<code class="highlighter-rouge">properties</code>的key）或者减少property name。</li>
+  <li><code class="highlighter-rouge">nullable</code>属性，只允许<code class="highlighter-rouge">false(旧)-&gt;true(新)</code>的变化。</li>
+  <li><code class="highlighter-rouge">discriminator</code>属性，新旧OAS必须完全一致。</li>
+  <li><code class="highlighter-rouge">xml</code>属性，新旧OAS必须完全一致。</li>
+  <li><code class="highlighter-rouge">readOnly</code>、<code class="highlighter-rouge">writeOnly</code>，新旧OAS必须完全一致。</li>
+</ul>
+
+<h3 id="用做响应时">用做响应时</h3>
+
+<p>原则上，当Schema Object用在响应时，只允许从松到紧的变化。</p>
+
+<ul>
+  <li><code class="highlighter-rouge">type, format</code>组合所允许的变化范围</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>旧(type,format)</th>
+      <th>新(type,format)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>integer, null</td>
+      <td>integer, int64<br />integer, int32</td>
+    </tr>
+    <tr>
+      <td>integer, int64</td>
+      <td>integer, null<br />interger, int32</td>
+    </tr>
+    <tr>
+      <td>number, null</td>
+      <td>number, double<br />number, float</td>
+    </tr>
+    <tr>
+      <td>number, double</td>
+      <td>number, null<br />number, float</td>
+    </tr>
+    <tr>
+      <td>string, null</td>
+      <td>string, password</td>
+    </tr>
+    <tr>
+      <td>string, password</td>
+      <td>string, null</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><code class="highlighter-rouge">allOf</code>、<code class="highlighter-rouge">oneOf</code>、<code class="highlighter-rouge">anyOf</code>属性，在combine之后再做检查</li>
+  <li><code class="highlighter-rouge">multipleOf</code>属性，如果旧OAS为null。新OAS必须==旧OAS或者新OAS是旧OAS的倍数，比如3(旧)-&gt;6(新)</li>
+  <li><code class="highlighter-rouge">maximum</code>、<code class="highlighter-rouge">maxLength</code>、<code class="highlighter-rouge">maxItems</code>、<code class="highlighter-rouge">maxProperties</code>，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须&lt;=旧OAS。</li>
+  <li><code class="highlighter-rouge">minimum</code>、<code class="highlighter-rouge">minLenght</code>、<code class="highlighter-rouge">minItems</code>、<code class="highlighter-rouge">minProperties</code>，如果旧OAS为null，那么新OAS也必须是null。其他情况，新OAS必须&gt;=旧OAS。</li>
+  <li><code class="highlighter-rouge">exclusiveMaximum</code>、<code class="highlighter-rouge">exclusiveMinimum</code>属性，仅允许<code class="highlighter-rouge">false(旧)-&gt;true(新)</code>的变化</li>
+  <li><code class="highlighter-rouge">uniqueItems</code>属性，只允许<code class="highlighter-rouge">false(旧)-&gt;true(新)</code>的变化。</li>
+  <li><code class="highlighter-rouge">required</code>属性，新OAS必须==旧OAS或者，新OAS是旧OAS的超集。</li>
+  <li><code class="highlighter-rouge">enum</code>属性，新OAS必须==旧OAS，或者新OAS是旧OAS的子集。</li>
+  <li><code class="highlighter-rouge">properties</code>属性，新OAS可以新增property name（<code class="highlighter-rouge">properties</code>的key）或者减少property name。</li>
+  <li><code class="highlighter-rouge">nullable</code>属性，只允许<code class="highlighter-rouge">true(旧)-&gt;false(新)</code>的变化。</li>
+  <li><code class="highlighter-rouge">discriminator</code>属性，新旧OAS必须完全一致。</li>
+  <li><code class="highlighter-rouge">xml</code>属性，新旧OAS必须完全一致。</li>
+  <li><code class="highlighter-rouge">readOnly</code>、<code class="highlighter-rouge">writeOnly</code>，新旧OAS必须完全一致。</li>
+</ul>
+
+<h3 id="encoding-object-doc-1">Encoding Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#encodingObject">doc</a></h3>
+
+<p><a name="encoding-compatibility"></a></p>
+
+<p>PS. Encoding Object仅针对Request Body Object有用</p>
+
+<ul>
+  <li><code class="highlighter-rouge">contentType</code>属性，新旧OAS必须保持一致</li>
+  <li><code class="highlighter-rouge">headers</code>属性，新OAS不能新增旧OAS的header name（<code class="highlighter-rouge">headers</code>的key），但是可以删除header name
+    <ul>
+      <li><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">Header Object</a>见<a href="#header-compatibility">Header Object兼容性检查</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">style</code>属性，新旧OAS必须保持一致</li>
+  <li><code class="highlighter-rouge">explode</code>属性，新旧OAS必须保持一致</li>
+  <li><code class="highlighter-rouge">allowReserved</code>属性，只允许<code class="highlighter-rouge">false(旧) -&gt; true(新)</code>的变化</li>
+</ul>
+
+<h3 id="header-object-doc-1">Header Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">doc</a></h3>
+
+<p><a name="header-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">schema</code>属性，见<a href="#schema-compatibility">Schema Object兼容性检查</a></li>
+</ul>
+
+<h3 id="components-object-doc-1">Components Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">doc</a></h3>
+
+<p><a name="components-compatibility"></a></p>
+
+<p><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">Components Object</a>定义的都是可复用OAS Object，而在检查兼容性的时候所有<code class="highlighter-rouge">$ref</code>都已被解析了，因此不需要对<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">Components Object</a>的属性做兼容性检查。</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/getstarted/toolkit/cn/oas-validator.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="http://localhost:4000/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

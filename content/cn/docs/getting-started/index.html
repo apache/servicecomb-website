@@ -1,0 +1,694 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>入门指南 - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="ServiceComb入门指南">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="入门指南">
+
+
+  <link rel="canonical" href="http://localhost:4000/cn/docs/getting-started/">
+  <meta property="og:url" content="http://localhost:4000/cn/docs/getting-started/">
+
+
+
+  <meta property="og:description" content="ServiceComb入门指南">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="入门指南">
+  <meta name="twitter:description" content="ServiceComb入门指南">
+  <meta name="twitter:url" content="http://localhost:4000/cn/docs/getting-started/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="http://localhost:4000/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css?v=1">
+<link rel="stylesheet" href="http://localhost:4000/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="http://localhost:4000/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="http://localhost:4000/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/">首页</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/developers/">项目</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a href="http://localhost:4000/cn/docs/users/">文档</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="http://localhost:4000/cn/docs/quick-start/" class="">入门指南</a></li>
+                
+                <li><a href="http://localhost:4000/cn/docs/users/" class="">用户手册</a></li>
+                
+                <li><a href="http://localhost:4000/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="http://localhost:4000/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/release/">下载</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/getting-started/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/cn/">首页</a> > 入门指南</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="http://localhost:4000/cn/docs/getting-started/"><span class="nav__sub-title nav__sub-title-with-url">入门指南</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">服务中心 Service-Center</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/service-center/install/" class="">环境安装</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/service-center/registration-discovery/" class="">服务注册发现</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">基于java微服务SDK开发微服务应用</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-bmi/" class="">体质指数微服务应用快速开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/" class="">微服务开发进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/load-balance/" class="">负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/flow-control/" class="">流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/service-management/" class="">服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/distributed-tracing/" class="">分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">使用mersher接入servicecomb微服务体系</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/" class="">mersher进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-load-balance/" class="">mersher负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-flow-control/" class="">mersher流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-service-management/" class="">mersher服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="">mersher分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">一键微服务开发工具 Toolkit</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/toolkit/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/toolkit/oas-validator/" class="">OpenAPI V3 Spec校验工具</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">异构、多服务中心通讯 Syncer</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/syncer/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/syncer/multi-servicecenters/" class="">异构服务中心通讯</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="入门指南">
+    <meta itemprop="description" content="ServiceComb入门指南">
+    
+    <meta itemprop="dateModified" content="November 12, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">入门指南
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#入门" id="markdown-toc-入门">入门</a></li>
+  <li><a href="#进阶" id="markdown-toc-进阶">进阶</a></li>
+  <li><a href="#更多" id="markdown-toc-更多">更多</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="入门">入门</h2>
+<p>Apache ServiceComb 是一个微服务的开源解决方案。其包含多个组件，通过组件之间的搭配，可以灵活的应对不同的场景。本指南可以帮助你快速的使用 Apache ServiceComb，针对初次使用的用户，这是开始尝试的最佳入口。</p>
+<ol>
+  <li>下载 <a href="/release/">ServiceComb 发布版本</a>组件</li>
+  <li><a href="/cn/docs/service-center/install/">服务中心环境安装</a></li>
+  <li><a href="/cn/docs/service-center/registration-discovery/">服务注册与发现</a></li>
+  <li>相应开发语言的快速入门说明进行使用
+    <ul>
+      <li><a href="/cn/docs/quick-start/">Java微服务开发框架 Java-Chassis</a></li>
+      <li><a href="/cn/docs/mersher-quick-start/">多语言运行环境 Mersher</a></li>
+    </ul>
+  </li>
+  <li>如果项目涉及多方协作、或遗留系统希望进行微服务化转型
+<a href="/cn/docs/toolkit/quick-start/">一键微服务开发工具 Toolkit</a></li>
+</ol>
+
+<h2 id="进阶">进阶</h2>
+<ol>
+  <li><a href="/cn/docs/syncer/quick-start/">异构、多服务中心通讯 Syncer</a></li>
+</ol>
+
+<h2 id="更多">更多</h2>
+<p>完成上面的内容后，可以通过各个服务用户手册进行深入学习：
+<a href="/cn/docs/users/">ServiceComb 用户手册</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/getstarted/servicecomb/cn/getting-started.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="http://localhost:4000/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

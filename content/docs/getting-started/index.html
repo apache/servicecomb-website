@@ -1,0 +1,693 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Getting Started - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="ServiceComb Getting Started">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="Getting Started">
+
+
+  <link rel="canonical" href="http://localhost:4000/docs/getting-started/">
+  <meta property="og:url" content="http://localhost:4000/docs/getting-started/">
+
+
+
+  <meta property="og:description" content="ServiceComb Getting Started">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Getting Started">
+  <meta name="twitter:description" content="ServiceComb Getting Started">
+  <meta name="twitter:url" content="http://localhost:4000/docs/getting-started/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="http://localhost:4000/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css?v=1">
+<link rel="stylesheet" href="http://localhost:4000/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="http://localhost:4000/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="http://localhost:4000/"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/">Home</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/developers/">Projects</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a class="active" href="http://localhost:4000/docs/users/">Documentation</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="http://localhost:4000/docs/getting-started/" class="">Get started</a></li>
+                
+                <li><a href="http://localhost:4000/docs/users/" class="">Docs</a></li>
+                
+                <li><a href="http://localhost:4000/slides/" class="">Video</a></li>
+                
+                <li><a href="http://localhost:4000/faqs/" class="">FAQ</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/release/">Downloads</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/getting-started/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/">Home</a> > Getting Started</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="http://localhost:4000/docs/getting-started/"><span class="nav__sub-title nav__sub-title-with-url">Getting Started</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Service Center</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/service-center/install/" class="">Install</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/service-center/registration-discovery/" class="">Registration&Discovery</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Development of microservices application based on java microservice SDK</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/quick-start/" class="">Get started</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/quick-start-bmi/" class="">Develop microservice application in minutes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/quick-start-advance/" class="">Advance microservice development</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/quick-start-advance/load-balance/" class="">Load Balance</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/quick-start-advance/flow-control/" class="">Flow Control</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/quick-start-advance/service-management/" class="">Service Management</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/quick-start-advance/distributed-tracing/" class="">Distributed Tracing</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Use mersher to merge into the servicecomb microservice system</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/mersher-quick-start/" class="">Get started</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/mersher-quick-start-advance/" class="">Mersher Advance</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/mersher-quick-start-advance/mersher-load-balance/" class="">Mersher balance</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/mersher-quick-start-advance/mersher-flow-control/" class="">Mersher Flow Control</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/mersher-quick-start-advance/mersher-service-management/" class="">Mersher Service Management</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="">Mersher Distributed Tracing</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">A contract-based microservice development toolkit</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/toolkit/quick-start/" class="">Quick Start</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/toolkit/oas-validator/" class="">OpenAPI V3 Spec validation tools</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">A multiple servicecenters synchronization tool</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/syncer/quick-start/" class="">Quick Start</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/docs/syncer/multi-servicecenters/" class="">Different service centers communicate with each other</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Getting Started">
+    <meta itemprop="description" content="ServiceComb Getting Started">
+    
+    <meta itemprop="dateModified" content="November 12, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Getting Started
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#getting-started" id="markdown-toc-getting-started">Getting Started</a></li>
+  <li><a href="#advanced" id="markdown-toc-advanced">Advanced</a></li>
+  <li><a href="#more" id="markdown-toc-more">More</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="getting-started">Getting Started</h2>
+<p>Apache ServiceComb is an open source solution for microservices. It consists of multiple components that can be flexibly adapted to different scenarios through the combination of components. This guide can help you get started quickly with Apache ServiceComb, which is the best place to start trying for first-time users.</p>
+<ol>
+  <li>Download <a href="/release/">the ServiceComb release</a>component</li>
+  <li><a href="/docs/service-center/install/">Install service-center</a></li>
+  <li><a href="/docs/service-center/registration-discovery/">Registration&amp;Discovery</a></li>
+  <li>Select the quick start instructions for the appropriate development language to use.
+    <ul>
+      <li><a href="/docs/quick-start/">Development of microservices application based on java microservice SDK</a></li>
+      <li><a href="/docs/mersher-quick-start/">Use mersher to merge into the servicecomb microservice system</a></li>
+    </ul>
+  </li>
+  <li>If the project involves multi-party collaboration, or legacy systems want to transform into microservices
+<a href="/docs/toolkit/quick-start/">A contract-based microservice development toolkit</a></li>
+</ol>
+
+<h2 id="advanced">Advanced</h2>
+<ol>
+  <li><a href="/docs/syncer/quick-start/">A multiple servicecenters synchronization tool</a></li>
+</ol>
+
+<h2 id="more">More</h2>
+<p>After completing the above, you can learn in depth through each service user manual:<br />
+<a href="/docs/users/">ServiceComb User Manual</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Get started</a></li>
+        <li><a href="/users/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">Foundation</a></li>
+        <li><a href="http://www.apache.org/licenses/">License</a></li>
+        <li><a href="http://www.apache.org/events/current-event">Events</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/getstarted/servicecomb/getting-started.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="/security">Security</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="http://localhost:4000/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

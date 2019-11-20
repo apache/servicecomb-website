@@ -1,0 +1,1280 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>OpenAPI V3 Spec validation tools - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="Learn how to use OpenAPI V3 Spec validation tools">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="OpenAPI V3 Spec validation tools">
+
+
+  <link rel="canonical" href="http://localhost:4000/docs/toolkit/oas-validator/">
+  <meta property="og:url" content="http://localhost:4000/docs/toolkit/oas-validator/">
+
+
+
+  <meta property="og:description" content="Learn how to use OpenAPI V3 Spec validation tools">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="OpenAPI V3 Spec validation tools">
+  <meta name="twitter:description" content="Learn how to use OpenAPI V3 Spec validation tools">
+  <meta name="twitter:url" content="http://localhost:4000/docs/toolkit/oas-validator/">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "http://localhost:4000",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="http://localhost:4000/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="http://localhost:4000/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="http://localhost:4000/assets/css/main.css?v=1">
+<link rel="stylesheet" href="http://localhost:4000/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="http://localhost:4000/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="http://localhost:4000/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/">首页</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/developers/">项目</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a href="http://localhost:4000/cn/docs/users/">文档</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="http://localhost:4000/cn/docs/quick-start/" class="">入门指南</a></li>
+                
+                <li><a href="http://localhost:4000/cn/docs/users/" class="">用户手册</a></li>
+                
+                <li><a href="http://localhost:4000/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="http://localhost:4000/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="http://localhost:4000/cn/release/">下载</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/cn/">首页</a> > OpenAPI V3 Spec validation tools</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="http://localhost:4000/cn/docs/getting-started/"><span class="nav__sub-title nav__sub-title-with-url">入门指南</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">服务中心 Service-Center</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/service-center/install/" class="">环境安装</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/service-center/registration-discovery/" class="">服务注册发现</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">基于java微服务SDK开发微服务应用</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-bmi/" class="">体质指数微服务应用快速开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/" class="">微服务开发进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/load-balance/" class="">负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/flow-control/" class="">流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/service-management/" class="">服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/quick-start-advance/distributed-tracing/" class="">分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">使用mersher接入servicecomb微服务体系</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/" class="">mersher进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-load-balance/" class="">mersher负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-flow-control/" class="">mersher流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-service-management/" class="">mersher服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="">mersher分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">一键微服务开发工具 Toolkit</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/toolkit/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/toolkit/oas-validator/" class="">OpenAPI V3 Spec校验工具</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">异构、多服务中心通讯 Syncer</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/syncer/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="http://localhost:4000/cn/docs/syncer/multi-servicecenters/" class="">异构服务中心通讯</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="OpenAPI V3 Spec validation tools">
+    <meta itemprop="description" content="Learn how to use OpenAPI V3 Spec validation tools">
+    
+    <meta itemprop="dateModified" content="November 12, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">OpenAPI V3 Spec validation tools
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#project-structure" id="markdown-toc-project-structure">Project structure</a></li>
+  <li><a href="#style-check-rules" id="markdown-toc-style-check-rules">Style check rules</a>    <ul>
+      <li><a href="#string-patterns" id="markdown-toc-string-patterns">String patterns</a></li>
+      <li><a href="#openapi-object-doc" id="markdown-toc-openapi-object-doc">OpenAPI Object doc</a></li>
+      <li><a href="#info-object-doc" id="markdown-toc-info-object-doc">Info Object doc</a></li>
+      <li><a href="#tag-object-doc" id="markdown-toc-tag-object-doc">Tag Object doc</a></li>
+      <li><a href="#paths-object-doc" id="markdown-toc-paths-object-doc">Paths Object doc</a></li>
+      <li><a href="#path-item-object-doc" id="markdown-toc-path-item-object-doc">Path Item Object doc</a></li>
+      <li><a href="#operation-object-doc" id="markdown-toc-operation-object-doc">Operation Object doc</a></li>
+      <li><a href="#parameter-object-doc" id="markdown-toc-parameter-object-doc">Parameter Object doc</a></li>
+      <li><a href="#request-body-object-doc" id="markdown-toc-request-body-object-doc">Request Body Object doc</a></li>
+      <li><a href="#media-type-object-doc" id="markdown-toc-media-type-object-doc">Media Type Object doc</a></li>
+      <li><a href="#responses-object-doc" id="markdown-toc-responses-object-doc">Responses Object doc</a></li>
+      <li><a href="#response-object-doc" id="markdown-toc-response-object-doc">Response Object doc</a></li>
+      <li><a href="#schema-object-doc" id="markdown-toc-schema-object-doc">Schema Object doc</a></li>
+      <li><a href="#encoding-object-doc" id="markdown-toc-encoding-object-doc">Encoding Object doc</a></li>
+      <li><a href="#header-object-doc" id="markdown-toc-header-object-doc">Header Object doc</a></li>
+      <li><a href="#components-object-doc" id="markdown-toc-components-object-doc">Components Object doc</a></li>
+    </ul>
+  </li>
+  <li><a href="#compatibility-check-rules" id="markdown-toc-compatibility-check-rules">Compatibility check rules</a>    <ul>
+      <li><a href="#paths-object-doc-1" id="markdown-toc-paths-object-doc-1">Paths Object doc</a></li>
+      <li><a href="#path-item-object-doc-1" id="markdown-toc-path-item-object-doc-1">Path Item Object doc</a></li>
+      <li><a href="#operation-object-doc-1" id="markdown-toc-operation-object-doc-1">Operation Object doc</a></li>
+      <li><a href="#parameter-object-doc-1" id="markdown-toc-parameter-object-doc-1">Parameter Object doc</a></li>
+      <li><a href="#request-body-object-doc-1" id="markdown-toc-request-body-object-doc-1">Request Body Object doc</a></li>
+      <li><a href="#media-type-object-doc-1" id="markdown-toc-media-type-object-doc-1">Media Type Object doc</a></li>
+      <li><a href="#responses-object-doc-1" id="markdown-toc-responses-object-doc-1">Responses Object doc</a></li>
+      <li><a href="#response-object-doc-1" id="markdown-toc-response-object-doc-1">Response Object doc</a></li>
+      <li><a href="#schema-object-doc-1" id="markdown-toc-schema-object-doc-1">Schema Object doc</a></li>
+      <li><a href="#in-request-context" id="markdown-toc-in-request-context">In request context</a></li>
+      <li><a href="#in-response-context" id="markdown-toc-in-response-context">In response context</a></li>
+      <li><a href="#encoding-object-doc-1" id="markdown-toc-encoding-object-doc-1">Encoding Object doc</a></li>
+      <li><a href="#header-object-doc-1" id="markdown-toc-header-object-doc-1">Header Object doc</a></li>
+      <li><a href="#components-object-doc-1" id="markdown-toc-components-object-doc-1">Components Object doc</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="project-structure">Project structure</h2>
+
+<ul>
+  <li>oas-validator-core: core apis and skeletons implementations</li>
+  <li>oas-validator-core-spring: Spring Boot Starter for core skeletons</li>
+  <li>oas-validator-test: test helpers for core api</li>
+  <li>oas-validator-compliance: check style validators</li>
+  <li>oas-validator-compliance-spring: Spring Boot Starter for check style validators</li>
+  <li>oas-validator-compatibility: compatibility validators</li>
+  <li>oas-validator-compatibility-spring: Spring Boot Starter for compatibility validators</li>
+  <li>oas-validator-web: web ui</li>
+</ul>
+
+<h2 id="style-check-rules">Style check rules</h2>
+
+<p>OAS must compatible with <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md">OAS 3.0.2</a>, besides must obey the following rules.</p>
+
+<h3 id="string-patterns">String patterns</h3>
+
+<ul>
+  <li><a name="lower-camel-case"></a> Lower Camel Case: initial letter lowercase camel case, regex is <code class="highlighter-rouge">^[a-z]+((\d)|([A-Z0-9][a-z0-9]+))*([A-Z])?$</code></li>
+  <li><a name="upper-camel-case"></a> Upper Camel Case: initial letter uppercase camel case, regex is <code class="highlighter-rouge">^[A-Z]([a-z0-9]+[A-Z]?)*$</code></li>
+  <li><a name="upper-hyphen-case"></a> Upper Hyphen Case: initial letter uppercase, multiple words concat with <code class="highlighter-rouge">-</code>, such as <code class="highlighter-rouge">Content-Type</code>, <code class="highlighter-rouge">Accept</code>, <code class="highlighter-rouge">X-Rate-Limit-Limit</code>, regex is <code class="highlighter-rouge">^([A-Z][a-z0-9]*-)*([A-Z][a-z0-9]*)$</code></li>
+</ul>
+
+<h3 id="openapi-object-doc">OpenAPI Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">doc</a></h3>
+
+<p><a name="openapi-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">openapi</code> property must be 3.0.x and &gt;= 3.0.2</li>
+  <li><code class="highlighter-rouge">info</code> propety, see <a href="#info-compliance">Info Object style check rules</a></li>
+  <li><code class="highlighter-rouge">paths</code> property, must provide, see  <a href="#paths-compliance">Paths Object style check rules</a></li>
+  <li><code class="highlighter-rouge">components</code> property, see <a href="#components-compliance">Components Object style check rules</a></li>
+  <li><code class="highlighter-rouge">tags</code> property should at least provide one <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">Tag Object</a>
+    <ul>
+      <li>see  <a href="#tag-compliance">Tag Object style check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">security</code> property, should not provide</li>
+</ul>
+
+<h3 id="info-object-doc">Info Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#infoObject">doc</a></h3>
+
+<p><a name="info-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code> property, required</li>
+</ul>
+
+<h3 id="tag-object-doc">Tag Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#tagObject">doc</a></h3>
+
+<p><a name="tag-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">name</code> property, must be <a href="#upper-camel-case">Upper Camel Case</a></li>
+  <li><code class="highlighter-rouge">description</code> property, required</li>
+  <li>Every tag should be referenced by at least one <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a></li>
+</ul>
+
+<h3 id="paths-object-doc">Paths Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#paths-object">doc</a></h3>
+
+<p><a name="paths-compliance"></a></p>
+
+<ul>
+  <li>path must be <a href="#lower-camel-case">Lower Camel Case</a>, including <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#path-templating">Path Templating</a> variable
+    <ul>
+      <li>see  <a href="#path-item-compliance">Path Item Object style check rules</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="path-item-object-doc">Path Item Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject">doc</a></h3>
+
+<p><a name="path-item-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">get/post/put/delete/...</code> properties, see  <a href="operation-compliance">Operation Object style check rules</a></li>
+  <li><code class="highlighter-rouge">parameters</code> property, see  <a href="#parameter-compliance">Parameter Object style check rules</a></li>
+</ul>
+
+<h3 id="operation-object-doc">Operation Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">doc</a></h3>
+
+<p><a name="operation-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">summary</code> property, required</li>
+  <li><code class="highlighter-rouge">operationId</code> property, must be <a href="#lower-camel-case">Lower Camel Case</a></li>
+  <li><code class="highlighter-rouge">parameters</code> property, see  <a href="#parameter-compliance">Parameter Object style check rules</a></li>
+  <li><code class="highlighter-rouge">requestBody</code> property, see  <a href="#request-body-compliance">Request Body Object style check rules</a></li>
+  <li><code class="highlighter-rouge">responses</code> property, see  <a href="#responses-compliance">Responses Object style check rules</a></li>
+  <li><code class="highlighter-rouge">tags</code> property, can only provide one tag, must be in the range of <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#openapi-object">OpenAPI Object</a>   <code class="highlighter-rouge">tags</code> property</li>
+  <li><code class="highlighter-rouge">servers</code> property, should not provide</li>
+</ul>
+
+<h3 id="parameter-object-doc">Parameter Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">doc</a></h3>
+
+<p><a name="parameter-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code> property, required</li>
+  <li><code class="highlighter-rouge">name</code> property
+    <ul>
+      <li>if <code class="highlighter-rouge">in</code> is path, query or cookie, then must be <a href="#lower-camel-case">Lower Camel Case</a></li>
+      <li>if <code class="highlighter-rouge">in</code> is header, then must be <a href="#upper-hyphen-case">Upper Hyphen Case</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">schema</code> property, see  <a href="#schema-compliance">Schema Object check sytle rules</a></li>
+  <li><code class="highlighter-rouge">content</code> property, see  <a href="#media-type-compliance">Media Type Object style check rules</a></li>
+</ul>
+
+<h3 id="request-body-object-doc">Request Body Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject">doc</a></h3>
+
+<p><a name="request-body-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code> property, required</li>
+  <li><code class="highlighter-rouge">content</code> property, see  <a href="#media-type-compliance">Media Type Object style check rules</a></li>
+</ul>
+
+<h3 id="media-type-object-doc">Media Type Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object">doc</a></h3>
+
+<p><a name="media-type-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">schema</code> property, required. See  <a href="#schema-compliance">Schema Object style check rules</a></li>
+  <li><code class="highlighter-rouge">encoding</code> property, see  <a href="#encoding-compliance">Encoding Object style check rules</a></li>
+</ul>
+
+<h3 id="responses-object-doc">Responses Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responsesObject">doc</a></h3>
+
+<p><a name="responses-compliance"></a></p>
+
+<ul>
+  <li>See <a href="#response-compliance">Response Object style check rules</a></li>
+</ul>
+
+<h3 id="response-object-doc">Response Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#response-object">doc</a></h3>
+
+<p><a name="response-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code> property, required</li>
+  <li><code class="highlighter-rouge">headers</code> property, name (<code class="highlighter-rouge">headers</code> key) must be <a href="#upper-hyphen-case">Upper Hyphen Case</a>
+    <ul>
+      <li>See <a href="#header-compliance">Header Object style check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">content</code> property, see <a href="#media-type-compliance">Media Type Object style check rules</a></li>
+</ul>
+
+<h3 id="schema-object-doc">Schema Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">doc</a></h3>
+
+<p><a name="schema-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">title</code> property, required if parent is <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">Schema Object</a> or <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">Components Object</a></li>
+  <li><code class="highlighter-rouge">properties</code> property, name(<code class="highlighter-rouge">properties</code> key) must be <a href="#lower-camel-case">Lower Camel Case</a>
+    <ul>
+      <li>Sub Schema, see <a href="#schema-compliance">Schema Object style check rules</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="encoding-object-doc">Encoding Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#encodingObject">doc</a></h3>
+
+<p><a name="encoding-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">headers</code> property, name(<code class="highlighter-rouge">headers</code> key) must be <a href="#upper-hyphen-case">Upper Hyphen Case</a>
+    <ul>
+      <li>See <a href="#header-compliance">Header Object style check rules</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="header-object-doc">Header Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">doc</a></h3>
+
+<p><a name="header-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">description</code> property, required</li>
+  <li><code class="highlighter-rouge">schema</code> property, see <a href="#schema-compliance">Schema Object style check rules</a></li>
+  <li><code class="highlighter-rouge">content</code> property, see <a href="#media-type-compliance">Media Type Object style check rules</a></li>
+</ul>
+
+<h3 id="components-object-doc">Components Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">doc</a></h3>
+
+<p><a name="components-compliance"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">schemas</code> property, name must be <a href="#upper-camel-case">Upper Camel Case</a>
+    <ul>
+      <li>See <a href="#schema-compliance">Schema Object style check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">responses</code> property, name must be <a href="#upper-camel-case">Upper Camel Case</a>
+    <ul>
+      <li>See <a href="#response-compliance">Response Object style check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">parameters</code> property, name must be <a href="#upper-camel-case">Upper Camel Case</a>
+    <ul>
+      <li>See <a href="#parameter-compliance">Parameter Object style check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">examples</code> property, name must be <a href="#upper-camel-case">Upper Camel Case</a></li>
+  <li><code class="highlighter-rouge">requestBodies</code> property, name must be <a href="#upper-camel-case">Upper Camel Case</a>
+    <ul>
+      <li>See <a href="#request-body-compliance">Request Body style check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">headers</code> property, name must be <a href="#upper-hyphen-case">Upper Hyphen Case</a>
+    <ul>
+      <li>See <a href="#header-compliance">Header style check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">links</code> property, name must be <a href="#upper-camel-case">Upper Camel Case</a></li>
+  <li><code class="highlighter-rouge">callbacks</code> property, name must be <a href="#upper-camel-case">Upper Camel Case</a></li>
+</ul>
+
+<h2 id="compatibility-check-rules">Compatibility check rules</h2>
+
+<p>Check whether new OAS spec compatibile with old spec.</p>
+
+<p>Notice: OAS could use <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object">Reference Object</a>, two  OAS which are different in text maybe semantically same. For example, below old OAS doesn’t use <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object">Reference Object</a> while the new one uses:</p>
+
+<p>Old OAS</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">openapi</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.0.0"</span>
+<span class="na">info</span><span class="pi">:</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">1.0.0</span>
+  <span class="na">title</span><span class="pi">:</span> <span class="s">Swagger Petstore</span>
+  <span class="na">license</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">MIT</span>
+<span class="na">servers</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">url</span><span class="pi">:</span> <span class="s">http://petstore.swagger.io/v1</span>
+<span class="na">paths</span><span class="pi">:</span>
+  <span class="s">/pets</span><span class="pi">:</span>
+    <span class="na">post</span><span class="pi">:</span>
+      <span class="na">summary</span><span class="pi">:</span> <span class="s">List all pets</span>
+      <span class="na">operationId</span><span class="pi">:</span> <span class="s">listPets</span>
+      <span class="na">requestBody</span><span class="pi">:</span>
+        <span class="na">content</span><span class="pi">:</span>
+          <span class="s">application/json</span><span class="pi">:</span>
+            <span class="na">schema</span><span class="pi">:</span>
+              <span class="na">type</span><span class="pi">:</span> <span class="s">array</span>
+              <span class="na">items</span><span class="pi">:</span>
+                <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+                <span class="na">properties</span><span class="pi">:</span>
+                  <span class="na">Foo</span><span class="pi">:</span>
+                    <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+      <span class="na">responses</span><span class="pi">:</span>
+        <span class="s1">'</span><span class="s">200'</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s">A paged array of pets</span>
+</code></pre></div></div>
+
+<p>New OAS</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">paths</span><span class="pi">:</span>
+  <span class="s">/pets</span><span class="pi">:</span>
+    <span class="na">post</span><span class="pi">:</span>
+      <span class="na">operationId</span><span class="pi">:</span> <span class="s">listPets</span>
+      <span class="na">requestBody</span><span class="pi">:</span>
+        <span class="na">content</span><span class="pi">:</span>
+          <span class="s">application/json</span><span class="pi">:</span> 
+            <span class="na">schema</span><span class="pi">:</span>
+              <span class="s">$ref</span><span class="pi">:</span> <span class="s1">'</span><span class="s">#/components/schemas/Foo'</span>
+      <span class="na">responses</span><span class="pi">:</span>
+        <span class="s1">'</span><span class="s">200'</span><span class="pi">:</span>
+          <span class="na">description</span><span class="pi">:</span> <span class="s">A paged array of pets</span>
+<span class="na">components</span><span class="pi">:</span>
+  <span class="na">schemas</span><span class="pi">:</span>
+    <span class="na">Foo</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s">array</span>
+      <span class="na">items</span><span class="pi">:</span>
+        <span class="na">type</span><span class="pi">:</span> <span class="s">object</span>
+        <span class="na">properties</span><span class="pi">:</span>
+          <span class="na">Foo</span><span class="pi">:</span>
+            <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
+</code></pre></div></div>
+
+<p>So, when do compatibility check we resolve <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object">Reference Object</a> in old and new OAS first, then do the check, below is the code snippet using <a href="https://github.com/swagger-api/swagger-parser">swagger-parser</a>:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">OpenAPIV3Parser</span> <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OpenAPIV3Parser</span><span class="o">();</span>
+
+<span class="nc">ParseOptions</span> <span class="n">parseOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ParseOptions</span><span class="o">();</span>
+<span class="n">parseOptions</span><span class="o">.</span><span class="na">setResolve</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">parseOptions</span><span class="o">.</span><span class="na">setResolveCombinators</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">parseOptions</span><span class="o">.</span><span class="na">setResolveFully</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+<span class="n">parseOptions</span><span class="o">.</span><span class="na">setFlatten</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
+
+<span class="nc">SwaggerParseResult</span> <span class="n">parseResult</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="na">readContents</span><span class="o">(</span><span class="n">content</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">parseOptions</span><span class="o">);</span>
+</code></pre></div></div>
+
+<p>So if  compatibility violations be found, the reported location will be different from the location in origin OAS spec.</p>
+
+<h3 id="paths-object-doc-1">Paths Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#paths-object">doc</a></h3>
+
+<p><a name="paths-compatibility"></a></p>
+
+<ul>
+  <li>New OAS must include all the <code class="highlighter-rouge">path</code> appears in 旧OAS. If <code class="highlighter-rouge">path</code> uses <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#path-templating">Path Templating</a>, even the variable name changed, will be considered semantically different. For example <code class="highlighter-rouge">/pets/{foo}</code> and <code class="highlighter-rouge">/pets/{bar}</code> are different.
+    <ul>
+      <li>See <a href="#path-item-compatibility">Path Item Object compatibility check rules</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="path-item-object-doc-1">Path Item Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#pathItemObject">doc</a></h3>
+
+<p><a name="path-item-compatibility"></a></p>
+
+<ul>
+  <li>New OAS must inclued all old OAS get/put/post/delete/…<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a></li>
+</ul>
+
+<h3 id="operation-object-doc-1">Operation Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">doc</a></h3>
+
+<p><a name="operation-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">operationId</code> property,  new and old must be identical</li>
+  <li><code class="highlighter-rouge">parameters</code> property, check work must also consider <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#user-content-pathitemparameters">Path Item Object parameters property</a>:
+    <ul>
+      <li>New OAS could add new <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>, but the new <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a> <code class="highlighter-rouge">required</code> property must be <code class="highlighter-rouge">false</code></li>
+      <li>New OAS could delete<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a></li>
+      <li>The check on <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a> see <a href="#parameter-compatibility">Parameter Object compatibility check rules</a>(Under the same <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#operationObject">Operation Object</a> <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a> is identified by <code class="highlighter-rouge">name</code> and <code class="highlighter-rouge">in</code> property)。</li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">requestBody</code> property, see <a href="#request-body-compatibility">Request Body Object compatibility check rules</a></li>
+  <li><code class="highlighter-rouge">responses</code> property, see<a href="#responses-compatibility">Responses Object compatibility check rules</a></li>
+</ul>
+
+<h3 id="parameter-object-doc-1">Parameter Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">doc</a></h3>
+
+<p><a name="parameter-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">required</code> property, only allow <code class="highlighter-rouge">true(old) -&gt; false(new)</code> change</li>
+  <li><code class="highlighter-rouge">allowEmptyValue</code> property, only allow <code class="highlighter-rouge">false(old) -&gt; true(new)</code> change</li>
+  <li><code class="highlighter-rouge">style</code> property, new and old must be identical</li>
+  <li><code class="highlighter-rouge">explode</code> property, new and old must be identical</li>
+  <li><code class="highlighter-rouge">allowReserved</code> property, only allow <code class="highlighter-rouge">false(old) -&gt; true(new)</code> change</li>
+  <li><code class="highlighter-rouge">schema</code> property, see <a href="#schema-compatibility">Schema Object compatibility check rules</a></li>
+  <li><code class="highlighter-rouge">content</code>property, new OAS must include all old OAS media type (<code class="highlighter-rouge">content</code> keys), and add new media type is not allowed
+    <ul>
+      <li>see <a href="#media-type-compatibility">Media Type Object compatibility check rules</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="request-body-object-doc-1">Request Body Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject">doc</a></h3>
+
+<p><a name="request-body-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">content</code>property, new OAS must include all old OAS media type (<code class="highlighter-rouge">content</code> keys)
+    <ul>
+      <li>See <a href="#media-type-compatibility">Media Type Object compatibility check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">required</code> property, only allow <code class="highlighter-rouge">true(old) -&gt; false(new)</code> change</li>
+</ul>
+
+<h3 id="media-type-object-doc-1">Media Type Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object">doc</a></h3>
+
+<p><a name="media-type-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">schema</code> property, see <a href="#schema-compatibility">Schema Object compatibility check rules</a></li>
+  <li><code class="highlighter-rouge">encoding</code> property, this property only apply to <code class="highlighter-rouge">requestBody</code>, so new OAS and old OAS property name(<code class="highlighter-rouge">encoding</code> key) must be identical
+    <ul>
+      <li>See <a href="#encoding-compatibility">Encoding Object compatibility check rules</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="responses-object-doc-1">Responses Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#responsesObject">doc</a></h3>
+
+<p><a name="responses-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">default</code> property, if old OAS doesn’t define <code class="highlighter-rouge">default</code>, then new OAS should not define <code class="highlighter-rouge">default</code> too.</li>
+  <li><code class="highlighter-rouge">{Http Status Code}</code> property, new OAS is not allowed to add one.</li>
+  <li>See <a href="#response-compatibility">Response Object compatibility check rules</a></li>
+</ul>
+
+<h3 id="response-object-doc-1">Response Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#response-object">doc</a></h3>
+
+<p><a name="response-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">headers</code> property, new OAS must include all old OAS header name(<code class="highlighter-rouge">headers</code> keys), and add new header name is allowed
+    <ul>
+      <li><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">Header Object</a> see <a href="#header-compatibility">Header Object compatibility check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">content</code> property, new OAS must include all old OAS media type(<code class="highlighter-rouge">content</code> keys), and add new media type is allowed
+    <ul>
+      <li><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#media-type-object">Media Type Object</a> see <a href="#media-type-compatibility">Media Type Object compatibility check rules</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="schema-object-doc-1">Schema Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#schemaObject">doc</a></h3>
+
+<p><a name="schema-compatibility"></a></p>
+
+<p>OAS allows Schema Object be directly or indirectly in:</p>
+
+<ul>
+  <li>Request: <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#parameterObject">Parameter Object</a>, <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#requestBodyObject">Request Body Object</a>, <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">Header Object</a></li>
+  <li>Response: <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">Header Object</a>, <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#response-object">Response Object</a></li>
+</ul>
+
+<p>In different context compatibility check rules are different.</p>
+
+<h3 id="in-request-context">In request context</h3>
+
+<p>When Schema Object is in response context, only allow change from more specific form to less specific form.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">type, format</code> combination allowed change:</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Old (type,format)</th>
+      <th>New (type,format)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>integer, null</td>
+      <td>integer, int64<br />number, double<br />number, null</td>
+    </tr>
+    <tr>
+      <td>integer, int32</td>
+      <td>integer, int64<br />integer, null<br />number, float<br />number, double<br />number, null</td>
+    </tr>
+    <tr>
+      <td>integer, int64</td>
+      <td>integer, null<br />number, double<br />number, null</td>
+    </tr>
+    <tr>
+      <td>number, null</td>
+      <td>number, double</td>
+    </tr>
+    <tr>
+      <td>number, float</td>
+      <td>number, null<br />number, double</td>
+    </tr>
+    <tr>
+      <td>number, double</td>
+      <td>number, null</td>
+    </tr>
+    <tr>
+      <td>string, null</td>
+      <td>string, password</td>
+    </tr>
+    <tr>
+      <td>string, password</td>
+      <td>string, null</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><code class="highlighter-rouge">allOf</code>, <code class="highlighter-rouge">oneOf</code>, <code class="highlighter-rouge">anyOf</code> property, combine them first then do check</li>
+  <li><code class="highlighter-rouge">multipleOf</code> property, if old OAS is null, then new OAS must == old OAS or new OAS is a factor of old OAS, eg, 6(old)-&gt;3(new)</li>
+  <li><code class="highlighter-rouge">maximum</code>, <code class="highlighter-rouge">maxLength</code>, <code class="highlighter-rouge">maxItems</code>, <code class="highlighter-rouge">maxProperties</code>, if old OAS is null, then new OAS must be null too. Otherwise, new OAS must be &gt;= old OAS</li>
+  <li><code class="highlighter-rouge">minimum</code>, <code class="highlighter-rouge">minLenght</code>, <code class="highlighter-rouge">minItems</code>, <code class="highlighter-rouge">minProperties</code>, if old OAS is null, then new OAS must be null too. Otherwise, new OAS must be &lt;= old OAS.</li>
+  <li><code class="highlighter-rouge">exclusiveMaximum</code>, <code class="highlighter-rouge">exclusiveMinimum</code> property, only allow change <code class="highlighter-rouge">true(old)-&gt;false(new)</code></li>
+  <li><code class="highlighter-rouge">uniqueItems</code> property, only allow change <code class="highlighter-rouge">true(old)-&gt;false(new)</code></li>
+  <li><code class="highlighter-rouge">required</code> property, new OAS must == old OAS or new OAS is old OAS subset</li>
+  <li><code class="highlighter-rouge">enum</code> property, new OAS must == old OAS or new OAS is old OAS superset</li>
+  <li><code class="highlighter-rouge">properties</code> property, new OAS could add or delete property name(<code class="highlighter-rouge">properties</code> key)</li>
+  <li><code class="highlighter-rouge">nullable</code> property, only allow change <code class="highlighter-rouge">false(old)-&gt;true(new)</code></li>
+  <li><code class="highlighter-rouge">discriminator</code> property, new and old must be identical</li>
+  <li><code class="highlighter-rouge">xml</code> property, new and old must be identical</li>
+  <li><code class="highlighter-rouge">readOnly</code>, <code class="highlighter-rouge">writeOnly</code> property, new and old must be identical</li>
+</ul>
+
+<h3 id="in-response-context">In response context</h3>
+
+<p>When Schema Object is in response context, only allow change from less specific form to more specific form.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">type, format</code> combination allowed change:</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Old (type,format)</th>
+      <th>New (type,format)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>integer, null</td>
+      <td>integer, int64<br />integer, int32</td>
+    </tr>
+    <tr>
+      <td>integer, int64</td>
+      <td>integer, null<br />interger, int32</td>
+    </tr>
+    <tr>
+      <td>number, null</td>
+      <td>number, double<br />number, float</td>
+    </tr>
+    <tr>
+      <td>number, double</td>
+      <td>number, null<br />number, float</td>
+    </tr>
+    <tr>
+      <td>string, null</td>
+      <td>string, password</td>
+    </tr>
+    <tr>
+      <td>string, password</td>
+      <td>string, null</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><code class="highlighter-rouge">allOf</code>, <code class="highlighter-rouge">oneOf</code>, <code class="highlighter-rouge">anyOf</code> property, combine them first then do check</li>
+  <li><code class="highlighter-rouge">multipleOf</code> property if old OAS is null. new OAS must == old OAS or new OAS must be a multiple of old OAS, eg, 3(old)-&gt;6(new)</li>
+  <li><code class="highlighter-rouge">maximum</code>, <code class="highlighter-rouge">maxLength</code>, <code class="highlighter-rouge">maxItems</code>, <code class="highlighter-rouge">maxProperties</code>, if old OAS is null, then new OAS must be null too. Otherwise, new OAS must &lt;= old OAS</li>
+  <li><code class="highlighter-rouge">minimum</code>, <code class="highlighter-rouge">minLenght</code>, <code class="highlighter-rouge">minItems</code>, <code class="highlighter-rouge">minProperties</code>, if old OAS is null, then new OAS must be null too. Otherwise, new OAS must &gt;= old OAS</li>
+  <li><code class="highlighter-rouge">exclusiveMaximum</code>, <code class="highlighter-rouge">exclusiveMinimum</code> property, only allow change  <code class="highlighter-rouge">false(old)-&gt;true(new)</code></li>
+  <li><code class="highlighter-rouge">uniqueItems</code> property, only allow change <code class="highlighter-rouge">false(old)-&gt;true(new)</code></li>
+  <li><code class="highlighter-rouge">required</code> new OAS must == old OAS or new OAS is old OAS superset</li>
+  <li><code class="highlighter-rouge">enum</code> property, new OAS must == old OAS or new OAS is old OAS subset</li>
+  <li><code class="highlighter-rouge">properties</code> property, new OAS could add or delete property name(<code class="highlighter-rouge">properties</code> key)</li>
+  <li><code class="highlighter-rouge">nullable</code> property , only allow change <code class="highlighter-rouge">true(old)-&gt;false(new)</code></li>
+  <li><code class="highlighter-rouge">discriminator</code> property, new and old must be identical</li>
+  <li><code class="highlighter-rouge">xml</code> property, new and old must be identical</li>
+  <li><code class="highlighter-rouge">readOnly</code>, <code class="highlighter-rouge">writeOnly</code> property, new and old must be identical</li>
+</ul>
+
+<h3 id="encoding-object-doc-1">Encoding Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#encodingObject">doc</a></h3>
+
+<p><a name="encoding-compatibility"></a></p>
+
+<p>Notice: Encoding Object only apply to Request Body Object</p>
+
+<ul>
+  <li><code class="highlighter-rouge">contentType</code> property, new and old must be identical</li>
+  <li><code class="highlighter-rouge">headers</code> property, new OAS can not add new he header name (<code class="highlighter-rouge">headers</code> key), but and delete header name
+    <ul>
+      <li><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">Header Object</a> see <a href="#header-compatibility">Header Object compatibility check rules</a></li>
+    </ul>
+  </li>
+  <li><code class="highlighter-rouge">style</code> property, new and old must be identical</li>
+  <li><code class="highlighter-rouge">explode</code> property, new and old must be identical</li>
+  <li><code class="highlighter-rouge">allowReserved</code> property, only allow change <code class="highlighter-rouge">false(old) -&gt; true(new)</code></li>
+</ul>
+
+<h3 id="header-object-doc-1">Header Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#header-object">doc</a></h3>
+
+<p><a name="header-compatibility"></a></p>
+
+<ul>
+  <li><code class="highlighter-rouge">schema</code> property, see <a href="#schema-compatibility">Schema Object compatibility check rules</a></li>
+</ul>
+
+<h3 id="components-object-doc-1">Components Object <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">doc</a></h3>
+
+<p><a name="components-compatibility"></a></p>
+
+<p><a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">Components Object</a> defines reusable OAS Object, but when doing compatibility check all <code class="highlighter-rouge">$ref</code> are resolved, so no need to check <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#components-object">Components Object</a> compatibility.</p>
+
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/getstarted/toolkit/oas-validator.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="http://localhost:4000/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="http://localhost:4000/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>
