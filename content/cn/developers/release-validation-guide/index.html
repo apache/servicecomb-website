@@ -533,7 +533,7 @@
 
 <p>验证Hash：</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha512sum</span> <span class="nt">-c</span> xxx-src.zip.sha512
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sha512sum <span class="nt">-c</span> xxx-src.zip.sha512
 </code></pre></div></div>
 
 <p>提示<code class="highlighter-rouge">OK</code>代表Hash正确。</p>
@@ -546,12 +546,12 @@
 
 <p>使用<code class="highlighter-rouge">cd</code>命令切换到解压出来的源代码根目录下，执行：</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean <span class="nb">install</span> <span class="nt">-Pdocker</span> <span class="nt">-Pit</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install <span class="nt">-Pdocker</span> <span class="nt">-Pit</span>
 </code></pre></div></div>
 
 <blockquote>
   <p>提示：如果如果验证环境操作系统是Windows：</p>
-  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean <span class="nb">install</span> <span class="nt">-Pdocker</span> <span class="nt">-Pit</span> <span class="nt">-Pdocker-machine</span>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install <span class="nt">-Pdocker</span> <span class="nt">-Pit</span> <span class="nt">-Pdocker-machine</span>
 </code></pre></div>  </div>
 </blockquote>
 
@@ -560,7 +560,7 @@
 <h3 id="验证staging-repository内的库正确">验证Staging Repository内的库正确</h3>
 <p>首先删除本地Repo中ServiceComb的全部缓存：</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rm</span> <span class="nt">-rf</span> /root/.m2/repository/org/apache/servicecomb/
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm <span class="nt">-rf</span> /root/.m2/repository/org/apache/servicecomb/
 </code></pre></div></div>
 
 <blockquote>
@@ -605,12 +605,12 @@
 
 <p>一切就绪后，使用<code class="highlighter-rouge">cd</code>命令切换到<strong>源代码demo目录(注意不是根目录)下</strong>，执行：</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean <span class="nb">install</span> <span class="nt">-Pdocker</span> <span class="nt">-Pstaging</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install <span class="nt">-Pdocker</span> <span class="nt">-Pstaging</span>
 </code></pre></div></div>
 
 <blockquote>
   <p>提示：如果如果验证环境操作系统是Windows：</p>
-  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean <span class="nb">install</span> <span class="nt">-Pdocker</span> <span class="nt">-Pstaging</span> <span class="nt">-Pdocker-machine</span>
+  <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean install <span class="nt">-Pdocker</span> <span class="nt">-Pstaging</span> <span class="nt">-Pdocker-machine</span>
 </code></pre></div>  </div>
 </blockquote>
 

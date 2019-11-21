@@ -449,9 +449,9 @@ zipkin                   10.104.92.198   &lt;none&gt;        9411/TCP         12
     <span class="s">spec</span><span class="pi">:</span>
       <span class="na">ports</span><span class="pi">:</span>
 <span class="err">    </span><span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">30100"</span>
-      <span class="na">port</span><span class="pi">:</span> <span class="m">30100</span>
-      <span class="na">targetPort</span><span class="pi">:</span> <span class="m">30100</span>
-        <span class="na">selector</span><span class="pi">:</span>
+      <span class="na">port</span><span class="pi">:</span> <span class="s">30100</span>
+      <span class="na">targetPort</span><span class="pi">:</span> <span class="s">30100</span>
+        <span class="s">selector</span><span class="pi">:</span>
       <span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-bulletin-board</span>
       <span class="na">status</span><span class="pi">:</span>
         <span class="na">loadBalancer</span><span class="pi">:</span> <span class="pi">{}</span>
@@ -469,7 +469,7 @@ zipkin                   10.104.92.198   &lt;none&gt;        9411/TCP         12
 <span class="err">	</span><span class="s">io.kompose.service</span><span class="pi">:</span> <span class="s">company-worker</span>
   <span class="s">name</span><span class="pi">:</span> <span class="s">company-worker</span>
 <span class="na">spec</span><span class="pi">:</span>
-  <span class="na">replicas</span><span class="pi">:</span> <span class="m">1</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="s">1</span>
   <span class="na">strategy</span><span class="pi">:</span> <span class="pi">{}</span>
   <span class="na">template</span><span class="pi">:</span>
 <span class="err">	</span><span class="na">metadata</span><span class="pi">:</span>
@@ -486,8 +486,8 @@ zipkin                   10.104.92.198   &lt;none&gt;        9411/TCP         12
     <span class="na">image</span><span class="pi">:</span> <span class="s">servicecomb/worker:0.0.1-SNAPSHOT</span>
     <span class="na">name</span><span class="pi">:</span> <span class="s">company-worker</span>
     <span class="na">ports</span><span class="pi">:</span>
-    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">7070</span>
-    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="m">8080</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="s">7070</span>
+    <span class="pi">-</span> <span class="na">containerPort</span><span class="pi">:</span> <span class="s">8080</span>
     <span class="na">resources</span><span class="pi">:</span> <span class="pi">{}</span>
   <span class="na">restartPolicy</span><span class="pi">:</span> <span class="s">Always</span>
 <span class="na">status</span><span class="pi">:</span> <span class="pi">{}</span>
@@ -500,10 +500,10 @@ zipkin                   10.104.92.198   &lt;none&gt;        9411/TCP         12
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spec</span><span class="pi">:</span>
   <span class="na">ports</span><span class="pi">:</span>
   <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">8083"</span>
-<span class="err">  	</span><span class="na">port</span><span class="pi">:</span> <span class="m">8083</span>
-<span class="err">  	</span><span class="na">targetPort</span><span class="pi">:</span> <span class="m">8080</span>
-<span class="err">  	</span><span class="na">nodePort</span><span class="pi">:</span> <span class="m">30301</span>
-<span class="err">  	</span><span class="na">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
+<span class="err">  	</span><span class="na">port</span><span class="pi">:</span> <span class="s">8083</span>
+  <span class="err">	</span><span class="s">targetPort</span><span class="pi">:</span> <span class="s">8080</span>
+  <span class="err">	</span><span class="s">nodePort</span><span class="pi">:</span> <span class="s">30301</span>
+  <span class="err">	</span><span class="s">protocol</span><span class="pi">:</span> <span class="s">TCP</span>
   <span class="s">type</span><span class="pi">:</span> <span class="s">NodePort</span>
 </code></pre></div></div>
 
@@ -670,6 +670,35 @@ kubectl get svc company-manager <span class="nt">-o</span> yaml | <span class="n
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/cn/docs/playing-on-the-open-source-community-with-Apache-ServiceComb-BUPT/" rel="permalink">与Apache ServiceComb一起玩开源-北邮站 (PPT Download)
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">与Apache ServiceComb一起玩开源-北邮站 (PPT Download)
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  less than 1 minute read
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/docs/servicecomb-accept-newcapec-institute-code-donation/" rel="permalink">Apache ServiceComb Accept Code Donation From NewCapec Institute
 </a>
       
@@ -741,35 +770,6 @@ kubectl get svc company-manager <span class="nt">-o</span> yaml | <span class="n
 
 
   1 minute read
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/cn/docs/Apache-ServiceComb-Meetup-2019-Shanghai-Report/" rel="permalink">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT Download)
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT)
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  less than 1 minute read
 
 </p>
     

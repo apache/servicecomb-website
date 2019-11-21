@@ -396,7 +396,7 @@
     <meta itemprop="headline" content="Dynamic Configuration">
     <meta itemprop="description" content="Dynamic Configuration">
     
-    <meta itemprop="dateModified" content="January 15, 2018">
+    <meta itemprop="dateModified" content="January 16, 2018">
 
     <div class="page__inner-wrap">
       
@@ -497,7 +497,7 @@
        <span class="na">clusters</span><span class="pi">:</span> <span class="s">default</span>
        <span class="na">namespace</span><span class="pi">:</span> <span class="s">application</span>
        <span class="na">token</span><span class="pi">:</span> <span class="s">testtoken</span>
-       <span class="na">refreshInterval</span><span class="pi">:</span> <span class="m">10</span>
+       <span class="na">refreshInterval</span><span class="pi">:</span> <span class="s">10</span>
 </code></pre></div></div>
 <p>​	Configurations under <code class="highlighter-rouge">apollo.config</code> are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to <code class="highlighter-rouge">refreshInterval: 10</code>, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here. 
   <code class="highlighter-rouge">serviceName</code> need to be <code class="highlighter-rouge">AppId</code> in apollo, please pay attention to that.</p>
@@ -509,14 +509,14 @@
 <p>​	You can use<code class="highlighter-rouge">DynamicPropertyFactory.getInstance().getProperty()</code> to get the value of configuration items.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo</span> <span class="o">{</span>
-      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
-        <span class="nc">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
-        <span class="nc">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+        <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
         <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-          <span class="nc">DynamicIntProperty</span> <span class="n">timeout</span> <span class="o">=</span> <span class="nc">DynamicPropertyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span>
+          <span class="n">DynamicIntProperty</span> <span class="n">timeout</span> <span class="o">=</span> <span class="n">DynamicPropertyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span>
             <span class="n">getIntProperty</span><span class="o">(</span><span class="s">"timeout"</span><span class="o">,</span> <span class="o">-</span><span class="mi">1</span><span class="o">);</span>
-          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">timeout</span><span class="o">);</span>
-          <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>
+          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">timeout</span><span class="o">);</span>
+          <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">3000</span><span class="o">);</span>
         <span class="o">}</span>
       <span class="o">}</span>
     <span class="o">}</span>

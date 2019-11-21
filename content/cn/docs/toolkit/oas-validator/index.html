@@ -866,15 +866,15 @@
 
 <p>因此在检查兼容性的时候会将新旧OAS的<a href="https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.2.md#reference-object">Reference Object</a>做解析，然后再检查，下面是一段<a href="https://github.com/swagger-api/swagger-parser">swagger-parser</a>的例子：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">OpenAPIV3Parser</span> <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">OpenAPIV3Parser</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">OpenAPIV3Parser</span> <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">OpenAPIV3Parser</span><span class="o">();</span>
 
-<span class="nc">ParseOptions</span> <span class="n">parseOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ParseOptions</span><span class="o">();</span>
+<span class="n">ParseOptions</span> <span class="n">parseOptions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ParseOptions</span><span class="o">();</span>
 <span class="n">parseOptions</span><span class="o">.</span><span class="na">setResolve</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="n">parseOptions</span><span class="o">.</span><span class="na">setResolveCombinators</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="n">parseOptions</span><span class="o">.</span><span class="na">setResolveFully</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="n">parseOptions</span><span class="o">.</span><span class="na">setFlatten</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
 
-<span class="nc">SwaggerParseResult</span> <span class="n">parseResult</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="na">readContents</span><span class="o">(</span><span class="n">content</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">parseOptions</span><span class="o">);</span>
+<span class="n">SwaggerParseResult</span> <span class="n">parseResult</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="na">readContents</span><span class="o">(</span><span class="n">content</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">parseOptions</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>因此，检查下来如果发现不兼容，那么所报告的位置会和原文档有所不同。</p>

@@ -478,14 +478,14 @@
 
 <h4 id="init-method">init Method</h4>
 <p>Init routing rules of the Dispatcher, we use <a href="https://vertx.io/docs/vertx-web/java/#_routing_by_exact_path">Vertx Routing Rule</a>, for example we add two routing rules like:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="nc">Router</span> <span class="n">router</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">String</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
-  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="nc">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">(</span><span class="n">Router</span> <span class="n">router</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">String</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
   <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
   <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">failureHandler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onFailure</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onRequest</span><span class="o">);</span>
 
   <span class="n">regex</span> <span class="o">=</span> <span class="s">"/([^\\\\/]+)/(.*)"</span><span class="o">;</span>
-  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="nc">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
+  <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">CookieHandler</span><span class="o">.</span><span class="na">create</span><span class="o">());</span>
   <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="n">createBodyHandler</span><span class="o">());</span>
   <span class="n">router</span><span class="o">.</span><span class="na">routeWithRegex</span><span class="o">(</span><span class="n">regex</span><span class="o">).</span><span class="na">failureHandler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onFailure</span><span class="o">).</span><span class="na">handler</span><span class="o">(</span><span class="k">this</span><span class="o">::</span><span class="n">onRequest</span><span class="o">);</span>
 <span class="o">}</span>
@@ -498,11 +498,11 @@
 
 <h4 id="onrequest-method">onRequest Method</h4>
 <p>Implement of redirection:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">onRequest</span><span class="o">(</span><span class="nc">RoutingContext</span> <span class="n">context</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">onRequest</span><span class="o">(</span><span class="n">RoutingContext</span> <span class="n">context</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>You can get micro-service name, path etc from context, then create and init a new EdgeInvocation for invoke:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">EdgeInvocation</span> <span class="n">edgeInvocation</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">EdgeInvocation</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EdgeInvocation</span> <span class="n">edgeInvocation</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EdgeInvocation</span><span class="o">();</span>
 <span class="n">edgeInvocation</span><span class="o">.</span><span class="na">setVersionRule</span><span class="o">(</span><span class="n">versionRule</span><span class="o">);</span>
 <span class="n">edgeInvocation</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">serviceName</span><span class="o">,</span> <span class="n">context</span><span class="o">,</span> <span class="n">path</span><span class="o">,</span> <span class="n">httpServerFilters</span><span class="o">);</span>
 <span class="n">edgeInvocation</span><span class="o">.</span><span class="na">edgeInvoke</span><span class="o">();</span>

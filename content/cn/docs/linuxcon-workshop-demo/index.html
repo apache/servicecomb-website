@@ -515,7 +515,7 @@
 <span class="o">}</span>
 
 <span class="nd">@Service</span>
-<span class="kd">class</span> <span class="nc">FibonacciServiceImpl</span> <span class="kd">implements</span> <span class="nc">FibonacciService</span> <span class="o">{</span>
+<span class="kd">class</span> <span class="nc">FibonacciServiceImpl</span> <span class="kd">implements</span> <span class="n">FibonacciService</span> <span class="o">{</span>
   <span class="nd">@Override</span>
   <span class="kd">public</span> <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
@@ -551,17 +551,17 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRestEndpoint"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/fibonacci"</span><span class="o">)</span>
 <span class="nd">@Controller</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciRestEndpoint</span> <span class="kd">implements</span> <span class="nc">FibonacciEndpoint</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciRestEndpoint</span> <span class="kd">implements</span> <span class="n">FibonacciEndpoint</span> <span class="o">{</span>
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">;</span>
 
   <span class="nd">@Autowired</span>
-  <span class="nc">FibonacciRestEndpoint</span><span class="o">(</span><span class="nc">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">FibonacciRestEndpoint</span><span class="o">(</span><span class="n">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">fibonacciService</span> <span class="o">=</span> <span class="n">fibonacciService</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/term"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/term"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
   <span class="nd">@ResponseBody</span>
   <span class="kd">public</span> <span class="kt">long</span> <span class="nf">term</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">fibonacciService</span><span class="o">.</span><span class="na">term</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
@@ -570,12 +570,12 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RpcSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRpcEndpoint"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciRpcEndpoint</span> <span class="kd">implements</span> <span class="nc">FibonacciEndpoint</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FibonacciRpcEndpoint</span> <span class="kd">implements</span> <span class="n">FibonacciEndpoint</span> <span class="o">{</span>
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">;</span>
 
   <span class="nd">@Autowired</span>
-  <span class="kd">public</span> <span class="nf">FibonacciRpcEndpoint</span><span class="o">(</span><span class="nc">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="nf">FibonacciRpcEndpoint</span><span class="o">(</span><span class="n">FibonacciService</span> <span class="n">fibonacciService</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">fibonacciService</span> <span class="o">=</span> <span class="n">fibonacciService</span><span class="o">;</span>
   <span class="o">}</span>
 
@@ -612,8 +612,8 @@
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkerApplication</span> <span class="o">{</span>
 
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">WorkerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">WorkerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -649,11 +649,11 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
   <span class="kt">long</span> <span class="nf">ancestorsOfQueenAt</span><span class="o">(</span><span class="kt">int</span> <span class="n">generation</span><span class="o">);</span>
 <span class="o">}</span>
 
-<span class="kd">class</span> <span class="nc">BeekeeperServiceImpl</span> <span class="kd">implements</span> <span class="nc">BeekeeperService</span> <span class="o">{</span>
+<span class="kd">class</span> <span class="nc">BeekeeperServiceImpl</span> <span class="kd">implements</span> <span class="n">BeekeeperService</span> <span class="o">{</span>
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">FibonacciCalculator</span> <span class="n">fibonacciCalculator</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">FibonacciCalculator</span> <span class="n">fibonacciCalculator</span><span class="o">;</span>
 
-  <span class="nc">BeekeeperServiceImpl</span><span class="o">(</span><span class="nc">FibonacciCalculator</span> <span class="n">fibonacciCalculator</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">BeekeeperServiceImpl</span><span class="o">(</span><span class="n">FibonacciCalculator</span> <span class="n">fibonacciCalculator</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">fibonacciCalculator</span> <span class="o">=</span> <span class="n">fibonacciCalculator</span><span class="o">;</span>
   <span class="o">}</span>
 
@@ -684,10 +684,10 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <span class="kd">class</span> <span class="nc">BeekeeperConfig</span> <span class="o">{</span>
 
   <span class="nd">@RpcReference</span><span class="o">(</span><span class="n">microserviceName</span> <span class="o">=</span> <span class="s">"worker"</span><span class="o">,</span> <span class="n">schemaId</span> <span class="o">=</span> <span class="s">"fibonacciRpcEndpoint"</span><span class="o">)</span>
-  <span class="kd">private</span> <span class="nc">FibonacciCalculator</span> <span class="n">fibonacciCalculator</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="n">FibonacciCalculator</span> <span class="n">fibonacciCalculator</span><span class="o">;</span>
 
   <span class="nd">@Bean</span>
-  <span class="nc">BeekeeperService</span> <span class="nf">beekeeperService</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">BeekeeperService</span> <span class="nf">beekeeperService</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nf">BeekeeperServiceImpl</span><span class="o">(</span><span class="n">fibonacciCalculator</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
@@ -704,18 +704,18 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <span class="nd">@Controller</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeekeeperController</span> <span class="o">{</span>
 
-  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">BeekeeperController</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">BeekeeperController</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">BeekeeperService</span> <span class="n">beekeeperService</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">BeekeeperService</span> <span class="n">beekeeperService</span><span class="o">;</span>
 
   <span class="nd">@Autowired</span>
-  <span class="nc">BeekeeperController</span><span class="o">(</span><span class="nc">BeekeeperService</span> <span class="n">beekeeperService</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">BeekeeperController</span><span class="o">(</span><span class="n">BeekeeperService</span> <span class="n">beekeeperService</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">beekeeperService</span> <span class="o">=</span> <span class="n">beekeeperService</span><span class="o">;</span>
   <span class="o">}</span>
 
-  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/drone/ancestors/{generation}"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="no">GET</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="no">APPLICATION_JSON_UTF8_VALUE</span><span class="o">)</span>
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/drone/ancestors/{generation}"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">GET</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">APPLICATION_JSON_UTF8_VALUE</span><span class="o">)</span>
   <span class="nd">@ResponseBody</span>
-  <span class="kd">public</span> <span class="nc">Ancestor</span> <span class="nf">ancestorsOfDrone</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">generation</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">Ancestor</span> <span class="nf">ancestorsOfDrone</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">generation</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span>
         <span class="s">"Received request to find the number of ancestors of drone at generation {}"</span><span class="o">,</span>
         <span class="n">generation</span><span class="o">);</span>
@@ -723,9 +723,9 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="k">return</span> <span class="k">new</span> <span class="nf">Ancestor</span><span class="o">(</span><span class="n">beekeeperService</span><span class="o">.</span><span class="na">ancestorsOfDroneAt</span><span class="o">(</span><span class="n">generation</span><span class="o">));</span>
   <span class="o">}</span>
 
-  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/queen/ancestors/{generation}"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="no">GET</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="no">APPLICATION_JSON_UTF8_VALUE</span><span class="o">)</span>
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/queen/ancestors/{generation}"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">GET</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">APPLICATION_JSON_UTF8_VALUE</span><span class="o">)</span>
   <span class="nd">@ResponseBody</span>
-  <span class="kd">public</span> <span class="nc">Ancestor</span> <span class="nf">ancestorsOfQueen</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">generation</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">Ancestor</span> <span class="nf">ancestorsOfQueen</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="kt">int</span> <span class="n">generation</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span>
         <span class="s">"Received request to find the number of ancestors of queen at generation {}"</span><span class="o">,</span>
         <span class="n">generation</span><span class="o">);</span>
@@ -737,10 +737,10 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <span class="kd">class</span> <span class="nc">Ancestor</span> <span class="o">{</span>
   <span class="kd">private</span> <span class="kt">long</span> <span class="n">ancestors</span><span class="o">;</span>
 
-  <span class="nc">Ancestor</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">Ancestor</span><span class="o">()</span> <span class="o">{</span>
   <span class="o">}</span>
 
-  <span class="nc">Ancestor</span><span class="o">(</span><span class="kt">long</span> <span class="n">ancestors</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Ancestor</span><span class="o">(</span><span class="kt">long</span> <span class="n">ancestors</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">ancestors</span> <span class="o">=</span> <span class="n">ancestors</span><span class="o">;</span>
   <span class="o">}</span>
 
@@ -782,8 +782,8 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeekeeperApplication</span> <span class="o">{</span>
 
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">BeekeeperApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">BeekeeperApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -799,9 +799,9 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 请求都需要带上返回的JWT token，而 <code class="highlighter-rouge">validate</code> 方法将验证token以确认其有效。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
-  <span class="nc">String</span> <span class="nf">authenticate</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">,</span> <span class="nc">String</span> <span class="n">password</span><span class="o">);</span>
+  <span class="n">String</span> <span class="nf">authenticate</span><span class="o">(</span><span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">);</span>
 
-  <span class="nc">String</span> <span class="nf">validate</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">);</span>
+  <span class="n">String</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -814,57 +814,57 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/rest"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationController</span> <span class="o">{</span>
 
-  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">AuthenticationController</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">AuthenticationController</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
-  <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">USERNAME</span> <span class="o">=</span> <span class="s">"username"</span><span class="o">;</span>
-  <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">PASSWORD</span> <span class="o">=</span> <span class="s">"password"</span><span class="o">;</span>
-  <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">TOKEN</span> <span class="o">=</span> <span class="s">"token"</span><span class="o">;</span>
+  <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">USERNAME</span> <span class="o">=</span> <span class="s">"username"</span><span class="o">;</span>
+  <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">PASSWORD</span> <span class="o">=</span> <span class="s">"password"</span><span class="o">;</span>
+  <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TOKEN</span> <span class="o">=</span> <span class="s">"token"</span><span class="o">;</span>
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">;</span>
 
   <span class="nd">@Autowired</span>
-  <span class="nc">AuthenticationController</span><span class="o">(</span><span class="nc">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">AuthenticationController</span><span class="o">(</span><span class="n">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">authenticationService</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">;</span>
   <span class="o">}</span>
 
-  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/login"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="no">POST</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="no">TEXT_PLAIN_VALUE</span><span class="o">)</span>
-  <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">login</span><span class="o">(</span>
-      <span class="nd">@RequestParam</span><span class="o">(</span><span class="no">USERNAME</span><span class="o">)</span> <span class="nc">String</span> <span class="n">username</span><span class="o">,</span>
-      <span class="nd">@RequestParam</span><span class="o">(</span><span class="no">PASSWORD</span><span class="o">)</span> <span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/login"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">POST</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">TEXT_PLAIN_VALUE</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">login</span><span class="o">(</span>
+      <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">USERNAME</span><span class="o">)</span> <span class="n">String</span> <span class="n">username</span><span class="o">,</span>
+      <span class="nd">@RequestParam</span><span class="o">(</span><span class="n">PASSWORD</span><span class="o">)</span> <span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received login request from user {}"</span><span class="o">,</span> <span class="n">username</span><span class="o">);</span>
-    <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">.</span><span class="na">authenticate</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
-    <span class="nc">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HttpHeaders</span><span class="o">();</span>
-    <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="no">AUTHORIZATION</span><span class="o">,</span> <span class="no">TOKEN_PREFIX</span> <span class="o">+</span> <span class="n">token</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">.</span><span class="na">authenticate</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+    <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpHeaders</span><span class="o">();</span>
+    <span class="n">headers</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">AUTHORIZATION</span><span class="o">,</span> <span class="n">TOKEN_PREFIX</span> <span class="o">+</span> <span class="n">token</span><span class="o">);</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Authenticated user {} successfully"</span><span class="o">,</span> <span class="n">username</span><span class="o">);</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nc">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="s">"Welcome, "</span> <span class="o">+</span> <span class="n">username</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="no">OK</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="s">"Welcome, "</span> <span class="o">+</span> <span class="n">username</span><span class="o">,</span> <span class="n">headers</span><span class="o">,</span> <span class="n">OK</span><span class="o">);</span>
   <span class="o">}</span>
 
-  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/validate"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="no">POST</span><span class="o">,</span> <span class="n">consumes</span> <span class="o">=</span> <span class="no">APPLICATION_JSON_UTF8_VALUE</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="no">TEXT_PLAIN_VALUE</span><span class="o">)</span>
+  <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/validate"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">POST</span><span class="o">,</span> <span class="n">consumes</span> <span class="o">=</span> <span class="n">APPLICATION_JSON_UTF8_VALUE</span><span class="o">,</span> <span class="n">produces</span> <span class="o">=</span> <span class="n">TEXT_PLAIN_VALUE</span><span class="o">)</span>
   <span class="nd">@ResponseBody</span>
-  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">validate</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">Token</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">validate</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">Token</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received validation request of token {}"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">authenticationService</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">token</span><span class="o">.</span><span class="na">getToken</span><span class="o">());</span>
   <span class="o">}</span>
 <span class="o">}</span>
 
 <span class="kd">class</span> <span class="nc">Token</span> <span class="o">{</span>
-  <span class="kd">private</span> <span class="nc">String</span> <span class="n">token</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="n">token</span><span class="o">;</span>
 
-  <span class="nc">Token</span><span class="o">()</span> <span class="o">{</span>
+  <span class="n">Token</span><span class="o">()</span> <span class="o">{</span>
   <span class="o">}</span>
 
-  <span class="nc">Token</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Token</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">this</span><span class="o">.</span><span class="na">token</span> <span class="o">=</span> <span class="n">token</span><span class="o">;</span>
   <span class="o">}</span>
 
-  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getToken</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getToken</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="n">token</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="s">"Token{"</span> <span class="o">+</span>
         <span class="s">"token='"</span> <span class="o">+</span> <span class="n">token</span> <span class="o">+</span> <span class="sc">'\''</span> <span class="o">+</span>
         <span class="sc">'}'</span><span class="o">;</span>
@@ -878,8 +878,8 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">DoormanApplication</span> <span class="o">{</span>
 
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">DoormanApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">DoormanApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -939,33 +939,33 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Service</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AuthenticationService</span> <span class="o">{</span>
 
-  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">AuthenticationService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">DOORMAN_ADDRESS</span> <span class="o">=</span> <span class="s">"cse://doorman"</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">AuthenticationService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">DOORMAN_ADDRESS</span> <span class="o">=</span> <span class="s">"cse://doorman"</span><span class="o">;</span>
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">RestTemplate</span> <span class="n">restTemplate</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">;</span>
 
-  <span class="nc">AuthenticationService</span><span class="o">()</span> <span class="o">{</span>
-    <span class="k">this</span><span class="o">.</span><span class="na">restTemplate</span> <span class="o">=</span> <span class="nc">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+  <span class="n">AuthenticationService</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">restTemplate</span> <span class="o">=</span> <span class="n">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
 
-    <span class="k">this</span><span class="o">.</span><span class="na">restTemplate</span><span class="o">.</span><span class="na">setErrorHandler</span><span class="o">(</span><span class="k">new</span> <span class="nc">ResponseErrorHandler</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">restTemplate</span><span class="o">.</span><span class="na">setErrorHandler</span><span class="o">(</span><span class="k">new</span> <span class="n">ResponseErrorHandler</span><span class="o">()</span> <span class="o">{</span>
       <span class="nd">@Override</span>
-      <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasError</span><span class="o">(</span><span class="nc">ClientHttpResponse</span> <span class="n">clientHttpResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">hasError</span><span class="o">(</span><span class="n">ClientHttpResponse</span> <span class="n">clientHttpResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
         <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
       <span class="o">}</span>
 
       <span class="nd">@Override</span>
-      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleError</span><span class="o">(</span><span class="nc">ClientHttpResponse</span> <span class="n">clientHttpResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleError</span><span class="o">(</span><span class="n">ClientHttpResponse</span> <span class="n">clientHttpResponse</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
       <span class="o">}</span>
     <span class="o">});</span>
   <span class="o">}</span>
 
   <span class="nd">@HystrixCommand</span><span class="o">(</span><span class="n">fallbackMethod</span> <span class="o">=</span> <span class="s">"timeout"</span><span class="o">)</span>
-  <span class="kd">public</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">validate</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">validate</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Validating token {}"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
-    <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span>
-        <span class="no">DOORMAN_ADDRESS</span> <span class="o">+</span> <span class="s">"/rest/validate"</span><span class="o">,</span>
+    <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span>
+        <span class="n">DOORMAN_ADDRESS</span> <span class="o">+</span> <span class="s">"/rest/validate"</span><span class="o">,</span>
         <span class="n">validationRequest</span><span class="o">(</span><span class="n">token</span><span class="o">),</span>
-        <span class="nc">String</span><span class="o">.</span><span class="na">class</span>
+        <span class="n">String</span><span class="o">.</span><span class="na">class</span>
     <span class="o">);</span>
 
     <span class="k">if</span> <span class="o">(!</span><span class="n">responseEntity</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">().</span><span class="na">is2xxSuccessful</span><span class="o">())</span> <span class="o">{</span>
@@ -975,16 +975,16 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="k">return</span> <span class="n">responseEntity</span><span class="o">;</span>
   <span class="o">}</span>
 
-  <span class="kd">private</span> <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">timeout</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">timeout</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"Request to validate token {} timed out"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nc">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="no">REQUEST_TIMEOUT</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">ResponseEntity</span><span class="o">&lt;&gt;(</span><span class="n">REQUEST_TIMEOUT</span><span class="o">);</span>
   <span class="o">}</span>
 
-  <span class="kd">private</span> <span class="nc">HttpEntity</span><span class="o">&lt;</span><span class="nc">Token</span><span class="o">&gt;</span> <span class="nf">validationRequest</span><span class="o">(</span><span class="nc">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nc">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HttpHeaders</span><span class="o">();</span>
-    <span class="n">headers</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="nc">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_UTF8</span><span class="o">);</span>
+  <span class="kd">private</span> <span class="n">HttpEntity</span><span class="o">&lt;</span><span class="n">Token</span><span class="o">&gt;</span> <span class="nf">validationRequest</span><span class="o">(</span><span class="n">String</span> <span class="n">token</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">HttpHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HttpHeaders</span><span class="o">();</span>
+    <span class="n">headers</span><span class="o">.</span><span class="na">setContentType</span><span class="o">(</span><span class="n">MediaType</span><span class="o">.</span><span class="na">APPLICATION_JSON_UTF8</span><span class="o">);</span>
 
-    <span class="k">return</span> <span class="k">new</span> <span class="nc">HttpEntity</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="nc">Token</span><span class="o">(</span><span class="n">token</span><span class="o">),</span> <span class="n">headers</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">HttpEntity</span><span class="o">&lt;&gt;(</span><span class="k">new</span> <span class="n">Token</span><span class="o">(</span><span class="n">token</span><span class="o">),</span> <span class="n">headers</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -994,26 +994,26 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 若用户合法则路由用户请求到对应服务，否则返回 <code class="highlighter-rouge">403 forbidden</code>。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
-<span class="kd">class</span> <span class="nc">AuthenticationAwareFilter</span> <span class="kd">extends</span> <span class="nc">ZuulFilter</span> <span class="o">{</span>
+<span class="kd">class</span> <span class="nc">AuthenticationAwareFilter</span> <span class="kd">extends</span> <span class="n">ZuulFilter</span> <span class="o">{</span>
 
-  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">AuthenticationAwareFilter</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">AuthenticationAwareFilter</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
-  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">LOGIN_PATH</span> <span class="o">=</span> <span class="s">"/login"</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">LOGIN_PATH</span> <span class="o">=</span> <span class="s">"/login"</span><span class="o">;</span>
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">;</span>
-  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">PathExtractor</span> <span class="n">pathExtractor</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">PathExtractor</span> <span class="n">pathExtractor</span><span class="o">;</span>
 
   <span class="nd">@Autowired</span>
-  <span class="nc">AuthenticationAwareFilter</span><span class="o">(</span>
-      <span class="nc">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">,</span>
-      <span class="nc">PathExtractor</span> <span class="n">pathExtractor</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">AuthenticationAwareFilter</span><span class="o">(</span>
+      <span class="n">AuthenticationService</span> <span class="n">authenticationService</span><span class="o">,</span>
+      <span class="n">PathExtractor</span> <span class="n">pathExtractor</span><span class="o">)</span> <span class="o">{</span>
 
     <span class="k">this</span><span class="o">.</span><span class="na">authenticationService</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">;</span>
     <span class="k">this</span><span class="o">.</span><span class="na">pathExtractor</span> <span class="o">=</span> <span class="n">pathExtractor</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">filterType</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">filterType</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="s">"pre"</span><span class="o">;</span>
   <span class="o">}</span>
 
@@ -1024,26 +1024,26 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 
   <span class="nd">@Override</span>
   <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">shouldFilter</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nc">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">pathExtractor</span><span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="nc">RequestContext</span><span class="o">.</span><span class="na">getCurrentContext</span><span class="o">());</span>
+    <span class="n">String</span> <span class="n">path</span> <span class="o">=</span> <span class="n">pathExtractor</span><span class="o">.</span><span class="na">path</span><span class="o">(</span><span class="n">RequestContext</span><span class="o">.</span><span class="na">getCurrentContext</span><span class="o">());</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received request with query path: {}"</span><span class="o">,</span> <span class="n">path</span><span class="o">);</span>
-    <span class="k">return</span> <span class="o">!</span><span class="n">path</span><span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="no">LOGIN_PATH</span><span class="o">);</span>
+    <span class="k">return</span> <span class="o">!</span><span class="n">path</span><span class="o">.</span><span class="na">endsWith</span><span class="o">(</span><span class="n">LOGIN_PATH</span><span class="o">);</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">Object</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
     <span class="n">filter</span><span class="o">();</span>
     <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="kd">private</span> <span class="kt">void</span> <span class="nf">filter</span><span class="o">()</span> <span class="o">{</span>
-    <span class="nc">RequestContext</span> <span class="n">context</span> <span class="o">=</span> <span class="nc">RequestContext</span><span class="o">.</span><span class="na">getCurrentContext</span><span class="o">();</span>
+    <span class="n">RequestContext</span> <span class="n">context</span> <span class="o">=</span> <span class="n">RequestContext</span><span class="o">.</span><span class="na">getCurrentContext</span><span class="o">();</span>
 
     <span class="k">if</span> <span class="o">(</span><span class="n">doesNotContainToken</span><span class="o">(</span><span class="n">context</span><span class="o">))</span> <span class="o">{</span>
       <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"No token found in request header"</span><span class="o">);</span>
       <span class="n">rejectRequest</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
     <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-      <span class="nc">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
-      <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
+      <span class="n">String</span> <span class="n">token</span> <span class="o">=</span> <span class="n">token</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
+      <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">responseEntity</span> <span class="o">=</span> <span class="n">authenticationService</span><span class="o">.</span><span class="na">validate</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
       <span class="k">if</span> <span class="o">(!</span><span class="n">responseEntity</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">().</span><span class="na">is2xxSuccessful</span><span class="o">())</span> <span class="o">{</span>
         <span class="n">logger</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">"Unauthorized token {} and request rejected"</span><span class="o">,</span> <span class="n">token</span><span class="o">);</span>
         <span class="n">rejectRequest</span><span class="o">(</span><span class="n">context</span><span class="o">);</span>
@@ -1053,22 +1053,22 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
     <span class="o">}</span>
   <span class="o">}</span>
 
-  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">rejectRequest</span><span class="o">(</span><span class="nc">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">context</span><span class="o">.</span><span class="na">setResponseStatusCode</span><span class="o">(</span><span class="no">SC_FORBIDDEN</span><span class="o">);</span>
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">rejectRequest</span><span class="o">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">context</span><span class="o">.</span><span class="na">setResponseStatusCode</span><span class="o">(</span><span class="n">SC_FORBIDDEN</span><span class="o">);</span>
     <span class="n">context</span><span class="o">.</span><span class="na">setSendZuulResponse</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
   <span class="o">}</span>
 
-  <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">doesNotContainToken</span><span class="o">(</span><span class="nc">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kt">boolean</span> <span class="nf">doesNotContainToken</span><span class="o">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="nf">authorizationHeader</span><span class="o">(</span><span class="n">context</span><span class="o">)</span> <span class="o">==</span> <span class="kc">null</span>
-        <span class="o">||</span> <span class="o">!</span><span class="n">authorizationHeader</span><span class="o">(</span><span class="n">context</span><span class="o">).</span><span class="na">startsWith</span><span class="o">(</span><span class="no">TOKEN_PREFIX</span><span class="o">);</span>
+        <span class="o">||</span> <span class="o">!</span><span class="n">authorizationHeader</span><span class="o">(</span><span class="n">context</span><span class="o">).</span><span class="na">startsWith</span><span class="o">(</span><span class="n">TOKEN_PREFIX</span><span class="o">);</span>
   <span class="o">}</span>
 
-  <span class="kd">private</span> <span class="nc">String</span> <span class="nf">token</span><span class="o">(</span><span class="nc">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="nf">authorizationHeader</span><span class="o">(</span><span class="n">context</span><span class="o">).</span><span class="na">replace</span><span class="o">(</span><span class="no">TOKEN_PREFIX</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="nf">token</span><span class="o">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">authorizationHeader</span><span class="o">(</span><span class="n">context</span><span class="o">).</span><span class="na">replace</span><span class="o">(</span><span class="n">TOKEN_PREFIX</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
   <span class="o">}</span>
 
-  <span class="kd">private</span> <span class="nc">String</span> <span class="nf">authorizationHeader</span><span class="o">(</span><span class="nc">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">getHeader</span><span class="o">(</span><span class="no">AUTHORIZATION</span><span class="o">);</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="nf">authorizationHeader</span><span class="o">(</span><span class="n">RequestContext</span> <span class="n">context</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="na">getRequest</span><span class="o">().</span><span class="na">getHeader</span><span class="o">(</span><span class="n">AUTHORIZATION</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -1082,8 +1082,8 @@ Credit: <a href="http://www.dave-cushman.net&quot;">Dave Cushman’s website</a>
 <span class="nd">@EnableServiceComb</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ManagerApplication</span> <span class="o">{</span>
 
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">ManagerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ManagerApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -1293,6 +1293,35 @@ DevOps在微服务开发中的实践。希望能对大家有所帮助。</p>
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/cn/docs/playing-on-the-open-source-community-with-Apache-ServiceComb-BUPT/" rel="permalink">与Apache ServiceComb一起玩开源-北邮站 (PPT Download)
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">与Apache ServiceComb一起玩开源-北邮站 (PPT Download)
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/docs/servicecomb-accept-newcapec-institute-code-donation/" rel="permalink">Apache ServiceComb Accept Code Donation From NewCapec Institute
 </a>
       
@@ -1364,35 +1393,6 @@ DevOps在微服务开发中的实践。希望能对大家有所帮助。</p>
 
 
   1 分钟 阅读
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/cn/docs/Apache-ServiceComb-Meetup-2019-Shanghai-Report/" rel="permalink">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT Download)
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT)
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  少于 1 分钟 阅读
 
 </p>
     

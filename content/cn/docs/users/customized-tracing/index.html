@@ -357,7 +357,7 @@
     <meta itemprop="headline" content="自定义调用链打点">
     <meta itemprop="description" content="自定义调用链打点">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -431,8 +431,8 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableZipkinTracing</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZipkinSpanTestApplication</span> <span class="o">{</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">ZipkinSpanTestApplication</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">ZipkinSpanTestApplication</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -442,16 +442,16 @@
 <p>在需要定制打点的方法上添加<code class="highlighter-rouge">@Span</code>注释：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Component</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SlowRepoImpl</span> <span class="kd">implements</span> <span class="nc">SlowRepo</span> <span class="o">{</span>
-  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">SlowRepoImpl</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SlowRepoImpl</span> <span class="kd">implements</span> <span class="n">SlowRepo</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">SlowRepoImpl</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
-  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
 
   <span class="nd">@Span</span>
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">crawl</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">InterruptedException</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">crawl</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
     <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"in /crawl"</span><span class="o">);</span>
-    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">200</span><span class="o">));</span>
+    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">200</span><span class="o">));</span>
     <span class="k">return</span> <span class="s">"crawled"</span><span class="o">;</span>
   <span class="o">}</span>
 <span class="o">}</span>
@@ -493,7 +493,7 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">CustomSpanTask</span> <span class="o">{</span>
     <span class="nd">@Span</span><span class="o">(</span><span class="n">spanName</span> <span class="o">=</span> <span class="s">"transaction1"</span><span class="o">,</span> <span class="n">callPath</span> <span class="o">=</span> <span class="s">"startA"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">invoke</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">invoke</span><span class="o">()</span> <span class="o">{</span>
       <span class="k">return</span> <span class="s">"invoke the method"</span><span class="o">;</span>
     <span class="o">}</span>
   <span class="o">}</span>

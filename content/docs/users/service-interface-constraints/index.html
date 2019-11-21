@@ -396,7 +396,7 @@
     <meta itemprop="headline" content="API Constraints">
     <meta itemprop="description" content="API Constraints">
     
-    <meta itemprop="dateModified" content="August 15, 2017">
+    <meta itemprop="dateModified" content="August 16, 2017">
 
     <div class="page__inner-wrap">
       
@@ -429,18 +429,18 @@
 
 <p>For example:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nc">String</span> <span class="n">id</span><span class="o">);</span>
-<span class="kd">public</span> <span class="nc">Object</span> <span class="nf">query</span><span class="o">(</span><span class="nc">String</span> <span class="n">id</span><span class="o">);</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span><span class="nc">String</span> <span class="n">name</span><span class="o">;}</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">);</span>
+<span class="kd">public</span> <span class="n">Object</span> <span class="nf">query</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span><span class="n">String</span> <span class="n">name</span><span class="o">;}</span>
 </code></pre></div></div>
 
 <p>Obviously, if API 1 is called, we know that an ID parameter of String type needs to be transferred. The returned value is of Person type, which contains a string-typed name parameter. If API 2 is called, we do not know how to process the returned value, and need to refer to documents provided by the service provider. API 2 is developed in the perspective of RPC developers.</p>
 
 <p>To release an API as a REST API, we can use the swagger file; specify the ID to be transmitted using RequestParam, PathVariable, or RequestBody; or use the label provided by SpringMVC or JAX-RS.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="nc">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="nc">String</span> <span class="n">id</span><span class="o">);</span> 
-<span class="kd">public</span> <span class="nc">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">String</span> <span class="n">id</span><span class="o">);</span> 
-<span class="kd">public</span> <span class="nc">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="nc">String</span> <span class="n">id</span><span class="o">);</span> 
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@RequestParam</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span> 
+<span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span> 
+<span class="kd">public</span> <span class="n">Person</span> <span class="nf">query</span><span class="o">(</span><span class="nd">@RequestBody</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span> 
 </code></pre></div></div>
 
 <p>Generally , simple data types, such as String and int, are transmitted in RequestParam or PathVariable, and complex data types are transmitted in RequestBody after being coded using JSON, to reduce problems cause by HTTP protocol restrictions on developers.</p>
@@ -456,13 +456,13 @@
 </code></pre></div>    </div>
   </li>
   <li>Generic type
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonHolder</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">{...}</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">PersonHolder</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">{...}</span>
 </code></pre></div>    </div>
   </li>
   <li>
     <p>A collection type of the preceding types or a set without a specified type, such as <code class="highlighter-rouge">List&lt;IPerson&gt;, Map&lt;String, PersonHolder&lt;?&gt;&gt;, List, Map</code>. such as <code class="highlighter-rouge">List&lt;String&gt;, List&lt;Person&gt;</code> are supported.</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GroupOfPerson</span> <span class="o">{</span><span class="nc">IPerson</span> <span class="n">master</span> <span class="o">...}</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GroupOfPerson</span> <span class="o">{</span><span class="n">IPerson</span> <span class="n">master</span> <span class="o">...}</span>
 </code></pre></div>    </div>
   </li>
 </ul>

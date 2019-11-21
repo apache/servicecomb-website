@@ -459,28 +459,28 @@
 </table>
 
 <p>Example:</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySqlHealthChecker</span> <span class="kd">implements</span> <span class="nc">HealthChecker</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MySqlHealthChecker</span> <span class="kd">implements</span> <span class="n">HealthChecker</span> <span class="o">{</span>
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
     <span class="k">return</span> <span class="s">"mysql"</span><span class="o">;</span>
   <span class="o">}</span>
 
   <span class="nd">@Override</span>
-  <span class="kd">public</span> <span class="nc">HealthCheckResult</span> <span class="nf">check</span><span class="o">()</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="n">HealthCheckResult</span> <span class="nf">check</span><span class="o">()</span> <span class="o">{</span>
     <span class="c1">//add your health check code here</span>
-    <span class="nc">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     <span class="k">try</span> <span class="o">{</span>
-      <span class="n">connection</span> <span class="o">=</span> <span class="nc">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">"jdbc:mysql://localhost:3306/test_db?useSSL=false"</span><span class="o">,</span> <span class="s">"root"</span><span class="o">,</span> <span class="s">"pwd"</span><span class="o">);</span>
+      <span class="n">connection</span> <span class="o">=</span> <span class="n">DriverManager</span><span class="o">.</span><span class="na">getConnection</span><span class="o">(</span><span class="s">"jdbc:mysql://localhost:3306/test_db?useSSL=false"</span><span class="o">,</span> <span class="s">"root"</span><span class="o">,</span> <span class="s">"pwd"</span><span class="o">);</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nf">HealthCheckResult</span><span class="o">(</span><span class="kc">true</span><span class="o">,</span> <span class="s">"local mysql health check"</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-      <span class="no">LOG</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Cannot connect the localhost mysql. "</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">LOG</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Cannot connect the localhost mysql. "</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
       <span class="k">return</span> <span class="k">new</span> <span class="nf">HealthCheckResult</span><span class="o">(</span><span class="kc">false</span><span class="o">,</span> <span class="s">"local mysql health check"</span><span class="o">,</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
     <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
       <span class="k">if</span> <span class="o">(</span><span class="n">connection</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
           <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-          <span class="no">LOG</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Close connect the localhost mysql error. "</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+          <span class="n">LOG</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"Close connect the localhost mysql error. "</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
       <span class="o">}</span>
     <span class="o">}</span>

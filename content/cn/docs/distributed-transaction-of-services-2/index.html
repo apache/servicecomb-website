@@ -452,8 +452,8 @@
 <span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableOmega</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">Application</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">Application</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -464,15 +464,15 @@
 
 <span class="nd">@SagaStart</span>
 <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/booking/{name}/{rooms}/{cars}"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nc">String</span> <span class="nf">order</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="nc">String</span> <span class="n">name</span><span class="o">,</span>  <span class="nd">@PathVariable</span> <span class="nc">Integer</span> <span class="n">rooms</span><span class="o">,</span> <span class="nd">@PathVariable</span> <span class="nc">Integer</span> <span class="n">cars</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">order</span><span class="o">(</span><span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">name</span><span class="o">,</span>  <span class="nd">@PathVariable</span> <span class="n">Integer</span> <span class="n">rooms</span><span class="o">,</span> <span class="nd">@PathVariable</span> <span class="n">Integer</span> <span class="n">cars</span><span class="o">)</span> <span class="o">{</span>
   <span class="c1">// Calling the car service</span>
   <span class="n">template</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span>
       <span class="n">carServiceUrl</span> <span class="o">+</span> <span class="s">"/order/{name}/{cars}"</span><span class="o">,</span>
-      <span class="kc">null</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">cars</span><span class="o">);</span>
+      <span class="kc">null</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">cars</span><span class="o">);</span>
   <span class="c1">// Calling the hotel service</span>
   <span class="n">template</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span>
       <span class="n">hotelServiceUrl</span> <span class="o">+</span> <span class="s">"/order/{name}/{rooms}"</span><span class="o">,</span>
-      <span class="kc">null</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">rooms</span><span class="o">);</span>
+      <span class="kc">null</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">name</span><span class="o">,</span> <span class="n">rooms</span><span class="o">);</span>
   <span class="k">return</span> <span class="n">name</span> <span class="o">+</span> <span class="s">" booking "</span> <span class="o">+</span> <span class="n">rooms</span> <span class="o">+</span> <span class="s">" rooms and "</span> <span class="o">+</span> <span class="n">cars</span> <span class="o">+</span> <span class="s">" cars OK"</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -482,13 +482,13 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.pack.omega.transaction.annotations.Compensable</span><span class="o">;</span>
 
 <span class="nd">@Compensable</span><span class="o">(</span><span class="n">compensationMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
-<span class="kt">void</span> <span class="nf">order</span><span class="o">(</span><span class="nc">CarBooking</span> <span class="n">booking</span><span class="o">)</span> <span class="o">{</span>
+<span class="kt">void</span> <span class="nf">order</span><span class="o">(</span><span class="n">CarBooking</span> <span class="n">booking</span><span class="o">)</span> <span class="o">{</span>
   <span class="n">booking</span><span class="o">.</span><span class="na">confirm</span><span class="o">();</span>
   <span class="n">bookings</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">booking</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">booking</span><span class="o">);</span>
 <span class="o">}</span>
 
-<span class="kt">void</span> <span class="nf">cancel</span><span class="o">(</span><span class="nc">CarBooking</span> <span class="n">booking</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">Integer</span> <span class="n">id</span> <span class="o">=</span> <span class="n">booking</span><span class="o">.</span><span class="na">getId</span><span class="o">();</span>
+<span class="kt">void</span> <span class="nf">cancel</span><span class="o">(</span><span class="n">CarBooking</span> <span class="n">booking</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Integer</span> <span class="n">id</span> <span class="o">=</span> <span class="n">booking</span><span class="o">.</span><span class="na">getId</span><span class="o">();</span>
   <span class="k">if</span> <span class="o">(</span><span class="n">bookings</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">id</span><span class="o">))</span> <span class="o">{</span>
     <span class="n">bookings</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">id</span><span class="o">).</span><span class="na">cancel</span><span class="o">();</span>
   <span class="o">}</span>
@@ -539,8 +539,8 @@
 <span class="nd">@SpringBootApplication</span>
 <span class="nd">@EnableOmega</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TccOrderingApplication</span> <span class="o">{</span>
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">TccOrderingApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">TccOrderingApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -552,18 +552,18 @@
 <span class="nd">@TccStart</span>
 <span class="nd">@PostMapping</span><span class="o">(</span><span class="s">"/order/{userName}/{productName}/{productUnit}/{unitPrice}"</span><span class="o">)</span>
 <span class="nd">@ResponseBody</span>
-<span class="kd">public</span> <span class="nc">String</span> <span class="nf">order</span><span class="o">(</span>
-    <span class="nd">@PathVariable</span> <span class="nc">String</span> <span class="n">userName</span><span class="o">,</span>
-    <span class="nd">@PathVariable</span> <span class="nc">String</span> <span class="n">productName</span><span class="o">,</span> <span class="nd">@PathVariable</span> <span class="nc">Integer</span> <span class="n">productUnit</span><span class="o">,</span> <span class="nd">@PathVariable</span> <span class="nc">Integer</span> <span class="n">unitPrice</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="n">String</span> <span class="nf">order</span><span class="o">(</span>
+    <span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">userName</span><span class="o">,</span>
+    <span class="nd">@PathVariable</span> <span class="n">String</span> <span class="n">productName</span><span class="o">,</span> <span class="nd">@PathVariable</span> <span class="n">Integer</span> <span class="n">productUnit</span><span class="o">,</span> <span class="nd">@PathVariable</span> <span class="n">Integer</span> <span class="n">unitPrice</span><span class="o">)</span> <span class="o">{</span>
   <span class="c1">// Calling the inventory service</span>
   <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span>
       <span class="n">inventoryServiceUrl</span> <span class="o">+</span> <span class="s">"/order/{userName}/{productName}/{productUnit}"</span><span class="o">,</span>
-      <span class="kc">null</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">userName</span><span class="o">,</span> <span class="n">productName</span><span class="o">,</span> <span class="n">productUnit</span><span class="o">);</span>
+      <span class="kc">null</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">userName</span><span class="o">,</span> <span class="n">productName</span><span class="o">,</span> <span class="n">productUnit</span><span class="o">);</span>
 
   <span class="kt">int</span> <span class="n">amount</span> <span class="o">=</span> <span class="n">productUnit</span> <span class="o">*</span> <span class="n">unitPrice</span><span class="o">;</span>
   <span class="c1">// Calling the payment service</span>
   <span class="n">restTemplate</span><span class="o">.</span><span class="na">postForEntity</span><span class="o">(</span><span class="n">paymentServiceUrl</span> <span class="o">+</span> <span class="s">"/pay/{userName}/{amount}"</span><span class="o">,</span>
-      <span class="kc">null</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">userName</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
+      <span class="kc">null</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">userName</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
 
   <span class="k">return</span> <span class="n">userName</span> <span class="o">+</span> <span class="s">" ordering "</span> <span class="o">+</span> <span class="n">productName</span> <span class="o">+</span> <span class="s">" with "</span> <span class="o">+</span> <span class="n">productUnit</span> <span class="o">+</span> <span class="s">" OK"</span><span class="o">;</span>
 <span class="o">}</span>
@@ -576,8 +576,8 @@
 
 <span class="nd">@Participate</span><span class="o">(</span><span class="n">confirmMethod</span> <span class="o">=</span> <span class="s">"confirm"</span><span class="o">,</span> <span class="n">cancelMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
 <span class="nd">@Transactional</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">pay</span><span class="o">(</span><span class="nc">Payment</span> <span class="n">payment</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">getAccount</span><span class="o">(</span><span class="n">payment</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">pay</span><span class="o">(</span><span class="n">Payment</span> <span class="n">payment</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">getAccount</span><span class="o">(</span><span class="n">payment</span><span class="o">);</span>
   <span class="k">if</span> <span class="o">(</span><span class="n">account</span><span class="o">.</span><span class="na">getCredit</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="n">payment</span><span class="o">.</span><span class="na">getAmount</span><span class="o">())</span> <span class="o">{</span>
     <span class="n">account</span><span class="o">.</span><span class="na">setCredit</span><span class="o">(</span><span class="n">account</span><span class="o">.</span><span class="na">getCredit</span><span class="o">()</span> <span class="o">-</span> <span class="n">payment</span><span class="o">.</span><span class="na">getAmount</span><span class="o">());</span>
     <span class="n">accountDao</span><span class="o">.</span><span class="na">saveAndFlush</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
@@ -588,17 +588,17 @@
 <span class="o">}</span>
 
 <span class="nd">@Transactional</span>
-<span class="nc">Account</span> <span class="nf">getAccount</span><span class="o">(</span><span class="nc">Payment</span> <span class="n">payment</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">accountDao</span><span class="o">.</span><span class="na">findByUserName</span><span class="o">(</span><span class="n">payment</span><span class="o">.</span><span class="na">getUserName</span><span class="o">());</span>
-  <span class="k">if</span> <span class="o">(</span><span class="nc">Objects</span><span class="o">.</span><span class="na">isNull</span><span class="o">(</span><span class="n">account</span><span class="o">))</span> <span class="o">{</span>
+<span class="n">Account</span> <span class="nf">getAccount</span><span class="o">(</span><span class="n">Payment</span> <span class="n">payment</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">accountDao</span><span class="o">.</span><span class="na">findByUserName</span><span class="o">(</span><span class="n">payment</span><span class="o">.</span><span class="na">getUserName</span><span class="o">());</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">Objects</span><span class="o">.</span><span class="na">isNull</span><span class="o">(</span><span class="n">account</span><span class="o">))</span> <span class="o">{</span>
     <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Cannot find the account!"</span><span class="o">);</span>
   <span class="o">}</span>
   <span class="k">return</span> <span class="n">account</span><span class="o">;</span>
 <span class="o">}</span>
 
 <span class="nd">@Transactional</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">confirm</span><span class="o">(</span><span class="nc">Payment</span> <span class="n">payment</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">getAccount</span><span class="o">(</span><span class="n">payment</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">confirm</span><span class="o">(</span><span class="n">Payment</span> <span class="n">payment</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">getAccount</span><span class="o">(</span><span class="n">payment</span><span class="o">);</span>
   <span class="n">payment</span><span class="o">.</span><span class="na">setConfirmed</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
   <span class="n">payment</span><span class="o">.</span><span class="na">setCancelled</span><span class="o">(</span><span class="kc">false</span><span class="o">);</span>
   <span class="n">account</span><span class="o">.</span><span class="na">setBalance</span><span class="o">(</span><span class="n">account</span><span class="o">.</span><span class="na">getBalance</span><span class="o">()</span> <span class="o">-</span> <span class="n">payment</span><span class="o">.</span><span class="na">getAmount</span><span class="o">());</span>
@@ -609,8 +609,8 @@
 <span class="o">}</span>
 
 <span class="nd">@Transactional</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">cancel</span><span class="o">(</span><span class="nc">Payment</span> <span class="n">payment</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">getAccount</span><span class="o">(</span><span class="n">payment</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">cancel</span><span class="o">(</span><span class="n">Payment</span> <span class="n">payment</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Account</span> <span class="n">account</span> <span class="o">=</span> <span class="n">getAccount</span><span class="o">(</span><span class="n">payment</span><span class="o">);</span>
   <span class="n">account</span><span class="o">.</span><span class="na">setCredit</span><span class="o">(</span><span class="n">account</span><span class="o">.</span><span class="na">getCredit</span><span class="o">()</span> <span class="o">+</span> <span class="n">payment</span><span class="o">.</span><span class="na">getAmount</span><span class="o">());</span>
   <span class="n">accountDao</span><span class="o">.</span><span class="na">saveAndFlush</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
   <span class="n">payment</span><span class="o">.</span><span class="na">setBalance</span><span class="o">(</span><span class="n">account</span><span class="o">.</span><span class="na">getBalance</span><span class="o">());</span>
@@ -627,8 +627,8 @@
 
 <span class="nd">@Participate</span><span class="o">(</span><span class="n">confirmMethod</span> <span class="o">=</span> <span class="s">"confirm"</span><span class="o">,</span> <span class="n">cancelMethod</span> <span class="o">=</span> <span class="s">"cancel"</span><span class="o">)</span>
 <span class="nd">@Transactional</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">reserve</span><span class="o">(</span><span class="nc">ProductOrder</span> <span class="n">order</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="n">getProduct</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getProductName</span><span class="o">());</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">reserve</span><span class="o">(</span><span class="n">ProductOrder</span> <span class="n">order</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="n">getProduct</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getProductName</span><span class="o">());</span>
   <span class="k">if</span> <span class="o">(</span><span class="n">product</span><span class="o">.</span><span class="na">getInStock</span><span class="o">()</span> <span class="o">&gt;=</span> <span class="n">order</span><span class="o">.</span><span class="na">getUnits</span><span class="o">())</span> <span class="o">{</span>
     <span class="n">product</span><span class="o">.</span><span class="na">setInStock</span><span class="o">(</span><span class="n">product</span><span class="o">.</span><span class="na">getInStock</span><span class="o">()</span> <span class="o">-</span> <span class="n">order</span><span class="o">.</span><span class="na">getUnits</span><span class="o">());</span>
     <span class="n">productDao</span><span class="o">.</span><span class="na">saveAndFlush</span><span class="o">(</span><span class="n">product</span><span class="o">);</span>
@@ -638,22 +638,22 @@
   <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">confirm</span><span class="o">(</span><span class="nc">ProductOrder</span> <span class="n">order</span><span class="o">)</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">confirm</span><span class="o">(</span><span class="n">ProductOrder</span> <span class="n">order</span><span class="o">)</span> <span class="o">{</span>
   <span class="n">order</span><span class="o">.</span><span class="na">setConfirmed</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="o">}</span>
 
 <span class="nd">@Transactional</span>
-<span class="kd">public</span> <span class="kt">void</span> <span class="nf">cancel</span><span class="o">(</span><span class="nc">ProductOrder</span> <span class="n">order</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="n">productDao</span><span class="o">.</span><span class="na">findProduceByName</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getProductName</span><span class="o">());</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">cancel</span><span class="o">(</span><span class="n">ProductOrder</span> <span class="n">order</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="n">productDao</span><span class="o">.</span><span class="na">findProduceByName</span><span class="o">(</span><span class="n">order</span><span class="o">.</span><span class="na">getProductName</span><span class="o">());</span>
   <span class="n">product</span><span class="o">.</span><span class="na">setInStock</span><span class="o">(</span><span class="n">product</span><span class="o">.</span><span class="na">getInStock</span><span class="o">()</span> <span class="o">+</span> <span class="n">order</span><span class="o">.</span><span class="na">getUnits</span><span class="o">());</span>
   <span class="n">productDao</span><span class="o">.</span><span class="na">saveAndFlush</span><span class="o">(</span><span class="n">product</span><span class="o">);</span>
   <span class="n">order</span><span class="o">.</span><span class="na">setCancelled</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
 <span class="o">}</span>
 
 <span class="nd">@Transactional</span>
-<span class="kd">private</span> <span class="nc">Product</span> <span class="nf">getProduct</span><span class="o">(</span><span class="nc">String</span> <span class="n">productName</span><span class="o">)</span> <span class="o">{</span>
-  <span class="nc">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="n">productDao</span><span class="o">.</span><span class="na">findProduceByName</span><span class="o">(</span><span class="n">productName</span><span class="o">);</span>
-  <span class="k">if</span> <span class="o">(</span><span class="nc">Objects</span><span class="o">.</span><span class="na">isNull</span><span class="o">(</span><span class="n">product</span><span class="o">))</span> <span class="o">{</span>
+<span class="kd">private</span> <span class="n">Product</span> <span class="nf">getProduct</span><span class="o">(</span><span class="n">String</span> <span class="n">productName</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="n">productDao</span><span class="o">.</span><span class="na">findProduceByName</span><span class="o">(</span><span class="n">productName</span><span class="o">);</span>
+  <span class="k">if</span> <span class="o">(</span><span class="n">Objects</span><span class="o">.</span><span class="na">isNull</span><span class="o">(</span><span class="n">product</span><span class="o">))</span> <span class="o">{</span>
     <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Product not exists at all!"</span><span class="o">);</span>
   <span class="o">}</span>
   <span class="k">return</span> <span class="n">product</span><span class="o">;</span>
@@ -811,6 +811,35 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/cn/docs/playing-on-the-open-source-community-with-Apache-ServiceComb-BUPT/" rel="permalink">与Apache ServiceComb一起玩开源-北邮站 (PPT Download)
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">与Apache ServiceComb一起玩开源-北邮站 (PPT Download)
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/docs/servicecomb-accept-newcapec-institute-code-donation/" rel="permalink">Apache ServiceComb Accept Code Donation From NewCapec Institute
 </a>
       
@@ -882,35 +911,6 @@
 
 
   1 分钟 阅读
-
-</p>
-    
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/cn/docs/Apache-ServiceComb-Meetup-2019-Shanghai-Report/" rel="permalink">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT Download)
-</a>
-      
-    </h2>
-    <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb Meetup -Shanghai 2019.09.20 Report (PPT)
-</p>
-    
-      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
-
-
-
-
-  少于 1 分钟 阅读
 
 </p>
     
