@@ -16,12 +16,12 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 
 * 安装Maven 3.x，详情可参考[Maven安装教程](https://maven.apache.org/install.html){:target="_blank"}。
 
-* 安装 ServiceComb Java Chassis(SDK)，执行以下指令：
+* 下载ServiceComb-Sample
 
    ```bash
-   git clone https://github.com/apache/servicecomb-java-chassis.git
-   cd servicecomb-java-chassis
-   mvn clean install -DskipTests
+   git clone https://github.com/apache/servicecomb-samples.git
+   cd servicecomb-samples/java-chassis-samples/bmi
+   mvn clean install
    ```
 
 ## 运行 Service Center
@@ -30,10 +30,10 @@ last_modified_at: 2017-09-03T10:01:43-04:00
 docker pull servicecomb/service-center
 docker run -d -p 30100:30100 servicecomb/service-center:latest
 ```
-*您可以通过阅读[环境配置](/cn/users/setup-environment/#运行service-center)获取在本地以二进制方式运行Service Center的方法。*
+*您可以通过阅读[环境安装](/cn/docs/service-center/install/)获取在本地以二进制方式运行Service Center的方法。*
 
 ## 创建第一个微服务
-本指南将以一个简单的 **体质指数(BMI)** 应用开展微服务之旅。[体质指数](https://baike.baidu.com/item/BMI%E6%8C%87%E6%95%B0){:target="_blank"}主要用于衡量人体胖瘦程度。该应用主要包含两个微服务：
+本指南将以一个简单的 **体质指数(BMI)** 应用开展微服务之旅。[体质指数](https://baike.baidu.com/item/%E4%BD%93%E8%B4%A8%E6%8C%87%E6%95%B0){:target="_blank"}主要用于衡量人体胖瘦程度。该应用主要包含两个微服务：
 
 * **体质指数计算器**：负责处理运算事务。
 
@@ -49,7 +49,7 @@ docker run -d -p 30100:30100 servicecomb/service-center:latest
 1. 进入 **体质指数** 应用代码目录。
 
    ```bash
-   cd samples/bmi
+   cd servicecomb-samples/java-chassis-samples/bmi
    ```
    **注意**：在windows开发环境下，docker是在虚拟机中启动，因此需要修改微服务的 **Service Center** IP地址为虚拟机IP地址。修改2个配置文件[calculator\|webapp]/src/main/resources/microservice.yaml，将其中<a>http://127.0.0.1:30100</a>修改为<a>http://192.168.99.100:30100</a>，其中192.168.99.100是虚拟机IP，需要与开发环境中的虚拟机IP保持一致。
 

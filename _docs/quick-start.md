@@ -16,12 +16,12 @@ last_modified_at: 2017-09-06T00:50:43-55:00
 
 * Install Maven 3.x, details can refer to [Maven Installing Guide](https://maven.apache.org/install.html){:target="_blank"}.
 
-* Install ServiceComb Java Chassis(SDK) by executing the following commands.
+* Download ServiceComb-Samples.
 
    ```bash
-   git clone https://github.com/apache/servicecomb-java-chassis.git
-   cd servicecomb-java-chassis
-   mvn clean install -DskipTests
+   git clone https://github.com/apache/servicecomb-samples.git
+   cd servicecomb-samples/java-chassis-samples/bmi
+   mvn clean install
    ```
 
 ## Run Service Center
@@ -30,7 +30,7 @@ last_modified_at: 2017-09-06T00:50:43-55:00
 docker pull servicecomb/service-center
 docker run -d -p 30100:30100 servicecomb/service-center:latest
 ```
-*Reference to [service center deployment](/users/setup-environment/#运行service-center) to learn deploying Service Center as a local binary.*   
+*Reference to [Install of ServiceCenter](/docs/service-center/install/) to learn deploying Service Center as a local binary.*   
 
 ## Create your first microservice application
 Let\'s start the journey of microservice with a simple **Body Mass Index(BMI)** application. The [BMI](https://en.wikipedia.org/wiki/Body_mass_index){:target="_blank"} is an attempt to quantify the amount of tissue mass in an individual. This application contains two separate microservices:
@@ -49,7 +49,7 @@ Note that the dotted lines indicate the process of service registration and disc
 1. Enter BMI codes directory.
 
    ```bash
-   cd samples/bmi
+   cd servicecomb-samples/java-chassis-samples/bmi
    ```
 
    **Note**: In windows development environment, the docker runs inside the virtual machine. The IP address of **Service Center** needs to be modified as the virtual machine\'s IP address. Modify the 2 configuration files [calculator\|webapp]/src/main/resources/microservice.yaml, changed <a>http://127.0.0.1:30100</a> to <a>http://192.168.99.100:30100</a> , where 192.168.99.100 is the virtual machine\'s IP address.
