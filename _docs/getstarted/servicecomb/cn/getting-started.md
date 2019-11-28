@@ -10,7 +10,7 @@ last_modified_at: 2019-11-12T00:50:43-55:00
 {% include toc %}
 ## 入门
 Apache ServiceComb 是一个微服务的开源解决方案。其包含多个组件，通过组件之间的搭配，可以灵活的应对不同的场景。本指南可以帮助你快速的使用 Apache ServiceComb，针对初次使用的用户，这是开始尝试的最佳入口。  
-1. 下载 [ServiceComb 发布版本](/release/)组件  
+1. 下载 [ServiceComb 发布版本](/cn/release/)组件  
 2. [服务中心环境安装](/cn/docs/service-center/install/)
 3. [服务注册与发现](/cn/docs/service-center/registration-discovery/)
 4. 相应开发语言的快速入门说明进行使用 
