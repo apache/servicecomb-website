@@ -13,9 +13,9 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 <h2>        Bug
 </h2>
 <ul>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-1410'>SCB-1410</a>] -         Mersher config for tracing didn&#39;t work.
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1410'>SCB-1410</a>] -         mesher config for tracing didn&#39;t work.
 </li>
-<li>[<a href='https://issues.apache.org/jira/browse/SCB-1415'>SCB-1415</a>] -         Mersher relies on go-chassis/go-chassis-plugins.But go-chassis-plugins can not compile because of dependent packages missing 
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1415'>SCB-1415</a>] -         mesher relies on go-chassis/go-chassis-plugins.But go-chassis-plugins can not compile because of dependent packages missing 
 </li>
 </ul>
             

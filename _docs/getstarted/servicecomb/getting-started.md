@@ -15,7 +15,7 @@ Apache ServiceComb is an open source solution for microservices. It consists of 
 3. [Registration&Discovery](/docs/service-center/registration-discovery/)
 4. Select the quick start instructions for the appropriate development language to use.  
 - [Development of microservices application based on java microservice SDK](/docs/quick-start/)  
-- [Use mersher to merge into the servicecomb microservice system](/docs/mersher-quick-start/)
+- [Use mesher to merge into the servicecomb microservice system](/docs/mesher-quick-start/)
 5. If the project involves multi-party collaboration, or legacy systems want to transform into microservices
 [A contract-based microservice development toolkit](/docs/toolkit/quick-start/)
 

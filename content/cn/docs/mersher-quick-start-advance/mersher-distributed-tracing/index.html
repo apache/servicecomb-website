@@ -36,8 +36,8 @@
 <meta property="og:title" content="分布式调用链追踪">
 
 
-  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/">
-  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mesher-quick-start-advance/mesher-distributed-tracing/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mesher-quick-start-advance/mesher-distributed-tracing/">
 
 
 
@@ -249,7 +249,7 @@
           
             
             
-            <a href=/docs/mersher-quick-start-advance/mersher-distributed-tracing/>English</a>
+            <a href=/docs/mesher-quick-start-advance/mesher-distributed-tracing/>English</a>
           
         </div>
       </nav>
@@ -393,7 +393,7 @@
     
       <li>
         
-          <span class="nav__sub-title">使用mersher接入servicecomb微服务体系</span>
+          <span class="nav__sub-title">使用mesher接入servicecomb微服务体系</span>
         
 
         
@@ -405,7 +405,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start/" class="">入门指南</a></li>
+            <li><a href="/cn/docs/mesher-quick-start/" class="">入门指南</a></li>
           
             
             
@@ -413,7 +413,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/" class="">mersher进阶</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/" class="">mesher进阶</a></li>
           
             
             
@@ -421,7 +421,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-load-balance/" class="">mersher负载均衡</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-load-balance/" class="">mesher负载均衡</a></li>
           
             
             
@@ -429,7 +429,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-flow-control/" class="">mersher流量控制</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-flow-control/" class="">mesher流量控制</a></li>
           
             
             
@@ -437,7 +437,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-service-management/" class="">mersher服务治理</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-service-management/" class="">mesher服务治理</a></li>
           
             
             
@@ -445,7 +445,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="active">mersher分布式调用链追踪</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-distributed-tracing/" class="active">mesher分布式调用链追踪</a></li>
           
         </ul>
         
@@ -535,20 +535,20 @@
 
       <section class="page__content" itemprop="text">
         <ul>
-  <li>分布式调用链追踪提供追溯微服务调用关系和调用处理时延的能力，便于用户检查分布式环境中微服务的健康状态。本指南将展示如何使用 <strong>mersher</strong> 提供的分布式调用链追踪能力。</li>
+  <li>分布式调用链追踪提供追溯微服务调用关系和调用处理时延的能力，便于用户检查分布式环境中微服务的健康状态。本指南将展示如何使用 <strong>mesher</strong> 提供的分布式调用链追踪能力。</li>
 </ul>
 
 <h1 id="前言">前言</h1>
 
 <ul>
-  <li>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/mersher-quick-start/">mersher快速入门</a>，并已成功运行用例服务。</li>
+  <li>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/mesher-quick-start/">mesher快速入门</a>，并已成功运行用例服务。</li>
 </ul>
 
 <h1 id="启用">启用</h1>
 
 <ul>
   <li>
-    <p>1、mersher main文件中添加对zipkin库依赖：</p>
+    <p>1、mesher main文件中添加对zipkin库依赖：</p>
 
     <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_ <span class="s2">"github.com/go-chassis/go-chassis-plugins/tracing/zipkin"</span>
 </code></pre></div>    </div>
@@ -556,10 +556,10 @@
   <li>
     <p>2、启发器bootstrap.go中添加默认处理函数，如图中箭头所示：</p>
 
-    <p><img src="/assets/images/mersher/mersher-tracing-func.png" alt="流量控制效果图" /></p>
+    <p><img src="/assets/images/mesher/mesher-tracing-func.png" alt="流量控制效果图" /></p>
   </li>
   <li>
-    <p>3、重新编译，分别替换<strong>mersher_webapp</strong>和<strong>mersher_calculator</strong>的可执行文件，启动mersher服务；</p>
+    <p>3、重新编译，分别替换<strong>mesher_webapp</strong>和<strong>mesher_calculator</strong>的可执行文件，启动mesher服务；</p>
   </li>
   <li>
     <p>4、使用<strong>Docker</strong>运行<a href="http://servicecomb.apache.org/cn/docs/quick-start-advance/distributed-tracing/">Zipkin分布式追踪服务</a></p>
@@ -573,7 +573,7 @@
   <li>
     <p>6、打开 <a href="http://192.168.88.64:9411">http://192.168.88.64:9411</a>可查看分布式追踪结果如图，可以通过host地址判断调用路径：</p>
 
-    <p><img src="/assets/images/mersher/mersher-tracing-30111.png" alt="分布式追踪效果图" /></p>
+    <p><img src="/assets/images/mesher/mesher-tracing-30111.png" alt="分布式追踪效果图" /></p>
   </li>
 </ul>
 
@@ -660,7 +660,7 @@
       <ul>
         <p class="header">贡献</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/mersher-distributed-tracing.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/mesher-distributed-tracing.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
         <li><a href="/cn/security">安全</a></li>
       </ul>
