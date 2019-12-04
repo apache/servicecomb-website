@@ -15,7 +15,7 @@ Apache ServiceComb 是一个微服务的开源解决方案。其包含多个组�
 3. [服务注册与发现](/cn/docs/service-center/registration-discovery/)
 4. 相应开发语言的快速入门说明进行使用 
 - [Java微服务开发框架 Java-Chassis](/cn/docs/quick-start/)  
-- [多语言运行环境 Mersher](/cn/docs/mersher-quick-start/)
+- [多语言运行环境 mesher](/cn/docs/mesher-quick-start/)
 5. 如果项目涉及多方协作、或遗留系统希望进行微服务化转型
 [一键微服务开发工具 Toolkit](/cn/docs/toolkit/quick-start/)
 

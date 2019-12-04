@@ -1,21 +1,21 @@
 ---
-title: Mersher Flow Control
+title: mesher Flow Control
 lang: en
-ref: mersher-flow-control
-permalink: /docs/mersher-quick-start-advance/mersher-flow-control/
-excerpt: Describe how to use the flow control capabilities provided by mersher
+ref: mesher-flow-control
+permalink: /docs/mesher-quick-start-advance/mesher-flow-control/
+excerpt: Describe how to use the flow control capabilities provided by mesher
 last_modified_at: 2019-08-08T14:01:43.000Z
 ---
 
-- Flow control avoids microservice overload operations by controlling the data transfer rate. This guide will show you how to use the flow control capabilities provided by **mersher**
+- Flow control avoids microservice overload operations by controlling the data transfer rate. This guide will show you how to use the flow control capabilities provided by **mesher**
 
 # Before you start
 
-- Walk through [mersher-quick-start](/docs/mersher-quick-start/) and have **mersher display programs** running.
+- Walk through [mesher-quick-start](/docs/mesher-quick-start/) and have **mesher display programs** running.
 
 # Enable
 
-- Change the configuration file **chassis.yaml** of **mersher_calculator**. Add a flow control configuration in **chassis.yaml** as follows. Restart the service.
+- Change the configuration file **chassis.yaml** of **mesher_calculator**. Add a flow control configuration in **chassis.yaml** as follows. Restart the service.
 
   ```yaml
   flowcontrol:
@@ -32,14 +32,14 @@ last_modified_at: 2019-08-08T14:01:43.000Z
 
 # Verification
 
-- Click the _Submit_ button and you can see that the request was rejected due to the flow control of mersher. Now the request can not reach real httpserver.
+- Click the _Submit_ button and you can see that the request was rejected due to the flow control of mesher. Now the request can not reach real httpserver.
 
-![flow-control-req](/assets/images/mersher/mersher-flow-control-fail.png)
+![flow-control-req](/assets/images/mesher/mesher-flow-control-fail.png)
 
-![flow-control-log](/assets/images/mersher/mersher-flow-control-log.png)
+![flow-control-log](/assets/images/mesher/mesher-flow-control-log.png)
 
 # What's next
 
-- See quick start for [Service Management](/docs/mersher-quick-start-advance/mersher-service-management/)
+- See quick start for [Service Management](/docs/mesher-quick-start-advance/mesher-service-management/)
 
 - Learn more about [Flow Control](/users/service-configurations/#限流策略)

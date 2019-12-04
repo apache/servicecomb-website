@@ -36,8 +36,8 @@
 <meta property="og:title" content="服务治理">
 
 
-  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start-advance/mersher-service-management/">
-  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mersher-quick-start-advance/mersher-service-management/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mesher-quick-start-advance/mesher-service-management/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mesher-quick-start-advance/mesher-service-management/">
 
 
 
@@ -249,7 +249,7 @@
           
             
             
-            <a href=/docs/mersher-quick-start-advance/mersher-service-management/>English</a>
+            <a href=/docs/mesher-quick-start-advance/mesher-service-management/>English</a>
           
         </div>
       </nav>
@@ -393,7 +393,7 @@
     
       <li>
         
-          <span class="nav__sub-title">使用mersher接入servicecomb微服务体系</span>
+          <span class="nav__sub-title">使用mesher接入servicecomb微服务体系</span>
         
 
         
@@ -405,7 +405,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start/" class="">入门指南</a></li>
+            <li><a href="/cn/docs/mesher-quick-start/" class="">入门指南</a></li>
           
             
             
@@ -413,7 +413,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/" class="">mersher进阶</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/" class="">mesher进阶</a></li>
           
             
             
@@ -421,7 +421,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-load-balance/" class="">mersher负载均衡</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-load-balance/" class="">mesher负载均衡</a></li>
           
             
             
@@ -429,7 +429,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-flow-control/" class="">mersher流量控制</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-flow-control/" class="">mesher流量控制</a></li>
           
             
             
@@ -437,7 +437,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-service-management/" class="active">mersher服务治理</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-service-management/" class="active">mesher服务治理</a></li>
           
             
             
@@ -445,7 +445,7 @@
             
             
 
-            <li><a href="/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/" class="">mersher分布式调用链追踪</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-distributed-tracing/" class="">mesher分布式调用链追踪</a></li>
           
         </ul>
         
@@ -535,13 +535,13 @@
 
       <section class="page__content" itemprop="text">
         <ul>
-  <li>服务治理主要用于对分布式系统中大量微服务进行有效控制管理。本指南将会展示如何使用 <strong>mersher</strong> 提供的服务治理能力。</li>
+  <li>服务治理主要用于对分布式系统中大量微服务进行有效控制管理。本指南将会展示如何使用 <strong>mesher</strong> 提供的服务治理能力。</li>
 </ul>
 
 <h1 id="前言">前言</h1>
 
 <ul>
-  <li>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/mersher-quick-start/">mersher快速入门</a>和<a href="/cn/docs/quick-start-advance/load-balance/">mersher负载均衡</a>，并已成功运行mersher用例服务。</li>
+  <li>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/mesher-quick-start/">mesher快速入门</a>和<a href="/cn/docs/quick-start-advance/load-balance/">mesher负载均衡</a>，并已成功运行mesher用例服务。</li>
 </ul>
 
 <h1 id="灰度发布">灰度发布</h1>
@@ -550,12 +550,12 @@
 
 <ul>
   <li>
-    <p>1、更新版本号： 分别更改两个<strong>mersher_calculator</strong>实例的配置文件<strong>microservice.yaml</strong>，更新<strong>version</strong>字段分别为<strong>1.1.1</strong>和<strong>1.1.2</strong>，重启mersher服务，可以看到服务版本号发生了变更。如图中所示：</p>
+    <p>1、更新版本号： 分别更改两个<strong>mesher_calculator</strong>实例的配置文件<strong>microservice.yaml</strong>，更新<strong>version</strong>字段分别为<strong>1.1.1</strong>和<strong>1.1.2</strong>，重启mesher服务，可以看到服务版本号发生了变更。如图中所示：</p>
 
-    <p><img src="/assets/images/mersher/mersher-ser-manage-ver.png" alt="灰度发布版本图" /></p>
+    <p><img src="/assets/images/mesher/mesher-ser-manage-ver.png" alt="灰度发布版本图" /></p>
   </li>
   <li>
-    <p>2、配置路由信息，更改mersher_webapp的配置文件router.yaml，按实例版本更新权重信息，并重启服务：</p>
+    <p>2、配置路由信息，更改mesher_webapp的配置文件router.yaml，按实例版本更新权重信息，并重启服务：</p>
 
     <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">routeRule</span><span class="pi">:</span>
   <span class="na">calculator</span><span class="pi">:</span>        <span class="c1">#service name</span>
@@ -583,7 +583,7 @@
 
 <ul>
   <li>
-    <p>1、 更改断流器配置，更改mersher_webapp的配置文件chassis.yaml，设置其中的断流器配置为：</p>
+    <p>1、 更改断流器配置，更改mesher_webapp的配置文件chassis.yaml，设置其中的断流器配置为：</p>
 
     <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">isolation</span><span class="pi">:</span>
   <span class="na">Consumer</span><span class="pi">:</span>
@@ -617,13 +617,13 @@
 
 <ul>
   <li>
-    <p>1、传入负数参数，响应超时，mersher_webapp断流器生效，下图一是mersher_webapp日志截图，表明断流器启用，下图二是传入负数参数触发断流器时的返回值，下图三表示断流器生效后对所有请求都按配置返回nil；</p>
+    <p>1、传入负数参数，响应超时，mesher_webapp断流器生效，下图一是mesher_webapp日志截图，表明断流器启用，下图二是传入负数参数触发断流器时的返回值，下图三表示断流器生效后对所有请求都按配置返回nil；</p>
 
-    <p><img src="/assets/images/mersher/mersher-circuitbreaker.png" alt="断流器生效日志图" /></p>
+    <p><img src="/assets/images/mesher/mesher-circuitbreaker.png" alt="断流器生效日志图" /></p>
 
-    <p><img src="/assets/images/mersher/mersher-circuitbreaker-ret.png" alt="断流器生效日志图" /></p>
+    <p><img src="/assets/images/mesher/mesher-circuitbreaker-ret.png" alt="断流器生效日志图" /></p>
 
-    <p><img src="/assets/images/mersher/mersher-circuitbreaker-ret-nil.png" alt="断流器生效日志图" /></p>
+    <p><img src="/assets/images/mesher/mesher-circuitbreaker-ret-nil.png" alt="断流器生效日志图" /></p>
   </li>
   <li>
     <p>2、根据配置参数sleepWindowInMilliseconds，过10秒后服务自动恢复</p>
@@ -634,7 +634,7 @@
 
 <ul>
   <li>
-    <p>阅读<a href="/cn/docs/mersher-quick-start-advance/mersher-distributed-tracing/">分布式追踪快速入门指南</a></p>
+    <p>阅读<a href="/cn/docs/mesher-quick-start-advance/mesher-distributed-tracing/">分布式追踪快速入门指南</a></p>
   </li>
   <li>
     <p>了解更多<a href="/cn/users/service-configurations/">服务治理</a>的使用方式</p>
@@ -707,7 +707,7 @@
       <ul>
         <p class="header">贡献</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/mersher-service-management.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/mesher-service-management.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
         <li><a href="/cn/security">安全</a></li>
       </ul>
