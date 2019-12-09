@@ -396,7 +396,7 @@
     <meta itemprop="headline" content="Develop with Rest Template">
     <meta itemprop="description" content="Develop with Rest Template">
     
-    <meta itemprop="dateModified" content="August 16, 2017">
+    <meta itemprop="dateModified" content="August 15, 2017">
 
     <div class="page__inner-wrap">
       
@@ -444,23 +444,23 @@
 
 <span class="nd">@Component</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringmvcConsumerMain</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">static</span> <span class="n">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="n">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="nc">RestTemplateBuilder</span><span class="o">.</span><span class="na">create</span><span class="o">();</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
         <span class="n">init</span><span class="o">();</span>
-        <span class="n">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+        <span class="nc">Person</span> <span class="n">person</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">();</span>
         <span class="n">person</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="s">"ServiceComb/Java Chassis"</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">sayHiResult</span> <span class="o">=</span> <span class="n">restTemplate</span>
-                <span class="o">.</span><span class="na">postForObject</span><span class="o">(</span><span class="s">"cse://springmvc/springmvchello/sayhi?name=Java Chassis"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">sayHelloResult</span> <span class="o">=</span> <span class="n">restTemplate</span>
-                <span class="o">.</span><span class="na">postForObject</span><span class="o">(</span><span class="s">"cse://springmvc/springmvchello/sayhello"</span><span class="o">,</span> <span class="n">person</span><span class="o">,</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"RestTemplate consumer sayhi services: "</span> <span class="o">+</span> <span class="n">sayHiResult</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"RestTemplate consumer sayhello services: "</span> <span class="o">+</span> <span class="n">sayHelloResult</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">sayHiResult</span> <span class="o">=</span> <span class="n">restTemplate</span>
+                <span class="o">.</span><span class="na">postForObject</span><span class="o">(</span><span class="s">"cse://springmvc/springmvchello/sayhi?name=Java Chassis"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">sayHelloResult</span> <span class="o">=</span> <span class="n">restTemplate</span>
+                <span class="o">.</span><span class="na">postForObject</span><span class="o">(</span><span class="s">"cse://springmvc/springmvchello/sayhello"</span><span class="o">,</span> <span class="n">person</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"RestTemplate consumer sayhi services: "</span> <span class="o">+</span> <span class="n">sayHiResult</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"RestTemplate consumer sayhello services: "</span> <span class="o">+</span> <span class="n">sayHelloResult</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-        <span class="n">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
-        <span class="n">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">Log4jUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+        <span class="nc">BeanUtils</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>

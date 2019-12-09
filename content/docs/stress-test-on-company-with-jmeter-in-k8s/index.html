@@ -507,7 +507,7 @@ fig-4 CPU Load on various concurrency</p>
   <li>
     <p>run JMeter slave on each test node, the command is as follows:</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter-server <span class="nt">-Djava</span>.rmi.server.hostname<span class="o">=</span><span class="k">$(</span>ifconfig eth0 | <span class="nb">grep</span> <span class="s2">"inet addr"</span> | awk <span class="s1">'{print $2}'</span> | cut <span class="nt">-d</span> <span class="s2">":"</span> <span class="nt">-f2</span><span class="k">)</span>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jmeter-server <span class="nt">-Djava</span>.rmi.server.hostname<span class="o">=</span><span class="si">$(</span>ifconfig eth0 | <span class="nb">grep</span> <span class="s2">"inet addr"</span> | <span class="nb">awk</span> <span class="s1">'{print $2}'</span> | <span class="nb">cut</span> <span class="nt">-d</span> <span class="s2">":"</span> <span class="nt">-f2</span><span class="si">)</span>
 </code></pre></div>    </div>
   </li>
   <li>

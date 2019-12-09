@@ -19,12 +19,12 @@
 
 
 
-<title>mesher开发进阶 - Apache ServiceComb</title>
+<title>服务治理 - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="介绍如何在体质指数应用中使用ServiceComb的处理链能力">
+<meta name="description" content="介绍如何在体质指数应用中使用ServiceComb提供的服务治理能力">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="cn">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="mesher开发进阶">
+<meta property="og:title" content="服务治理">
 
 
-  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mesher-quick-start-advance/">
-  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mesher-quick-start-advance/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mesher-quick-start-advance/mesher-service-management/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/mesher-quick-start-advance/mesher-service-management/">
 
 
 
-  <meta property="og:description" content="介绍如何在体质指数应用中使用ServiceComb的处理链能力">
+  <meta property="og:description" content="介绍如何在体质指数应用中使用ServiceComb提供的服务治理能力">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="mesher开发进阶">
-  <meta name="twitter:description" content="介绍如何在体质指数应用中使用ServiceComb的处理链能力">
+  <meta name="twitter:title" content="服务治理">
+  <meta name="twitter:description" content="介绍如何在体质指数应用中使用ServiceComb提供的服务治理能力">
   <meta name="twitter:url" content="">
 
   
@@ -249,7 +249,7 @@
           
             
             
-            <a href=/docs/mesher-quick-start-advance/>English</a>
+            <a href=/docs/mesher-quick-start-advance/mesher-service-management/>English</a>
           
         </div>
       </nav>
@@ -266,7 +266,7 @@
   
   <div class="sidebar sticky">
       
-      <div class="back-to-home"><a href="/cn/">首页</a> > mesher开发进阶</div>
+      <div class="back-to-home"><a href="/cn/">首页</a> > 服务治理</div>
       
   
   
@@ -413,7 +413,7 @@
             
             
 
-            <li><a href="/cn/docs/mesher-quick-start-advance/" class="active">mesher进阶</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/" class="">mesher进阶</a></li>
           
             
             
@@ -437,7 +437,7 @@
             
             
 
-            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-service-management/" class="">mesher服务治理</a></li>
+            <li><a href="/cn/docs/mesher-quick-start-advance/mesher-service-management/" class="active">mesher服务治理</a></li>
           
             
             
@@ -517,8 +517,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="mesher开发进阶">
-    <meta itemprop="description" content="介绍如何在体质指数应用中使用ServiceComb的处理链能力">
+    <meta itemprop="headline" content="服务治理">
+    <meta itemprop="description" content="介绍如何在体质指数应用中使用ServiceComb提供的服务治理能力">
     
     <meta itemprop="dateModified" content="August 08, 2019">
 
@@ -526,7 +526,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">mesher开发进阶
+            <h1 class="page__title" itemprop="headline">服务治理
 </h1>
             
           </header>
@@ -534,20 +534,99 @@
       
 
       <section class="page__content" itemprop="text">
-        <p>本指南将带您进入使用<strong>mesher</strong>接入<strong>ServiceComb</strong>的进阶之旅。在此旅程，您将能学到如何使用<strong>mesher</strong>的微服务高级特性：</p>
+        <ul>
+  <li>服务治理主要用于对分布式系统中大量微服务进行有效控制管理。本指南将会展示如何使用 <strong>mesher</strong> 提供的服务治理能力。</li>
+</ul>
+
+<h1 id="前言">前言</h1>
+
+<ul>
+  <li>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/mesher-quick-start/">mesher快速入门</a>和<a href="/cn/docs/quick-start-advance/load-balance/">mesher负载均衡</a>，并已成功运行mesher用例服务。</li>
+</ul>
+
+<h1 id="灰度发布">灰度发布</h1>
+
+<h2 id="配置">配置</h2>
 
 <ul>
   <li>
-    <p><a href="/cn/docs/mesher-quick-start-advance/mesher-load-balance/">mesher负载均衡</a>。支持灵活可配置的微服务负载均衡策略。</p>
+    <p>1、更新版本号： 分别更改两个<strong>mesher_calculator</strong>实例的配置文件<strong>microservice.yaml</strong>，更新<strong>version</strong>字段分别为<strong>1.1.1</strong>和<strong>1.1.2</strong>，重启mesher服务，可以看到服务版本号发生了变更。如图中所示：</p>
+
+    <p><img src="/assets/images/mesher/mesher-ser-manage-ver.png" alt="灰度发布版本图" /></p>
   </li>
   <li>
-    <p><a href="/cn/docs/mesher-quick-start-advance/mesher-flow-control/">mesher流量控制</a>。支持微服务请求流量控制能力。</p>
+    <p>2、配置路由信息，更改mesher_webapp的配置文件router.yaml，按实例版本更新权重信息，并重启服务：</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">routeRule</span><span class="pi">:</span>
+  <span class="na">calculator</span><span class="pi">:</span>        <span class="c1">#service name</span>
+    <span class="pi">-</span> <span class="na">precedence</span><span class="pi">:</span> <span class="m">2</span>    <span class="c1">#precedence of route rule</span>
+      <span class="na">route</span><span class="pi">:</span>           <span class="c1">#route rule list</span>
+      <span class="pi">-</span> <span class="na">tags</span><span class="pi">:</span>
+          <span class="na">version</span><span class="pi">:</span> <span class="s">1.1.1</span>
+        <span class="na">weight</span><span class="pi">:</span> <span class="m">70</span>     <span class="c1">#weight of 20%</span>
+      <span class="pi">-</span> <span class="na">tags</span><span class="pi">:</span>
+          <span class="na">version</span><span class="pi">:</span> <span class="s">1.1.2</span>
+        <span class="na">weight</span><span class="pi">:</span> <span class="m">30</span>     <span class="c1">#weight of 20%</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="验证">验证</h2>
+
+<ul>
+  <li>此时大量点击 <em>Submit</em> 按钮就可以看到BMI Instance ID按配置的比例交替出现。</li>
+</ul>
+
+<h1 id="服务熔断及恢复">服务熔断及恢复</h1>
+
+<h2 id="配置-1">配置</h2>
+
+<ul>
+  <li>
+    <p>1、 更改断流器配置，更改mesher_webapp的配置文件chassis.yaml，设置其中的断流器配置为：</p>
+
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">isolation</span><span class="pi">:</span>
+  <span class="na">Consumer</span><span class="pi">:</span>
+    <span class="na">timeout</span><span class="pi">:</span>
+      <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">timeoutInMilliseconds</span><span class="pi">:</span> <span class="m">1000</span>            <span class="c1">#超时时间</span>
+    <span class="na">maxConcurrentRequests</span><span class="pi">:</span> <span class="m">1</span>
+<span class="na">circuitBreaker</span><span class="pi">:</span>
+  <span class="na">Consumer</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">forceOpen</span><span class="pi">:</span> <span class="no">false</span>
+    <span class="na">forceClosed</span><span class="pi">:</span> <span class="no">false</span>
+    <span class="na">sleepWindowInMilliseconds</span><span class="pi">:</span> <span class="m">10000</span>    <span class="c1">#熔断恢复时间10秒</span>
+    <span class="na">requestVolumeThreshold</span><span class="pi">:</span> <span class="m">1</span>          <span class="c1">#请求量限制</span>
+    <span class="na">errorThresholdPercentage</span><span class="pi">:</span> <span class="m">1</span>
+<span class="na">fallback</span><span class="pi">:</span>
+  <span class="na">Consumer</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>
+    <span class="na">maxConcurrentRequests</span><span class="pi">:</span> <span class="m">1</span>
+<span class="na">fallbackpolicy</span><span class="pi">:</span>
+  <span class="na">Consumer</span><span class="pi">:</span>
+    <span class="na">policy</span><span class="pi">:</span> <span class="s">returnnull</span>
+</code></pre></div>    </div>
   </li>
   <li>
-    <p><a href="/cn/docs/mesher-quick-start-advance/mesher-service-management/">mesher服务治理</a>。支持微服务的灰度发布和熔断等治理能力。</p>
+    <p>2、 关闭test_balance目录下的服务实例；</p>
+  </li>
+</ul>
+
+<h2 id="验证-1">验证</h2>
+
+<ul>
+  <li>
+    <p>1、传入负数参数，响应超时，mesher_webapp断流器生效，下图一是mesher_webapp日志截图，表明断流器启用，下图二是传入负数参数触发断流器时的返回值，下图三表示断流器生效后对所有请求都按配置返回nil；</p>
+
+    <p><img src="/assets/images/mesher/mesher-circuitbreaker.png" alt="断流器生效日志图" /></p>
+
+    <p><img src="/assets/images/mesher/mesher-circuitbreaker-ret.png" alt="断流器生效日志图" /></p>
+
+    <p><img src="/assets/images/mesher/mesher-circuitbreaker-ret-nil.png" alt="断流器生效日志图" /></p>
   </li>
   <li>
-    <p><a href="/cn/docs/mesher-quick-start-advance/mesher-distributed-tracing">mesher分布式追踪</a>。支持追溯微服务调用关系链的能力。</p>
+    <p>2、根据配置参数sleepWindowInMilliseconds，过10秒后服务自动恢复</p>
   </li>
 </ul>
 
@@ -555,10 +634,10 @@
 
 <ul>
   <li>
-    <p>认识 <a href="/cn/users/"><strong>ServiceComb</strong> 微服务开发框架</a></p>
+    <p>阅读<a href="/cn/docs/mesher-quick-start-advance/mesher-distributed-tracing/">分布式追踪快速入门指南</a></p>
   </li>
   <li>
-    <p>通过 <a href="/cn/docs/linuxcon-workshop-demo/">Company应用</a> 更深入地了解微服务开发</p>
+    <p>了解更多<a href="/cn/users/service-configurations/">服务治理</a>的使用方式</p>
   </li>
 </ul>
 
@@ -628,7 +707,7 @@
       <ul>
         <p class="header">贡献</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/mesher-quick-start-advance.md">在Github上编辑此页</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/mersher-service-management.md">在Github上编辑此页</a></li>
         <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
         <li><a href="/cn/security">安全</a></li>
       </ul>

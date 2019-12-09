@@ -19,12 +19,12 @@
 
 
 
-<title>mesher Distributed Tracing - Apache ServiceComb</title>
+<title>mesher Get started - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="Introduce how to use distributed tracing with mesher">
+<meta name="description" content="Describe how to use mesher to merge into the servicecomb microservice system">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="mesher Distributed Tracing">
+<meta property="og:title" content="mesher Get started">
 
 
-  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start-advance/mesher-distributed-tracing/">
-  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start-advance/mesher-distributed-tracing/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start/">
 
 
 
-  <meta property="og:description" content="Introduce how to use distributed tracing with mesher">
+  <meta property="og:description" content="Describe how to use mesher to merge into the servicecomb microservice system">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="mesher Distributed Tracing">
-  <meta name="twitter:description" content="Introduce how to use distributed tracing with mesher">
+  <meta name="twitter:title" content="mesher Get started">
+  <meta name="twitter:description" content="Describe how to use mesher to merge into the servicecomb microservice system">
   <meta name="twitter:url" content="">
 
   
@@ -248,7 +248,7 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/docs/mesher-quick-start-advance/mesher-distributed-tracing/>中文</a>
+            <a href=/cn/docs/mesher-quick-start/>中文</a>
           
         </div>
       </nav>
@@ -265,7 +265,7 @@
   
   <div class="sidebar sticky">
       
-      <div class="back-to-home"><a href="/">Home</a> > mesher Distributed Tracing</div>
+      <div class="back-to-home"><a href="/">Home</a> > mesher Get started</div>
       
   
   
@@ -404,7 +404,7 @@
             
             
 
-            <li><a href="/docs/mesher-quick-start/" class="">Get started</a></li>
+            <li><a href="/docs/mesher-quick-start/" class="active">Get started</a></li>
           
             
             
@@ -444,7 +444,7 @@
             
             
 
-            <li><a href="/docs/mesher-quick-start-advance/mesher-distributed-tracing/" class="active">mesher Distributed Tracing</a></li>
+            <li><a href="/docs/mesher-quick-start-advance/mesher-distributed-tracing/" class="">mesher Distributed Tracing</a></li>
           
         </ul>
         
@@ -516,8 +516,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="mesher Distributed Tracing">
-    <meta itemprop="description" content="Introduce how to use distributed tracing with mesher">
+    <meta itemprop="headline" content="mesher Get started">
+    <meta itemprop="description" content="Describe how to use mesher to merge into the servicecomb microservice system">
     
     <meta itemprop="dateModified" content="August 08, 2019">
 
@@ -525,7 +525,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">mesher Distributed Tracing
+            <h1 class="page__title" itemprop="headline">mesher Get started
 </h1>
             
           </header>
@@ -533,66 +533,158 @@
       
 
       <section class="page__content" itemprop="text">
-        <ul>
-  <li>Distributed handler chain tracking provides the ability of tracing microservice call relationships and watching processing time. It is used to make it easy for users to check the health of microservices in a distributed environment. This guide will show you how to use the distributed handler chain tracking capabilities provided by <strong>mesher</strong>.</li>
-</ul>
-
-<h1 id="foreword">Foreword</h1>
-
-<ul>
-  <li>Walk through <a href="/docs/mesher-quick-start/">mesher-quick-start</a> and have <strong>mesher display programs</strong> running.</li>
-</ul>
-
-<h1 id="enable">Enable</h1>
+        <h1 id="install-development-environment">Install development environment</h1>
 
 <ul>
   <li>
-    <p>1 Added zipkin library dependency in mesher main file.</p>
+    <p>Install <strong>git</strong>. Get details <a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank">git Installation tutorial</a>.</p>
+  </li>
+  <li>
+    <p>Install <strong>golang 1.12.7</strong>. Get details <a href="https://golang.google.cn/doc/install" target="_blank">Go Installation tutorial</a>.</p>
+  </li>
+  <li>
+    <p>Install <strong>python 2.7</strong>. Get details <a href="https://wiki.python.org/moin/BeginnersGuide/Download" target="_blank">python Installation tutorial</a>.</p>
+  </li>
+  <li>
+    <p>Install <strong>nodejs v10.16.2</strong>. Get details <a href="https://nodejs.org/en/download/" target="_blank">nodejs download</a>。</p>
+  </li>
+</ul>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_ <span class="s2">"github.com/go-chassis/go-chassis-plugins/tracing/zipkin"</span>
+<h1 id="run-service-center">Run Service Center</h1>
+
+<p>In the <strong>ServiceComb</strong> microservices framework, <strong>Service Center</strong> provides service registration and service discovery.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
+docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
+</code></pre></div></div>
+
+<p><em>Reference to <a href="/users/setup-environment/#运行service-center">service center deployment</a> to learn deploying Service Center and front as a local binary.</em></p>
+
+<h1 id="use-mesher-to-merge-into-the-servicecomb-microservice-system">Use mesher to merge into the servicecomb microservice system</h1>
+
+<h2 id="background">Background</h2>
+
+<ul>
+  <li>This use case is mainly to help users get started quickly with <strong>mesher sidecar</strong> mode. We hope that users can understand the working mode of mesher and learn how to merge the existing http service into the ServiceComb micro-service system with mesher. The final goal is to help user get the micro-service capabilities such as load balancing, flow control, service management and call chain tracing provided by servicecomb. The full case will be submitted to <a href="https://github.com/apache/servicecomb-mesher/tree/master/examples/quick_start">Case Download</a>.</li>
+</ul>
+
+<h2 id="mesher-use-case-service-introduction">mesher use case service introduction</h2>
+
+<ul>
+  <li>1 <strong>httpserver_calculator</strong>. A http server based on python which is for BMI calculator and can be developed by any language.</li>
+  <li>2 <strong>httpserver_webapp</strong>. A http server based on nodejs which is used for displaying results on the browser.</li>
+  <li>3 <strong>mesher_webapp</strong>. A mesher instance which serves for httpserver_webapp via sidecar mode.</li>
+  <li>4 <strong>mesher_calculator</strong>. A mesher instance which serves for httpserver_calculator via sidecar mode.</li>
+  <li>5 <strong>servicecenter</strong>. Servicecenter which receives registration of mesher service and provides services as service discovery, routing query, service monitoring and so on.</li>
+</ul>
+
+<p><img src="/assets/images/mesher/mesher-deployment-simple.png" alt="mesher deployment diagram" /></p>
+
+<h2 id="process-details">Process details</h2>
+
+<ul>
+  <li>1 The browser[192.168.88.78] execute a http call to the <strong>httpserver_webapp</strong> service with url <a href=""></a><a href="http://192.168.88.64:4597/calculator/bmi">http://192.168.88.64:4597/calculator/bmi</a>.</li>
+  <li>2 The httpserver_webapp service receives the request and execute http call <a href=""></a><a href="http://calculator/bmi">http://calculator/bmi</a>. Because the proxy is set as <a href=""></a><a href="http://127.0.0.1:30101">http://127.0.0.1:30101</a>, the request initiated by <strong>httpserver_webapp</strong> will be forwarded to the <strong>mesher_webapp</strong> service.</li>
+  <li>3 <strong>mesher_webapp</strong> gets the address of the service name(the service name <strong>calculator</strong> here is configured in microservice.yaml) from the <strong>servicecenter</strong> and forwarded to <strong>mesher_calculator</strong>.</li>
+  <li>4 <strong>mesher_calculator</strong> service forward http requests to the <strong>httpserver_calculator</strong> service.</li>
+  <li>
+    <p>5 <strong>httpserver_calculator</strong> will calculate according to the input parameters(height and weight). The result containing service id and body mass index will be displayed on the browser. The flow chart is as follows:</p>
+
+    <p><img src="/assets/images/mesher/mesher-flowchart-simple.png" alt="mesher-flow-chart" /></p>
+  </li>
+</ul>
+
+<h2 id="environmental-construction">Environmental construction</h2>
+
+<ul>
+  <li>
+    <p>1 Compile <strong>mesher</strong> <a href="https://github.com/apache/servicecomb-mesher">download</a>. Download the project and get the executable mesher(linux) or mesher.exe(windows) by README.md.</p>
+  </li>
+  <li>
+    <p>2 Create <strong>mesher_webapp</strong> which serves for <strong>httpserver_webapp</strong>. In the mesher directory execute the following linux command to create mesher_webapp. In order to the run mesher you also need to copy the conf.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> /usr/local/src/mesher_webapp
+<span class="nb">cp</span> ./mesher /usr/local/src/mesher_webapp
+<span class="nb">cp</span> <span class="nt">-r</span> ./conf /usr/local/src/mesher_webapp
+</code></pre></div>    </div>
+
+    <p>Change <strong>service name</strong> in microservice.yaml from hellemesher to <strong>webapp</strong>. Change the listening service address in chassis.yaml from 127.0.0.1 to <strong>intranet ip</strong>(Viewed by cmd ifconfig in linux, such as 192.168.88.64).</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40101
+listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30101
+listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30102
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>2 Add default handlers in bootstrap.go as shown by the arrows in the figure.</p>
+    <p>3 Create mesher_calculator service.</p>
 
-    <p><img src="/assets/images/mesher/mesher-tracing-func.png" alt="tracing-func" /></p>
-  </li>
-  <li>
-    <p>3 Recompile and replace the executable file of <strong>mesher_webapp</strong> and <strong>mesher_calculator</strong>. Then start the mesher service respectively.</p>
-  </li>
-  <li>
-    <p>4 Running Zipkin Distributed tracking service with docker.</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">mkdir</span> /usr/local/src/mesher_calculator
+<span class="nb">cp</span> ./mesher /usr/local/src/mesher_calculator
+<span class="nb">cp</span> <span class="nt">-r</span> ./conf /usr/local/src/mesher_calculator
+</code></pre></div>    </div>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="nt">-p</span> 9411:9411 openzipkin/zipkin
+    <p>Change the <strong>service name</strong> in conf file <strong>microservice.yaml</strong> from hellemesher to <strong>calculator</strong>.<br />
+Change the listening address and port in conf file <strong>chassis.yaml</strong>.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40107
+listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30111
+listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30112
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>5 Click on the <em>Submit</em> button to initiate http call.</p>
+    <p>4 Run mesher_webapp and mesher_calculator respectively by cmd.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mesher_calculator
+<span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4540
+./mesher
+</code></pre></div>    </div>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mesher_webapp
+./mesher
+</code></pre></div>    </div>
   </li>
   <li>
-    <p>6 Open <a href="http://192.168.88.64:9411">http://192.168.88.64:9411</a> to view the distributed tracking results. You can see the call chains and processing time of http call.</p>
+    <p>5 Run <strong>httpserver_webapp</strong>.</p>
 
-    <p><img src="/assets/images/mesher/mesher-tracing-30111.png" alt="Distributed tracking rendering 30111" /></p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_webapp
+npm <span class="nb">install
+export </span><span class="nv">http_proxy</span><span class="o">=</span>http://127.0.0.1:30101
+node ./httpserver_webapp.js
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>6 Run <strong>httpserver_calculator</strong> program as BMI calculator. You need to install python2.7 and this service relies on package BaseHTTPServer.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_calculator
+./httpserver_calculator.py
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="start-testing">Start testing</h2>
+
+<ul>
+  <li>
+    <p>1 Open url <a href="http://192.168.88.64:30103">http://192.168.88.64:30103</a> in browser(You need to start the front service of the service-center. Referring <a href="http://servicecomb.apache.org/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center">http://servicecomb.apache.org/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center</a>). You can see services information in web. The name <strong>webapp</strong> represents the <strong>mesher_webapp</strong> which is the service name configured in microservice.yaml. The name <strong>calculator</strong> represents the <strong>mesher_calculator</strong> which is the service name configured in microservice.yaml. <strong>SERVICECENTER</strong> represents the <strong>servicecenter</strong>.</p>
+
+    <p><img src="/assets/images/mesher/mesher-servercenter.png" alt="Service-center-monitoring" /></p>
+  </li>
+  <li>
+    <p>2 Open <a href="http://192.168.88.64:4597">http://192.168.88.64:4597</a> in browser and you can see the following interface.</p>
+
+    <p><img src="/assets/images/mesher/mesher-testinit.png" alt="mesher_calculatormi-test" /></p>
+  </li>
+  <li>
+    <p>3 Enter the parameters (180, 70) and click submit.</p>
+
+    <p><img src="/assets/images/mesher/mesher-testpythonhttp.png" alt="mesher-testhttp" /></p>
   </li>
 </ul>
 
 <h1 id="whats-next">What’s next</h1>
 
 <ul>
-  <li>
-    <p>Learn more about <a href="/users/distributed-tracing/">Distributed Tracing</a></p>
-  </li>
-  <li>
-    <p>Read <a href="/docs/tracing-with-servicecomb/">Distributed Tracing with ServiceComb and Zipkin</a></p>
-  </li>
-  <li>
-    <p>See <a href="/users/">ServiceComb User Guide</a></p>
-  </li>
-  <li>
-    <p>Learn more from <a href="/docs/linuxcon-workshop-demo/">the Company application</a> for a more complete example of microservice applications integrated with ServiceComb</p>
-
-    <p>``</p>
-  </li>
+  <li>Read <a href="/docs/mesher-quick-start-advance/">mesher quick start advance</a></li>
 </ul>
 
         
@@ -661,7 +753,7 @@
       <ul>
         <p class="header">Contribute</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/mesher-distributed-tracing.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/mersher-quick-start.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
         <li><a href="/security">Security</a></li>
       </ul>

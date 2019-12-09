@@ -560,11 +560,11 @@
     <p>Install Maven 3.x, details can refer to <a href="https://maven.apache.org/install.html" target="_blank">Maven Installing Guide</a>.</p>
   </li>
   <li>
-    <p>Install ServiceComb Java Chassis(SDK) by executing the following commands.</p>
+    <p>Download ServiceComb-Samples.</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git clone https://github.com/apache/servicecomb-java-chassis.git
- <span class="nb">cd </span>servicecomb-java-chassis
- mvn clean install <span class="nt">-DskipTests</span>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git clone https://github.com/apache/servicecomb-samples.git
+ <span class="nb">cd </span>servicecomb-samples/java-chassis-samples/bmi
+ mvn clean <span class="nb">install</span>
 </code></pre></div>    </div>
   </li>
 </ul>
@@ -574,7 +574,7 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
 docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
 </code></pre></div></div>
-<p><em>Reference to <a href="/users/setup-environment/#运行service-center">service center deployment</a> to learn deploying Service Center as a local binary.</em></p>
+<p><em>Reference to <a href="/docs/service-center/install/">Install of ServiceCenter</a> to learn deploying Service Center as a local binary.</em></p>
 
 <h2 id="create-your-first-microservice-application">Create your first microservice application</h2>
 <p>Let's start the journey of microservice with a simple <strong>Body Mass Index(BMI)</strong> application. The <a href="https://en.wikipedia.org/wiki/Body_mass_index" target="_blank">BMI</a> is an attempt to quantify the amount of tissue mass in an individual. This application contains two separate microservices:</p>
@@ -599,7 +599,7 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 ser
   <li>
     <p>Enter BMI codes directory.</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>samples/bmi
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>servicecomb-samples/java-chassis-samples/bmi
 </code></pre></div>    </div>
 
     <p><strong>Note</strong>: In windows development environment, the docker runs inside the virtual machine. The IP address of <strong>Service Center</strong> needs to be modified as the virtual machine's IP address. Modify the 2 configuration files [calculator|webapp]/src/main/resources/microservice.yaml, changed <a>http://127.0.0.1:30100</a> to <a>http://192.168.99.100:30100</a> , where 192.168.99.100 is the virtual machine's IP address.</p>

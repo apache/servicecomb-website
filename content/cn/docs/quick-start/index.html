@@ -561,11 +561,11 @@
     <p>安装Maven 3.x，详情可参考<a href="https://maven.apache.org/install.html" target="_blank">Maven安装教程</a>。</p>
   </li>
   <li>
-    <p>安装 ServiceComb Java Chassis(SDK)，执行以下指令：</p>
+    <p>下载ServiceComb-Sample</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git clone https://github.com/apache/servicecomb-java-chassis.git
- <span class="nb">cd </span>servicecomb-java-chassis
- mvn clean install <span class="nt">-DskipTests</span>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git clone https://github.com/apache/servicecomb-samples.git
+ <span class="nb">cd </span>servicecomb-samples/java-chassis-samples/bmi
+ mvn clean <span class="nb">install</span>
 </code></pre></div>    </div>
   </li>
 </ul>
@@ -575,10 +575,10 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
 docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
 </code></pre></div></div>
-<p><em>您可以通过阅读<a href="/cn/users/setup-environment/#运行service-center">环境配置</a>获取在本地以二进制方式运行Service Center的方法。</em></p>
+<p><em>您可以通过阅读<a href="/cn/docs/service-center/install/">环境安装</a>获取在本地以二进制方式运行Service Center的方法。</em></p>
 
 <h2 id="创建第一个微服务">创建第一个微服务</h2>
-<p>本指南将以一个简单的 <strong>体质指数(BMI)</strong> 应用开展微服务之旅。<a href="https://baike.baidu.com/item/BMI%E6%8C%87%E6%95%B0" target="_blank">体质指数</a>主要用于衡量人体胖瘦程度。该应用主要包含两个微服务：</p>
+<p>本指南将以一个简单的 <strong>体质指数(BMI)</strong> 应用开展微服务之旅。<a href="https://baike.baidu.com/item/%E4%BD%93%E8%B4%A8%E6%8C%87%E6%95%B0" target="_blank">体质指数</a>主要用于衡量人体胖瘦程度。该应用主要包含两个微服务：</p>
 
 <ul>
   <li>
@@ -600,7 +600,7 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 ser
   <li>
     <p>进入 <strong>体质指数</strong> 应用代码目录。</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>samples/bmi
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd </span>servicecomb-samples/java-chassis-samples/bmi
 </code></pre></div>    </div>
     <p><strong>注意</strong>：在windows开发环境下，docker是在虚拟机中启动，因此需要修改微服务的 <strong>Service Center</strong> IP地址为虚拟机IP地址。修改2个配置文件[calculator|webapp]/src/main/resources/microservice.yaml，将其中<a>http://127.0.0.1:30100</a>修改为<a>http://192.168.99.100:30100</a>，其中192.168.99.100是虚拟机IP，需要与开发环境中的虚拟机IP保持一致。</p>
   </li>

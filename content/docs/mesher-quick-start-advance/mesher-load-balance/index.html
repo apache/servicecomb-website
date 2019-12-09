@@ -19,12 +19,12 @@
 
 
 
-<title>mesher Get started - Apache ServiceComb</title>
+<title>mesher Load Balance - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="Describe how to use mesher to merge into the servicecomb microservice system">
+<meta name="description" content="Describe how to use the load balancing capabilities provided by mesher">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="mesher Get started">
+<meta property="og:title" content="mesher Load Balance">
 
 
-  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start/">
-  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start-advance/mesher-load-balance/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start-advance/mesher-load-balance/">
 
 
 
-  <meta property="og:description" content="Describe how to use mesher to merge into the servicecomb microservice system">
+  <meta property="og:description" content="Describe how to use the load balancing capabilities provided by mesher">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="mesher Get started">
-  <meta name="twitter:description" content="Describe how to use mesher to merge into the servicecomb microservice system">
+  <meta name="twitter:title" content="mesher Load Balance">
+  <meta name="twitter:description" content="Describe how to use the load balancing capabilities provided by mesher">
   <meta name="twitter:url" content="">
 
   
@@ -248,7 +248,7 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/docs/mesher-quick-start/>中文</a>
+            <a href=/cn/docs/mesher-quick-start-advance/mesher-load-balance/>中文</a>
           
         </div>
       </nav>
@@ -265,7 +265,7 @@
   
   <div class="sidebar sticky">
       
-      <div class="back-to-home"><a href="/">Home</a> > mesher Get started</div>
+      <div class="back-to-home"><a href="/">Home</a> > mesher Load Balance</div>
       
   
   
@@ -404,7 +404,7 @@
             
             
 
-            <li><a href="/docs/mesher-quick-start/" class="active">Get started</a></li>
+            <li><a href="/docs/mesher-quick-start/" class="">Get started</a></li>
           
             
             
@@ -420,7 +420,7 @@
             
             
 
-            <li><a href="/docs/mesher-quick-start-advance/mesher-load-balance/" class="">mesher balance</a></li>
+            <li><a href="/docs/mesher-quick-start-advance/mesher-load-balance/" class="active">mesher balance</a></li>
           
             
             
@@ -516,8 +516,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="mesher Get started">
-    <meta itemprop="description" content="Describe how to use mesher to merge into the servicecomb microservice system">
+    <meta itemprop="headline" content="mesher Load Balance">
+    <meta itemprop="description" content="Describe how to use the load balancing capabilities provided by mesher">
     
     <meta itemprop="dateModified" content="August 08, 2019">
 
@@ -525,7 +525,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">mesher Get started
+            <h1 class="page__title" itemprop="headline">mesher Load Balance
 </h1>
             
           </header>
@@ -533,158 +533,71 @@
       
 
       <section class="page__content" itemprop="text">
-        <h1 id="install-development-environment">Install development environment</h1>
-
-<ul>
-  <li>
-    <p>Install <strong>git</strong>. Get details <a href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank">git Installation tutorial</a>.</p>
-  </li>
-  <li>
-    <p>Install <strong>golang 1.12.7</strong>. Get details <a href="https://golang.google.cn/doc/install" target="_blank">Go Installation tutorial</a>.</p>
-  </li>
-  <li>
-    <p>Install <strong>python 2.7</strong>. Get details <a href="https://wiki.python.org/moin/BeginnersGuide/Download" target="_blank">python Installation tutorial</a>.</p>
-  </li>
-  <li>
-    <p>Install <strong>nodejs v10.16.2</strong>. Get details <a href="https://nodejs.org/en/download/" target="_blank">nodejs download</a>。</p>
-  </li>
+        <ul>
+  <li>mesher supports flexible load balancing algorithms. This guide will show you how to use the load balancing capabilities provided by <strong>mesher</strong>.</li>
 </ul>
 
-<h1 id="run-service-center">Run Service Center</h1>
-
-<p>In the <strong>ServiceComb</strong> microservices framework, <strong>Service Center</strong> provides service registration and service discovery.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull servicecomb/service-center
-docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 servicecomb/service-center:latest
-</code></pre></div></div>
-
-<p><em>Reference to <a href="/users/setup-environment/#运行service-center">service center deployment</a> to learn deploying Service Center and front as a local binary.</em></p>
-
-<h1 id="use-mesher-to-merge-into-the-servicecomb-microservice-system">Use mesher to merge into the servicecomb microservice system</h1>
-
-<h2 id="background">Background</h2>
+<h1 id="foreword">Foreword</h1>
 
 <ul>
-  <li>This use case is mainly to help users get started quickly with <strong>mesher sidecar</strong> mode. We hope that users can understand the working mode of mesher and learn how to merge the existing http service into the ServiceComb micro-service system with mesher. The final goal is to help user get the micro-service capabilities such as load balancing, flow control, service management and call chain tracing provided by servicecomb. The full case will be submitted to <a href="https://github.com/apache/servicecomb-mesher/tree/master/examples/quick_start">Case Download</a>.</li>
+  <li>Walk through <a href="/docs/mesher-quick-start/">mesher-quick-start</a> and have <strong>mesher display programs</strong> running.</li>
 </ul>
 
-<h2 id="mesher-use-case-service-introduction">mesher use case service introduction</h2>
-
-<ul>
-  <li>1 <strong>httpserver_calculator</strong>. A http server based on python which is for BMI calculator and can be developed by any language.</li>
-  <li>2 <strong>httpserver_webapp</strong>. A http server based on nodejs which is used for displaying results on the browser.</li>
-  <li>3 <strong>mesher_webapp</strong>. A mesher instance which serves for httpserver_webapp via sidecar mode.</li>
-  <li>4 <strong>mesher_calculator</strong>. A mesher instance which serves for httpserver_calculator via sidecar mode.</li>
-  <li>5 <strong>servicecenter</strong>. Servicecenter which receives registration of mesher service and provides services as service discovery, routing query, service monitoring and so on.</li>
-</ul>
-
-<p><img src="/assets/images/mesher/mesher-deployment-simple.png" alt="mesher deployment diagram" /></p>
-
-<h2 id="process-details">Process details</h2>
-
-<ul>
-  <li>1 The browser[192.168.88.78] execute a http call to the <strong>httpserver_webapp</strong> service with url <a href=""></a><a href="http://192.168.88.64:4597/calculator/bmi">http://192.168.88.64:4597/calculator/bmi</a>.</li>
-  <li>2 The httpserver_webapp service receives the request and execute http call <a href=""></a><a href="http://calculator/bmi">http://calculator/bmi</a>. Because the proxy is set as <a href=""></a><a href="http://127.0.0.1:30101">http://127.0.0.1:30101</a>, the request initiated by <strong>httpserver_webapp</strong> will be forwarded to the <strong>mesher_webapp</strong> service.</li>
-  <li>3 <strong>mesher_webapp</strong> gets the address of the service name(the service name <strong>calculator</strong> here is configured in microservice.yaml) from the <strong>servicecenter</strong> and forwarded to <strong>mesher_calculator</strong>.</li>
-  <li>4 <strong>mesher_calculator</strong> service forward http requests to the <strong>httpserver_calculator</strong> service.</li>
-  <li>
-    <p>5 <strong>httpserver_calculator</strong> will calculate according to the input parameters(height and weight). The result containing service id and body mass index will be displayed on the browser. The flow chart is as follows:</p>
-
-    <p><img src="/assets/images/mesher/mesher-flowchart-simple.png" alt="mesher-flow-chart" /></p>
-  </li>
-</ul>
-
-<h2 id="environmental-construction">Environmental construction</h2>
+<h1 id="enable">Enable</h1>
 
 <ul>
   <li>
-    <p>1 Compile <strong>mesher</strong> <a href="https://github.com/apache/servicecomb-mesher">download</a>. Download the project and get the executable mesher(linux) or mesher.exe(windows) by README.md.</p>
+    <p>You can start a new <strong>mesher_calculator</strong> and <strong>httpserver_calculator</strong> instance for load balancing testing by using the program in example directory <a href="https://github.com/apache/servicecomb-mesher/tree/master/examples/quick_start/test_balance">test_balance</a></p>
   </li>
   <li>
-    <p>2 Create <strong>mesher_webapp</strong> which serves for <strong>httpserver_webapp</strong>. In the mesher directory execute the following linux command to create mesher_webapp. In order to the run mesher you also need to copy the conf.</p>
+    <p>1 Change the <strong>service name</strong> in file <strong>microservice.yaml</strong> to <strong>calculator</strong>. Change the listening address and port in file <strong>chassis.yaml</strong> to avoid conflicts.</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /usr/local/src/mesher_webapp
-cp ./mesher /usr/local/src/mesher_webapp
-cp <span class="nt">-r</span> ./conf /usr/local/src/mesher_webapp
-</code></pre></div>    </div>
-
-    <p>Change <strong>service name</strong> in microservice.yaml from hellemesher to <strong>webapp</strong>. Change the listening service address in chassis.yaml from 127.0.0.1 to <strong>intranet ip</strong>(Viewed by cmd ifconfig in linux, such as 192.168.88.64).</p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40101
-listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30101
-listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30102
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40102
+listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30108
+listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30109
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>3 Create mesher_calculator service.</p>
+    <p>2 Start running mesher_calculator by cmd:</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir /usr/local/src/mesher_calculator
-cp ./mesher /usr/local/src/mesher_calculator
-cp <span class="nt">-r</span> ./conf /usr/local/src/mesher_calculator
-</code></pre></div>    </div>
-
-    <p>Change the <strong>service name</strong> in conf file <strong>microservice.yaml</strong> from hellemesher to <strong>calculator</strong>.<br />
-Change the listening address and port in conf file <strong>chassis.yaml</strong>.</p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>listenAddress: 127.0.0.1:40101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:40107
-listenAddress: 127.0.0.1:30101  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30111
-listenAddress: 127.0.0.1:30102  <span class="nt">-----</span>》  listenAddress: 192.168.88.64:30112
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>4 Run mesher_webapp and mesher_calculator respectively by cmd.</p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mesher_calculator
-<span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4540
-./mesher
-</code></pre></div>    </div>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/mesher_webapp
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">SPECIFIC_ADDR</span><span class="o">=</span>127.0.0.1:4537
 ./mesher
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>5 Run <strong>httpserver_webapp</strong>.</p>
+    <p>3 The <strong>Roundbin</strong> load balancing algorithm is used by default and the Random, SessionStickiness load balancing algorithms are also supported. We configure the load balancing method <strong>Random</strong> by modifing configuration file chassis.yaml of <strong>mesher_webapp</strong>.</p>
 
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_webapp
-npm install
-<span class="nb">export </span><span class="nv">http_proxy</span><span class="o">=</span>http://127.0.0.1:30101
-node ./httpserver_webapp.js
+    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">loadbalance</span><span class="pi">:</span>
+  <span class="na">strategy</span><span class="pi">:</span>
+    <span class="na">name</span><span class="pi">:</span> <span class="s">Random</span>
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>6 Run <strong>httpserver_calculator</strong> program as BMI calculator. You need to install python2.7 and this service relies on package BaseHTTPServer.</p>
-
-    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cd</span> /usr/local/src/httpserver_calculator
-./httpserver_calculator.py
-</code></pre></div>    </div>
+    <p>4 Run a new services instance of <strong>httpserver_calculator</strong> which is listenning on port 4537.</p>
   </li>
 </ul>
 
-<h2 id="start-testing">Start testing</h2>
+<h1 id="verification">Verification</h1>
 
 <ul>
   <li>
-    <p>1 Open url <a href="http://192.168.88.64:30103">http://192.168.88.64:30103</a> in browser(You need to start the front service of the service-center. Referring <a href="http://servicecomb.apache.org/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center">http://servicecomb.apache.org/users/setup-environment/#%E8%BF%90%E8%A1%8Cservice-center</a>). You can see services information in web. The name <strong>webapp</strong> represents the <strong>mesher_webapp</strong> which is the service name configured in microservice.yaml. The name <strong>calculator</strong> represents the <strong>mesher_calculator</strong> which is the service name configured in microservice.yaml. <strong>SERVICECENTER</strong> represents the <strong>servicecenter</strong>.</p>
+    <p>Multiple clicks the <em>Submit</em> button and we can see that the BMI Instance ID in the following two interfaces appear randomly.</p>
 
-    <p><img src="/assets/images/mesher/mesher-servercenter.png" alt="Service-center-monitoring" /></p>
-  </li>
-  <li>
-    <p>2 Open <a href="http://192.168.88.64:4597">http://192.168.88.64:4597</a> in browser and you can see the following interface.</p>
+    <p><img src="/assets/images/mesher/mesher-testpythonhttp.png" alt="mesher-test-httppy1" /><br /></p>
 
-    <p><img src="/assets/images/mesher/mesher-testinit.png" alt="mesher_calculatormi-test" /></p>
-  </li>
-  <li>
-    <p>3 Enter the parameters (180, 70) and click submit.</p>
-
-    <p><img src="/assets/images/mesher/mesher-testpythonhttp.png" alt="mesher-testhttp" /></p>
+    <p><img src="/assets/images/mesher/mesher-testpythonhttp2.png" alt="mesher-test-httppy2" /></p>
   </li>
 </ul>
 
-<h1 id="whats-next">What’s next</h1>
+<h2 id="whats-next">What’s next</h2>
 
 <ul>
-  <li>Read <a href="/docs/mesher-quick-start-advance/">mesher quick start advance</a></li>
+  <li>
+    <p>See quick start for <a href="/docs/mesher-quick-start-advance/mesher-flow-control/">Flow Control</a></p>
+  </li>
+  <li>
+    <p>Learn more about <a href="/users/service-configurations/#负载均衡策略">Load Balance</a></p>
+  </li>
 </ul>
 
         
@@ -753,7 +666,7 @@ node ./httpserver_webapp.js
       <ul>
         <p class="header">Contribute</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/mesher-quick-start.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/mersher-load-balance.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
         <li><a href="/security">Security</a></li>
       </ul>

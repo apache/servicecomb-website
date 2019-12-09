@@ -432,7 +432,7 @@
 <p>　　之前的版本由于没有引入Event Sourcing，Event实体只需要直接写入数据库即可，现在需要将Event发布给Message Broker，为了支持云服务（<a href="http://www.hwclouds.com/">华为云</a>）提供的分布式消息服务，我们定义了通用消息发布接口：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessagePublisher</span> <span class="o">{</span>
-  <span class="kt">void</span> <span class="nf">publishMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">messageContent</span><span class="o">);</span>
+  <span class="kt">void</span> <span class="nf">publishMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">messageContent</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -447,7 +447,7 @@
 <p>　　同样，为了支持云服务（<a href="http://www.hwclouds.com/">华为云</a>）提供的分布式消息服务，我们定义了通用消息订阅接口：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">SecKillMessageSubscriber</span> <span class="o">{</span>
-  <span class="kt">void</span> <span class="nf">subscribeMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">messageContent</span><span class="o">);</span>
+  <span class="kt">void</span> <span class="nf">subscribeMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">messageContent</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 

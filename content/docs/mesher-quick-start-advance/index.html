@@ -19,12 +19,12 @@
 
 
 
-<title>mesher Flow Control - Apache ServiceComb</title>
+<title>mesher Development Advanced - Apache ServiceComb</title>
 
 
 
 
-<meta name="description" content="Describe how to use the flow control capabilities provided by mesher">
+<meta name="description" content="Describe how to use mesher’s advanced microservice capabilities">
 
 
 
@@ -33,21 +33,21 @@
 
 <meta property="og:locale" content="en">
 <meta property="og:site_name" content="Apache ServiceComb">
-<meta property="og:title" content="mesher Flow Control">
+<meta property="og:title" content="mesher Development Advanced">
 
 
-  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start-advance/mesher-flow-control/">
-  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start-advance/mesher-flow-control/">
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start-advance/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/mesher-quick-start-advance/">
 
 
 
-  <meta property="og:description" content="Describe how to use the flow control capabilities provided by mesher">
+  <meta property="og:description" content="Describe how to use mesher’s advanced microservice capabilities">
 
 
 
   <meta name="twitter:site" content="@ServiceComb">
-  <meta name="twitter:title" content="mesher Flow Control">
-  <meta name="twitter:description" content="Describe how to use the flow control capabilities provided by mesher">
+  <meta name="twitter:title" content="mesher Development Advanced">
+  <meta name="twitter:description" content="Describe how to use mesher’s advanced microservice capabilities">
   <meta name="twitter:url" content="">
 
   
@@ -248,7 +248,7 @@
         <div class="nav-lang">
           
             
-            <a href=/cn/docs/mesher-quick-start-advance/mesher-flow-control/>中文</a>
+            <a href=/cn/docs/mesher-quick-start-advance/>中文</a>
           
         </div>
       </nav>
@@ -265,7 +265,7 @@
   
   <div class="sidebar sticky">
       
-      <div class="back-to-home"><a href="/">Home</a> > mesher Flow Control</div>
+      <div class="back-to-home"><a href="/">Home</a> > mesher Development Advanced</div>
       
   
   
@@ -412,7 +412,7 @@
             
             
 
-            <li><a href="/docs/mesher-quick-start-advance/" class="">mesher Advance</a></li>
+            <li><a href="/docs/mesher-quick-start-advance/" class="active">mesher Advance</a></li>
           
             
             
@@ -428,7 +428,7 @@
             
             
 
-            <li><a href="/docs/mesher-quick-start-advance/mesher-flow-control/" class="active">mesher Flow Control</a></li>
+            <li><a href="/docs/mesher-quick-start-advance/mesher-flow-control/" class="">mesher Flow Control</a></li>
           
             
             
@@ -516,8 +516,8 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="mesher Flow Control">
-    <meta itemprop="description" content="Describe how to use the flow control capabilities provided by mesher">
+    <meta itemprop="headline" content="mesher Development Advanced">
+    <meta itemprop="description" content="Describe how to use mesher’s advanced microservice capabilities">
     
     <meta itemprop="dateModified" content="August 08, 2019">
 
@@ -525,7 +525,7 @@
       
         
           <header>
-            <h1 class="page__title" itemprop="headline">mesher Flow Control
+            <h1 class="page__title" itemprop="headline">mesher Development Advanced
 </h1>
             
           </header>
@@ -533,54 +533,31 @@
       
 
       <section class="page__content" itemprop="text">
-        <ul>
-  <li>Flow control avoids microservice overload operations by controlling the data transfer rate. This guide will show you how to use the flow control capabilities provided by <strong>mesher</strong></li>
-</ul>
-
-<h1 id="before-you-start">Before you start</h1>
-
-<ul>
-  <li>Walk through <a href="/docs/mesher-quick-start/">mesher-quick-start</a> and have <strong>mesher display programs</strong> running.</li>
-</ul>
-
-<h1 id="enable">Enable</h1>
+        <p>This guide will show you how to use the advanced features of <strong>mesher</strong> to support the microservices system better.</p>
 
 <ul>
   <li>
-    <p>Change the configuration file <strong>chassis.yaml</strong> of <strong>mesher_calculator</strong>. Add a flow control configuration in <strong>chassis.yaml</strong> as follows. Restart the service.</p>
-
-    <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">flowcontrol</span><span class="pi">:</span>
- <span class="na">Provider</span><span class="pi">:</span>
-   <span class="na">qps</span><span class="pi">:</span>
-     <span class="na">enabled</span><span class="pi">:</span> <span class="no">true</span>                 <span class="c1"># enable rate limiting or not</span>
-     <span class="na">global</span><span class="pi">:</span>
-       <span class="na">limit</span><span class="pi">:</span> <span class="s">0</span>                    <span class="c1"># default limit of provider</span>
-     <span class="na">limit</span><span class="pi">:</span>
-       <span class="na">Server</span><span class="pi">:</span> <span class="s">0</span>                  <span class="c1"># rate limit for request from a provider</span>
-</code></pre></div>    </div>
-
-    <p>The frequency limit configuration make the request accepted per second is 0 which means no service is provided.</p>
+    <p><a href="/docs/mesher-quick-start-advance/mesher-load-balance/">mesher for load balance</a> Support for flexible and configurable microservice load balancing strategies.</p>
+  </li>
+  <li>
+    <p><a href="/docs/mesher-quick-start-advance/mesher-flow-control/">mesher for flow control</a> Support microservice request flow control capabilities.</p>
+  </li>
+  <li>
+    <p><a href="/docs/mesher-quick-start-advance/mesher-service-management/">mesher for service management</a> Supports micro-service grayscale publishing, service fusing and other management capabilities.</p>
+  </li>
+  <li>
+    <p><a href="/docs/mesher-quick-start-advance/mesher-distributed-tracing">mesher for distributed tracing</a> Supports the ability to track the chain of call relationships of microservices.</p>
   </li>
 </ul>
-
-<h1 id="verification">Verification</h1>
-
-<ul>
-  <li>Click the <em>Submit</em> button and you can see that the request was rejected due to the flow control of mesher. Now the request can not reach real httpserver.</li>
-</ul>
-
-<p><img src="/assets/images/mesher/mesher-flow-control-fail.png" alt="flow-control-req" /></p>
-
-<p><img src="/assets/images/mesher/mesher-flow-control-log.png" alt="flow-control-log" /></p>
 
 <h1 id="whats-next">What’s next</h1>
 
 <ul>
   <li>
-    <p>See quick start for <a href="/docs/mesher-quick-start-advance/mesher-service-management/">Service Management</a></p>
+    <p>See <a href="/users/">ServiceComb User Guide</a></p>
   </li>
   <li>
-    <p>Learn more about <a href="/users/service-configurations/#限流策略">Flow Control</a></p>
+    <p>Learn more from <a href="/docs/linuxcon-workshop-demo/">the Company application</a> for a more complete example of microservice applications integrated with ServiceComb</p>
   </li>
 </ul>
 
@@ -650,7 +627,7 @@
       <ul>
         <p class="header">Contribute</p>
         <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
-        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/mesher-flow-control.md">Edit This Page on Github</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/mersher-quick-start-advance.md">Edit This Page on Github</a></li>
         <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
         <li><a href="/security">Security</a></li>
       </ul>

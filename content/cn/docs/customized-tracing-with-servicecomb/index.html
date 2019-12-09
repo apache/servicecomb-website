@@ -432,8 +432,8 @@
 <span class="nd">@EnableZipkinTracing</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorApplication</span> <span class="o">{</span>
 
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="n">CalculatorApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">CalculatorApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -442,7 +442,7 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.apache.servicecomb.tracing.Span</span><span class="o">;</span>
 
 <span class="nd">@Service</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorServiceImpl</span> <span class="kd">implements</span> <span class="n">CalculatorService</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorServiceImpl</span> <span class="kd">implements</span> <span class="nc">CalculatorService</span> <span class="o">{</span>
 
   <span class="cm">/**
    * {@inheritDoc}
@@ -459,7 +459,7 @@
   <span class="o">}</span>
 
   <span class="kd">private</span> <span class="kt">double</span> <span class="nf">roundToOnePrecision</span><span class="o">(</span><span class="kt">double</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">return</span> <span class="k">new</span> <span class="nf">BigDecimal</span><span class="o">(</span><span class="n">value</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">RoundingMode</span><span class="o">.</span><span class="na">HALF_UP</span><span class="o">).</span><span class="na">doubleValue</span><span class="o">();</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">BigDecimal</span><span class="o">(</span><span class="n">value</span><span class="o">).</span><span class="na">setScale</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="nc">RoundingMode</span><span class="o">.</span><span class="na">HALF_UP</span><span class="o">).</span><span class="na">doubleValue</span><span class="o">();</span>
   <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -474,8 +474,8 @@
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">)</span> <span class="o">{</span>
 
      <span class="k">try</span><span class="o">{</span>
-     <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5000</span><span class="o">);</span>
-     <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+     <span class="nc">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">sleep</span><span class="o">(</span><span class="mi">5000</span><span class="o">);</span>
+     <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">){</span>
 
      <span class="o">}</span>
 
