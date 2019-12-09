@@ -1,0 +1,243 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Concepts &mdash; go-chassis  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Get started" href="../get-started.html" />
+    <link rel="prev" title="What is mesher" href="what-is.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> go-chassis
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentations</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../intro.html">Introductions</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="what-is.html">What is mesher</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sidecar">Sidecar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#go-chassis">go chassis</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#destinationresolver">DestinationResolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#source-resolver">Source Resolver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin-api">Admin API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../get-started.html">Get started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configuration.html">User guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../development.html">Development guides</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../protocols.html">Protocols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../istio-guides.html">Use Istio as control plane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../sidecar.html">Sidcar-injector Deployment and Usage</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">go-chassis</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../intro.html">Introductions</a> &raquo;</li>
+        
+      <li>Concepts</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/intro/concepts.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="concepts">
+<h1>Concepts<a class="headerlink" href="#concepts" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="sidecar">
+<h2>Sidecar<a class="headerlink" href="#sidecar" title="Permalink to this headline">¶</a></h2>
+<p>Mesher leverage
+<a class="reference external" href="https://kubernetes.io/blog/2015/06/the-distributed-system-toolkit-patterns/">distributed design pattern, sidecar</a>
+to work along with service.</p>
+</div>
+<div class="section" id="go-chassis">
+<h2>go chassis<a class="headerlink" href="#go-chassis" title="Permalink to this headline">¶</a></h2>
+<p>Mesher is a light weight sidecar proxy developed on top of go-chassis,
+so it has the same <a class="reference external" href="http://go-chassis.readthedocs.io/en/latest/intro/concepts.html">concepts</a> with it
+and it has all features of go chassis</p>
+</div>
+<div class="section" id="destinationresolver">
+<h2>DestinationResolver<a class="headerlink" href="#destinationresolver" title="Permalink to this headline">¶</a></h2>
+<p>Destination Resolver parse request into a service name</p>
+</div>
+<div class="section" id="source-resolver">
+<h2>Source Resolver<a class="headerlink" href="#source-resolver" title="Permalink to this headline">¶</a></h2>
+<p>source resolver get remote IP and based on remote IP, it</p>
+</div>
+<div class="section" id="admin-api">
+<h2>Admin API<a class="headerlink" href="#admin-api" title="Permalink to this headline">¶</a></h2>
+<p>Listen on isolated port, it gives a way to interact with mesher</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../get-started.html" class="btn btn-neutral float-right" title="Get started" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="what-is.html" class="btn btn-neutral float-left" title="What is mesher" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, xiaoliang
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
