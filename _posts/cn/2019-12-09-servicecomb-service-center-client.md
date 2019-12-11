@@ -11,8 +11,6 @@ redirect_from:
   - /theme-setup/
 ---
 
-# 使用ServiceComb客户端轻松调用ServiceCenter
-
 ## 1. 问题/背景
 在微服务架构中，服务注册中心是必不可少的组件，提供服务注册与管理的能力。目前使用ServiceComb服用中心的java微服务开发者，不仅需要写微服务业务代码，还要写客户端代码去调用ServiceCenter的openAPI。开发者首先需要熟悉ServiceCenter的openAPI文档，然后代码实现http客户端用于发起请求和接收响应，并绑定ServiceCenter配置参数，最后代码实现对服务中心API的调用，才能使用上ServiceCenter。为了简单化开发者使用ServiceCenter，ServiceCenter客户端实现了上述步骤。开发者只需要添加客户端jar包调用API就能轻松使用ServiceCenter，不需要过多关注openAPI文档、不需要写http客户端层代码。使用ServiceComb客户端，开发者可以轻松调用ServiceCenter，更专注于写微服务业务代码。  
 了解更多ServiceComb-Service-Center：[https://docs.servicecomb.io/service-center/zh_CN/index.html](https://docs.servicecomb.io/service-center/zh_CN/index.html)  
@@ -100,7 +98,8 @@ redirect_from:
               "register service instance fails", e);
         }
     }
- 	  //service discovery
+ 	  
+    //service discovery
     public MicroserviceInstancesResponse getMicroserviceInstanceList(String serviceId) {
         try {
           HttpResponse response = httpClient
