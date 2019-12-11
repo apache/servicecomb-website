@@ -1,0 +1,1025 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>使用ServiceComb客户端轻松调用ServiceCenter - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="使用ServiceComb客户端轻松调用ServiceCenter">
+
+
+
+
+<meta name="author" content="Zhou Zhongyuan">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="使用ServiceComb客户端轻松调用ServiceCenter">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-service-center-client/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/servicecomb-service-center-client/">
+
+
+
+  <meta property="og:description" content="使用ServiceComb客户端轻松调用ServiceCenter">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="使用ServiceComb客户端轻松调用ServiceCenter">
+  <meta name="twitter:description" content="使用ServiceComb客户端轻松调用ServiceCenter">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+    <meta name="twitter:creator" content="@Zhou Zhongyuan">
+  
+
+
+
+  
+
+  
+
+
+
+
+
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2019-12-09T00:00:00+08:00">
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">首页</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a href="/cn/docs/users/">文档</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/quick-start/" class="">入门指南</a></li>
+                
+                <li><a href="/cn/docs/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/servicecomb-service-center-client/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/cn/">首页</a> > 使用ServiceComb客户端轻松调用ServiceCenter</div>
+      
+  
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+    <div class="author__avatar">
+      
+        <img src="/assets/images/ServiceComb-logo-3.jpg" class="author__avatar" alt="" itemprop="image">
+      
+    </div>
+  
+
+  <div class="author__content">
+    <h3 class="author__name" itemprop="name"></h3>
+    
+      <p class="author__bio" itemprop="description">
+	    
+	      
+	        ServiceComb提供了一套关于服务注册，服务发现，服务配置以及管理功能的微服务框架
+	      
+	    
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">关注</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+        
+          
+            <i class="fa fa-fw fa-map-marker" aria-hidden="true"></i> <span itemprop="name">中国</span>
+          
+        
+        </li>
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:dev@servicecomb.apache.org">
+            <meta itemprop="email" content="dev@servicecomb.apache.org" />
+            <i class="fa fa-fw fa-envelope-square" aria-hidden="true"></i> 电子邮箱
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+        <li>
+          <a href="https://github.com/search?q=org:apache+ServiceComb&unscoped_q=ServiceComb" itemprop="sameAs">
+            <i class="fa fa-fw fa-github" aria-hidden="true"></i> GitHub<br>
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fa fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="使用ServiceComb客户端轻松调用ServiceCenter">
+    <meta itemprop="description" content="使用ServiceComb客户端轻松调用ServiceCenter">
+    <meta itemprop="datePublished" content="December 09, 2019">
+    <meta itemprop="dateModified" content="December 09, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">使用ServiceComb客户端轻松调用ServiceCenter
+</h1>
+            
+              <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  2 分钟 阅读
+
+</p>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <h1 id="使用servicecomb客户端轻松调用servicecenter">使用ServiceComb客户端轻松调用ServiceCenter</h1>
+
+<h2 id="1-问题背景">1. 问题/背景</h2>
+<p>在微服务架构中，服务注册中心是必不可少的组件，提供服务注册与管理的能力。目前使用ServiceComb服用中心的java微服务开发者，不仅需要写微服务业务代码，还要写客户端代码去调用ServiceCenter的openAPI。开发者首先需要熟悉ServiceCenter的openAPI文档，然后代码实现http客户端用于发起请求和接收响应，并绑定ServiceCenter配置参数，最后代码实现对服务中心API的调用，才能使用上ServiceCenter。为了简单化开发者使用ServiceCenter，ServiceCenter客户端实现了上述步骤。开发者只需要添加客户端jar包调用API就能轻松使用ServiceCenter，不需要过多关注openAPI文档、不需要写http客户端层代码。使用ServiceComb客户端，开发者可以轻松调用ServiceCenter，更专注于写微服务业务代码。<br />
+了解更多ServiceComb-Service-Center：<a href="https://docs.servicecomb.io/service-center/zh_CN/index.html">https://docs.servicecomb.io/service-center/zh_CN/index.html</a><br />
+了解更多ServiceCenter客户端：<a href="https://github.com/apache/servicecomb-java-chassis/tree/master/clients/service-center-client">https://github.com/apache/servicecomb-java-chassis/tree/master/clients/service-center-client</a><br />
+<img src="/assets/images/client/sc-client.jpg" alt="service-center-client-design" /></p>
+
+<h2 id="2-客户端原理及关键代码解读">2. 客户端原理及关键代码解读</h2>
+<p>2.1  基于httpClient设计ServiceCenter客户端</p>
+<ul>
+  <li>
+    <p>客户端发起请求和接收响应。客户端选择httpclient作为底层组件，用于实际发起请求和接收响应，并对请求和响应类进行了封装。代码中get方法对应发起GET请求，调用doRequest方法首先添加服务注册中心信息到封装过的httpRequest请求头部，再基于httpclient组件发起实际的http请求，最后将请求响应结果转化为封装过的httpResponse对象返回。</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//make GET request</span>
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="nc">HttpResponse</span> <span class="nf">get</span><span class="o">(</span><span class="nc">HttpRequest</span> <span class="n">request</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+    <span class="n">request</span><span class="o">.</span><span class="na">setMethod</span><span class="o">(</span><span class="nc">HttpRequest</span><span class="o">.</span><span class="na">GET</span><span class="o">);</span>
+    <span class="k">return</span> <span class="nf">doRequest</span><span class="o">(</span><span class="n">request</span><span class="o">);</span>
+<span class="o">}</span>
+<span class="o">......</span>
+   
+<span class="c1">//make http request with httpClient component</span>
+<span class="kd">public</span> <span class="nc">HttpResponse</span> <span class="nf">doRequest</span><span class="o">(</span><span class="nc">HttpRequest</span> <span class="n">httpRequest</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+    <span class="c1">//add cse-serviceregistry-client header to identify client</span>
+    <span class="n">httpRequest</span><span class="o">.</span><span class="na">addHeader</span><span class="o">(</span><span class="no">HEADER_CONTENT_TYPE</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+    <span class="n">httpRequest</span><span class="o">.</span><span class="na">addHeader</span><span class="o">(</span><span class="no">HEADER_USER_AGENT</span><span class="o">,</span> <span class="s">"cse-serviceregistry-client/1.0.0"</span><span class="o">);</span>
+        
+    <span class="k">if</span> <span class="o">(</span><span class="n">globalHeaders</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">globalHeaders</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nl">httpRequest:</span><span class="o">:</span><span class="n">addHeader</span><span class="o">);</span>
+    <span class="o">}</span>
+        
+    <span class="c1">//make http request</span>
+    <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">HttpResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">httpRequest</span><span class="o">.</span><span class="na">getRealRequest</span><span class="o">());</span>
+        
+    <span class="kt">int</span> <span class="n">statusCode</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getStatusLine</span><span class="o">().</span><span class="na">getStatusCode</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="n">messgae</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getStatusLine</span><span class="o">().</span><span class="na">getReasonPhrase</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="n">context</span> <span class="o">=</span> <span class="nc">EntityUtils</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getEntity</span><span class="o">(),</span> <span class="s">"UTF-8"</span><span class="o">);</span>
+        
+    <span class="k">return</span> <span class="k">new</span> <span class="nf">HttpResponse</span><span class="o">(</span><span class="n">statusCode</span><span class="o">,</span> <span class="n">messgae</span><span class="o">,</span> <span class="n">context</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>客户端支持定制化服务中心配置参数。代码中看到，客户端支持开发者定制服务中心IP，端口，项目名称，租户名称，导入TLSConfig和新增请求头，并通过客户端的Builder方法注入配置。TLSConfig为客户端TLS认证配置类，给客户端导入TLS证书配置，即可开启客户端双向认证模式。</p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="cm">/**
+   * Customized host, port, projectName, tenantName, TLSConf, headers and any one parameter can be null.
+   */</span>
+  <span class="kd">public</span> <span class="nf">ServiceCenterClient</span><span class="o">(</span><span class="nc">String</span> <span class="n">host</span><span class="o">,</span> <span class="kt">int</span> <span class="n">port</span><span class="o">,</span> <span class="nc">String</span> <span class="n">projectName</span><span class="o">,</span> <span class="nc">String</span> <span class="n">tenantName</span><span class="o">,</span> <span class="nc">TLSConfig</span> <span class="n">tlsConfig</span><span class="o">,</span>
+    <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">extraGlobalHeaders</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nc">HttpTransport</span> <span class="n">httpTransport</span> <span class="o">=</span> <span class="nc">HttpTransportFactory</span><span class="o">.</span><span class="na">getDefaultHttpTransport</span><span class="o">();</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">tlsConfig</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">httpTransport</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TLSHttpsTransport</span><span class="o">(</span><span class="n">tlsConfig</span><span class="o">);</span>
+      <span class="o">}</span>
+      <span class="n">httpTransport</span><span class="o">.</span><span class="na">addHeaders</span><span class="o">(</span><span class="n">extraGlobalHeaders</span><span class="o">);</span>
+          
+      <span class="c1">//set configuration parameters</span>
+      <span class="k">this</span><span class="o">.</span><span class="na">httpClient</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceCenterRawClient</span><span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+          <span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="n">host</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">setPort</span><span class="o">(</span><span class="n">port</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">setProjectName</span><span class="o">(</span><span class="n">projectName</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">setTenantName</span><span class="o">(</span><span class="n">tenantName</span><span class="o">)</span>
+          <span class="o">.</span><span class="na">setHttpTransport</span><span class="o">(</span><span class="n">httpTransport</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>2.2  ServiceCenter客户端核心API</p>
+<ul>
+  <li>服务注册与发现，注册服务和实例到服务注册中心，根据服务ID发现服务实例。registerMicroserviceInstance方法用于注册服务实例，发起httpPOST请求访问服务实例注册URL，并将实例注入到请求body中，返回服务ID字符串; getMicroserviceInstanceList方法用于发现服务的所有实例，根据服务ID，发起httpGET请求访问服务发现URL，返回MicroserviceInstancesResponse对象。
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//service register</span>
+  <span class="kd">public</span> <span class="nc">String</span> <span class="nf">registerMicroserviceInstance</span><span class="o">(</span><span class="nc">MicroserviceInstance</span> <span class="n">instance</span><span class="o">,</span> <span class="nc">String</span> <span class="n">serviceId</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">try</span> <span class="o">{</span>
+        <span class="nc">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">();</span>
+        <span class="n">mapper</span><span class="o">.</span><span class="na">configure</span><span class="o">(</span><span class="nc">SerializationFeature</span><span class="o">.</span><span class="na">WRAP_ROOT_VALUE</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+        <span class="nc">HttpResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">postHttpRequest</span><span class="o">(</span><span class="s">"/registry/microservices/"</span> <span class="o">+</span> <span class="n">serviceId</span> <span class="o">+</span> <span class="s">"/instances"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span>
+            <span class="n">mapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">instance</span><span class="o">));</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">()</span> <span class="o">==</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">SC_OK</span><span class="o">)</span> <span class="o">{</span>
+          <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nf">OperationException</span><span class="o">(</span>
+              <span class="s">"register service instance fails, statusCode = "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">"; message = "</span> <span class="o">+</span> <span class="n">response</span>
+                  <span class="o">.</span><span class="na">getMessage</span><span class="o">()</span>
+                  <span class="o">+</span> <span class="s">"; content = "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
+        <span class="o">}</span>
+      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">OperationException</span><span class="o">(</span>
+            <span class="s">"register service instance fails"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>
+ 	  <span class="c1">//service discovery</span>
+  <span class="kd">public</span> <span class="nc">MicroserviceInstancesResponse</span> <span class="nf">getMicroserviceInstanceList</span><span class="o">(</span><span class="nc">String</span> <span class="n">serviceId</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">try</span> <span class="o">{</span>
+        <span class="nc">HttpResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">httpClient</span>
+            <span class="o">.</span><span class="na">getHttpRequest</span><span class="o">(</span><span class="s">"/registry/microservices/"</span> <span class="o">+</span> <span class="n">serviceId</span> <span class="o">+</span> <span class="s">"/instances"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">()</span> <span class="o">==</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">SC_OK</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">();</span>
+          <span class="k">return</span> <span class="n">mapper</span><span class="o">.</span><span class="na">readValue</span><span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">(),</span> <span class="nc">MicroserviceInstancesResponse</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+          <span class="k">throw</span> <span class="k">new</span> <span class="nf">OperationException</span><span class="o">(</span>
+              <span class="s">"get service instances list fails, statusCode = "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">"; message = "</span> <span class="o">+</span> <span class="n">response</span>
+                  <span class="o">.</span><span class="na">getMessage</span><span class="o">()</span>
+                  <span class="o">+</span> <span class="s">"; content = "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
+        <span class="o">}</span>
+      <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">OperationException</span><span class="o">(</span>
+            <span class="s">"get service instances list fails"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+      <span class="o">}</span>
+  <span class="o">}</span>      
+</code></pre></div>    </div>
+  </li>
+  <li>心跳，服务实例发送心跳告知服务中心。代码中发起httpPUT请求中访问心跳URL，并导入HeartbeatsRequest （包含服务ID和实例ID）到请求body中，响应状态码为200表示心跳成功。
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">//heartBeats</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sendHeartBeats</span><span class="o">(</span><span class="nc">HeartbeatsRequest</span> <span class="n">heartbeatsRequest</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="nc">ObjectMapper</span> <span class="n">mapper</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectMapper</span><span class="o">();</span>
+      <span class="nc">HttpResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">httpClient</span>
+          <span class="o">.</span><span class="na">putHttpRequest</span><span class="o">(</span><span class="s">"/registry/heartbeats"</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">mapper</span><span class="o">.</span><span class="na">writeValueAsString</span><span class="o">(</span><span class="n">heartbeatsRequest</span><span class="o">));</span>
+  
+      <span class="k">if</span> <span class="o">(</span><span class="n">response</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">()</span> <span class="o">==</span> <span class="nc">HttpStatus</span><span class="o">.</span><span class="na">SC_OK</span><span class="o">)</span> <span class="o">{</span>
+        <span class="no">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"HEARTBEATS SUCCESS"</span><span class="o">);</span>
+      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nf">OperationException</span><span class="o">(</span>
+            <span class="s">"heartbeats fails, statusCode = "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">()</span> <span class="o">+</span> <span class="s">"; message = "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getMessage</span><span class="o">()</span>
+                <span class="o">+</span> <span class="s">"; content = "</span> <span class="o">+</span> <span class="n">response</span><span class="o">.</span><span class="na">getContent</span><span class="o">());</span>
+      <span class="o">}</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">OperationException</span><span class="o">(</span>
+          <span class="s">"heartbeats fails "</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>2.3 更多客户端API介绍，参考客户端说明文档 <a href="https://github.com/apache/servicecomb-java-chassis/tree/master/clients/service-center-client">https://github.com/apache/servicecomb-java-chassis/tree/master/clients/service-center-client</a></p>
+
+<h2 id="3-servicecenter客户端实践">3. ServiceCenter客户端实践</h2>
+<p>3.1 实践准备</p>
+<ul>
+  <li>启动ServiceComb服务中心：<a href="http://servicecomb.apache.org/cn/docs/service-center/install/">http://servicecomb.apache.org/cn/docs/service-center/install/</a></li>
+  <li>下载演示代码：<a href="https://github.com/zaneChou1/spring-boot-servicecenter">https://github.com/zaneChou1/spring-boot-servicecenter</a></li>
+</ul>
+
+<p>3.2 provider端启动服务，通过客户端注册到ServiceCenter<br />
+运行provider模块，启动helloServer服务，并调用客户端API创建客户端对象、创建helloServer服务和实例对象、注册服务和实例到servicecomb 服务中心，并保持30s一次心跳，代码实现如下。</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">registerMicroservice</span><span class="o">(){</span>
+     <span class="c1">//new ServiceCenterClient object</span>
+     <span class="nc">ServiceCenterClient</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceCenterClient</span><span class="o">();</span>
+     
+     <span class="c1">//new Microservice object and setting properties and serviceName is necessary</span>
+     <span class="nc">Microservice</span> <span class="n">microservice</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Microservice</span><span class="o">();</span>
+     <span class="n">microservice</span><span class="o">.</span><span class="na">setServiceId</span><span class="o">(</span><span class="s">"1111"</span><span class="o">);</span>
+     <span class="n">microservice</span><span class="o">.</span><span class="na">setServiceName</span><span class="o">(</span><span class="s">"HelloServer"</span><span class="o">);</span>
+     <span class="c1">//register microservice to service-center</span>
+     <span class="n">sc</span><span class="o">.</span><span class="na">registerMicroservice</span><span class="o">(</span><span class="n">microservice</span><span class="o">);</span>
+     
+     <span class="c1">//new MicroserviceInstance object and bind server IP and port</span>
+     <span class="nc">MicroserviceInstance</span> <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MicroserviceInstance</span><span class="o">();</span>
+     <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">endPoints</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+     <span class="n">endPoints</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"rest://127.0.0.1:8080/"</span><span class="o">);</span>
+     <span class="n">instance</span><span class="o">.</span><span class="na">setEndpoints</span><span class="o">(</span><span class="n">endPoints</span><span class="o">);</span>
+     <span class="c1">//setting instance hostName, instanceId and hostName is necessary</span>
+     <span class="n">instance</span><span class="o">.</span><span class="na">setHostName</span><span class="o">(</span><span class="s">"test"</span><span class="o">);</span>
+     <span class="n">instance</span><span class="o">.</span><span class="na">setInstanceId</span><span class="o">(</span><span class="s">"2222"</span><span class="o">);</span>
+     <span class="c1">//register microservice instance to service-center</span>
+     <span class="n">sc</span><span class="o">.</span><span class="na">registerMicroserviceInstance</span><span class="o">(</span><span class="n">instance</span><span class="o">,</span><span class="n">microservice</span><span class="o">.</span><span class="na">getServiceId</span><span class="o">());</span>
+     
+     <span class="c1">//send a heartbeat every 30s</span>
+     <span class="nc">HeartbeatsRequest</span> <span class="n">heartbeatsRequest</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HeartbeatsRequest</span><span class="o">(</span><span class="s">"1111"</span><span class="o">,</span><span class="s">"2222"</span><span class="o">);</span>
+     <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">){</span>
+       <span class="n">sc</span><span class="o">.</span><span class="na">sendHeartBeats</span><span class="o">(</span><span class="n">heartbeatsRequest</span><span class="o">);</span>
+       <span class="k">try</span> <span class="o">{</span>
+         <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">30000</span><span class="o">);</span>
+       <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+       <span class="o">}</span>
+     <span class="o">}</span>
+  <span class="o">}</span>
+</code></pre></div></div>
+<p>查看service-center的UI显示如下，helloServer服务注册到服务中心成功，且有一个服务实例test。 <br />
+<img src="/assets/images/client/sc-sample-UI.png" alt="" /><br />
+访问provider服务监听的8080端口，返回“Hello Spring-Boot-ServiceCenter !”。<br />
+<img src="/assets/images/client/sc-sample-provider.png" alt="" /></p>
+
+<p>3.3 consumer端通过客户端发现服务实例，发起服务调用<br />
+运行consumer模块，启动consumer服务，调用客户端API新建客户端对象、发现helloServer服务实例、获取服务监听的IP和端口，最后调用provider端helloServer服务返回结果。</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//find service instance</span>
+<span class="nc">ServiceCenterClient</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceCenterClient</span><span class="o">();</span>
+<span class="nc">MicroserviceInstancesResponse</span> <span class="n">instances</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">getMicroserviceInstanceList</span><span class="o">(</span><span class="s">"1111"</span><span class="o">);</span>
+<span class="c1">//get IP and port that service is listening on</span>
+<span class="no">URI</span> <span class="n">endpointURIBuilder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">URIBuilder</span><span class="o">(</span><span class="n">instances</span><span class="o">.</span><span class="na">getInstances</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">).</span><span class="na">getEndpoints</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="mi">0</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
+<span class="kt">int</span> <span class="n">port</span> <span class="o">=</span> <span class="n">endpointURIBuilder</span><span class="o">.</span><span class="na">getPort</span><span class="o">();</span>
+<span class="nc">String</span> <span class="n">host</span> <span class="o">=</span> <span class="n">endpointURIBuilder</span><span class="o">.</span><span class="na">getHost</span><span class="o">();</span>
+
+<span class="c1">//call service</span>
+<span class="nc">RestTemplate</span> <span class="n">restTemplate</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RestTemplate</span><span class="o">();</span>
+<span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">result</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">getForEntity</span><span class="o">(</span><span class="s">"http://"</span><span class="o">+</span><span class="n">host</span><span class="o">+</span><span class="s">":"</span><span class="o">+</span><span class="n">port</span><span class="o">,</span><span class="nc">String</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="na">getBody</span><span class="o">();</span>
+</code></pre></div></div>
+<p>访问consumer端监听的8081端口，返回helloServer的响应结果“Hello Spring-Boot-ServiceCenter !”，consumer端通过ServiceComb服务注册中心调用provider端服务成功。  <br />
+<img src="/assets/images/client/sc-sample-consumer.png" alt="" /></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> 标签: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/tags/#client" class="page__taxonomy-item" rel="tag">Client</a><span class="sep">, </span>
+    
+      
+      
+      <a href="/tags/#servicecenter" class="page__taxonomy-item" rel="tag">ServiceCenter</a>
+    
+    </span>
+  </p>
+
+
+
+
+
+        
+          
+            
+              <p class="page__date"><strong><i class="fa fa-fw fa-calendar" aria-hidden="true"></i> 最新的:</strong> <time datetime="2019-12-09">2019年12月9日</time></p>
+            
+          
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">分享</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?via=ServiceComb&text=使用ServiceComb客户端轻松调用ServiceCenter /cn/docs/servicecomb-service-center-client/" class="btn btn--twitter" title="分享 Twitter"><i class="fa fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=/cn/docs/servicecomb-service-center-client/" class="btn btn--facebook" title="分享 Facebook"><i class="fa fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=/cn/docs/servicecomb-service-center-client/" class="btn btn--google-plus" title="分享 Google Plus"><i class="fa fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=/cn/docs/servicecomb-service-center-client/" class="btn btn--linkedin" title="分享 LinkedIn"><i class="fa fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/cn/docs/playing-on-the-open-source-community-with-Apache-ServiceComb-BUPT/" class="pagination--pager" title="与Apache ServiceComb一起玩开源-北邮站 (PPT Download)
+">向前</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">向后</a>
+    
+  </nav>
+
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+    <section id="static-comments">
+      
+        <!-- Start static comments -->
+        <div class="js-comments">
+          
+        </div>
+        <!-- End static comments -->
+
+        <!-- Start new comment form -->
+        <h4 class="page__comments-title">留下评论</h4>
+        <p class="small">您的电子邮箱地址并不会被展示。请填写标记为必须的字段。 <span class="required">*</span></p>
+        <form id="new_comment" class="page__comments-form js-form form" method="post" action="https://api.staticman.net/v1/entry/apache/incubator-servicecomb-website/master">
+          <div class="form__spinner">
+            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+            <span class="sr-only">正在加载...</span>
+          </div>
+
+          <fieldset>
+            <label for="comment-form-message">评论 <small class="required">*</small></label>
+            <textarea type="text" rows="3" id="comment-form-message" name="fields[message]" tabindex="1"></textarea>
+            <div class="small help-block"><a href="https://daringfireball.net/projects/markdown/">Markdown语法已支持。</a></div>
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-name">姓名 <small class="required">*</small></label>
+            <input type="text" id="comment-form-name" name="fields[name]" tabindex="2" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-email">电子邮箱 <small class="required">*</small></label>
+            <input type="email" id="comment-form-email" name="fields[email]" tabindex="3" />
+          </fieldset>
+          <fieldset>
+            <label for="comment-form-url">网站（可选）</label>
+            <input type="url" id="comment-form-url" name="fields[url]" tabindex="4"/>
+          </fieldset>
+          <fieldset class="hidden" style="display: none;">
+            <input type="hidden" name="options[slug]" value="servicecomb-service-center-client">
+            <label for="comment-form-location">Not used. Leave blank if you are a human.</label>
+            <input type="text" id="comment-form-location" name="fields[hidden]" autocomplete="off"/>
+          </fieldset>
+          <!-- Start comment form alert messaging -->
+          <p class="hidden js-notice">
+            <strong class="js-notice-text"></strong>
+          </p>
+          <!-- End comment form alert messaging -->
+          <fieldset>
+            <button type="submit" id="comment-form-submit" tabindex="5" class="btn btn--large">提交评论</button>
+          </fieldset>
+        </form>
+        <!-- End new comment form -->
+      
+    </section>
+  
+</div>
+
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">猜您还喜欢</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/playing-on-the-open-source-community-with-Apache-ServiceComb-BUPT/" rel="permalink">与Apache ServiceComb一起玩开源-北邮站 (PPT Download)
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">与Apache ServiceComb一起玩开源-北邮站 (PPT Download)
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/docs/servicecomb-accept-newcapec-institute-code-donation/" rel="permalink">Apache ServiceComb Accept Code Donation From NewCapec Institute
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache ServiceComb Accept Code Donation From NewCapec Institute
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/servicecomb-accept-newcapec-institute-code-donation/" rel="permalink">Apache ServiceComb社区接受新开普软件研究院的代码捐赠
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">Apache Servicecomb社区接受新开普软件研究院的代码捐赠
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  少于 1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/cn/docs/use-oas-validator-help-standardize-oas-spec/" rel="permalink">使用OAS Validator帮助你规范OpenAPI Spec文档
+</a>
+      
+    </h2>
+    <p class="archive__item-excerpt" itemprop="description">本文将介绍如何规范你的OpenAPI Spec文档
+</p>
+    
+      <p class="page__meta"><i class="fa fa-clock-o" aria-hidden="true"></i> 
+
+
+
+
+  1 分钟 阅读
+
+</p>
+    
+  </article>
+</div>
+
+        
+      </div>
+    </div>
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_posts/cn/2019-12-09-servicecomb-service-center-client.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  
+  <script>
+    (function ($) {
+    var $comments = $('.js-comments');
+
+    $('#new_comment').submit(function () {
+      var form = this;
+
+      $(form).addClass('disabled');
+      $('#comment-form-submit').html('<i class="fa fa-spinner fa-spin fa-fw"></i> 正在加载...');
+
+      $.ajax({
+        type: $(this).attr('method'),
+        url: $(this).attr('action'),
+        data: $(this).serialize(),
+        contentType: 'application/x-www-form-urlencoded',
+        success: function (data) {
+          $('#comment-form-submit').html('已提交');
+          $('.page__comments-form .js-notice').removeClass('notice--danger');
+          $('.page__comments-form .js-notice').addClass('notice--success');
+          showAlert('感谢您的评论！被批准后它会立即在此站点展示。');
+        },
+        error: function (err) {
+          console.log(err);
+          $('#comment-form-submit').html('提交评论');
+          $('.page__comments-form .js-notice').removeClass('notice--success');
+          $('.page__comments-form .js-notice').addClass('notice--danger');
+          showAlert('很抱歉，您的提交存在错误。请确保所有必填字段都已填写正确，然后再试一次。');
+          $(form).removeClass('disabled');
+        }
+      });
+
+      return false;
+    });
+
+    function showAlert(message) {
+      $('.page__comments-form .js-notice').removeClass('hidden');
+      $('.page__comments-form .js-notice-text').html(message);
+    }
+  })(jQuery);
+  </script>
+
+
+
+
+
+
+
+  </body>
+</html>
