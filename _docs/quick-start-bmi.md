@@ -41,7 +41,7 @@ Before we start, we need to add some common dependencies in the parent project o
 ```
 **Notice**: The `java-chassis-dependencies` is imported as pom to unify version management of dependencies.
 
-Now we will introduce the detailed implementation of these two microservices. The full code is on [github](https://github.com/apache/servicecomb-java-chassis/tree/master/samples/bmi).
+Now we will introduce the detailed implementation of these two microservices. The full code is on [github](https://github.com/apache/servicecomb-samples/tree/1.3.0/java-chassis-samples/bmi).
 ### Implementation of calculator
 The calculator service provides capability of calculating BMI. It contains three parts:
 
