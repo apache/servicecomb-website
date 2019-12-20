@@ -1,0 +1,912 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Toolkit 快速入门 - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="了解如何使用一键式微服务开发工具">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="Toolkit 快速入门">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/products/toolkit/quick-start/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/products/toolkit/quick-start/">
+
+
+
+  <meta property="og:description" content="了解如何使用一键式微服务开发工具">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Toolkit 快速入门">
+  <meta name="twitter:description" content="了解如何使用一键式微服务开发工具">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">首页</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a href="/cn/docs/users/">文档</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/getting-started/" class="">入门指南</a></li>
+                
+                <li><a href="/cn/docs/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/products/toolkit/quick-start/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/cn/">首页</a> > Toolkit 快速入门</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/docs/getting-started/"><span class="nav__sub-title nav__sub-title-with-url">入门指南</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Service Center</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/service-center/install/" class="">环境安装</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/service-center/registration-discovery/" class="">服务注册发现</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Java Chassis</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/bmi/" class="">体质指数微服务应用快速开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/advance/" class="">微服务开发进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/load-balance/" class="">负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/flow-control/" class="">流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/service-management/" class="">服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/distributed-tracing/" class="">分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mesher</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/advance/" class="">mesher进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/load-balance/" class="">mesher负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/flow-control/" class="">mesher流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/service-management/" class="">mesher服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/distributed-tracing/" class="">mesher分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Toolkit</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/toolkit/quick-start/" class="active">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/toolkit/oas-validator/" class="">OpenAPI V3 Spec校验工具</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Syncer</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/syncer/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/syncer/multi-servicecenters/" class="">异构服务中心通讯</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Toolkit 快速入门">
+    <meta itemprop="description" content="了解如何使用一键式微服务开发工具">
+    
+    <meta itemprop="dateModified" content="November 12, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Toolkit 快速入门
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#一键式微服务开发工具-toolkit" id="markdown-toc-一键式微服务开发工具-toolkit">一键式微服务开发工具 Toolkit</a></li>
+  <li><a href="#快速入门" id="markdown-toc-快速入门">快速入门</a>    <ul>
+      <li><a href="#1-从源码构建工具和插件" id="markdown-toc-1-从源码构建工具和插件">1 从源码构建工具和插件</a></li>
+      <li><a href="#2-使用toolkit-maven-plugin插件" id="markdown-toc-2-使用toolkit-maven-plugin插件">2 使用toolkit-maven-plugin插件</a></li>
+      <li><a href="#3-使用toolkit-cli工具" id="markdown-toc-3-使用toolkit-cli工具">3 使用toolkit cli工具</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="一键式微服务开发工具-toolkit">一键式微服务开发工具 Toolkit</h2>
+<p>Apache ServiceComb Toolkit 是基于契约的微服务开发工具套件。提供契约、代码、文档相互转换及校验的能力，帮助用户一键式快速构建基于流行微服务框架和流行编程模型的微服务工程，降低微服务入门成本，使用户聚焦业务开发，提升遗留系统重构、开发效率。</p>
+
+<h2 id="快速入门">快速入门</h2>
+<h3 id="1-从源码构建工具和插件">1 从源码构建工具和插件</h3>
+<p>构建环境要求:</p>
+
+<ul>
+  <li>
+    <p><a href="http://java.oracle.com">Java 8</a></p>
+  </li>
+  <li>
+    <p><a href="http://maven.apache.org/">Apache maven 3.5.0 or greater</a></p>
+  </li>
+</ul>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 从github获取toolkit最新源码</span>
+<span class="nv">$ </span>git clone https://github.com/apache/servicecomb-toolkit.git
+<span class="nv">$ </span><span class="nb">cd </span>toolkit
+
+<span class="c"># 构建打包</span>
+<span class="nv">$ </span>mvn clean <span class="nb">install</span>
+</code></pre></div></div>
+
+<h3 id="2-使用toolkit-maven-plugin插件">2 使用toolkit-maven-plugin插件</h3>
+<h4 id="21-配置">2.1 配置</h4>
+<p>在maven项目的pom文件中配置</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb.toolkit<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>toolkit-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.2.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;configuration&gt;</span>
+        <span class="c">&lt;!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code --&gt;</span>
+        <span class="nt">&lt;sourceType&gt;</span>code<span class="nt">&lt;/sourceType&gt;</span>
+        <span class="c">&lt;!-- 生成契约文件的类型，不设置则默认为 yaml --&gt;</span>
+        <span class="nt">&lt;contractFileType&gt;</span>yaml<span class="nt">&lt;/contractFileType&gt;</span>
+        <span class="c">&lt;!-- 生成文档的类型，不设置则默认为 html --&gt;</span>
+        <span class="nt">&lt;documentType&gt;</span>html<span class="nt">&lt;/documentType&gt;</span>
+        <span class="c">&lt;!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的微服务工程在 project 目录，契约文件在 contract 目录，文档在 document 目录 --&gt;</span>
+        <span class="nt">&lt;outputDirectory&gt;</span>./target<span class="nt">&lt;/outputDirectory&gt;</span>
+        <span class="c">&lt;!-- 被解析的契约文件路径，在 sourceType 设置为 contract 时有效，且必须设置 --&gt;</span>
+        <span class="nt">&lt;contractLocation&gt;</span>./contract<span class="nt">&lt;/contractLocation&gt;</span>
+        <span class="c">&lt;!-- 被校验的契约文件目录，在 sourceType 设置为 contract 时有效，且必须设置 --&gt;</span>
+        <span class="nt">&lt;sourceContractPath&gt;</span>./target/contract<span class="nt">&lt;/sourceContractPath&gt;</span>
+        <span class="c">&lt;!-- 样本契约文件目录，必须设置 --&gt;</span>
+        <span class="nt">&lt;destinationContractPath&gt;</span>./contract<span class="nt">&lt;/destinationContractPath&gt;</span>
+        <span class="c">&lt;!-- 生成的微服务代码工程配置 --&gt;</span>
+        <span class="nt">&lt;service&gt;</span>
+            <span class="c">&lt;!-- 微服务的类型，可生成 provider/consumer/all，默认值为 all --&gt;</span>
+            <span class="nt">&lt;serviceType&gt;</span>all<span class="nt">&lt;/serviceType&gt;</span>
+            <span class="c">&lt;!-- 微服务的 groupid，用户可选，默认值为 domain.orgnization.project --&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>domain.orgnization.project<span class="nt">&lt;/groupId&gt;</span>
+            <span class="c">&lt;!-- 微服务的 artifactId，用户可选，默认值为 sample --&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>sample<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="c">&lt;!-- 微服务的 artifactVersion，用户可选，默认值为 0.1.0-SNAPSHOT --&gt;</span>
+            <span class="nt">&lt;artifactVersion&gt;</span>0.1.0-SNAPSHOT<span class="nt">&lt;/artifactVersion&gt;</span>
+            <span class="c">&lt;!-- 微服务的 packageName，用户可选，默认值为 domain.orgnization.project.sample --&gt;</span>
+            <span class="nt">&lt;packageName&gt;</span>domain.orgnization.project.sample<span class="nt">&lt;/packageName&gt;</span>
+            <span class="c">&lt;!-- 微服务框架，用户可选。设置为 ServiceComb，生成ServiceComb风格的微服务项目；设置为 SpringCloud，生成SpringCloud风格的微服务项目。默认值为 ServiceComb --&gt;</span>
+            <span class="nt">&lt;microServiceFramework&gt;</span>ServiceComb<span class="nt">&lt;/microServiceFramework&gt;</span>
+            <span class="c">&lt;!-- 服务提供者的服务id。仅包含服务消费者的场景（serviceType=consumer）必须设置该值 --&gt;</span>            
+            <span class="nt">&lt;providerServiceId&gt;</span>servicecomb-provider<span class="nt">&lt;/providerServiceId&gt;</span>
+            <span class="c">&lt;!-- 服务id，默认值为artifactId的值 --&gt;</span>
+            <span class="nt">&lt;serviceId&gt;</span>servicecomb-consumer<span class="nt">&lt;/serviceId&gt;</span>
+        <span class="nt">&lt;/service&gt;</span>
+    <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre></div></div>
+
+<h4 id="22-命令">2.2 命令</h4>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 生成契约，文档和微服务工程</span>
+mvn toolkit:generate
+
+<span class="c"># 校验代码和契约一致性</span>
+mvn toolkit:verify
+</code></pre></div></div>
+
+<h4 id="221-解析代码生成微服务代码工程openapi规范契约文档">2.2.1 解析代码，生成微服务代码工程、OpenAPI规范契约、文档</h4>
+
+<p>配置项(不显式设置 <code class="highlighter-rouge">&lt;configuration&gt;</code> 则使用默认配置)
+例：</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb.toolkit<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>toolkit-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.2.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;configuration&gt;</span>
+        <span class="c">&lt;!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code --&gt;</span>
+        <span class="nt">&lt;sourceType&gt;</span>code<span class="nt">&lt;/sourceType&gt;</span>
+        <span class="c">&lt;!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的微服务工程在 project 目录，契约文件在 contract 目录，文档在 document 目录 --&gt;</span>
+        <span class="nt">&lt;outputDirectory&gt;</span>./target<span class="nt">&lt;/outputDirectory&gt;</span>
+        <span class="c">&lt;!-- 生成的微服务代码工程配置 --&gt;</span>
+        <span class="nt">&lt;service&gt;</span>
+            <span class="c">&lt;!-- 微服务的类型，可生成 provider/consumer/all，默认值为 all --&gt;</span>
+            <span class="nt">&lt;serviceType&gt;</span>all<span class="nt">&lt;/serviceType&gt;</span>
+        <span class="nt">&lt;/service&gt;</span>
+    <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre></div></div>
+
+<p>运行命令</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn toolkit:generate
+</code></pre></div></div>
+
+<p>代码生成契约现已支持以下注解(类级别)编写的restful接口</p>
+<blockquote>
+  <p>RestController, RestSchema, RpcSchema, RequestMapping</p>
+</blockquote>
+
+<p>代码生成契约时,restful接口方法修饰符必须指定为public</p>
+
+<h4 id="222-解析契约生成微服务工程文档">2.2.2 解析契约，生成微服务工程、文档</h4>
+
+<p>配置项(不显式设置 <code class="highlighter-rouge">&lt;configuration&gt;</code> 则使用默认配置)
+例：</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb.toolkit<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>toolkit-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.2.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;configuration&gt;</span>
+        <span class="c">&lt;!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code --&gt;</span>
+        <span class="nt">&lt;sourceType&gt;</span>contract<span class="nt">&lt;/sourceType&gt;</span>
+        <span class="c">&lt;!-- 被解析的契约文件路径，在 sourceType 设置为 contract 时有效，且必须设置 --&gt;</span>
+        <span class="nt">&lt;contractLocation&gt;</span>./contract<span class="nt">&lt;/contractLocation&gt;</span>
+        <span class="c">&lt;!-- 生成契约文件、文档的根目录，不设置则默认为运行命令所在目录下的 target 目录，生成的微服务工程在 project 目录，契约文件在 contract 目录，文档在 document 目录 --&gt;</span>
+        <span class="nt">&lt;outputDirectory&gt;</span>./target<span class="nt">&lt;/outputDirectory&gt;</span>
+        <span class="c">&lt;!-- 生成的微服务代码工程配置 --&gt;</span>
+        <span class="nt">&lt;service&gt;</span>
+            <span class="c">&lt;!-- 微服务的类型，可生成 provider/consumer/all，默认值为 all --&gt;</span>
+            <span class="nt">&lt;serviceType&gt;</span>provider<span class="nt">&lt;/serviceType&gt;</span>
+        <span class="nt">&lt;/service&gt;</span>
+    <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre></div></div>
+
+<p>运行命令</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn toolkit:generate
+</code></pre></div></div>
+
+<h4 id="223-代码和契约一致性校验">2.2.3 代码和契约一致性校验</h4>
+
+<p>配置项
+例：</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb.toolkit<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>toolkit-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>0.2.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;configuration&gt;</span>
+        <span class="c">&lt;!-- 输入源。设置为 code，表示解析当前代码；设置为 contract，表示解析指定目录的契约文件。不设置则默认为 code --&gt;</span>
+        <span class="nt">&lt;sourceType&gt;</span>code<span class="nt">&lt;/sourceType&gt;</span>
+        <span class="c">&lt;!-- 样本契约文件目录，必须设置 --&gt;</span>
+        <span class="nt">&lt;destinationContractPath&gt;</span>./contract<span class="nt">&lt;/destinationContractPath&gt;</span>
+    <span class="nt">&lt;/configuration&gt;</span>
+<span class="nt">&lt;/plugin&gt;</span>
+</code></pre></div></div>
+
+<p>运行命令</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn toolkit:verify
+</code></pre></div></div>
+
+<h3 id="3-使用toolkit-cli工具">3 使用toolkit cli工具</h3>
+<p>可执行jar包位于toolkit/cli/target/bin目录下</p>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>java <span class="nt">-jar</span> toolkit-cli-<span class="o">{</span>version<span class="o">}</span>.jar <span class="nb">help</span>
+</code></pre></div></div>
+<h4 id="31-契约生成微服务工程">3.1 契约生成微服务工程</h4>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>java <span class="nt">-jar</span> toolkit-cli-<span class="o">{</span>version<span class="o">}</span>.jar  codegenerate <span class="nt">-m</span> ServiceComb <span class="nt">-i</span> swagger.yaml <span class="nt">-o</span> ./project <span class="nt">-p</span> SpringMVC
+</code></pre></div></div>
+<blockquote>
+  <p><strong>codegenerate</strong> 命令选项说明:</p>
+  <ul>
+    <li>-m, –microservice-framework : 指定微服务框架,现支持ServiceComb<br />
+例：-m ServiceComb</li>
+    <li>-p, –programming-model : 指定编程模型，可选JAX-RS，POJO，SpringMVC，SpringBoot<br />
+例：-p SpringMvc</li>
+    <li>-i, –input : 指定遵循OpenAPI规范的契约文件，支持yaml和json格式，支持指定本地和网络文件<br />
+例：-i http://petstore.swagger.io/v2/swagger.json</li>
+    <li>-o, –output : 生成的项目代码输出路径<br />
+例：-o ./project</li>
+    <li>–group-id : 指定生成的项目的group id<br />
+例：–group-id com.demo</li>
+    <li>–artifact-id : 指定生成的项目的artifact id   <br />
+例：–artifact-id springmvc-example</li>
+    <li>–artifact-version : 指定生成的项目的artifact version<br />
+例：–artifact-version 1.0.0</li>
+    <li>–api-package : 指定生成项目的api package<br />
+例：–api-package com.demo.api</li>
+    <li>–model-package : 指定生成项目的model package <br />
+例：–model-package com.demo.model</li>
+    <li>-t, –service-type : 指定生成的微服务项目的微服务类型。可选值为provider,consumer,all                <br />
+例：–service-type provider</li>
+  </ul>
+</blockquote>
+
+<h4 id="32-契约生成文档">3.2 契约生成文档</h4>
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>java <span class="nt">-jar</span> toolkit-cli-<span class="o">{</span>version<span class="o">}</span>.jar docgenerate <span class="nt">-i</span> swagger.yaml <span class="nt">-o</span> ./document
+</code></pre></div></div>
+<blockquote>
+  <p><strong>docgenerate</strong> 命令选项说明:</p>
+  <ul>
+    <li>-i, –input : 指定遵循OpenAPI规范的契约文件，支持yaml和json格式，支持指定本地和网络文件<br />
+例：-i http://petstore.swagger.io/v2/swagger.json</li>
+    <li>-o, –output : 文档输出路径 <br />
+例：-o ./document</li>
+    <li>-f, –format : 指定输出文档风格,现支持swagger-ui
+例：-f swagger-ui</li>
+  </ul>
+</blockquote>
+
+<h4 id="33-契约风格检查">3.3 契约风格检查</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>java <span class="nt">-jar</span> toolkit-cli-<span class="o">{</span>version<span class="o">}</span>.jar checkstyle oas.yaml
+或者
+<span class="nv">$ </span>java <span class="nt">-jar</span> toolkit-cli-<span class="o">{</span>version<span class="o">}</span>.jar cs oas.yaml
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>checkstyle</strong> Command argument</p>
+  <ul>
+    <li>&lt;file&gt; OpenAPI v3 spec yaml文件</li>
+  </ul>
+</blockquote>
+
+<p>见<a href="/cn/docs/products/toolkit/oas-validator/#合规性校验">风格检查规则</a></p>
+
+<h4 id="34-契约兼容性检查">3.4 契约兼容性检查</h4>
+
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>java <span class="nt">-jar</span> toolkit-cli-<span class="o">{</span>version<span class="o">}</span>.jar checkcompatibility left-oas.yaml right-oas.yaml
+或者
+<span class="nv">$ </span>java <span class="nt">-jar</span> toolkit-cli-<span class="o">{</span>version<span class="o">}</span>.jar cc left-oas.yaml right-oas.yaml
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>checkcompatibility</strong> Command argument</p>
+  <ul>
+    <li>&lt;files&gt; Two OpenAPI v3 spec yaml file</li>
+  </ul>
+</blockquote>
+
+<p>见<a href="/cn/docs/products/toolkit/oas-validator/#兼容性检查">兼容性检查规则</a></p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/products/toolkit/quick-start.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

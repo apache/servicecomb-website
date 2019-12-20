@@ -1,0 +1,886 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="cn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>体质指数微服务应用快速开发 - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="以体质指数应用为例介绍如何基于Java Chassis快速开发微服务应用">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="cn">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="体质指数微服务应用快速开发">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/products/java-chassis/bmi/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/cn/docs/products/java-chassis/bmi/">
+
+
+
+  <meta property="og:description" content="以体质指数应用为例介绍如何基于Java Chassis快速开发微服务应用">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="体质指数微服务应用快速开发">
+  <meta name="twitter:description" content="以体质指数应用为例介绍如何基于Java Chassis快速开发微服务应用">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/cn"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/">首页</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/">项目</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a href="/cn/docs/users/">文档</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/cn/docs/getting-started/" class="">入门指南</a></li>
+                
+                <li><a href="/cn/docs/users/" class="">用户手册</a></li>
+                
+                <li><a href="/cn/slides/" class="">大咖视频</a></li>
+                
+                <li><a href="/cn/faqs/" class="">常见问题</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/developers/contributing">社区</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/year-archive/">博文</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/cn/release/">下载</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            
+            <a href=/docs/products/java-chassis/bmi/>English</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/cn/">首页</a> > 体质指数微服务应用快速开发</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">切换菜单</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="/cn/docs/getting-started/"><span class="nav__sub-title nav__sub-title-with-url">入门指南</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Service Center</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/service-center/install/" class="">环境安装</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/service-center/registration-discovery/" class="">服务注册发现</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Java Chassis</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/bmi/" class="active">体质指数微服务应用快速开发</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/advance/" class="">微服务开发进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/load-balance/" class="">负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/flow-control/" class="">流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/service-management/" class="">服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/java-chassis/distributed-tracing/" class="">分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mesher</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/advance/" class="">mesher进阶</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/load-balance/" class="">mesher负载均衡</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/flow-control/" class="">mesher流量控制</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/service-management/" class="">mesher服务治理</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/mesher/distributed-tracing/" class="">mesher分布式调用链追踪</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Toolkit</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/toolkit/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/toolkit/oas-validator/" class="">OpenAPI V3 Spec校验工具</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Syncer</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/syncer/quick-start/" class="">入门指南</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/cn/docs/products/syncer/multi-servicecenters/" class="">异构服务中心通讯</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="体质指数微服务应用快速开发">
+    <meta itemprop="description" content="以体质指数应用为例介绍如何基于Java Chassis快速开发微服务应用">
+    
+    <meta itemprop="dateModified" content="September 04, 2017">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">体质指数微服务应用快速开发
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> 在本页上</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#前言" id="markdown-toc-前言">前言</a></li>
+  <li><a href="#快速开发微服务应用" id="markdown-toc-快速开发微服务应用">快速开发微服务应用</a>    <ul>
+      <li><a href="#体质指数计算器实现" id="markdown-toc-体质指数计算器实现">体质指数计算器实现</a></li>
+      <li><a href="#体质指数界面实现" id="markdown-toc-体质指数界面实现">体质指数界面实现</a></li>
+    </ul>
+  </li>
+  <li><a href="#下一步" id="markdown-toc-下一步">下一步</a></li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="前言">前言</h2>
+<p>在您进一步阅读之前，请确保您已阅读了<a href="/cn/docs/products/java-chassis/quick-start/">快速入门指南</a>，并已成功运行<strong>体质指数</strong>微服务。接下来将进入<strong>体质指数</strong>微服务应用的开发之旅。</p>
+
+<h2 id="快速开发微服务应用">快速开发微服务应用</h2>
+<p>在<a href="/cn/docs/products/java-chassis/quick-start/">快速入门指南</a>中已对<strong>体质指数</strong>微服务的架构进行了说明，其主要由两个微服务组成：</p>
+
+<ul>
+  <li>
+    <p><strong>体质指数计算器</strong>：负责处理运算事务。</p>
+  </li>
+  <li>
+    <p><strong>体质指数界面</strong>：提供用户界面及网关服务。</p>
+  </li>
+</ul>
+
+<p>在开始前，需要先在服务的父工程中添加以下依赖项：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">&lt;</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">servicecomb</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">java</span><span class="o">-</span><span class="n">chassis</span><span class="o">-</span><span class="n">dependencies</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">m1</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">type</span><span class="o">&gt;</span><span class="n">pom</span><span class="o">&lt;/</span><span class="n">type</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">scope</span><span class="o">&gt;</span><span class="kn">import</span><span class="err">&lt;/</span><span class="nn">scope</span><span class="o">&gt;</span>
+      <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">dependencies</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
+
+  <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">hibernate</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+      <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hibernate</span><span class="o">-</span><span class="n">validator</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+  <span class="o">&lt;/</span><span class="n">dependencies</span><span class="o">&gt;</span>
+</code></pre></div></div>
+<p><strong>注意</strong>: <code class="highlighter-rouge">java-chassis-dependencies</code> 这个依赖是以pom的形式导入来统一项目中的依赖项的版本管理。</p>
+
+<p>下面将对这两个微服务的实现进行介绍，其代码已托管于<a href="https://github.com/apache/servicecomb-samples/tree/1.3.0/java-chassis-samples/bmi">github</a>上。</p>
+<h3 id="体质指数计算器实现">体质指数计算器实现</h3>
+<p>体质指数计算器提供运算服务，其实现分为三部分：</p>
+
+<ul>
+  <li>
+    <p>具体运算实现</p>
+  </li>
+  <li>
+    <p>服务端点定义</p>
+  </li>
+  <li>
+    <p>服务启动入口</p>
+  </li>
+</ul>
+
+<h4 id="具体运算实现">具体运算实现</h4>
+<p>本模块负责计算体质指数，根据公式 \(体质指数=\frac{体重}{身高^2}\) 进行实现，代码如下：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CalculatorService</span> <span class="o">{</span>
+  <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@Service</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorServiceImpl</span> <span class="kd">implements</span> <span class="nc">CalculatorService</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">height</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="o">||</span> <span class="n">weight</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalArgumentException</span><span class="o">(</span><span class="s">"Arguments must be above 0"</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kt">double</span> <span class="n">heightInMeter</span> <span class="o">=</span> <span class="n">height</span> <span class="o">/</span> <span class="mi">100</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">weight</span> <span class="o">/</span> <span class="o">(</span><span class="n">heightInMeter</span> <span class="o">*</span> <span class="n">heightInMeter</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="服务端点定义">服务端点定义</h4>
+<p>服务端点用于生成服务契约，使得服务间能无缝进行通信。首先定义端点接口：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CalculatorEndpoint</span> <span class="o">{</span>
+  <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">);</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>引入 <strong>ServiceComb</strong> 依赖：</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+<p>暴露运算服务的Restful端点：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"calculatorRestEndpoint"</span><span class="o">)</span>
+<span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorRestEndpoint</span> <span class="kd">implements</span> <span class="nc">CalculatorEndpoint</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="nc">CalculatorService</span> <span class="n">calculatorService</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">public</span> <span class="nf">CalculatorRestEndpoint</span><span class="o">(</span><span class="nc">CalculatorService</span> <span class="n">calculatorService</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">calculatorService</span> <span class="o">=</span> <span class="n">calculatorService</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="nd">@GetMapping</span><span class="o">(</span><span class="s">"/bmi"</span><span class="o">)</span>
+  <span class="kd">public</span> <span class="kt">double</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">double</span> <span class="n">height</span><span class="o">,</span> <span class="kt">double</span> <span class="n">weight</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">calculatorService</span><span class="o">.</span><span class="na">calculate</span><span class="o">(</span><span class="n">height</span><span class="o">,</span> <span class="n">weight</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p class="notice--info">ServiceComb从0.3.0版本之后提供了对SpringMvc中简化注解(即<code class="highlighter-rouge">GetMapping</code>等)的支持。</p>
+
+<p>这里用<code class="highlighter-rouge">@RestSchema</code>注释端点后， <strong>ServiceComb</strong> 微服务框架会自动生成对应的服务端点契约，并根据
+如下的 <code class="highlighter-rouge">microservice.yaml</code> 文件中的定义来配置端点端口，将契约和服务一起注册到服务注册中心。</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">bmi</span>
+<span class="na">service_description</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">calculator</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">service</span><span class="pi">:</span>
+    <span class="na">registry</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
+  <span class="na">rest</span><span class="pi">:</span>
+    <span class="na">address</span><span class="pi">:</span> <span class="s">0.0.0.0:7777</span>
+</code></pre></div></div>
+
+<h4 id="服务启动入口">服务启动入口</h4>
+<p>服务启动入口中只需添加 <code class="highlighter-rouge">@EnableServiceComb</code> 的注解即可启用 <em>ServiceComb</em> 微服务框架，代码如下：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableServiceComb</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CalculatorApplication</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">CalculatorApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="体质指数界面实现">体质指数界面实现</h3>
+<p>本模块负责提供用户界面及网关服务。其实现主要分为三部分：</p>
+
+<ul>
+  <li>
+    <p>前端界面</p>
+  </li>
+  <li>
+    <p>网关及路由规则</p>
+  </li>
+  <li>
+    <p>服务启动入口</p>
+  </li>
+</ul>
+
+<p>其中，前端界面的组件使用了<a href="http://getbootstrap.com/">Bootstrap</a>来开发。</p>
+
+<h4 id="网关及路由规则">网关及路由规则</h4>
+<p>网关服务主要用到了业界有名的<a href="https://github.com/Netflix/zuul/wiki">Netflix Zuul</a>来实现。</p>
+
+<p>引入依赖：</p>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-discovery<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-servicecomb<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>spring-cloud-zuul<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p class="notice--info">ServiceComb从0.4.0-SNAPSHOT版本之后新增了<code class="highlighter-rouge">spring-cloud-zuul</code>模块使能提供对zuul的兼容。</p>
+
+<p>在 <code class="highlighter-rouge">application.yaml</code> 文件中配置路由规则及服务端口信息：</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">zuul</span><span class="pi">:</span>
+  <span class="na">routes</span><span class="pi">:</span>
+    <span class="na">calculator</span><span class="pi">:</span> <span class="s">/calculator/**</span>
+
+<span class="c1"># disable netflix eureka since it's not used for service discovery</span>
+<span class="na">ribbon</span><span class="pi">:</span>
+  <span class="na">eureka</span><span class="pi">:</span>
+    <span class="na">enabled</span><span class="pi">:</span> <span class="no">false</span>
+
+<span class="na">server</span><span class="pi">:</span>
+  <span class="na">port</span><span class="pi">:</span> <span class="m">8889</span>
+</code></pre></div></div>
+<p>在 <code class="highlighter-rouge">microservice.yaml</code> 文件中配置网关服务的信息和服务注册中心的地址。</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">APPLICATION_ID</span><span class="pi">:</span> <span class="s">bmi</span>
+<span class="na">service_description</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">gateway</span>
+  <span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="na">servicecomb</span><span class="pi">:</span>
+  <span class="na">service</span><span class="pi">:</span>
+    <span class="na">registry</span><span class="pi">:</span>
+      <span class="na">address</span><span class="pi">:</span> <span class="s">http://127.0.0.1:30100</span>
+</code></pre></div></div>
+<p>此处将服务注册中心和Zuul相结合使其能发现服务。</p>
+
+<h4 id="服务启动入口-1">服务启动入口</h4>
+<p>服务启动入口也只需要声明启用 <code class="highlighter-rouge">ServiceComb</code> 和 <code class="highlighter-rouge">Zuul</code> 即可。</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@SpringBootApplication</span>
+<span class="nd">@EnableZuulProxy</span>
+<span class="nd">@EnableServiceComb</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GatewayApplication</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">SpringApplication</span><span class="o">.</span><span class="na">run</span><span class="o">(</span><span class="nc">GatewayApplication</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>至此，<strong>体质指数</strong>应用已开发完毕，您可以通过<a href="/cn/docs/products/java-chassis/quick-start/#运行微服务应用">快速入门指南</a>中的步骤对其进行验证。</p>
+
+<h2 id="下一步">下一步</h2>
+
+<ul>
+  <li>阅读 <a href="/cn/docs/products/java-chassis/advance/">微服务开发进阶</a></li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">资源</p>
+        <li><a href="/cn/docs/quick-start/">入门指南</a></li>
+        <li><a href="/cn/users/">用户指南</a></li>
+        <li><a href="/cn/slides/">资料</a></li>
+        <li><a href="/cn/users/faq/">常见问题</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">基金会</a></li>
+        <li><a href="http://www.apache.org/licenses/">许可证</a></li>
+        <li><a href="http://www.apache.org/events/current-event">活动</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">赞助</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">鸣谢</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">贡献</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">报告本网页问题</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/cn/products/java-chassis/bmi.md">在Github上编辑此页</a></li>
+        <li><a href="/cn/developers/submit-codes/">代码提交指南</a></li>
+        <li><a href="/cn/security">安全</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">社区</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">邮件列表</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. 技术来自于 <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>

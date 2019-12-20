@@ -1,0 +1,901 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.4.1 by Michael Rose
+  Copyright 2017 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin SEO -->
+
+
+
+
+
+
+
+
+
+<title>Communication on differ-structure servicecenters - Apache ServiceComb</title>
+
+
+
+
+<meta name="description" content="Learn how to use differ-structure, multi-service center synchronization tool">
+
+
+
+
+<meta name="author" content="">
+
+<meta property="og:locale" content="en">
+<meta property="og:site_name" content="Apache ServiceComb">
+<meta property="og:title" content="Communication on differ-structure servicecenters">
+
+
+  <link rel="canonical" href="https://github.com/pages/apache/incubator-servicecomb-website/docs/products/syncer/multi-servicecenters/">
+  <meta property="og:url" content="https://github.com/pages/apache/incubator-servicecomb-website/docs/products/syncer/multi-servicecenters/">
+
+
+
+  <meta property="og:description" content="Learn how to use differ-structure, multi-service center synchronization tool">
+
+
+
+  <meta name="twitter:site" content="@ServiceComb">
+  <meta name="twitter:title" content="Communication on differ-structure servicecenters">
+  <meta name="twitter:description" content="Learn how to use differ-structure, multi-service center synchronization tool">
+  <meta name="twitter:url" content="">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context" : "http://schema.org",
+      "@type" : "Person",
+      "name" : "Apache ServiceComb",
+      "url" : "https://github.com/pages/apache/incubator-servicecomb-website",
+      "sameAs" : null
+    }
+  </script>
+
+
+
+  <meta name="google-site-verification" content="HvJjNd7vvJ-yjSTHlBiIWEYxp_Hrz-PYEY5Idz9LRcA" />
+
+
+
+
+<!-- end SEO -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Apache ServiceComb Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+<script src="/assets/vendor/prism/prism.js"></script>
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css?v=1">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+<meta http-equiv="cleartype" content="on">
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use http://realfavicongenerator.net/ -->
+<link href="https://fonts.cat.net/css?family=Roboto:400,500,700|Source+Code+Pro" rel="stylesheet">
+<script src="/assets/js/custom.js"></script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+    <div class="masthead" onmouseleave="$('#childrenShow').css('display', 'none')">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+	      
+          <a class="site-title active" href="/"><img src="https://www.apache.org/img/servicecomb.png"></a>
+	      
+        <ul class="visible-links">
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/">Home</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/">Projects</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+            <li class="def-nav-li" onmouseenter="$('#childrenShow').css('display', 'block')">
+              
+              
+              
+
+              
+                <a href="/docs/users/">Documentation</a>
+              
+
+              <ul id="childrenShow" class="def-children-show" onmouseleave="$('#childrenShow').css('display', 'none')">
+                
+                <li><a href="/docs/getting-started/" class="">Get started</a></li>
+                
+                <li><a href="/docs/users/" class="">Docs</a></li>
+                
+                <li><a href="/slides/" class="">Video</a></li>
+                
+                <li><a href="/faqs/" class="">FAQ</a></li>
+                
+              </ul>
+            </li>
+          
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/developers/contributing">Community</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/year-archive/">Blogs</a>
+                
+              </li>
+            
+          
+            
+          
+          
+            
+              <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
+                
+                  <a href="/release/">Downloads</a>
+                
+              </li>
+            
+          
+        </ul>
+        <button><div class="navicon"></div></button>
+        <ul class="hidden-links hidden"></ul>
+        <div class="nav-lang">
+          
+            
+            <a href=/cn/docs/products/syncer/multi-servicecenters/>中文</a>
+          
+        </div>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+      
+      <div class="back-to-home"><a href="/">Home</a> > Communication on differ-structure servicecenters</div>
+      
+  
+  
+    
+      
+      
+      
+    
+    
+      
+
+<nav class="nav__list">
+  
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">Toggle Menu</label>
+  <ul class="nav__items">
+    
+      <li>
+        
+          
+          
+
+          <a href="/docs/getting-started/"><span class="nav__sub-title nav__sub-title-with-url">Getting Started</span></a>
+        
+
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Service Center</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/service-center/install/" class="">Install</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/service-center/registration-discovery/" class="">Registration&Discovery</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Java Chassis</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/java-chassis/quick-start/" class="">Get started</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/java-chassis/bmi/" class="">Develop microservice application in minutes</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/java-chassis/advance/" class="">Advance microservice development</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/java-chassis/load-balance/" class="">Load Balance</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/java-chassis/flow-control/" class="">Flow Control</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/java-chassis/service-management/" class="">Service Management</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/java-chassis/distributed-tracing/" class="">Distributed Tracing</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Mesher</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/mesher/quick-start/" class="">Get started</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/mesher/advance/" class="">mesher Advance</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/mesher/load-balance/" class="">mesher balance</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/mesher/flow-control/" class="">mesher Flow Control</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/mesher/service-management/" class="">mesher Service Management</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/mesher/distributed-tracing/" class="">mesher Distributed Tracing</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Toolkit</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/toolkit/quick-start/" class="">Quick Start</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/toolkit/oas-validator/" class="">OpenAPI V3 Spec validation tools</a></li>
+          
+        </ul>
+        
+      </li>
+    
+      <li>
+        
+          <span class="nav__sub-title">Syncer</span>
+        
+
+        
+        <ul>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/syncer/quick-start/" class="">Quick Start</a></li>
+          
+            
+            
+
+            
+            
+
+            <li><a href="/docs/products/syncer/multi-servicecenters/" class="active">Different service centers communicate with each other</a></li>
+          
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+
+    
+  
+  </div>
+
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Communication on differ-structure servicecenters">
+    <meta itemprop="description" content="Learn how to use differ-structure, multi-service center synchronization tool">
+    
+    <meta itemprop="dateModified" content="November 12, 2019">
+
+    <div class="page__inner-wrap">
+      
+        
+          <header>
+            <h1 class="page__title" itemprop="headline">Communication on differ-structure servicecenters
+</h1>
+            
+          </header>
+        
+      
+
+      <section class="page__content" itemprop="text">
+        <aside class="sidebar__right">
+<nav class="toc">
+    <!-- <header><h4 class="nav__title"><i class="fa fa-file-text"></i> On This Page</h4></header> -->
+<ul class="toc__menu" id="markdown-toc">
+  <li><a href="#servicecenter-and-eureka" id="markdown-toc-servicecenter-and-eureka">ServiceCenter and Eureka</a>    <ul>
+      <li><a href="#operating-environment" id="markdown-toc-operating-environment">Operating environment</a></li>
+      <li><a href="#before-starting" id="markdown-toc-before-starting">Before starting：</a></li>
+      <li><a href="#step-1-launch-the-eureka-environment-and-services" id="markdown-toc-step-1-launch-the-eureka-environment-and-services">Step 1: Launch the Eureka environment and services</a></li>
+      <li><a href="#step-2-start-the-servicecenter-environment-and-services" id="markdown-toc-step-2-start-the-servicecenter-environment-and-services">Step 2: Start the Servicecenter environment and services</a></li>
+      <li><a href="#step-3-results-verification" id="markdown-toc-step-3-results-verification">Step 3: Results Verification</a></li>
+    </ul>
+  </li>
+</ul>
+
+  </nav>
+</aside>
+
+<h2 id="servicecenter-and-eureka">ServiceCenter and Eureka</h2>
+
+<p>Situation description：</p>
+<ul>
+  <li>EurekaServer： The Service-center of Eureka</li>
+  <li>AccountServer：The account server of register to Eureka</li>
+  <li>Servicecomb-ServiceCenter：Servicecomb-ServiceCenter</li>
+  <li>HelloServer：The server of  register to Servicecomb-ServiceCenter，that dependent on account server</li>
+</ul>
+
+<p>Instances cannot be discovered and accessed by each other between different service centers, in a traditional environment. This will be easy to implement when we use Syner. As shown below:  <br />
+<img src="/assets/images/docs/syncer/multi-servicecenters.png" alt="image" /></p>
+
+<h3 id="operating-environment">Operating environment</h3>
+<ol>
+  <li>2 linux machines: （Host IP is like this：10.0.0.10 和 10.0.0.11）</li>
+  <li><a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK 1.8</a></li>
+  <li><a href="https://maven.apache.org/install.html">Maven 3.x</a></li>
+  <li><a href="https://golang.google.cn/dl/">Go 1.11.4</a></li>
+</ol>
+
+<h3 id="before-starting">Before starting：</h3>
+<ol>
+  <li><a href="/docs/products/service-center/install/">Install ServiceCenter Release（&gt;=1.3.0）</a>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ project_dir</span><span class="o">=</span><span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>
+<span class="nv">$ </span><span class="nb">tar</span> <span class="nt">-zxvf</span>  apache-servicecomb-service-center-1.3.0-linux-amd64.tar.gz
+</code></pre></div>    </div>
+  </li>
+  <li>Download <a href="https://github.com/apache/servicecomb-service-center/tree/master/syncer/samples/multi-servicecenters">the sample</a>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-service-center.git
+<span class="nb">cd</span> <span class="k">${</span><span class="nv">project_dir</span><span class="k">}</span>/servicecomb-service-center/syncer
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h3 id="step-1-launch-the-eureka-environment-and-services">Step 1: Launch the Eureka environment and services</h3>
+<p>One of the machines： 10.0.0.10</p>
+<h4 id="1-compile-eurekaserver-and-accountserver">1. Compile EurekaServer and AccountServer</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>samples/multi-servicecenters/eureka
+<span class="nv">$ </span>mvn clean <span class="nb">install</span>
+</code></pre></div></div>
+<h4 id="2-run-eurekaserver">2. Run EurekaServer：</h4>
+<ul>
+  <li>Modify the startup configuration
+ File path：${project_dir}/servicecomb-service-center/syncer/samples/multi-servicecenters/eureka/eureka-server/src/main/resources/application.yaml
+    <div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spring</span><span class="pi">:</span>
+<span class="na">application</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">eureka-server</span>
+<span class="na">server</span><span class="pi">:</span>
+<span class="na">port </span><span class="pi">:</span> <span class="m">8761</span>
+<span class="c1">#  servlet:</span>
+<span class="c1">#    context-path: /eureka</span>
+<span class="na">eureka</span><span class="pi">:</span>
+<span class="na">instance</span><span class="pi">:</span>
+  <span class="na">hostname </span><span class="pi">:</span> <span class="s">10.0.0.10</span>
+<span class="na">client</span><span class="pi">:</span>
+  <span class="na">registerWithEureka </span><span class="pi">:</span> <span class="no">false</span>
+  <span class="na">fetchRegistry </span><span class="pi">:</span> <span class="no">false</span>
+  <span class="na">serviceUrl</span><span class="pi">:</span>
+    <span class="na">defaultZone </span><span class="pi">:</span> <span class="s">http://${eureka.instance.hostname}:${server.port}/eureka/</span>
+<span class="na">management</span><span class="pi">:</span>
+<span class="na">endpoints</span><span class="pi">:</span>
+  <span class="na">web</span><span class="pi">:</span>
+    <span class="na">exposure</span><span class="pi">:</span>
+      <span class="na">include</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Run server
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> <span class="k">${</span><span class="nv">project_dir</span><span class="k">}</span>/servicecomb-service-center/syncer/samples/multi-servicecenters/eureka/eureka-server/
+<span class="nv">$ </span><span class="nb">nohup </span>mvn spring-boot:run &amp; <span class="o">&gt;&gt;</span> eureka-server.log 2&gt;&amp;1 &amp;
+</code></pre></div>    </div>
+    <p>Open http://10.0.0.10:8761 in the browser, this is successful if the following page appears.<br />
+ <img src="/assets/images/docs/syncer/eureka-server-success.jpg" alt="image" /></p>
+  </li>
+</ul>
+
+<h4 id="3-run-accountserver">3. Run AccountServer</h4>
+<ul>
+  <li>Modify the startup configuration<br />
+ File path：${project_dir}/servicecomb-service-center/syncer/samples/multi-servicecenters/eureka/account-server/src/main/resources/application.yaml
+    <div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spring</span><span class="pi">:</span>
+<span class="na">application</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s">account-server</span>
+<span class="na">server</span><span class="pi">:</span>
+<span class="na">port</span><span class="pi">:</span> <span class="m">8090</span>
+<span class="na">eureka</span><span class="pi">:</span>
+<span class="na">instance</span><span class="pi">:</span>
+  <span class="na">hostname</span><span class="pi">:</span> <span class="s">10.0.0.10</span>
+<span class="na">client</span><span class="pi">:</span>
+  <span class="na">service-url</span><span class="pi">:</span>
+    <span class="na">defaultZone</span><span class="pi">:</span> <span class="s">http://${eureka.instance.hostname}:8761/eureka/</span>
+<span class="na">management</span><span class="pi">:</span>
+<span class="na">endpoints</span><span class="pi">:</span>
+  <span class="na">web</span><span class="pi">:</span>
+    <span class="na">exposure</span><span class="pi">:</span>
+      <span class="na">include</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*"</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Start AccountServer
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> <span class="k">${</span><span class="nv">project_dir</span><span class="k">}</span>/servicecomb-service-center/syncer/samples/multi-servicecenters/eureka/account-server
+<span class="nv">$ </span>mvn spring-boot:run
+<span class="c">#This is successful if the result like this，</span>
+2019-09-19 17:20:35.534  INFO 20890 <span class="nt">---</span> <span class="o">[</span>           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port<span class="o">(</span>s<span class="o">)</span>: 8090 <span class="o">(</span>http<span class="o">)</span> with context path <span class="s1">''</span>
+2019-09-19 17:20:35.548  INFO 20890 <span class="nt">---</span> <span class="o">[</span>           main] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8090
+2019-09-19 17:20:35.551  INFO 20890 <span class="nt">---</span> <span class="o">[</span>           main] o.a.s.s.account.AccountApplication       : Started AccountApplication <span class="k">in </span>3.92 seconds <span class="o">(</span>JVM running <span class="k">for </span>6.754<span class="o">)</span>
+2019-09-19 17:20:35.617  INFO 20890 <span class="nt">---</span> <span class="o">[</span>nfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ACCOUNT-SERVER/10.0.0.10:account-server:8090 - registration status: 204
+</code></pre></div>    </div>
+    <p>Reopen http://10.0.0.10:8761, you can see that AccountServer has been registered successfully.<br />
+ <img src="/assets/images/docs/syncer/eureka-account-server-success.jpg" alt="image" /></p>
+  </li>
+</ul>
+
+<h4 id="4-run-syncer-of-eureka">4. Run Syncer of eureka</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> <span class="k">${</span><span class="nv">project_dir</span><span class="k">}</span>/apache-servicecomb-service-center-1.3.0-linux-amd64/
+<span class="nv">$ </span>./syncer daemon <span class="nt">--sc-addr</span> http://10.0.0.10:8761/eureka <span class="nt">--bind-addr</span> 10.0.0.10:30190 <span class="nt">--rpc-addr</span> 10.0.0.10:30191 <span class="nt">--sc-plugin</span><span class="o">=</span>eureka  <span class="nt">--node</span> eureka
+<span class="c">#This is successful if the result like this，</span>
+2019-09-19T17:28:28.809+0800	INFO	etcd/agent.go:55	start etcd success
+2019-09-19T17:28:28.809+0800	INFO	grpc/server.go:94	start grpc success
+2019-09-19T17:28:28.809+0800	DEBUG	server/handler.go:39	is leader: <span class="nb">true
+</span>2019-09-19T17:28:28.809+0800	DEBUG	server/handler.go:43	Handle Tick
+</code></pre></div></div>
+
+<h3 id="step-2-start-the-servicecenter-environment-and-services">Step 2: Start the Servicecenter environment and services</h3>
+<p>Another machine： 10.0.0.11</p>
+<h4 id="1-compile-helloserver">1. Compile HelloServer</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> <span class="k">${</span><span class="nv">project_dir</span><span class="k">}</span>/servicecomb-service-center/syncer/samples/multi-servicecenters/servicecenter/hello-server/
+<span class="nv">$ GO111MODULE</span><span class="o">=</span>on go build
+</code></pre></div></div>
+<h4 id="2-run-servicecenter">2. Run Servicecenter</h4>
+<ul>
+  <li>Modify the startup configuration：<br />
+ File path：${project_dir}/apache-servicecomb-service-center-1.3.0-linux-amd64/conf/app.conf
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>frontend_host_ip <span class="o">=</span> 10.0.0.11
+frontend_host_port <span class="o">=</span> 30103
+<span class="c">#sever options</span>
+<span class="c">#if you want to listen at ipv6 address, then set the httpaddr value like:</span>
+<span class="c">#httpaddr = 2400:A480:AAAA:200::159        (global scope)</span>
+<span class="c">#httpaddr = fe80::f816:3eff:fe17:c38b%eth0 (link-local scope)</span>
+httpaddr <span class="o">=</span> 10.0.0.11
+httpport <span class="o">=</span> 30100
+<span class="c">#...以下省略...</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Run ServiceCenter and Frontend
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> <span class="k">${</span><span class="nv">project_dir</span><span class="k">}</span>/apache-servicecomb-service-center-1.3.0-linux-amd64
+<span class="nv">$ </span>./start-service-center.sh
+<span class="nv">$ </span>./start-frontend.sh
+</code></pre></div>    </div>
+    <p>Open http://10.0.0.11:30103 in the browser, this is successful if the following page appears.  <br />
+ <img src="/assets/images/docs/syncer/service-center-server-success.jpg" alt="image" /></p>
+  </li>
+</ul>
+
+<h4 id="3-run-helloserver">3. Run HelloServer</h4>
+<ul>
+  <li>Modify the startup configuration<br />
+ File path：${project_dir}/servicecomb-service-center/syncer/samples/multi-servicecenters/servicecenter/hello-server/conf/microservice.yaml
+    <div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">service</span><span class="pi">:</span> <span class="c1"># Micro service configuration</span>
+<span class="na">appId</span><span class="pi">:</span> <span class="s">eureka</span> <span class="c1"># The appID is "eureka", if the instance synced from eureka.</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">hello-server</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="na">instance</span><span class="pi">:</span> <span class="c1"># Instance information</span>
+  <span class="na">protocol</span><span class="pi">:</span> <span class="s">rest</span>
+  <span class="na">listenAddress</span><span class="pi">:</span> <span class="s">10.0.0.11:8091</span> <span class="c1">#The listening address of the instance</span>
+<span class="na">provider</span><span class="pi">:</span> <span class="c1"># Provider information</span>
+<span class="na">appId</span><span class="pi">:</span> <span class="s">eureka</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">account-server</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s">0.0.1</span>
+<span class="na">registry</span><span class="pi">:</span>
+<span class="na">address</span><span class="pi">:</span> <span class="s">http://10.0.0.11:30100</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Start HelloServer
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> <span class="k">${</span><span class="nv">project_dir</span><span class="k">}</span>/servicecomb-service-center/syncer/samples/multi-servicecenters/servicecenter/hello-server
+<span class="nv">$ </span>./hello-server
+2019-09-19T18:37:50.645+0800	DEBUG	servicecenter/servicecenter.go:163	send heartbeat success
+2019-09-19T18:37:50.645+0800	WARN	servicecenter/servicecenter.go:85	discovery provider failed, appID <span class="o">=</span> eureka, name <span class="o">=</span> account-server, version <span class="o">=</span> 0.0.1
+2019-09-19T18:37:50.645+0800	INFO	servicecenter/servicecenter.go:87	waiting <span class="k">for </span>retry
+</code></pre></div>    </div>
+    <p>Reopen http://10.0.0.11:30103, you can see that HelloServer has been registered successfully.  <br />
+ <img src="/assets/images/docs/syncer/service-center-hello-server-success.jpg" alt="image" /><br />
+ But, the instance of AccountServer belonging to the EurekaServer cannot be found, the HelloServer is in the retry state. <br />
+ (<strong><em>Warning</em></strong>: We must complete the operation within 3 retry times (90 seconds))</p>
+  </li>
+</ul>
+
+<h4 id="4run-syncer-of-service-center">4.Run Syncer of service-center</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd</span> <span class="k">${</span><span class="nv">project_dir</span><span class="k">}</span>/apache-servicecomb-service-center-1.3.0-linux-amd64/
+<span class="nv">$ </span>./syncer daemon <span class="nt">--sc-addr</span> http://10.0.0.11:30100 <span class="nt">--bind-addr</span> 10.0.0.11:30190 <span class="nt">--rpc-addr</span> 10.0.0.11:30191 <span class="nt">--sc-plugin</span><span class="o">=</span>servicecenter <span class="nt">--join-addr</span> 10.0.0.10:30190 <span class="nt">--node</span> servicecenter
+<span class="c">#This is successful if the result like this，</span>
+2019-09-19T18:44:35.536+0800	DEBUG	server/handler.go:62	is leader: <span class="nb">true
+</span>2019-09-19T18:44:35.536+0800	DEBUG	server/handler.go:79	Receive serf user event
+2019-09-19T18:44:35.536+0800	DEBUG	serf/agent.go:130	member <span class="o">=</span> servicecenter, groupName <span class="o">=</span> 0204d59328090c2f4449a088d4e0f1d8
+2019-09-19T18:44:35.536+0800	DEBUG	serf/agent.go:130	member <span class="o">=</span> eureka, groupName <span class="o">=</span> 34f53a9520a11c01f02f58f733e856b3
+2019-09-19T18:44:35.536+0800	DEBUG	server/handler.go:97	Going to pull data from eureka 10.0.0.10:30191
+2019-09-19T18:44:35.536+0800	INFO	grpc/client.go:76	Create new grpc connection to 10.0.0.10:30191
+2019-09-19T18:44:35.538+0800	DEBUG	servicecenter/servicecenter.go:87	create service success <span class="nv">orgServiceID</span><span class="o">=</span> account-server, curServiceID <span class="o">=</span> 80784229255ec96d90353e3c041bdf3586fdbbae
+2019-09-19T18:44:35.538+0800	DEBUG	servicecenter/servicecenter.go:90	trying to <span class="k">do </span>registration of instance, instanceID <span class="o">=</span> 10.0.0.10:account-server:8090
+2019-09-19T18:44:35.540+0800	DEBUG	servicecenter/sync.go:63	Registered instance successful, instanceID <span class="o">=</span> 78bca3e2daca11e99638fa163eca30e0
+</code></pre></div></div>
+
+<h3 id="step-3-results-verification">Step 3: Results Verification</h3>
+<ol>
+  <li>
+    <p>At this point, HelloServer gets the instance successfully, and calls the CheckHealth interface of AccountServer.<br />
+<img src="/assets/images/docs/syncer/hello-server-discovery-success.jpg" alt="image" /></p>
+  </li>
+  <li>Open the website of Euraka and ServiceCenter respectively. Both service centers contain all the instance information.<br />
+<img src="/assets/images/docs/syncer/eureka-server-has-all.jpg" alt="image" /> <br />
+<img src="/assets/images/docs/syncer/service-center-server-has-all.jpg" alt="image" /></li>
+  <li>Call the Login interface of HelloServer used the command line of curl,
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>curl <span class="nt">-X</span> POST <span class="se">\</span>
+http://192.168.88.75:8091/login <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{
+  "user":"Jack",
+  "password":"123456"
+}'</span>
+welcome Jack
+</code></pre></div>    </div>
+    <p>HelloServer and AccountServer respectively print the following information.  <br />
+AccountServer<br />
+<img src="/assets/images/docs/syncer/account-server-reply.jpg" alt="image" /> <br />
+HelloServer <br />
+<img src="/assets/images/docs/syncer/hello-server-result.jpg" alt="image" /></p>
+  </li>
+</ol>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <div align="center" style="margin: 0 0;">
+    <ins class="adsbygoogle"
+         style="display:block; border-bottom: initial;"
+         data-ad-client="ca-pub-7328585512091257"
+         data-ad-slot="3049671934"
+         data-ad-format="auto"></ins>
+    </div>
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+
+        <div class="container">
+  <div class="row justify-content-md-center">
+    
+    <div class="col">
+      <ul>
+        <p class="header">Resources</p>
+        <li><a href="/docs/quick-start/">Get started</a></li>
+        <li><a href="/users/">User Guide</a></li>
+        <li><a href="/slides/">Slides</a></li>
+        <li><a href="/users/faq/">Common Questions</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">ASF</p>
+        <li><a href="http://www.apache.org">Foundation</a></li>
+        <li><a href="http://www.apache.org/licenses/">License</a></li>
+        <li><a href="http://www.apache.org/events/current-event">Events</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul>
+        <p class="header">Contribute</p>
+        <li><a href="http://issues.apache.org/jira/browse/SCB">Report a Doc Issue</a></li>
+        <li><a href="https://github.com/apache/servicecomb-website/edit/master/_docs/products/syncer/multi-servicecenters.md">Edit This Page on Github</a></li>
+        <li><a href="/developers/submit-codes/">Code Submit Guide</a></li>
+        <li><a href="/security">Security</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <ul class="social-icons">
+        <p class="header">Community</p>
+        <li>
+            <a href="mailto:dev-subscribe@servicecomb.incubator.apache.org" rel="nofollow"><span class="mail">Mailing List</span></a>
+        </li>
+        <li>
+            <a href="https://github.com/apache?q=ServiceComb" target="_blank"><span class="github">Github</span></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/ServiceComb" target="_blank"><span class="twitter">Twitter</span></a>
+        </li>
+        <li>
+            <a href="/feed.xml" target="_blank"><span class="rss">Feed</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="page__footer-bottom">
+  <div>&copy; 2019 Apache ServiceComb. Powered by <a href="http://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+  <div>All other marks mentioned may be trademarks or registered trademarks of their respective owners.</div>
+</div>
+
+      </footer>
+    </div>
+
+    <script src="/assets/js/main.min.js"></script>
+
+
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-101622733-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+  </body>
+</html>
