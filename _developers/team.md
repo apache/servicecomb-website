@@ -34,7 +34,7 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | zhangqi           |  Zhang qi               |  Huawei       |  *   |
 | zhengyangyong     |  Zheng Yangyong         |  Huawei       |  *   |
 | zhfeng            |  Feng Zheng             |  Redhat       |  *   |
-| zhanglei          |  Zhang Lei              |  BOCO         |      |
+| zhanglei          |  Zhang Lei              |               |      |
 
 
 * Contributors:

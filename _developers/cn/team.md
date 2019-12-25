@@ -33,7 +33,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | zhangqi           |  Zhang qi               |  Huawei       |  *   |
 | zhengyangyong     |  Zheng Yangyong         |  Huawei       |  *   |
 | zhfeng            |  Feng Zheng             |  Redhat       |  *   |
-| zhanglei          |  Zhang Lei              |  BOCO         |      |
+| zhanglei          |  Zhang Lei              |               |      |
 
 * Contributors:
 
