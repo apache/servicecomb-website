@@ -11,7 +11,7 @@ last_modified_at: 2019-11-12T00:50:43-55:00
 
 ## Apache ServiceComb
 
-Apache ServiceCom is the first Apache microservices top-level project in the word. It provides a complete open-source microservices solution that integrates the open-source ecosystem. Committed to helping enterprises, users, and developers to microservice applications to the cloud easily, to achieve efficient operation and maintenance management of microservice applications.
+Apache ServiceComb provides a complete open-source microservices solution that integrates the open-source ecosystem. Committed to helping enterprises, users, and developers to microservice applications to the cloud easily, to achieve efficient operation and maintenance management of microservice applications.
 
 ### ServiceComb Architecture
 
