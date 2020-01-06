@@ -31,7 +31,7 @@ intro:
     <a href='/release/pack-downloads'>Apache ServiceComb Pack 0.5.0 is released</a>
   </li>
   <li>
-    <a href='/release/toolkit-downloads'>Apache ServiceComb Toolkit 0.1.0 is released</a>
+    <a href='/release/toolkit-downloads'>Apache ServiceComb Toolkit 0.2.0 is released</a>
   </li>
 </ul>
 

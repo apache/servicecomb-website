@@ -16,7 +16,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 * [ServiceComb Service-Center 1.3.0](/cn/release/service-center-downloads/) (released on 2019-11-07)
 
-* [ServiceComb toolkit 0.1.0](/cn/release/toolkit-downloads/) (released on 2019-09-04)
+* [ServiceComb toolkit 0.2.0](/cn/release/toolkit-downloads/) (released on 2020-01-05)
 
 * [ServiceComb Pack 0.5.0](/cn/release/pack-downloads/) (released on 2019-08-26)
 
@@ -50,6 +50,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 * [ServiceComb Saga 0.2.0](/cn/release/saga-downloads/) (released on 2018-06-21)
 * [ServiceComb Saga 0.1.0](/cn/release/saga-downloads/) (released on 2018-03-27)
 
+* [ServiceComb toolkit 0.1.0](/cn/release/toolkit-downloads/) (released on 2019-09-04)
 
 **注意:**
   - 请查看 [兼容版本](/cn/release/compatibleversion) 获取版本兼容信息.
