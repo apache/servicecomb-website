@@ -16,7 +16,7 @@ Only current recommended releases are available on the main distribution site an
 
 * [ServiceComb Service-Center 1.3.0](/release/service-center-downloads/) (released on 2019-11-07)
 
-* [ServiceComb toolkit 0.1.0](/release/toolkit-downloads/) (released on 2019-09-04)
+* [ServiceComb toolkit 0.2.0](/release/toolkit-downloads/) (released on 2020-01-05)
 
 * [ServiceComb Pack 0.5.0](/release/pack-downloads/) (released on 2019-08-26)
 
@@ -49,6 +49,7 @@ Only current recommended releases are available on the main distribution site an
 * [ServiceComb Saga 0.2.0](/release/saga-downloads/) (released on 2018-06-21)
 * [ServiceComb Saga 0.1.0](/release/saga-downloads/) (released on 2018-03-27)
 
+* [ServiceComb toolkit 0.1.0](/release/toolkit-downloads/) (released on 2019-09-04)
 
 **NOTE:**
   - Please check [this page](/release/compatibleversion) for compatible version.
