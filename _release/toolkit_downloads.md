@@ -9,9 +9,10 @@ last_modified_at: 2019-09-02T14:06:43-55:00
 
 ## Releases
 
-| Release           |         Source            |
+| Release           |         Source            |         Distribution       |
 | ---------------------- | --------------------------------- | --------------------------------- |
-|**Apache ServiceComb Toolkit 0.1.0(LATEST)**|[[src]](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-toolkit/0.1.0/apache-servicecomb-toolkit-distribution-0.1.0-src.zip) [[asc]](https://www.apache.org/dist/servicecomb/servicecomb-toolkit/0.1.0/apache-servicecomb-toolkit-distribution-0.1.0-src.zip.asc) [[sha512]](https://www.apache.org/dist/servicecomb/servicecomb-toolkit/0.1.0/apache-servicecomb-toolkit-distribution-0.1.0-src.zip.sha512)|
+|**Apache ServiceComb Toolkit 0.2.0(LATEST)**|[[src]](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-toolkit/0.2.0/apache-servicecomb-toolkit-distribution-0.2.0-src.zip) [[asc]](https://www.apache.org/dist/servicecomb/servicecomb-toolkit/0.2.0/apache-servicecomb-toolkit-distribution-0.2.0-src.zip.asc) [[sha512]](https://www.apache.org/dist/servicecomb/servicecomb-toolkit/0.2.0/apache-servicecomb-toolkit-distribution-0.2.0-src.zip.sha512)|[[Binary]](https://apache.org/dyn/closer.cgi/servicecomb/servicecomb-toolkit/0.2.0/apache-servicecomb-toolkit-distribution-0.2.0-bin.zip) [[asc]](https://www.apache.org/dist/servicecomb/servicecomb-toolkit/0.2.0/apache-servicecomb-toolkit-distribution-0.2.0-bin.zip.asc) [[sha512]](https://www.apache.org/dist/servicecomb/servicecomb-toolkit/0.2.0/apache-servicecomb-toolkit-distribution-0.2.0-bin.zip.sha512)|
+|Apache ServiceComb Toolkit 0.1.0            |[[src]](https://archive.apache.org/dist/servicecomb/servicecomb-toolkit/0.1.0/apache-servicecomb-toolkit-distribution-0.1.0-src.zip) [[asc]](https://archive.apache.org/dist/servicecomb/servicecomb-toolkit/0.1.0/apache-servicecomb-toolkit-distribution-0.1.0-src.zip.asc) [[sha512]](https://archive.apache.org/dist/servicecomb/servicecomb-toolkit/0.1.0/apache-servicecomb-toolkit-distribution-0.1.0-src.zip.sha512)|
 
 **Verifying the release**
 
