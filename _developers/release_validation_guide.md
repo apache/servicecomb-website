@@ -74,12 +74,12 @@ unzip xxx-src.zip
 Run test case under source code root:
 
 ```bash
-mvn clean install -Pdocker -Pit
+mvn clean install -Pdocker -Pit -Pdemo-run-release
 ```
 
 >Hint: If the OS of environment is Windows:
 >```bash
->mvn clean install -Pdocker -Pit -Pdocker-machine
+>mvn clean install -Pdocker -Pit -Pdocker-machine -Pdemo-run-release
 >```
 
 Wait all test case check passed, may use 10~30 minutes.
@@ -134,12 +134,12 @@ Then add this Staging Repository address into `settings.xml` of maven:
 After that, enter **demo folder under the source code(not root folder of source code)** and run:
 
 ```bash
-mvn clean install -Pdocker -Pstaging
+mvn clean install -Pdocker -Pstaging -Pdemo-run-release
 ```
 
 >Hint: If the OS of environment is Windows:
 >```bash
->mvn clean install -Pdocker -Pstaging -Pdocker-machine
+>mvn clean install -Pdocker -Pstaging -Pdocker-machine -Pdemo-run-release
 >```
 
 **When test cases are running, we can see the Java Chassis dependencies will download from Apache Staging Repository that had configured:**
@@ -180,4 +180,5 @@ mvn clean verify -Pdocker -Pstaging
 Wait all test case check passed, may use 5~10 minutes.
 
 ### Verify Samples(Optional)
-In samples folder of source code, there are many java chassis sample, we can choose some of them do verification such as BMI; you can read README.md in each sample in order to known how to run.
+Download [samples code](https://github.com/apache/servicecomb-samples). There are many samples here, choose 
+some of them and change the version and do verifications. See each README of samples for details.

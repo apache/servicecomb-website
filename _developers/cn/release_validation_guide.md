@@ -74,12 +74,12 @@ unzip xxx-src.zip
 使用`cd`命令切换到解压出来的源代码根目录下，执行：
 
 ```bash
-mvn clean install -Pdocker -Pit
+mvn clean install -Pdocker -Pit -Pdemo-run-release
 ```
 
 >提示：如果如果验证环境操作系统是Windows：
 >```bash
->mvn clean install -Pdocker -Pit -Pdocker-machine
+>mvn clean install -Pdocker -Pit -Pdocker-machine -Pdemo-run-release
 >```
 
 等待所有的测试通过，依据配置环境不同，约耗时10~30分钟。
@@ -134,12 +134,12 @@ Staging Repository : https://repository.apache.org/content/repositories/orgapach
 一切就绪后，使用`cd`命令切换到**源代码demo目录(注意不是根目录)下**，执行：
 
 ```bash
-mvn clean install -Pdocker -Pstaging
+mvn clean install -Pdocker -Pstaging -Pit -Pdemo-run-release
 ```
 
 >提示：如果如果验证环境操作系统是Windows：
 >```bash
->mvn clean install -Pdocker -Pstaging -Pdocker-machine
+>mvn clean install -Pdocker -Pstaging -Pdocker-machine  -Pit -Pdemo-run-release
 >```
 
 **测试过程中可以观察到Java Chassis的依赖将从我们之前指定的Apache Staging Repository下载：**
@@ -180,4 +180,7 @@ mvn clean verify -Pdocker -Pstaging
 等待所有的测试通过，依据配置环境不同，约耗时5~10分钟。
 
 ### 验证Samples是否正确（可选）
-在源代码的sample下有很多例子，可以任选几个测试，例如使用BMI做验证；sample验证的方法请参见对应目录下README.md中的说明即可。
+
+下载 [samples 代码](https://github.com/apache/servicecomb-samples)， 由于 samples 较多， 可以选择部分
+进行验证， 详细参考每一个 sample 提供的 README 文件。
+ 
