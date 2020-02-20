@@ -22,7 +22,7 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
-    <a href='/cn/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis 发布1.3.0</a>
+    <a href='/cn/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis 发布2.0.0</a>
   </li>
   <li>
     <a href='/cn/release/service-center-downloads/'>Apache ServiceComb Service-Center 发布 1.3.0</a>
