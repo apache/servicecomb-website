@@ -114,107 +114,124 @@ gvt restore
 
 
 ## 发行Java-Chassis
+发布版本前，首先确定该版本所有的 apache issues 都已经关闭， 并且
+登录 [apache issue 网站](https://issues.apache.org/jira/projects/SCB)， 点击发布， 生成该版本的 release notes. 
 
-***准备和校验发行包***
+***准备待发布版本***
+
+clone 需要发布版本的分支到开发环境（比如 master）， 修改版本号， 并提交代码到仓库。假设当前版本为 `2.0.0-SNAPSHOT`，发布版
+本为 `2.0.0`。
+
+执行：
+```shell script
+mvn versions:set -DgenerateBackupPoms=false -DnewVersion=2.0.0
+```
+
+然后执行：
+```shell script
+mvn clean install -Pit
+```
+
+如果编译成功，可以提交PR，代码检视通过后合入仓库。
+
+***进行软件包发布***
+
+需要准备 Linux 开发环境，并确保网络能够往 maven 中央库上传文件。
 
 1. 如果`~/.gnupg`中没有GPG密钥文件，则将GPG密钥文件拷贝至`~/.gnupg`文件夹。
-  ```
-  gpg.conf
-  pubring.gpg
-  random_seed
-  secring.gpg
-  trustdb.gpg
-  ```
+    ```
+    gpg.conf
+    pubring.gpg
+    random_seed
+    secring.gpg
+    trustdb.gpg
+    ```
 
 2. 更新`~/.m2/settings.xml`文件中的GPG密码。
 
 3. 更新`~/.m2/settings.xml`文件中的Apache帐户用户名和密码。
 
 4. 克隆java-chassis代码
-```
-git clone https://github.com/apache/servicecomb-java-chassis.git
-```
+    ```
+    git clone https://github.com/apache/servicecomb-java-chassis.git
+    ```
+   
+5. 运行以下命令
+    ```
+    mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+    ```
 
-5. 使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地
-```
-find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
-```
+6. 如果执行失败，需要解决问题。 并参考第7步关闭临时仓库，重新执行第5步。
 
-6. 在需要release的分支上打上准备发布版本的标签。
+7. 如果步骤5命令执行成功，则所有的jar包都已经成功上传至maven临时仓库。  
+   使用apache帐号登录到[Apache Nexus](https://repository.apache.org/)，点击“Staging Repositories”，搜索“servicecomb”，根据时间找到最近的java-chassis相关的记录，close该条记录，得到maven临时仓库的链接，例如：`https://repository.apache.org/content/repositories/orgapacheservicecomb-1385`。
 
-7. 运行以下命令
-```
-mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
-```
-
-8. 如果执行失败，需要解决问题，从步骤7重新开始。
-
-9. 如果步骤7命令执行成功，则所有的jar包都已经成功上传至maven临时仓库。  
-   使用apache帐号登录到[Apache Nexus](https://repository.apache.org/)，点击“Staging Repositories”，搜索“servicecomb”，根据时间找到最近的java-chassis相关的记录，close该条记录，得到maven临时仓库的链接，例如：`https://repository.apache.org/content/repositories/orgapacheservicecomb-1385`
-
-10. 将release分支以及标签分别push至主仓库。
+8. 在 servicecomb-java-chassis 的 github 的 release 页面，点击 release， 发布 pre release 版本， 打上 tag 。
 
 ***给发行包签名***
 
-11. 从临时仓库下载二进制包及签名  
+1. 从临时仓库下载二进制包及签名  
   例如：  
   `https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip`  
   `https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip.asc`
 
-12. 从临时仓库下载源码包及签名  
+2. 从临时仓库下载源码包及签名  
   例如：  
   `https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-src.zip`  
   `https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.asc`
 
-13. 生成二进制包和源码包的校验和  
+3. 生成二进制包和源码包的校验和  
   例如：  
   `sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip > apache-servicecomb-java-chassis-distribution-1.2.0-bin.zi.sha512`  
   `sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-src.zip > apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.sha512`  
 
-14. 将步骤11、12、13相关的文件，上传到[Apache开发仓库](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/).  
+4. 将上述步骤相关的文件，上传到[Apache开发仓库](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/).  
   SVN命令：
-  ```
-  svn co https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis
-  cd serviecomb-java-chassis
-  mkdir -p 1.2.0/rc01
-  cp xxx/* 1.2.0/rc01
-  svn add 1.2.0/rc01
-  svn ci 1.2.0/rc01
-  ```
+    ```
+    svn co https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis
+    cd serviecomb-java-chassis
+    mkdir -p 1.2.0/rc01
+    cp xxx/* 1.2.0/rc01
+    svn add 1.2.0
+    svn ci 1.2.0
+    ```
 
-15. 从SVN下载发行包，验证签名和校验。
+5. 从SVN下载发行包，验证签名和校验。
 
 ***PMC批准***
 
-17. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
+1. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
 
-18. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题，并删除主仓库的release版本对应的标签，并从***第1步***重新开始。
+2. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题，并删除主仓库的release版本对应的标签，重新开始版本发布流程。
 
-19. 将投票结果发布到dev@servicecomb.apache.org。
+3. 将投票结果发布到dev@servicecomb.apache.org。
 
 
-***通告***
+***更新文档和通告***
 
-20. 将[dev](https://dist.apache.org/repos/dist/dev)的文件移动到[release](https://dist.apache.org/repos/dist/release)目录中，同时确认已经被存档,同时更新网站上相关链接。
-    同时删除[Apache开发仓库](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/)中的目录
+1. 在 servicecomb-java-chassis 的 github 的 release 页面，将 pre release 修改为正式 release。完成 release notes书写。
+
+2. 将[dev](https://dist.apache.org/repos/dist/dev)的文件移动到[release](https://dist.apache.org/repos/dist/release)目录中。
+    ```
+    cp dev/servicecomb/servicecomb-java-chassis/2.0.0/* release/servicecomb/servicecomb-java-chassis/2.0.0/
+    cd release/servicecomb/servicecomb-java-chassis/
+    svn add 2.0.0
+    svn ci 2.0.0
+    ```
+    同时删除[dev](https://dist.apache.org/repos/dist/dev)的临时内容。
     ```
     svn rm -r 1.2.0
-    checkin?
+    svn ci .
     ```
-    使用apache帐号登录到[Apache Nexus](https://repository.apache.org/)，点击“Staging Repositories”，搜索“servicecomb”，选中java-chassis相关的所有记录，点击“Drop”。
 
-    使用apache帐号登录到[Apache Nexus](https://repository.apache.org/)，点击“Staging Repositories”，搜索“servicecomb”，找到需要发布的java-chassis记录，点击“Release”。
+3. 使用apache帐号登录到[Apache Nexus](https://repository.apache.org/)，点击“Staging Repositories”，搜索“servicecomb”，找到需要发布的java-chassis记录，点击“Release”。
 
-21. 等待24小时，让所有镜像同步。
+4. 等待24小时，让所有镜像同步。
 
-22. 上传发行页面至ServiceComb网站。
-   fork https://github.com/apache/servicecomb-website/
-   1.总版本，url
-   2.java-chassis的RN和download（url）
-   3.中文、英文
-   PR
+5. 更新官网发布信息。 修改内容可以参考 [1.3.0 RP](https://github.com/apache/servicecomb-website/pull/210)
+或者 [2.0.0 RP](https://github.com/apache/servicecomb-website/pull/240)
 
-23. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
+6. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
 
 
 ## 发行Pack
