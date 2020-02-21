@@ -161,7 +161,7 @@ mvn clean install -Pit
     mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
     ```
 
-6. 如果执行失败，需要解决问题。 并参考第7步关闭临时仓库，重新执行第5步。
+6. 如果执行失败，需要解决问题。 并参考第7步`drop`临时仓库，重新执行第5步。
 
 7. 如果步骤5命令执行成功，则所有的jar包都已经成功上传至maven临时仓库。  
    使用apache帐号登录到[Apache Nexus](https://repository.apache.org/)，点击“Staging Repositories”，搜索“servicecomb”，根据时间找到最近的java-chassis相关的记录，close该条记录，得到maven临时仓库的链接，例如：`https://repository.apache.org/content/repositories/orgapacheservicecomb-1385`。
@@ -202,7 +202,8 @@ mvn clean install -Pit
 
 1. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
 
-2. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题，并删除主仓库的release版本对应的标签，重新开始版本发布流程。
+2. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题，重新开始版本发布流程（视具体的失败情况，可能
+需要重新生成 release notes，删除svn临时文件，删除临时`Staging repositories`等）。
 
 3. 将投票结果发布到dev@servicecomb.apache.org。
 
@@ -224,7 +225,8 @@ mvn clean install -Pit
     svn ci .
     ```
 
-3. 使用apache帐号登录到[Apache Nexus](https://repository.apache.org/)，点击“Staging Repositories”，搜索“servicecomb”，找到需要发布的java-chassis记录，点击“Release”。
+3. 使用apache帐号登录到[Apache Nexus](https://repository.apache.org/)，点击“Staging Repositories”，搜索“servicecomb”，
+找到需要发布的java-chassis记录，点击“Release”。 如果由其他临时“Staging Repositories”，可以点击“Drop”一并删除。
 
 4. 等待24小时，让所有镜像同步。
 
