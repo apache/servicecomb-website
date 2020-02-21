@@ -184,7 +184,7 @@ Prepare Linux environment, and make sure can upload artifacts to maven central.
     mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
     ```
 
-6. If failed in step 5, close the temporary repository in apache Nexus and start from step 5 again.
+6. If failed in step 5, `drop` the temporary repository in apache Nexus and start from step 5 again.
 
 7. If step 5 is successful, all artifacts are uploaded to a temporary repository. Using your apache account and 
    log in to  [Apache Nexus](https://repository.apache.org/). Click  `Staging Repositories`, search `servicecomb`,
@@ -226,7 +226,9 @@ Prepare Linux environment, and make sure can upload artifacts to maven central.
 
 1. Send mail to `dev@servicecomb.apache.org` and waiting for voting result.
 
-2. Waiting 72 hours and if got three + 1 and no -1, the voting is successful. 
+2. Waiting 72 hours and if got three + 1 and no -1, the voting is successful. If there are some problems,
+start a new round of release. (According to the problem, please notice to clean up release notes,
+temporary svn files, and temporary stating repositories. )
 
 3. Send the voting result to `dev@servicecomb.apache.org`
 
@@ -249,7 +251,8 @@ Prepare Linux environment, and make sure can upload artifacts to maven central.
     ```
 
 3. Log in to [Apache Nexus](https://repository.apache.org/), find `Staging Repositories` and search 
-`servicecomb`，find the last `closed` repository, and click `release`. 
+`servicecomb`，find the last `closed` repository, and click `release`. If there are any temporary `Staging Repositories`,
+`drop` them. 
 
 4. Waiting for 24 hour for all mirror in sync.
 
