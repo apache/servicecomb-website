@@ -602,101 +602,143 @@ gvt restore
 </ol>
 
 <h2 id="major-steps-for-doing-java-chassis-release">Major Steps for doing Java-Chassis Release</h2>
+<p>Before release, make sure all apache issues are closed. Log in
+ <a href="https://issues.apache.org/jira/projects/SCB">apache issue website</a>, click <code class="highlighter-rouge">release</code> and generate release notes.</p>
 
-<p><strong><em>Make and Verify the Release</em></strong></p>
+<p><strong><em>Prepare the release code</em></strong></p>
+
+<p>clone java-chassis code to your development environment, change version to release version and push to github.
+Assume code version is <code class="highlighter-rouge">2.0.0-SNAPSHOT</code> and release version is <code class="highlighter-rouge">2.0.0</code>.</p>
+
+<p>Run:
+```shell script
+mvn versions:set -DgenerateBackupPoms=false -DnewVersion=2.0.0</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+Then:
+```shell script
+mvn clean install -Pit
+</code></pre></div></div>
+
+<p>If the build is successful, submit a PR and merge code after review.</p>
+
+<p><strong><em>Release maven artifacts</em></strong></p>
+
+<p>Prepare Linux environment, and make sure can upload artifacts to maven central.</p>
 
 <ol>
-  <li>Clone the java-chassis code.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-java-chassis.git
+  <li>Copy GPG keys to <code class="highlighter-rouge">~/.gnupg</code>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> gpg.conf
+ pubring.gpg
+ random_seed
+ secring.gpg
+ trustdb.gpg
 </code></pre></div>    </div>
   </li>
-  <li>Cut the release using perl command to replace all the versions in pom.xml files
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+  <li>
+    <p>Update PGR password in <code class="highlighter-rouge">~/.m2/settings.xml</code></p>
+  </li>
+  <li>
+    <p>Update apache maven server user name and password in <code class="highlighter-rouge">~/.m2/settings.xml</code></p>
+  </li>
+  <li>clone java-chassis
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git clone https://github.com/apache/servicecomb-java-chassis.git
+</code></pre></div>    </div>
+  </li>
+  <li>Run
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>Create a Tag from the master branch using the version number.</p>
+    <p>If failed in step 5, <code class="highlighter-rouge">drop</code> the temporary repository in apache Nexus and start from step 5 again.</p>
   </li>
   <li>
-    <p>Clear all the redundant servicecomb releases in repository.apache.org</p>
+    <p>If step 5 is successful, all artifacts are uploaded to a temporary repository. Using your apache account and 
+log in to  <a href="https://repository.apache.org/">Apache Nexus</a>. Click  <code class="highlighter-rouge">Staging Repositories</code>, search <code class="highlighter-rouge">servicecomb</code>,
+find the latest repository, click “close”, and get the staging repository link like <code class="highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385</code></p>
+  </li>
+  <li>In servicecomb-java-chassis  release page，click release， do a <code class="highlighter-rouge">pre release</code></li>
+</ol>
+
+<p><strong><em>Sign the distributions</em></strong></p>
+
+<ol>
+  <li>
+    <p>Download binary distributions from the temporary repository.
+  e.g.<br />
+  <code class="highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip</code><br />
+  <code class="highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip.asc</code></p>
   </li>
   <li>
-    <p>Add the keys in a reference folder.</p>
+    <p>Download source distributions from the temporary repository.
+  e.g.
+  <code class="highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-src.zip</code><br />
+  <code class="highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.asc</code></p>
   </li>
   <li>
-    <p>Update the key path and passphrase in ~/.m2/settings.xml file.</p>
+    <p>generate checksum.
+  e.g.
+  <code class="highlighter-rouge">sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip &gt; apache-servicecomb-java-chassis-distribution-1.2.0-bin.zi.sha512</code><br />
+  <code class="highlighter-rouge">sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-src.zip &gt; apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.sha512</code></p>
+  </li>
+  <li>upload all file to <a href="https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/">Apache development svn</a>.<br />
+  Run
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> svn co https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis
+ cd serviecomb-java-chassis
+ mkdir -p 1.2.0/rc01
+ cp xxx/* 1.2.0/rc01
+ svn add 1.2.0
+ svn ci 1.2.0
+</code></pre></div>    </div>
+  </li>
+  <li>download the files and verify the sign.</li>
+</ol>
+
+<p><strong><em>Sending mail for permission</em></strong></p>
+
+<ol>
+  <li>
+    <p>Send mail to <code class="highlighter-rouge">dev@servicecomb.apache.org</code> and waiting for voting result.</p>
   </li>
   <li>
-    <p>Update the apache account username and password in the settings file.</p>
+    <p>Waiting 72 hours and if got three + 1 and no -1, the voting is successful. If there are some problems,
+start a new round of release. (According to the problem, please notice to clean up release notes,
+temporary svn files, and temporary stating repositories. )</p>
   </li>
-  <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+  <li>
+    <p>Send the voting result to <code class="highlighter-rouge">dev@servicecomb.apache.org</code></p>
+  </li>
+</ol>
+
+<p><strong><em>Update documents and announcements</em></strong></p>
+
+<ol>
+  <li>
+    <p>In servicecomb-java-chassis  github release page，set <code class="highlighter-rouge">pre release</code> to <code class="highlighter-rouge">formal release</code> and write release notes.</p>
+  </li>
+  <li>Move <a href="https://dist.apache.org/repos/dist/dev">dev</a> to <a href="https://dist.apache.org/repos/dist/release">release</a>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cp dev/servicecomb/servicecomb-java-chassis/2.0.0/* release/servicecomb/servicecomb-java-chassis/2.0.0/
+ cd release/servicecomb/servicecomb-java-chassis/
+ svn add 2.0.0
+ svn ci 2.0.0
+</code></pre></div>    </div>
+    <p>And delete <a href="https://dist.apache.org/repos/dist/dev">dev</a></p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> svn rm -r 1.2.0
+ svn ci .
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>Once every thing is uploaded then use the staging repo to verify the build using Company workshop.</p>
+    <p>Log in to <a href="https://repository.apache.org/">Apache Nexus</a>, find <code class="highlighter-rouge">Staging Repositories</code> and search 
+<code class="highlighter-rouge">servicecomb</code>，find the last <code class="highlighter-rouge">closed</code> repository, and click <code class="highlighter-rouge">release</code>. If there are any temporary <code class="highlighter-rouge">Staging Repositories</code>,
+<code class="highlighter-rouge">drop</code> them.</p>
   </li>
   <li>
-    <p>Share the staging repo with peers to verify on different OS and machines using the demo.</p>
+    <p>Waiting for 24 hour for all mirror in sync.</p>
   </li>
   <li>
-    <p>If everything is fine then push the tag to master.</p>
+    <p>Update the servicecomb-website, see <a href="https://github.com/apache/servicecomb-website/pull/210">1.3.0 RP</a>
+or <a href="https://github.com/apache/servicecomb-website/pull/240">2.0.0 RP</a></p>
   </li>
-  <li>Close the staging repo is apache repositories</li>
-</ol>
-
-<p><strong><em>Sign the Releases</em></strong></p>
-
-<ol>
-  <li>
-    <p>Download the source code and distribution from the staging repo.</p>
-  </li>
-  <li>
-    <p>Sign the 2 releases(distribution, src) and checksum.</p>
-  </li>
-  <li>
-    <p>Create a new directory <a href="https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/">Apache dev Release SVN</a> with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the first attempt of the release then the folder structure will be <code class="highlighter-rouge">1.0.0-m2/rc01</code>)</p>
-  </li>
-  <li>
-    <p>Upload the release to  directory created in last step.</p>
-  </li>
-  <li>
-    <p>Download all the releases from SVN and verify the signature and checksum.</p>
-  </li>
-</ol>
-
-<p><strong><em>PMC approval</em></strong></p>
-
-<ol>
-  <li>
-    <p>Send the voting mail in dev@servicecomb.apache.org for PMC approval.</p>
-  </li>
-  <li>
-    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
-  </li>
-  <li>
-    <p>Publish the result of the vote in dev@servicecomb.apache.org.</p>
-  </li>
-</ol>
-
-<p><strong><em>Announcements</em></strong></p>
-
-<ol>
-  <li>
-    <p>Upload the releases to <a href="https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-java-chassis/">Apache release repository</a>.</p>
-  </li>
-  <li>
-    <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
-  </li>
-  <li>
-    <p>Delete old releases from <a href="https://dist.apache.org/repos/dist/dev">dev</a> and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.</p>
-  </li>
-  <li>
-    <p>Upload the release page of ServiceComb Website.</p>
-  </li>
-  <li>
-    <p>Send the announcement mails to dev@servicecomb.apache.org, announce@apache.org</p>
-  </li>
+  <li>Send announcements to dev@servicecomb.apache.org， announce@apache.org。</li>
 </ol>
 
 <h2 id="major-steps-for-doing-saga-release">Major Steps for doing Saga Release</h2>
