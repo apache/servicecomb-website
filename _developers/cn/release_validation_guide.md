@@ -77,7 +77,7 @@ unzip xxx-src.zip
 mvn clean install -Pdocker -Pit -Pdemo-run-release
 ```
 
->提示：如果如果验证环境操作系统是Windows：
+>提示：如果验证环境操作系统是Windows：
 >```bash
 >mvn clean install -Pdocker -Pit -Pdocker-machine -Pdemo-run-release
 >```
@@ -137,7 +137,7 @@ Staging Repository : https://repository.apache.org/content/repositories/orgapach
 mvn clean install -Pdocker -Pstaging -Pit -Pdemo-run-release
 ```
 
->提示：如果如果验证环境操作系统是Windows：
+>提示：如果验证环境操作系统是Windows：
 >```bash
 >mvn clean install -Pdocker -Pstaging -Pdocker-machine  -Pit -Pdemo-run-release
 >```
@@ -172,7 +172,7 @@ git checkout 1.x
 mvn clean verify -Pdocker -Pstaging
 ```
 
->提示：如果如果验证环境操作系统是Windows：
+>提示：如果验证环境操作系统是Windows：
 >```bash
 >mvn clean verify -Pdocker -Pstaging -Pdocker-machine
 >```
