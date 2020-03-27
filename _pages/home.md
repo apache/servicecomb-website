@@ -22,10 +22,10 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
-    <a href='/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis Release Version 2.0.0</a>
+    <a href='/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis Release Version 2.0.1</a>
   </li>
   <li>
-      <a href='/release/service-center-downloads/'>Apache ServiceComb Service-Center Release Version 1.3.0</a>
+    <a href='/release/service-center-downloads/'>Apache ServiceComb Service-Center Release Version 1.3.0</a>
   </li>
   <li>
     <a href='/release/pack-downloads'>Apache ServiceComb Pack 0.5.0 is released</a>
