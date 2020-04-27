@@ -58,16 +58,17 @@ feature_row:
   - image_path: /assets/images/servicecomb-feature-openapi.png
     alt: "标准"
     title: "服务契约"
-    url: https://docs.servicecomb.io/java-chassis/zh_CN/build-provider/define-contract.html
+    url: https://docs.servicecomb.io/java-chassis/zh_CN/build-provider/define-contract/
     excerpt: "基于 [OpenAPI](https://www.openapis.org) 的服务契约管理"
   - image_path: /assets/images/servicecomb-feature-quickstart.png
     alt: "高效"
     title: "快速开发"
-    url: /cn/docs/quick-start/
+    url: /cn/docs/products/java-chassis/quick-start/
     excerpt: "一键式脚手架，开箱即用，快速构建微服务应用"
   - image_path: /assets/images/servicecomb-feature-multiLanguage.png
     alt: "多语言"
     title: "多语言"
+    url: /cn/docs/products/mesher/quick-start/
     excerpt: "生态扩展支持Java/Golang/PHP/NodeJS等多种开发语言"
 ---
 

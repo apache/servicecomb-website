@@ -58,16 +58,17 @@ feature_row:
   - image_path: /assets/images/servicecomb-feature-openapi.png
     alt: "Standard"
     title: "Service Contract"
-    url: https://docs.servicecomb.io/java-chassis/en_US/build-provider/define-contract.html
+    url: https://docs.servicecomb.io/java-chassis/en_US/build-provider/define-contract/
     excerpt: "Service contract guarantee based on [OpenAPI](https://www.openapis.org)"
   - image_path: /assets/images/servicecomb-feature-quickstart.png
     alt: "Efficient"
     title: "Rapid Development"
-    url: /docs/quick-start/
+    url: /docs/products/java-chassis/quick-start/
     excerpt: "One-click scaffolding, out of the box, speed up building of microservice applications"
   - image_path: /assets/images/servicecomb-feature-multiLanguage.png
     alt: "MultiLanguage"
     title: "Multiple Languages"
+    url: /docs/products/mesher/quick-start/
     excerpt: "Ecological extension supports multiple development languages such as Java/Golang/PHP/NodeJS"
 ---
 
