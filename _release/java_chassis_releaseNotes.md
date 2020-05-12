@@ -8,6 +8,69 @@ last_modified_at: 2019-04-12T00:50:43-55:00
 ---
 
 
+
+        Release Notes - Apache ServiceComb - Version java-chassis-2.0.2
+         
+<h2>        Bug
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1823'>SCB-1823</a>] -         change kie label env to environment
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1824'>SCB-1824</a>] -         jacskon convertValue will convert all objects start for 2.10.*, java-chassis need not convert RestTemplate arguments
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1826'>SCB-1826</a>] -         remove binary release LICENSE since 3rd parties not included 
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1837'>SCB-1837</a>] -         revert changes for SCB-1643, do not include huaweicloud jar
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1857'>SCB-1857</a>] -         RequestLog need to distinguish PRODUCER or CONSUMER for InvocationFinishEvent
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1861'>SCB-1861</a>] -         fix config kie value parsing errors 
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1863'>SCB-1863</a>] -         config kie bug fix : toke the revision when pull from kie
+</li>
+</ul>
+            
+<h2>        New Feature
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1810'>SCB-1810</a>] -         create a new Dispathcer to direct forward requests to HTTP server and send response
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1816'>SCB-1816</a>] -         Print the instance endpoints in the end of the start up log
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1828'>SCB-1828</a>] -         support @JsonView
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1834'>SCB-1834</a>] -         add BOM for java-chassis
+</li>
+</ul>
+    
+<h2>        Improvement
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1822'>SCB-1822</a>] -         fix problems when using multiple consumer interface for one operation and using CseHttpEntity to set localcontext
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1825'>SCB-1825</a>] -         client outlog: rename item and delete README.md
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1830'>SCB-1830</a>] -         refactring code: Invocation carry changable data in each Invocation in a better way
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1831'>SCB-1831</a>] -         Loadbalancer set endpoint can use Endpoint other the literal string
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1840'>SCB-1840</a>] -         InvokerUtils inherit current context to support tracing and other features
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1845'>SCB-1845</a>] -         add TOC for java-chassis documents to make easier to search
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1851'>SCB-1851</a>] -         config-kie: support enable property
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1853'>SCB-1853</a>] -         fix problems in README.md
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1862'>SCB-1862</a>] -         ServiceComb add extensions  to support cas env variables
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1866'>SCB-1866</a>] -         dependency update: jackson-datatype-jsr310 from unmanaged to 2.10.0
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1867'>SCB-1867</a>] -         dependency update: netty, from 4.1.45.Final to 4.1.47.Final
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1868'>SCB-1868</a>] -         change ISO8601DateFormat
+
+
         Release Notes - Apache ServiceComb - Version java-chassis-2.0.1
     
 <h2>        Sub-task
