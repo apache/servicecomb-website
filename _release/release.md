@@ -14,11 +14,11 @@ Only current recommended releases are available on the main distribution site an
 
 **Stable Release - Latest Version:**
 
+* [ServiceComb Pack 0.6.0](/release/pack-downloads/) (released on 2020-05-26)
+
 * [ServiceComb Service-Center 1.3.0](/release/service-center-downloads/) (released on 2019-11-07)
 
 * [ServiceComb toolkit 0.2.0](/release/toolkit-downloads/) (released on 2020-01-05)
-
-* [ServiceComb Pack 0.5.0](/release/pack-downloads/) (released on 2019-08-26)
 
 * [ServiceComb Java-Chassis 2.0.2](/release/java-chassis-downloads/) (released on 2020-05-12)
 
@@ -46,6 +46,7 @@ Only current recommended releases are available on the main distribution site an
 * [ServiceComb Java-Chassis 1.1.0](/release/java-chassis-downloads/) (released on 2018-11-30)
 * [ServiceComb Java-Chassis 1.0.0](/release/java-chassis-downloads/) (released on 2018-08-02)
 
+* [ServiceComb Pack 0.5.0](/release/pack-downloads/) (released on 2019-08-26)
 * [ServiceComb Pack 0.4.0](/release/pack-downloads/) (released on 2019-04-06)
 * [ServiceComb Pack 0.3.0](/release/pack-downloads/) (released on 2019-01-02)
 * [ServiceComb Saga 0.2.0](/release/saga-downloads/) (released on 2018-06-21)
