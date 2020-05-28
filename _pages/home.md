@@ -22,7 +22,7 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
-    <a href='/summer2020'>Apache ServiceComb Summer Code 2020</a>
+    <a href='/cn/summer2020'>Apache ServiceComb Summer Code 2020</a>
   </li>
   <li>
     <a href='/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis Release Version 2.0.2</a>
