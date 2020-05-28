@@ -14,11 +14,11 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 **稳定发布版 - 最新版本:**
 
+* [ServiceComb Pack 0.6.0](/cn/release/pack-downloads/) (released on 2020-05-26)
+
 * [ServiceComb Service-Center 1.3.0](/cn/release/service-center-downloads/) (released on 2019-11-07)
 
 * [ServiceComb toolkit 0.2.0](/cn/release/toolkit-downloads/) (released on 2020-01-05)
-
-* [ServiceComb Pack 0.5.0](/cn/release/pack-downloads/) (released on 2019-08-26)
 
 * [ServiceComb Java-Chassis 2.0.2](/cn/release/java-chassis-downloads/) (released on 2020-05-12)
 
@@ -42,6 +42,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 * [ServiceComb Java-Chassis 2.0.0](/cn/release/java-chassis-downloads/) (released on 2020-02-20)
 * [ServiceComb Java-Chassis 1.3.0](/cn/release/java-chassis-downloads/) (released on 2019-10-31)
 
+* [ServiceComb Pack 0.5.0](/cn/release/pack-downloads/) (released on 2019-08-26)
 * [ServiceComb Pack 0.4.0](/cn/release/pack-downloads/) (released on 2019-04-06)
 * [ServiceComb Pack 0.3.0](/cn/release/pack-downloads/) (released on 2019-01-02)
 * [ServiceComb Saga 0.2.0](/cn/release/saga-downloads/) (released on 2018-06-21)
