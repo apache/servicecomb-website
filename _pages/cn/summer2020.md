@@ -36,6 +36,7 @@ last_modified_at: 2020-05-25T09:46:01+08:00
 
 4. 丰富ServiceComb Pack在分布式事务场景下的验收测试
    + ServiceComb Pack作为一个分布式事务引擎，需要有完善的验收测试来保证其服务功能的完备性。 任务描述参见[SCB-306](https://issues.apache.org/jira/browse/SCB-306)。此任务包含验收测试的场景分析整理，以及缺失场景的代码实现。通过此任务你可以学习到如何动态注入故障，验收测试框架的使用，以及自动化测试的常用工具。
+   + 参考资料: [微服务验收测试框](https://servicecomb.apache.org/cn/docs/how-to-do-microservice-accept-test/), [分布式事务原理1](https://servicecomb.apache.org/cn/docs/distributed-transaction-of-services-1/),[分布式事务原理2](https://servicecomb.apache.org/cn/docs/distributed-transaction-of-services-2/)。
    + 难度: 中
    + 导师: 姜宁 ningjiang AT apache.org
    + 所需技能: Java, docker, 一颗好奇的心
