@@ -118,28 +118,26 @@ gvt restore
 发布版本前，首先确定该版本所有的 apache issues 都已经关闭， 并且
 登录 [apache issue 网站](https://issues.apache.org/jira/projects/SCB)， 点击发布， 生成该版本的 release notes。 
 
-***准备待发布版本***
+* ***准备待发布版本***
 
-clone 需要发布版本的分支到开发环境（比如 master）， 修改版本号， 并提交代码到仓库。假设当前版本为 `2.0.0-SNAPSHOT`，发布版
-本为 `2.0.0`。
+  clone 需要发布版本的分支到开发环境（比如 master）， 修改版本号， 并提交代码到仓库。
+  假设当前版本为 `2.0.0-SNAPSHOT`，发布版本为 `2.0.0`。 执行：
 
-执行：
+        ```
+        mvn versions:set -DgenerateBackupPoms=false -DnewVersion=2.0.0
+        ```
+        
+  然后执行：
 
-```shell script
-mvn versions:set -DgenerateBackupPoms=false -DnewVersion=2.0.0
-```
+        ```
+        mvn clean install -Pit
+        ```
+        
+  如果编译成功，可以提交PR，代码检视通过后合入仓库。
 
-然后执行：
+* ***进行软件包发布***
 
-```shell script
-mvn clean install -Pit
-```
-
-如果编译成功，可以提交PR，代码检视通过后合入仓库。
-
-***进行软件包发布***
-
-需要准备 Linux 开发环境，并确保网络能够往 maven 中央库上传文件。
+  需要准备 Linux 开发环境，并确保网络能够往 maven 中央库上传文件。
 
 1. 如果 `~/.gnupg` 中没有GPG密钥文件，则将GPG密钥文件拷贝至 `~/.gnupg` 文件夹。 文件列表如下：
 
@@ -161,10 +159,16 @@ mvn clean install -Pit
         git clone https://github.com/apache/servicecomb-java-chassis.git
         ```
    
-5. 运行以下命令
+5. 运行以下命令。运行过程中可能需要输入 gpg 密码，
 
         ```
-        mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+        mvn clean deploy -DskipTests -Prelease -Pdistribution
+        ```
+        
+    如果提示 gpg 失败， 尝试执行下面的命令后，重新执行上面的命令：
+
+        ```
+        export GPG_TTY=$(tty)
         ```
 
 6. 如果执行失败，需要解决问题。 并参考第7步`drop`临时仓库，重新执行第5步。
@@ -176,7 +180,7 @@ mvn clean install -Pit
 
 8. 在 servicecomb-java-chassis 的 github 的 release 页面，点击 release， 发布 pre release 版本， 打上 tag 。
 
-***给发行包签名***
+* ***给发行包签名***
 
 1. 从临时仓库下载二进制包及签名， 例如：
  
@@ -195,7 +199,7 @@ mvn clean install -Pit
 3. 生成二进制包和源码包的校验和，例如：
 
         ```
-        sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip > apache-servicecomb-java-chassis-distribution-1.2.0-bin.zi.sha512  
+        sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip > apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip.sha512  
         sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-src.zip > apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.sha512  
         ```  
 
@@ -212,7 +216,7 @@ mvn clean install -Pit
 
 5. 从SVN下载发行包，验证签名和校验。
 
-***PMC批准***
+* ***PMC批准***
 
 1. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
 
@@ -221,7 +225,7 @@ mvn clean install -Pit
 
 3. 将投票结果发布到dev@servicecomb.apache.org。
 
-***更新文档和通告***
+* ***更新文档和通告***
 
 1. 在 servicecomb-java-chassis 的 github 的 release 页面，将 pre release 修改为正式 release。完成 release notes书写。
 

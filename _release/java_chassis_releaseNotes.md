@@ -9,6 +9,101 @@ last_modified_at: 2019-04-12T00:50:43-55:00
 
 
 
+        Release Notes - Apache ServiceComb - Version java-chassis-2.1.0
+            
+<h2>        Bug
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1930'>SCB-1930</a>] -         When MicroserivceVersions.setInstances continues fail will cause OOM
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1931'>SCB-1931</a>] -         fix consumer flag in MicroserviceMeta
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1937'>SCB-1937</a>] -         fix integration test(TestAsyncInvoke) always timeout problem
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1976'>SCB-1976</a>] -         fix loadbalance error when v1 got a operation a and v2 do not 
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2017'>SCB-2017</a>] -         fix invoke with appid and highway throw error
+</li>
+</ul>
+            
+<h2>        New Feature
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1650'>SCB-1650</a>] -         discovery schema from instancies directly
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1739'>SCB-1739</a>] -         separate swagger registry and dicovery from instance registry and discovery
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1774'>SCB-1774</a>] -         As a developer, I want to run small apllications without service-center
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1913'>SCB-1913</a>] -         Zero-Config Service Registry
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1933'>SCB-1933</a>] -         support configure multiple registries
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1963'>SCB-1963</a>] -         provide local registry: regitration and disovery
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2020'>SCB-2020</a>] -         support @Example to add examples to API
+</li>
+</ul>
+    
+<h2>        Improvement
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1876'>SCB-1876</a>] -         refactor: registry depends on core and core do not depend on registry
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1886'>SCB-1886</a>] -         use http for default service center address
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1891'>SCB-1891</a>] -         separate local registry and service center registry
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1896'>SCB-1896</a>] -         improve demo test case for testing http headers
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1924'>SCB-1924</a>] -         invocation context provide transport context
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1925'>SCB-1925</a>] -         provide a util to convert url to endpoint format
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1926'>SCB-1926</a>] -         enhance CommonExceptionData to include more common data
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1936'>SCB-1936</a>] -         change findbug dependency to provided
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1941'>SCB-1941</a>] -         MicroserviceMeta only need to has consumer or producer handlers, not both
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1945'>SCB-1945</a>] -         support zipkin with log4j2
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1960'>SCB-1960</a>] -         delete spring-boot-starter-discovery and spring-boot-starter-gateway
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1973'>SCB-1973</a>] -         fix problem in file download and config document
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1990'>SCB-1990</a>] -         allow disable metrics endpoints by configuration
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1998'>SCB-1998</a>] -         support Endpoint as a context parameter
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2005'>SCB-2005</a>] -         dependency update: upgrade slf4j from 1.7.26 to 1.7.30
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2006'>SCB-2006</a>] -         dependency update: remove log4j2 from solution-basic and upgrade from 2.12.0 to 2.13.2
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2009'>SCB-2009</a>] -         dependency update: remove jakarta.el dependency and make it optional
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2010'>SCB-2010</a>] -         dependency update: upgrade swagger-core from 1.5.22 to 1.5.24
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2013'>SCB-2013</a>] -         dependency update: upgrade spring framework from 5.1.8 to 5.1.14
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2014'>SCB-2014</a>] -         dependency update: upgrade vert.x from 3.8.3 to 3.8.5
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2015'>SCB-2015</a>] -         remove not used dependency management for jedis
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2018'>SCB-2018</a>] -         dependency update: upgrade tcnative from 2.0.28 to 2.0.31
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2019'>SCB-2019</a>] -         update gateway documents for zuul to use spring cloud huawei
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2024'>SCB-2024</a>] -         support not resolve place holder when running in spring boot 
+</li>
+</ul>
+
+<h2>       More Information
+</h2>
+<ul><li>
+Upgrading guides are avainable at  [<a href='https://docs.servicecomb.io/java-chassis/zh_CN/featured-topics/upgrading/'>ServiceComb Java Chassis Developers Guide</a>] </li></ul>                                                                                                     
+
+
         Release Notes - Apache ServiceComb - Version java-chassis-2.0.2
          
 <h2>        Bug
