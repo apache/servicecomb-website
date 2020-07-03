@@ -28,13 +28,17 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | seanyinx          |  Yin Xiang (Sean)       |  Syswin       |  *   |
 | tnachen           |  Timothy Chen           |  Hyperpilot   |  *   |
 | wujimin           |  Wu Jimin               |  Huawei       |  *   |
-| yaohaishi         |  Yao Haishi             |  Huawei       |      |
+| yaohaishi         |  Yao Haishi             |  Huawei       |  *   |
 | yangbor           |  Yang Bo                |  Huawei       |  *   |
 | zenlinTechnofreak |  Lin Zhinan             |  Huawei       |  *   |
 | zhangqi           |  Zhang qi               |  Huawei       |  *   |
 | zhengyangyong     |  Zheng Yangyong         |  Huawei       |  *   |
 | zhfeng            |  Feng Zheng             |  Redhat       |  *   |
 | zhanglei          |  Zhang Lei              |               |      |
+| sunlinsen         |  Sun lisen              |  Chinasofti   |      |
+| zhuchen           |  Chen Zhu               |  Chinasofti   |      |
+| humingcheng       |  Hu Mingcheng           |  Huawei       |      |
+
 
 
 * Contributors:

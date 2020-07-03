@@ -27,13 +27,16 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | seanyinx          |  Yin Xiang (Sean)       |  Syswin       |  *   |
 | tnachen           |  Timothy Chen           |  Hyperpilot   |  *   |
 | wujimin           |  Wu Jimin               |  Huawei       |  *   |
-| yaohaishi         |  Yao Haishi             |  Huawei       |      |
+| yaohaishi         |  Yao Haishi             |  Huawei       |  *   |
 | yangbor           |  Yang Bo                |  Huawei       |  *   |
 | zenlinTechnofreak |  Lin Zhinan             |  Huawei       |  *   |
 | zhangqi           |  Zhang qi               |  Huawei       |  *   |
 | zhengyangyong     |  Zheng Yangyong         |  Huawei       |  *   |
 | zhfeng            |  Feng Zheng             |  Redhat       |  *   |
 | zhanglei          |  Zhang Lei              |               |      |
+| sunlinsen         |  Sun lisen              |  Chinasofti   |      |
+| zhuchen           |  Chen Zhu               |  Chinasofti   |      |
+| humingcheng       |  Hu Mingcheng           |  Huawei       |      |
 
 * Contributors:
 
