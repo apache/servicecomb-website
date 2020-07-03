@@ -615,27 +615,33 @@ gvt restore
 <p>发布版本前，首先确定该版本所有的 apache issues 都已经关闭， 并且
 登录 <a href="https://issues.apache.org/jira/projects/SCB">apache issue 网站</a>， 点击发布， 生成该版本的 release notes。</p>
 
-<p><strong><em>准备待发布版本</em></strong></p>
+<ul>
+  <li>
+    <p><strong><em>准备待发布版本</em></strong></p>
 
-<p>clone 需要发布版本的分支到开发环境（比如 master）， 修改版本号， 并提交代码到仓库。假设当前版本为 <code class="highlighter-rouge">2.0.0-SNAPSHOT</code>，发布版
-本为 <code class="highlighter-rouge">2.0.0</code>。</p>
+    <p>clone 需要发布版本的分支到开发环境（比如 master）， 修改版本号， 并提交代码到仓库。
+假设当前版本为 <code class="highlighter-rouge">2.0.0-SNAPSHOT</code>，发布版本为 <code class="highlighter-rouge">2.0.0</code>。 执行：</p>
 
-<p>执行：</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ```
+  mvn versions:set -DgenerateBackupPoms=false -DnewVersion=2.0.0
+  ```
+</code></pre></div>    </div>
 
-<p>```shell script
-mvn versions:set -DgenerateBackupPoms=false -DnewVersion=2.0.0</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-然后执行：
+    <p>然后执行：</p>
 
-```shell script
-mvn clean install -Pit
-</code></pre></div></div>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ```
+  mvn clean install -Pit
+  ```
+</code></pre></div>    </div>
 
-<p>如果编译成功，可以提交PR，代码检视通过后合入仓库。</p>
+    <p>如果编译成功，可以提交PR，代码检视通过后合入仓库。</p>
+  </li>
+  <li>
+    <p><strong><em>进行软件包发布</em></strong></p>
 
-<p><strong><em>进行软件包发布</em></strong></p>
-
-<p>需要准备 Linux 开发环境，并确保网络能够往 maven 中央库上传文件。</p>
+    <p>需要准备 Linux 开发环境，并确保网络能够往 maven 中央库上传文件。</p>
+  </li>
+</ul>
 
 <ol>
   <li>
@@ -665,10 +671,17 @@ mvn clean install -Pit
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>运行以下命令</p>
+    <p>运行以下命令。运行过程中可能需要输入 gpg 密码，</p>
 
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
- mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+ mvn clean deploy -DskipTests -Prelease -Pdistribution
+ ```
+</code></pre></div>    </div>
+
+    <p>如果提示 gpg 失败， 尝试执行下面的命令后，重新执行上面的命令：</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+ export GPG_TTY=$(tty)
  ```
 </code></pre></div>    </div>
   </li>
@@ -686,7 +699,9 @@ mvn clean install -Pit
   </li>
 </ol>
 
-<p><strong><em>给发行包签名</em></strong></p>
+<ul>
+  <li><strong><em>给发行包签名</em></strong></li>
+</ul>
 
 <ol>
   <li>
@@ -711,7 +726,7 @@ mvn clean install -Pit
     <p>生成二进制包和源码包的校验和，例如：</p>
 
     <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
- sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip &gt; apache-servicecomb-java-chassis-distribution-1.2.0-bin.zi.sha512  
+ sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip &gt; apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip.sha512  
  sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-src.zip &gt; apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.sha512  
  ```  
 </code></pre></div>    </div>
@@ -734,7 +749,9 @@ mvn clean install -Pit
   </li>
 </ol>
 
-<p><strong><em>PMC批准</em></strong></p>
+<ul>
+  <li><strong><em>PMC批准</em></strong></li>
+</ul>
 
 <ol>
   <li>
@@ -749,7 +766,9 @@ mvn clean install -Pit
   </li>
 </ol>
 
-<p><strong><em>更新文档和通告</em></strong></p>
+<ul>
+  <li><strong><em>更新文档和通告</em></strong></li>
+</ul>
 
 <ol>
   <li>
