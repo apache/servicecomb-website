@@ -12,13 +12,14 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 
 * Committers
 
-| Apache ID         |         Name            |  Organization | PPMC |
+| Apache ID         |         Name            |  Organization |  PMC |
 | ----------------- | ----------------------- | ------------- | ---- |
 | acsukesh          |  Sukesh A C             |  Huawei       |  *   |
 | asifdxtream       |  Mohammad Asif Siddiqui |  Huawei       |  *   |
 | chanjarster       |  Daniel Qian            |  NewCapec     |      |
 | cherrylzhao       |  Zhao Jun               |  JD.com       |      |
 | ericlee           |  Li Dagang (Eric)       |  Tencent      |  *   |
+| humingcheng       |  Hu Mingcheng           |  Huawei       |      |
 | jbonofre          |  Jean-Baptiste Onofre   |  Talend       |  *   |
 | liubao68          |  Liu Bao                |  Huawei       |  *   |
 | little-cui        |  Cui Yihua              |  Huawei       |  *   |
@@ -32,12 +33,13 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | yangbor           |  Yang Bo                |  Huawei       |  *   |
 | zenlinTechnofreak |  Lin Zhinan             |  Huawei       |  *   |
 | zhangqi           |  Zhang qi               |  Huawei       |  *   |
-| zhengyangyong     |  Zheng Yangyong         |  Huawei       |  *   |
+| zhaojun           |  Zhao Jun               |  JD.com       |      |
+| zhengyangyong     |  Zheng Yangyong         |               |  *   |
 | zhfeng            |  Feng Zheng             |  Redhat       |  *   |
 | zhanglei          |  Zhang Lei              |               |      |
 | sunlinsen         |  Sun lisen              |  Chinasofti   |      |
 | zhuchen           |  Chen Zhu               |  Chinasofti   |      |
-| humingcheng       |  Hu Mingcheng           |  Huawei       |      |
+
 
 
 
@@ -69,7 +71,6 @@ This page lists who we are. By all means add yourself to the list - lets sort it
 | wuzunqian         | Wu Zunqian             | Yongyou      |
 | xuyiyun0929       | Xu Yiyun               |              |
 | xiaoyimei         | Xiao Yimei             | Changhong    |
-| yhs0092           |                        |              |
 | zhanglongchun     | Zhang LongChun         |              |
 | zhang2014         | Zhang Jian             | OneAPM       |
 | zhuhoudong        | Zhu Houdong            |              |
