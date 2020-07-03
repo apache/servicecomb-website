@@ -18,6 +18,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | chanjarster       |  Daniel Qian            |  NewCapec     |      |
 | cherrylzhao       |  Zhao Jun               |  JD.com       |      |
 | ericlee           |  Li Dagang (Eric)       |  Tencent      |  *   |
+| humingcheng       |  Hu Mingcheng           |  Huawei       |      |
 | jbonofre          |  Jean-Baptiste Onofre   |  Talend       |  *   |
 | liubao68          |  Liu Bao                |  Huawei       |  *   |
 | little-cui        |  Cui Yihua              |  Huawei       |  *   |
@@ -27,13 +28,16 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | seanyinx          |  Yin Xiang (Sean)       |  Syswin       |  *   |
 | tnachen           |  Timothy Chen           |  Hyperpilot   |  *   |
 | wujimin           |  Wu Jimin               |  Huawei       |  *   |
-| yaohaishi         |  Yao Haishi             |  Huawei       |      |
+| yaohaishi         |  Yao Haishi             |  Huawei       |  *   |
 | yangbor           |  Yang Bo                |  Huawei       |  *   |
 | zenlinTechnofreak |  Lin Zhinan             |  Huawei       |  *   |
 | zhangqi           |  Zhang qi               |  Huawei       |  *   |
-| zhengyangyong     |  Zheng Yangyong         |  Huawei       |  *   |
+| zhaojun           |  Zhao Jun               |  JD.com       |      |
+| zhengyangyong     |  Zheng Yangyong         |               |  *   |
 | zhfeng            |  Feng Zheng             |  Redhat       |  *   |
 | zhanglei          |  Zhang Lei              |               |      |
+| sunlinsen         |  Sun lisen              |  Chinasofti   |      |
+| zhuchen           |  Chen Zhu               |  Chinasofti   |      |
 
 * Contributors:
 
@@ -43,7 +47,7 @@ last_modified_at: 2018-06-01T19:18:43+08:00
 | crystaldust       | Ju Zheng               | Huawei       |
 | imlidian          | Li Dian                | Huawei       |
 | imlijinting       | Li Jinting             | PICC         |
-| jeremyxu2010      | Xu Xinjie              | Tencent      | 
+| jeremyxu2010      | Xu Xinjie              | Tencent      |
 | jyseanl           | Sean Li                | Pactera      |
 | KomachiSion       | Yang Yi                | JD.com       |
 | laijianbin        | Lai Jianbin            |              |
