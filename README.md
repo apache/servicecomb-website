@@ -1,5 +1,5 @@
 # ServiceComb Website
-The Web Site of ServiceComb is based on [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/).
+The Web Site of ServiceComb is based on the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/).
 
 # NOTE for PR
 As this website is using the [gitpubsub](https://www.apache.org/dev/project-site.html) and we use Jekyll to generate the site.
