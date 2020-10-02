@@ -1,4 +1,4 @@
-# ServiceComb Website
+# ServiceComb Website - Only Quality Matters in this Project
 The Web Site of ServiceComb is based on [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/).
 
 # NOTE for PR
