@@ -15,7 +15,7 @@ last_modified_at: 2017-06-24T18:48:43+08:00
 * **JDK 1.8**，安装详情可参考[JDK安装教程](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html){:target="_blank"}
 * **Maven 3.x**，安装详情可参考[Maven安装教程](https://maven.apache.org/install.html){:target="_blank"}
 * **Docker**，安装详情可参考[Docker 安装教程](https://docs.docker.com/engine/installation/){:target="_blank"}
-* **Service Center**, 安装详情可参考[Service Center安装教程](/cn/docs/service-center/install/)
+* **Service Center**, 安装详情可参考[Service Center安装教程](/cn/docs/products/service-center/install)
 * **IntelliJ Idea IDE**(可选，您可以使用其他心仪的IDE，如eclipse)，安装详情可参考[IntelliJ安装教程](https://www.jetbrains.com/help/idea/installing-and-launching.html){:target="_blank"}
 
 ## Git配置
