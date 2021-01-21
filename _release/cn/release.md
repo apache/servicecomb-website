@@ -20,7 +20,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 * [ServiceComb toolkit 0.2.0](/cn/release/toolkit-downloads/) (released on 2020-01-05)
 
-* [ServiceComb Java-Chassis 2.1.2](/cn/release/java-chassis-downloads/) (released on 2020-10-31)
+* [ServiceComb Java-Chassis 2.1.5](/cn/release/java-chassis-downloads/) (released on 2021-01-20)
 
 * [ServiceComb Saga Actuator 0.3.0](/cn/release/saga-actuator-downloads/) (released on 2018-12-18)
 
@@ -38,12 +38,12 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 * [ServiceComb Service-Center 1.0.0-m2](/cn/release/service-center-downloads/) (released on 2018-06-21)
 * [ServiceComb Service-Center 1.0.0-m1](/cn/release/service-center-downloads/) (released on 2018-03-27)
 
+* [ServiceComb Java-Chassis 2.1.3](/cn/release/java-chassis-downloads/) (released on 2020-11-30)
+* [ServiceComb Java-Chassis 2.1.2](/cn/release/java-chassis-downloads/) (released on 2020-10-31)
 * [ServiceComb Java-Chassis 2.1.0](/cn/release/java-chassis-downloads/) (released on 2020-06-31)
 * [ServiceComb Java-Chassis 2.0.2](/cn/release/java-chassis-downloads/) (released on 2020-05-12)
 * [ServiceComb Java-Chassis 2.0.1](/cn/release/java-chassis-downloads/) (released on 2020-03-27)
 * [ServiceComb Java-Chassis 2.0.0](/cn/release/java-chassis-downloads/) (released on 2020-02-20)
-* [ServiceComb Java-Chassis 1.3.1](/cn/release/java-chassis-downloads/) (released on 2020-10-31)
-* [ServiceComb Java-Chassis 1.3.0](/cn/release/java-chassis-downloads/) (released on 2019-10-31)
 
 * [ServiceComb Pack 0.5.0](/cn/release/pack-downloads/) (released on 2019-08-26)
 * [ServiceComb Pack 0.4.0](/cn/release/pack-downloads/) (released on 2019-04-06)

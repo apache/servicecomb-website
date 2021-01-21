@@ -28,7 +28,7 @@ intro:
     <a href='/release/pack-downloads'>Apache ServiceComb Pack 0.6.0 is released</a>
   </li>
   <li>
-    <a href='/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis Release Version 2.1.2</a>
+    <a href='/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis Release Version 2.1.5</a>
   </li>
   <li>
     <a href='/release/service-center-downloads/'>Apache ServiceComb Service-Center Release Version 1.3.0</a>
