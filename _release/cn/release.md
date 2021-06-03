@@ -4,7 +4,7 @@ lang: cn
 ref: release
 permalink: /cn/release/
 excerpt: "ServiceComb Releases"
-last_modified_at: 2019-04-06T00:50:43-55:00
+last_modified_at: 2021-06-04T00:50:43-55:00
 ---
 
 使用以下链接从我们的一个镜像下载ServiceComb工具包版本。 您必须使用从我们的主分发目录下载的签名来验证下载文件的完整性。
@@ -16,7 +16,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 * [ServiceComb Pack 0.6.0](/cn/release/pack-downloads/) (released on 2020-05-26)
 
-* [ServiceComb Service-Center 1.3.0](/cn/release/service-center-downloads/) (released on 2019-11-07)
+* [ServiceComb Service-Center 2.0.0](/cn/release/service-center-downloads/) (released on 2021-06-04)
 
 * [ServiceComb toolkit 0.2.0](/cn/release/toolkit-downloads/) (released on 2020-01-05)
 
@@ -32,6 +32,7 @@ last_modified_at: 2019-04-06T00:50:43-55:00
 
 **先前发行版本 :**
 
+* [ServiceComb Service-Center 1.3.0](/cn/release/service-center-downloads/) (released on 2019-11-07)
 * [ServiceComb Service-Center 1.2.0](/cn/release/service-center-downloads/) (released on 2019-04-06)
 * [ServiceComb Service-Center 1.1.0](/cn/release/service-center-downloads/) (released on 2018-11-30)
 * [ServiceComb Service-Center 1.0.0](/cn/release/service-center-downloads/) (released on 2018-08-02)

@@ -13,14 +13,14 @@ ServiceCenter是一个服务注册中心。 服务提供者可以将自身的实
  
 ## 版本发布包启动
 1. 下载 [最新版本的Service-Center](/cn/release/service-center-downloads/)  
-   此处使用了 apache-servicecomb-service-center-1.3.0-linux-amd64.tar.gz 包做介绍，实际操作时请根据系统环境从下载页面选取最新版本 
+   此处使用了 apache-servicecomb-service-center-2.0.0-linux-amd64.tar.gz 包做介绍，实际操作时请根据系统环境从下载页面选取最新版本 
 2. 启动服务
    ```bash
    # 解压tar包
-   $ tar -zxvf  apache-servicecomb-service-center-1.3.0-linux-amd64.tar.gz
+   $ tar -zxvf  apache-servicecomb-service-center-2.0.0-linux-amd64.tar.gz
    
    # 启动servicecenter服务
-   $ cd apache-servicecomb-service-center-1.3.0-linux-amd64/
+   $ cd apache-servicecomb-service-center-2.0.0-linux-amd64/
    $ ./start-service-center.sh
    ```
 3. 查看服务状态
