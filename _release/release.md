@@ -4,7 +4,7 @@ lang: en
 ref: release
 permalink: /release/
 excerpt: "ServiceComb Releases"
-last_modified_at: 2019-04-06T00:50:43-55:00
+last_modified_at: 2021-06-04T00:50:43-55:00
 ---
 
 Use the links below to download the ServiceComb toolkits releases from one of our mirrors. You must verify the integrity of the downloaded files using signatures downloaded from our main distribution directory.
@@ -16,7 +16,7 @@ Only current recommended releases are available on the main distribution site an
 
 * [ServiceComb Pack 0.6.0](/release/pack-downloads/) (released on 2020-05-26)
 
-* [ServiceComb Service-Center 1.3.0](/release/service-center-downloads/) (released on 2019-11-07)
+* [ServiceComb Service-Center 2.0.0](/release/service-center-downloads/) (released on 2021-06-04)
 
 * [ServiceComb toolkit 0.2.0](/release/toolkit-downloads/) (released on 2020-01-05)
 
@@ -31,6 +31,7 @@ Only current recommended releases are available on the main distribution site an
 * [ServiceComb Kie 0.1.0](/release/kie-downloads/) (released on 2019-10-26)
 
 **Earlier Releases :**
+* [ServiceComb Service-Center 1.3.0](/release/service-center-downloads/) (released on 2019-11-07)
 * [ServiceComb Service-Center 1.2.0](/release/service-center-downloads/) (released on 2019-04-06)
 * [ServiceComb Service-Center 1.1.0](/release/service-center-downloads/) (released on 2018-11-30)
 * [ServiceComb Service-Center 1.0.0](/release/service-center-downloads/) (released on 2018-08-02)
