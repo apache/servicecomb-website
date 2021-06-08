@@ -13,14 +13,14 @@ ServiceCenter is a service registry. The service provider can register its own i
  
 ## Run with release package
 1. Download [the latest release package of Service-Center](/release/service-center-downloads/)  
-   This example uses  apache-servicecomb-service-center-1.3.0-linux-amd64.tar.gz  
+   This example uses  apache-servicecomb-service-center-2.0.0-linux-amd64.tar.gz  
 2. Start service-center
    ```bash
    # Decompression the package
-   $ tar -zxvf  apache-servicecomb-service-center-1.3.0-linux-amd64.tar.gz
+   $ tar -zxvf  apache-servicecomb-service-center-2.0.0-linux-amd64.tar.gz
    
    # Start the service of servicecenter
-   $ cd apache-servicecomb-service-center-1.3.0-linux-amd64/
+   $ cd apache-servicecomb-service-center-2.0.0-linux-amd64/
    $ ./start-service-center.sh
    ```
 3. View service status
