@@ -18,7 +18,7 @@ redirect_from:
 
 ## 写在前面
 
-[开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 的前身为华为云的 [微服务引擎 CSE (Cloud Service Engine) 云服务](https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html),  ServiceComb 的早期版本和多数第一批做微服务或分布式框架先贤一样，为了追求高性能，做过非常多如 改善编码效率 和改进通信协议等尝试。然而，随着业务规模的递增，需求也逐渐呈现多样化，单方面通过传统手段追求高性能导致在面对多样化需求时遇到了各种挑战，遗留系统的通信、接入各种不同的终端、协议健壮性、防攻击等各种挑战迎面而来。
+[开源微服务框架 Apache ServiceComb][servicecomb] 的前身为华为云的 [微服务引擎 CSE (Cloud Service Engine) 云服务](https://support.huaweicloud.com/devg-servicestage/ss-devg-0002.html),  ServiceComb 的早期版本和多数第一批做微服务或分布式框架先贤一样，为了追求高性能，做过非常多如 改善编码效率 和改进通信协议等尝试。然而，随着业务规模的递增，需求也逐渐呈现多样化，单方面通过传统手段追求高性能导致在面对多样化需求时遇到了各种挑战，遗留系统的通信、接入各种不同的终端、协议健壮性、防攻击等各种挑战迎面而来。
 
 Apache ServiceComb，愿景是帮助企业快速构建云原生应用，通过一系列解决方案帮助用户快速开发微服务应用的同时实现对这些微服务应用的高效运维管理，保持中立性以避免厂商LockIn成为了关键任务。对于此， Apache ServiceComb 需要有友好的机制能够对接各微服务主流技术栈技术 或 开发框架。
 
@@ -34,7 +34,7 @@ Apache ServiceComb，愿景是帮助企业快速构建云原生应用，通过�
 
 每位技术人员都或多或少拥有自己的 Coding 习惯或爱好的技术， 使用个人熟练的方式从事技术工作往往更加高效和舒适。
 
-[开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 的早期版本实现了 gRPC 协议，然而在项目演进过程中我们发现大量技术人员并不熟悉书写 IDL ， 对 IDL 具体支持哪些特性也不清楚。 大多数情况下，用户每碰到一个场景就需要翻开协议规范看一遍， 而 IDL 缺少配套的编辑或语法检查等工具也导致了开发效率的降低。
+[开源微服务框架 Apache ServiceComb][servicecomb] 的早期版本实现了 gRPC 协议，然而在项目演进过程中我们发现大量技术人员并不熟悉书写 IDL ， 对 IDL 具体支持哪些特性也不清楚。 大多数情况下，用户每碰到一个场景就需要翻开协议规范看一遍， 而 IDL 缺少配套的编辑或语法检查等工具也导致了开发效率的降低。
 
 于是 Apache ServiceComb 设计团队开始思考是否有方法能够在确保保持用户开发习惯的前提下支持 gRPC 。
 
@@ -68,7 +68,7 @@ public class HelloImpl implements Hello{
 
 **JAX-RS 方式的 Provider**
 
-*代码片段来自于 [Apache ServiceComb JAX-RS sample](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/jaxrs-sample)*
+*代码片段来自于 [Apache ServiceComb JAX-RS sample](https://github.com/apache/servicecomb-samples/tree/master/java-chassis-samples/jaxrs-sample)*
 
 ```java
 @RestSchema(schemaId="jaxrsHello")
@@ -94,7 +94,7 @@ public class JaxrsHelloImpl implements Hello{
 
 **Spring MVC 方式的 Provider**
 
-*代码片段来自于 [Apache ServiceComb Spring MVC sample](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/springmvc-sample)*
+*代码片段来自于 [Apache ServiceComb Spring MVC sample](https://github.com/apache/servicecomb-samples/tree/master/java-chassis-samples/springmvc-sample)*
 
 ```java
 @RestSchema(schemaId="springmvcHello")
@@ -123,11 +123,11 @@ private Hello hello;
 System.out.println(hello.sayHi("JavaChassis"));
 ```
 
-*以上代码片段全部出自 [Apache ServiceComb Samples](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/samples/)，有兴趣者可阅读了解或贡献更多的智慧。*
+*以上代码片段全部出自 [Apache ServiceComb Samples](https://github.com/apache/servicecomb-samples/tree/master/java-chassis-samples/)，有兴趣者可阅读了解或贡献更多的智慧。*
 
 直至此处，或许开发者会产生疑问，既然 Consumer 可以通过一致的 API 方式访问不同的Provider，为何还需要额外的 JAX-RS 和 Spring MVC 标签？
 
-原因是，这里的设计依据是 [Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/)的 Consumer考虑的不仅限于 类SDK 的 Consumer，还有浏览器等非 SDK 类的 Consumer，浏览器的 Conumer 识别的是 Http 形式的消息。 通过定义和使用这些标签， 我们可以更加精细的指定浏览器如何访问后台接口。 类似于 Web Service 的 WSDL 描述语言， Apache ServiceComb 称之为[服务契约](http://servicecomb.incubator.apache.org/cn/users/service-contract/)。
+原因是，这里的设计依据是 [Apache ServiceComb][servicecomb] 的 Consumer考虑的不仅限于 类SDK 的 Consumer，还有浏览器等非 SDK 类的 Consumer，浏览器的 Conumer 识别的是 Http 形式的消息。 通过定义和使用这些标签， 我们可以更加精细的指定浏览器如何访问后台接口。 类似于 Web Service 的 WSDL 描述语言， Apache ServiceComb 称之为[服务契约](http://servicecomb.incubator.apache.org/cn/users/service-contract/)。
 
 服务的契约会在服务运行时通过代码定义自动生成，并注册到[服务中心](https://github.com/apache/incubator-servicecomb-service-center)。契约也可在运行时用于独立的服务治理逻辑开发，生成 Consumer 代码。此外，也可作为 API 文档对外发布，供非 SDK 的 Consumer 参考。
 
@@ -137,7 +137,7 @@ System.out.println(hello.sayHi("JavaChassis"));
 
 微服务的一个开发团队通常由5~6个人的全功能团队组成，端到端的完成 场景需求分析、架构功能设计、开发和运维，团队组织结构和业务系统的架构相匹配。团队建立后的核心问题就是团队之间如何进行高效的协作沟通，以决定不同微服务之间的协作通信。
 
-[Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 通过确保让开发人员保持自己的固有编程习惯及设计上的松耦合灵活性，让微服务团队之间可以进行高效协作，以避免在不同的微服务团队讨论编程风格受限于历史旧账而浪费宝贵的精力和时间。
+[Apache ServiceComb][servicecomb] 通过确保让开发人员保持自己的固有编程习惯及设计上的松耦合灵活性，让微服务团队之间可以进行高效协作，以避免在不同的微服务团队讨论编程风格受限于历史旧账而浪费宝贵的精力和时间。
 
 在 RPC 的世界里，有 Corda IDL，WSDL，ProtoBuffer 等可以参考的优秀实践， REST 风格的接口让团队之间可以通过 HTTP 语义进行沟通，但却不能像 IDL 一样描述跨语言的数据格式。Open API 的出现很好地解决了这个问题。
 
@@ -164,17 +164,17 @@ age:
   format:int32
 ```
 
-[开源微服务框架 Apache SerivceComb](http://servicecomb.incubator.apache.org/cn/) 既遵循常规开发规范也特别关注开发效率。开发者可以先写接口定义后写代码， 也可直接通过自己熟悉的方式编写写代码， 两种方式都会生成 [服务契约](http://servicecomb.incubator.apache.org/cn/users/service-contract/)（Open API 描述文件），并且将内容注册到[服务中心](https://github.com/apache/incubator-servicecomb-service-center)。使用者可以从服务中心下载相关的服务契约进行开发。 Apache ServiceComb 的各种治理结构也是基于契约的，可以让开发者独立于业务实现对系统进行统一的管控治理。
+[开源微服务框架 Apache SerivceComb][servicecomb] 既遵循常规开发规范也特别关注开发效率。开发者可以先写接口定义后写代码， 也可直接通过自己熟悉的方式编写写代码， 两种方式都会生成 [服务契约](http://servicecomb.incubator.apache.org/cn/users/service-contract/)（Open API 描述文件），并且将内容注册到[服务中心](https://github.com/apache/incubator-servicecomb-service-center)。使用者可以从服务中心下载相关的服务契约进行开发。 Apache ServiceComb 的各种治理结构也是基于契约的，可以让开发者独立于业务实现对系统进行统一的管控治理。
 
 ### 连接异构系统
 
-[开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 早期版本提供了gRPC、REST、SOAP等多种协议，当前主要[支持 REST 和Highway 高性能私有 RPC 两种协议](http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/)。
+[开源微服务框架 Apache ServiceComb][servicecomb] 早期版本提供了gRPC、REST、SOAP等多种协议，当前主要[支持 REST 和Highway 高性能私有 RPC 两种协议](http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/)。
 
 #### [Highway 高性能私有 RPC 协议](http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/#highway-rpc%E5%8D%8F%E8%AE%AE)
 
 gRPC 相对于 REST 的最显著优点就是性能，它采用长连接、高效的二进制序列化方式，提供多种语言支持， 提供了 IDL 语言约束开发者按照标准的方式工作， 一切看起来是那么的完美。
 
-实际上，[Apache ServiceComb ](http://servicecomb.incubator.apache.org/cn/)的第一轮重构，首选也是 gRPC 。历史第一次在[华为云 微服务引擎 CSE](https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html) 上线以后，面对了来自网关压力挑战。
+实际上，[Apache ServiceComb ][servicecomb] 的第一轮重构，首选也是 gRPC 。历史第一次在[华为云 微服务引擎 CSE](https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html) 上线以后，面对了来自网关压力挑战。
 
 网关作为业务接入端，必须高效的管理连接和保证公平，长连接容易导致拒绝服务。gRPC 程序开发完成后，开发人员无法利用系统提供的各种工具进行测试，网络包分析也变得困难，给生产环境上的开发联调造成了困难。随着业务规模的增长，gRPC 面临了诸如“其他三方系统如何与之直接通信？ 如何跨网关与它间接通信？”等更严峻的挑战。
 
@@ -186,7 +186,7 @@ REST 相较 gRPC ，最大的痛点是性能。
 
 多数技术人员脑海里一个不成文的根深蒂固的观点：”二进制编码效率远高于文本协议，采用二进制编码的系统的性能远高于采用文本的 HTTP ”。该观点甚至会让多数决策止步于理论，多数人甚至不愿尝试去优化 REST。
 
-可喜的是 [开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 迈出了重构 REST 底层通信实现的第一步，基于 Netty 的异步框架来替换 Tomcat 实现，实践的效果大大超出预期，部分基准测试数据结果显示比 gRPC 还好， gRPC最终输在了HTTP2 协议上的额外报文。
+可喜的是 [开源微服务框架 Apache ServiceComb][servicecomb] 迈出了重构 REST 底层通信实现的第一步，基于 Netty 的异步框架来替换 Tomcat 实现，实践的效果大大超出预期，部分基准测试数据结果显示比 gRPC 还好， gRPC最终输在了HTTP2 协议上的额外报文。
 
 优化后的 REST 和业界开源的其他基于二进制的 RPC 实现的性能基本持平。在一个简单的提供数据库查询的代码逻辑中，优化后的REST通信框架处理时间，占比总处理时间远小于千分之一，这意味着再继续在框架层面进行大量优化也抵不上业务应用层面最简单的一个操作带来的消耗，Apache ServiceComb对 REST 的优化已经满足要求，最终也选择了 [REST](http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/) 作为首选和缺省协议(HTTP + json)。
 
@@ -194,7 +194,7 @@ REST 相较 gRPC ，最大的痛点是性能。
 
 需要迁移到 [华为云 微服务引擎 CSE](https://support.huaweicloud.com/usermanual-servicestage/zh-cn_topic_0053812706.html)  的业务日益增长，部分历史遗留系统也需进行对接。通信协议对应不同的开发者接口，每每增加通信协议，则需要对业务代码进行大量的重复构建，造成大量无谓消耗。这是当时的华为云化转型以及当下很多云化转型企业或者云原生企业必将面临的痛点。
 
-于是乎，通信协议层被剥离了出来，和业务代码隔离，系统运行基于契约，[开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 实现通信协议扩展机制。通信协议扩展机制，帮助用户解决与 gRPC 框架、自定义二进制框架等许多遗留系统的对接通信问题。
+于是乎，通信协议层被剥离了出来，和业务代码隔离，系统运行基于契约，[开源微服务框架 Apache ServiceComb][servicecomb] 实现通信协议扩展机制。通信协议扩展机制，帮助用户解决与 gRPC 框架、自定义二进制框架等许多遗留系统的对接通信问题。
 
 在 Apache ServiceComb 框架中，[切换协议](http://servicecomb.incubator.apache.org/cn/users/communicate-protocol/)非常简单，不需要修改一行业务代码。多个协议共存也是允许的。
 
@@ -210,13 +210,13 @@ ServiceComb:
 
 ## 扩展性
 
-扩展性是系统进一步发展的基石。[开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 创造性地将扩展性拓展到 Provider 和 Consumer，让开发者拥有一致的开发体验。
+扩展性是系统进一步发展的基石。[开源微服务框架 Apache ServiceComb][servicecomb] 创造性地将扩展性拓展到 Provider 和 Consumer，让开发者拥有一致的开发体验。
 
 ### 内部系统结构
 
 连接开发者和通信协议层面已经让系统具备了很大的扩展性。微服务化给系统解耦、团队自治带来了很大的灵活性，加快了开发生产效率，但同时带来了服务管控的复杂性，在微服务领域，不得不考虑雪崩效应、调用跟踪、性能监控与分析等实际管控治理问题。
 
-基于服务契约，[开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 提供了[动态插拔扩展的处理链机制](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers)，并且为这些管控治理能力提供了默认实现，用户可以灵活插拔这些处理模块，或调整它们的顺序以应对不同的处理场景，或自行实现以增加新的处理模块。Provider 和 Consumer 都会经过该处理链，这给客户端治理功能开发带来了极大的便利性。Apache ServiceComb 的运行结构如下：
+基于服务契约，[开源微服务框架 Apache ServiceComb][servicecomb] 提供了[动态插拔扩展的处理链机制](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/handlers)，并且为这些管控治理能力提供了默认实现，用户可以灵活插拔这些处理模块，或调整它们的顺序以应对不同的处理场景，或自行实现以增加新的处理模块。Provider 和 Consumer 都会经过该处理链，这给客户端治理功能开发带来了极大的便利性。Apache ServiceComb 的运行结构如下：
 
 ![running-arch]({{ site.url }}{{ site.baseurl }}/assets/images/open-design-running-arch.png){: .align-center}    
 图1 Apache ServiceComb 运行时架构      
@@ -272,7 +272,7 @@ Consumer 编程模型的扩展，通过实现这个接口，可以适配不同�
 
 一个完整的业务系统不是使用RPC框架就算完成了，它们还需要其他的计算资源。对于一般的业务系统都需要访问数据库，或者基于 J2EE 的设施进行工作。
 
-[开源微服务框架 Apache ServiceComb](http://servicecomb.incubator.apache.org/cn/) 可以以轻量级的方式运行，也可集成到其他系统框架。下面的示意图说明了 Apache ServiceComb 的一些工作环境。
+[开源微服务框架 Apache ServiceComb][servicecomb] 可以以轻量级的方式运行，也可集成到其他系统框架。下面的示意图说明了 Apache ServiceComb 的一些工作环境。
 
 ![integrate-with-running-environment]({{ site.url }}{{ site.baseurl }}/assets/images/open-design-integrate-with-running-environment.png){: .align-center}     
 图3 Apache ServiceComb 运行环境集成      
@@ -282,7 +282,7 @@ Consumer 编程模型的扩展，通过实现这个接口，可以适配不同�
 - 若业务是基于 J2EE 来构建，那么 Apache ServiceComb 可以作为一个 Servlet ，运行于 Web 容器里面（如 Tomcat、Jetty 等）。
 - 若业务基于 Spring Boot 生态构建，Apache ServiceComb 可作为一个starter对外提供 REST 服务，开发者可以自由使用其他基于 Spring Boot 的功能。
 
-由于 Apache ServiceComb 使用了Spring，因此天然继承了Spring的原有优势，可和很多通用的组件很好的集成，如 mybatis、JPA 等。各种集成方式，都可以从[ServiceComb官网](http://servicecomb.incubator.apache.org/cn/)或者[ServiceComb 示例库](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/demo)找到对应的例子。
+由于 Apache ServiceComb 使用了Spring，因此天然继承了Spring的原有优势，可和很多通用的组件很好的集成，如 mybatis、JPA 等。各种集成方式，都可以从[ServiceComb官网][servicecomb]或者[ServiceComb 示例库](https://github.com/apache/incubator-servicecomb-java-chassis/tree/master/demo)找到对应的例子。
 
 ## 写在最后
 
@@ -298,7 +298,7 @@ Consumer 编程模型的扩展，通过实现这个接口，可以适配不同�
 
 [1] 开源微服务框架 Apache ServiceComb 官网
 
-[http://servicecomb.incubator.apache.org/cn/](http://servicecomb.incubator.apache.org/cn/)
+[http://servicecomb.incubator.apache.org/cn/][servicecomb]
 
 [2] 开源微服务框架 Apache ServiceComb 代码
 
@@ -312,8 +312,8 @@ Consumer 编程模型的扩展，通过实现这个接口，可以适配不同�
 
 入口 [https://www.huaweicloud.com/product/cse.html](https://www.huaweicloud.com/product/cse.html)
 
-资料 [http://support.huaweicloud.com/cse_dld/index.html](http://support.huaweicloud.com/cse_dld/index.html)
+资料 [https://support.huaweicloud.com/devg-servicestage/ss-devg-0002.html](https://support.huaweicloud.com/devg-servicestage/ss-devg-0002.html)
 
 
-
+[servicecomb]: http://servicecomb.apache.org/cn/
  
