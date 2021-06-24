@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>FAQ - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "FAQ";
+    var mkdocs_page_input_path = "question-and-answer/faq.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/terminology.html">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/architecture.html">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/development-environment.html">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/first-sample.html">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/define-contract.html">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/code-first.html">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/swagger-annotation.html">Use Swagger annotations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/springmvc.html">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/jaxrs.html">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/transparent-rpc.html">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/interface-constraints.html">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/listen-address-and-publish-address.html">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/thread-pool.html">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/ratelimite-strategy.html">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/downgrade-strategy.html">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/parameter-validator.html">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/bootup.html">Boot-up Process</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/access-log-configuration.html">Access Log Configuration</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/common-configuration.html">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-resttemplate.html">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-AsyncRestTemplate.html">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/develop-consumer-using-rpc.html">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/with-contract.html">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/circuit-breaker.html">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/flow-control.html">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/fault-injection.html">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/3rd-party-service-invoke.html">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/visit-sc.html">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/metrics.html">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/microservice-invocation-chain.html">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/customized-tracing.html">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/local-develop-test.html">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/http-filter.html">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-upload.html">File Uploading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-download.html">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/reactive.html">Reactive Programing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dnsconfig.html">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dai-li-she-zhi.html">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/report-framework-version.html">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/cross-app-invocation.html">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/secret-field.html">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/context.html">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/produceprocess.html">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/CORS.html">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/AlarmEvent.html">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/shutdown.html">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/error-handling.html">Handling exceptions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/multienvironment.html">Multi-environment isolation between microservice instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/thread-model.html">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/inject-config.html">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/rsa.html">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/components-for-spring-boot.html">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/java-application.html">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/web-application.html">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-between-java-web.html">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-spring-mvc.html">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="interface-compatibility.html">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>FAQ &raquo;</li>
+        
+      
+    
+    <li>FAQ</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <ol>
+<li><strong>Q: What is the relationship between ServiceComb and SpringCloud, and what is ServiceComb specific application scenarios? </strong></li>
+</ol>
+<p>A: ServiceComb is a set of microservice development frameworks based on large-scale IT system practices. It encapsulates a set of microservices running models based on best practices in development. These capabilities are completely transparent to users,it can be integrated and adjusted by configuration. In the operation and maintenance phase, microservices operation and maintenance have been fully considered, providing rich monitoring indicators and dynamic governance capabilities.
+    B: ServiceComb's capabilities can be used as a separate development framework, in a scenario that requires a lightweight microservice solution, or on SpringCloud, working with other components provided by SpringCloud, in heavyweight The scene together with SpringCloud produces a '1+1&gt;2' effect.</p>
+<ol>
+<li>
+<p><strong>Q: Do we have a problem with IntelliJ's free version? </strong>
+    A: No problem, use IntelliJ development, refer to [Setup Developer Environment] (/cn/developers/setup-develop-environment/) for the corresponding environment configuration.</p>
+</li>
+<li>
+<p><strong>Q: What need to be cautious when using Java-Chassis?</strong></p>
+</li>
+</ol>
+<p>A: There are a few restrictions when using Java-Chassis:
+   * Before version 0.3.0-SNAPSHOT, it does not support annotations like <code>@GetMapping</code>.
+   * When using the same HTTP request method, e.g. GET, the method name need to be unique as it will become operation ID when swagger generates contracts.
+   * Class and method name need to be public.</p>
+<ol>
+<li><strong>Q: Contract generation will report error: 'Caused by: java.lang.Error: OperationId must be unique', does not support function overriding? </strong></li>
+</ol>
+<p>A: We support function overriding, plus the <code>@ApiOperation</code> tag. There are examples in demo-pojo. Each interface must have a unique operation id.</p>
+<ol>
+<li><strong>Q: When using the <em>spring-boot-starter-provider</em> dependency, property like <code>spring.main.web-environment</code> not working in <em>application.yml</em> file.</strong></li>
+</ol>
+<p>A: When you need both the starter provider dependency and the servlet, you need to declare <code>spring.main.web-environment</code> in <em>application.properties</em> file or declare it in <em>application.yml</em> file and create an empty <em>application.properties</em> file.</p>
+<ol>
+<li><strong>Q: What's the dependency differences between gateway and other microservices?</strong></li>
+</ol>
+<p><code>xml
+   &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+   &lt;artifactId&gt;spring-boot-starter-provider&lt;/artifactId&gt;</code></p>
+<p>A: Gateway depends on not only the <code>spring-boot-starter-provider</code>, but also the <code>spring-boot-starter-discovery</code>. This can refer to the <em>manger</em> implementation of <a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">LinuxCon-Beijing-Workshop</a>.</p>
+<ol>
+<li><strong>Q: Do gateway need to configure assembly like the other microservices? Is <em>/maven/gateway</em> the default path of the docker maven plugin?</strong></li>
+</ol>
+<p>A: Yes. Docker maven plugin relies on the assembly files to generate docker image. <em>/maven</em> is the default path of docker maven plugin and <em>/gateway</em> is the path defined in the assembly file.</p>
+<ol>
+<li><strong>Q: Are there any restrictions of the return type of our API? Should it be the type of ResponseEntity?</strong></li>
+</ol>
+<p>A: No, examples can refer to <a href="https://github.com/apache/incubator-servicecomb-java-chassis/blob/master/integration-tests/springmvc-tests/src/test/java/org/apache/servicecomb/demo/springmvc/tests/SpringMvcIntegrationTestBase.java">the implementation of integration-test</a> in java-chassis.</p>
+<ol>
+<li><strong>Q: After the microservice is started, the interface cannot be called correctly, or is there no error returned? </strong></li>
+</ol>
+<p>A: Please check that the calling path is exactly the same as the path published in the Producer implementation code. The boot log on the Producer side can see the output of the map path, for example:
+   
+    <code>[INFO] Swagger mapped "{[/hello/], method=[GET], produces=[application/json]}"</code>
+   
+    For different programming styles (models) to implement Producer documentation and notes, please see: <a href="/cn/users/develop-with-jax-rs/">Jaxrs</a> <a href="/cn/users/develop-with-springmvc/">SpringMVC</a> <a href="/cn/users/develop-with-transparent-rpc/">Pojo</a> <a href="/cn/users/develop-with-spring-boot-starter/">Spring Boot</a> .
+    
+10. <strong>Q: The port number under the microservice.yaml configuration file has been modified via eclipse. After starting the program, the port number does not work? </strong></p>
+<p>A: You need to import the sample project alone. If you import the entire ServiceComb-Java-Chassis project, the IDE will not compile the sample because the sample directory is not in the ServiceComb-Java-Chassis module. There is no error message under eclipse. Prompt message. Therefore, eclipse starts the demo of the sample and will find that the modified port does not work.
+    
+12. <strong> Q: How do I customize the HTTP status code in the REST interface for a Java method? </strong></p>
+<p>A: For normal return values, you can do this with SwaggerAnnotation, for example:</p>
+<p><code>java
+   @ApiResponse(code = 300, response = String.class, message = "")
+   public int test(int x) {
+     return 100;
+   }</code></p>
+<p>For the return value of the exception, you can do this by throwing a custom InvocationException, for example:</p>
+<p>```java
+   public String testException(int code) {
+     String strCode = String.valueOf(code);
+       switch (code) {
+         case 200:
+           return strCode;
+         case 456:
+           throw new InvocationException(code, strCode, strCode + " error");
+         case 556:
+           throw new InvocationException(code, strCode, Arrays.asList(strCode + " error"));
+         case 557:
+           throw new InvocationException(code, strCode, Arrays.asList(Arrays.asList(strCode + " error")));
+         default:
+           break;
+       }</p>
+<pre><code> return "not expected";
+</code></pre>
+<p>}
+   ```</p>
+<ol>
+<li><strong>Q: How to customize the log configuration of your own microservice?</strong></li>
+</ol>
+<p>A: ServiceComb does not bind the logger, just uses slf4j, users can freely choose log4j/log4j2/logback and so on. ServiceComb provides a log4j extension that supports incremental configuration of log4j's properties files on a standard log4j basis.
+    * By default, the configuration file is loaded by the rule: "classpath*:config/log4j.properties"
+    * Actually search all the <code>config/log4j.properties and config/log4j.*.properties</code> in the classpath, and cut out the <code>\*</code> from the searched file to perform alpha. Sort, then load in order, and the final synthesized file is used as the log4j configuration file.
+    * If you want to use ServiceComb's log4j extension, you need to call Log4jUtils.init, otherwise it will be used according to the rules of the standard logger.</p>
+<ol>
+<li><strong>Q: When the service is configured with multiple transports, how do you choose which transport to use at runtime? </strong></li>
+</ol>
+<p>A:
+   * ServiceComb's consumer, transport, handler, and producer are decoupled, and each function works together through contract definitions, namely:
+      Consumer use transparent rpc, or springmvc development and use of highway, or RESTful transmission on the network does not matter with the producer is to use transparent rpc, or jaxrs, or springmvc development, there is no relationship between the receiver is not perceived, business development methods and transmission methods</p>
+<p>* Consumer access to the producer, at the runtime's transport selection, the general rule is:
+      The consumer's transport and the producer's endpoint take the intersection. If there are multiple transports after the intersection, they are used in turn.</p>
+<p>Decomposed, there are the following scenarios:</p>
+<p>* When a microservice producer opens both the highway and the RESTful endpoint
+      * Only the highway transport jar is deployed in the consumer process, only the producer's highway endpoint is accessed.
+      * Only the RESTful transport jar is deployed in the consumer process, only the RESTful endpoint of the producer is accessed.
+      * In the consumer process, both the highway and RESTful transport jars are deployed, and the producer's highway and RESTful endpoints are accessed in turn.</p>
+<p>If, at this time, the consumer wants to use a transport to access the producer, it can be configured in the microservice.yaml of the consumer process, specifying the name of the transport:</p>
+<p><code>yaml
+      Servicecomb:
+        References:
+          &lt;service_name&gt;:
+            Transport: highway</code></p>
+<p>* When a microservice producer only opens the endpoint of the highway
+      * The consumer process only deploys the highway transport jar, then the highway access is normally used.
+      *The consumer process only deploys RESTful transport jars and cannot be accessed
+      * The consumer process deploys both the highway and the RESTful transport jar, and the highway access is normally used.</p>
+<p>* When a microservice producer only opens RESTful endpoints
+      *The consumer process only deploys the highway transport jar and cannot access it.
+      * The consumer process only deploys RESTful transport jars, which normally uses RESTful access.
+      * The consumer process deploys both the highway and the RESTful transport jar, and the RESTful access is normally used.</p>
+<ol>
+<li><strong>Q: The swagger body parameter type is incorrectly defined, causing the content registered in the service center to have no type information</strong></li>
+</ol>
+<p><strong>Symptom:</strong></p>
+<p>Define the following interface, put the parameters into the body to pass</p>
+<p><code>yaml
+   /testInherate:
+       Post:
+         operationId: "testInherate"
+         Parameters:
+         - in: "body"
+           Name: "xxxxx"
+           Required: false
+           Type: string
+         Responses:
+           200:
+             Description: "response of 200"
+             Schema:
+               $ref: "#/definitions/ResponseImpl"</code></p>
+<p>Define the interface in the above way. After the service is registered, the interface type: string that is queried from the service center is lost and becomes:</p>
+<p><code>yaml
+   /testInherate:
+       Post:
+         operationId: "testInherate"
+         Parameters:
+         - in: "body"
+           Name: "xxxxx"
+           Required: false
+         Responses:
+           200:
+             Description: "response of 200"
+             Schema:
+               $ref: "#/definitions/ResponseImpl"</code></p>
+<p>If the client does not place a swagger, the following exception is also reported:</p>
+<p><code>text
+      Caused by: java.lang.ClassFormatError: Method "testInherate" in class ? has illegal signature "</code></p>
+<p>A: When defining the type of the body parameter, you need to use the schema. You cannot use type directly.</p>
+<p><code>yaml
+   /testInherate:
+       Post:
+         operationId: "testInherate"
+         Parameters:
+         - in: "body"
+           Name: "request"
+           Required: false
+           Schema:
+             Type: string
+         Responses:
+           200:
+             Description: "response of 200"
+             Schema:
+               $ref: "#/definitions/ResponseImpl"</code></p>
+<ol>
+<li><strong>Q: Does the ServiceComb microservices framework service innovate via long connection?</strong></li>
+</ol>
+<p>A: http request via a long connection (with a timeout), and the highway mode also via a long connection (all the time).</p>
+<ol>
+<li><strong>Q: Is the service disconnected service center registration information automatically deleted?</strong></li>
+</ol>
+<p>A: The service center heartbeat detects that the service instance is unavailable, only the service instance information is removed, and the static data of the service is not removed.</p>
+<ol>
+<li><strong>Q: How to implement service registration if you use the tomcat method to integrate the ServiceComb microservices framework</strong></li>
+</ol>
+<p>A: If you use the ServiceComb sdk servlet method (using the transport-rest-servlet dependency) to deploy to the tomcat as a war package, you need to ensure that the rest port configuration in the service description file (microservice.yaml) is consistent with the external container to implement the service. Register correctly. Otherwise, the tomcat open port cannot be perceived.</p>
+<ol>
+<li><strong>Q: If you use the tomcat method to integrate the ServiceComb microservices framework, how to register the context of the war package deployment to the service center when the service is registered</strong></li>
+</ol>
+<p>A: When publishing the service interface, you need to put the context of the war package deployment at the front of the baseurl, so that the path registered to the service center is the complete path (including the context). Example:</p>
+<p><code>java
+    @path(/{context}/xxx)
+    Class ServiceA</code></p>
+<ol>
+<li><strong>Q: How does the ServiceComb microservices framework implement data transparent transmission between multiple microservices</strong></li>
+</ol>
+<p>A:
+    Transmitting data into:</p>
+<p><code>java
+    CseHttpEntity&lt;xxxx.class&gt; httpEntity = new CseHttpEntity&lt;&gt;(xxx);
+    / / Transparent content
+    httpEntity.addContext("contextKey","contextValue");
+    ResponseEntity&lt;String&gt; responseEntity = RestTemplateBuilder.create().exchange("cse://springmvc/springmvchello/sayhello",HttpMethod.POST, httpEntity, String.class);</code></p>
+<p>Transparent data acquisition:</p>
+<p><code>java
+    @Override
+    @RequestMapping(path="/sayhello",method = RequestMethod.POST)
+    Public String sayHello(@RequestBody Person person, InvocationContext context){
+      / / Transparent data acquisition
+      context.getContext();
+      Return "Hello person " + person.getName();
+    }</code>
+   </p>
+<ol>
+<li><strong>Q: How does the ServiceComb microservices framework service customize the return status code?</strong></li>
+</ol>
+<p>A:
+    <code>java
+    @Override
+    @RequestMapping(path = "/sayhello",method = RequestMethod.POST)
+    Public String sayHello(@RequestBody Person person){
+      InvocationContext context = ContextUtils.getInvocationContext();
+      / / Custom status code
+      context.setStatus(Status.CREATED);
+      Return "Hello person "+person.getName();
+    }</code></p>
+<ol>
+<li><strong>Q: Partial exposure of ServiceComb body Model</strong></li>
+</ol>
+<p>A: There may be some attributes in the body object corresponding to an interface. You don't want to open it. Do not bring it out when generating the schema. Use:</p>
+<p><code>java
+    @ApiModelProperty(hidden = true)</code></p>
+<ol>
+<li><strong>Q: ServiceComb framework gets the address of the remote consumer</strong></li>
+</ol>
+<p>A: If you use the http rest method (using the transport-rest-vertx dependency) you can get it in the following way:</p>
+<p><code>java
+    AbstractProducerContextArgMapper httpRequestCreator = (AbstractProducerContextArgMapper)invocation.getHandlerContext().get(RestConst.HTTP_REQUEST_CREATOR);
+    If(httpRequestCreator != null){
+      HttpServletRequest req = (HttpServletRequest)httpRequestCreator.createContextArg(invocation);
+      System.out.println(req.getRemoteHost());
+    }</code></p>
+<p>The actual scenario is to take the outermost address, so LB should be passed to edgeservice, and edgeService should be passed outside the context.</p>
+<ol>
+<li><strong>Q: ServiceComb describes the handler</strong></li>
+</ol>
+<p>A: The consumer default handler is simpleLB. When there is no configuration, the handler chain will use this. If the handler is configured, it must contain the lb handler. Otherwise, the call error is reported in the document.</p>
+<ol>
+<li><strong>Q: ServiceComb log replacement</strong></li>
+</ol>
+<p>A: CSE java-chassis log recommendation method is to use Log4jUtils.init() at startup, directly use the recommended Log4j for log management, but some scenarios do not want to use log4j, such as want to use log4j2 or logback, below log4j2 Take a brief introduction to the next step:</p>
+<p>1. Do not use Log4jUtils.init() in the code;
+   2. Remove the log4j configuration file (it doesn't matter if you don't delete it, because it won't be used);
+   3. Exclude the log4j introduced by the CSE framework, for example:
+      <code>xml
+      &lt;dependency&gt;
+          &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+          &lt;artifactId&gt;provider-springmvc&lt;/artifactId&gt;
+          &lt;exclusions&gt;
+              &lt;exclusion&gt;
+                  &lt;groupId&gt;log4j&lt;/groupId&gt;
+                  &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+              &lt;/exclusion&gt;
+          &lt;/exclusions&gt;
+      &lt;/dependency&gt;</code>
+   4. Introducing the dependency of log4j2</p>
+<p><code>xml
+      &lt;dependency&gt;
+          &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+          &lt;artifactId&gt;log4j-slf4j-impl&lt;/artifactId&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+          &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+          &lt;artifactId&gt;log4j-api&lt;/artifactId&gt;
+      &lt;/dependency&gt;
+      &lt;dependency&gt;
+          &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+          &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
+      &lt;/dependency&gt;</code></p>
+<p>If there is no version dependency management, you need to fill in the version number.</p>
+<p>5. Add the log4j2 configuration file log4j2.xml. Please check the official description for this, for example:</p>
+<p><code>xml
+       &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+       &lt;!--Log level and priority ordering: OFF &gt; FATAL &gt; ERROR &gt; WARN &gt; INFO &gt; DEBUG &gt; TRACE &gt; ALL --&gt;
+       &lt;!--Configuration behind the configuration, this is used to set the internal information output of log4j2, can not be set, when set to trace, you will see various detailed output inside log4j2 --&gt;
+       &lt;!--monitorInterval: Log4j can automatically detect the modified configuration file and reconfigure itself, set the interval seconds --&gt;
+       &lt;configuration status="WARN" monitorInterval="30"&gt;
+           &lt;!--First define all appender--&gt;
+           &lt;appenders&gt;
+           &lt;!--This output console configuration --&gt;
+               &lt;console name="Console" target="SYSTEM_OUT"&gt;
+               &lt;!--Format of output log --&gt;
+                   &lt;PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/&gt;
+               &lt;/console&gt;
+               &lt;!--The file will print out all the information, this log will be automatically cleared every time the program is run, determined by the append attribute, this is also very useful, suitable for temporary testing --&gt;
+               &lt;File name="log" fileName="log/test.log" append="false"&gt;
+                  &lt;PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level %class{36} %L %M - %msg%xEx%n"/&gt;
+               &lt;/File&gt;
+               &lt;!-- This will print out all info and the following level information. Each time the size exceeds the size, the size of the log will be automatically saved under the folder created by the year-month and compressed, as an archive --&gt;
+               &lt;RollingFile name="RollingFileInfo" fileName="${sys:user.home}/logs/info.log"
+                            filePattern="${sys:user.home}/logs/$${date:yyyy-MM}/info-%d{yyyy-MM-dd}-%i.log"&gt;
+                   &lt;!--The console only outputs level and above information (onMatch), other direct rejection (onMismatch) --&gt;
+                   &lt;ThresholdFilter level="info" onMatch="ACCEPT" onMismatch="DENY"/&gt;
+                   &lt;PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/&gt;
+                   &lt;Policies&gt;
+                       &lt;TimeBasedTriggeringPolicy/&gt;
+                       &lt;SizeBasedTriggeringPolicy size="100 MB"/&gt;
+                   &lt;/Policies&gt;
+               &lt;/RollingFile&gt;
+               &lt;RollingFile name="RollingFileWarn" fileName="${sys:user.home}/logs/warn.log"
+                            filePattern="${sys:user.home}/logs/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log"&gt;
+                   &lt;ThresholdFilter level="warn" onMatch="ACCEPT" onMismatch="DENY"/&gt;
+                   &lt;PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/&gt;
+                   &lt;Policies&gt;
+                       &lt;TimeBasedTriggeringPolicy/&gt;
+                       &lt;SizeBasedTriggeringPolicy size="100 MB"/&gt;
+                   &lt;/Policies&gt;
+                   &lt;!-- DefaultRolloverStrategy property is not set, the default is up to 7 files in the same folder, here set 20 --&gt;
+                   &lt;DefaultRolloverStrategy max="20"/&gt;
+               &lt;/RollingFile&gt;
+               &lt;RollingFile name="RollingFileError" fileName="${sys:user.home}/logs/error.log"
+                            filePattern="${sys:user.home}/logs/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log"&gt;
+                   &lt;ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/&gt;
+                   &lt;PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%p] - %l - %m%n"/&gt;
+                   &lt;Policies&gt;
+                       &lt;TimeBasedTriggeringPolicy/&gt;
+                       &lt;SizeBasedTriggeringPolicy size="100 MB"/&gt;
+                   &lt;/Policies&gt;
+               &lt;/RollingFile&gt;
+           &lt;/appenders&gt;
+           &lt;!-- Then define the logger, the appender will only take effect if the appender is defined and imported -&gt;
+           &lt;loggers&gt;
+               &lt;!--Filter out some useless DEBUG information from spring and mybatis --&gt;
+               &lt;logger name="org.springframework" level="INFO"&gt;&lt;/logger&gt;
+               &lt;logger name="org.mybatis" level="INFO"&gt;&lt;/logger&gt;
+               &lt;root level="all"&gt;
+                   &lt;appender-ref ref="Console"/&gt;
+                   &lt;appender-ref ref="RollingFileInfo"/&gt;
+                   &lt;appender-ref ref="RollingFileWarn"/&gt;
+                   &lt;appender-ref ref="RollingFileError"/&gt;
+               &lt;/root&gt;
+           &lt;/loggers&gt;
+       &lt;/configuration&gt;</code>
+6. Start the service for verification</p>
+<ol>
+<li><strong>Q: Service timeout setting</strong></li>
+</ol>
+<p>A: Add the following configuration to the microservice description file (microservice.yaml):
+    
+   <code>yaml
+   servicecomb:
+     request:
+       timeout: 30000</code></p>
+<ol>
+<li><strong>Q: The URL address can be uniquely located. Why do you want to add a schema? </strong></li>
+</ol>
+<p>A:
+    1. The schema is used to match the service contract. It is used to ensure that the server and the consumer contract are compatible. Each contract needs a unique ID and is stored in the service center.
+    2. Schema maps to the interface concept of java. When the consumer uses the transparent rpc mode to develop, it can find which operation in the micro service. The method names between schemas are not unique.
+    3. operation qualified name is the key of the governance, and the URL cannot be directly searched because of the existence of the path parameter, and the qualified name will not change. Governance does not distinguish between transmissions. If governance goes by URL, then when highway is called in, it has to construct the url according to the parameters, and then the regular expression matches, which is too tossing.
+    4. http is just a transport channel, and there are other transport channels that do not need to be mapped to URLs.</p>
+<ol>
+<li><strong>Q: When the Rest client is invocating, it only takes the service name and URL, and does not need to specify the schema id. In fact, according to this URL, the specific contract can also be found. So what is the role of the specified schema id? </strong></li>
+</ol>
+<p>A: Since transparent rpc is an interface call and does not have a URL, the internal is actually normalized to the operation to describe, so that it can be uniquely mapped to the specific request processing in conjunction with the schema id.
+    </p>
+<ol>
+<li><strong>Q: What is the concept of Transport? What is it used for? </strong></li>
+</ol>
+<p>A: The Transport is responsible for codec, and transmission. The communication model has two kinds of Rest and Highway. The Highway corresponds to the private protocol, which uses protobuf encoding, and the Rest uses json. Highway and Rest are based on vertx, and vertx is based on netty.</p>
+<ol>
+<li><strong>Q: Is there be multiple appIDs and microservices in a service provider? What scenario will this happen? </strong></li>
+</ol>
+<p>A: Yes, what is expressed here is a concept of merge. The microservice.yaml file, which may exist in both jars, disks, and command line arguments, specifies that they are merged by priority and are used for added flexibility. In the jar is the default value, in addition to the environment variables, command line parameters, configuration center coverage, providing multiple layers of customization.</p>
+<ul>
+<li><strong>Q: How does ServiceComb interact with the service center?</strong></li>
+</ul>
+<p>A: Take the rest, mainly responsible for registration, taking data and heartbeat, etc.; 'watch event' via websocket, watch event is to observe whether the service center instance information has changed.</p>
+<ul>
+<li><strong>Q: Is there a governance center like dubbo? </strong></li>
+</ul>
+<p>A: bizkeeper is a handler, one of the contents of governance. Governance can be extended by handlers.</p>
+<ul>
+<li><strong>Q: How to understand the service path? </strong></li>
+</ul>
+<p>A: Each microservice has a servicePathManager, and each schema registers its own path.</p>
+<ul>
+<li><strong>Q: Can the browser directly access the microservice Endpoint? </strong></li>
+</ul>
+<p>A: Yes, the restful microservice Endpoint can be used to access the service that provides the get method directly in the browser using HTTP plus service path. If it is to access the services provided by other Http methods, it is recommended to install and use.(https://www.sap.com/developer/tutorials/api-tools-postman-install.html)</p>
+<ul>
+<li><strong>Q: When the contract is generated, do you have to add the version number and language? </strong></li>
+</ul>
+<p>A: The contract belongs to the microservice. The microservice has a version, but the language should not be accompanied by the version number. Contractual requirements should be independent of language. The contract "no version", the version of the contract is embodied in the microservice, the instance can find the version of the microservice to which it belongs, and a certain contract can be found.</p>
+<ul>
+<li><strong>Q: The design code in ServiceRegistry is similar to Eureka? </strong></li>
+</ul>
+<p>A: Our first version was built on the basis of Spring Cloud. Later, when we found that it was not enough to use it, we gradually made our own set, so it was designed after fully referring to Eureka.</p>
+<ul>
+<li><strong>Q: Some rpc is netty calling redis implementation, what is the advantage over direct netty forwarding? </strong></li>
+</ul>
+<p>A: Maybe I want to use Redis to solve the subscription release. But this is not a big deal. I tried it before, but later I changed it to ServiceComb.
+    </p>
+<ul>
+<li><strong>Q: If you introduce the <code>transport-rest-servlet</code> and <code>transport-rest-vertx</code> dependencies at the same time, how does it decide which one to use? </strong></li>
+</ul>
+<p>A: If the port is not occupied, use vertx; if it is occupied, use servlet.</p>
+<ul>
+<li><strong>Q: What is the scenario for qps flow control design? </strong></li>
+</ul>
+<p>A: Rate limit has two main functions. First, it guarantees the service effect to some key services by restricting different consumers, and the second is to prevent the avalanche effect. The thickness of the water pipe can be determined according to the importance of the service. ServiceComb supports two types of current limiting methods, namely, consumer-side current limiting and server-side current limiting. The consumer-side current limiting can achieve relatively fine control.</p>
+<ul>
+<li><strong>Q: If the server is a chain call, that is, a-&gt;b-&gt;c, then does the QPS flow control cause flow pipe uneven and unbalanced? </strong></li>
+</ul>
+<p>A: The general mode is to measure and then set. The qps settings are ultimately tuned in conjunction with the overall business needs, rather than setting them up on a single node.</p>
+<ul>
+<li><strong>Q: The service failed to be invoked via cse://serviceName/appPath, error: java.lang.Error:not support def type:class io.swagger.models.properties xxx</strong></li>
+</ul>
+<p>A: Check whether the version of java-chassis that the consumer and provider depend on are consistent. If they are inconsistent, please modify and use the newer version.</p>
+<ul>
+<li><strong>Q: When sending a rest request, the following error is reported: Bad Request, description: http:request body too large</strong></li>
+</ul>
+<p>A: Check if the Service Center is older version, and if so, upgrade to the latest version.</p>
+<ul>
+<li><strong>Q: How to ignore the attributes specified in the contract DTO? </strong></li>
+</ul>
+<p>A: If you are using 'rest transport', because it is Json serialization, you can use @JsonIgnore annotations to mark attributes that need to be ignored; 'highway transport' is not currently supported. Note that you need to update the version of the microservice after the modification, for example:</p>
+<p><code>java
+  public class OutputForTest{
+  @JsonIgnore
+  private String outputId = null;
+  private String inputId = null;
+  ...
+  }</code></p>
+<ul>
+<li><strong>Q: How to get the value of a field in the header in a user-defined handler</strong>
+    A: Use the @ApiImplicitParams annotation declaration in the user-defined handler and the invocation.getArgs() to get the value of the header. E.g:
+  <code>java
+  public class MyHandler implements Handler {
+    @ApiImplicitParams({@ApiImplicitParam(name = "tester", dataType = "string", paramType = "header")})
+    @Override
+    public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
+      Object[] args = invocation.getArgs();
+      System.out.println(args);
+    }
+  }</code></li>
+<li><strong>Q: The exception is thrown when the microservices runtime: <code>java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty</code>? </strong></li>
+</ul>
+<p>A: Service Center can be upgraded to version 4.0.0+ to solve [Service Center latest version portal] (http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center /1.0.0-m1/).</p>
+<p><em>. </em><em>Q: Our API can not be accessed after microservices are up. It just returns </em>404 Not Found<em>. The codes we use is as follows:</em>*</p>
+<p><code>java
+   @RestController
+   @RestSchema(schemaId = "worker")
+   public class WorkerController {
+     @RequestMapping(value="/count", method=RequestMethod.GET)
+     public int getWorkerNumbers() {
+       ...
+     }
+   }</code></p>
+<p>A: Without specifying the base path, ServiceComb will use the classname as the base path. Hence, the path should be <code>/WorkerController/count</code> in the previous code. If you want to access path like <code>/count</code>, you need to specify base path as <code>/</code> as follows:
+   <code>java
+   @RequestMapping(value = "/")
+   public class WorkerController {}</code></p>
+<p><em>. </em><em>Q: What\'s the default base path if I have not declared the value of RequestMapping annotation?</em>*</p>
+<p>A: Supposed the class name of your controller is <em>HelloController</em>, the base path is /HelloController.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="interface-compatibility.html" class="btn btn-neutral float-right" title="Micro Service Interface Compatibility FAQ">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="question_answer.html" class="btn btn-neutral" title="Q & A"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="question_answer.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="interface-compatibility.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

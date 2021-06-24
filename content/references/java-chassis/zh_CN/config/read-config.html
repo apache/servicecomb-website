@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>在程序中读取配置信息 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u5728\u7a0b\u5e8f\u4e2d\u8bfb\u53d6\u914d\u7f6e\u4fe1\u606f";
+    var mkdocs_page_input_path = "config/read-config.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="read-config.html">在程序中读取配置信息</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#archaius-api">使用 archaius API</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#java-chassis">使用Java Chassis配置注入机制</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#spring-spring-boot">使用Spring 和 Spring Boot的配置机制读取配置</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>管理服务配置 &raquo;</li>
+        
+      
+    
+    <li>在程序中读取配置信息</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">在程序中读取配置信息</h1>
+<p>Java Chassis支持使用一致的API获取配置，开发者不需要关注从哪里读取配置项的
+值，Java Chassis会自动从各处读取配置，并按照优先级进行合并以保证用户取到的是优先级最高的配置值。读取配置信息支持下面几种不同的方式。 </p>
+<h2 id="archaius-api">使用 archaius API</h2>
+<pre><code class="language-java">DynamicDoubleProperty myprop = DynamicPropertyFactory.getInstance()
+  .getDoubleProperty(&quot;trace.handler.sampler.percent&quot;, 0.1);
+</code></pre>
+<p>以上例子表示声明了一个key为<code>trace.handler.sampler.percent</code>的动态配置对象，默认值为<code>0.1</code>。</p>
+<p>关于配置项API的具体方法可参考<a href="https://netflix.github.io/archaius/archaius-core-javadoc/com/netflix/config/DynamicPropertyFactory.html">archaius API</a>。</p>
+<p>archaius API 支持callback处理配置变更：</p>
+<pre><code class="language-java"> myprop.addCallback(new Runnable() {
+      public void run() {
+          // 当配置项的值变化时，该回调方法会被调用
+          System.out.println(&quot;trace.handler.sampler.percent is changed!&quot;);
+      }
+  });
+</code></pre>
+<h2 id="java-chassis">使用Java Chassis配置注入机制</h2>
+<p>配置注入提供了一种简单的管理大量复杂配置的机制，开发者不需要使用 DynamicPropertyFactory 逐个读取配置项，增加配置监听，
+而是定义一个简单的 JAVA Bean， 定义这个 Bean 的属性对应的配置项， 当配置信息变化的时候， Bean 的属性会自动刷新，极大
+的简化了用户管理大量复杂配置的复杂度。 </p>
+<p>Bean 属性对应的配置项名称支持通配符， 一个属性可以关联若干配置项，可以声明这些配置项的优先级。 Java对象可以是一个
+Java Bean，或是一个拥有public字段的类。</p>
+<ul>
+<li>配置注入对象</li>
+</ul>
+<p>我们首先设计两个Java类用于注入配置属性，分别用来演示不使用注解和使用注解的场景。使用注解:</p>
+<pre><code>  ```Java
+  @InjectProperties(prefix = "jaxrstest.jaxrsclient")
+  public class Configuration {
+    /*
+     * 方法的 prefix 属性值 "override" 会覆盖标注在类定义的 @InjectProperties
+     * 注解的 prefix 属性值。
+     *
+     * keys属性可以为一个字符串数组，下标越小优先级越高。
+     *
+     * 这里会按照如下顺序的属性名称查找配置属性，直到找到已被配置的配置属性，则停止查找：
+     * 1) jaxrstest.jaxrsclient.override.high
+     * 2) jaxrstest.jaxrsclient.override.low
+     *
+     * 测试用例：
+     * jaxrstest.jaxrsclient.override.high: hello high
+     * jaxrstest.jaxrsclient.override.low: hello low
+     * 预期：
+     * hello high
+     */
+    @InjectProperty(prefix = "jaxrstest.jaxrsclient.override", keys = {"high", "low"})
+    public String strValue;
+
+    /**
+     * keys支持通配符，并在可以在将配置属性注入的时候指定通配符的代入对象。
+     *
+     * 测试用例：
+     * jaxrstest.jaxrsclient.k.value: 3
+     * 预期：
+     * 3
+     */
+    @InjectProperty(keys = "${key}.value")
+    public int intValue;
+
+    /**
+     * 通配符的代入对象可以是一个字符串List，优先级遵循数组元素下标越小优先级越高策略。
+     *
+     * 测试用例：
+     * jaxrstest.jaxrsclient.l1-1: 3.0
+     * jaxrstest.jaxrsclient.l1-2: 2.0
+     *
+     * 预期：
+     * 3.0
+     */
+    @InjectProperty(keys = "${full-list}")
+    public float floatValue;
+
+    /**
+     * keys属性也支持多个通配符，优先级如下：首先通配符的优先级从左到右递减，
+     * 然后如果通配符被代入List，遵循List中元素index越小优先级越高策略。
+     *
+     * 测试用例：
+     * jaxrstest.jaxrsclient.low-1.a.high-1.b: 1
+     * jaxrstest.jaxrsclient.low-1.a.high-2.b: 2
+     * jaxrstest.jaxrsclient.low-2.a.high-1.b: 3
+     * jaxrstest.jaxrsclient.low-2.a.high-2.b: 4
+     * 预期：
+     * 1
+     */
+    @InjectProperty(keys = "${low-list}.a.${high-list}.b")
+    public long longValue;
+
+    /**
+     * 可以通过注解的defaultValue属性指定默认值。如果字段未关联任何配置属性，
+     * 定义的默认值会生效，否则默认值会被覆盖。
+     *
+     * 测试用例：
+     * 预期：
+     * abc
+     */
+    @InjectProperty(defaultValue = "abc")
+    public String strDef;
+  }
+  ```
+</code></pre>
+<p>不使用注解：</p>
+<pre><code>    ```Java
+    public class ConfigNoAnnotation {
+        /*
+         * 如果未提供@InjectProperties和@InjectProperty注解，会默认使用字段名作为配置属性名。
+         * 注意类名不作为前缀起作用。
+         * 此处将配置属性 strValue 绑定到该字段
+        */
+      public String strValue;
+    }
+    ```
+</code></pre>
+<ul>
+<li>执行注入</li>
+</ul>
+<p>使用注解的场景：</p>
+<pre><code>    ```Java
+    ConfigWithAnnotation config = SCBEngine.getInstance().getPriorityPropertyManager()
+      .createConfigObject(Configuration.class,
+            "key", "k",
+            "low-list", Arrays.asList("low-1", "low-2"),
+            "high-list", Arrays.asList("high-1", "high-2"),
+            "full-list", Arrays.asList("l1-1", "l1-2")
+            );
+    ```
+</code></pre>
+<p>Configuration对象的longValue字段按以下顺序查找已配置的属性:</p>
+<pre><code>    1.  root.low-1.a.high-1.b
+    2.  root.low-1.a.high-2.b
+    3.  root.low-2.a.high-1.b
+    4.  root.low-2.a.high-2.b
+</code></pre>
+<p>Configuration对象的floatValue字段按以下顺序查找已配置的属性:</p>
+<pre><code>    1.  root.l1-1
+    2.  root.l1-2
+</code></pre>
+<p>不使用注解的场景：</p>
+<pre><code>    ```Java
+    ConfigNoAnnotation config = SCBEngine.getInstance()
+      .getPriorityPropertyManager().createConfigObject(ConfigNoAnnotation.class);
+    ```
+</code></pre>
+<p>ConfigNoAnnotation 对象的 strValue 字段会查找已配置的属性 strValue，没有前缀和优先级。</p>
+<p><strong><em>注意事项:</em></strong> 2.1.0 之前的版本， 如果系统中存在大量调用createConfigObject的情况， 需要调用</p>
+<pre><code>    ```Java
+    priorityPropertyManager.unregisterConfigObject(config)
+    ```
+</code></pre>
+<p>进行显示回收。 2.1.0 及其之后的版本， 不需要调用这个接口，系统创建的对象是 WeakReference， 在未被
+  业务引用以后，会自动回收。 </p>
+<p>更多关于配置注入的用法，建议下载 java-chassis 的源码， 查看 TestConfigObjectFactory 类里面的示例。</p>
+<h2 id="spring-spring-boot">使用Spring 和 Spring Boot的配置机制读取配置</h2>
+<p>Java Chassis的配置信息，也可以通过Spring和Spring Boot的配置机制进行读取，比如@Value、@ConfigurationProperties等。 Java Chassis
+将配置层次应用于Spring Environment中，Spring和Spring Boot读取配置的方式，也能够读取到<code>microservice.yaml</code>和动态配置的值。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../references-handlers/intruduction.html" class="btn btn-neutral float-right" title="处理链介绍">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="general-config.html" class="btn btn-neutral" title="通用配置说明"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="general-config.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../references-handlers/intruduction.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

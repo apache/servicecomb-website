@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>REST over Servlet - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "REST over Servlet";
+    var mkdocs_page_input_path = "transports/rest-over-servlet.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="rest-over-servlet.html">REST over Servlet</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#path">对外发布的Path</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#maven">maven依赖</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_1">配置说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_2">典型场景配置示例</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#servlet-filter">使用servlet filter注意事项</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">配置项</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>多样化的通信协议功能参考 &raquo;</li>
+        
+      
+    
+    <li>REST over Servlet</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="rest-over-servlet">REST over Servlet</h1>
+<p>REST over Servlet的本质是将Java Chassis作为一个Servlet，部署到支持Servlet的Web容器中。 通常有两种使用场景：第一种是在
+独立的Web容器中部署运行，比如Tomcat；第二种是组合Spring Boot提供的Embedded Tomcat运行。 </p>
+<p>本章节主要介绍在独立的Web容器中部署运行。在Spring Boot提供的Embedded Tomcat中运行，请参考
+<a href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>。</p>
+<h2 id="path">对外发布的Path</h2>
+<p>当微服务部署到web容器中时，相对于独立运行，会涉及到web root以及servlet url pattern对url的改变。<br />
+对于传统开发框架而言，需要consumer感知对方的完整url；比如web root为/mywebapp，url pattern为/rest，业务级path为/application，则consumer代码必须通过/mywebapp/rest/application来访问。<br />
+这将导致一旦部署方式发生变化，比如从web容器变成standalone运行，则consumer或是producer必须修改代码来适配这个变化。  </p>
+<p>建议使用ServiceComb的部署解耦特性，无论是consumer，还是producer，在代码中都不要感知web root以及url pattern，这样ServiceComb在运行时，会自动适配producer实例的web root以及url pattern。  </p>
+<p>对于一些遗留系统改造，用户期望继续使用restTemplate.getForObject("cse://serviceName/mywebapp/rest/application"...)，这个时候，用户必须将接口定义的path定位为: /mywebapp/rest/application，例如：</p>
+<pre><code>@RestSchema(schemaId = &quot;test&quot;)
+@RequestMapping(path = &quot;/mywebapp/rest/application&quot;)
+</code></pre>
+<p>尽管如此，仍然推荐使用部署形态无关的方式来编码，可以减少后续由于部署形态变化，带来的修改代码问题。</p>
+<h2 id="maven">maven依赖</h2>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+    &lt;artifactId&gt;transport-rest-servlet&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h2 id="_1">配置说明</h2>
+<p>与servlet机制配合，涉及到以下几个概念：</p>
+<ul>
+<li>
+<p>启动spring context<br />
+  注意以下几种启动方式，是N选1的关系，不要同时使用。  </p>
+<ul>
+<li>
+<p>不使用springMVC的UI或RestController</p>
+<pre><code>&lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+     version="3.0"&gt;
+ &lt;context-param&gt;
+     &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+     &lt;param-value&gt;classpath*:META-INF/spring/*.bean.xml&lt;/param-value&gt;
+ &lt;/context-param&gt;
+ &lt;listener&gt;
+     &lt;listener-class&gt;org.apache.servicecomb.transport.rest.servlet.RestServletContextListener&lt;/listener-class&gt;
+ &lt;/listener&gt;
+&lt;/web-app&gt;
+</code></pre>
+<p>其中<code>classpath*:META-INF/spring/*.bean.xml</code>可以不在contextConfigLocation中配置，因为ServiceComb机制会确保加载路径中包含它。<br />
+这里仅仅是个示例，表示如果使用者需要定制contextConfigLocation，可以使用这个方法。  </p>
+</li>
+<li>
+<p>使用springMVC的UI或RestController，且存在org.apache.servicecomb.transport.rest.servlet.CseDispatcherServlet  </p>
+<pre><code>&lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+     version="3.0"&gt;
+&lt;servlet&gt;
+  &lt;servlet-name&gt;SpringMVCServlet&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;org.apache.servicecomb.transport.rest.servlet.CseDispatcherServlet&lt;/servlet-class&gt;
+  &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;SpringMVCServlet&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;yourUrlPattern&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</code></pre>
+<p><strong>注意：</strong><br />
+该servlet不是ServiceComb的处理入口，仅仅是UI或RestController的处理入口  </p>
+</li>
+<li>
+<p>使用springMVC的UI或RestController，且不存在org.apache.servicecomb.transport.rest.servlet.CseDispatcherServlet<br />
+    需要继承springMVC的DispatcherServlet，再按CseDispatcherServlet的方式，配置自己的实现类</p>
+<pre><code>@Override
+protected WebApplicationContext createWebApplicationContext(ApplicationContext parent){
+  setContextClass(CseXmlWebApplicationContext.class);
+  return super.createWebApplicationContext(parent);
+}
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>ServiceComb servlet<br />
+  url pattern根据业务自身规划设置即可，下面的<code>/rest/*</code>仅仅是示例，不是固定值。<br />
+  url pattern必须以<code>/*</code>结尾<br />
+  以下两种声明方式也是多选一的关系，不要同时使用</p>
+<ul>
+<li>
+<p>标准声明</p>
+<pre><code>&lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+     version="3.0"&gt;
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;RestServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.apache.servicecomb.transport.rest.servlet.RestServlet&lt;/servlet-class&gt;
+    &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;async-supported&gt;true&lt;/async-supported&gt;
+  &lt;/servlet&gt;
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;RestServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/rest/*&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</code></pre>
+</li>
+<li>
+<p>快捷声明  </p>
+<p>在microservice.yaml文件中指定urlPattern，ServiceComb启动时会自动创建RestServlet，并设置相应的urlPattern：</p>
+<pre><code>servicecomb.rest.servlet.urlPattern: /rest/*
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="_2">典型场景配置示例</h2>
+<ul>
+<li>
+<p>纯ServiceComb，标准声明<br />
+      web.xml  </p>
+<pre><code>  &lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"&gt;
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.apache.servicecomb.transport.rest.servlet.RestServletContextListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+    &lt;servlet&gt;
+        &lt;servlet-name&gt;RestServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.apache.servicecomb.transport.rest.servlet.RestServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+        &lt;async-supported&gt;true&lt;/async-supported&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+        &lt;servlet-name&gt;RestServlet&lt;/servlet-name&gt;
+        &lt;url-pattern&gt;/rest/*&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+  &lt;/web-app&gt;
+</code></pre>
+</li>
+<li>
+<p>纯ServiceComb，快捷声明<br />
+      web.xml</p>
+<pre><code>  &lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"&gt;
+    &lt;listener&gt;
+        &lt;listener-class&gt;org.apache.servicecomb.transport.rest.servlet.RestServletContextListener&lt;/listener-class&gt;
+    &lt;/listener&gt;
+  &lt;/web-app&gt;
+</code></pre>
+<p>microservice.yaml：</p>
+<pre><code>  servicecomb.rest.servlet.urlPattern: /rest/*
+</code></pre>
+</li>
+<li>
+<p>springMVC UI或RestController接入请求，通过ServiceComb作为consumer发送到内部微服务<br />
+      web.xml：  </p>
+<pre><code>&lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"&gt;
+    &lt;servlet&gt;
+      &lt;servlet-name&gt;SpringMVCServlet&lt;/servlet-name&gt;
+      &lt;servlet-class&gt;org.apache.servicecomb.transport.rest.servlet.CseDispatcherServlet&lt;/servlet-class&gt;
+      &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+      &lt;servlet-name&gt;SpringMVCServlet&lt;/servlet-name&gt;
+      &lt;url-pattern&gt;yourUrlPattern&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+&lt;/web-app&gt;
+</code></pre>
+<p>microservice.yaml：不配置servicecomb.rest.address以及servicecomb.rest.servlet.urlPattern  </p>
+</li>
+<li>
+<p>springMVC UI或RestController接入一些请求，同时通过ServiceComb接入另一些请求<br />
+      web.xml：  </p>
+<pre><code>  &lt;web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"&gt;
+    &lt;servlet&gt;
+      &lt;servlet-name&gt;SpringMVCServlet&lt;/servlet-name&gt;
+      &lt;servlet-class&gt;org.apache.servicecomb.transport.rest.servlet.CseDispatcherServlet&lt;/servlet-class&gt;
+      &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+    &lt;/servlet&gt;
+    &lt;servlet-mapping&gt;
+      &lt;servlet-name&gt;SpringMVCServlet&lt;/servlet-name&gt;
+      &lt;url-pattern&gt;yourUrlPattern&lt;/url-pattern&gt;
+    &lt;/servlet-mapping&gt;
+  &lt;/web-app&gt;
+</code></pre>
+<p>microservice.yaml：  </p>
+<pre><code>  servicecomb:
+    rest:
+      servlet:
+        urlPattern: /rest/*
+      address: 0.0.0.0:8080
+</code></pre>
+</li>
+</ul>
+<h2 id="servlet-filter">使用servlet filter注意事项</h2>
+<p>RestServlet工作于异步模式，根据servlet 3.0的标准，整条工作链都必须是异步模式，所以，如果业务在这个流程上增加了servlet filter，也必须将它配置为异步：</p>
+<pre><code class="language-xml">&lt;filter&gt;
+  ......
+  &lt;async-supported&gt;true&lt;/async-supported&gt;
+&lt;/filter&gt;
+</code></pre>
+<h2 id="_3"><strong>配置项</strong></h2>
+<p>REST over Servlet在microservice.yaml文件中的配置项见表3-9。</p>
+<p>表1-1 REST over Servlet配置项说明</p>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">默认值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">servicecomb.rest.address</td>
+<td align="left">0.0.0.0:8080</td>
+<td align="left">服务监听地址<br>必须配置为与web容器监听地址相同的地址</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.timeout</td>
+<td align="left">-1</td>
+<td align="left">异步servlet超时时间, 单位为毫秒<br>建议保持默认值</td>
+</tr>
+<tr>
+<td align="left">servicecomb.Provider.requestWaitInPoolTimeout${op-priority}</td>
+<td align="left">30000</td>
+<td align="left">在同步线程中排队等待执行的超时时间，单位为毫秒</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.requestWaitInPoolTimeout</td>
+<td align="left">30000</td>
+<td align="left">同servicecomb.Provider.requestWaitInPoolTimeout${op-priority}, 该配置项优先级更高。</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.servlet.urlPattern</td>
+<td align="left">无</td>
+<td align="left">用于简化servlet+servlet mapping配置<br>只有在web.xml中未配置servlet+servlet mapping时，才使用此配置项，配置格式为：/* 或  /path/*，其中path可以是多次目录</td>
+</tr>
+<tr>
+<td align="left">servicecomb.uploads.maxSize</td>
+<td align="left">无</td>
+<td align="left">文件上传 form body 最大大小</td>
+</tr>
+<tr>
+<td align="left">servicecomb.uploads.maxFileSize</td>
+<td align="left">无</td>
+<td align="left">文件上传所有文件总的大小限制</td>
+</tr>
+<tr>
+<td align="left">servicecomb.uploads.fileSizeThreshold</td>
+<td align="left">无</td>
+<td align="left">文件上传，实际写入磁盘文件的最大大小</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="rest-over-vertx.html" class="btn btn-neutral float-right" title="REST over Vertx">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="introduction.html" class="btn btn-neutral" title="多协议介绍"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="introduction.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="rest-over-vertx.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

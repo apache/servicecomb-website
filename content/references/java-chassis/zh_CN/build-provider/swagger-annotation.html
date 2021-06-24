@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>使用 Swagger 注解 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u4f7f\u7528 Swagger \u6ce8\u89e3";
+    var mkdocs_page_input_path = "build-provider/swagger-annotation.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>使用 Swagger 注解</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="swagger">使用 Swagger 注解</h1>
+<p>采用 Spring MVC 或者 JAX RS 注解已经能够描述大部分常用的契约信息，但是仍然不足以描述所有契约信息。可以混合
+使用 Swagger 注解，进一步补充契约信息，使得契约信息更加完整。当 Spring MVC 或者 JAR RS 注解描述的信息与
+Swagger 注解描述的信息重复时，以 Swagger 注解描述的信息为准，即 Swagger 注解具有更高的优先级。</p>
+<p>关于Swagger注解的含义，可以在<a href="swagger-annotation">Swagger注解文档</a>中找到官方说明。可以对
+照该官方文档与本说明来了解如何在ServiceComb框架下使用注解指定Swagger契约的各项属性。</p>
+<h2 id="api"><code>@Api</code></h2>
+<blockquote>
+<p><code>@Api</code>作用于类级别，在Swagger官方描述中是用于将一个Class标注为一个Swagger资源。但该注解
+在ServiceComb中不是必须的，ServiceComb可以根据<code>@RestSchema</code>和<code>@RpcSchema</code>确定需要从哪些
+类中解析出Swagger契约。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">tags</td>
+<td align="left">string</td>
+<td align="left">设置当前Class下定义的operation的默认tag值</td>
+</tr>
+<tr>
+<td align="left">consumes</td>
+<td align="left">string</td>
+<td align="left">指定契约级别的请求体数据格式，可以使用逗号分隔指定多个</td>
+</tr>
+<tr>
+<td align="left">produces</td>
+<td align="left">string</td>
+<td align="left">指定契约级别的响应体数据格式，可以使用逗号分隔指定多个</td>
+</tr>
+</tbody>
+</table>
+<h2 id="swaggerdefinition"><code>@SwaggerDefinition</code></h2>
+<blockquote>
+<p>作用于类级别，用于定义一个Swagger资源中的信息。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">info.title</td>
+<td align="left">string</td>
+<td align="left">契约文件标题</td>
+</tr>
+<tr>
+<td align="left">info.description</td>
+<td align="left">string</td>
+<td align="left">描述信息</td>
+</tr>
+<tr>
+<td align="left">info.version</td>
+<td align="left">string</td>
+<td align="left">契约版本号</td>
+</tr>
+<tr>
+<td align="left">info.termsOfService</td>
+<td align="left">string</td>
+<td align="left">服务条款</td>
+</tr>
+<tr>
+<td align="left">info.contact</td>
+<td align="left">string</td>
+<td align="left">联系信息，包含name、email、url属性</td>
+</tr>
+<tr>
+<td align="left">info.license</td>
+<td align="left">string</td>
+<td align="left">许可证信息，包含name、url属性</td>
+</tr>
+<tr>
+<td align="left">info.extensions</td>
+<td align="left">string</td>
+<td align="left">扩展信息</td>
+</tr>
+<tr>
+<td align="left">consumes</td>
+<td align="left">string</td>
+<td align="left">接收的请求格式</td>
+</tr>
+<tr>
+<td align="left">produces</td>
+<td align="left">string</td>
+<td align="left">返回的应答格式</td>
+</tr>
+<tr>
+<td align="left">schemes</td>
+<td align="left">SwaggerDefinition.Scheme</td>
+<td align="left">可选值有<code>HTTP/HTTPS/WS/WSS/DEFAULT</code></td>
+</tr>
+<tr>
+<td align="left">tags</td>
+<td align="left"><code>@Tag</code></td>
+<td align="left">Tag定义，@Tag包含name、description、externalDocs三个属性</td>
+</tr>
+<tr>
+<td align="left">externalDocs</td>
+<td align="left"><code>@externalDocs</code></td>
+<td align="left">外部说明文档链接，包含value、url两个属性</td>
+</tr>
+</tbody>
+</table>
+<h2 id="apioperation"><code>@ApiOperation</code></h2>
+<blockquote>
+<p>作用于方法级别，用于描述一个Swagger operation。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">value</td>
+<td align="left">string</td>
+<td align="left">方法的简要说明，对应于Swagger契约operation的<code>summary</code>字段</td>
+</tr>
+<tr>
+<td align="left">notes</td>
+<td align="left">string</td>
+<td align="left">详细信息，对应于Swagger契约operation的<code>description</code>字段</td>
+</tr>
+<tr>
+<td align="left">tags</td>
+<td align="left">string</td>
+<td align="left">标注operation的标签</td>
+</tr>
+<tr>
+<td align="left">code</td>
+<td align="left">int</td>
+<td align="left">响应消息的HTTP状态码</td>
+</tr>
+<tr>
+<td align="left">response</td>
+<td align="left">Class&lt;?&gt;</td>
+<td align="left">方法返回值类型</td>
+</tr>
+<tr>
+<td align="left">responseContainer</td>
+<td align="left">string</td>
+<td align="left">包装返回值的容器类型，可选值为<code>List</code>、<code>Set</code>、<code>Map</code></td>
+</tr>
+<tr>
+<td align="left">responseHeaders</td>
+<td align="left"><code>@ResponseHeader</code></td>
+<td align="left">响应消息的HTTP头，ServiceComb支持的属性值为<code>name</code>、<code>response</code>、<code>responseContainer</code></td>
+</tr>
+<tr>
+<td align="left">consumes</td>
+<td align="left">string</td>
+<td align="left">指定请求体的数据格式</td>
+</tr>
+<tr>
+<td align="left">produces</td>
+<td align="left">string</td>
+<td align="left">指定响应体的数据格式</td>
+</tr>
+<tr>
+<td align="left">protocols</td>
+<td align="left">string</td>
+<td align="left">设置可用的协议（schemes），可选值有<code>http</code>、<code>https</code>、<code>ws</code>、<code>wss</code>，逗号分隔</td>
+</tr>
+<tr>
+<td align="left">httpMethod</td>
+<td align="left">string</td>
+<td align="left">设置HTTP方法</td>
+</tr>
+<tr>
+<td align="left">hidden</td>
+<td align="left">boolean</td>
+<td align="left">是否隐藏此方法</td>
+</tr>
+</tbody>
+</table>
+<h2 id="apiimplicitparam"><code>@ApiImplicitParam</code></h2>
+<blockquote>
+<p>作用于方法级别，用于说明Swagger文档中operation的参数的属性。</p>
+<p><strong>注意</strong>：ServiceComb可以根据代码和SpringMVC、JAX-RS的注解自动推断出参数名称。如果<code>@ApiImplicitParam</code>配置的参数名称与自动推断的参数名不同，则则该注解配置的参数将被作为一个新的参数加入到注解所在的operation中；否则将覆盖同名参数的属性。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">name</td>
+<td align="left">string</td>
+<td align="left">参数名称</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">string</td>
+<td align="left">参数说明</td>
+</tr>
+<tr>
+<td align="left">required</td>
+<td align="left">boolean</td>
+<td align="left">是否是必填参数</td>
+</tr>
+<tr>
+<td align="left">dataType</td>
+<td align="left">string</td>
+<td align="left">参数数据类型</td>
+</tr>
+<tr>
+<td align="left">paramType</td>
+<td align="left">string</td>
+<td align="left">参数位置，有效的可选值为path/query/body/header/form</td>
+</tr>
+<tr>
+<td align="left">allowableValues</td>
+<td align="left">string</td>
+<td align="left">参数的有效值范围</td>
+</tr>
+<tr>
+<td align="left">allowEmptyValue</td>
+<td align="left">boolean</td>
+<td align="left">是否允许空值</td>
+</tr>
+<tr>
+<td align="left">allowMultiple</td>
+<td align="left">boolean</td>
+<td align="left">是否允许多个值（若为true，则可以将参数作为数组）</td>
+</tr>
+<tr>
+<td align="left">collectionFormat</td>
+<td align="left">string</td>
+<td align="left">以何种格式指定参数数组，当前ServiceComb支持的值为<code>csv/multi</code></td>
+</tr>
+<tr>
+<td align="left">defaultValue</td>
+<td align="left">string</td>
+<td align="left">参数默认值</td>
+</tr>
+<tr>
+<td align="left">example</td>
+<td align="left">string</td>
+<td align="left">一个非body参数的示例值</td>
+</tr>
+<tr>
+<td align="left">format</td>
+<td align="left">string</td>
+<td align="left">允许用户自定义数据格式，详情参见Swagger官方文档</td>
+</tr>
+</tbody>
+</table>
+<h2 id="apiimplicitparams"><code>@ApiImplicitParams</code></h2>
+<blockquote>
+<p><code>@ApiImplicitParams</code>作用于方法、类级别，用于批量指定多个<code>@ApiImplicitParam</code>。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">value</td>
+<td align="left"><code>@ApiImplicitParam</code></td>
+<td align="left">参数定义</td>
+</tr>
+</tbody>
+</table>
+<h2 id="apiresponse"><code>@ApiResponse</code></h2>
+<blockquote>
+<p>用于描述返回消息的HTTP状态码所表达的含义。通常<code>@ApiOperation</code>可以表示一个正常情况返回消息的HTTP状态码，其他情形下的HTTP状态码由本注解描述。根据Swagger官方文档的描述，本注解不应该直接用于方法级别，而应该被包含在<code>@ApiResponses</code>中。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">code</td>
+<td align="left">int</td>
+<td align="left">返回消息的HTTP状态码</td>
+</tr>
+<tr>
+<td align="left">message</td>
+<td align="left">string</td>
+<td align="left">返回值的说明信息</td>
+</tr>
+<tr>
+<td align="left">response</td>
+<td align="left">Class&lt;?&gt;</td>
+<td align="left">返回值的类型</td>
+</tr>
+<tr>
+<td align="left">responseContainer</td>
+<td align="left">string</td>
+<td align="left">返回值的包装容器，可选值为<code>List/Set/Map</code></td>
+</tr>
+<tr>
+<td align="left">responseHeaders</td>
+<td align="left">@ResponseHeader</td>
+<td align="left">描述一组返回消息的HTTP头，ServiceComb支持的<code>@ResponseHeader</code>的属性有<code>name</code>、<code>description</code>、<code>response</code>、<code>responseContainer</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="apiresponses"><code>@ApiResponses</code></h2>
+<blockquote>
+<p>作用于方法、类级别，用于指定和说明一组返回值。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">value</td>
+<td align="left"><code>@ApiResponse</code></td>
+<td align="left">返回消息说明</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

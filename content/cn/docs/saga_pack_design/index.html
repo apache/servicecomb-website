@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -506,7 +506,7 @@
 </code></pre></div>    </div>
   </li>
   <li>添加Saga的注解及相应的补偿方法
-2.1 在应用入口添加 <code class="highlighter-rouge">@EnableOmega</code> 的注解来初始化omega的配置并与alpha建立连接。
+2.1 在应用入口添加 <code class="language-plaintext highlighter-rouge">@EnableOmega</code> 的注解来初始化omega的配置并与alpha建立连接。
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@SpringBootApplication</span>
  <span class="nd">@EnableOmega</span>
  <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Application</span> <span class="o">{</span>
@@ -515,14 +515,14 @@
    <span class="o">}</span>
  <span class="o">}</span>
 </code></pre></div>    </div>
-    <p>2.2 在全局事务的起点添加 <code class="highlighter-rouge">@SagaStart</code> 的注解。</p>
+    <p>2.2 在全局事务的起点添加 <code class="language-plaintext highlighter-rouge">@SagaStart</code> 的注解。</p>
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@SagaStart</span><span class="o">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="o">)</span>
  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">transferMoney</span><span class="o">(</span><span class="nc">String</span> <span class="n">from</span><span class="o">,</span> <span class="nc">String</span> <span class="n">to</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
    <span class="n">transferOut</span><span class="o">(</span><span class="n">from</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
    <span class="n">transferIn</span><span class="o">(</span><span class="n">to</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
  <span class="o">}</span>
 </code></pre></div>    </div>
-    <p>2.3 在子事务处添加 <code class="highlighter-rouge">@Compensable</code> 的注解并指明其对应的补偿方法。其中，补偿方法的形参列表需与子事务方法的形参列表保持一致。</p>
+    <p>2.3 在子事务处添加 <code class="language-plaintext highlighter-rouge">@Compensable</code> 的注解并指明其对应的补偿方法。其中，补偿方法的形参列表需与子事务方法的形参列表保持一致。</p>
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Compensable</span><span class="o">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="o">,</span> <span class="n">compensationMethod</span><span class="o">=</span><span class="s">"cancel"</span><span class="o">)</span>
  <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">transferOut</span><span class="o">(</span><span class="nc">String</span> <span class="n">from</span><span class="o">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
    <span class="n">repo</span><span class="o">.</span><span class="na">reduceBalanceByUsername</span><span class="o">(</span><span class="n">from</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>

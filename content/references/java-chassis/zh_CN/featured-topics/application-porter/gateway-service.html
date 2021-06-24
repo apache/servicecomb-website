@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Gateway service - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Gateway service";
+    var mkdocs_page_input_path = "featured-topics/application-porter/gateway-service.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Gateway service</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p>这个章节中，介绍如何通过网关转发请求。java-chassis提供了非常灵活的网关服务，开发者能够非常简单的实现微服务之间的转发，网关拥有客户端一样的服务治理能力。同时，开发者可以使用vert.x暴漏的HTTP API，实现非常灵活的转发控制。</p>
+<p>网关服务由一系列的VertxHttpDispatcher组成，开发者通过继承AbstractEdgeDispatcher，来实现自己的转发机制。</p>
+<p>为了实现gateway-service将请求转发到file-service，定义了如下规则：</p>
+<ul>
+<li>
+<p>直接请求file-service: DELETE <a href="http://localhost:9091/delete">http://localhost:9091/delete</a></p>
+</li>
+<li>
+<p>通过网关：DELETE <a href="http://localhost:9090/api/file-service/delete">http://localhost:9090/api/file-service/delete</a></p>
+</li>
+</ul>
+<p>达到这个目的的代码如下，在请求处理的时候，使用EdgeInvocation，可以实现请求转发，并开启各种治理功能。下面代码的核心内容是定义转发规则regex。</p>
+<pre><code>public class ApiDispatcher extends AbstractEdgeDispatcher {
+    @Override
+    public int getOrder() {
+        return 10002;
+    }
+
+    @Override
+    public void init(Router router) {
+        String regex = &quot;/api/([^\\/]+)/(.*)&quot;;
+        router.routeWithRegex(regex).handler(CookieHandler.create());
+        router.routeWithRegex(regex).handler(createBodyHandler());
+        router.routeWithRegex(regex).failureHandler(this::onFailure).handler(this::onRequest);
+    }
+
+    protected void onRequest(RoutingContext context) {
+        Map&lt;String, String&gt; pathParams = context.pathParams();
+        String microserviceName = pathParams.get(&quot;param0&quot;);
+        String path = &quot;/&quot; + pathParams.get(&quot;param1&quot;);
+
+        EdgeInvocation invoker = new EdgeInvocation();
+        invoker.init(microserviceName, context, path, httpServerFilters);
+        invoker.edgeInvoke();
+    }
+}
+</code></pre>
+<p>为了实现gateway-service将请求转发到porter-website，定义了如下规则：</p>
+<ul>
+<li>
+<p>直接请求porter-website: GET <a href="http://localhost:9093/index.html">http://localhost:9093/index.html</a></p>
+</li>
+<li>
+<p>通过网关：GET <a href="http://localhost:9090/ui/porter-website/index.html">http://localhost:9090/ui/porter-website/index.html</a></p>
+</li>
+</ul>
+<p>UI静态页面信息不需要实现治理能力（服务治理能力需要契约，静态页面不存在接口契约），因此直接使用vert.x的API实现请求转发。在下面的代码中，还使用java chassis API做了服务发现，并实现了一个简单的RoundRobin负载均衡策略，从而允许porter-website也进行多实例部署。</p>
+<pre><code>public class UiDispatcher extends AbstractEdgeDispatcher {
+    private static Logger LOGGER = LoggerFactory.getLogger(UiDispatcher.class);
+
+    private static Vertx vertx = VertxUtils.getOrCreateVertxByName(&quot;web-client&quot;, null);
+
+    private static HttpClient httpClient = vertx.createHttpClient(new HttpClientOptions());
+
+    private Map&lt;String, DiscoveryTree&gt; discoveryTrees = new ConcurrentHashMapEx&lt;&gt;();
+
+    private AtomicInteger counter = new AtomicInteger(0);
+
+    @Override
+    public int getOrder() {
+        return 10001;
+    }
+
+    @Override
+    public void init(Router router) {
+        String regex = &quot;/ui/([^\\/]+)/(.*)&quot;;
+        router.routeWithRegex(regex).failureHandler(this::onFailure).handler(this::onRequest);
+    }
+
+    protected void onRequest(RoutingContext context) {
+        Map&lt;String, String&gt; pathParams = context.pathParams();
+
+        String microserviceName = pathParams.get(&quot;param0&quot;);
+        String path = &quot;/&quot; + pathParams.get(&quot;param1&quot;);
+
+        URI uri = chooseServer(microserviceName);
+
+        if (uri == null) {
+            context.response().setStatusCode(404);
+            context.response().end();
+            return;
+        }
+
+        // 使用HttpClient转发请求
+        HttpClientRequest clietRequest =
+            httpClient.request(context.request().method(),
+                    uri.getPort(),
+                    uri.getHost(),
+                    &quot;/&quot; + path,
+                    clientResponse -&gt; {
+                        context.request().response().setChunked(true);
+                        context.request().response().setStatusCode(clientResponse.statusCode());
+                        context.request().response().headers().setAll(clientResponse.headers());
+                        clientResponse.handler(data -&gt; {
+                            context.request().response().write(data);
+                        });
+                        clientResponse.endHandler((v) -&gt; context.request().response().end());
+                    });
+        clietRequest.setChunked(true);
+        clietRequest.headers().setAll(context.request().headers());
+        context.request().handler(data -&gt; {
+            clietRequest.write(data);
+        });
+        context.request().endHandler((v) -&gt; clietRequest.end());
+    }
+
+    private URI chooseServer(String serviceName) {
+        URI uri = null;
+
+        DiscoveryContext context = new DiscoveryContext();
+        context.setInputParameters(serviceName);
+        DiscoveryTree discoveryTree = discoveryTrees.computeIfAbsent(serviceName, key -&gt; {
+            return new DiscoveryTree();
+        });
+        VersionedCache serversVersionedCache = discoveryTree.discovery(context,
+                RegistryUtils.getAppId(),
+                serviceName,
+                DefinitionConst.VERSION_RULE_ALL);
+        Map&lt;String, MicroserviceInstance&gt; servers = serversVersionedCache.data();
+        String[] endpoints = asArray(servers);
+        if (endpoints.length &gt; 0) {
+            int index = Math.abs(counter.getAndIncrement() % endpoints.length);
+            String endpoint = endpoints[index];
+            try {
+                uri = new URI(endpoint);
+            } catch (URISyntaxException e) {
+                LOGGER.error(&quot;&quot;, e);
+            }
+        }
+        return uri;
+    }
+
+    private String[] asArray(Map&lt;String, MicroserviceInstance&gt; servers) {
+        List&lt;String&gt; endpoints = new LinkedList&lt;&gt;();
+        for (MicroserviceInstance instance : servers.values()) {
+            endpoints.addAll(instance.getEndpoints());
+        }
+        return endpoints.toArray(new String[endpoints.size()]);
+    }
+}
+</code></pre>
+<p>完成VertxHttpDispatcher开发后，需要通过SPI的方式加载到系统中，需要增加META-INF/services/org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher配置文件，并将增加的两个实现写入该配置文件中。</p>
+<p>网关服务开发完成后，所有的用户请求都可以通过网关来发送。开发者通过通过设置防火墙等机制，限制用户直接访问内部服务，保证内部服务的安全。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

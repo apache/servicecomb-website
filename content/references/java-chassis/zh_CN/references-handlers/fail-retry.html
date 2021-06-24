@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>快速失败和重试 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u5feb\u901f\u5931\u8d25\u548c\u91cd\u8bd5";
+    var mkdocs_page_input_path = "references-handlers/fail-retry.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="fail-retry.html">快速失败和重试</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">如何应用重试和快速失败</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#java-chassis">Java Chassis的侵入式超时检测机制</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>服务治理功能参考 &raquo;</li>
+        
+      
+    
+    <li>快速失败和重试</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">快速失败和重试</h1>
+<p>随机失败在微服务系统经常发生。产生随机失败的原因非常多，以JAVA微服务应用为例，造成请求超时这种随机失败的原因包括：网络波动和软硬件
+升级，可能造成随机的几秒中断；JVM垃圾回收、线程调度导致的时延增加；流量并不是均匀的，同时到来的1000个请求和1秒内平均来的1000个请求
+对系统的冲击是不同的，前者更容易导致超时；应用程序、系统、网络的综合影响，一个应用程序突然的大流量可能会对带宽产生影响，从而影响其他
+应用程序运行；其他应用程序相关的场景，比如SSL需要获取操作系统熵，如果熵值过低，会有几秒的延迟。系统不可避免的面临随机故障，必须具备
+一定的随机故障保护能力。</p>
+<p>重试是解决随机失败的一个非常有效的措施。但是实施重试是一个非常复杂的课题。本文提供一个重试的最佳架构方案，分析如何解决重试面临的处理
+快速失败的问题。 </p>
+<p>使用<code>请求超时</code>配置来控制快速失败是非常常见的手段，因为它简洁无侵入，适用于大多数对于性能要求不高的场景。但是对于大规模应用系统，以及
+对于请求时延要求非常高的系统，<code>请求超时</code>并不是一个快速失败的有效手段。</p>
+<ul>
+<li>请求超时在使用HTTP协议的情况下，会关闭连接。连接重连是非常耗时的操作，大量重连会导致系统性能的严重恶化。</li>
+<li>在多线程系统，请求超时都是通过独立的线程进行检测的。这里涉及一个实时计算的问题。JDK并不能很好的应用于实时计算。简单的讲就是超时
+  检查并不是准确的。当系统繁忙的时候，超时的检测准确性会持续下降，本来一些正常处理未超时的请求，可能被误认为超时；一些超时的请求，
+  可能推迟了一段时间才检测到。 应用程序应该减少实时性假设，包括：client实时感知实例上下线；超时时间很精确；任务按照预期的执行
+  时间处理；任务的处理时间恒定等。 从可靠性的角度，用户配置的超时时间不应该很短，从经验上来讲，超时时间配置小于1s的情况，系统发生
+  超时失败的概率会显著提升。如果业务的平均时延10ms数量级，建议超时时间配置不应该低于1s，平均时延越高，超时时间应该等比例增加。</li>
+<li>超时以后，请求返回，并不会中断已经进行的任务。强制中断进行的任务（比如终止线程的方式），会破坏程序内部状态，导致非常复杂难于分析
+  的故障，正在执行的任务需要优雅可控制的结束。</li>
+</ul>
+<h2 id="_2">如何应用重试和快速失败</h2>
+<ul>
+<li>在网关进行重试一般是比较推荐的做法，除了重试，网关还需要加入流量控制和流量梳理功能，过滤超出系统处理能力的流量，并将突发的流量
+  转换为平滑的流量。微服务系统内部的请求进行重试可以作为补充，但是超时等错误场景，不应该进行重试。</li>
+<li>当业务的平均时延在1ms~10ms，建议超时时间配置不小于1s；10~100ms，超时时间配置不小于5s；大于100ms，超时时间配置不小于10s。
+  不建议超时时间超过30s（缺省值）。当业务某些请求需要超过30s的时候，应该对这些业务逻辑进行特殊处理，比如修改为独立线程池执行，
+  并设置独立的超时时间；或者修改为异步执行，请求来的时候立即返回，通过异步的方式查询任务执行结果。</li>
+</ul>
+<p>通常业务都能够容忍超时给用户带来的偶然操作错误，无需对超时场景重试，依赖于超时设置进行快速失败是非常简单易用的技术手段。有些业务系统对用户体验
+提出了更高的要求，比如快速失败控制在100ms以下，网关能够对超时的场景也进行重试。由于超时时间设置并不能很好的处理这种精度，侵入式的
+超时检测就变得非常重要。</p>
+<p>侵入式超时检测在业务执行线程中执行，当业务逻辑执行到某个点，就进行一个超时检测，如果发现超时，就立即停止处理并返回超时错误。侵入式
+超时检测有非常多的优点：</p>
+<ul>
+<li>不会导致HTTP连接关闭。因此应用可以设置更大的非侵入式超时时间，更小的侵入式超时时间，避免网络请求超时时间过小，引起的随机故障。</li>
+<li>侵入式检测可以由业务在合理的执行点进行检测，能够更加优雅的进行资源清理，防止程序状态不一致带来的问题。</li>
+</ul>
+<p>侵入式超时检测需要额外在业务代码中插入检测代码，会给代码带来一定的复杂性，可以采用切面等技术将这些逻辑进行有效隔离。</p>
+<h2 id="java-chassis">Java Chassis的侵入式超时检测机制</h2>
+<p>Java Chassis 将请求的执行分为很多阶段，以客户端A将REST请求发送到服务端B为例，请求执行包括如下阶段：</p>
+<ul>
+<li>开始</li>
+<li>A 执行 Handler</li>
+<li>A 执行 HttpClientFilter</li>
+<li>A 发送请求</li>
+<li>B 收到请求</li>
+<li>B 执行 HttpServerFilter</li>
+<li>B 执行 Handler</li>
+<li>B 执行 业务逻辑</li>
+<li>B 执行 Handler</li>
+<li>B 执行 HttpServerFilter</li>
+<li>B 发送响应</li>
+<li>A 收到响应</li>
+<li>A 执行 HttpClientFilter</li>
+<li>A 执行 Handler</li>
+<li>结束</li>
+</ul>
+<p>Java Chassis 会在上述过程的开始阶段，执行超时检测，如果发现请求超时，会返回 InvocationException, 并包含 408 错误码。</p>
+<p>侵入式超时机制在 2.3.0 版本提供， 控制侵入式超时有如下配置：</p>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">默认值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">servicecomb.invocation.timeout.check.enabled</td>
+<td align="left">false</td>
+<td align="left">功能开关，默认关闭</td>
+</tr>
+<tr>
+<td align="left">servicecomb.invocation.timeout.check.strategy</td>
+<td align="left">passing-time</td>
+<td align="left">全局时间计算策略，可选 passing-time 和 processing-time</td>
+</tr>
+<tr>
+<td align="left">servicecomb.invocation.${op-any-priority}.timeout</td>
+<td align="left">-1</td>
+<td align="left">请求超时时间，默认为-1，表示不超时</td>
+</tr>
+</tbody>
+</table>
+<p>侵入式超时时间支持全局配置和针对某个具体接口配置， Producer 和 Consumer 配置不同。 比如：</p>
+<pre><code class="language-yaml"># 指定默认的超时时间为 60 秒
+servicecomb.invocation.timeout: 60000 
+
+# 指定 Producer 的 ${schema_id}.${operation_id} 的执行时间为 1 秒
+servicecomb.invocation.${schema_id}.${operation_id}.timeout: 1000 
+
+# 指定 Consumer 的 ${target_service}.${schema_id}.${operation_id} 的执行时间为 1 秒
+servicecomb.invocation.${target_service}.${schema_id}.${operation_id}.timeout: 1000 
+</code></pre>
+<p>侵入式超时检测具备传播机制。 比如客户端-&gt;A-&gt;B的场景，当B判断是否已经超时的时候，会加上在A已经处理的时间。因此可以用侵入式超时时间控制
+请求链路的全局超时。 由于机器时间同步问题，全局超时包括两种计算方式，第一种是 passing-time，这种方式依赖于服务器的时间同步，B计算
+运行时间通过A记录的开始时间与B当前时间的差值；第二种是 processing-time，B在计算超时的时候，A的请求在网络传输的时间被忽略掉了，只计算实际
+在A已经处理的时间加上B已经处理的时间。第一种方式适合于服务器之间的时间非常同步，可以忽略差异的场景。第二种方式更加适合于不考虑时间同步，但是
+对于实际计算时间精度要求不高的场景。</p>
+<p>开发者也可以在自定义 Filter, Handler, 业务逻辑（比如执行数据库操作前和操作后）增加超时检测。 具体方式是先获取 <code>Invocation</code> 对象， 然后调用
+<code>ensureInvocationNotTimeout</code> 方法。</p>
+<pre><code class="language-java">public String testInvocationTimeout(InvocationContext context) {
+  someTimeConsumingOperartion();
+
+  Invocation invocation = (Invocation) context;
+  invocation.ensureInvocationNotTimeout();
+
+  otherOpertions();
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../edge/open-service.html" class="btn btn-neutral float-right" title="介绍">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="governance.html" class="btn btn-neutral" title="基于动态配置的流量特征治理"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="governance.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../edge/open-service.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

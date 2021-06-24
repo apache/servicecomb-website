@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -397,7 +397,7 @@
       <section class="page__content" itemprop="text">
         <h3 id="配置中心">配置中心</h3>
 
-<p>项目代码中经常会用到各种配置项，比如下面的代码中是从系统环境变量中获取<code class="highlighter-rouge">prop</code> :</p>
+<p>项目代码中经常会用到各种配置项，比如下面的代码中是从系统环境变量中获取<code class="language-plaintext highlighter-rouge">prop</code> :</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">prop</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">myProperty</span><span class="o">);</span>
 <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="no">DEFAULT_VALUE</span><span class="o">;</span>
@@ -409,7 +409,7 @@
 <span class="n">myMethod</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>类似使用环境变量或者<code class="highlighter-rouge">properties</code>和<code class="highlighter-rouge">xml</code>等文件方式传入配置进而控制应用表现的方法广泛应用于开发过程中，这样做可以将外部配置与业务代码解耦，若有变动只需修改配置参数而不需要重新编译构建项目。但是这种将配置和代码放在一起的方式可能会泄露隐私信息（比如密码），因为代码可能会公开，出于安全的考虑，配置和代码分离管理的方式开始广泛使用，常见的方法比如将配置放在CI服务器上通过打包脚本打入应用包中，或者直接放到运行应用的服务器的特定目录下，或者存储到数据库中。这种方式在传统的单体应用中简单有效，但也带来一些新的挑战：</p>
+<p>类似使用环境变量或者<code class="language-plaintext highlighter-rouge">properties</code>和<code class="language-plaintext highlighter-rouge">xml</code>等文件方式传入配置进而控制应用表现的方法广泛应用于开发过程中，这样做可以将外部配置与业务代码解耦，若有变动只需修改配置参数而不需要重新编译构建项目。但是这种将配置和代码放在一起的方式可能会泄露隐私信息（比如密码），因为代码可能会公开，出于安全的考虑，配置和代码分离管理的方式开始广泛使用，常见的方法比如将配置放在CI服务器上通过打包脚本打入应用包中，或者直接放到运行应用的服务器的特定目录下，或者存储到数据库中。这种方式在传统的单体应用中简单有效，但也带来一些新的挑战：</p>
 
 <ul>
   <li>配置变化频繁时，需要频繁的打包部署应用</li>
@@ -558,7 +558,7 @@
 <span class="nb">cd </span>apollo-image-for-servicecomb <span class="o">&amp;&amp;</span> docker-compose up
 </code></pre></div></div>
 
-<p>出现<code class="highlighter-rouge">apollo-quick-start | Portal started. You can visit http://localhost:8070 now!</code>后表示Apollo已经启动成功，浏览器访问<code class="highlighter-rouge">http://localhost:8070</code>即可访问<code class="highlighter-rouge">portal</code>服务，默认登录账号为<code class="highlighter-rouge">apollo/admin</code>。</p>
+<p>出现<code class="language-plaintext highlighter-rouge">apollo-quick-start | Portal started. You can visit http://localhost:8070 now!</code>后表示Apollo已经启动成功，浏览器访问<code class="language-plaintext highlighter-rouge">http://localhost:8070</code>即可访问<code class="language-plaintext highlighter-rouge">portal</code>服务，默认登录账号为<code class="language-plaintext highlighter-rouge">apollo/admin</code>。</p>
 
 <ul>
   <li>创建应用</li>
@@ -572,13 +572,13 @@
   <li>生成TOKEN</li>
 </ul>
 
-<p>应用发布后我们需要获取一个TOKEN，在<code class="highlighter-rouge">http://localhost:8070/open/manage.html</code>页面填入刚才创建的应用ID和应用名称并选择项目和部门信息后点击创建即可生成一个TOKEN，保存此TOKEN并配置到Chassis应用的配置文件中。</p>
+<p>应用发布后我们需要获取一个TOKEN，在<code class="language-plaintext highlighter-rouge">http://localhost:8070/open/manage.html</code>页面填入刚才创建的应用ID和应用名称并选择项目和部门信息后点击创建即可生成一个TOKEN，保存此TOKEN并配置到Chassis应用的配置文件中。</p>
 
 <p><img src="/assets/images/config/token.png" alt="" /></p>
 
 <h5 id="引入依赖">引入依赖</h5>
 
-<p>在Chassis应用的pom文件中引入依赖<code class="highlighter-rouge">config-apollo</code>：</p>
+<p>在Chassis应用的pom文件中引入依赖<code class="language-plaintext highlighter-rouge">config-apollo</code>：</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
        <span class="nt">&lt;groupId&gt;</span>org.apache.servicecomb<span class="nt">&lt;/groupId&gt;</span>
@@ -588,7 +588,7 @@
 
 <h5 id="添加配置">添加配置</h5>
 
-<p>在Chassis应用的配置文件<code class="highlighter-rouge">microservice.yaml</code>中增加以下配置：</p>
+<p>在Chassis应用的配置文件<code class="language-plaintext highlighter-rouge">microservice.yaml</code>中增加以下配置：</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="na">apollo</span><span class="pi">:</span>
      <span class="na">config</span><span class="pi">:</span>
@@ -607,20 +607,20 @@
 
 <h3 id="对接配置中心">对接配置中心</h3>
 
-<p>Chassis动态配置基于Netflix的Archaius实现[5]，Archaius扩展数据源方法参考文档[6]和demo[7]，Chassis按照[6]扩展了<code class="highlighter-rouge">PolledConfigurationSource</code> 和 <code class="highlighter-rouge">AbstractPollingScheduler</code>，启动的时候用SPI机制找到Source接口的实现类。</p>
+<p>Chassis动态配置基于Netflix的Archaius实现[5]，Archaius扩展数据源方法参考文档[6]和demo[7]，Chassis按照[6]扩展了<code class="language-plaintext highlighter-rouge">PolledConfigurationSource</code> 和 <code class="language-plaintext highlighter-rouge">AbstractPollingScheduler</code>，启动的时候用SPI机制找到Source接口的实现类。</p>
 
-<p>对接到一个新的配置中心只要扩展实现<code class="highlighter-rouge">ConfigCenterConfigurationSource</code>接口，实现<code class="highlighter-rouge">init</code>方法，在<code class="highlighter-rouge">init</code>方法中实现连接配置中心，刷新配置项的逻辑即可。具体代码请参考[8]。</p>
+<p>对接到一个新的配置中心只要扩展实现<code class="language-plaintext highlighter-rouge">ConfigCenterConfigurationSource</code>接口，实现<code class="language-plaintext highlighter-rouge">init</code>方法，在<code class="language-plaintext highlighter-rouge">init</code>方法中实现连接配置中心，刷新配置项的逻辑即可。具体代码请参考[8]。</p>
 
 <ul>
   <li>
     <p>设计配置项</p>
 
-    <p>对接到新的配置中心可以设计新的配置参数，定义新的工具类获取这些参数，并指定默认值，参考<code class="highlighter-rouge">ApolloConfig</code>类对新增<code class="highlighter-rouge">apollo.config.serverUri</code>等参数的处理。</p>
+    <p>对接到新的配置中心可以设计新的配置参数，定义新的工具类获取这些参数，并指定默认值，参考<code class="language-plaintext highlighter-rouge">ApolloConfig</code>类对新增<code class="language-plaintext highlighter-rouge">apollo.config.serverUri</code>等参数的处理。</p>
   </li>
   <li>
     <p>扩展Source接口</p>
 
-    <p>init函数实现固定时间间隔或实时获取配置中心的配置项逻辑。<code class="highlighter-rouge">ApolloClient</code>中<code class="highlighter-rouge">refreshApolloConfig</code>函数启动了一个定时执行的线程刷新配置项：</p>
+    <p>init函数实现固定时间间隔或实时获取配置中心的配置项逻辑。<code class="language-plaintext highlighter-rouge">ApolloClient</code>中<code class="language-plaintext highlighter-rouge">refreshApolloConfig</code>函数启动了一个定时执行的线程刷新配置项：</p>
 
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">refreshApolloConfig</span><span class="o">()</span> <span class="o">{</span>
     <span class="no">EXECUTOR</span>
@@ -631,7 +631,7 @@
   <span class="o">}</span>
 </code></pre></div>    </div>
 
-    <p><code class="highlighter-rouge">ConfigRefresh</code>线程的<code class="highlighter-rouge">run</code>中会从Apollo配置中心获取最新配置项并和之前的配置项对比分析出新增、修改和删除的配置参数，然后去执行对应的更新操作。对配置项的修改更新都是基于Archaius的<code class="highlighter-rouge">WatchedUpdateListener</code> 进而实现应用内参数的动态更新。</p>
+    <p><code class="language-plaintext highlighter-rouge">ConfigRefresh</code>线程的<code class="language-plaintext highlighter-rouge">run</code>中会从Apollo配置中心获取最新配置项并和之前的配置项对比分析出新增、修改和删除的配置参数，然后去执行对应的更新操作。对配置项的修改更新都是基于Archaius的<code class="language-plaintext highlighter-rouge">WatchedUpdateListener</code> 进而实现应用内参数的动态更新。</p>
   </li>
 </ul>
 

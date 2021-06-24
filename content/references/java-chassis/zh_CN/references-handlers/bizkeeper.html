@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>隔离熔断容错 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u9694\u79bb\u7194\u65ad\u5bb9\u9519";
+    var mkdocs_page_input_path = "references-handlers/bizkeeper.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="bizkeeper.html">隔离熔断容错</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">概念阐述</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">配置说明</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>服务治理功能参考 &raquo;</li>
+        
+      
+    
+    <li>隔离熔断容错</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">隔离熔断容错</h1>
+<p>bizkeeper 模块集成了 <a href="https://github.com/Netflix/Hystrix/wiki/Configuration">Hystrix</a> , 提供隔离、熔断和容错等服务故障保护能力。 Java
+Chassis 对 Hystrix 进行了封装， 只需要进行简单的配置即可启用这些功能。 </p>
+<p>在项目中引入如下 Handler 模块， </p>
+<pre><code class="language-xml"> &lt;dependency&gt;
+  &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+  &lt;artifactId&gt;handler-bizkeeper&lt;/artifactId&gt;
+  &lt;/dependency&gt;
+</code></pre>
+<p>并且增加 Handler 配置：</p>
+<pre><code class="language-yaml">servicecomb:
+  handler:
+    chain:
+      Consumer:
+        default: bizkeeper-consumer
+      Provider:
+        default: bizkeeper-provider
+</code></pre>
+<p><strong> 注意事项： </strong></p>
+<p>在实际微服务运维实践中，发现 Hystrix 存在如下一些问题， 开发者可以结合实际业务情况，谨慎的使用这个模块。 Java Chassis 的
+<a href="loadbalance.html">负载均衡</a> 也提供了实例隔离和错误重试能力， 加上内置的<a href="../build-provider/thread-pool.html">线程池隔离</a>， 能够
+实现大部分 Hystrix 核心治理能力。 </p>
+<ul>
+<li>调用栈很深，在某些异常情况下，可能屏蔽底层异常，导致问题原因分析困难。</li>
+<li>超时机制、重试机制和线程池隔离机制和 Java Chassis 的一些内部机制的协作存在一些不友好的情况，需要特别注意合理的开启超时和重试。 默认情况下是禁用的。Java Chassis 只能使用信号量隔离机制。</li>
+<li>Hystrix 的引入对性能影响很大， 会有 20% 以上的框架性能损失。    </li>
+<li>Hystrix 项目目前已经停止维护。 </li>
+</ul>
+<h2 id="_2">概念阐述</h2>
+<p>服务故障保护指服务请求异常时，微服务所采用的异常处理策略， 根据处理机制和效果把它分解为三个技术概念：“隔离”、“熔断”、“容错”：</p>
+<ul>
+<li>“隔离”是一种异常检测机制，常用的检测方法是请求超时、流量过大等。一般的设置参数包括超时时间、同时并发请求个数等。</li>
+<li>“熔断”是一种异常反应机制，“熔断”依赖于“隔离”。熔断通常基于错误率来实现。一般的设置参数包括统计请求的个数、错误率等。</li>
+<li>“容错”是一种异常处理机制，“容错”依赖于“熔断”。熔断以后，会调用“容错”的方法。一般的设置参数包括调用容错方法的次数等。</li>
+</ul>
+<p>当前 ServiceComb 提供两种容错方式，分别为返回 null 值和抛出异常。</p>
+<p><strong><em> 注意 ： </em></strong> 在不同的上下文，“隔离”、“熔断”、“容错”、“降级” 等概念可能存在不一样的含义，发现这里的定义和其他地方存在不一样的
+的时候不用感到意外， 但是不用担心， 当服务出现故障的时候， 需要一定的措施进行应对， 对于措施和应对方式的理解胜于对于名词的理解。</p>
+<h2 id="_3">配置说明</h2>
+<p>配置项支持对所有接口生效，或者对某个微服务的某个具体方法生效。</p>
+<ul>
+<li>配置项生效范围<ul>
+<li>按照类型(type)：配置项能够针对Provider, Consumer进行配置</li>
+<li>按照范围(scope)：配置项能够针对 MicroService 进行配置, 也可以针对 <code>schemaId</code> 和 <code>operationId</code> 进行配置</li>
+</ul>
+</li>
+</ul>
+<p>本章节如果没有特殊说明，所有的配置项都支持按照下面的格式进行配置：</p>
+<pre><code>servicecomb.[namespace].[type].[scope].[property name]
+</code></pre>
+<p>type 指 Provider 或者 Consumser。 scope 指配置项生效范围， 针对特定的微服务的配置，需要增加 MicroServiceName, 针对接口配置的，需要指定接口名称，接口名
+称由 <code>schemaId</code> 和 <code>operationId</code> 组成。</p>
+<p>下面是一些配置示例：</p>
+<pre><code>servicecomb.isolation.Consumer.timeout.enabled
+servicecomb.isolation.Consumer.DemoService.timeout.enabled
+servicecomb.isolation.Consumer.DemoService.hello.sayHello.timeout.enabled
+servicecomb.isolation.Provider.timeout.enabled
+servicecomb.isolation.Provider.DemoService.timeout.enabled
+servicecomb.isolation.Provider.DemoService.hello.sayHello.timeout.enabled
+</code></pre>
+<ul>
+<li>配置项列表</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">默认值</th>
+<th align="left">取值范围</th>
+<th align="left">是否必选</th>
+<th align="left">含义</th>
+<th align="left">注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">servicecomb.isolation.[type].[scope].timeout.enabled</td>
+<td align="left">FALSE</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">是否启用超时检测</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">servicecomb.isolation.[type].[scope].timeoutInMilliseconds</td>
+<td align="left">30000</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">超时时间阈值</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">servicecomb.isolation.[type].[scope].maxConcurrentRequests</td>
+<td align="left">10</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">最大并发数阈值</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">servicecomb.circuitBreaker.[type].[scope].enabled</td>
+<td align="left">TRUE</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">是否启用熔断措施</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">servicecomb.circuitBreaker.[type].[scope].forceOpen</td>
+<td align="left">FALSE</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">不管失败次数，都进行熔断</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">servicecomb.circuitBreaker.[type].[scope].forceClosed</td>
+<td align="left">FALSE</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">任何时候都不熔断</td>
+<td align="left">当与forceOpen同时配置时，forceOpen优先。</td>
+</tr>
+<tr>
+<td align="left">servicecomb.circuitBreaker.[type].[scope].sleepWindowInMilliseconds</td>
+<td align="left">15000</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">熔断后，多长时间恢复</td>
+<td align="left">恢复后，会重新计算失败情况。注意：如果恢复后的调用立即失败，那么会立即重新进入熔断。</td>
+</tr>
+<tr>
+<td align="left">servicecomb.circuitBreaker.[type].[scope].requestVolumeThreshold</td>
+<td align="left">20</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">10s内请求数需要大于等于这个参数值，才开始计算错误率和判断是否进行熔断。</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">servicecomb.circuitBreaker.[type].[scope].errorThresholdPercentage</td>
+<td align="left">50</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">错误率阈值，达到阈值则触发熔断</td>
+<td align="left">由于10秒还会被划分为10个1秒的统计周期，经过1s中后才会开始计算错误率，因此从调用开始至少经过1s，才会发生熔断。</td>
+</tr>
+<tr>
+<td align="left">servicecomb.fallback.[type].[scope].enabled</td>
+<td align="left">TRUE</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">是否启用出错后的故障处理措施</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">servicecomb.fallback.[type].[scope].maxConcurrentRequests</td>
+<td align="left">10</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">并发调用容错处理措施（servicecomb.fallbackpolicy.policy）的请求数，超过这个值则不再调用处理措施，直接返回异常</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">servicecomb.fallbackpolicy.[type].[scope].policy</td>
+<td align="left">throwException</td>
+<td align="left">returnNull | throwexception</td>
+<td align="left">否</td>
+<td align="left">出错后的处理策略</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>小心</strong>：谨慎使用 <code>servicecomb.isolation.timeout.enabled=true</code> 。因为系统处理链都是异步执行，中间处理链的返回，会导致
+后面处理链的逻辑处理效果丢失。尽可能将 <code>servicecomb.isolation.timeout.enabled</code> 保持默认值false，并且正确设置网络层超时时
+间 <code>servicecomb.request.timeout=30000</code> 。</p>
+<ul>
+<li>示例代码</li>
+</ul>
+<pre><code class="language-yaml">servicecomb:
+  handler:
+    chain:
+      Consumer:
+        default: bizkeeper-consumer
+  isolation:
+    Consumer:
+      timeout:
+        enabled: true
+      timeoutInMilliseconds: 30000
+  circuitBreaker:
+    Consumer:
+      enabled: true
+      sleepWindowInMilliseconds: 15000
+      requestVolumeThreshold: 20
+  fallback:
+    Consumer:
+      enabled: true
+  fallbackpolicy:
+    Consumer:
+      policy: throwException
+</code></pre>
+<blockquote>
+<p><strong>说明：</strong><br />
+降级策略需要启用服务治理能力，对应的服务提供者的handler是<code>bizkeeper-provider</code>，服务消费者的handler是<code>bizkeeper-consumer</code>。</p>
+</blockquote>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="governance.html" class="btn btn-neutral float-right" title="基于动态配置的流量特征治理">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="fault-injection.html" class="btn btn-neutral" title="故障注入"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="fault-injection.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="governance.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

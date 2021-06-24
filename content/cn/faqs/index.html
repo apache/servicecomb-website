@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -215,7 +215,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -338,19 +338,19 @@
     <p><strong>Q: 使用Java-Chassis这个框架时有什么需要注意的地方？</strong></p>
 
     <p>A: 使用Java-Chassis有以下这些限制：
- (1) 0.3.0-SNAPSHOT之前的版本不支持类似<code class="highlighter-rouge">@GetMapping</code>这样的标注。
+ (1) 0.3.0-SNAPSHOT之前的版本不支持类似<code class="language-plaintext highlighter-rouge">@GetMapping</code>这样的标注。
  (2) 所用到的HTTP请求方法一样时，如GET，则方法名不能重载。这是由于生成契约时方法名会作为其Operation ID，所以要保证其唯一性。
  (3) 方法和类必须是public的。</p>
   </li>
   <li>
     <p><strong>Q: 契约生成会报错Caused by: java.lang.Error: OperationId must be unique，不支持函数重载？</strong></p>
 
-    <p>A: 我们是支持函数重载的， 加上<code class="highlighter-rouge">@ApiOperation</code>标签即可，demo-pojo中有示例。每个接口必须有唯一的operation id。</p>
+    <p>A: 我们是支持函数重载的， 加上<code class="language-plaintext highlighter-rouge">@ApiOperation</code>标签即可，demo-pojo中有示例。每个接口必须有唯一的operation id。</p>
   </li>
   <li>
-    <p><strong>Q: 使用<em>spring-boot-starter-provider</em>这个依赖时，在<em>application.yml</em>文件中声明的<code class="highlighter-rouge">spring.main.web-application</code>属性并没有生效？</strong></p>
+    <p><strong>Q: 使用<em>spring-boot-starter-provider</em>这个依赖时，在<em>application.yml</em>文件中声明的<code class="language-plaintext highlighter-rouge">spring.main.web-application</code>属性并没有生效？</strong></p>
 
-    <p>A: 使用<em>starter-provider</em>这个依赖时，如果用到了servlet这种方式时，需要在<em>application.properties</em>这个文件引入<code class="highlighter-rouge">spring.main.web-application=true</code>这样的属性或者在<em>application.yml</em>文件中声明，但是此时需要新建一个<em>application.properties</em>的文件，其内容可以为空。</p>
+    <p>A: 使用<em>starter-provider</em>这个依赖时，如果用到了servlet这种方式时，需要在<em>application.properties</em>这个文件引入<code class="language-plaintext highlighter-rouge">spring.main.web-application=true</code>这样的属性或者在<em>application.yml</em>文件中声明，但是此时需要新建一个<em>application.properties</em>的文件，其内容可以为空。</p>
   </li>
   <li>
     <p><strong>Q: 网关依赖的jar和其他微服务的一样吗？</strong></p>
@@ -359,7 +359,7 @@
  <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
 </code></pre></div>    </div>
 
-    <p>A: 网关除了要依赖<code class="highlighter-rouge">spring-boot-starter-provider</code>之外还要依赖<code class="highlighter-rouge">spring-boot-starter-discovery</code>，可以参考<a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">LinuxCon-Beijing-Workshop</a>中manager的实现。</p>
+    <p>A: 网关除了要依赖<code class="language-plaintext highlighter-rouge">spring-boot-starter-provider</code>之外还要依赖<code class="language-plaintext highlighter-rouge">spring-boot-starter-discovery</code>，可以参考<a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">LinuxCon-Beijing-Workshop</a>中manager的实现。</p>
   </li>
   <li>
     <p><strong>Q: 网关需要像其他微服务一样配置assembly吗？其中的/maven/gateway这个路径是docker maven plugin默认的吗？</strong></p>
@@ -376,7 +376,7 @@
 
     <p>A: 请检查调用路径与Producer实现代码中发布的路径完全一致。Producer端的启动日志可以查看到映射路径输出，例如：</p>
 
-    <p><code class="highlighter-rouge">[INFO] Swagger mapped "{[/hello/], method=[GET], produces=[application/json]}"</code></p>
+    <p><code class="language-plaintext highlighter-rouge">[INFO] Swagger mapped "{[/hello/], method=[GET], produces=[application/json]}"</code></p>
 
     <p>不同编程风格（模型）实现Producer的文档和注意事项请参见：<a href="/cn/users/develop-with-jax-rs/">Jaxrs</a> <a href="/cn/users/develop-with-springmvc/">SpringMVC</a> <a href="/cn/users/develop-with-transparent-rpc/">Pojo</a> <a href="/cn/users/develop-with-spring-boot-starter/">Spring Boot</a> 。</p>
   </li>
@@ -423,7 +423,7 @@
     <p>A: ServiceComb不绑定日志器，只是使用了slf4j，用户可以自由选择log4j/log4j2/logback等等。ServiceComb提供了一个log4j的扩展，在标准log4j的基础上，支持log4j的properties文件的增量配置。</p>
     <ul>
       <li>默认以规则：”classpath*:config/log4j.properties”加载配置文件</li>
-      <li>实际会搜索出classpath中所有的<code class="highlighter-rouge">config/log4j.properties和config/log4j.*.properties</code>, 从搜索出的文件中切出<code class="highlighter-rouge">\*</code>的部分，进行alpha排序，然后按顺序加载，最后合成的文件作为log4j的配置文件。</li>
+      <li>实际会搜索出classpath中所有的<code class="language-plaintext highlighter-rouge">config/log4j.properties和config/log4j.*.properties</code>, 从搜索出的文件中切出<code class="language-plaintext highlighter-rouge">\*</code>的部分，进行alpha排序，然后按顺序加载，最后合成的文件作为log4j的配置文件。</li>
       <li>如果要使用ServiceComb的log4j扩展，则需要调用Log4jUtils.init，否则完全按标准的日志器的规则使用。</li>
     </ul>
   </li>
@@ -813,7 +813,7 @@
     <p>A: 可能是想用redis解决订阅发布吧。但这样意义也不大，之前也尝试过这么用，但后来都改成ServiceComb了。</p>
   </li>
   <li>
-    <p><strong>Q: 如果同时引入了<code class="highlighter-rouge">transport-rest-servlet</code>和<code class="highlighter-rouge">transport-rest-vertx</code>的依赖，那么它怎么决定采用哪一个？</strong></p>
+    <p><strong>Q: 如果同时引入了<code class="language-plaintext highlighter-rouge">transport-rest-servlet</code>和<code class="language-plaintext highlighter-rouge">transport-rest-vertx</code>的依赖，那么它怎么决定采用哪一个？</strong></p>
 
     <p>A: 如果端口没被占用，就用vertx；如果被占用了，就用servlet。</p>
   </li>
@@ -856,7 +856,7 @@
     <p>A: Invocation.getArgs可以获取到接口定义里面声明的所有参数信息。在接口里面未定义的信息，比如额外的header，则需要通过InvocationContext来传递和获取。基本原理是实现HttpServerFilter将header设置到InvocationContext里面，然后在通过invocation.getContext获取。示例代码可以参考servicecomb-fence的 <a href="https://github.com/apache/servicecomb-fence/tree/master/api/edge-service/endpoint/src/main/java/org/apache/servicecomb/authentication/edge">AuthHandler 和 AuthenticationFilter</a> 。</p>
   </li>
   <li>
-    <p><strong>Q: 微服务运行时抛出异常：<code class="highlighter-rouge"> java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty</code>？</strong></p>
+    <p><strong>Q: 微服务运行时抛出异常：<code class="language-plaintext highlighter-rouge"> java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty</code>？</strong></p>
 
     <p>A: 可将Service Center升级至最新版本来解决。<a href="http://servicecomb.apache.org/cn/release/">ServiceComb版本下载传送门</a>。</p>
   </li>

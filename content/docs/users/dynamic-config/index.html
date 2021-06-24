@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -215,7 +215,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/developers/contributing">Community</a>
+                  <a href="/developers/contributing/">Community</a>
                 
               </li>
             
@@ -441,7 +441,7 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
    <span class="nb">cd </span>apollo-image-for-servicecomb <span class="o">&amp;&amp;</span> docker-compose up
 </code></pre></div></div>
-<p>When your console shows <code class="highlighter-rouge">Portal started. You can visit http://localhost:8070 now!</code> , it means the service is started and ready for use(It could take serval minutes which depends on machines). Visit Apollo configuration pages at <code class="highlighter-rouge">http://localhost:8070</code> in a browser. Please refer to <a href="https://docs.docker.com/compose/install/">Docker document</a> about <code class="highlighter-rouge">docker-compose</code>.</p>
+<p>When your console shows <code class="language-plaintext highlighter-rouge">Portal started. You can visit http://localhost:8070 now!</code> , it means the service is started and ready for use(It could take serval minutes which depends on machines). Visit Apollo configuration pages at <code class="language-plaintext highlighter-rouge">http://localhost:8070</code> in a browser. Please refer to <a href="https://docs.docker.com/compose/install/">Docker document</a> about <code class="language-plaintext highlighter-rouge">docker-compose</code>.</p>
 
 <h3 id="configure-services-and-get-a-token">Configure services and get a token</h3>
 
@@ -449,7 +449,7 @@
   <li>
     <h5 id="login-to-configuration-center-and-create-a-project">Login to Configuration center and create a project</h5>
 
-    <p>Visit the address of Apollo configuration portal service , for example: <code class="highlighter-rouge">http://192.168.199.1:8070</code></p>
+    <p>Visit the address of Apollo configuration portal service , for example: <code class="language-plaintext highlighter-rouge">http://192.168.199.1:8070</code></p>
 
     <p><img src="/assets/images/config/login.png" alt="登录配置中心" /></p>
 
@@ -460,7 +460,7 @@
 
     <p><img src="/assets/images/config/create_project.png" alt="创建项目" /></p>
 
-    <p>There is a demo project named SampleApp, you can create a project for your service by click the green icon <code class="highlighter-rouge">+</code>. The picture below is a example to create a project, fill in your application ID and service name and choose the department and owner of the project and then submit them.</p>
+    <p>There is a demo project named SampleApp, you can create a project for your service by click the green icon <code class="language-plaintext highlighter-rouge">+</code>. The picture below is a example to create a project, fill in your application ID and service name and choose the department and owner of the project and then submit them.</p>
   </li>
 </ul>
 
@@ -476,7 +476,7 @@
   </li>
 </ul>
 
-<p>Visit <code class="highlighter-rouge">http://192.168.199.1:8070/open/manage.html</code> and fill in application ID and service name you just created at last step, then choose department and owner of the project and click the create button to generate a token. The token will be used later in project code.</p>
+<p>Visit <code class="language-plaintext highlighter-rouge">http://192.168.199.1:8070/open/manage.html</code> and fill in application ID and service name you just created at last step, then choose department and owner of the project and click the create button to generate a token. The token will be used later in project code.</p>
 
 <p><img src="/assets/images/config/token.png" alt="生成TOKEN" /></p>
 
@@ -499,14 +499,14 @@
        <span class="na">token</span><span class="pi">:</span> <span class="s">testtoken</span>
        <span class="na">refreshInterval</span><span class="pi">:</span> <span class="m">10</span>
 </code></pre></div></div>
-<p>​	Configurations under <code class="highlighter-rouge">apollo.config</code> are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to <code class="highlighter-rouge">refreshInterval: 10</code>, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here. 
-  <code class="highlighter-rouge">serviceName</code> need to be <code class="highlighter-rouge">AppId</code> in apollo, please pay attention to that.</p>
+<p>​	Configurations under <code class="language-plaintext highlighter-rouge">apollo.config</code> are parameters of the project that users created above, including serviceName, env, clusters, namespace, token and refreshInterval. Pay attention to <code class="language-plaintext highlighter-rouge">refreshInterval: 10</code>, it means service will fetch latest configuration items every each 10 seconds, default refresh cycle is 30 second if no value is configured here. 
+  <code class="language-plaintext highlighter-rouge">serviceName</code> need to be <code class="language-plaintext highlighter-rouge">AppId</code> in apollo, please pay attention to that.</p>
 
 <h3 id="get-configurations">Get configurations</h3>
 
-<p>​	Creating a configuration item named <code class="highlighter-rouge">timeout</code> and set its value to <code class="highlighter-rouge">100</code> then release the configuration with some comments. Example as below:	<img src="/assets/images/config/release_config.png" alt="动态属性timeout" /></p>
+<p>​	Creating a configuration item named <code class="language-plaintext highlighter-rouge">timeout</code> and set its value to <code class="language-plaintext highlighter-rouge">100</code> then release the configuration with some comments. Example as below:	<img src="/assets/images/config/release_config.png" alt="动态属性timeout" /></p>
 
-<p>​	You can use<code class="highlighter-rouge">DynamicPropertyFactory.getInstance().getProperty()</code> to get the value of configuration items.</p>
+<p>​	You can use<code class="language-plaintext highlighter-rouge">DynamicPropertyFactory.getInstance().getProperty()</code> to get the value of configuration items.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Demo</span> <span class="o">{</span>
       <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
@@ -521,7 +521,7 @@
       <span class="o">}</span>
     <span class="o">}</span>
 </code></pre></div></div>
-<p>​	When the configuration items are modified and released in Apollo configuration center, the example code above will print latest value of <code class="highlighter-rouge">timeout</code> after a refreshing cycle.</p>
+<p>​	When the configuration items are modified and released in Apollo configuration center, the example code above will print latest value of <code class="language-plaintext highlighter-rouge">timeout</code> after a refreshing cycle.</p>
 
         
       </section>

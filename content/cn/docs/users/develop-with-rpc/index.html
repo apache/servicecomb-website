@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -215,7 +215,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -431,7 +431,7 @@
 
 <h2 id="示例代码">示例代码</h2>
 
-<p>只需要声明一个服务接口类型的成员，并且使用<code class="highlighter-rouge">@RpcReference</code>标注该成员，声明依赖的微服务及schemaId，即可进行服务调用，示例代码如下：</p>
+<p>只需要声明一个服务接口类型的成员，并且使用<code class="language-plaintext highlighter-rouge">@RpcReference</code>标注该成员，声明依赖的微服务及schemaId，即可进行服务调用，示例代码如下：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">org.springframework.stereotype.Component</span><span class="o">;</span>
 
@@ -461,10 +461,10 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>在以上代码中，服务消费者已经取得了服务提供者的服务接口<code class="highlighter-rouge">Hello</code>，并在代码中声明一个<code class="highlighter-rouge">Hello</code>类型的成员。通过在<code class="highlighter-rouge">hello</code>上使用<code class="highlighter-rouge">@RPCReference</code>注解指明微服务名称和schemaId，ServiceComb框架可以在程序启动时从服务中心获取到对应的服务提供者实例信息，并且生成一个代理注入到hello中，用户可以像调用本地类一样调用远程服务。</p>
+<p>在以上代码中，服务消费者已经取得了服务提供者的服务接口<code class="language-plaintext highlighter-rouge">Hello</code>，并在代码中声明一个<code class="language-plaintext highlighter-rouge">Hello</code>类型的成员。通过在<code class="language-plaintext highlighter-rouge">hello</code>上使用<code class="language-plaintext highlighter-rouge">@RPCReference</code>注解指明微服务名称和schemaId，ServiceComb框架可以在程序启动时从服务中心获取到对应的服务提供者实例信息，并且生成一个代理注入到hello中，用户可以像调用本地类一样调用远程服务。</p>
 
 <h3 id="调用方式的补充说明">调用方式的补充说明</h3>
-<p>上面示例代码中，为了能在main函数中直接使用hello变量，我们将它标记为<code class="highlighter-rouge">static</code>。作为CodeFirstConsumerMain这个Bean的本地变量，我们更推荐下面两种做法：</p>
+<p>上面示例代码中，为了能在main函数中直接使用hello变量，我们将它标记为<code class="language-plaintext highlighter-rouge">static</code>。作为CodeFirstConsumerMain这个Bean的本地变量，我们更推荐下面两种做法：</p>
 <h4 id="方式1通过cserpc-reference定义">方式1：通过cse:rpc-reference定义</h4>
 <p>在你的bean.xml中添加cse:rpc-reference的配置项：</p>
 
@@ -472,13 +472,13 @@
     <span class="na">schema-id=</span><span class="s">"codeFirstHello"</span> <span class="na">interface=</span><span class="s">"org.apache.servicecomb.samples.common.schema.Hello"</span><span class="nt">&gt;&lt;/cse:rpc-reference&gt;</span>
 </code></pre></div></div>
 
-<p>然后就可以使用<code class="highlighter-rouge">BeanUtils.getBean</code>直接获取服务提供者的服务接口<code class="highlighter-rouge">Hello</code>：</p>
+<p>然后就可以使用<code class="language-plaintext highlighter-rouge">BeanUtils.getBean</code>直接获取服务提供者的服务接口<code class="language-plaintext highlighter-rouge">Hello</code>：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Hello</span> <span class="n">hello</span> <span class="o">=</span> <span class="nc">BeanUtils</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"hello"</span><span class="o">);</span>
 </code></pre></div></div>
 
 <h4 id="方式2获取bean再获取接口">方式2：获取Bean，再获取接口</h4>
-<p>先使用<code class="highlighter-rouge">BeanUtils.getBean</code>获取到CodeFirstConsumerMain这个Bean：</p>
+<p>先使用<code class="language-plaintext highlighter-rouge">BeanUtils.getBean</code>获取到CodeFirstConsumerMain这个Bean：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Spring Bean 实例默认名为类名的小写</span>
 <span class="nc">CodeFirstConsumerMain</span> <span class="n">consumer</span> <span class="o">=</span> <span class="nc">BeanUtils</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"codeFirstConsumerMain"</span><span class="o">);</span>
@@ -496,7 +496,7 @@
 
 <blockquote>
   <p>说明：
-<code class="highlighter-rouge">BeanUtils.getBean</code>有锁，因此有性能问题，无论是哪种方式，推荐一次调用（例如在构造函数中）获取缓存起来作为一个本地变量反复使用。</p>
+<code class="language-plaintext highlighter-rouge">BeanUtils.getBean</code>有锁，因此有性能问题，无论是哪种方式，推荐一次调用（例如在构造函数中）获取缓存起来作为一个本地变量反复使用。</p>
 </blockquote>
 
         

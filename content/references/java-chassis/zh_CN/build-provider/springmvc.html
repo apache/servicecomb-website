@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>用 Spring MVC 开发微服务 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u7528 Spring MVC \u5f00\u53d1\u5fae\u670d\u52a1";
+    var mkdocs_page_input_path = "build-provider/springmvc.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>用 Spring MVC 开发微服务</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="spring-mvc">用 Spring MVC 开发微服务</h1>
+<p>Spring MVC 是 spring-web 项目定义的一套注解，开发者可以使用这套注解定义 REST 接口。 servicecomb 也
+支持使用这套标签定义 REST 接口。需要注意的是，servicecomb 只是使用这些注解，而注解的实现是项目自行开发的，
+实现的功能集合是 Spring MVC 注解的子集。可以阅读文章后面的内容了解具体的标签集合和使用约束。</p>
+<p><a href="https://github.com/apache/servicecomb-samples/tree/master/java-chassis-samples/springmvc-sample">SpringMVC Sample</a> 提供了一些基础的代码示例，可以下载使用。</p>
+<h2 id="_1">开发步骤</h2>
+<p>下面简单介绍使用 Spring MVC 开发 REST 服务的一些简单步骤。</p>
+<ul>
+<li>定义服务接口（可选）</li>
+</ul>
+<p>定义接口是一个好习惯， 它不是必须的。</p>
+<pre><code>    ```java
+    public interface Hello {
+        String sayHi(String name);
+        String sayHello(Person person);
+    }
+    ```
+</code></pre>
+<ul>
+<li>实现服务接口</li>
+</ul>
+<p>在服务的实现类上打上注解 <code>@RestSchema</code>，指定 <code>schemaId</code>。 注意 <code>schemaId</code> 需要保证微服务范围内唯一。</p>
+<pre><code>    ```java
+    @RestSchema(schemaId = "springmvcHello")
+    @RequestMapping(path = "/springmvchello", produces = MediaType.APPLICATION_JSON)
+    public class SpringmvcHelloImpl implements Hello {
+        @Override
+        @RequestMapping(path = "/sayhi", method = RequestMethod.POST)
+        public String sayHi(@RequestParam(name = "name") String name) {
+            return "Hello " + name;
+        }
+
+        @Override
+        @RequestMapping(path = "/sayhello", method = RequestMethod.POST)
+        public String sayHello(@RequestBody Person person) {
+            return "Hello person " + person.getName();
+        }
+    }
+    ```
+</code></pre>
+<ul>
+<li>发布服务 （可选，默认会扫描 main 函数所在的 package ）</li>
+</ul>
+<p>在<code>resources/META-INF/spring</code>目录下创建<code>springmvcprovider.bean.xml</code>文件，
+  命名规则为<code>\*.bean.xml</code>，配置spring进行服务扫描的base-package，文件内容如下：</p>
+<pre><code>    ```xml
+    &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+    &lt;beans xmlns="http://www.springframework.org/schema/beans"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns:cse="http://www.huawei.com/schema/paas/cse/rpc"
+      xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd"&gt;
+
+        &lt;context:component-scan base-package="org.apache.servicecomb.samples.springmvc.povider"/&gt;
+    &lt;/beans&gt;
+    ```
+</code></pre>
+<ul>
+<li>启动 provider 服务</li>
+</ul>
+<p>servicecomb 依赖于 Spring, 只需要将 Spring 框架启动起来即可。</p>
+<pre><code>    ```java
+    public class SpringmvcProviderMain {
+
+      public static void main(String[] args) throws Exception {
+        BeanUtils.init();
+      }
+    }
+    ```
+</code></pre>
+<h2 id="servicecomb-spring-mvc">ServiceComb支持的 Spring MVC 注解说明</h2>
+<p>servicecomb 支持使用 Spring MVC 提供的注解 <code>org.springframework.web.bind.annotation</code> 来声
+明REST接口，但是两者是独立的实现，而且有不一样的设计目标。servicecomb 的目标是提供跨语言、支持多通信协议的
+框架，因此去掉了Spring MVC中一些对跨语言支持不是很好的特性，也不支持特定运行框架强相关的特性，比
+如直接访问Servlet协议定义的<code>HttpServletRequest</code>。servicecomb 没有实现<code>@Controller</code>相关功
+能, 只实现了<code>@RestController</code>，即通过MVC模式进行页面渲染等功能都是不支持的。</p>
+<p>下面是一些具体差异。</p>
+<ul>
+<li>常用标签支持</li>
+</ul>
+<p>下面是CSE对于Spring MVC常用标签的支持情况。</p>
+<p><strong><em>表1-1 Spring MVC注解情况说明</em></strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">标签名称</th>
+<th align="left">是否支持</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">RequestMapping</td>
+<td align="left">是</td>
+<td align="left">不允许制定多个Path，一个接口只允许一个Path，必须显示的声明 method 属性，只能定义唯一一个 method</td>
+</tr>
+<tr>
+<td align="left">GetMapping</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">PutMapping</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">PostMapping</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">DeleteMapping</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">PatchMapping</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">RequestParam</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">CookieValue</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">PathVariable</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">RequestHeader</td>
+<td align="left">是</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">RequestBody</td>
+<td align="left">是</td>
+<td align="left">目前支持application/json，plain/text</td>
+</tr>
+<tr>
+<td align="left">RequestPart</td>
+<td align="left">是</td>
+<td align="left">用于文件上传的场景，对应的标签还有Part、MultipartFile</td>
+</tr>
+<tr>
+<td align="left">ResponseBody</td>
+<td align="left">否</td>
+<td align="left">返回值缺省都是在body返回</td>
+</tr>
+<tr>
+<td align="left">ResponseStatus</td>
+<td align="left">否</td>
+<td align="left">可以通过ApiResponse指定返回的错误码</td>
+</tr>
+<tr>
+<td align="left">RequestAttribute</td>
+<td align="left">否</td>
+<td align="left">Servlet协议相关的标签</td>
+</tr>
+<tr>
+<td align="left">SessionAttribute</td>
+<td align="left">否</td>
+<td align="left">Servlet协议相关的标签</td>
+</tr>
+<tr>
+<td align="left">MatrixVariable</td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">ModelAttribute</td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">ControllerAdvice</td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">CrossOrigin</td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">ExceptionHandler</td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">InitBinder</td>
+<td align="left">否</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>服务声明方式</li>
+</ul>
+<p>Spring MVC使用<code>@RestController</code>声明服务，而ServiceComb使用<code>@RestSchema</code>声明服务，并且需
+  要显式地使用<code>@RequestMapping</code>声明服务路径，以区分该服务是采用Spring MVC的标签还是使用JAX RS的标签。</p>
+<pre><code>    ```
+    @RestSchema(schemaId = "springmvcHello")
+    @RequestMapping(path = "/springmvchello", produces = MediaType.APPLICATION_JSON)
+    public class SpringmvcHelloImpl implements Hello {
+      ......
+    }
+    ```
+</code></pre>
+<p>servicecomb 也支持 <code>@RestController</code> 声明，等价于 <code>@RestSchma(schemaId="服务的class名称")</code>，这个
+  功能可以简化用户将老的应用改造为 servicecomb 。 建议用户使用<code>@RestSchema</code>显式声明schemaId，在管理
+  接口基本的配置项的时候，更加直观。</p>
+<p><strong>注意</strong>：如果不希望Java-Chassis扫描<code>@RestController</code>注解作为REST接口类处理，需要增加配置
+  <code>servicecomb.provider.rest.scanRestController=false</code> 以关闭此功能。</p>
+<ul>
+<li>数据类型支持</li>
+</ul>
+<p>Spring 技术实现的 Spring MVC，可以在服务定义中使用多种数据类型，只要这种数据类型能够被json序列化和
+  反序列化。比如：</p>
+<pre><code>    ```
+    // 抽象类型
+    public void postData(@RequestBody Object data)
+    // 接口定义
+    public void postData(@RequestBody IPerson interfaceData)
+    // 没指定类型的泛型
+    public void postData(@RequestBody Map rawData)
+    ```
+</code></pre>
+<p>Spring 技术早期都是基于 JSP/Servlet 协议标准的，还可以使用相关的 context 参数，比如：</p>
+<pre><code>    ```
+    // 具体协议相关的类型
+    public void postData(HttpServletRequest rquest, HttpServletResponse response)
+    ```
+</code></pre>
+<p>servicecomb 对于数据类型存在一定的限制，不允许使用接口、抽象类等数据类型定义参数，虽然 servicecomb
+  支持使用 Object 这个特殊的类型来处理类型无法确定的情况，但是建议尽可能少使用，使用 Object 作为类型，
+  运行时的类型不确定，可能给客户端代码的书写带来一定麻烦。</p>
+<p>servicecomb 也支持一些 context 参数， 参考<a href="context-param.html">使用 Context 参数</a> 。但是由于 servicecomb 默认的运行环境并不是 JSP/Servlet 协议
+  环境，因此不能直接使用 <code>HttpServletRequest</code> 和 <code>HttpServletResponse</code>。 </p>
+<p>ServiceComb在数据类型的支持方面的更多说明，请参考： <a href="interface-constraints.html">接口定义和数据类型</a></p>
+<ul>
+<li>其他</li>
+</ul>
+<p>更多开发过程中碰到的问题，可以参考<a href="https://bbs.huaweicloud.com/blogs/8b8d8584e70d11e8bd5a7ca23e93a891">案例</a>。开发过程中存在疑问，也可以在这里进行提问。</p>
+<h2 id="http-header">在响应中包含  HTTP header</h2>
+<p>可以有多种方式在响应中包含 HTTP header， 下面代码展示了使用 ResponseEntity 包含 HTTP header。 需要注意
+使用 @ResponseHeaders 声明返回的 header 信息。 包含了 @ResponseHeaders 以后， 接口生成的契约中，也可以
+看到对应的 header 参数。</p>
+<pre><code class="language-java">  @ResponseHeaders({@ResponseHeader(name = &quot;h1&quot;, response = String.class),
+      @ResponseHeader(name = &quot;h2&quot;, response = String.class)})
+  @RequestMapping(path = &quot;/responseEntity&quot;, method = RequestMethod.POST)
+  public ResponseEntity&lt;Date&gt; responseEntity(InvocationContext c1, 
+        @RequestAttribute(&quot;date&quot;) Date date) {
+    HttpHeaders headers = new HttpHeaders();
+    headers.add(&quot;h1&quot;, &quot;h1v &quot; + c1.getContext().get(Const.SRC_MICROSERVICE));
+
+    InvocationContext c2 = ContextUtils.getInvocationContext();
+    headers.add(&quot;h2&quot;, &quot;h2v &quot; + c2.getContext().get(Const.SRC_MICROSERVICE));
+
+    return new ResponseEntity&lt;&gt;(date, headers, HttpStatus.ACCEPTED);
+  }
+</code></pre>
+<p>也可以使用 Response 对象返回 HTTP header，示例代码如下：</p>
+<pre><code class="language-java">  @ApiResponse(code = 202, response = User.class, message = &quot;&quot;)
+  @ResponseHeaders({@ResponseHeader(name = &quot;h1&quot;, response = String.class),
+      @ResponseHeader(name = &quot;h2&quot;, response = String.class)})
+  @RequestMapping(path = &quot;/cseResponse&quot;, method = RequestMethod.GET)
+  public Response cseResponse(InvocationContext c1) {
+    Response response = Response.createSuccess(Status.ACCEPTED, new User());
+    Headers headers = response.getHeaders();
+    headers.addHeader(&quot;h1&quot;, &quot;h1v &quot; + c1.getContext().get(Const.SRC_MICROSERVICE));
+
+    InvocationContext c2 = ContextUtils.getInvocationContext();
+    headers.addHeader(&quot;h2&quot;, &quot;h2v &quot; + c2.getContext().get(Const.SRC_MICROSERVICE));
+
+    return response;
+  }
+</code></pre>
+<p>这个示例代码还通过 @ApiResponse 指定了返回 202 错误码及其类型， 这个响应值会在契约体现。</p>
+<p><strong><em>注意</em></strong>: HIGHWAY 协议不支持指定返回错误码和类型。需要同时使用 HIGHWAY 和 REST 访问的接口，
+请勿使用。  </p>
+<h2 id="string-body">指定 String 类型 body 编码方式</h2>
+<p>使用 REST 通信的服务， 一般采用 json 进行编解码。 String 类型的数据， 编码为 json 的时候，存在
+双引号。 比如 <code>abc</code> 编码以后为 <code>"abc"</code> 。 但是 Spring 自身的实现， 将 String 类型的数据，编码
+为不带双引号。 为了保持 Spring 原始实现的方式兼容， servicecomb 提供了 <code>RawJsonRequestBody</code> 接收
+不带双引号的参数。 </p>
+<pre><code class="language-java">  @ResponseBody
+  public String testRawJsonAnnotation(@RawJsonRequestBody String jsonInput) {
+    return jsonInput;
+  }
+</code></pre>
+<p>或者使用 MediaType.TEXT_PLAIN_VALUE, 不使用 MediaType.APPLICATION_JSON_VALUE</p>
+<pre><code class="language-java">  @RequestMapping(path = &quot;/textPlain&quot;, method = RequestMethod.POST, 
+      consumes = MediaType.TEXT_PLAIN_VALUE)
+  public String textPlain(@RequestBody String body) {
+    return body;
+  }
+</code></pre>
+<p>如果响应不期望带双引号，可以使用 <code>produces = MediaType.TEXT_PLAIN_VALUE</code></p>
+<pre><code class="language-java"> @RequestMapping(path = &quot;/sayhi/compressed/{name}/v2&quot;, 
+    method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+  public String sayHiForCompressed(@PathVariable(name = &quot;name&quot;) String name) {
+     return name;
+  }
+</code></pre>
+<h2 id="querypojo">Query参数聚合为POJO对象</h2>
+<p>SpringBoot支持将Java业务接口中的多个query参数聚合为一个POJO类，SpringBoot原生用法示例如下：</p>
+<pre><code class="language-java">@RequestMapping(&quot;/hello&quot;)
+public class HelloService {
+  @RequestMapping(value = &quot;/sayHello&quot;, method = RequestMethod.GET)
+  public String sayHello(Person person) {
+    System.out.println(&quot;sayHello is called, person = [&quot; + person + &quot;]&quot;);
+    return &quot;Hello, your name is &quot; + person.getName() + &quot;, and age is &quot; + person.getAge();
+  }
+}
+</code></pre>
+<p>其中，作为参数的<code>Person</code>类是一个标准的JavaBean，包含属性<code>name</code>和<code>age</code>。当服务接收到的请求时，SpringBoot会将query参数<code>name</code>和<code>age</code>聚合为Person对象传入业务接口。</p>
+<p>ServiceComb的SpringMVC开发模式现在也支持类似的用法，该用法的要求如下：</p>
+<ol>
+<li>POJO参数上不能有Spring的参数注解，否则ServiceComb不会将其作为聚合的query参数对象处理。</li>
+<li>仅支持聚合query参数</li>
+<li>POJO参数类中的属性名与query参数名需要保持一致</li>
+<li>POJO参数中不支持复杂的属性，如其他POJO对象、List等。用户可以在这些复杂类型打上<code>@JsonIgnore</code>注解来让ServiceComb忽略这些复杂属性。</li>
+<li>consumer端不支持query参数聚合为POJO对象，调用服务时依然要按照契约发送请求。即provider端被聚合的POJO参数在契约中会被展开成一系列的query参数，consumer端需要在provider接口方法中依次定义这些query参数（RPC开发模式），或在发送请求时填入这些query参数（RestTemplate开发模式）。</li>
+</ol>
+<h3 id="_2">代码示例</h3>
+<h4 id="provider">Provider端开发服务</h4>
+<ul>
+<li>Provider端业务接口代码：</li>
+</ul>
+<pre><code class="language-java">  @RestSchema(schemaId = &quot;helloService&quot;)
+  @RequestMapping(&quot;/hello&quot;)
+  public class HelloService {
+    @RequestMapping(value = &quot;/sayHello&quot;, method = RequestMethod.GET)
+    public String sayHello(Person person) {
+      System.out.println(&quot;sayHello is called, person = [&quot; + person + &quot;]&quot;);
+      return &quot;Hello, your name is &quot; + person.getName() + &quot;, and age is &quot; + person.getAge();
+    }
+  }
+</code></pre>
+<ul>
+<li>POJO参数对象定义：</li>
+</ul>
+<pre><code class="language-java">  public class Person {
+    private String name;
+    private int age;
+    @JsonIgnore  // 复杂属性需要标记@JsonIgnore，否则启动时会报错
+    private List&lt;Person&gt; children;
+  }
+</code></pre>
+<ul>
+<li>接口契约：</li>
+</ul>
+<pre><code class="language-yaml"># 忽略契约的其他部分
+basePath: &quot;/hello&quot;
+paths:
+  /sayHello:
+    get:
+      operationId: &quot;sayHello&quot;
+      parameters:
+        # Person类的name属性和age属性作为契约中的query参数
+      - name: &quot;name&quot;
+        in: &quot;query&quot;
+        required: false
+        type: &quot;string&quot;
+      - name: &quot;age&quot;
+        in: &quot;query&quot;
+        required: false
+        type: &quot;integer&quot;
+        format: &quot;int32&quot;
+      responses:
+        200:
+          description: &quot;response of 200&quot;
+          schema:
+            type: &quot;string&quot;
+</code></pre>
+<h4 id="consumer">Consumer端调用服务</h4>
+<p>consumer端RPC开发模式：</p>
+<ul>
+<li>Provider接口定义</li>
+</ul>
+<pre><code class="language-java">public interface HelloServiceIntf {
+  String sayHello(String name, int age);
+}
+</code></pre>
+<ul>
+<li>调用代码</li>
+</ul>
+<pre><code class="language-java">String result = helloService.sayHello(&quot;Bob&quot;, 22); // result的值为&quot;Hello, your name is Bob, and age is 22&quot;
+</code></pre>
+<ul>
+<li>consumer端RestTemplate开发模式：</li>
+</ul>
+<pre><code class="language-java">String result = restTemplate.getForObject(
+  &quot;cse://provider-service/hello/sayHello?name=Bob&amp;age=22&quot;,
+  String.class); // 调用效果与RPC方式相同
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

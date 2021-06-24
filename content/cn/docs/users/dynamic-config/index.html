@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -215,7 +215,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -442,7 +442,7 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   git clone https://github.com/lijasonvip/apollo-image-for-servicecomb.git
    <span class="nb">cd </span>apollo-image-for-servicecomb <span class="o">&amp;&amp;</span> docker-compose up
 </code></pre></div></div>
-<p>等待出现 <code class="highlighter-rouge">Portal started. You can visit http://localhost:8070 now!</code> 后表示系统启动完成（启动时间基于机器性能可能需要1-3分钟），可以在浏览器中访问<code class="highlighter-rouge">http://localhost:8070</code>进入配置中心页面。 <code class="highlighter-rouge">docker-compose</code>安装请参考<a href="https://docs.docker.com/compose/install/">文档</a>。</p>
+<p>等待出现 <code class="language-plaintext highlighter-rouge">Portal started. You can visit http://localhost:8070 now!</code> 后表示系统启动完成（启动时间基于机器性能可能需要1-3分钟），可以在浏览器中访问<code class="language-plaintext highlighter-rouge">http://localhost:8070</code>进入配置中心页面。 <code class="language-plaintext highlighter-rouge">docker-compose</code>安装请参考<a href="https://docs.docker.com/compose/install/">文档</a>。</p>
 
 <h3 id="通过apollo界面配置应用获取token">通过Apollo界面配置应用获取TOKEN</h3>
 
@@ -450,7 +450,7 @@
   <li>
     <h5 id="登录apollo配置中心创建项目">登录Apollo配置中心创建项目</h5>
 
-    <p>在浏览器中输入登录地址，地址是容器所在主机的<code class="highlighter-rouge">IP:PORT</code>端口默认8070，如<code class="highlighter-rouge">http://192.168.199.1:8070</code></p>
+    <p>在浏览器中输入登录地址，地址是容器所在主机的<code class="language-plaintext highlighter-rouge">IP:PORT</code>端口默认8070，如<code class="language-plaintext highlighter-rouge">http://192.168.199.1:8070</code></p>
 
     <p><img src="/assets/images/config/login.png" alt="登录配置中心" /></p>
 
@@ -477,7 +477,7 @@
   </li>
 </ul>
 
-<p>打开地址<code class="highlighter-rouge">http://192.168.199.1:8070/open/manage.html</code>进入下图页面，填入刚才创建项目使的应用名选择相应的部门和项目负责人即可生成应用对应的TOKEN，保存这个TOKEN稍后配置到项目代码中即可。</p>
+<p>打开地址<code class="language-plaintext highlighter-rouge">http://192.168.199.1:8070/open/manage.html</code>进入下图页面，填入刚才创建项目使的应用名选择相应的部门和项目负责人即可生成应用对应的TOKEN，保存这个TOKEN稍后配置到项目代码中即可。</p>
 
 <p><img src="/assets/images/config/token.png" alt="生成TOKEN" /></p>
 
@@ -500,14 +500,14 @@
        <span class="na">token</span><span class="pi">:</span> <span class="s">testtoken</span>
        <span class="na">refreshInterval</span><span class="pi">:</span> <span class="m">10</span>
 </code></pre></div></div>
-<p>​	<code class="highlighter-rouge">apollo.config</code>下的配置项是用户创建的应用参数，包括服务地址，用户名，集群，namespace，token等参数。这些参数可以在配置中心页面项目信息栏中查到。需要注意的是<code class="highlighter-rouge">refreshInterval: 10</code>表示应用会每隔10秒去配置中心查询一次最新的配置信息，不配置此项默认刷新周期为30秒。
-  <code class="highlighter-rouge">serviceName</code>对应Apollo中的第三发应用ID: <code class="highlighter-rouge">AppId</code>.</p>
+<p>​	<code class="language-plaintext highlighter-rouge">apollo.config</code>下的配置项是用户创建的应用参数，包括服务地址，用户名，集群，namespace，token等参数。这些参数可以在配置中心页面项目信息栏中查到。需要注意的是<code class="language-plaintext highlighter-rouge">refreshInterval: 10</code>表示应用会每隔10秒去配置中心查询一次最新的配置信息，不配置此项默认刷新周期为30秒。
+  <code class="language-plaintext highlighter-rouge">serviceName</code>对应Apollo中的第三发应用ID: <code class="language-plaintext highlighter-rouge">AppId</code>.</p>
 
 <h3 id="获取动态属性">获取动态属性</h3>
 
-<p>​	在配置中心中创建一个<code class="highlighter-rouge">timeout</code>的配置项，其值设置为<code class="highlighter-rouge">100</code>，并发布如下图：	<img src="/assets/images/config/release_config.png" alt="动态属性timeout" /></p>
+<p>​	在配置中心中创建一个<code class="language-plaintext highlighter-rouge">timeout</code>的配置项，其值设置为<code class="language-plaintext highlighter-rouge">100</code>，并发布如下图：	<img src="/assets/images/config/release_config.png" alt="动态属性timeout" /></p>
 
-<p>​	代码中可以使用<code class="highlighter-rouge">DynamicPropertyFactory.getInstance().getProperty()</code>方法来获取具体的配置项值，<code class="highlighter-rouge">getProperty</code>方法可以根据配置项具体的类型来灵活使用，比如<code class="highlighter-rouge">getIntProperty()</code>,<code class="highlighter-rouge">getStringProperty()</code>等。</p>
+<p>​	代码中可以使用<code class="language-plaintext highlighter-rouge">DynamicPropertyFactory.getInstance().getProperty()</code>方法来获取具体的配置项值，<code class="language-plaintext highlighter-rouge">getProperty</code>方法可以根据配置项具体的类型来灵活使用，比如<code class="language-plaintext highlighter-rouge">getIntProperty()</code>,<code class="language-plaintext highlighter-rouge">getStringProperty()</code>等。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">class</span> <span class="nc">XXX</span> <span class="o">{</span>
       <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
@@ -522,7 +522,7 @@
       <span class="o">}</span>
     <span class="o">}</span>
 </code></pre></div></div>
-<p>​	Apollo配置中心修改配置项并发布后，经过一个刷新周期后就会打印出最新的<code class="highlighter-rouge">timeout</code>值。</p>
+<p>​	Apollo配置中心修改配置项并发布后，经过一个刷新周期后就会打印出最新的<code class="language-plaintext highlighter-rouge">timeout</code>值。</p>
 
 
         

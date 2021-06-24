@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>限流 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u9650\u6d41";
+    var mkdocs_page_input_path = "references-handlers/ratelimit.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="ratelimit.html">限流</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">流控算法说明</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#provider">Provider端使用限流</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_3">配置说明</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#consumer">Consumer端使用限流</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_4">配置说明</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>服务治理功能参考 &raquo;</li>
+        
+      
+    
+    <li>限流</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">限流</h1>
+<p>java-chassis 支持 Provider 限流和 Consumer 限流。 Provider 限流控制访问本微服务的流量， Consumer 限流控制发往其他微服务的流量。</p>
+<p><strong><em>注意事项：</em></strong></p>
+<ol>
+<li>限流策略的控制并不是绝对精确的，可能会有少量误差。</li>
+<li>流量控制是业务层面的功能，不是安全意义上的流量控制，如需防止DDoS攻击，需要结合其他的一系列措施。</li>
+<li>流量控制是微服务级的，不是实例级的。例如一个consumer服务有三个实例，当对它们依赖的provider实例配置限流策略后，
+  provider不会区分consumer的请求具体是由哪个实例发出的，而是汇总成微服务级的统计数据进行限流判断。</li>
+</ol>
+<h2 id="_2">流控算法说明</h2>
+<p>2.1.3 版本之前，不提供流控策略的选择，默认流控实现算法是固定窗口算法。</p>
+<p>2.1.3 版本以及之后，提供流控测流供选择，默认提供固定窗口算法、漏桶算法、令牌桶算法，且支持用户自定义流控策略实现。</p>
+<ul>
+<li>算法说明：</li>
+<li>固定窗口算法：默认窗口大小为1s，最大可能产生2倍于指定流量设置大小的误差。</li>
+<li>令牌桶算法：令牌桶的主要思想是，设置一个固定大小的桶，以恒定速率向里面加入令牌，每次新
+    请求到来时从里面取一个令牌出来，如果没有令牌可取，则请求直接失败(被限流)。</li>
+<li>漏桶算法：漏桶算法的主要思想是，设置一个固定大小的桶，请求不断加入桶中同时以固定大小从桶
+    内部流出，如果达到桶的极限大小，则请求溢出(失败)。在内部实现上漏桶算法与令牌桶算法的实现
+    原理相同，根据设置的桶大小不同，能承载的突发流量不同。</li>
+<li>用户自定义流控算法：可以参考 <a href="https://github.com/apache/servicecomb-java-chassis/blob/master/demo/demo-springmvc/springmvc-server/src/main/java/org/apache/servicecomb/demo/springmvc/server/MyStrategyFactory.java">示例实现</a> ,以及该实现下的配置方法。</li>
+</ul>
+<h2 id="provider">Provider端使用限流</h2>
+<p>用户在provider端使用限流策略，可以限制指定微服务向其发送请求的频率，达到限制每秒钟最大请求数量的效果。</p>
+<h3 id="_3">配置说明</h3>
+<p>限流策略配置在microservice.yaml文件中，相关配置项见表<strong>QPS流控配置项说明</strong>。要开启服务提供者端的限流策略，还需要在处理链中配置服
+务端限流handler，并添加pom依赖。</p>
+<ul>
+<li>
+<p>microservice.yaml配置示例如下：</p>
+<pre><code>servicecomb:
+  handler:
+    chain:
+      Provider:
+        default: qps-flowcontrol-provider
+</code></pre>
+</li>
+<li>
+<p>添加handler-flowcontrol-qps的pom依赖：</p>
+<pre><code>&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+  &lt;artifactId&gt;handler-flowcontrol-qps&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+</li>
+</ul>
+<p><strong>QPS流控配置项说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">默认值</th>
+<th align="left">取值范围</th>
+<th align="left">是否必选</th>
+<th align="left">含义</th>
+<th align="left">注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">servicecomb.flowcontrol.Provider.qps.enabled</td>
+<td align="left">true</td>
+<td align="left">true/false</td>
+<td align="left">否</td>
+<td align="left">是否启用Provider流控</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Provider.qps.strategy</td>
+<td align="left">FixedWindow</td>
+<td align="left">FixedWindow/LeakyBucket/TokenBucket/自定义</td>
+<td align="left">否</td>
+<td align="left">流控策略</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Provider.qps.limit.[ServiceName].[Schema].[operation]</td>
+<td align="left">2147483647（max int）</td>
+<td align="left">(0,2147483647]，整形</td>
+<td align="left">否</td>
+<td align="left">每秒钟允许的请求数</td>
+<td align="left">支持microservice/schema/operation三个级别的配置，后者的优先级高于前者</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Provider.qps.global.limit</td>
+<td align="left">2147483647（max int）</td>
+<td align="left">(0,2147483647]，整形</td>
+<td align="left">否</td>
+<td align="left">provider接受请求流量的全局配置</td>
+<td align="left">没有具体的流控配置时，此配置生效</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Provider.qps.bucket.[ServiceName].[Schema].[operation]</td>
+<td align="left">两倍limit大小，不超过max int</td>
+<td align="left">(0,2147483647]，整形</td>
+<td align="left">否</td>
+<td align="left">令牌桶场景下桶的大小</td>
+<td align="left">支持microservice/schema/operation三个级别的配置，后者的优先级高于前者</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Provider.qps.global.bucket</td>
+<td align="left">两倍limit大小，不超过max int</td>
+<td align="left">(0,2147483647]，整形</td>
+<td align="left">否</td>
+<td align="left">令牌桶场景下provider桶的大小</td>
+<td align="left">没有具体的流控配置时，此配置生效</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意：</strong>
+strategy是全局的策略选择，一旦选择所有流控接口都会应用统一的流控策略，且不支持动态配置变更，如果变更流控策略需要重启服务。</p>
+<p><strong>注意：</strong>
+provider端限流策略配置中的<code>ServiceName</code>指的是调用该provider的consumer，而<code>schema</code>、<code>operation</code>指的是provider自身的。即provider端限流配置的含义是，限制指定consumer调用本provider的某个schema、operation的流量。</p>
+</blockquote>
+<p><code>ANY</code> 是一个特殊的 <code>ServiceName</code>， 表示不区分来源微服务， 对所有微服务使用同样的策略。 比如 
+<code>servicecomb.flowcontrol.Provider.qps.limit.ANY.mySchema.myOperation=200</code> 表示对 <code>mySchema.myOperation</code> 单独限制 200 的流量。</p>
+<h2 id="consumer">Consumer端使用限流</h2>
+<p>用户在consumer端使用限流策略，可以限制发往指定微服务的请求的频率。</p>
+<h3 id="_4">配置说明</h3>
+<p>限流策略配置在microservice.yaml文件中，相关配置项见下表。要开启服务消费者端的限流策略，还需要在处理链中配置消费端限流handler，配置示例如下：</p>
+<pre><code class="language-yaml">servicecomb:
+  handler:
+    chain:
+      Consumer:
+        default: qps-flowcontrol-consumer
+</code></pre>
+<p>QPS流控配置项说明</p>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">默认值</th>
+<th align="left">取值范围</th>
+<th align="left">是否必选</th>
+<th align="left">含义</th>
+<th align="left">注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">servicecomb.flowcontrol.Consumer.qps.enabled</td>
+<td align="left">true</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">是否启用Consumer流控</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Consumer.qps.strategy</td>
+<td align="left">FixedWindow</td>
+<td align="left">FixedWindow/LeakyBucket/TokenBucket/自定义</td>
+<td align="left">否</td>
+<td align="left">流控策略</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Consumer.qps.global.limit</td>
+<td align="left">2147483647（max int）</td>
+<td align="left">(0,2147483647]，整形</td>
+<td align="left">否</td>
+<td align="left">consumer发送请求流量的全局配置</td>
+<td align="left">没有具体的流控配置时，此配置生效</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Consumer.qps.limit.[ServiceName].[Schema].[operation]</td>
+<td align="left">2147483647  (max int)</td>
+<td align="left">(0,2147483647]，整形</td>
+<td align="left">否</td>
+<td align="left">每秒钟允许的请求数</td>
+<td align="left">支持microservice、schema、operation三个级别的配置</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Consumer.qps.global.bucket</td>
+<td align="left">两倍limit大小，不超过max int</td>
+<td align="left">(0,2147483647]，整形</td>
+<td align="left">否</td>
+<td align="left">令牌桶场景下consumer桶的大小</td>
+<td align="left">没有具体的流控配置时，此配置生效</td>
+</tr>
+<tr>
+<td align="left">servicecomb.flowcontrol.Consumer.qps.bucket.[ServiceName].[Schema].[operation]</td>
+<td align="left">两倍limit大小，不超过max int</td>
+<td align="left">(0,2147483647]，整形</td>
+<td align="left">否</td>
+<td align="left">令牌桶场景下桶的大小</td>
+<td align="left">支持microservice/schema/operation三个级别的配置，后者的优先级高于前者</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>注意：</strong>
+strategy是全局的策略选择，一旦选择所有流控接口都会应用统一的流控策略，且不支持动态配置变更，如果变更流控策略需要重启服务。</p>
+<p><strong>注意：</strong>
+consumer端限流策略配置中的<code>ServiceName</code>、<code>schema</code>、<code>operation</code> 指的是请求的目标服务。</p>
+</blockquote>
+<p><code>ANY</code> 是一个特殊的 <code>ServiceName</code>， 表示不区分来源微服务， 对所有微服务使用同样的策略。 比如 
+<code>servicecomb.flowcontrol.Consumer.qps.limit.ANY.mySchema.myOperation=200</code> 表示对 <code>mySchema.myOperation</code> 单独限制 200 的流量。
+如果不同微服务存在一样的 <code>schema</code>、<code>operation</code>， 则共享一个流量控制。<code>ANY</code> 在 Consumer 流控很少使用。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="router.html" class="btn btn-neutral float-right" title="灰度发布">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="loadbalance.html" class="btn btn-neutral" title="负载均衡"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="loadbalance.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="router.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

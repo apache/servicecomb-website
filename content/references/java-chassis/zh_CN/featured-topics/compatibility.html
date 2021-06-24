@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>兼容问题和兼容性策略 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u517c\u5bb9\u95ee\u9898\u548c\u517c\u5bb9\u6027\u7b56\u7565";
+    var mkdocs_page_input_path = "featured-topics/compatibility.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="compatibility.html">兼容问题和兼容性策略</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">兼容性场景和分类</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#servicecomb">ServiceComb 的兼容性策略</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>专题文章 &raquo;</li>
+        
+      
+    
+    <li>兼容问题和兼容性策略</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">兼容问题和兼容性策略</h1>
+<p>兼容是被广泛讨论的问题，大量开发者也关注 ServiceComb 的兼容性如何。 写这篇文章的触发点是在 ServiceComb 中
+回答了<a href="https://github.com/apache/servicecomb-java-chassis/issues/1785">一个关于兼容的问题</a> 。 在
+这个问题中， 开发者为了隐藏系统内部的变化，需要在代码中额外增加特殊逻辑，以保障使用者不感知这个变化。 这个问题
+反映了兼容问题的两面性：（1）保持兼容可以屏蔽使用者对于变化的感知，维持现有功能的稳定性，降低引入新版本的成本，
+减少对现有系统功能的影响；（2）保持兼容需要在代码中增加复杂性，这些复杂性可能并不是实现现实业务逻辑必须的，继而
+给现有系统功能的可靠性带来间接影响；从开发者的角度，做不兼容性重构通常是不得已而为之，或者由于现有接口设计不
+合理影响扩展，或者存在某些未考虑的缺陷，不期望使用者继续使用。如果保持兼容，使用者不能感知到这个变化，
+直到该功能在实际环境出现问题，增加了问题发现时间。</p>
+<p>软件不可能一开始就被设计的完美，因此兼容性问题会一直存在。需要结合兼容性的场景和兼容性的影响，综合评估兼容策略，
+使得既保持引入新版本的效率，又能够在每次升级新版本的时候，修复已知问题，让版本升级变得更有价值。</p>
+<h2 id="_2">兼容性场景和分类</h2>
+<p>为了评估兼容性的影响，需要细化兼容性的场景和分类。</p>
+<ul>
+<li>
+<p>运行时兼容。考虑一压缩文件的程序 <code>zip.exe</code>， 这个程序在老版本的 windows 里面可以正常运行，然后将这个
+  程序拷贝到新版本的 windows 里面，如果仍然可以执行，那么认为是运行时兼容；再考虑使用老版本 JDK 执行的
+  程序 <code>hello.jar</code>， 使用新版本 JDK ，如果仍然可以执行，那么认为是运行时兼容的。 运行时兼容通常
+  适用于操作系统，运行容器等基础软件平台，或者实现标准协议的运行环境，如 JSP/Servlet 的实现 Tomcat。 
+  在早些时候，这些基础软件平台的兼容性一直做的不错，随着技术发展越来越快，用户对于体验要求越来越高，
+  基础软件平台在保持兼容性的方面越来越放开，兼容版本越来越少。比如 windows 10 的版本并不兼容部分老的
+  执行程序，JDK 12 也不再兼容部分 jar 包，苹果的平台一直采取的是一种积极的向前看的策略，多数新版本
+  平台的推出，都要求应用使用新版本平台重新编译后在应用市场发布。 </p>
+</li>
+<li>
+<p>编译时兼容。编译时兼容是组件/模块类软件常见的兼容性类型，比如 ServiceComb， 通常作为运行程序的一部分，
+  通过编译工具，与业务代码一起编译为可执行的程序。 以 ServiceComb 为例，使用它的应用程序采用 maven 工具
+  进行编译，如果能够通过修改依赖的 pom 的版本号，编译通过，并且功能没有变化，那么就认为是编译时兼容。 编译可以认为是开发
+  过程的一部分，不兼容导致的编译失败，通常不会给最终用户带来影响，组件使用者通过修改编译不通过的模块，使用
+  新提供的 API，就能够编译通过。编译不兼容的修正会涉及接口的替换，如果新替换的接口与老接口功能不一致，而
+  开发者又没有针对这些变更的功能进行测试，则可能将问题遗漏到最终用户。 修正编译不兼容问题需要有替换的接口，如果
+  没有可替换的接口，那么开发者没法使用新版本，这个不会给最终用户带来影响，开发者需要联系组件提供者提供对应的
+  解决方案满足要求。组件的编译时兼容做的比较好的一般是一些算法类、协议类组件，比如 JDK 的数据结构库，jackson 
+  的 JSON 解析库，越是面向应用层，编译不兼容的情况越是发生频繁，比如 spring cloud 相关的库。</p>
+</li>
+<li>
+<p>服务接口兼容。 服务接口是应用服务化以后出现的概念，通常表示为应用对外提供的 REST 接口。 服务接口由于都是
+  在线使用，一旦接口变化，就可能对使用者的业务系统产生影响。服务接口的兼容性问题，使用者也无法通过离线编译
+  发现，所有的问题都是对用户产生影响后才被发现，因此服务接口的兼容显得尤其重要。 </p>
+</li>
+</ul>
+<p>根据上面的兼容性场景，可以按照兼容性符合度，分为下面几类。</p>
+<ul>
+<li>完美。完美运行时兼容代表老的应用程序，不需要重新编译就可以在新环境执行；完美编译时兼容代表使用新版本编译时
+  不会出现编译错误，并且运行时行为一致。</li>
+<li>恰当。恰当运行时兼容代表老的应用程序，使用新平台提供的编译/打包等工具重新编译修改，如果存在失败，根据相关的指引
+  修复重新发布，能够继续运行，在新平台运行的效果和老版本一致。恰当编译时兼容指存在编译失败，使用新版本的API替换
+  老的API编译通过后，应用程序的行为和老版本一致。恰当兼容和修改工作量有关系，比如老版本切换为新版本，如果工作量
+  能够控制在1人天， 可以认为是恰当兼容。 </li>
+<li>不兼容。不兼容指修改工作量超过可接纳的限度，或者某个接口没有替换方案。</li>
+</ul>
+<h2 id="servicecomb">ServiceComb 的兼容性策略</h2>
+<p>ServiceComb 存在多个不同的组件，对于中间件类服务，比如 servicecomb-service-center 的兼容性策略是
+服务接口兼容。 对于开发 SDK 类，比如 servicecomb-java-chassis 的兼容性策略是<code>恰当的编译时兼容</code>。 </p>
+<p>相对于实际情况，上面的策略描述仍然比较简单，因为实际情况比设想的情况要复杂的多。本文关于兼容性场景的描述，
+并不能概况所有的兼容性场景，比如对于 SDK 类，也可能存在运行时兼容的要求，特别是有些业务系统是基于老的构建
+工具，比如 ANT 的情况，业务可能需要替换 jar 的方式满足兼容性要求。 SDK 类也存在服务接口兼容的要求，比如
+通过 SDK 的 <code>HIGHWAY</code> 发布接口，如果 <code>HIGHWAY</code> 底层的通信协议或者编解码方式发生变化，则可能导致服务
+接口不兼容。 </p>
+<p>为了对各种复杂的兼容性场景进行有效管理，java-chassis 使用 3 位版本号(major.minor.patch)适当区分：</p>
+<ul>
+<li>patch: 恰当的编译时兼容版本。升级 patch 版本，通常工作量可以控制在1人天以内。patch 版本多数只需要
+  升级版本号，然后重新编译发布即可。 少量的版本可能存在影响极小的不兼容调整，比如将方法 <code>wong</code> 重命名
+  为 <code>wrong</code>。</li>
+<li>minor: 恰当的编译时兼容版本。相较于 patch 版本， minor 版本可能存在更多的新特性交付，项目结构存在
+  一定程度的重构，使用内部 API 的开发者可能需要解决较多的编译问题，使用新的 API 替换老的 API。minor
+  版本的升级工作量通常控制在3人天以内。</li>
+<li>major：提供 major 版本，通常是由于某些特性可能导致运行时兼容问题。比如 <code>2.0.0</code> 版本的 <code>HIGHWAY</code>
+  协议的修改。 因为运行时兼容出现的时候，只要使用了该功能的所有微服务都需要一并升级，工作量从单个服务提升
+  到整个应用，视应用的规模大小，工作量会差别很大。当然并不意味着 major 版本升级一定非常复杂，实际上没有
+  使用 <code>HIGHWAY</code> 的情况，2.0.0 升级的工作量仍然不超过一般的 minor 版本。针对 major 版本， 
+  ServiceComb 会提供相关的升级指导，帮助开发者评估兼容性影响。</li>
+</ul>
+<p>java-chassis 自身也使用了大量的三方件，为了更好的平衡升级效率和项目的持续高质量发展，下面总结了一些
+兼容性管理的优秀实践以及对于开发者的建议：</p>
+<ul>
+<li>尽可能使用核心 API，减少重构对于产品兼容的影响。区分核心 API 是需要一些开发经验的，java-chassis 并
+  没有给出核心 API 的范围和独立文档说明。 一个简单的方式是阅读开发指南，开发指南里面提到的使用方法，就是
+  核心 API 的内容，比如定义服务接口的 JAX RS 标签或者Spring MVC标签， <code>Handler</code> 和 <code>Invocation</code>
+  核心模型，以及不同的模块提供的配置项等。 </li>
+<li>使用非核心 API 的时候，适当增加自动化测试用例。由于业务的需要，使用非核心 API 不可避免，比如有些业务需要
+  使用服务中心的 API 更新服务状态，调用 <code>RegistryUtils</code> 的接口。 不用担心这些 API 变化而不敢使用，
+  先针对使用这些 API 的场景或者直接针对这个 API 写一些自动化测试用例。升级版本的时候，这些 API 的
+  原型变化甚至语义变化，都能够及时被发现。 </li>
+<li>持续升级新版本是一把双刃剑，但总体来讲，收益远大于问题。如果业务系统需要不断的更新，建议就应该在每个产品
+  迭代中安排一个任务升级新版本。java-chassis 的每个版本迭代，都固定会安排升级三方件的任务。及时升级版本，
+  能够快速修复老版本存在的安全漏洞，解决老版本已知的可靠性、性能问题、发现的bug；还能够识别出一些错误的
+  废弃用法，及时调整为正确的用法，使用新的版本，更容易从社区获得对于新发现问题的帮助。持续升级是一个系统
+  的工程实践，不单单指升级版本，还包括为了预防升级版本给质量带来风险而采取的其他措施，比如自动化测试的持续
+  构建，持续集成流水线的构建，定期阅读重要项目的 Release Notes，关注项目发展方向等等。 这种方式是一种主动
+  质量加固措施，可以免于问题发生。可惜多数决策者看到的是更新版本带来的问题，看不到预防措施的积极效果，
+  没有把持续升级作为一项重要的能力建设事项纳入计划，这项能力一直得不到提升，当实施升级的时候，更容易引入故障。</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="upgrading.html" class="btn btn-neutral float-right" title="升级指导系列文章">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="features.html" class="btn btn-neutral" title="新功能介绍系列文章"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="features.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="upgrading.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

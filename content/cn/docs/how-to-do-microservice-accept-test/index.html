@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -463,13 +463,13 @@
   <li>拼装结果</li>
 </ol>
 
-<p>此外还有一个要求，当Product Price Service出现异常时，Product Service依然要能够返回结果，只不过<code class="highlighter-rouge">price</code>字段为<code class="highlighter-rouge">null</code>，即无论如何Product Service都要能够返回结果。</p>
+<p>此外还有一个要求，当Product Price Service出现异常时，Product Service依然要能够返回结果，只不过<code class="language-plaintext highlighter-rouge">price</code>字段为<code class="language-plaintext highlighter-rouge">null</code>，即无论如何Product Service都要能够返回结果。</p>
 
 <h3 id="实现步骤">实现步骤</h3>
 
 <h4 id="构建docker-image">构建Docker Image</h4>
 
-<p>为了能够便利地搭建测试环境，我们需要先为Product Servcie和Product Price Service构建Docker Image。利用<a href="https://github.com/spotify/dockerfile-maven">Spotify dockerfile-maven-plugin [5]</a>可以很方便地做到这一点，它没有引入额外的概念，只要你会写<a href="https://docs.docker.com/engine/reference/builder/">Dockerfile [6]</a>就行。我们在Product Service和Producer Price Service的<code class="highlighter-rouge">pom.xml</code>中添加类似以下的配置：</p>
+<p>为了能够便利地搭建测试环境，我们需要先为Product Servcie和Product Price Service构建Docker Image。利用<a href="https://github.com/spotify/dockerfile-maven">Spotify dockerfile-maven-plugin [5]</a>可以很方便地做到这一点，它没有引入额外的概念，只要你会写<a href="https://docs.docker.com/engine/reference/builder/">Dockerfile [6]</a>就行。我们在Product Service和Producer Price Service的<code class="language-plaintext highlighter-rouge">pom.xml</code>中添加类似以下的配置：</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>com.spotify<span class="nt">&lt;/groupId&gt;</span>
@@ -557,7 +557,7 @@ EXPOSE 8080
 <pre><code class="language-txt">Given Install the byteman script product_price_exception.btm to Product Price Service
 </code></pre>
 
-<p><code class="highlighter-rouge">product_price_exception.btm</code>的内容是这样的：</p>
+<p><code class="language-plaintext highlighter-rouge">product_price_exception.btm</code>的内容是这样的：</p>
 
 <pre><code class="language-txt">RULE throw exception
 CLASS me.chanjar.msat.productprice.FakeProductPriceRepository
@@ -569,7 +569,7 @@ DO debug("throw RuntimeException here"),
 ENDRULE
 </code></pre>
 
-<p>意思是在调用<code class="highlighter-rouge">FakeProductPriceRepository.listAll</code>方法时抛出异常，注意这样做并没有修改Product Price Service的源码，而是在运行时修改了它的逻辑。</p>
+<p>意思是在调用<code class="language-plaintext highlighter-rouge">FakeProductPriceRepository.listAll</code>方法时抛出异常，注意这样做并没有修改Product Price Service的源码，而是在运行时修改了它的逻辑。</p>
 
 <p>接下来我们为上面的验收测试脚本实现逻辑（下面代码与实际上有所不同，这是为了尽量使得代码篇幅精简）：</p>
 
@@ -617,7 +617,7 @@ ENDRULE
 
 <h4 id="自动化搭建测试环境">自动化搭建测试环境</h4>
 
-<p>我们希望能够在Maven的<code class="highlighter-rouge">integration-test</code> 阶段搭建测试环境、执行上述验收测试脚本。在<code class="highlighter-rouge">pom.xml</code>中添加到<a href="https://dmp.fabric8.io/">Fabric8 docker-maven-plugin [4]</a>：</p>
+<p>我们希望能够在Maven的<code class="language-plaintext highlighter-rouge">integration-test</code> 阶段搭建测试环境、执行上述验收测试脚本。在<code class="language-plaintext highlighter-rouge">pom.xml</code>中添加到<a href="https://dmp.fabric8.io/">Fabric8 docker-maven-plugin [4]</a>：</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;plugin&gt;</span>
   <span class="nt">&lt;groupId&gt;</span>io.fabric8<span class="nt">&lt;/groupId&gt;</span>
@@ -682,11 +682,11 @@ ENDRULE
 <span class="nt">&lt;/plugin&gt;</span>
 </code></pre></div></div>
 
-<p>这样一来就能够在<code class="highlighter-rouge">pre-integration-test</code>阶段启动容器，在<code class="highlighter-rouge">post-integration-test</code>阶段销毁容器了。</p>
+<p>这样一来就能够在<code class="language-plaintext highlighter-rouge">pre-integration-test</code>阶段启动容器，在<code class="language-plaintext highlighter-rouge">post-integration-test</code>阶段销毁容器了。</p>
 
 <h4 id="take-a-run">Take a run</h4>
 
-<p>接下来只需要<code class="highlighter-rouge">mvn clean install</code>它就会：</p>
+<p>接下来只需要<code class="language-plaintext highlighter-rouge">mvn clean install</code>它就会：</p>
 
 <ol>
   <li>构建：

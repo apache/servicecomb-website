@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -404,16 +404,16 @@
         <h2 id="客户管理系统微服务化实战-parti">客户管理系统微服务化实战-PartI</h2>
 <h2 id="ddd场景极速开发">——DDD、场景、极速开发</h2>
 
-<p>在今年的LC3大会上，ServiceComb展台所展示的demo视频<code class="highlighter-rouge">“30分钟开发雏形CRM应用”</code>引起了参会者的广泛关注，大家纷纷对其背后的技术表现出浓厚的兴趣。本文将从房地产企业的客户管理管理场景入手，使用领域驱动设计，深入技术细节，详解如何快速开发落地一个微服务化的客户管理系统。</p>
+<p>在今年的LC3大会上，ServiceComb展台所展示的demo视频<code class="language-plaintext highlighter-rouge">“30分钟开发雏形CRM应用”</code>引起了参会者的广泛关注，大家纷纷对其背后的技术表现出浓厚的兴趣。本文将从房地产企业的客户管理管理场景入手，使用领域驱动设计，深入技术细节，详解如何快速开发落地一个微服务化的客户管理系统。</p>
 
 <h1 id="1-牛刀小试">1. 牛刀小试</h1>
-<p>打开浏览器，输入地址<code class="highlighter-rouge">http://start.servicecomb.io/</code>打开SERVICECOMB SPRING INITIALIZR，修改Project Metadata中的<code class="highlighter-rouge">Group</code>，<code class="highlighter-rouge">Artifact</code>和ServiceComb Parameters中的<code class="highlighter-rouge">ServiceCenter Address</code>，<code class="highlighter-rouge">Governance</code>等，点击Generate Project，解压生成下载的demo.zip。</p>
+<p>打开浏览器，输入地址<code class="language-plaintext highlighter-rouge">http://start.servicecomb.io/</code>打开SERVICECOMB SPRING INITIALIZR，修改Project Metadata中的<code class="language-plaintext highlighter-rouge">Group</code>，<code class="language-plaintext highlighter-rouge">Artifact</code>和ServiceComb Parameters中的<code class="language-plaintext highlighter-rouge">ServiceCenter Address</code>，<code class="language-plaintext highlighter-rouge">Governance</code>等，点击Generate Project，解压生成下载的demo.zip。</p>
 
 <p><img src="/assets/images/scaffold/StartServiceComb.io.png" alt="SERVICECOMB SPRING INITIALIZR截图" /></p>
 
 <p>运行它也很简单，使用IDE打开项目，DEBUG -&gt; Application.java，或在命令行：</p>
 
-<p>稍等微服务启动就绪，打开浏览器输入<code class="highlighter-rouge">http://localhost:9080/hello</code>验证一下：</p>
+<p>稍等微服务启动就绪，打开浏览器输入<code class="language-plaintext highlighter-rouge">http://localhost:9080/hello</code>验证一下：</p>
 
 <p><img src="/assets/images/scaffold/OutputHello.png" alt="输出hello截图" /></p>
 
@@ -646,7 +646,7 @@
 </code></pre></div></div>
 
 <h6 id="配置数据库连接">配置数据库连接</h6>
-<p>在项目的<code class="highlighter-rouge">resources</code>目录下新增<code class="highlighter-rouge">application.properties</code>文件，写入数据库连接信息：</p>
+<p>在项目的<code class="language-plaintext highlighter-rouge">resources</code>目录下新增<code class="language-plaintext highlighter-rouge">application.properties</code>文件，写入数据库连接信息：</p>
 
 <div class="language-properties highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">spring.datasource.url</span><span class="p">=</span><span class="s">jdbc:mysql://localhost:3306/user_db?useSSL=false</span>
 <span class="py">spring.datasource.username</span><span class="p">=</span><span class="s">root</span>
@@ -744,7 +744,7 @@
 </code></pre></div></div>
 
 <h6 id="实现并发布userservice">实现并发布UserService</h6>
-<p>创建UserServiceImpl，继承<code class="highlighter-rouge">UserService</code>接口：</p>
+<p>创建UserServiceImpl，继承<code class="language-plaintext highlighter-rouge">UserService</code>接口：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestSchema</span><span class="o">(</span><span class="n">schemaId</span> <span class="o">=</span> <span class="s">"user"</span><span class="o">)</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">path</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
@@ -805,7 +805,7 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>登录成功后，会从TokenStore生成Token，并将其写入Key为<code class="highlighter-rouge">AUTHORIZATION</code>的Header。</p>
+<p>登录成功后，会从TokenStore生成Token，并将其写入Key为<code class="language-plaintext highlighter-rouge">AUTHORIZATION</code>的Header。</p>
 
 <p>由于我们允许任何用户注册和登录，所以目前还没有授权的需求，经过上面四步，具有基本注册和登录功能的用户微服务就构建好了。</p>
 
@@ -818,7 +818,7 @@
 
 <p><img src="/assets/images/scaffold/TestLogin.png" alt="TestLogin" /></p>
 
-<p>返回登录成功，Response中已经包含了<code class="highlighter-rouge">AUTHORIZATION</code>Header，后继的所有请求都需要使用这个Token值进行合法认证。</p>
+<p>返回登录成功，Response中已经包含了<code class="language-plaintext highlighter-rouge">AUTHORIZATION</code>Header，后继的所有请求都需要使用这个Token值进行合法认证。</p>
 
 <p>至此，实现客户关系管理系统的用户服务工作就结束了，现在我们会将目光转移到Edge服务，通过Edge服务作为微服务调用的统一入口，在它之上构建统一认证，应对海量级调用的挑战。</p>
 
@@ -847,18 +847,18 @@
 
 <p><img src="/assets/images/scaffold/InvokeViaEdge.png" alt="InvokeViaEdge" /></p>
 
-<p>Edge服务将在<code class="highlighter-rouge">9090</code>端口上接受http rest调用，我们设计了下面的转发规则：</p>
+<p>Edge服务将在<code class="language-plaintext highlighter-rouge">9090</code>端口上接受http rest调用，我们设计了下面的转发规则：</p>
 
 <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://{edge-host-name}:9090/{ServiceComb微服务Name}/{服务路径&amp;参数}
 </code></pre></div></div>
 
-<p>用户微服务名（<code class="highlighter-rouge">service_description.name</code>）是<code class="highlighter-rouge">user-service</code>，因此login调用URL：<em>cse://user-service/login</em>可以通过：<em>http://{edge-host-name}:9090/user-service/login</em> 访问。</p>
+<p>用户微服务名（<code class="language-plaintext highlighter-rouge">service_description.name</code>）是<code class="language-plaintext highlighter-rouge">user-service</code>，因此login调用URL：<em>cse://user-service/login</em>可以通过：<em>http://{edge-host-name}:9090/user-service/login</em> 访问。</p>
 
-<p>如此一来，微服务名成为了路径的一部分，http协议的<code class="highlighter-rouge">hostname</code>和<code class="highlighter-rouge">port</code>将固定指向Edge服务保持不变，灵活性大大增加了。</p>
+<p>如此一来，微服务名成为了路径的一部分，http协议的<code class="language-plaintext highlighter-rouge">hostname</code>和<code class="language-plaintext highlighter-rouge">port</code>将固定指向Edge服务保持不变，灵活性大大增加了。</p>
 
-<p>到此我们还可以再做一点点改进，引入一个自定义配置<code class="highlighter-rouge">edge.routing-short-path.{简称}</code>，映射微服务名：</p>
+<p>到此我们还可以再做一点点改进，引入一个自定义配置<code class="language-plaintext highlighter-rouge">edge.routing-short-path.{简称}</code>，映射微服务名：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>edge:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>edge:
   routing-short-path:
     user: user-service
 </code></pre></div></div>
@@ -920,7 +920,7 @@
 </code></pre></div></div>
 
 <h5 id="第三步加载调度器dispatcher">第三步：加载调度器Dispatcher</h5>
-<p>ServiceComb Edge使用SPI（Service Provider Interface）的方式加载已经编写好的调度器Dispatcher，在resources目录下创建<code class="highlighter-rouge">META-INF.services/org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher</code>配置文件，写入上一步EdgeDispatcher的类全名：</p>
+<p>ServiceComb Edge使用SPI（Service Provider Interface）的方式加载已经编写好的调度器Dispatcher，在resources目录下创建<code class="language-plaintext highlighter-rouge">META-INF.services/org.apache.servicecomb.transport.rest.vertx.VertxHttpDispatcher</code>配置文件，写入上一步EdgeDispatcher的类全名：</p>
 
 <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{EdgeDispatcher的包名}.EdgeDispatcher
 </code></pre></div></div>
@@ -963,11 +963,11 @@
 
 <p><img src="/assets/images/scaffold/LogonViaEdge.png" alt="LogonViaEdge" /></p>
 
-<p>成功，现在我们使用新注册的用户名<code class="highlighter-rouge">ldg</code>登录：</p>
+<p>成功，现在我们使用新注册的用户名<code class="language-plaintext highlighter-rouge">ldg</code>登录：</p>
 
 <p><img src="/assets/images/scaffold/LoginViaEdge.png" alt="LoginViaEdge" /></p>
 
-<p>同样成功，并在Response中已经包含了正确的<code class="highlighter-rouge">AUTHORIZATION</code>Header。</p>
+<p>同样成功，并在Response中已经包含了正确的<code class="language-plaintext highlighter-rouge">AUTHORIZATION</code>Header。</p>
 
 <h2 id="55-性能比拼">5.5 性能比拼</h2>
 <p>ServiceComb Java Chassis也支持集成Netflix Zuul作为网关服务，我们做了一次性能比较，使用ServiceComb Edge作为网关吞吐能力大幅优于Netflix Zuul，性能测试项目源代码在<a href="https://github.com/zhengyangyong/gateway-perf">这里</a>。</p>
@@ -976,7 +976,7 @@
 <h2 id="61-设计思路">6.1 设计思路</h2>
 <p>正如前面提到的，统一认证的目的是在Edge入口处进行访问认证，避免需要在所有的微服务中都承载重复的认证机制，因此：</p>
 <ol>
-  <li>我们先要将认证功能作为一个独立的Procuder发布出来，使Edge服务能够随时认证Token，我们将其命名为<code class="highlighter-rouge">AuthenticationService</code>，放在用户服务中；</li>
+  <li>我们先要将认证功能作为一个独立的Procuder发布出来，使Edge服务能够随时认证Token，我们将其命名为<code class="language-plaintext highlighter-rouge">AuthenticationService</code>，放在用户服务中；</li>
   <li>将无需认证的访问请求识别出来，包括：</li>
 </ol>
 
@@ -1002,7 +1002,7 @@
 <p>除此之外其他业务请求都需要做Token认证；</p>
 
 <ol>
-  <li>Edge服务转发访问请求之前，对需要认证的请求先做统一认证，认证通过之后才转发，我们使用<code class="highlighter-rouge">HttpServerFilter</code>扩展这个能力：</li>
+  <li>Edge服务转发访问请求之前，对需要认证的请求先做统一认证，认证通过之后才转发，我们使用<code class="language-plaintext highlighter-rouge">HttpServerFilter</code>扩展这个能力：</li>
 </ol>
 
 <p><img src="/assets/images/scaffold/FilterChain.png" alt="FilterChain" /></p>
@@ -1094,12 +1094,12 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>别忘了通过SPI机制加载它，在<code class="highlighter-rouge">resources\META-INF\services</code>目录中创建<code class="highlighter-rouge">org.apache.servicecomb.common.rest.filter.HttpServerFilter</code>文件：</p>
+<p>别忘了通过SPI机制加载它，在<code class="language-plaintext highlighter-rouge">resources\META-INF\services</code>目录中创建<code class="language-plaintext highlighter-rouge">org.apache.servicecomb.common.rest.filter.HttpServerFilter</code>文件：</p>
 <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.apache.servicecomb.scaffold.edge.filter.AuthenticationFilter
 </code></pre></div></div>
 
 <h5 id="第三步在用户微服务中增加修改密码的功能用于验证">第三步：在用户微服务中增加修改密码的功能用于验证</h5>
-<p>现有的<code class="highlighter-rouge">login</code>和<code class="highlighter-rouge">logon</code>都无需认证，因此我们在用户微服务中增加需要认证的修改密码的功能用于验证统一认证。</p>
+<p>现有的<code class="language-plaintext highlighter-rouge">login</code>和<code class="language-plaintext highlighter-rouge">logon</code>都无需认证，因此我们在用户微服务中增加需要认证的修改密码的功能用于验证统一认证。</p>
 <h6 id="在userservice中添加修改密码">在UserService中添加修改密码</h6>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">UserService</span> <span class="o">{</span>
   <span class="nc">ResponseEntity</span><span class="o">&lt;</span><span class="nc">Boolean</span><span class="o">&gt;</span> <span class="nf">logon</span><span class="o">(</span><span class="nc">UserDTO</span> <span class="n">user</span><span class="o">);</span>
@@ -1173,7 +1173,7 @@
 
 <h1 id="7小结">7.小结</h1>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>本文详细介绍了如何使用http://start.servicecomb.io脚手架快速构建微服务项目、使用领域驱动设计（Domain-Driven Design，DDD）设计地产CRM系统、使用Edge Service构建统一认证边缘服务等内容。至此，一个地产客户关系管理系统的骨架已经初步搭建起来，剩下的模块，我们将在接下来的文章里详细介绍。
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>本文详细介绍了如何使用http://start.servicecomb.io脚手架快速构建微服务项目、使用领域驱动设计（Domain-Driven Design，DDD）设计地产CRM系统、使用Edge Service构建统一认证边缘服务等内容。至此，一个地产客户关系管理系统的骨架已经初步搭建起来，剩下的模块，我们将在接下来的文章里详细介绍。
 </code></pre></div></div>
 
 

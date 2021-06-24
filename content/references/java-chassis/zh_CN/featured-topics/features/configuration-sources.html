@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>2.0.0 新特性介绍： 多配置中心支持 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "2.0.0 \u65b0\u7279\u6027\u4ecb\u7ecd\uff1a \u591a\u914d\u7f6e\u4e2d\u5fc3\u652f\u6301";
+    var mkdocs_page_input_path = "featured-topics/features/configuration-sources.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>2.0.0 新特性介绍： 多配置中心支持</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="200">2.0.0 新特性介绍： 多配置中心支持</h1>
+<p>很多热心的开发者给 2.0.0 贡献了很多新的特性， @GuoYL123 贡献了 servicecomb-kie 的支持， @160731liupf 贡献了 nacos
+的支持， 本文介绍开发者如何在自己的项目中使用这些配置中心。</p>
+<h2 id="java-chassis">Java Chassis 配置源介绍和使用指南</h2>
+<p>配置中心是微服务架构下一个非常重要的中间件，通过配置中心用户可以增加和删除配置信息，配置信息会通过不同的通知机制（通常包括
+PULL 和 PUSH）， 将配置的变化推送到微服务实例。 java-chassis 允许用户使用不同的配置中心， 目前支持用户使用如下几种配置中心：</p>
+<ul>
+<li>华为云配置中心</li>
+</ul>
+<p>华为云配置中心是华为云CSE产品的一个部件，java-chassis 最早使用它作为配置中心。 对接这个配置中心的代码在 config-cc 模块实现。
+可以从<a href="https://cse-bucket.obs.myhwclouds.com/LocalCSE/Local-CSE-1.0.3.zip">轻量化微服务引擎</a>下载本地使用的版本。也可以
+直接访问华为云 <a href="https://console.huaweicloud.com/servicestage">ServiceStage</a> 产品，使用在线的版本。</p>
+<p>使用华为云配置中心，需要在项目中引入如下依赖：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+  &lt;artifactId&gt;config-cc&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>然后在配置文件 microservice.yaml 中增加如下配置项：</p>
+<pre><code class="language-yaml">servicecomb:
+  config:
+    client:
+      serverUri: http://127.0.0.1:30113
+      refreshMode: 0
+      refresh_interval: 5000
+      refreshPort: 30114
+</code></pre>
+<p>华为云配置中心的其他配置项含义如下：</p>
+<table>
+<thead>
+<tr>
+<th>配置项名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>servicecomb.config.client.refreshMode</td>
+<td>应用配置的刷新方式，<code>0</code>为config-center主动push，<code>1</code>为client周期pull，默认为<code>0</code></td>
+</tr>
+<tr>
+<td>servicecomb.config.client.refreshPort</td>
+<td>config-center推送配置的端口</td>
+</tr>
+<tr>
+<td>servicecomb.config.client.tenantName</td>
+<td>应用的租户名称</td>
+</tr>
+<tr>
+<td>servicecomb.config.client.serverUri</td>
+<td>config-center访问地址，格式为<code>http(s)://{ip}:{port}</code>，以<code>,</code>分隔多个地址</td>
+</tr>
+<tr>
+<td>servicecomb.config.client.refresh_interval</td>
+<td>pull模式下刷新配置项的时间间隔，单位为毫秒，默认值为30000</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>使用 servicecomb-kie</li>
+</ul>
+<p><a href="https://github.com/apache/servicecomb-kie">servicecomb-kie</a> 是全新设计的配置中心。 
+从 2.0.0 版本开始， java-chassis 支持使用 servicecomb-kie。 
+从 2.0.1 版本开始， java-chassis 默认使用long polling 拉取 servicecomb-kie 配置，来节省间隔轮询带来的网络消耗。 
+servicecomb-kie 的安装指导可以参考官网文档。 在 java-chassis 中使用 servicecomb-kie， 需要引入下面的依赖：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+  &lt;artifactId&gt;config-kie&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>然后在配置文件 microservice.yaml 中增加如下配置项：</p>
+<pre><code class="language-yaml">servicecomb:
+  kie:
+    serverUri: http://127.0.0.1:30110
+    refresh_interval: 5000
+    firstRefreshInterval: 5000
+    domainName: default
+</code></pre>
+<p>servicecomb-kie 的配置项及其含义如下：</p>
+<table>
+<thead>
+<tr>
+<th>配置项名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>servicecomb.kie.domainName</td>
+<td>区域名称，默认为default</td>
+</tr>
+<tr>
+<td>servicecomb.kie.serverUri</td>
+<td>servicecomb-kie访问地址，格式为<code>http(s)://{ip}:{port}</code>，以<code>,</code>分隔多个地址</td>
+</tr>
+<tr>
+<td>servicecomb.kie.refresh_interval</td>
+<td>pull模式下刷新配置项的时间间隔，单位为毫秒，默认值为3000</td>
+</tr>
+<tr>
+<td>servicecomb.kie.firstRefreshInterval</td>
+<td>pull模式下启动过程中首次刷新时间间隔，单位为毫秒，默认值为3000</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>使用 nacos</li>
+</ul>
+<p><a href="https://github.com/alibaba/nacos">nacos</a> 是 alibaba 提供的配置中心。 java-chassis 从 2.0.0 版本支持 nacos。 
+nacos的下载安装请参考官网介绍。 </p>
+<p>使用nacos，需要在项目中引入如下依赖：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+  &lt;artifactId&gt;config-nacos&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>然后在配置文件 microservice.yaml 中增加如下配置项：</p>
+<pre><code class="language-yaml">servicecomb:
+  nacos:
+    serverUri: http://127.0.0.1:8848
+    group: DEFAULT_GROUP
+    dataId: example
+</code></pre>
+<ul>
+<li>使用 Apollo</li>
+</ul>
+<p><a href="https://github.com/ctripcorp/apollo">Apollo</a> 是携程框架部门研发的分布式配置中心。 Apollo的下载安装请参考官网介绍。 </p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+  &lt;artifactId&gt;config-apollo&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>然后在配置文件 microservice.yaml 中增加如下配置项：</p>
+<pre><code class="language-yaml">apollo:
+  config:
+    serverUri: http://127.0.0.1:8070
+    serviceName: apollo-test
+    env: DEV
+    clusters: test-cluster
+    namespace: application
+    token: xxx
+    refreshInterval: 30
+    firstRefreshInterval: 0
+</code></pre>
+<h2 id="_1">参与配置源的开发和贡献</h2>
+<p>2.0.0 版本提供了4种配置源的支持， 如果采用 Spring Boot 运行模式， 由于 Java Chassis 继承和适配了 Spring Boot 的
+配置源，  因此 Spring Boot 采用的配置源也可以平滑的被 Java Chassis 应用程序使用。 比如 Java Chassis 在 Spring Boot
+集成模式下使用 application.yml 作为配置文件， 可以使用 git 作为动态配置源。 </p>
+<p>因此， Java Chassis 已经支持大部分开发者能够使用的配置源。 然而，目前的支持仍然是不够的， 每一个不同的配置中心
+都提供了非常独特的功能， Java Chassis 只是集成了它们极少的核心功能， 维护一个配置中心的支持，需要长期大量的应用
+验证，才能够把功能做的稳定和强大。 因此，配置中心的支持还需要开发者帮助持续的贡献代码。</p>
+<p>Java Chassis 的配置扩展是基于 <a href="https://github.com/Netflix/archaius">archaius</a>， 开发者只需要实现 <code>ConfigCenterConfigurationSource</code>,
+即可以接入其他配置中心。 Java Chassis 的源码目录 config-cc， config-apollo, config-kie, config-nacos 分别实现了
+这个接口。 </p>
+<ul>
+<li><a href="https://github.com/apache/servicecomb-java-chassis/pull/1405">nacos 支持PR</a></li>
+<li><a href="https://github.com/apache/servicecomb-java-chassis/pull/1518">servicecomb-kie 支持PR</a></li>
+<li><a href="http://localhost:8000/config/general-config/">Java Chassis 通用配置说明</a></li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>文件上传开发指导 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u6587\u4ef6\u4e0a\u4f20\u5f00\u53d1\u6307\u5bfc";
+    var mkdocs_page_input_path = "general-development/file-upload.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>文件上传开发指导</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">文件上传开发指导</h1>
+<h2 id="_2">服务提供者开发</h2>
+<p>服务提供者可以采用Spring MVC 或者 Jax RS定义上传接口。</p>
+<ul>
+<li>采用Spring MVC</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;/fileUpload&quot;, produces = MediaType.TEXT_PLAIN_VALUE, 
+  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public String fileUpload(@RequestPart(name = &quot;file&quot;) MultipartFile file)
+
+@PostMapping(path = &quot;/fileUpload&quot;, produces = MediaType.TEXT_PLAIN_VALUE, 
+  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public String fileUpload(@RequestPart(name = &quot;file&quot;) Part file)
+</code></pre>
+<p>文件上传需要通过 @RequestPart 声明参数，参数类型支持 servlet 定义的 javax.servlet.http.Part 类型，也支持
+org.springframework.web.multipart.MultipartFile 类型，两种数据类型功能是一致的，MultipartFile 的底
+层也是Part。  两种数据类型可以混合使用，比如第一个参数是Part，第二个参数是MultipartFile。 除了通过
+定义多个参数的方式上传多个文件，也可以通过List或者数组的方式声明上传多个文件。</p>
+<pre><code class="language-java">@PostMapping(path = &quot;/fileUpload&quot;, produces = MediaType.TEXT_PLAIN_VALUE, 
+  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public String fileUpload(@RequestPart(name = &quot;files&quot;)  List&lt;MultipartFile&gt; files)
+
+@PostMapping(path = &quot;/fileUpload&quot;, produces = MediaType.TEXT_PLAIN_VALUE, 
+  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public String fileUpload(@RequestPart(name = &quot;files&quot;) MultipartFile[] files)
+</code></pre>
+<p>可以通过@RequestAttribute获取其他额外信息。</p>
+<pre><code class="language-java">@PostMapping(path = &quot;/fileUpload&quot;, produces = MediaType.TEXT_PLAIN_VALUE, 
+  consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public String fileUpload(@RequestPart(name = &quot;files&quot;)  List&lt;MultipartFile&gt; files,
+     @RequestAttribute(&quot;message&quot;) String message)
+</code></pre>
+<p>Spring MVC方式定义上传接口还有其他很多方式，可以下载java-chassis源码，并查看UploadSpringmvcSchema里面的示例。</p>
+<ul>
+<li>采用Jax RS</li>
+</ul>
+<pre><code class="language-java">@Path(&quot;/fileUpload&quot;)
+@POST
+@Produces(MediaType.TEXT_PLAIN)
+public String fileUpload(@FormParam(name = &quot;file&quot;) Part file)
+</code></pre>
+<p>文件上传需要通过 @FormParam 声明参数，参数类型支持servlet定义的javax.servlet.http.Part类型。除了通过
+定义多个参数的方式上传多个文件，也可以通过List或者数组的方式声明上传多个文件。</p>
+<pre><code class="language-java">@Path(&quot;/fileUpload&quot;)
+@POST
+@Produces(MediaType.TEXT_PLAIN)
+public String fileUpload(@FormParam(name = &quot;files&quot;) List&lt;Part&gt; files)
+
+@Path(&quot;/fileUpload&quot;)
+@POST
+@Produces(MediaType.TEXT_PLAIN)
+public String fileUpload(@FormParam(name = &quot;files&quot;) Part[] files)
+</code></pre>
+<p>可以通过@FormParam获取其他额外信息。</p>
+<pre><code class="language-java">@Path(&quot;/fileUpload&quot;)
+@POST
+@Produces(MediaType.TEXT_PLAIN)
+public String fileUpload(@FormParam(name = &quot;files&quot;) List&lt;Part&gt; files,
+    @FormParam(&quot;message&quot;) String message)
+</code></pre>
+<p>Jax RS 方式定义上传接口还有其他很多方式，可以下载java-chassis源码，并查看 UploadJaxrsSchema 里面的示例。</p>
+<ul>
+<li>业务开发注意事项</li>
+</ul>
+<p>通过MultipartFile或Part打开流后，记得关闭，否则上传的临时文件会无法删除，导致资源泄露和磁盘空间耗尽。</p>
+<h2 id="_3">开发服务消费者</h2>
+<p>可以使用透明 RPC </p>
+<pre><code class="language-java"> interface UploadIntf {
+   String upload(File file);
+ }
+
+ @RpcReference(microserviceName = &quot;name&quot;, schemaId = &quot;schema&quot;)
+ UploadIntf uploadIntf;
+
+ String result = uploadIntf.upload(file);
+</code></pre>
+<p>或者 RestTemplate 进行文件上传。 </p>
+<pre><code class="language-java">Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+map.put(&quot;file&quot;, new FileSystemResource(&quot;a file path!&quot;));
+map.put(&quot;param1&quot;, &quot;test&quot;);
+HttpHeaders headers = new HttpHeaders();
+headers.setContentType(org.springframework.http.MediaType.MULTIPART_FORM_DATA);
+HttpEntity&lt;Map&lt;String, Object&gt;&gt; entity = new HttpEntity&lt;&gt;(map, headers);
+
+String reseult = template.postForObject(url, entity, String.class);
+</code></pre>
+<p>服务消费者不区分服务提供者是 Spring MVC 或者 Jax RS。 在使用透明 RPC 或者 RestTemplate 的时候， 可以使用如下类型
+与服务提供者的文件对应： </p>
+<ul>
+<li>java.io.File</li>
+<li>javax.servlet.http.Part</li>
+<li>java.io.InputStream</li>
+<li>org.springframework.core.io.Resource</li>
+</ul>
+<p>使用InputStream时，因为是流的方式，此时没有客户端文件名的概念，服务提供者获取到的文件名为null。 
+如果既要使用内存数据，又想让producer可以获取客户端文件名，可以使用resource类型，继承
+org.springframework.core.io.ByteArrayResource，且需要实现 getFilename 方法。</p>
+<p>一样的，服务消费者还有其他灵活的使用方式，可以下载 java-chassis 代码查看调用示例。</p>
+<h2 id="_4">使用浏览器上传文件</h2>
+<p>浏览器通过Form的方式上传文件，下面是一个简单的HTML 和 JS 示例</p>
+<pre><code class="language-html">&lt;form id=&quot;upload_form&quot; method=&quot;POST&quot;&gt;
+    &lt;p&gt;
+        File Name: &lt;input type=&quot;file&quot; name=&quot;fileName&quot;/&gt;
+    &lt;/p&gt;
+    &lt;p&gt;
+        &lt;input type=&quot;button&quot; value=&quot;Upload&quot; onclick=&quot;uploadAction()&quot;&gt;
+    &lt;/p&gt;
+&lt;/form&gt;
+</code></pre>
+<p>事件处理：</p>
+<pre><code>function uploadAction() {
+     var formData = new FormData(document.getElementById(&quot;upload_form&quot;));
+
+     $.ajax({
+        type: 'POST',
+        url: &quot;/api/file-service/upload&quot;,
+        data: formData,
+        processData:false,
+        contentType:false,
+        success: function (data) {
+            console.log(data);
+            var error = document.getElementById(&quot;error&quot;);
+            error.textContent=&quot;Upload Successfully, file id=&quot; + data;
+            error.hidden=false;
+        },
+        error: function(data) {
+            console.log(data);
+            var error = document.getElementById(&quot;error&quot;);
+            error.textContent=&quot;Upload failed&quot;;
+            error.hidden=false;
+        },
+        async: true
+    });
+</code></pre>
+<h2 id="_5">配置参数说明</h2>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">默认值</th>
+<th align="left">取值范围</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">servicecomb.uploads.directory</td>
+<td align="left">null</td>
+<td align="left"></td>
+<td align="left">上传的临时文件保存在哪个目录，<strong>默认值null表示不支持文件上传</strong></td>
+</tr>
+<tr>
+<td align="left">servicecomb.uploads.maxSize</td>
+<td align="left">-1</td>
+<td align="left"></td>
+<td align="left">http body的最大允许大小，单位byte，默认值-1表示无限制</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

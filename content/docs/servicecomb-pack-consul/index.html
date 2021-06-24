@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/developers/contributing">Community</a>
+                  <a href="/developers/contributing/">Community</a>
                 
               </li>
             
@@ -419,7 +419,7 @@
 
 <h3 id="run-alpha">Run Alpha</h3>
 
-<p>Enable registration to Consul with the parameter <code class="highlighter-rouge">spring.cloud.consul.enabled = true</code></p>
+<p>Enable registration to Consul with the parameter <code class="language-plaintext highlighter-rouge">spring.cloud.consul.enabled = true</code></p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java <span class="nt">-jar</span> alpha-server-0.4.0-exec.jar <span class="se">\</span>
   <span class="nt">--server</span>.port<span class="o">=</span>8090 <span class="se">\</span>
@@ -438,7 +438,7 @@
 
 <p><img src="/assets/images/2019-04-12-servicecomb-pack-consul/alpha_register_to_consul.png" alt="alpha_register_to_consul" /></p>
 
-<p>Use <code class="highlighter-rouge">curl http://0.0.0.0:8500/v1/agent/services</code> You can see that Alpha’s gRPC address and port have been registered in Consul’s Tags</p>
+<p>Use <code class="language-plaintext highlighter-rouge">curl http://0.0.0.0:8500/v1/agent/services</code> You can see that Alpha’s gRPC address and port have been registered in Consul’s Tags</p>
 
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"servicecomb-alpha-server-0-0-0-0-336b06581fb5b92ed91c7ade3fdafa88"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -464,7 +464,7 @@
 <h3 id="configuring-the-omega-side">Configuring the Omega side</h3>
 
 <blockquote>
-  <p>ServiceComb Pack 0.4.0 Omega defaults use Spring Boot 2.x Spring and Cloud Consul 2.x, If your Omega side project base on Spring Boot 1.x you can use <code class="highlighter-rouge">-Pspring-boot-1</code> to rebuild ServiceComb Pack to Spring Boot 1.x and Spring Cloud Consul 1.x</p>
+  <p>ServiceComb Pack 0.4.0 Omega defaults use Spring Boot 2.x Spring and Cloud Consul 2.x, If your Omega side project base on Spring Boot 1.x you can use <code class="language-plaintext highlighter-rouge">-Pspring-boot-1</code> to rebuild ServiceComb Pack to Spring Boot 1.x and Spring Cloud Consul 1.x</p>
 </blockquote>
 
 <p>Modify the original omega project</p>
@@ -478,7 +478,7 @@
 <span class="nt">&lt;/dependency&gt;</span>
 </code></pre></div></div>
 
-<p>Add the following to <code class="highlighter-rouge">application.yaml</code></p>
+<p>Add the following to <code class="language-plaintext highlighter-rouge">application.yaml</code></p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">spring</span><span class="pi">:</span>
   <span class="na">cloud</span><span class="pi">:</span>
@@ -496,10 +496,10 @@
 
 <ul>
   <li>
-    <p><code class="highlighter-rouge">spring.cloud.consul.host</code> property is set to the Consul server’s instance address, <code class="highlighter-rouge">spring.cloud.consul.port</code> property is set to the Consul server’s instance port, <code class="highlighter-rouge">spring.cloud.consul.discovery.register=false</code> property is not register yourself , check out Spring Boot’s  <a href="https://cloud.spring.io/spring-cloud-consul/spring-cloud-consul.html">Spring Cloud Consul 2.x</a>  or <a href="https://cloud.spring.io/spring-cloud-consul/1.3.x/single/spring-cloud-consul.html">Spring Cloud Consul 1.x</a> for more details.</p>
+    <p><code class="language-plaintext highlighter-rouge">spring.cloud.consul.host</code> property is set to the Consul server’s instance address, <code class="language-plaintext highlighter-rouge">spring.cloud.consul.port</code> property is set to the Consul server’s instance port, <code class="language-plaintext highlighter-rouge">spring.cloud.consul.discovery.register=false</code> property is not register yourself , check out Spring Boot’s  <a href="https://cloud.spring.io/spring-cloud-consul/spring-cloud-consul.html">Spring Cloud Consul 2.x</a>  or <a href="https://cloud.spring.io/spring-cloud-consul/1.3.x/single/spring-cloud-consul.html">Spring Cloud Consul 1.x</a> for more details.</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">alpha.cluster.register.type=consul</code>  property is omega gets Alpha gRPC address from Consul</p>
+    <p><code class="language-plaintext highlighter-rouge">alpha.cluster.register.type=consul</code>  property is omega gets Alpha gRPC address from Consul</p>
   </li>
   <li>
     <p>spring boot version compatible</p>
@@ -538,7 +538,7 @@
    <span class="nt">&lt;/dependencyManagement&gt;</span>
 </code></pre></div></div>
 
-<p><strong>Note:</strong> If you define <code class="highlighter-rouge">spring.application.name</code> parameter when start Alpha,  You need to specify this service name in Omega via the parameter <code class="highlighter-rouge">alpha.cluster.serviceId</code></p>
+<p><strong>Note:</strong> If you define <code class="language-plaintext highlighter-rouge">spring.application.name</code> parameter when start Alpha,  You need to specify this service name in Omega via the parameter <code class="language-plaintext highlighter-rouge">alpha.cluster.serviceId</code></p>
 
         
       </section>

@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -415,7 +415,7 @@
 
 <h4 id="saga-使用-cucumber">Saga 使用 Cucumber</h4>
 
-<p>Saga项目对其下行程预定demo做了验收测试，我们对照Cucumber的开发过程分别分析成功执行完所有事务和出现异常时的自动化测试开发，在行程预定的demo中，全局事务<code class="highlighter-rouge">booking</code>有两个子事务分别是预定酒店服务<code class="highlighter-rouge">Hotel</code>和包车服务<code class="highlighter-rouge">Car</code>，只有酒店服务和包车服务全部成功行程预定服务才算成功，否则全部失败并回滚补偿。demo中假定了房源紧张，每个用户最多只能预定2间，关于此行程规划demo细节请参考<a href="https://github.com/apache/incubator-servicecomb-saga/tree/master/saga-demo/booking">文档[3]</a>。</p>
+<p>Saga项目对其下行程预定demo做了验收测试，我们对照Cucumber的开发过程分别分析成功执行完所有事务和出现异常时的自动化测试开发，在行程预定的demo中，全局事务<code class="language-plaintext highlighter-rouge">booking</code>有两个子事务分别是预定酒店服务<code class="language-plaintext highlighter-rouge">Hotel</code>和包车服务<code class="language-plaintext highlighter-rouge">Car</code>，只有酒店服务和包车服务全部成功行程预定服务才算成功，否则全部失败并回滚补偿。demo中假定了房源紧张，每个用户最多只能预定2间，关于此行程规划demo细节请参考<a href="https://github.com/apache/incubator-servicecomb-saga/tree/master/saga-demo/booking">文档[3]</a>。</p>
 
 <ul>
   <li>
@@ -423,7 +423,7 @@
 
     <ol>
       <li>
-        <p>创建feature文件<code class="highlighter-rouge">pack_success_scenario.feature</code>，定义Feature，并在feature中定义step</p>
+        <p>创建feature文件<code class="language-plaintext highlighter-rouge">pack_success_scenario.feature</code>，定义Feature，并在feature中定义step</p>
 
         <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Feature: Alpha records transaction events
 
@@ -453,10 +453,10 @@
       | Sean | 1      | <span class="nb">true</span>      | <span class="nb">false</span>     |
 </code></pre></div>        </div>
 
-        <p><code class="highlighter-rouge">Given</code> 定义了测试用例<code class="highlighter-rouge">Everything is normal</code>所需的4个条件分别是4个服务运行正常，<code class="highlighter-rouge">When</code>定义了触发用户<code class="highlighter-rouge">Sean</code>发起预定2辆车和1间房子的被测事件。<code class="highlighter-rouge">Then</code>中则指定了验证结果是<code class="highlighter-rouge">Alpha</code>记录的各子事务及子事务发生顺序，<code class="highlighter-rouge">Car</code>服务和<code class="highlighter-rouge">Hotel</code>服务则记录预定结果。</p>
+        <p><code class="language-plaintext highlighter-rouge">Given</code> 定义了测试用例<code class="language-plaintext highlighter-rouge">Everything is normal</code>所需的4个条件分别是4个服务运行正常，<code class="language-plaintext highlighter-rouge">When</code>定义了触发用户<code class="language-plaintext highlighter-rouge">Sean</code>发起预定2辆车和1间房子的被测事件。<code class="language-plaintext highlighter-rouge">Then</code>中则指定了验证结果是<code class="language-plaintext highlighter-rouge">Alpha</code>记录的各子事务及子事务发生顺序，<code class="language-plaintext highlighter-rouge">Car</code>服务和<code class="language-plaintext highlighter-rouge">Hotel</code>服务则记录预定结果。</p>
       </li>
       <li>
-        <p>创建step_definitions <code class="highlighter-rouge">PackStepdefs.java</code></p>
+        <p>创建step_definitions <code class="language-plaintext highlighter-rouge">PackStepdefs.java</code></p>
 
         <p>在step_definition中使用正则的方式对应feature中定义的的测试条件，触发测试并验证结果。如：</p>
 
@@ -465,7 +465,7 @@
     <span class="o">});</span>
 </code></pre></div>        </div>
 
-        <p>上面代码对应feature中第一个测试前提条件<code class="highlighter-rouge">Given car service is up and running</code>，<code class="highlighter-rouge">probe</code>函数式方位<code class="highlighter-rouge">Car</code>服务的一个Rest接口验证返回状态码来判断<code class="highlighter-rouge">Car</code>是否正常启动运行。接下来四个<code class="highlighter-rouge">Given</code>与此类似。</p>
+        <p>上面代码对应feature中第一个测试前提条件<code class="language-plaintext highlighter-rouge">Given car service is up and running</code>，<code class="language-plaintext highlighter-rouge">probe</code>函数式方位<code class="language-plaintext highlighter-rouge">Car</code>服务的一个Rest接口验证返回状态码来判断<code class="language-plaintext highlighter-rouge">Car</code>是否正常启动运行。接下来四个<code class="language-plaintext highlighter-rouge">Given</code>与此类似。</p>
 
         <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">When</span><span class="o">(</span><span class="s">"^User ([A-Za-z]+) requests to book ([0-9]+) cars and ([0-9]+) rooms$"</span><span class="o">,</span> <span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"Received request from user {} to book {} cars and {} rooms"</span><span class="o">,</span> <span class="n">username</span><span class="o">,</span> <span class="n">cars</span><span class="o">,</span> <span class="n">rooms</span><span class="o">);</span>
@@ -479,7 +479,7 @@
     <span class="o">});</span>
 </code></pre></div>        </div>
 
-        <p>此段代码解析feature中定义的<code class="highlighter-rouge">When User Sean requests to book 2 cars and 1 rooms</code>事件，解析出用户、预定车辆和房间数量参数并向<code class="highlighter-rouge">Booking</code>服务发出<code class="highlighter-rouge">POST</code>方法的请求，然后在下面代码的<code class="highlighter-rouge">Then</code>中验证结果：</p>
+        <p>此段代码解析feature中定义的<code class="language-plaintext highlighter-rouge">When User Sean requests to book 2 cars and 1 rooms</code>事件，解析出用户、预定车辆和房间数量参数并向<code class="language-plaintext highlighter-rouge">Booking</code>服务发出<code class="language-plaintext highlighter-rouge">POST</code>方法的请求，然后在下面代码的<code class="language-plaintext highlighter-rouge">Then</code>中验证结果：</p>
 
         <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Then</span><span class="o">(</span><span class="s">"^Alpha records the following events$"</span><span class="o">,</span> <span class="o">(</span><span class="nc">DataTable</span> <span class="n">dataTable</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
       <span class="nc">Consumer</span><span class="o">&lt;</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;[]&gt;</span> <span class="n">columnStrippingConsumer</span> <span class="o">=</span> <span class="n">dataMap</span> <span class="o">-&gt;</span> <span class="o">{</span>
@@ -498,12 +498,12 @@
     <span class="o">});</span>
 </code></pre></div>        </div>
 
-        <p>上面代码对应feature中<code class="highlighter-rouge">Then</code>结果从三方面验证预定事件是否符合预期：<code class="highlighter-rouge">Alpha</code>服务中记录的事件顺序、<code class="highlighter-rouge">Car</code>服务的预定结果和 <code class="highlighter-rouge">Hotel</code>服务中的预定结果。<code class="highlighter-rouge">DataTable</code>解析了feature中定义的事件结果和顺序，<code class="highlighter-rouge">dataMatches</code>将此结果与各服务中查询到的结果进行比较验证是不是符合预期。</p>
+        <p>上面代码对应feature中<code class="language-plaintext highlighter-rouge">Then</code>结果从三方面验证预定事件是否符合预期：<code class="language-plaintext highlighter-rouge">Alpha</code>服务中记录的事件顺序、<code class="language-plaintext highlighter-rouge">Car</code>服务的预定结果和 <code class="language-plaintext highlighter-rouge">Hotel</code>服务中的预定结果。<code class="language-plaintext highlighter-rouge">DataTable</code>解析了feature中定义的事件结果和顺序，<code class="language-plaintext highlighter-rouge">dataMatches</code>将此结果与各服务中查询到的结果进行比较验证是不是符合预期。</p>
       </li>
       <li>
-        <p>执行Command <code class="highlighter-rouge">RunCucumberIT.java</code></p>
+        <p>执行Command <code class="language-plaintext highlighter-rouge">RunCucumberIT.java</code></p>
 
-        <p><code class="highlighter-rouge">@Runwith(Cucumber.class)</code>指定使用Cucumber测试框架入口，并在<code class="highlighter-rouge">@CucumberOptions</code>中指定feature目录和输出格式。</p>
+        <p><code class="language-plaintext highlighter-rouge">@Runwith(Cucumber.class)</code>指定使用Cucumber测试框架入口，并在<code class="language-plaintext highlighter-rouge">@CucumberOptions</code>中指定feature目录和输出格式。</p>
       </li>
     </ol>
   </li>
@@ -526,9 +526,9 @@
 
     <ol>
       <li>
-        <p>创建feature文件<code class="highlighter-rouge">pack_compensation_scenario.feature</code></p>
+        <p>创建feature文件<code class="language-plaintext highlighter-rouge">pack_compensation_scenario.feature</code></p>
 
-        <p>与成功的行程规划测试中不同的只有触发的预定事件和最终的结果，前提条件都是4个服务启动并运行，所以feature只要修改<code class="highlighter-rouge">When</code>和<code class="highlighter-rouge">Then</code>内容即可（Features和Scenarios名也要对应修改）</p>
+        <p>与成功的行程规划测试中不同的只有触发的预定事件和最终的结果，前提条件都是4个服务启动并运行，所以feature只要修改<code class="language-plaintext highlighter-rouge">When</code>和<code class="language-plaintext highlighter-rouge">Then</code>内容即可（Features和Scenarios名也要对应修改）</p>
 
         <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="s">When User Sean requests to book 5 cars and 3 rooms</span>
 
@@ -551,7 +551,7 @@
 </code></pre></div>        </div>
       </li>
       <li>
-        <p>step_definition和Command与之前一样，不需要任何修改，触发预定超过3个房间的操作后，<code class="highlighter-rouge">Alpha</code>会记录Hotel服务的<code class="highlighter-rouge">TxAbortedEvent</code>和Car服务的<code class="highlighter-rouge">TxCompensatedEvent</code>时间，此外Car服务的预定记录中会有取消为<code class="highlighter-rouge">true</code>的记录。</p>
+        <p>step_definition和Command与之前一样，不需要任何修改，触发预定超过3个房间的操作后，<code class="language-plaintext highlighter-rouge">Alpha</code>会记录Hotel服务的<code class="language-plaintext highlighter-rouge">TxAbortedEvent</code>和Car服务的<code class="language-plaintext highlighter-rouge">TxCompensatedEvent</code>时间，此外Car服务的预定记录中会有取消为<code class="language-plaintext highlighter-rouge">true</code>的记录。</p>
       </li>
     </ol>
 
@@ -561,7 +561,7 @@
 
 <h4 id="byteman-规则注入">Byteman 规则注入</h4>
 
-<p><code class="highlighter-rouge">Byteman</code>可以在代码的任意位置注入代码，并可以在注入的代码中访问当前方法中变量，包括方法参数、局部变量、调用其他函数的参数值、返回值等。更多关于Byteman的介绍请参考<a href="http://byteman.jboss.org/docs.html">官方文档[4]</a>。</p>
+<p><code class="language-plaintext highlighter-rouge">Byteman</code>可以在代码的任意位置注入代码，并可以在注入的代码中访问当前方法中变量，包括方法参数、局部变量、调用其他函数的参数值、返回值等。更多关于Byteman的介绍请参考<a href="http://byteman.jboss.org/docs.html">官方文档[4]</a>。</p>
 
 <p>Byteman开发过程：</p>
 
@@ -569,7 +569,7 @@
   <li>
     <p>创建规则脚本.btm文件</p>
 
-    <p>根据byteman语法创建规则，包括规则名，目标类，目标方法，注入位置，注入内容等，下面是一个在<code class="highlighter-rouge">main</code>函数入口注入打印语句的规则文件例子</p>
+    <p>根据byteman语法创建规则，包括规则名，目标类，目标方法，注入位置，注入内容等，下面是一个在<code class="language-plaintext highlighter-rouge">main</code>函数入口注入打印语句的规则文件例子</p>
 
     <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">RULE trace main entry</span>
 <span class="s">CLASS AppMain</span>
@@ -580,7 +580,7 @@
 <span class="s">ENDRULE</span>
 </code></pre></div>    </div>
 
-    <p>在安装了byteman环境的机器上用javaagent参数指定加载规则文件运行AppMain即可在main函数入口处打印出<code class="highlighter-rouge">entering main</code>。例子<a href="https://github.com/adinn/byteman-tutorial1">源码请参考[5]</a></p>
+    <p>在安装了byteman环境的机器上用javaagent参数指定加载规则文件运行AppMain即可在main函数入口处打印出<code class="language-plaintext highlighter-rouge">entering main</code>。例子<a href="https://github.com/adinn/byteman-tutorial1">源码请参考[5]</a></p>
   </li>
   <li>
     <p>加载规则并运行</p>
@@ -591,9 +591,9 @@
 <span class="n">bm</span><span class="o">.</span><span class="na">addRulesFromFiles</span><span class="o">(</span><span class="n">rules</span><span class="o">);</span>
 </code></pre></div>    </div>
 
-    <p><code class="highlighter-rouge">org.jboss.byteman.agent.submit.Submit</code>提供的加载规则的方法有通过文件加载<code class="highlighter-rouge">addRulesFromFiles</code>和<code class="highlighter-rouge">addRulesFromResources</code></p>
+    <p><code class="language-plaintext highlighter-rouge">org.jboss.byteman.agent.submit.Submit</code>提供的加载规则的方法有通过文件加载<code class="language-plaintext highlighter-rouge">addRulesFromFiles</code>和<code class="language-plaintext highlighter-rouge">addRulesFromResources</code></p>
 
-    <p>同样，byteman提供了移除规则的方法<code class="highlighter-rouge">deleteRulesFromFiles</code>，<code class="highlighter-rouge">deleteRulesFromResources</code>和<code class="highlighter-rouge">deleteAllRules</code>。</p>
+    <p>同样，byteman提供了移除规则的方法<code class="language-plaintext highlighter-rouge">deleteRulesFromFiles</code>，<code class="language-plaintext highlighter-rouge">deleteRulesFromResources</code>和<code class="language-plaintext highlighter-rouge">deleteAllRules</code>。</p>
   </li>
 </ul>
 
@@ -603,7 +603,7 @@
 
 <ol>
   <li>
-    <p>创建byteman规则文件：<code class="highlighter-rouge">booking_timeout.btm</code></p>
+    <p>创建byteman规则文件：<code class="language-plaintext highlighter-rouge">booking_timeout.btm</code></p>
 
     <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">RULE set the saga timeout to 5s</span>
 <span class="s">INTERFACE org.apache.servicecomb.saga.omega.context.annotations.SagaStart</span>
@@ -623,10 +623,10 @@
 <span class="s">ENDRULE</span>
 </code></pre></div>    </div>
 
-    <p>这里定义了两个规则，第一个规则<code class="highlighter-rouge">set the saga timeout to 5s</code>在注解<code class="highlighter-rouge">@SagaStart</code>的<code class="highlighter-rouge">timeout</code>方法中返回5表示设置超时时间值为5秒。第二个规则<code class="highlighter-rouge">sleep when postBooking until timeout happens</code>在类<code class="highlighter-rouge">BookingController</code>的<code class="highlighter-rouge">postBooking</code>方法中注入<code class="highlighter-rouge">Thread.sleep(10000)</code>，让<code class="highlighter-rouge">postBooking</code>方法阻塞10秒，原来的<code class="highlighter-rouge">postBooking</code>方法是一个空方法，注入byteman的阻塞方法后会触发预定行程服务的超时异常。</p>
+    <p>这里定义了两个规则，第一个规则<code class="language-plaintext highlighter-rouge">set the saga timeout to 5s</code>在注解<code class="language-plaintext highlighter-rouge">@SagaStart</code>的<code class="language-plaintext highlighter-rouge">timeout</code>方法中返回5表示设置超时时间值为5秒。第二个规则<code class="language-plaintext highlighter-rouge">sleep when postBooking until timeout happens</code>在类<code class="language-plaintext highlighter-rouge">BookingController</code>的<code class="language-plaintext highlighter-rouge">postBooking</code>方法中注入<code class="language-plaintext highlighter-rouge">Thread.sleep(10000)</code>，让<code class="language-plaintext highlighter-rouge">postBooking</code>方法阻塞10秒，原来的<code class="language-plaintext highlighter-rouge">postBooking</code>方法是一个空方法，注入byteman的阻塞方法后会触发预定行程服务的超时异常。</p>
   </li>
   <li>
-    <p>创建feature文件：<code class="highlighter-rouge">pack_timeout_scenario.feature</code></p>
+    <p>创建feature文件：<code class="language-plaintext highlighter-rouge">pack_timeout_scenario.feature</code></p>
 
     <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err"> 	</span><span class="s">Given Install the byteman script booking_timeout.btm to Booking Service</span>
 
@@ -653,7 +653,7 @@
       <span class="s">| Sean | 1      | </span><span class="no">false</span><span class="s">     | </span><span class="no">true</span><span class="s">      |</span>
 </code></pre></div>    </div>
 
-    <p>在行程预定的例子中仍然以4个服务启动并运行为前提，然后加载上面创建的byteman规则文件和目标服务：<code class="highlighter-rouge">Booking</code>。然后触发预定一辆车和一间房的操作。</p>
+    <p>在行程预定的例子中仍然以4个服务启动并运行为前提，然后加载上面创建的byteman规则文件和目标服务：<code class="language-plaintext highlighter-rouge">Booking</code>。然后触发预定一辆车和一间房的操作。</p>
   </li>
   <li>
     <p>step_definition解析</p>
@@ -667,18 +667,18 @@
     <span class="o">});</span>
 </code></pre></div>    </div>
 
-    <p>在Cucumber解析文件中用正则方法获取目标规则和服务名，<code class="highlighter-rouge">getBytemanSubmit</code>根据服务名<code class="highlighter-rouge">service</code>参数来获取目标服务的地址和byteman监听端口，并将本地规则注入到目标服务中，注入原理是<code class="highlighter-rouge">Booking</code>启动时是带着byteman参数启动的：</p>
+    <p>在Cucumber解析文件中用正则方法获取目标规则和服务名，<code class="language-plaintext highlighter-rouge">getBytemanSubmit</code>根据服务名<code class="language-plaintext highlighter-rouge">service</code>参数来获取目标服务的地址和byteman监听端口，并将本地规则注入到目标服务中，注入原理是<code class="language-plaintext highlighter-rouge">Booking</code>启动时是带着byteman参数启动的：</p>
 
     <div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">-Dorg</span>.jboss.byteman.debug<span class="o">=</span><span class="nb">true</span> <span class="nt">-Dorg</span>.jboss.byteman.verbose<span class="o">=</span>tru
 <span class="nt">-javaagent</span>:/maven/saga/byteman.jar<span class="o">=</span>port:9091,address:0.0.0.0,listener:true
 </code></pre></div>    </div>
 
-    <p>执行<code class="highlighter-rouge">bm.addRulesFromFiles(rules);</code>时就可以把本地规则通过Socket发送到<code class="highlighter-rouge">Booking</code>服务，并由Byteman完成字节替换。</p>
+    <p>执行<code class="language-plaintext highlighter-rouge">bm.addRulesFromFiles(rules);</code>时就可以把本地规则通过Socket发送到<code class="language-plaintext highlighter-rouge">Booking</code>服务，并由Byteman完成字节替换。</p>
   </li>
   <li>
     <p>结果验证</p>
 
-    <p>注入规则后触发预定车辆和房间服务时预定服务会出现超时，Saga会对已经完成的订车和订房间子事务进行补偿，Alpha中记录了一些列事件以及他们发生的顺序，另外Car服务和Hotel服务的取消标记<code class="highlighter-rouge">cancelled</code>也为<code class="highlighter-rouge">true</code>。</p>
+    <p>注入规则后触发预定车辆和房间服务时预定服务会出现超时，Saga会对已经完成的订车和订房间子事务进行补偿，Alpha中记录了一些列事件以及他们发生的顺序，另外Car服务和Hotel服务的取消标记<code class="language-plaintext highlighter-rouge">cancelled</code>也为<code class="language-plaintext highlighter-rouge">true</code>。</p>
   </li>
 </ol>
 

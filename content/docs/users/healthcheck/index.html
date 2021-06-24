@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -215,7 +215,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/developers/contributing">Community</a>
+                  <a href="/developers/contributing/">Community</a>
                 
               </li>
             
@@ -437,7 +437,7 @@
 
 <h2 id="how-to-use">How to use</h2>
 <h3 id="implement-custom-healthcheck">Implement custom HealthCheck</h3>
-<p>It is easy to implement Java Chassis HealthCheck, implements from <code class="highlighter-rouge">org.apache.servicecomb.foundation.metrics.health.HealthChecker</code> interface and override these methods:</p>
+<p>It is easy to implement Java Chassis HealthCheck, implements from <code class="language-plaintext highlighter-rouge">org.apache.servicecomb.foundation.metrics.health.HealthChecker</code> interface and override these methods:</p>
 
 <table>
   <thead>
@@ -488,13 +488,13 @@
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>We use SPI to load it, create an new file named <code class="highlighter-rouge">org.apache.servicecomb.foundation.metrics.health.HealthChecker</code> under <code class="highlighter-rouge">esource/META-INF/services</code> folder, write class name of your HealthChecker into it, like:</p>
+<p>We use SPI to load it, create an new file named <code class="language-plaintext highlighter-rouge">org.apache.servicecomb.foundation.metrics.health.HealthChecker</code> under <code class="language-plaintext highlighter-rouge">esource/META-INF/services</code> folder, write class name of your HealthChecker into it, like:</p>
 
 <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>org.apache.servicecomb.samples.metrics.extendhealthcheck.MySqlHealthChecker
 </code></pre></div></div>
 
 <h3 id="verify-healthcheck">Verify HealthCheck</h3>
-<p>After microservice startup, HealthCheck will publish use Rest endpoint, the publish address is same as <code class="highlighter-rouge">servicecomb.rest.address</code>, if had configure in <code class="highlighter-rouge">microservice.yaml</code> like:</p>
+<p>After microservice startup, HealthCheck will publish use Rest endpoint, the publish address is same as <code class="language-plaintext highlighter-rouge">servicecomb.rest.address</code>, if had configure in <code class="language-plaintext highlighter-rouge">microservice.yaml</code> like:</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">servicecomb</span><span class="pi">:</span>
   <span class="na">rest</span><span class="pi">:</span>

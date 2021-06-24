@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/developers/contributing">Community</a>
+                  <a href="/developers/contributing/">Community</a>
                 
               </li>
             
@@ -398,12 +398,12 @@
       
 
       <section class="page__content" itemprop="text">
-        <p>Now you can run multiple Alpha server in High Availability (HA) mode which support to run the event scanning in the master node only. You can also turn off event table scanning for some nodes with parameter <code class="highlighter-rouge">alpha.event.scanner.enabled=false</code> . However, transaction compensation will fail when the node that enabled the event table scan is crashed.
+        <p>Now you can run multiple Alpha server in High Availability (HA) mode which support to run the event scanning in the master node only. You can also turn off event table scanning for some nodes with parameter <code class="language-plaintext highlighter-rouge">alpha.event.scanner.enabled=false</code> . However, transaction compensation will fail when the node that enabled the event table scan is crashed.
 We implemented database-based distributed lock in version 0.4.0 version, event scanning only runs on the master node in the cluster, When the master node is down, other nodes in the cluster will elect a new master node.</p>
 
 <h2 id="quick-starts">Quick Starts</h2>
 
-<p>Enable cluster support by parameter <code class="highlighter-rouge">alpha.cluster.master.enabled=true</code>.</p>
+<p>Enable cluster support by parameter <code class="language-plaintext highlighter-rouge">alpha.cluster.master.enabled=true</code>.</p>
 
 <ul>
   <li>Start Two Alphas.</li>
@@ -431,12 +431,12 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
   <li>Who Is Master</li>
 </ul>
 
-<p><code class="highlighter-rouge">Master Node</code> This alpha is the master</p>
+<p><code class="language-plaintext highlighter-rouge">Master Node</code> This alpha is the master</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01:31:07.032 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Master Node
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Slave Node</code> This alpha is the slave</p>
+<p><code class="language-plaintext highlighter-rouge">Slave Node</code> This alpha is the slave</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>01:31:31.059 <span class="o">[</span>pool-3-thread-1] INFO  org.apache.servicecomb.pack.alpha.server.cluster.master.ClusterLockService - Slave Node
 </code></pre></div></div>
@@ -449,7 +449,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 
 <h2 id="how-to-make-event-scanning-only-run-on-the-master-node">How to make event scanning only run on the master node</h2>
 
-<p>Event scanning is implemented by <code class="highlighter-rouge">EventScanner.java</code> , initialize it in <code class="highlighter-rouge">AlphaConfig.java</code> , you can enable it by setting the parameter ‘alpha.event.scanner.enabled=true’, it will be instantiated EventScanner. The variable nodeStatus is the node type(Master or Slave). Later, I will introduce how <code class="highlighter-rouge">nodeStatus</code> is initialized.</p>
+<p>Event scanning is implemented by <code class="language-plaintext highlighter-rouge">EventScanner.java</code> , initialize it in <code class="language-plaintext highlighter-rouge">AlphaConfig.java</code> , you can enable it by setting the parameter ‘alpha.event.scanner.enabled=true’, it will be instantiated EventScanner. The variable nodeStatus is the node type(Master or Slave). Later, I will introduce how <code class="language-plaintext highlighter-rouge">nodeStatus</code> is initialized.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
 <span class="nc">TxConsistentService</span> <span class="nf">txConsistentService</span><span class="o">(</span>
@@ -471,7 +471,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>The pollEvents method of <code class="highlighter-rouge">EventScanner.java</code> for scanning events, If the master node <code class="highlighter-rouge">nodeStatus.isMaster()</code> returns true.</p>
+<p>The pollEvents method of <code class="language-plaintext highlighter-rouge">EventScanner.java</code> for scanning events, If the master node <code class="language-plaintext highlighter-rouge">nodeStatus.isMaster()</code> returns true.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">private</span> <span class="kt">void</span> <span class="nf">pollEvents</span><span class="o">()</span> <span class="o">{</span>
   <span class="n">scheduler</span><span class="o">.</span><span class="na">scheduleWithFixedDelay</span><span class="o">(</span>
@@ -494,7 +494,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>Construct NodeStatus in <code class="highlighter-rouge">AlphaConfig.java</code> by the following to ensure that the event scan will work regardless of whether you have configured the <code class="highlighter-rouge">alpha.cluster.master.enabled</code> parameter, Here you can see the node is a slave just after startup when cluster mode is enabled. Later, I will introduce how to switch to master.</p>
+<p>Construct NodeStatus in <code class="language-plaintext highlighter-rouge">AlphaConfig.java</code> by the following to ensure that the event scan will work regardless of whether you have configured the <code class="language-plaintext highlighter-rouge">alpha.cluster.master.enabled</code> parameter, Here you can see the node is a slave just after startup when cluster mode is enabled. Later, I will introduce how to switch to master.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Bean</span>
   <span class="nc">NodeStatus</span> <span class="nf">nodeStatus</span> <span class="o">(){</span>
@@ -509,7 +509,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
   <span class="nc">NodeStatus</span> <span class="n">nodeStatus</span><span class="o">;</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">ClusterLockService.java</code> is in charge of node state switching, It periodically perform lock preemption and set the node as a master after successful preemption.</p>
+<p><code class="language-plaintext highlighter-rouge">ClusterLockService.java</code> is in charge of node state switching, It periodically perform lock preemption and set the node as a master after successful preemption.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@Autowired</span>
   <span class="nc">LockProvider</span> <span class="n">lockProvider</span><span class="o">;</span>
@@ -540,9 +540,9 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 
 <h2 id="lock-architecture">Lock architecture</h2>
 
-<p>As you can see from the previous description, in the <code class="highlighter-rouge">masterCheck</code> method of <code class="highlighter-rouge">ClusterLockService.java</code>, get a lock by <code class="highlighter-rouge">this.locker = lockProvider.lock(this.getMasterLock());</code> and determine if the lock was successful.</p>
+<p>As you can see from the previous description, in the <code class="language-plaintext highlighter-rouge">masterCheck</code> method of <code class="language-plaintext highlighter-rouge">ClusterLockService.java</code>, get a lock by <code class="language-plaintext highlighter-rouge">this.locker = lockProvider.lock(this.getMasterLock());</code> and determine if the lock was successful.</p>
 
-<p><code class="highlighter-rouge">LockProvider.java</code> is an interface. Currently, we provide an implementation based on JDBC. The package structure and class dependencies are as follows:</p>
+<p><code class="language-plaintext highlighter-rouge">LockProvider.java</code> is an interface. Currently, we provide an implementation based on JDBC. The package structure and class dependencies are as follows:</p>
 
 <p><img src="/assets/images/2019-04-03-servicecomb-pack-cluster/cluster-package-structure.png" alt="cluster-package-structure" /></p>
 
@@ -570,7 +570,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
   <li>
     <p>AbstractLockProvider.java</p>
 
-    <p>Implemented the <code class="highlighter-rouge">LockProvider.java</code> interface and called the internal <code class="highlighter-rouge">LockProviderPersistence.java</code> interface for locking operations</p>
+    <p>Implemented the <code class="language-plaintext highlighter-rouge">LockProvider.java</code> interface and called the internal <code class="language-plaintext highlighter-rouge">LockProviderPersistence.java</code> interface for locking operations</p>
   </li>
 </ul>
 
@@ -590,12 +590,12 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
   <li>
     <p>JdbcLockPersistence.java</p>
 
-    <p>Implement <code class="highlighter-rouge">LockProviderPersistence.java</code> interface operation database</p>
+    <p>Implement <code class="language-plaintext highlighter-rouge">LockProviderPersistence.java</code> interface operation database</p>
   </li>
   <li>
     <p>JdbcLockProvider.java</p>
 
-    <p>Inherit the abstract class <code class="highlighter-rouge">AbstractLockProvider.java</code>, passing the <code class="highlighter-rouge">LockProviderPersistence.java</code> interface implementation class <code class="highlighter-rouge">JdbcLockPersistence</code> in the constructor.</p>
+    <p>Inherit the abstract class <code class="language-plaintext highlighter-rouge">AbstractLockProvider.java</code>, passing the <code class="language-plaintext highlighter-rouge">LockProviderPersistence.java</code> interface implementation class <code class="language-plaintext highlighter-rouge">JdbcLockPersistence</code> in the constructor.</p>
   </li>
   <li>
     <p>LockProviderJdbcConfiguration.java</p>
@@ -622,10 +622,10 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 </code></pre></div></div>
 
 <ul>
-  <li>serviceName Service name, this field takes the value <code class="highlighter-rouge">$ {spring.application.name}</code></li>
+  <li>serviceName Service name, this field takes the value <code class="language-plaintext highlighter-rouge">$ {spring.application.name}</code></li>
   <li>expireTime Lock expiration time, this field takes value lockedTime + 5s</li>
   <li>lockedTime Last lock time</li>
-  <li>instanceId Service instance ID, this field takes the value <code class="highlighter-rouge">$ {alpha.server.host}]:$ {alpha.server.port}</code></li>
+  <li>instanceId Service instance ID, this field takes the value <code class="language-plaintext highlighter-rouge">$ {alpha.server.host}]:$ {alpha.server.port}</code></li>
 </ul>
 
 <h2 id="lock-processing">Lock processing</h2>
@@ -634,10 +634,10 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 
 <ul>
   <li>
-    <p><code class="highlighter-rouge">ClusterLockService.java</code> calls the lock method of <code class="highlighter-rouge">LockProvider.java</code> interface once per second</p>
+    <p><code class="language-plaintext highlighter-rouge">ClusterLockService.java</code> calls the lock method of <code class="language-plaintext highlighter-rouge">LockProvider.java</code> interface once per second</p>
   </li>
   <li>
-    <p>The lock method in the abstract class <code class="highlighter-rouge">AbstractLockProvider.java</code> will attempt to lock the iniLock method of <code class="highlighter-rouge">JdbcLockPersistence.java</code>, and the locked SQL implementation is defined in <code class="highlighter-rouge">MasterLockEntityRepository.java</code></p>
+    <p>The lock method in the abstract class <code class="language-plaintext highlighter-rouge">AbstractLockProvider.java</code> will attempt to lock the iniLock method of <code class="language-plaintext highlighter-rouge">JdbcLockPersistence.java</code>, and the locked SQL implementation is defined in <code class="language-plaintext highlighter-rouge">MasterLockEntityRepository.java</code></p>
 
     <ul>
       <li>If the table is empty then insert a record and return the lock successfully</li>
@@ -658,7 +658,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>If the initLock lock fails, try to update the lock by calling the updateLock method in <code class="highlighter-rouge">MasterLockEntityRepository.java</code>.</p>
+    <p>If the initLock lock fails, try to update the lock by calling the updateLock method in <code class="language-plaintext highlighter-rouge">MasterLockEntityRepository.java</code>.</p>
 
     <ul>
       <li>If the record instanceId of the same service name is the same as the instance instanceId, the update succeeds and the lock is successfully returned.</li>
@@ -688,7 +688,7 @@ We implemented database-based distributed lock in version 0.4.0 version, event s
 
 <h2 id="other-lock-implementations">Other lock implementations</h2>
 
-<p>Other types of locks can be implemented through the <code class="highlighter-rouge">LockProvider.java</code> and <code class="highlighter-rouge">LockProviderPersistence.java</code> interfaces, such as zookeeper or redis etc.</p>
+<p>Other types of locks can be implemented through the <code class="language-plaintext highlighter-rouge">LockProvider.java</code> and <code class="language-plaintext highlighter-rouge">LockProviderPersistence.java</code> interfaces, such as zookeeper or redis etc.</p>
 
 <h2 id="note">Note</h2>
 
