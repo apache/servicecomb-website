@@ -1,7 +1,28 @@
 #!/bin/sh
-#push a release to branch asf-site
 
+## publish website steps
+CUR_DIR=$PWD
 
-bundle update
+## downlowd code
+git clone https://github.com/apache/servicecomb-website.git servicecomb-website-master
+cp -R servicecomb-website-master servicecomb-website-publish
+git clone https://github.com/huaweicse/servicecomb-java-chassis-doc.git 
 
-git push origin asf-site
+## build source
+cd $CUR_DIR/servicecomb-website-master
+git checkout -f master
+bundle exec jekyll build
+
+## copy complied files
+cd $CUR_DIR/servicecomb-website-publish
+git checkout -B liubao -t origin/asf-site 
+rm -R content/*
+mkdir content/references
+cp -R $CUR_DIR/servicecomb-website-master/content/* ./content/
+cp -R $CUR_DIR/servicecomb-java-chassis-doc/docs/* ./content/references/
+git add content 
+git commit -m "publish website"
+
+## push
+# git remote add liubao https://github.com/liubao68/servicecomb-website
+# git push --force --progress liubao liubao:liubao
