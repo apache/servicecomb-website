@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>用 JAX-RS 开发微服务 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u7528 JAX-RS \u5f00\u53d1\u5fae\u670d\u52a1";
+    var mkdocs_page_input_path = "build-provider/jaxrs.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>用 JAX-RS 开发微服务</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="jax-rs">用 JAX-RS 开发微服务</h1>
+<h2 id="_1">概念阐述</h2>
+<p>ServiceComb支持开发者使用JAX-RS注解，使用 <a href="https://github.com/apache/servicecomb-samples/tree/master/java-chassis-samples/jaxrs-sample">JAX-RS</a> 模式开发服务。</p>
+<h2 id="_2">开发示例</h2>
+<h3 id="1">步骤 1定义服务接口。</h3>
+<p>根据开发之前定义好的契约，编写Java业务接口，代码如下。定义接口不是必须的，但是 一个好习惯，可以简化客户端使用RPC方式编写代码。</p>
+<pre><code class="language-java">public interface Hello {
+    String sayHi(String name);
+    String sayHello(Person person);
+}
+</code></pre>
+<h3 id="2">步骤 2实现服务。</h3>
+<p>使用JAX-RS注解开发业务代码，Hello的服务实现如下：</p>
+<pre><code class="language-java">@RestSchema(schemaId = &quot;jaxrsHello&quot;)
+@Path(&quot;/jaxrshello&quot;)
+@Produces(MediaType.APPLICATION_JSON)
+public class JaxrsHelloImpl implements Hello {
+    @Path(&quot;/sayhi&quot;)
+    @POST
+    @Override
+    public String sayHi(String name) {
+        return &quot;Hello &quot; + name;
+    }
+
+    @Path(&quot;/sayhello&quot;)
+    @POST
+    @Override
+    public String sayHello(Person person) {
+        return &quot;Hello person &quot; + person.getName();
+    }
+    /**
+    * 这个方法是实现类特有的,因此对它的远程调用会有所不同.
+    * 具体可以参考 jaxrs-consumer
+    */
+    @Path(&quot;/saybye&quot;)
+    @GET
+    public String sayBye() {
+       return &quot;Bye !&quot;;
+    }
+}
+</code></pre>
+<h3 id="3">步骤 3发布服务。</h3>
+<p>在resources/META-INF/spring目录下创建jaxrsHello.bean.xml文件，配置spring进行服务扫描的base-package，文件内容如下。（注意修改package名称为正确名称）</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;beans xmlns=&quot; http://www.springframework.org/schema/beans &quot; xmlns:xsi=&quot; http://www.w3.org/2001/XMLSchema-instance &quot;
+       xmlns:p=&quot; http://www.springframework.org/schema/p &quot; xmlns:util=&quot; http://www.springframework.org/schema/util &quot;
+       xmlns:cse=&quot; http://www.huawei.com/schema/paas/cse/rpc &quot;
+       xmlns:context=&quot; http://www.springframework.org/schema/context &quot;
+       xsi:schemaLocation=&quot; http://www.springframework.org/schema/beans classpath:org/springframework/beans/factory/xml/spring-beans-3.0.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.huawei.com/schema/paas/cse/rpc classpath:META-INF/spring/spring-paas-cse-rpc.xsd&quot;&gt;
+
+    &lt;context:component-scan base-package=&quot;org.apache.servicecomb.samples.jaxrs.provider&quot;/&gt;
+&lt;/beans&gt;
+</code></pre>
+<h3 id="4">步骤 4启动服务。</h3>
+<pre><code>public class JaxrsProviderMain{
+
+  public static void main(String[] args) throws Exception {
+    Log4jUtils.init();
+    BeanUtils.init();
+  }
+}
+</code></pre>
+<h2 id="api">涉及API</h2>
+<p>JAX-RS开发模式当前支持如下注解，所有注解的使用方法参考 <a href="https://jax-rs-spec.java.net/nonav/2.0-rev-a/apidocs/index.html">JAX-RS官方文档</a>。</p>
+<h3 id="1-1jax-rs">表1-1JAX-RS注解支持汇总</h3>
+<table>
+<thead>
+<tr>
+<th align="left">注解</th>
+<th align="left">位置</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">javax.ws.rs.Path</td>
+<td align="left">schema/operation</td>
+<td align="left">URL路径</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.Produces</td>
+<td align="left">schema/operation</td>
+<td align="left">方法支持的编解码能力</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.DELETE</td>
+<td align="left">operation</td>
+<td align="left">http method</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.GET</td>
+<td align="left">operation</td>
+<td align="left">http method</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.POST</td>
+<td align="left">operation</td>
+<td align="left">http method</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.PUT</td>
+<td align="left">operation</td>
+<td align="left">http method</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.QueryParam</td>
+<td align="left">parameter</td>
+<td align="left">从query string中获取参数</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.PathParam</td>
+<td align="left">parameter</td>
+<td align="left">从path中获取参数，必须在path中定义该参数</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.HeaderParam</td>
+<td align="left">parameter</td>
+<td align="left">从header中获取参数</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.CookieParam</td>
+<td align="left">parameter</td>
+<td align="left">从cookie中获取参数</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.FormParam</td>
+<td align="left">parameter</td>
+<td align="left">从form中获取参数</td>
+</tr>
+<tr>
+<td align="left">javax.ws.rs.BeanParam</td>
+<td align="left">parameter</td>
+<td align="left">用于参数聚合，允许在一个JavaBean的属性上打上参数标记以将多个参数聚合为一个JavaBean</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>说明:</strong></p>
+<ul>
+<li>当方法参数没有注解，且不为<code>HttpServletRequest</code>、<code>InvocationContext</code>类型参数时，默认为body类型参数，一个方法最多只支持一个body类型参数。</li>
+</ul>
+</blockquote>
+<h2 id="beanparam">使用@BeanParam聚合参数</h2>
+<h3 id="_3">使用说明</h3>
+<p>用户可以使用@BeanParam注解将多个参数聚合到一个JavaBean中，通过将@QueryParam等参数注解打在此JavaBean的属性或setter方法上来声明参数，从而简化业务接口的参数表。可以参考JAX-RS的官方说明：https://docs.oracle.com/javaee/7/api/javax/ws/rs/BeanParam.html</p>
+<p>ServiceComb现在也支持类似的用法，该用法的要求如下：
+1. 聚合参数所用的类型必须是标准的JavaBean，即类型的属性与getter、setter方法名称匹配，setter方法的返回类型为<code>void</code>
+2. 参数注解可以打在JavaBean的属性或setter方法上
+3. 允许通过@FormParam将多个上传文件参数聚合到JavaBean中
+4. 作为BeanParam的JavaBean内部如果有多余的属性，需要打上<code>@JsonIgnore</code>忽略掉
+5. body参数无法聚合进BeanParam
+6. Consumer端不支持将参数聚合为JavaBean发送，即仍然需要按照接口契约单独填写各个参数</p>
+<h3 id="_4">代码示例</h3>
+<h4 id="provider">Provider端开发服务</h4>
+<ul>
+<li>Provider端业务接口代码：</li>
+</ul>
+<pre><code class="language-java">  @RestSchema(schemaId = &quot;helloService&quot;)
+  @Path(&quot;/hello&quot;)
+  public class HelloService {
+    @Path(&quot;/sayHello/{name}&quot;)
+    @GET
+    public String sayHello(@BeanParam Person person) {
+      System.out.println(&quot;sayHello is called, person = [&quot; + person + &quot;]&quot;);
+      return &quot;Hello, your name is &quot; + person.getName() + &quot;, and age is &quot; + person.getAge();
+    }
+  }
+</code></pre>
+<ul>
+<li>BeanParam参数定义：</li>
+</ul>
+<pre><code class="language-java">  public class Person {
+    private String name;
+    @QueryParam(&quot;age&quot;)
+    private int age;
+    @PathParam(&quot;name&quot;)
+    public void setName(String name) {
+      this.name = name;
+    }
+    @JsonIgnore // 忽略复杂属性
+    private List&lt;Person&gt; children;
+
+    // 其他方法忽略
+  }
+</code></pre>
+<ul>
+<li>接口契约：</li>
+</ul>
+<pre><code class="language-yaml"># 忽略契约的其他部分
+basePath: &quot;/hello&quot;
+paths:
+  /sayHello/{name}:
+    get:
+      operationId: &quot;sayHello&quot;
+      parameters:
+      - name: &quot;name&quot;
+        in: &quot;path&quot;
+        required: true
+        type: &quot;string&quot;
+      - name: &quot;age&quot;
+        in: &quot;query&quot;
+        required: false
+        type: &quot;integer&quot;
+        format: &quot;int32&quot;
+      responses:
+        200:
+          description: &quot;response of 200&quot;
+          schema:
+            type: &quot;string&quot;
+</code></pre>
+<h4 id="consumer">Consumer端调用服务</h4>
+<p>consumer端RPC开发模式：</p>
+<ul>
+<li>Provider接口定义</li>
+</ul>
+<pre><code class="language-java">public interface HelloServiceIntf {
+  String sayHello(String name, int age);
+}
+</code></pre>
+<ul>
+<li>调用代码</li>
+</ul>
+<pre><code class="language-java">String result = helloService.sayHello(&quot;Bob&quot;, 22); // result的值为&quot;Hello, your name is Bob, and age is 22&quot;
+</code></pre>
+<ul>
+<li>consumer端RestTemplate开发模式：</li>
+</ul>
+<pre><code class="language-java">String result = restTemplate.getForObject(
+  &quot;cse://provider-service/hello/sayHello/Bob?age=22&quot;,
+  String.class); // 调用效果与RPC方式相同
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

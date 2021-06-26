@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/developers/contributing">Community</a>
+                  <a href="/developers/contributing/">Community</a>
                 
               </li>
             
@@ -400,7 +400,7 @@
       <section class="page__content" itemprop="text">
         <h2 id="background">Background</h2>
 
-<p>The architecture of the <code class="highlighter-rouge">service registry</code> module in Java Chassis is as follows.</p>
+<p>The architecture of the <code class="language-plaintext highlighter-rouge">service registry</code> module in Java Chassis is as follows.</p>
 
 <p><img src="/assets/images/service_registry.png" alt="" /></p>
 
@@ -416,7 +416,7 @@
 
 <p><img src="/assets/images/proposed_architecture.png" alt="" /></p>
 
-<p>The above architecture is what the <code class="highlighter-rouge">service registry</code> module supposed to be in my opinion. The low level components like <code class="highlighter-rouge">ApiManager</code> and <code class="highlighter-rouge">UriManager</code> are stateless so they do not rely on high level components any more. Relationships between components are clear and simple.</p>
+<p>The above architecture is what the <code class="language-plaintext highlighter-rouge">service registry</code> module supposed to be in my opinion. The low level components like <code class="language-plaintext highlighter-rouge">ApiManager</code> and <code class="language-plaintext highlighter-rouge">UriManager</code> are stateless so they do not rely on high level components any more. Relationships between components are clear and simple.</p>
 
 <p>Tasks can be divided into the following parts:</p>
 
@@ -429,9 +429,9 @@
   <li>Period Task. Task that executes at every interval.</li>
 </ul>
 
-<p>The result of task will convert to event and posts to the <code class="highlighter-rouge">EventManager</code>. Any methods that subscribes that kind of event will be notified and execute the corresponding response, e.g. update the cache.</p>
+<p>The result of task will convert to event and posts to the <code class="language-plaintext highlighter-rouge">EventManager</code>. Any methods that subscribes that kind of event will be notified and execute the corresponding response, e.g. update the cache.</p>
 
-<p>Both the outside requests and chassis requests share the same interface of Configuration, they can implement their own way to load configurations. The difference between chassis requests and outside requests is that chassis requests need to manage microservice informations of their own. Besides,  chassis requests also need to provide a compatible interface for requests to use. There comes  to the component <code class="highlighter-rouge">RegistryUtils</code>. It is responsible for the following stuff:</p>
+<p>Both the outside requests and chassis requests share the same interface of Configuration, they can implement their own way to load configurations. The difference between chassis requests and outside requests is that chassis requests need to manage microservice informations of their own. Besides,  chassis requests also need to provide a compatible interface for requests to use. There comes  to the component <code class="language-plaintext highlighter-rouge">RegistryUtils</code>. It is responsible for the following stuff:</p>
 
 <ul>
   <li>Initialize service registry client with configurations.</li>
@@ -444,13 +444,13 @@
 
 <p><img src="/assets/images/client_initialization.png" alt="" /></p>
 
-<p>If the auto discovery switch is on, it need to create a period task <code class="highlighter-rouge">PullTask</code> to make the available service center services’ information up to date.</p>
+<p>If the auto discovery switch is on, it need to create a period task <code class="language-plaintext highlighter-rouge">PullTask</code> to make the available service center services’ information up to date.</p>
 
 <p>Any requests to a new microservice will create a new entry in the service registry client. Once we access the same microservice again, the client will response with the cached version which reduces communication cost with service center.</p>
 
-<p>Let’s checkout how the <code class="highlighter-rouge">Microservice</code> component works. Instances and its versions are cached inside the microservice. To get an instance of a specified id, all it needs to do is lookup the cache or create a query task to update the cache. All interactions from <code class="highlighter-rouge">Microservice</code> to  <code class="highlighter-rouge">ApiManager</code> are done by the <code class="highlighter-rouge">Task</code>.</p>
+<p>Let’s checkout how the <code class="language-plaintext highlighter-rouge">Microservice</code> component works. Instances and its versions are cached inside the microservice. To get an instance of a specified id, all it needs to do is lookup the cache or create a query task to update the cache. All interactions from <code class="language-plaintext highlighter-rouge">Microservice</code> to  <code class="language-plaintext highlighter-rouge">ApiManager</code> are done by the <code class="language-plaintext highlighter-rouge">Task</code>.</p>
 
-<p>The <code class="highlighter-rouge">ApiManager</code> is designed to interact directly with service center as a pure client with api inside only. Its structure is as follows:</p>
+<p>The <code class="language-plaintext highlighter-rouge">ApiManager</code> is designed to interact directly with service center as a pure client with api inside only. Its structure is as follows:</p>
 
 <p><img src="/assets/images/api_manager.png" alt="" /></p>
 

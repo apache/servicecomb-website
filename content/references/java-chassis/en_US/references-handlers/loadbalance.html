@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Load Balancing - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Load Balancing";
+    var mkdocs_page_input_path = "references-handlers/loadbalance.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/terminology.html">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/architecture.html">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/development-environment.html">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/first-sample.html">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/define-contract.html">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/code-first.html">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/swagger-annotation.html">Use Swagger annotations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/springmvc.html">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/jaxrs.html">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/transparent-rpc.html">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/interface-constraints.html">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/listen-address-and-publish-address.html">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/thread-pool.html">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/ratelimite-strategy.html">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/downgrade-strategy.html">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/parameter-validator.html">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/bootup.html">Boot-up Process</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/access-log-configuration.html">Access Log Configuration</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/common-configuration.html">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-resttemplate.html">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-AsyncRestTemplate.html">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/develop-consumer-using-rpc.html">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/with-contract.html">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/circuit-breaker.html">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/flow-control.html">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/fault-injection.html">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/3rd-party-service-invoke.html">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/visit-sc.html">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/metrics.html">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/microservice-invocation-chain.html">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/customized-tracing.html">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/local-develop-test.html">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/http-filter.html">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-upload.html">File Uploading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-download.html">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/reactive.html">Reactive Programing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dnsconfig.html">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dai-li-she-zhi.html">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/report-framework-version.html">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/cross-app-invocation.html">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/secret-field.html">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/context.html">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/produceprocess.html">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/CORS.html">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/AlarmEvent.html">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/shutdown.html">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/error-handling.html">Handling exceptions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/multienvironment.html">Multi-environment isolation between microservice instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/thread-model.html">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/inject-config.html">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/rsa.html">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/components-for-spring-boot.html">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/java-application.html">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/web-application.html">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-between-java-web.html">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-spring-mvc.html">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="intruduction.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="loadbalance.html">Load Balancing</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#scenario">Scenario</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#routing-and-forwarding-by-data-center-information">Routing and forwarding by data center information</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#routing-and-forwarding-by-instance-attributes">Routing and forwarding by instance attributes</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#instance-isolation">Instance isolation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuring-route-rules">Configuring route rules</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#set-retry-strategy">Set retry strategy</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#customization">Customization</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="publickey.html">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Handlers reference &raquo;</li>
+        
+      
+    
+    <li>Load Balancing</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="load-balancing">load balancing</h1>
+<h2 id="scenario">Scenario</h2>
+<p>ServiceComb provides very powerful load balancing capabilities, which consists of two core parts. The first part DiscoveryTree, whose core part is DiscoveryFilter, groups microservice instances by their interface compatibility, data center, status, etc. The second part is the load balancing scheme based on Ribbon, which supports various load balancing policies(IRule) include random, sequential, response time-based weights, and ServerListFilterExt which is based on Invocation state.</p>
+<p>DiscoveryTree's logic is more complex, its processing progress is as below:
+<img alt="" src="../assets/loadbalance-001.png" /></p>
+<p>Load balancing can be configured in the Consumer processing chain, the handler name is loadbalance, as follows:</p>
+<pre><code class="language-yaml">servicecomb:
+  handler:
+    chain:
+      Consumer:
+        default: loadbalance
+</code></pre>
+<p>POM dependence:</p>
+<pre><code class="language-xml"> &lt;dependency&gt;
+  &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+  &lt;artifactId&gt;handler-loadbalance&lt;/artifactId&gt;
+  &lt;/dependency&gt;
+</code></pre>
+<h2 id="routing-and-forwarding-by-data-center-information">Routing and forwarding by data center information</h2>
+<p>Service providers and consumers can declare their service center information in microservice.yaml:</p>
+<pre><code class="language-yaml">servicecomb:
+  datacenter:
+    name: mydatacenter
+    region: my-Region
+    availableZone: my-Zone
+</code></pre>
+<p>Consumers compare their own data center information and providers' information, preferentially forward the request to the provider instance in the same region and availableZone; if the target instance is not available, it forwards request to the instance in the same region; if the target still does not exist, it forwards requests to other instances.</p>
+<p>The region and availableZone here are general concepts, users can determine their business meanings to apply them to resource-isolated scenarios. See <a href="../build-provider/definition/isolate-relationship.html">Logical isolation relationships between microservice instances</a> for more details of the isolation.</p>
+<p>This rule is enabled by default. If it is not needed, set servicecomb.loadbalance.filter.zoneaware.enabled to false. Data center information isolation is implemented in ZoneAwareDiscoveryFilter.</p>
+<h2 id="routing-and-forwarding-by-instance-attributes">Routing and forwarding by instance attributes</h2>
+<p>Users can specify the properties of microservice instances in microservice.yaml, or by calling service center APIs.</p>
+<pre><code class="language-yaml">instance_description:
+  properties:
+    tags:
+      tag_key: tag_value
+</code></pre>
+<p>Consumers can specify provider instances' attributes to determine which instances to call.</p>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    # Here the &quot;provider&quot; means the config items below only take effect on the service named &quot;provider&quot;
+    # In cross-app invocation, the AppID should be prefixed, like &quot;AppIDOfProvider:provider&quot;
+    provider:
+      transactionControl:
+        options:
+          tags:
+            tag_key: expected_tag_value
+</code></pre>
+<p>The above configuration shows that only the instances of "provider" with the tag attribute <code>tag_key:expected_tag_value</code> are called.</p>
+<p>This rule needs to be configured separately for each service. Global rule for all services is not supported.</p>
+<p>This rule is enabled by default, it can be disabled by setting <code>servicecomb.loadbalance.filter.instanceProperty.enabled</code> to false. The instance attributes based routing policy is implemented in <code>InstancePropertyDiscoveryFilter</code>.</p>
+<h2 id="instance-isolation">Instance isolation</h2>
+<p>Developers can configure instance-isolated parameters to temporarily drop access to the wrong instance, improving system reliability and performance. Below are the configuration items and default values:</p>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    isolation:
+      enabled: true
+      errorThresholdPercentage: 0
+      enableRequestThreshold: 5
+      singleTestTime: 60000
+      continuousFailureThreshold: 5
+</code></pre>
+<p>The interval of isolation calculation is 1 minute. According to the above configuration, in 1 minute, if the total number of requests is greater than 5, and more than 2 consecutive  errors occur, the instance is isolated.</p>
+<p>The default value of errorThresholdPercentage is 0, indicates that the rule is ommited. The item should be a integer less than 100, for example 20, then within 1 minutes, if the total number of request is greater than 5 and [1] error rate is greater than 20% or [2] more than 2 consecutive  errors occur, is instance is isolated.</p>
+<p>After 60 seconds, the instance will be re-enabled and accessible if it matches the rules of load balancing policy.</p>
+<p>Notes:</p>
+<ol>
+<li>When error rate reaches the threshold, is instance is isolated and the error rate will be calculated again after the interval. Then with the successful accesses, the rate will decrease and become less than the threshold, then instance is available again. Since the rate is calculated by number of requests, if the total requests reaches the threshold and the error rate is much greater than its threshold, the instance would take a long time to recover.</li>
+<li>ServiceComb starts a thread in the background to detect the instance state, and checks the instance state every 10 seconds (if the instance is accessed within 10 seconds, it is not detected). If the detection fails, the error number is accumulated with 1. The count here also affects instance isolation.</li>
+</ol>
+<p>The default instance state detection mechanism is to send a telnet instruction, refer to the implementation of SimpleMicroserviceInstancePing. Users can overwrite the status detection mechanism with the following two steps:</p>
+<ol>
+<li>Implement the MicroserviceInstancePing interface</li>
+<li>Configure SPI: Add META-INF/services/org.apache.servicecomb.serviceregistry.consumer.MicroserviceInstancePing, the content is the full path of the implementation class</li>
+</ol>
+<p>Developers can configure different isolation policies for different microservices. Just add a service name to the configuration item, for example:</p>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    myservice:
+      isolation:
+        enabled: true
+        errorThresholdPercentage: 20
+        enableRequestThreshold: 5
+        singleTestTime: 10000
+        continuousFailureThreshold: 2
+</code></pre>
+<p>This rule is enabled by default and can be turned off by setting servicecomb.loadbalance.filter.isolation.enabled to false. Data center information isolation is implemented in IsolationDiscoveryFilter.</p>
+<h2 id="configuring-route-rules">Configuring route rules</h2>
+<p>Developers can specify load balancing policies through configuration items.</p>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    strategy:
+      name: RoundRobin # Support RoundRobin,Random,WeightedResponse,SessionStickiness
+</code></pre>
+<p>Developers can configure policies for different microservices by adding a service name, for example:</p>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    myservice:
+      strategy:
+        name: RoundRobin # Support RoundRobin,Random,WeightedResponse,SessionStickiness
+</code></pre>
+<p>Each policy has some specific configuration items.</p>
+<ul>
+<li>SessionStickiness</li>
+</ul>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    SessionStickinessRule:
+      sessionTimeoutInSeconds: 30 # Client idle time, after the limit is exceeded, select the server behind
+      successiveFailedTimes: 5 # The number of client failures will switch after the server is exceeded.
+</code></pre>
+<h2 id="set-retry-strategy">Set retry strategy</h2>
+<p>The load balancing module also supports the policy retry.</p>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    retryEnabled: false
+    retryOnNext: 0
+    retryOnSame: 0
+</code></pre>
+<p>Retry is not enabled by default. Developers can set different strategies for different services:</p>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    myservice：
+      retryEnabled: true
+      retryOnNext: 1
+      retryOnSame: 0
+</code></pre>
+<p>retryOnNext indicates that after the failure, according to the load balancing policy, re-select an instance to retry (may choose the same instance), while retryOnSame means that the last failed instance is still used for retry.</p>
+<h2 id="customization">Customization</h2>
+<p>The load balancing module provides various configurations that can support most application scenarios. It also provides flexible extension capabilities, including DiscoveryFilter, ServerListFilterExt, ExtensionsFactory (extension IRule, RetryHandler, etc.). The loadbalance module itself contains the implementation of each extension. The brief introduction of extending load balancing module is described below. Developers can download the ServiceComb source code to see the details.</p>
+<ul>
+<li>DiscoveryFilter</li>
+<li>Implement the DiscoveryFilter interface</li>
+<li>
+<p>Configure SPI: Add META-INF/services/org.apache.servicecomb.serviceregistry.discovery.DiscoveryFilter file with the full path of the implementation class</p>
+</li>
+<li>
+<p>ServerListFilterExt</p>
+</li>
+<li>Implement the ServerListFilterExt interface</li>
+<li>Configure SPI: Add META-INF/services/org.apache.servicecomb.loadbalance.ServerListFilterExt file, the content is the full pathof the implementation class</li>
+<li>
+<p>Note: This instruction applies to version 1.0.0 and later. Earlier versions are extended in a different way.</p>
+</li>
+<li>
+<p>ExtensionsFactory</p>
+</li>
+<li>Implement the ExtensionsFactory and publish it as a spring bean using @Component.</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="publickey.html" class="btn btn-neutral float-right" title="Public key authentication">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="intruduction.html" class="btn btn-neutral" title="Intruductions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="intruduction.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="publickey.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

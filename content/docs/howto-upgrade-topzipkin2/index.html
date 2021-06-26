@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/developers/contributing">Community</a>
+                  <a href="/developers/contributing/">Community</a>
                 
               </li>
             
@@ -433,16 +433,16 @@
 
 <h2 id="whats-changed">What’s changed</h2>
 
-<p>Zipkin did a very good job on maintaining backward compatibility. All the changes that breaks compatiblity are packaged into a new group(<code class="highlighter-rouge">io.zipkin.java</code> -&gt; <code class="highlighter-rouge">io.zipkin.zipkin2</code>, <code class="highlighter-rouge">io.zipkin.reporter</code> -&gt; <code class="highlighter-rouge">io.zipkin.reporter2</code>). And v1/v2 libraries can coexist.</p>
+<p>Zipkin did a very good job on maintaining backward compatibility. All the changes that breaks compatiblity are packaged into a new group(<code class="language-plaintext highlighter-rouge">io.zipkin.java</code> -&gt; <code class="language-plaintext highlighter-rouge">io.zipkin.zipkin2</code>, <code class="language-plaintext highlighter-rouge">io.zipkin.reporter</code> -&gt; <code class="language-plaintext highlighter-rouge">io.zipkin.reporter2</code>). And v1/v2 libraries can coexist.</p>
 
 <p>The zipkin2 library can use both v1 and v2 api to communicate with server.</p>
 
-<p>The <code class="highlighter-rouge">zipkin2.Span</code> class changed a bit from the old <code class="highlighter-rouge">zipkin.Span</code> class. The public fields are refactored to methods. And the <code class="highlighter-rouge">BinaryAnnotation</code> class is removed along with <code class="highlighter-rouge">zipkin.Span.binaryAnnotaions</code> field. It’s functionality is replaced by <code class="highlighter-rouge">zipkin2.Span.tags()</code> method which return a <code class="highlighter-rouge">Map&lt;String,String&gt;</code>.</p>
+<p>The <code class="language-plaintext highlighter-rouge">zipkin2.Span</code> class changed a bit from the old <code class="language-plaintext highlighter-rouge">zipkin.Span</code> class. The public fields are refactored to methods. And the <code class="language-plaintext highlighter-rouge">BinaryAnnotation</code> class is removed along with <code class="language-plaintext highlighter-rouge">zipkin.Span.binaryAnnotaions</code> field. It’s functionality is replaced by <code class="language-plaintext highlighter-rouge">zipkin2.Span.tags()</code> method which return a <code class="language-plaintext highlighter-rouge">Map&lt;String,String&gt;</code>.</p>
 
 <h2 id="upgrade-to-zipkin2-for-java-chassis">Upgrade to zipkin2 for Java Chassis</h2>
 
 <h3 id="modify-the-maven-dependencies-to-use-the-target-version-of-related-libraries">Modify the maven dependencies to use the target version of related libraries.</h3>
-<p>Change the group <code class="highlighter-rouge">io.zipkin.java</code> and <code class="highlighter-rouge">io.zipkin.reporter</code> to <code class="highlighter-rouge">io.zipkin.zipkin2</code> and <code class="highlighter-rouge">io.zipkin.reporter2</code> respectively.</p>
+<p>Change the group <code class="language-plaintext highlighter-rouge">io.zipkin.java</code> and <code class="language-plaintext highlighter-rouge">io.zipkin.reporter</code> to <code class="language-plaintext highlighter-rouge">io.zipkin.zipkin2</code> and <code class="language-plaintext highlighter-rouge">io.zipkin.reporter2</code> respectively.</p>
 
 <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">java-chassis-dependencies/pom.xml
 @@ -50,8 +50,8 @@</span>
@@ -490,7 +490,7 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <h3 id="make-brave-to-use-zipkin2-instead-of-zipkin">Make brave to use zipkin2 instead of zipkin</h3>
 
-<p>Change the zipkin.xxx import to zipkin2.xxx on imports, and most importantly, use <code class="highlighter-rouge">spanReporter()</code> instead of <code class="highlighter-rouge">reporter()</code> for generating reporter for brave, change the api path to /api/v2/xxx when creating sender.</p>
+<p>Change the zipkin.xxx import to zipkin2.xxx on imports, and most importantly, use <code class="language-plaintext highlighter-rouge">spanReporter()</code> instead of <code class="language-plaintext highlighter-rouge">reporter()</code> for generating reporter for brave, change the api path to /api/v2/xxx when creating sender.</p>
 
 <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">handlers/handler-tracing-zipkin/src/main/java/org/apache/servicecomb/tracing/zipkin/TracingConfiguration.java
 @@ -31,11 +31,11 @@</span>
@@ -530,7 +530,7 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p><strong>Note</strong>:</p>
 
-<p>In the <a href="https://github.com/openzipkin/brave/releases/tag/4.7.1">brave release notes</a>, it’s stated that we need to use <code class="highlighter-rouge">create()</code> instead of <code class="highlighter-rouge">builder()</code></p>
+<p>In the <a href="https://github.com/openzipkin/brave/releases/tag/4.7.1">brave release notes</a>, it’s stated that we need to use <code class="language-plaintext highlighter-rouge">create()</code> instead of <code class="language-plaintext highlighter-rouge">builder()</code></p>
 
 <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
    /** Configuration for how to buffer spans into messages for Zipkin */
@@ -541,7 +541,7 @@ handlers/handler-tracing-zipkin/pom.xml
 </span>   }
 </code></pre></div></div>
 
-<p>But this will not work. In <code class="highlighter-rouge">zipkin2.Reporter</code>, the <code class="highlighter-rouge">create(sender)</code> is actually equivalent to <code class="highlighter-rouge">builder(sender).build()</code></p>
+<p>But this will not work. In <code class="language-plaintext highlighter-rouge">zipkin2.Reporter</code>, the <code class="language-plaintext highlighter-rouge">create(sender)</code> is actually equivalent to <code class="language-plaintext highlighter-rouge">builder(sender).build()</code></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="nc">AsyncReporter</span><span class="o">&lt;</span><span class="nc">Span</span><span class="o">&gt;</span> <span class="nf">create</span><span class="o">(</span><span class="nc">Sender</span> <span class="n">sender</span><span class="o">)</span> <span class="o">{</span>
     <span class="k">return</span> <span class="o">(</span><span class="k">new</span> <span class="nc">AsyncReporter</span><span class="o">.</span><span class="na">Builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)).</span><span class="na">build</span><span class="o">();</span>
@@ -617,7 +617,7 @@ handlers/handler-tracing-zipkin/pom.xml
 
 <p>Our customers may be still running a zipkin server prior to 1.31 which does not support the v2 http api. So we added an option to let them specify the server api version.</p>
 
-<p>Supporting v1 api is built into zipkin2, so we do not need to rely on the v1 libraries. Just use the <code class="highlighter-rouge">SpanBytesEncoder.JSON_V1</code> when building reporter and change the sender api path.</p>
+<p>Supporting v1 api is built into zipkin2, so we do not need to rely on the v1 libraries. Just use the <code class="language-plaintext highlighter-rouge">SpanBytesEncoder.JSON_V1</code> when building reporter and change the sender api path.</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sender</span> <span class="o">=</span> <span class="nc">URLConnectionSender</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"http://localhost:9411/api/v1/spans"</span><span class="o">)</span>
 <span class="n">reporter</span> <span class="o">=</span> <span class="nc">AsyncReporter</span><span class="o">.</span><span class="na">builder</span><span class="o">(</span><span class="n">sender</span><span class="o">)</span>

@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -215,7 +215,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -417,17 +417,17 @@
   <li>
     <p>初始化Log4j</p>
 
-    <p><code class="highlighter-rouge">Log4jUtils</code>默认会从<code class="highlighter-rouge">classpath\*:config/base/log4j.properties</code>和<code class="highlighter-rouge">classpath\*:config/log4j.properties</code>两个路径读取log4j配置并合并，将其传递给Log4j的<code class="highlighter-rouge">PropertyConfigurator</code>方法初始化Log4j。如果优先级最高的配置文件是在磁盘上，且其所在目录有写权限，则将合并的配置输出到该目录，以便于维护时观察生效的参数。</p>
+    <p><code class="language-plaintext highlighter-rouge">Log4jUtils</code>默认会从<code class="language-plaintext highlighter-rouge">classpath\*:config/base/log4j.properties</code>和<code class="language-plaintext highlighter-rouge">classpath\*:config/log4j.properties</code>两个路径读取log4j配置并合并，将其传递给Log4j的<code class="language-plaintext highlighter-rouge">PropertyConfigurator</code>方法初始化Log4j。如果优先级最高的配置文件是在磁盘上，且其所在目录有写权限，则将合并的配置输出到该目录，以便于维护时观察生效的参数。</p>
   </li>
   <li>
     <p>bean加载</p>
 
-    <p><code class="highlighter-rouge">BeanUtils</code>默认会从<code class="highlighter-rouge">classpath\*:META-INF/spring/\*.bean.xml</code>路径加载配置文件，并将其传递给Spring框架的<code class="highlighter-rouge">ClassPathXmlApplicationContext</code>完成应用上下文加载。在这个过程中会加载foundation-config模块的bean，完成配置加载。</p>
+    <p><code class="language-plaintext highlighter-rouge">BeanUtils</code>默认会从<code class="language-plaintext highlighter-rouge">classpath\*:META-INF/spring/\*.bean.xml</code>路径加载配置文件，并将其传递给Spring框架的<code class="language-plaintext highlighter-rouge">ClassPathXmlApplicationContext</code>完成应用上下文加载。在这个过程中会加载foundation-config模块的bean，完成配置加载。</p>
   </li>
   <li>
     <p>服务注册</p>
 
-    <p>在Spring context加载完成后，<code class="highlighter-rouge">org.apache.servicecomb.core.CseApplicationListener</code>会加载handler配置、加载provider的schema信息，最后将微服务信息注册到服务中心。</p>
+    <p>在Spring context加载完成后，<code class="language-plaintext highlighter-rouge">org.apache.servicecomb.core.CseApplicationListener</code>会加载handler配置、加载provider的schema信息，最后将微服务信息注册到服务中心。</p>
   </li>
 </ul>
 

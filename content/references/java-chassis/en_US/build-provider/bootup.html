@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Boot-up Process - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Boot-up Process";
+    var mkdocs_page_input_path = "build-provider/bootup.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/terminology.html">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/architecture.html">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/development-environment.html">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/first-sample.html">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="definition/service-definition.html">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="define-contract.html">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="code-first.html">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="swagger-annotation.html">Use Swagger annotations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="springmvc.html">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="jaxrs.html">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="transparent-rpc.html">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="interface-constraints.html">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="listen-address-and-publish-address.html">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="thread-pool.html">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="configuration/ratelimite-strategy.html">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="configuration/downgrade-strategy.html">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="configuration/parameter-validator.html">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="bootup.html">Boot-up Process</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#concepts">Concepts</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="access-log-configuration.html">Access Log Configuration</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/common-configuration.html">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-resttemplate.html">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-AsyncRestTemplate.html">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/develop-consumer-using-rpc.html">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/with-contract.html">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/circuit-breaker.html">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/flow-control.html">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/fault-injection.html">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/3rd-party-service-invoke.html">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/visit-sc.html">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/metrics.html">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/microservice-invocation-chain.html">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/customized-tracing.html">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/local-develop-test.html">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/http-filter.html">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-upload.html">File Uploading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-download.html">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/reactive.html">Reactive Programing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dnsconfig.html">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dai-li-she-zhi.html">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/report-framework-version.html">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/cross-app-invocation.html">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/secret-field.html">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/context.html">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/produceprocess.html">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/CORS.html">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/AlarmEvent.html">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/shutdown.html">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/error-handling.html">Handling exceptions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/multienvironment.html">Multi-environment isolation between microservice instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/thread-model.html">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/inject-config.html">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/rsa.html">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/components-for-spring-boot.html">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/java-application.html">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/web-application.html">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-between-java-web.html">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-spring-mvc.html">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Development Service Provider &raquo;</li>
+        
+      
+    
+    <li>Boot-up Process</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="application-boot-up-process">Application Boot-up Process</h1>
+<h3 id="concepts">Concepts</h3>
+<p>The startup process of a service provider includes initializing Log4j, loading bean(including its parameters), and registering service.</p>
+<ul>
+<li>Initialize Log4j:</li>
+</ul>
+<p>By default, Log4jUtils merges the log4j configurations from <code>classpath\*:config/base/log4j.properties</code> and <code>classpath\*:config/log4j.properties</code>, then transfer them to log4j's <code>PropertyConfigurator</code> method to initialize it. If the configuration file with the highest priority is stored on the disk directory with write permission, the combined configuration will be saved to this location to view which parameters take effect during maintenance.</p>
+<ul>
+<li>Load the bean.</li>
+</ul>
+<p>By default <code>BeanUtils</code>  loads the configuration file from the <code>classpath\*:META-INF/spring/\*.bean.xml</code> and transfer the configuration to <code>ClassPathXmlApplicationContext</code> of the Spring framework to load the application context. The bean of foundation-config module will be loaded during the process.</p>
+<ul>
+<li>
+<p>Register the service.</p>
+<p>When Spring context is loaded, <code>org.apache.servicecomb.core.CseApplicationListener</code> will load the handlers configurations and providers' schema info, then register the microservice in the Service Center.</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>NOTE:</strong></p>
+<p>ServiceComb has 3 configuration sources: configuration center, environment variables and local files, with priorities from high to low. If there are configuration items with the same name in different sources, then items with lower priority will be overwritten. Configuration items stored in the configuration center can be modified at runtime.</p>
+</blockquote>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="access-log-configuration.html" class="btn btn-neutral float-right" title="Access Log Configuration">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="configuration/parameter-validator.html" class="btn btn-neutral" title="Parameter Validator"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="configuration/parameter-validator.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="access-log-configuration.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

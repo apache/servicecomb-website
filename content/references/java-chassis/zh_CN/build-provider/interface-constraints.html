@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>接口定义和数据类型 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u63a5\u53e3\u5b9a\u4e49\u548c\u6570\u636e\u7c7b\u578b";
+    var mkdocs_page_input_path = "build-provider/interface-constraints.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>接口定义和数据类型</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">接口定义和数据类型</h1>
+<p>不论采用 <code>JAX-RS</code>、<code>Spring MVC</code>，还是采用 <code>透明RPC</code> 开发，都涉及接口的返回值和参数。java-chassis 
+采用的是一种平台无关的数据序列化方式，当 <code>Transport</code> 为 <code>REST</code> 的时候，序列化方式为 <code>json</code>，当
+<code>Transport</code> 为 <code>Highway</code> 的时候，序列化方式为 <code>protobuffer</code>。 平台无关的数据序列化方式有个基本
+特征：作为 <code>Consumer</code>， 从序列化的数据中，无法获取任何和 <code>Consuemr</code> 开发语言有关的类型信息。 平台无关
+特性给接口定义的数据类型提供了更严格的要求，符合这些要求的接口定义，一方面运行更加高效，另外一方面更加方便的
+动态调整 <code>Transport</code>， 而无需对代码做出修改。 </p>
+<p>对于 <code>REST</code>， 虽然 <code>json</code> 本身不包含特定平台的类型信息，但是 <code>JAVA</code> 可以通过在反序列化的时候，指定目标
+类型，所以对于 <code>REST</code>， 可以更加灵活的使用不同的类型。 </p>
+<p>本章节主要介绍为了实现最大的夸平台和高性能，开发者定义接口的最佳实践。同时介绍在使用 <code>REST</code> 的情况下，如何
+更加灵活的支持不同的类型。 </p>
+<h2 id="_2">接口定义的最佳实践和类型约束</h2>
+<p>java-chassis 的所有接口定义，都可以生成符合 <code>OpenAPI</code> 的 <code>swagger</code> 接口描述，当使用 <code>Highway</code> 协议时，
+<code>swagger</code> 文件还会在内部被转换为等价的 <code>proto</code> 文件。 接口定义的最佳实践需要满足 <code>OpenAPI</code> 和 <code>proto</code>的
+数据类型要求。 </p>
+<ul>
+<li><code>OpenAPI</code> 定义了如下一些基本类型：</li>
+</ul>
+<p>下面列举一些常见的类型说明，详细参考 <a href="https://swagger.io/docs/specification/data-models/data-types/">OpenAPI文档</a>。</p>
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">format</th>
+<th align="left">java</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">string</td>
+<td align="left">-</td>
+<td align="left">String</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">string</td>
+<td align="left">date</td>
+<td align="left">java.util.Date, java.time.LocalDate</td>
+<td align="left">推荐使用 LocalDate</td>
+</tr>
+<tr>
+<td align="left">string</td>
+<td align="left">date-time</td>
+<td align="left">java.util.Date, java.time.LocalDateTime</td>
+<td align="left">推荐使用 LocalDateTime</td>
+</tr>
+<tr>
+<td align="left">number</td>
+<td align="left">-</td>
+<td align="left">double</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">number</td>
+<td align="left">float</td>
+<td align="left">float</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">number</td>
+<td align="left">double</td>
+<td align="left">double</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">integer</td>
+<td align="left">-</td>
+<td align="left">integer</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">integer</td>
+<td align="left">int32</td>
+<td align="left">int</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">integer</td>
+<td align="left">int64</td>
+<td align="left">long</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">boolean</td>
+<td align="left">-</td>
+<td align="left">boolean</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">array</td>
+<td align="left"></td>
+<td align="left">ArrayList</td>
+<td align="left">必须指定类型</td>
+</tr>
+<tr>
+<td align="left">object</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">由上面的属性构成的对象类型。包括字典（HashMap），字典的 key 必须为 string</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>proto</code> 定义了如下一些基本类型：</li>
+</ul>
+<p>下面列举一些常见的类型说明，详细参考 <a href="https://docs.microsoft.com/en-us/dotnet/architecture/grpc-for-wcf-developers/protobuf-data-types">Proto Buffer类型说明</a>。</p>
+<table>
+<thead>
+<tr>
+<th align="left">type</th>
+<th align="left">java</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">double</td>
+<td align="left">double</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">float</td>
+<td align="left">float</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">int32</td>
+<td align="left">int</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">int64</td>
+<td align="left">long</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">uint32</td>
+<td align="left">int</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">uint64</td>
+<td align="left">long</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">sint32</td>
+<td align="left">int</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">sint64</td>
+<td align="left">long</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">fixed32</td>
+<td align="left">int</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">fixed64</td>
+<td align="left">long</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">sfixed32</td>
+<td align="left">int</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">sfixed64</td>
+<td align="left">long</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">bool</td>
+<td align="left">boolean</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">string</td>
+<td align="left">String</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">bytes</td>
+<td align="left">ByteString</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">map</td>
+<td align="left"></td>
+<td align="left">字典类型</td>
+</tr>
+</tbody>
+</table>
+<p><code>OpenAPI</code> 的 <code>date</code> format 在 <code>proto</code> 里面采用 <code>long</code> 表示。 java-chassis 的开发实践分为 <code>code first</code>
+和 <code>contrast first</code> 两种模式， 如果采用 <code>contrast first</code> 模式，先写 <code>swagger</code>， 然后通过 <code>swagger</code> 生成
+代码， 这种方式生成的数据类型都是符合最佳实践的。 如果采用 <code>code first</code>， 要考虑哪些类型是最佳实践，可以从思考定义
+的 JAVA 类型，对应的 <code>swagger</code> 是什么样子的。 当然这样思考，对于不熟悉 <code>swagger</code> 或者 <code>proto</code> 的开发者
+还是显得复杂。 下面从 <code>code first</code> 的角度描述使用哪些类型是最佳实践。 </p>
+<h2 id="code-first">从 <code>code first</code> 角度理解夸平台数据类型的约束</h2>
+<p>开发者不能在接口定义的时候使用如下类型：</p>
+<ul>
+<li>
+<p>抽象的数据结构: java.lang.Object, net.sf.json.JsonObject 等。 使用这些类型 java-chassis 启动
+  不会报错，功能也是正常的。但不是最佳实践，也会对性能有一定影响。 </p>
+</li>
+<li>
+<p>接口或者抽象类</p>
+<pre><code>```java
+public interface IPerson {//...}
+public abstract class AbstractPerson  {//...}
+```
+</code></pre>
+</li>
+<li>
+<p>上述类型的集合类型或者没有指定具体类型的集合，比如：<code>List&lt;IPerson&gt;, Map&lt;String, PersonHolder&lt;?&gt;&gt;, List, Map</code>等。 <code>List&lt;String&gt;, List&lt;Person&gt;</code> 这些具体类型是支持的。</p>
+</li>
+<li>
+<p>包含上述类型作为属性的类型</p>
+<pre><code>```java
+public class GroupOfPerson {IPerson master //...}
+```
+</code></pre>
+</li>
+</ul>
+<p>不用担心记不住这些约束，程序会在启动的时候检查不支持的类型，并给与错误提示。</p>
+<p>总之，数据结构需要能够使用简单的数据类型进行描述，一目了然就是最好的。这个在不同的语言，不同的协议里面都支持的很
+好，长期来看，可以大大减少开发者联调沟通和后期重构的成本。</p>
+<h3 id="_3">关于数据结构和接口变更</h3>
+<p>接口名称、参数类型、参数顺序、返回值类型变更都属于接口变更。ServiceComb启动的时候，会根据版本号检测接口变化，
+接口变化要求修改版本号。ServiceComb识别接口是否变化是通过代码生成的契约内容，有些不规范的接口定义可能导致在
+代码没有变化的情况下，生成的契约不同。比如：</p>
+<pre><code>public void get(Person p)
+class Person {
+  private String value;
+  private boolean isOk;
+  public String getName() {return value}
+  public boolean isOk() {return isOK}
+}
+</code></pre>
+<p>这个接口通过access method定义了"name"和"ok"两个属性，和实际的字段"value"和"isOk"不同。这种情况可能导
+致每次启动生成的契约不一样。需要将代码调整为符合JAVA Bean规范的定义。</p>
+<pre><code>public void get(Person p)
+class Person {
+  private String name;
+  private boolean ok;
+  public String getName() {return name}
+  public boolean isOk() {return ok}
+}
+</code></pre>
+<p>或者通过JSON标注，显示的指明字段顺序。比如：</p>
+<pre><code>public void get(Person p)
+@JsonPropertyOrder({&quot;name&quot;, &quot;ok&quot;})
+class Person {
+  private String value;
+  private boolean isOk;
+  public String getName() {return value}
+  public boolean isOk() {return isOK}
+}
+</code></pre>
+<p>考虑到接口变更的影响，建议在进行对外接口定义的时候，尽可能不要使用第三方软件提供的类作为接口参数，而是使
+用自定义的POJO类。一方面升级三方件的时候，可能感知不到接口变化；另外一方面，如果出现问题，无法通过
+修改第三方代码进行规避。比如：java.lang.Timestamp, org.joda.time.JodaTime等。</p>
+<h2 id="_4">协议上的差异</h2>
+<p>尽管 ServiceComb-Java-Chassis 实现了不同协议之间开发方式的透明，受限于底层协议的限制，不同的协议存在少量差异。</p>
+<ul>
+<li>
+<p>map，key只支持 string</p>
+</li>
+<li>
+<p>highway (protobuf限制)  </p>
+<ol>
+<li>不支持在网络上传递null，包括Collection、array中的元素，map的value  </li>
+<li>长度为0的数组、list，不会在网络上传递，接收端解码出来就是默认值</li>
+</ol>
+</li>
+<li>
+<p>springmvc  </p>
+<ol>
+<li>不支持 Date 作为 path、query 参数。 因为springmvc 直接将 Date 做 toString 放在path、query中，与
+   swagger的标准不匹配。</li>
+</ol>
+</li>
+</ul>
+<h2 id="_5">泛型支持</h2>
+<p>ServiceComb-Java-Chassis 支持REST传输方式下的泛型请求参数和返回值。例如使用一个泛型的数据类型:</p>
+<pre><code class="language-java">public class Generic&lt;T&gt;{
+  public T value;
+}
+</code></pre>
+<p>其中的泛型属性T可以是一个实体类、java.util.Date、枚举，也可以嵌套泛型数据类型。</p>
+<p>当用户使用隐式契约功能自动生成微服务契约时，需要在provider接口方法的返回消息中明确指定泛型类型，以保
+证 ServiceComb-Java-Chassis 生成的契约中包含足够的接口信息。例如，当provider端接口方法代码为</p>
+<pre><code class="language-java">public Holder&lt;List&lt;Person&gt;&gt; getHolderListArea() {
+  Holder&lt;List&lt;Person&gt;&gt; response = new Holder&lt;&gt;();
+  // ommited
+  return response;
+}
+</code></pre>
+<p>时， ServiceComb-Java-Chassis 能够识别出泛型返回对象的确切信息，以保证consumer端接收到的应答消息能够被
+正确地反序列化。而如果provider端接口方法的代码为</p>
+<pre><code class="language-java">public Holder getHolderListArea() {
+  Holder&lt;List&lt;Person&gt;&gt; response = new Holder&lt;&gt;();
+  // ommited
+  return response;
+}
+</code></pre>
+<p>时，由于契约中缺少List元素的类型信息，就会出现consumer端无法正确反序列化应答的情况，比如consumer接收
+到的参数类型可能会变为<code>Holder&lt;List&lt;Map&lt;String,String&gt;&gt;&gt;</code>，<code>Person</code>对象退化为Map类型。</p>
+<blockquote>
+<p><strong><em>说明:</em></strong> <br />
+虽然 ServiceComb-Java-Chassis 支持REST泛型参数，但是我们更加推荐用户使用实体类作为参数，以获得
+更加明确的接口语义。</p>
+</blockquote>
+<h2 id="_6">其他常见问题</h2>
+<ul>
+<li>使用 RestTemplate 传递 raw json</li>
+</ul>
+<p>假设服务端定义了接口</p>
+<pre><code>Person test(Person input)
+</code></pre>
+<p>用户期望使用RestTemplate自行拼接json字符串，然后进行传递:</p>
+<pre><code>      String personStr = JsonUtils.writeValueAsString(input);
+      result = template.postForObject(cseUrlPrefix + &quot;sayhello&quot;, personStr, Person.class);
+</code></pre>
+<p>ServiceComb不推荐开发者这样使用，里面的处理逻辑存在大量歧义。如果必须使用，需要满足几个约束：Person
+必须包含带String类型的构造函数；provider/consumer都必须存在这个Person类型。</p>
+<h2 id="rest"><code>REST</code> 通信类型扩展</h2>
+<p>默认情况下， 如果在接口中使用 <code>interface</code> 或者 <code>abstract class</code> 作为参数或者返回值， java-chassis
+启动会报告错误。 java-chassis 提供了类型扩展机制， 使得程序中可以支持各种类型。 </p>
+<p><strong><em>注意: </em></strong> 使用扩展机制的接口，只能够在 <code>REST</code> 通信模式下使用。</p>
+<p>以支持 <code>spring-data</code> 的 <code>Page</code> 接口作为返回值为例， 首先需要通过 <code>SPI</code> 的机制实现 <code>jackson</code> 的类型扩展：</p>
+<pre><code class="language-java">public class SpringDataModule extends SimpleModule implements SPIOrder {
+  private static final long serialVersionUID = 1L;
+
+  @JsonDeserialize(as = PageImpl.class)
+  @JsonPropertyOrder(alphabetic = true)
+  public static class PageMixin&lt;T&gt; {
+    @JsonCreator
+    public PageMixin(@JsonProperty(value = &quot;content&quot;) List&lt;T&gt; content,
+        @JsonProperty(&quot;pageable&quot;) Pageable pageable,
+        @JsonProperty(&quot;total&quot;) long total) {
+    }
+  }
+
+  @JsonDeserialize(as = PageRequest.class)
+  @JsonPropertyOrder(alphabetic = true)
+  public static class PageableMixin {
+    @JsonCreator
+    public PageableMixin(@JsonProperty(value = &quot;pageNumber&quot;) int page,
+        @JsonProperty(&quot;pageSize&quot;) int size, @JsonProperty(value = &quot;sort&quot;) Sort sort) {
+    }
+  }
+
+  @JsonPropertyOrder(alphabetic = true)
+  @JsonDeserialize(as = Sort.class)
+  public static class SortMixin {
+    // Notice:
+    // spring data model changed from version to version
+    // for the tested version, sort is not consistency in serialization and deserialization
+    @JsonCreator
+    public SortMixin(String... properties) {
+    }
+  }
+
+  public SpringDataModule() {
+    super(&quot;springData&quot;);
+
+    setMixInAnnotation(Page.class, PageMixin.class);
+    setMixInAnnotation(Pageable.class, PageableMixin.class);
+    setMixInAnnotation(Sort.class, SortMixin.class);
+
+    setMixInAnnotation(PageImpl.class, PageMixin.class);
+    setMixInAnnotation(PageRequest.class, PageableMixin.class);
+  }
+
+  @Override
+  public Object getTypeId() {
+    return getModuleName();
+  }
+
+  @Override
+  public int getOrder() {
+    return Short.MAX_VALUE;
+  }
+}
+</code></pre>
+<p>再实现 <code>SPI</code> 告诉 java-chassis 跳过类型检查：</p>
+<pre><code class="language-java">public class SpringDataConcreteTypeRegister implements ConcreteTypeRegister {
+  @Override
+  public void register(Set&lt;Type&gt; types) {
+    types.add(Page.class);
+    types.add(Pageable.class);
+  }
+}
+</code></pre>
+<p>经过这两个步骤（步骤中没描述开发SPI 需要增加 services 文件的内容）， 就能够实现任意类型的支持。 需要注意，这些扩展，必须
+同时包含在 <code>Consumer</code>, <code>Provider</code>, <code>edge service</code> 中，因为这种处理方式是依赖于平台类型的非夸平台特性。 </p>
+<p>上述例子的详细代码可以参考 java-chassis 的源代码， generator-spring-data 模块。 </p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

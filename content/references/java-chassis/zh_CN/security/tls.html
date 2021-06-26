@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>使用TLS通信 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u4f7f\u7528TLS\u901a\u4fe1";
+    var mkdocs_page_input_path = "security/tls.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="tls.html">使用TLS通信</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>安全特性参考 &raquo;</li>
+        
+      
+    
+    <li>使用TLS通信</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="_1">场景描述</h2>
+<p>用户通过简单的配置即可启用TLS通信，以保障数据的传输安全。</p>
+<h2 id="_2">外部服务通信配置</h2>
+<p>与外部服务通信相关的配置写在microservice.yaml文件中。</p>
+<ul>
+<li>
+<p>服务中心、配置中心TLS通信配置<br />
+  微服务与服务中心、配置中心的连接可以通过将http改为https启用TLS通信，配置示例如下：</p>
+<pre><code>servicecomb:
+  service:
+    registry:
+      address: https://127.0.0.1:30100
+  config:
+    client:
+      serverUri: https://127.0.0.1:30103
+</code></pre>
+</li>
+<li>
+<p>服务提供者启用TLS通信<br />
+  服务提供者在配置服务监听地址时，可以通过在地址后面追加<code>?sslEnabled=true</code>开启TLS通信，示例如下：</p>
+<pre><code>servicecomb:
+  rest:
+    address: 0.0.0.0:8080?sslEnabled=true
+  highway:
+    address: 0.0.0.0:7070?sslEnabled=true
+</code></pre>
+</li>
+</ul>
+<h2 id="_3">证书配置</h2>
+<p>证书配置项写在microservice.yaml文件中，支持统一制定证书，也可以添加tag进行更细粒度的配置，有tag的配置会覆盖全局配置，配置格式如下：</p>
+<pre><code>ssl.[tag].[property]
+</code></pre>
+<p>常见的tag如下表：   </p>
+<table>
+<thead>
+<tr>
+<th align="left">项目</th>
+<th align="left">tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">服务中心</td>
+<td align="left">sc.consumer</td>
+</tr>
+<tr>
+<td align="left">配置中心</td>
+<td align="left">cc.consumer</td>
+</tr>
+<tr>
+<td align="left">看板中心</td>
+<td align="left">mc.consumer</td>
+</tr>
+<tr>
+<td align="left">Rest服务端</td>
+<td align="left">rest.provider</td>
+</tr>
+<tr>
+<td align="left">Highway服务端</td>
+<td align="left">highway.provider</td>
+</tr>
+<tr>
+<td align="left">Rest客户端</td>
+<td align="left">rest.consumer</td>
+</tr>
+<tr>
+<td align="left">Highway客户端</td>
+<td align="left">highway.consumer</td>
+</tr>
+<tr>
+<td align="left">auth客户端</td>
+<td align="left">apiserver.consumer</td>
+</tr>
+<tr>
+<td align="left">一般不需要配置tag，正常情况分为三类：1、连接内部服务 2、作为服务端 3、作为客户端 所以如果这三类要求的证书不一致，那么需要使用tag来区分</td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p>证书配置项见表1 证书配置项说明表。<br />
+<strong>表1 证书配置项说明表</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">默认值</th>
+<th align="left">取值范围</th>
+<th align="left">是否必选</th>
+<th align="left">含义</th>
+<th align="left">注意</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ssl.engine</td>
+<td align="left">jdk</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">ssl协议，提供jdk/openssl选择</td>
+<td align="left">默认为jdk</td>
+</tr>
+<tr>
+<td align="left">ssl.protocols</td>
+<td align="left">TLSv1.2</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">协议列表</td>
+<td align="left">使用逗号分隔</td>
+</tr>
+<tr>
+<td align="left">ssl.ciphers</td>
+<td align="left">TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,<br/>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">算法列表</td>
+<td align="left">使用逗号分隔</td>
+</tr>
+<tr>
+<td align="left">ssl.authPeer</td>
+<td align="left">false</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">是否认证对端</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">ssl.checkCN.host</td>
+<td align="left">false</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">是否对证书的CN进行检查</td>
+<td align="left">该配置项只对Consumer端，并且使用http协议有效，即Consumser端使用rest通道有效。对于Provider端、highway通道等无效。检查CN的目的是防止服务器被钓鱼，参考标准定义：<a href="https://tools.ietf.org/html/rfc2818。">https://tools.ietf.org/html/rfc2818。</a></td>
+</tr>
+<tr>
+<td align="left">ssl.trustStore</td>
+<td align="left">trust.jks</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">信任证书文件</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">ssl.trustStoreType</td>
+<td align="left">JKS</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">信任证书类型</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">ssl.trustStoreValue</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">信任证书密码</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">ssl.keyStore</td>
+<td align="left">server.p12</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">身份证书文件</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">ssl.keyStoreType</td>
+<td align="left">PKCS12</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">身份证书类型</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">ssl.keyStoreValue</td>
+<td align="left">-</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">身份证书密码</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">ssl.crl</td>
+<td align="left">revoke.crl</td>
+<td align="left">-</td>
+<td align="left">否</td>
+<td align="left">吊销证书文件</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">ssl.sslCustomClass</td>
+<td align="left">-</td>
+<td align="left">org.apache.servicecomb.foundation.ssl.SSLCustom的实现类</td>
+<td align="left">否</td>
+<td align="left">SSLCustom类的实现，用于开发者转换密码、文件路径等。</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>说明</strong>：</p>
+<ul>
+<li>默认的协议算法是高强度加密算法，JDK需要安装对应的策略文件，参考：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html">http://www.oracle.com/technetwork/java/javase/downloads/jce8-download-2133166.html</a>。 您可以在配置文件配置使用非高强度算法。</li>
+<li>微服务消费者，可以针对不同的提供者指定证书（当前证书是按照HOST签发的，不同的提供者都使用一份证书存储介质，这份介质同时给微服务访问服务中心和配置中心使用）。</li>
+</ul>
+</blockquote>
+<h2 id="_4">示例代码</h2>
+<p>microservice.yaml文件中启用TLS通信的配置示例如下：</p>
+<pre><code class="language-yaml">servicecomb:
+  service:
+    registry:
+      address: https://127.0.0.1:30100
+  config:
+    client:
+      serverUri: https://127.0.0.1:30103
+  rest:
+    address: 0.0.0.0:8080?sslEnabled=true
+  highway:
+    address: 0.0.0.0:7070?sslEnabled=true
+
+#########SSL options
+ssl.protocols: TLSv1.2
+ssl.authPeer: true
+ssl.checkCN.host: true
+
+#########certificates config
+ssl.trustStore: trust.jks
+ssl.trustStoreType: JKS
+ssl.trustStoreValue: Changeme_123
+ssl.keyStore: server.p12
+ssl.keyStoreType: PKCS12
+ssl.keyStoreValue: Changeme_123
+ssl.crl: revoke.crl
+ssl.sslCustomClass: org.apache.servicecomb.demo.DemoSSLCustom
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="shi-yong-rsa-ren-zheng.html" class="btn btn-neutral float-right" title="使用RSA认证">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../references-handlers/publickey.html" class="btn btn-neutral" title="公钥认证"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../references-handlers/publickey.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="shi-yong-rsa-ren-zheng.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

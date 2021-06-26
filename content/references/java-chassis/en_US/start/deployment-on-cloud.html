@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Deployment on cloud - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Deployment on cloud";
+    var mkdocs_page_input_path = "start/deployment-on-cloud.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="terminology.html">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="architecture.html">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="development-environment.html">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="first-sample.html">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/define-contract.html">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/code-first.html">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/swagger-annotation.html">Use Swagger annotations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/springmvc.html">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/jaxrs.html">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/transparent-rpc.html">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/interface-constraints.html">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/listen-address-and-publish-address.html">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/thread-pool.html">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/ratelimite-strategy.html">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/downgrade-strategy.html">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/parameter-validator.html">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/bootup.html">Boot-up Process</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/access-log-configuration.html">Access Log Configuration</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/common-configuration.html">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-resttemplate.html">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-AsyncRestTemplate.html">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/develop-consumer-using-rpc.html">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/with-contract.html">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/circuit-breaker.html">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/flow-control.html">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/fault-injection.html">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/3rd-party-service-invoke.html">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/visit-sc.html">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/metrics.html">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/microservice-invocation-chain.html">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/customized-tracing.html">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/local-develop-test.html">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/http-filter.html">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-upload.html">File Uploading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-download.html">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/reactive.html">Reactive Programing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dnsconfig.html">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dai-li-she-zhi.html">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/report-framework-version.html">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/cross-app-invocation.html">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/secret-field.html">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/context.html">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/produceprocess.html">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/CORS.html">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/AlarmEvent.html">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/shutdown.html">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/error-handling.html">Handling exceptions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/multienvironment.html">Multi-environment isolation between microservice instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/thread-model.html">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/inject-config.html">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/rsa.html">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/components-for-spring-boot.html">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/java-application.html">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/web-application.html">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-between-java-web.html">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-spring-mvc.html">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Deployment on cloud</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p>本章节主要描述微服务发布到华为公有云上。上云配置的基本原则是：只需要对microservice.yaml进行适当的配置，以及在pom中添加额外的依赖，就可以使用相关的功能。</p>
+<h1 id="_1">一键式配置</h1>
+<p>公有云版本提供了一键式简化配置的方式，让基于开源版本开发的应用快速切换为云上应用，直接使用公有云提供的灰度发布、服务治理等功能。</p>
+<ul>
+<li>增加依赖关系(pom.xml)</li>
+</ul>
+<pre><code class="language-xml">&lt;dependency&gt; 
+  &lt;groupId&gt;com.huawei.paas.cse&lt;/groupId&gt;  
+  &lt;artifactId&gt;cse-solution-service-engine&lt;/artifactId&gt; 
+&lt;/dependency&gt;
+</code></pre>
+<p>开发者只需要配置对cse-solution-service-engine依赖，就完成了公有云的所有配置。这个依赖关系主要给开发者做了如下事情：</p>
+<ul>
+<li>
+<p>引入相关依赖的组件</p>
+</li>
+<li>
+<p>增加默认配置项。默认配置包含了处理链、负载均衡策略等。</p>
+</li>
+</ul>
+<p>可以通过查看pom内容，以及这个jar包里面的microservice.yaml文件查看引入的组件和增加的配置项。在下面的章节中，详细解释上云增加的组件以及他们的作用，让开发者更加深入的了解各种技术细节。</p>
+<h2 id="_2">连接服务中心</h2>
+<h3 id="_3">功能描述</h3>
+<p>服务中心实现注册和发现，在FusionStage/ServiceStage查看微服务目录，都需要微服务连接上服务中心。</p>
+<h3 id="_4">配置参考</h3>
+<ul>
+<li>增加依赖关系(pom.xml)</li>
+</ul>
+<p>如果连接服务中心使用https协议/AK/SK认证，该jar依赖必选。如果是http协议，并不包含token验证，则无需引入。</p>
+<pre><code class="language-xml">&lt;dependency&gt; 
+  &lt;groupId&gt;com.huawei.paas.cse&lt;/groupId&gt;  
+  &lt;artifactId&gt;foundation-auth&lt;/artifactId&gt; 
+&lt;/dependency&gt;
+</code></pre>
+<ul>
+<li>配置项(microservice.yaml）</li>
+</ul>
+<pre><code class="language-xml">servicecomb:
+ service:
+  registry:
+   address: https://servicecomb.cn-north-1.myhwclouds.com:443    #根据实际地址配置服务中心地址
+</code></pre>
+<p>该配置项配置了服务中心的地址。其中，address可以在公有云“工具和案例”目录下查到对应的服务中心地址，修改协议（http/https）、主机名（可能使用域名）和端口号。</p>
+<h2 id="_5">连接配置中心</h2>
+<h3 id="_6">功能描述</h3>
+<p>配置中心实现配置下发，连接配置中心是使用治理、灰度发布等功能的前台。</p>
+<h3 id="_7">配置参考</h3>
+<ul>
+<li>增加依赖关系(pom.xml)</li>
+</ul>
+<p>如果连接配置中心使用https协议/AK/SK认证，该jar依赖必选。如果是http协议，并不包含token验证，则无需引入。</p>
+<pre><code class="language-xml">&lt;dependency&gt; 
+  &lt;groupId&gt;com.huawei.paas.cse&lt;/groupId&gt;  
+  &lt;artifactId&gt;foundation-auth&lt;/artifactId&gt; 
+&lt;/dependency&gt;
+</code></pre>
+<p>连接配置中心该jar必选</p>
+<pre><code class="language-xml">&lt;dependency&gt; 
+  &lt;groupId&gt;com.huawei.paas.cse&lt;/groupId&gt;  
+  &lt;artifactId&gt;foundation-config-cc&lt;/artifactId&gt; 
+&lt;/dependency&gt;
+</code></pre>
+<ul>
+<li>启用配置(microservice.yaml）</li>
+</ul>
+<pre><code class="language-yaml">servicecomb:
+ config:
+  client:
+   serverUri: https://servicecomb.cn-north-1.myhwclouds.com:443
+</code></pre>
+<p>该配置项配置了配置中心的地址。其中，address可以在公有云“工具和案例”目录下查到对应的配置中心地址，修改协议（http/https）、主机名（可能使用域名）和端口号。</p>
+<h2 id="_8">使用服务治理</h2>
+<h3 id="_9">功能描述</h3>
+<p>服务治理主要涉及“隔离”、“熔断”、“容错”、“限流”、“负载均衡”等。</p>
+<h3 id="_10">配置参考</h3>
+<p>配置项(microservice.yaml）</p>
+<p>需要增加下面治理相关的handler，才能在从配置中心实时获取治理数据。</p>
+<pre><code class="language-yaml">servicecomb:
+ handler:
+  chain:
+   Provider:
+    default: bizkeeper-provider,qps-flowcontrol-provider
+   Consumer:
+    default: bizkeeper-consumer,loadbalance,qps-flowcontrol-consumer
+</code></pre>
+<h2 id="_11">使用故障注入</h2>
+<h3 id="_12">功能描述</h3>
+<p>故障注入主要提供了延时、错误两种类型故障。</p>
+<h3 id="_13">配置参考</h3>
+<p>配置项(microservice.yaml）</p>
+<p>需要增加下面治理相关的handler。</p>
+<pre><code class="language-yaml">servicecomb:
+ handler:
+  chain:
+   Consumer:
+    default: loadbalance,fault-injection-consumer
+</code></pre>
+<h2 id="_14">使用灰度发布</h2>
+<h3 id="_15">功能描述</h3>
+<p>该功能对应于微服务目录灰度发布功能。管理员可以通过下发规则，对服务进行灰度发布管理。</p>
+<h3 id="_16">配置参考</h3>
+<ul>
+<li>增加依赖关系(pom.xml)</li>
+</ul>
+<p>引入必要的jar包。</p>
+<pre><code class="language-xml">&lt;dependency&gt; 
+  &lt;groupId&gt;com.huawei.paas.cse&lt;/groupId&gt;  
+  &lt;artifactId&gt;cse-handler-cloud-extension&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<ul>
+<li>在Consumer端配置负载均衡(microservice.yaml）</li>
+</ul>
+<p>在负载均衡模块启用了灰度发布的filter。</p>
+<pre><code>servicecomb:
+ loadbalance:
+  serverListFilters: darklaunch
+  serverListFilter:
+    darklaunch:
+      className: com.huawei.paas.darklaunch.DarklaunchServerListFilter
+</code></pre>
+<h2 id="_17">使用调用链</h2>
+<h3 id="_18">功能描述</h3>
+<p>华为云提供了业务无侵入的埋点功能APM。只需要通过华为云部署容器应用，并选择启用调用链监控功能，即可使用调用链服务。</p>
+<h2 id="_19">微服务运行数据上报</h2>
+<h3 id="_20">功能描述</h3>
+<p>微服务可以将自己的运行数据上报给Dashboard服务，在公有云上查看仪表盘数据、分布式事务数据等。该章节是描述如何启用微服务数据上报功能。</p>
+<h3 id="_21">配置参考</h3>
+<ul>
+<li>增加依赖关系(pom.xml)</li>
+</ul>
+<p>引入必要的jar包。</p>
+<pre><code>&lt;dependency&gt;
+　　&lt;groupId&gt;com.huawei.paas.cse&lt;/groupId&gt;
+　　&lt;artifactId&gt;cse-handler-cloud-extension&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<ul>
+<li>配置handler</li>
+</ul>
+<p>仪表盘数据依赖于两个handler，一个bizkeeper-provider（客户端为bizkeeper-consumer），一个perf-stats，所以对应的pom依赖需要先引入。</p>
+<pre><code>servicecomb:  
+  handler:
+    chain:
+      Provider:
+        default: bizkeeper-provider,perf-stats,tracing-provider,sla-provider
+      Consumer:
+        default: bizkeeper-consumer,loadbalance,perf-stats,tracing-consumer,sla-consumer
+</code></pre>
+<ul>
+<li>配置上报monitor地址</li>
+</ul>
+<p>TenantLB_ADDRESS为共有云租户管理面接入地址，默认是100.125.1.34。</p>
+<pre><code>servicecomb:
+  service:
+    registry:
+      address: https://${TenantLB_ADDRESS}:30100
+  monitor:
+    client:
+      serverUri: https://${TenantLB_ADDRESS}:30109
+</code></pre>
+<h2 id="tcc">分布式事务: TCC</h2>
+<h3 id="_22">功能描述</h3>
+<p>主要实现基于TCC协议的分布式服务间的最终一致性方案，保障一般场景下的应用一致性需求，并可以在FusionStage/ServiceStage分布式事务界面查看事务详细信息。</p>
+<h3 id="_23">配置参考</h3>
+<ul>
+<li>增加依赖关系(pom.xml)</li>
+</ul>
+<p>引入必要的jar包</p>
+<pre><code>&lt;dependency&gt;
+　　&lt;groupId&gt;com.huawei.paas.cse&lt;/groupId&gt;
+　　&lt;artifactId&gt;cse-handler-tcc&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<ul>
+<li>配置项参考</li>
+</ul>
+<p>需要增加下面事务相关的handler，才能在从配置中心实时获取治理数据。</p>
+<pre><code>servicecomb:
+ handler:
+  chain:
+   Provider:
+    default: tcc-client,bizkeeper-provider
+   Consumer:
+    default: tcc-server,bizkeeper-consumer,loadbalance
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

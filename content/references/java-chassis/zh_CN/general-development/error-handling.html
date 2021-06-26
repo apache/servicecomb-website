@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>异常处理 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u5f02\u5e38\u5904\u7406";
+    var mkdocs_page_input_path = "general-development/error-handling.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>异常处理</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">异常处理</h1>
+<h2 id="_2">异常分类及客户端如何判断异常类型</h2>
+<ul>
+<li>业务异常：这类异常由业务接口定义。用户在获取到服务swagger定义的时候，就能够从定义中看到这类异常对
+  应的错误码，以及返回值类型。 下面的例子展现了业务定义异常。<pre><code>@Path("/errorCode")
+@POST
+@ApiResponses({
+  @ApiResponse(code = 200, response = MultiResponse200.class, message = ""),
+  @ApiResponse(code = 400, response = MultiResponse400.class, message = ""),
+  @ApiResponse(code = 500, response = MultiResponse500.class, message = "")})
+public MultiResponse200 errorCode(MultiRequest request) {
+    if (request.getCode() == 400) {
+      MultiResponse400 r = new MultiResponse400();
+      r.setCode(400);
+      r.setMessage("bad request");
+      throw new InvocationException(javax.ws.rs.core.Response.Status.BAD_REQUEST, r);
+    } else if (request.getCode() == 500) {
+      MultiResponse500 r = new MultiResponse500();
+      r.setCode(500);
+      r.setMessage("internal error");
+      throw new InvocationException(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR, r);
+    } else {
+      MultiResponse200 r = new MultiResponse200();
+      r.setCode(200);
+      r.setMessage("success result");
+      return r;
+    }
+}
+</code></pre>
+</li>
+</ul>
+<p><strong><em>注意</em></strong>： 对于 2xx 错误码，可以返回具体的业务 model， 对于其他的错误码， 
+  必须抛出 InvocationException。 </p>
+<p>客户端代码可以按照如下方式处理异常。异常的类型是确定的，可以通过cast获取到异常类型。</p>
+<pre><code>    MultiRequest request = new MultiRequest();
+
+    request.setCode(200);
+    ResponseEntity&lt;MultiResponse200&gt; result = template
+        .postForEntity(SERVER + "/MultiErrorCodeService/errorCode", request, MultiResponse200.class);
+    TestMgr.check(result.getStatusCode(), 200);
+    TestMgr.check(result.getBody().getMessage(), "success result");
+
+    request.setCode(400);
+    MultiResponse400 t400 = null;
+    try {
+      template.postForEntity(SERVER + "/MultiErrorCodeService/errorCode", request, MultiResponse400.class);
+    } catch (InvocationException e) {
+      t400 = (MultiResponse400) e.getErrorData();
+    }
+    TestMgr.check(t400.getCode(), 400);
+    TestMgr.check(t400.getMessage(), "bad request");
+
+    request.setCode(500);
+    MultiResponse500 t500 = null;
+    try {
+      template.postForEntity(SERVER + "/MultiErrorCodeService/errorCode", request, MultiResponse400.class);
+    } catch (InvocationException e) {
+      t500 = (MultiResponse500) e.getErrorData();
+    }
+    TestMgr.check(t500.getCode(), 500);
+    TestMgr.check(t500.getMessage(), "internal error");
+</code></pre>
+<ul>
+<li>控制异常：这类异常通常是框架处理流程上的异常。比如流控Handler抛出TOO_MANY_REQUESTS_STATUS异常。<pre><code>public class ConsumerQpsFlowControlHandler implements Handler {
+     ... ...
+     if (qpsController.isLimitNewRequest()) {
+      // return http status 429
+      CommonExceptionData errorData = new CommonExceptionData("rejected by qps flowcontrol");
+      asyncResp.consumerFail(
+          new InvocationException(QpsConst.TOO_MANY_REQUESTS_STATUS, errorData));
+      return;
+    }
+
+    invocation.next(asyncResp);
+  }
+}
+</code></pre>
+</li>
+</ul>
+<p>控制异常在接口定义里面没有声明。客户端在做异常处理的时候，不知道异常类型。可以采用弱类型的方式处理异常：</p>
+<pre><code>    JsonObject requestJson = new JsonObject();
+    requestJson.put("code", 400);
+    requestJson.put("message", "test message");
+
+    try {
+      template
+          .postForEntity(SERVER + "/MultiErrorCodeService/noClientErrorCode", requestJson, Object.class);
+    } catch (InvocationException e) {
+      TestMgr.check(e.getStatusCode(), 400);
+      mapResult = RestObjectMapperFactory.getRestObjectMapper().convertValue(e.getErrorData(), Map.class);
+      TestMgr.check(mapResult.get("message"), "test message");
+      TestMgr.check(mapResult.get("code"), 400);
+      TestMgr.check(mapResult.get("t400"), 400);
+    }
+</code></pre>
+<p>上面的代码假设不知道异常类型，通过API将异常类型转换为Map类型，然后从Map里面读取异常类型。
+  ServiceComb自己抛出的异常类型中，一般控制异常的类型也是固定的，为CommonExceptionData。</p>
+<ul>
+<li>未知异常：这类异常发生的情况不确定。比如业务代码实现的时候，抛出NullPointerException等未捕获异常、底层
+  的网络连接超时异常等。这类异常会由ServiceComb封装成590或者490错误返回。比如：<pre><code>CommonExceptionData errorData = new CommonExceptionData(cause.getMessage());
+asyncResp.producerFail(new InvocationException(590, errorData)
+</code></pre>
+</li>
+</ul>
+<p>或者</p>
+<pre><code>    asyncResp.consumerFail(new InvocationException(490, errorData)
+</code></pre>
+<p>未知异常消息的类型固定为CommonExceptionData类型。</p>
+<h2 id="_3">异常拦截器</h2>
+<p>有时候，业务需要将所有的未知异常、控制异常进行捕获，转换为对用户友好的消息。或者对控制异常进行捕获，将
+消息体转换为自定义的JSON格式。这里面有几个参考点。</p>
+<ul>
+<li>
+<p>通过 <code>ExceptionToProducerResponseConverter</code> 拦截异常</p>
+<p><code>ExceptionToProducerResponseConverter</code>能够拦截业务异常以及业务实现里面抛出的未知异常。但是不能拦截
+Handler，HttpServerFilter 等抛出的异常。更加确切的是 <code>ProducerOperationHandler</code> 捕获的异常都会被
+<code>ExceptionToProducerResponseConverter</code> 处理。 <code>ExceptionToProducerResponseConverter</code> 包含如下
+几个接口：</p>
+<ul>
+<li><code>getExceptionClass()</code> 实现类所处理的异常类型。如果该方法返回<code>null</code>，则说明此实现类为默认converter。</li>
+<li><code>Response convert(SwaggerInvocation swaggerInvocation, T e)</code> 处理异常逻辑，该方法返回的<code>Response</code>决定了ServiceComb将会返回何种状态码、何种response body的应答。</li>
+<li><code>getOrder()</code> 实现类的优先级，该方法返回的值越小，优先级越高，如果不覆写该方法的话，则返回默认优先级<code>0</code>。对于处理同一异常类型的converter（或默认converter），只有优先级最高的生效。</li>
+</ul>
+</li>
+</ul>
+<p>在为异常选择converter时，会从异常本身的类型开始匹配，如果找不到对应的converter则逐级向上查找父类型的converter。当匹配到<code>Throwable</code>仍未找到converter时，将使用默认converter处理异常。</p>
+<pre><code>    public class CustomExceptionToProducerResponseConverter implements ExceptionToProducerResponseConverter&lt;IllegalStateException&gt; {
+        @Override
+        public Class&lt;IllegalStateException&gt; getExceptionClass() {
+          // 返回IllegalStateException表示该converter处理IllegalStateException类型的异常
+          return IllegalStateException.class;
+        }
+
+        @Override
+        public int getOrder() {
+          // 返回的order值越小，优先级越高
+          return 100;
+        }
+
+        @Override
+        public Response convert(SwaggerInvocation swaggerInvocation, IllegalStateException e) {
+          // 这里是处理异常的逻辑
+          IllegalStateErrorData data = new IllegalStateErrorData();
+          data.setId(500);
+          data.setMessage(e.getMessage());
+          data.setState(e.getMessage());
+          InvocationException state = new InvocationException(Status.INTERNAL_SERVER_ERROR, data);
+          return Response.failResp(state);
+        }
+    }
+</code></pre>
+<p><strong><em>说明</em></strong> : 2.0.2 之前的版本部分业务异常无法通过 ExceptionToProducerResponseConverter 捕获，
+    系统做了自动处理，不经过 ExceptionToProducerResponseConverter。 2.0.2 版本规范化了处理流程。 </p>
+<ul>
+<li>
+<p>通过 Handler 拦截异常</p>
+<p>可以开发一个自定义的 Handler, 并且将其放到其他 Handler 的前面，可以处理绝大多数业务异常、控制异常和
+未知异常。Handler 不仅仅可以帮助和处理异常，还可以记录访问日志，参
+考<a href="../featured-topics/features/trace-id.html">2.0.1 新特性介绍： 在日志中记录trace id</a></p>
+<pre><code>public class ExceptionConvertHandler implements Handler {
+  @Override
+  public void handle(Invocation invocation, AsyncResponse asyncResp) throws Exception {
+    invocation.next(response -&gt; {
+      if (response.isFailed()) {
+        Throwable e = response.getResult();
+        if (e instanceof InvocationException &amp;&amp; ((InvocationException)e).getStatusCode() == 408) {
+          CustomException customException = new CustomException("change the response", 777);
+          InvocationException stt = new InvocationException(Status.EXPECTATION_FAILED, customException);
+          response.setResult(stt);
+          response.setStatus(stt.getStatus());
+        }
+      }
+      asyncResp.complete(response);
+    });
+  }
+}
+</code></pre>
+</li>
+<li>
+<p>控制消息消息体序列化</p>
+</li>
+</ul>
+<p>控制消息消息体序列化的目的是简化消费者的异常处理逻辑，不用使用弱类型，而是使用确切类型。可以采用注册全局的错误码类型。
+  业务需要通过SPI实现org.apache.servicecomb.swagger.invocation.response.ResponseMetaMapper接口。
+  接口的核心内容是为每个错误码指定序列化类型：</p>
+<pre><code>    private final static Map&lt;Integer, ResponseMeta&gt; CODES = new HashMap&lt;&gt;(1);
+
+    static {
+      ResponseMeta meta = new ResponseMeta();
+      meta.setJavaType(SimpleType.constructUnsafe(IllegalStateErrorData.class));
+      CODES.put(500, meta);
+    }
+
+    @Override
+    public Map&lt;Integer, ResponseMeta&gt; getMapper() {
+      return CODES;
+    }
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

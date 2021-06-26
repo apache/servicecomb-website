@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Multi-environment isolation between microservice instances - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Multi-environment isolation between microservice instances";
+    var mkdocs_page_input_path = "general-development/multienvironment.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/terminology.html">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/architecture.html">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/development-environment.html">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/first-sample.html">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/define-contract.html">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/code-first.html">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/swagger-annotation.html">Use Swagger annotations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/springmvc.html">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/jaxrs.html">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/transparent-rpc.html">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/interface-constraints.html">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/listen-address-and-publish-address.html">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/thread-pool.html">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/ratelimite-strategy.html">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/downgrade-strategy.html">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/parameter-validator.html">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/bootup.html">Boot-up Process</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/access-log-configuration.html">Access Log Configuration</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/common-configuration.html">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-resttemplate.html">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-AsyncRestTemplate.html">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/develop-consumer-using-rpc.html">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/with-contract.html">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/circuit-breaker.html">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/flow-control.html">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/fault-injection.html">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/3rd-party-service-invoke.html">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="visit-sc.html">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="microservice-invocation-chain.html">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="customized-tracing.html">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="local-develop-test.html">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="http-filter.html">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="file-upload.html">File Uploading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="file-download.html">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="reactive.html">Reactive Programing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="dnsconfig.html">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="dai-li-she-zhi.html">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="report-framework-version.html">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="cross-app-invocation.html">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="secret-field.html">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="context.html">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="produceprocess.html">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="CORS.html">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="AlarmEvent.html">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="shutdown.html">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="error-handling.html">Handling exceptions</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="multienvironment.html">Multi-environment isolation between microservice instances</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="thread-model.html">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/inject-config.html">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/rsa.html">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/components-for-spring-boot.html">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/java-application.html">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/web-application.html">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-between-java-web.html">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-spring-mvc.html">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>General Development &raquo;</li>
+        
+      
+    
+    <li>Multi-environment isolation between microservice instances</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="multi-environment-isolation-between-microservice-instances">Multi-environment isolation between microservice instances</h1>
+<p>When doing service discovery, developers need to understand that the microservice can discover instances of those other services. ServiceComb provides hierarchical instance isolation.</p>
+<h1 id="microservices-instance-hierarchical-management">Microservices instance hierarchical management</h1>
+<p>To understand the isolation level between instances, you first need to understand a well-established microservice system structure defined by ServiceComb:</p>
+<p><img alt="" src="../assets/isolation/architecture.png" /></p>
+<p>In the microservice system structure, the top layer is the “project”, which is divided into multiple tenants under the project. The tenant contains multiple applications, and each application contains multiple environments, that is, the test and production environments can be separated. In a particular environment of a particular application, there are multiple microservices, and one microservice can have multiple versions at the same time. The above is the scope of all static metadata. A specific version of a particular service contains multiple microservice instances registered at runtime, because the information of the service instance is dynamic at runtime because of system scaling, failure, etc. The change, so the routing information of the service instance is again dynamic data. By hierarchically managing these data for microservices, this is natural to achieve logical isolation between instances.<br />
+* Project corresponds to the project created under each region of Huawei cloud. Different projects are isolated from each other. If there is no new project under the region, it represents the region; for example, create a project named tianjing in North China (cn-north-1), if you want to register the microservice to the project, you can configure it in the microservice.yaml file：</p>
+<pre><code class="language-yaml">  servicecomb:
+    credentials:
+      project: cn-north-1_tianjing
+</code></pre>
+<ul>
+<li>
+<p>Environment indicates the current environment of the microservice instance. You can configure the current instance environment through service_description.environment in the microservice.yaml file.</p>
+</li>
+<li>
+<p>Application represents a logical entity of a software application, representing a computer software application that has a business function presented to the user. The application name can be configured in the microservice.yaml file via the APPLICATION_ID.</p>
+</li>
+<li>
+<p>Service is a description of the functional objects that are accessed on demand. There are multiple services under one application, and each service calls each other. The service name can be specified in the microservice.yaml file by service_description.name.</p>
+</li>
+<li>
+<p>Version indicates the current service version. There may be multiple versions under one service. The current microservice version can be configured in the microservice.yaml file through service_description.version. When the consumer accesses, the default access is based on the routing rule, which can set by servicecomb.references.[providerName].version-rule in consumer.</p>
+</li>
+</ul>
+<h1 id="typical-scene">Typical scene</h1>
+<h2 id="inter-application-isolation-and-cross-application-calls">Inter-application isolation and cross-application calls</h2>
+<h3 id="function-introduction">Function introduction</h3>
+<p>In the ServiceComb framework, an application contains multiple microservices.
+The same microservice instance can be deployed as a public service to multiple applications by specifying a different APPLICATION_ID.</p>
+<p><img alt="" src="../assets/isolation/app.png" /></p>
+<p>Different microservice instances, by default, are only allowed to call each other in the same application. When users need to call microservices between different applications, they need to enable cross-application calling.  </p>
+<h3 id="configuration-instructions">Configuration instructions:</h3>
+<ol>
+<li>To enable cross-application calls, you first need to enable cross-application call configuration in the microservice.yaml file on the provider side. The configuration items are as follows:</li>
+</ol>
+<pre><code class="language-yaml">    service_description:
+      properties:
+        allowCrossApp: true
+</code></pre>
+<ol>
+<li>When the Consumer side specifies the microservice name to call the provider, it needs to add the application ID to which the provider belongs. The format changes from [microserviceName] to [appID]:[microserviceName].</li>
+</ol>
+<h3 id="code-example">Code example:</h3>
+<p>Assume that the application to which the consumer belongs is helloApp, the application to which the provider belongs is hellApp2, and the name of the microservice is helloProvider.<br />
+* RestTemplate call mode<br />
+When the consumer side develops the microservice consumer in the RestTemplate mode, you need to change [microserviceName] to [appID]:[microserviceName] in the called URL, as follows:</p>
+<pre><code class="language-java">RestTemplate restTemplate = RestTemplateBuilder.create();
+ResponseEntity&lt;String&gt; responseEntity = restTemplate.getForEntity(“cse://helloApp2:helloProvider/hello/sayHello?name={name}”, String.class, “ServiceComb”);
+</code></pre>
+<ul>
+<li>RPC call mode<br />
+When the consumer side develops a microservice consumer in RPC mode, the declared service provider proxy is as follows:</li>
+</ul>
+<pre><code class="language-java">@RpcReference(schemaId = “hello”, microserviceName = “helloApp2:helloProvider”)
+private Hello hello;
+</code></pre>
+<p>Cross-application calls are the same as calling microservices under the same application:</p>
+<pre><code class="language-java">hello.sayHello(“ServiceComb”);
+</code></pre>
+<h1 id="typical-scene_1">Typical scene</h1>
+<h2 id="development-environment-is-isolated-and-rapidly-developed">Development environment is isolated and rapidly developed</h2>
+<h3 id="function-introduction_1">Function introduction</h3>
+<p>By setting the environment, the ServiceComb framework can mark microservice instances as development, testing, acceptance, and production environments, and achieve natural isolation at the instance level. When the client looks for a server instance, it can only find server instance under the same environment.</p>
+<p><img alt="" src="../assets/isolation/environment.png" /></p>
+<p>ServiceComb is strictly dependent on the contract when designing, so under normal circumstances, the contract has changed, you must modify the version of the microservice. However, if current is still development mode, then modify the interface is a very normal situation, when the modification is completed and the current service is started again, the newly generated contract and the old contract saved on the Service Center will conflict and report an error, causing the startup to fail, It is obviously unfriendly to developers by modifying the microservice version number or by deleting the cached data of the service on the Service Center each time.<br />
+The ServiceComb framework supports rapid debugging of microservices in the development state by configuring the environment as development. When the interface is modified (the schema has changed), restart can be registered to the service center without modifying the version number.<br />
+But if a consumer has already called the service before the restart, then the consumer side needs to be restarted to get the schema of the latest provider; for example, A-&gt;B, the B interface has been modified and restarted, then A is still using B's previous schema, The call may be in error. to avoid an unknown exception and A needs to be restarted.  </p>
+<h3 id="configuration-instructions_1">Configuration instructions:</h3>
+<p>Only the following enumerated values are supported: development, testing, acceptance, production. If not configured, the default value is "" (empty).<br />
+<em> Method 1: Set by the JVM startup parameter -Dservice_description.environment=development (enumeration value);<br />
+</em> Method 2: Specify by microservice.yaml configuration file:</p>
+<pre><code class="language-yaml">  service_description:
+    environment: development
+</code></pre>
+<ul>
+<li>Method 3: Specify by environment variable SERVICECOMB_ENV (only for windows system), if it is development state, its value is configured as development;</li>
+</ul>
+<h1 id="typical-scene_2">Typical scene</h1>
+<h2 id="three-centers-in-two-places">Three centers in two places</h2>
+<h3 id="function-introduction_2">Function introduction</h3>
+<p>In the scenario of deploying services across regions in a three centers in two places solution, the same services exists in multiple availableZones. It is necessary to implement the application in the same AZ with priority. If there is a problem with the same AZ, it must be able to access another AZ. To ensure the reliability of the service.<br />
+ServiceComb provides data center configuration to partition and manage microservices. The data center contains three attributes: servicecomb.datacenter.name, servicecomb.datacenter.region, servicecomb.datacenter.availableZone, data center information does not provide isolation capabilities, and microservices can discover instances of other data centers. However, you can prioritize sending messages to a specified zone or zone by enabling instance affinity.</p>
+<p><img alt="" src="../assets/isolation/datacenter.png" /></p>
+<p>When the client is routing, the request will be forwarded to the instance with the same zone/region, and then the instance with the same region but different zones. When they are all different, select one according to the routing rules. Affinity is not logical isolation. As long as the network between the instances is interconnected, it is possible to access it; if the network is unreachable, the access will fail.<br />
+When the cloud is deployed on the Huawei cloud, the values of the region and the availableZone can be associated with the Huawei cloud region (for example, cn-north-1) and the available region. However, because the different regions on the Huawei cloud do not communicate with each other, the network is not interconnected, so it does not support cross-region access; in addition to the region value corresponding to Huawei cloud, you can also define other values by yourself, and adjust accordingly according to the actual situation, which is very flexible.  </p>
+<h3 id="configuration-instructions_2">Configuration instructions:</h3>
+<pre><code class="language-yaml">servicecomb:
+  datacenter:
+    name: mydatacenter
+    region: my-Region
+    availableZone: my-Zone
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="thread-model.html" class="btn btn-neutral float-right" title="Thread Model">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="error-handling.html" class="btn btn-neutral" title="Handling exceptions"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="error-handling.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="thread-model.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

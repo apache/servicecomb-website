@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Reactive Programing - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Reactive Programing";
+    var mkdocs_page_input_path = "general-development/reactive.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/terminology.html">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/architecture.html">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/development-environment.html">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/first-sample.html">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/define-contract.html">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/code-first.html">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/swagger-annotation.html">Use Swagger annotations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/springmvc.html">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/jaxrs.html">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/transparent-rpc.html">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/interface-constraints.html">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/listen-address-and-publish-address.html">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/thread-pool.html">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/ratelimite-strategy.html">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/downgrade-strategy.html">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-provider/configuration/parameter-validator.html">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/bootup.html">Boot-up Process</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/access-log-configuration.html">Access Log Configuration</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/common-configuration.html">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-resttemplate.html">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-AsyncRestTemplate.html">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/develop-consumer-using-rpc.html">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/with-contract.html">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/circuit-breaker.html">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/flow-control.html">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/fault-injection.html">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/3rd-party-service-invoke.html">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="visit-sc.html">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="metrics.html">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="microservice-invocation-chain.html">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="customized-tracing.html">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="local-develop-test.html">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="http-filter.html">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="file-upload.html">File Uploading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="file-download.html">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="reactive.html">Reactive Programing</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="dnsconfig.html">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="dai-li-she-zhi.html">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="report-framework-version.html">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="cross-app-invocation.html">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="secret-field.html">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="context.html">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="produceprocess.html">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="CORS.html">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="AlarmEvent.html">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="shutdown.html">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="error-handling.html">Handling exceptions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="multienvironment.html">Multi-environment isolation between microservice instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="thread-model.html">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/inject-config.html">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/rsa.html">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/components-for-spring-boot.html">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/java-application.html">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/web-application.html">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-between-java-web.html">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-spring-mvc.html">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>General Development &raquo;</li>
+        
+      
+    
+    <li>Reactive Programing</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="simple-synchronization-mode-producer">Simple Synchronization Mode Producer:</h2>
+<p>Sample code:</p>
+<pre><code class="language-java">@GetMapping(path = &quot;/hello/{name}&quot;)
+public String hello(@PathVariable(name = &quot;name&quot;) String name){
+  return &quot;hello &quot; + name;
+}
+</code></pre>
+<p>The corresponding processing flow is as follows:</p>
+<p><img alt="" src="../assets/reactive/normalSync.png" /></p>
+<p>This is the traditional typical working model. The core idea is not to block network threads, and to put the business in a separate thread (to simplify the expression, only one thread is drawn in the executor)</p>
+<p>In general, this mode is not a big problem.</p>
+<h2 id="nested-synchronous-call">Nested synchronous call:</h2>
+<p>Not all services are handled simply, you can respond directly, you may need to call other microservices.</p>
+<p>Sample code:</p>
+<pre><code class="language-java">public interface Intf{
+  String hello(String name);
+}
+
+@GetMapping(path = &quot;/hello/{name}&quot;)
+public String hello(@PathVariable(name = &quot;name&quot;) String name){
+  return &quot;from remote: hello &quot; + intf.hello(name);
+}
+</code></pre>
+<p>The corresponding processing flow is as follows:</p>
+<p><img alt="" src="../assets/reactive/nestedSync.png" /></p>
+<p>According to the characteristics of this process, you can see the following results:</p>
+<ul>
+<li>
+<p>Because it is a synchronous call, the calling thread of "Microservice A" is always in the blocking wait state before "Other microservices" is not answered, and does not process any other transactions.</p>
+</li>
+<li>
+<p>When all threads in the Executor are waiting for a remote response, all new requests can only be queued in the Queue and cannot be processed. At this point, the entire system is equivalent to stop working.</p>
+</li>
+<li>
+<p>To increase the processing power, only increase the number of threads in the Executor, and the operating system can not increase the number of threads indefinitely. The benefit of increasing the number of threads is a parabolic model. After a specific critical value, the system handles The ability will drop, and this threshold will not be too big.</p>
+</li>
+<li>
+<p>When the remote synchronization operation is required multiple times in the business logic, the problem will be bigger than before.</p>
+</li>
+</ul>
+<h2 id="error-optimization-for-nested-synchronous-calls">"Error" optimization for nested synchronous calls:</h2>
+<p>For the previous scenario, someone would think that throwing the "Invoke producer method" into another thread pool can solve the problem, including the following:</p>
+<ul>
+<li>
+<p>In the producer method, mark @Async, which is responsible for throwing the call to the method into other thread pools.</p>
+</li>
+<li>
+<p>Transferring threads through business code inside the producer method</p>
+</li>
+</ul>
+<p>Form the following process:</p>
+<p><img alt="" src="../assets/reactive/wrongSyncOptimization.png" /></p>
+<p>According to the characteristics of this process, you can see the following results:</p>
+<ul>
+<li>
+<p>"Invoke producer method" must be returned immediately, otherwise, the Executor thread will not be released</p>
+</li>
+<li>
+<p>"Invoke producer method" must provide a new mechanism to inform the calling process of its return value, not the final return value (currently no such mechanism)</p>
+</li>
+<li>
+<p>Although the Executor thread is released, the Customer Executor is blocked, waiting for the remote response, the blocking state of the entire system has not changed, and there is one more thread switching.</p>
+</li>
+<li>
+<p>The mechanism seems to have the only effect is to release the executor thread, so that the executor thread has the opportunity to process other requests, which is equivalent to the concept of quarantine, the slow processing of the business does not affect other services; but the concept of serviceComb can be directly Supported, you can configure the specified business method to monopolize the new executor, so that the whole process is the same as the "nested synchronous call", the process is simpler, and you don't need to do this at the "Invoke producer method" level.</p>
+</li>
+</ul>
+<h2 id="pure-reactive-mechanism">Pure Reactive Mechanism</h2>
+<p>Sample code:</p>
+<pre><code class="language-java">public interface Intf{
+  CompletableFuture&lt;String&gt; hello(String name);
+}
+
+@GetMapping(path = &quot;/hello/{name}&quot;)
+public CompletableFuture&lt;String&gt; hello(@PathVariable(name = &quot;name&quot;) String name){
+  CompletableFuture&lt;String&gt; future = new CompletableFuture&lt;&gt;();
+  intf.hello(name).whenComplete((result, exception) -&gt; {
+    if (exception == null) {
+      future.complete(&quot;from remote: &quot; + result);
+      return;
+    }
+
+    future.completeExceptionally(exception);
+  });
+  return future;
+}
+</code></pre>
+<p>The corresponding processing flow is as follows:</p>
+<p><img alt="" src="../assets/reactive/pureReactive.png" /></p>
+<ul>
+<li>
+<p>Unlike traditional processes, all functions are executed in the eventloop and no thread switching is performed.</p>
+</li>
+<li>
+<p>After the orange arrow is finished, the occupation of this thread is completed, and it will not block waiting for response. The thread can handle other tasks.</p>
+</li>
+<li>
+<p>After receiving the remote response, the network data drive starts to take the red arrow response process</p>
+</li>
+<li>
+<p>As long as there are tasks, the thread will not stop, the task will be executed all the time, you can make full use of the cpu resources, and will not generate redundant thread switching, to consume the CPU unnecessarily.</p>
+</li>
+</ul>
+<p>Because in synchronous mode, a large number of threads are needed to increase the degree of concurrency, and a large number of threads bring additional consumption of thread switching.</p>
+<p>The test data shows that the reactive mode only needs to consume less than half of the CPU of the synchronous mode. And can reach or exceed the tps of the synchronous mode, and the delay is lower.</p>
+<h2 id="hybrid-reactive-mechanism">Hybrid Reactive Mechanism</h2>
+<p>Reactive requires that all logic executed in the eventloop does not allow any blocking actions, including not limited to wait, sleep, large loops, synchronous query DB, and so on.</p>
+<p>The bottom of serviceComb is based on vertx. The vertx ecosystem has reactive drivers for various rich components such as JDBC, MQ, zooKeeper, etc. Under normal circumstances, it can meet the requirements.</p>
+<p>However, in some scenarios, there are indeed some synchronization operations that cannot be avoided, such as:</p>
+<ul>
+<li>
+<p>Private security hardened redis, only provides synchronous drive</p>
+</li>
+<li>
+<p>More complex business operations</p>
+</li>
+<li>
+<p>......</p>
+</li>
+</ul>
+<p>At this point, the logic of these synchronizations can be extracted and placed in the thread pool for processing, while other parts still use the reactive process.</p>
+<h2 id="some-notes-about-reactive">Some notes about reactive:</h2>
+<ul>
+<li>Producer:</li>
+</ul>
+<p>* Whether the producer uses reactive and consumer to call, there is no connection</p>
+<p>* When the operation return value is the CompletableFuture type, the default operation is in reactive mode. If you need to force this operation to work in thread pool mode, you need to configure it in microservice.yaml explicitly. If an operation, its schemaId is sid, operationId For asyncQuery, you need to do the following:</p>
+<pre><code>servicecomb:
+  executors:
+    Provider:
+      sid.asyncQuery: cse.executor.groupThreadPool
+</code></pre>
+<p>The cse.executor.groupThreadPool here is the default thread pool built into serviceComb, which can be arbitrarily specified by the user as its custom thread pool.</p>
+<ul>
+<li>Consumer:</li>
+</ul>
+<p>* Whether the consumer uses reactive and producer how to implement, there is no connection</p>
+<p>* Currently only supports transparent RPC mode, using JDK native CompletableFuture to carry this function</p>
+<p>completableFuture's when, then, etc. can be used directly</p>
+<p>However, the async series of completableFuture is another thread pool to perform functions. It is not recommended.</p>
+<p>Support for RxJava Observable will be added later.</p>
+<p>Support for AsyncRestTemplate will be added later.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="dnsconfig.html" class="btn btn-neutral float-right" title="DNS Custom Configuration">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="file-download.html" class="btn btn-neutral" title="File Downloading"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="file-download.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="dnsconfig.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

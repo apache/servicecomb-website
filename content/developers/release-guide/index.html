@@ -119,8 +119,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -217,7 +217,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a class="active" href="/developers/contributing">Community</a>
+                  <a class="active" href="/developers/contributing/">Community</a>
                 
               </li>
             
@@ -463,7 +463,7 @@
 <p>As ServiceComb Java Chassis and Saga are using maven for the release, you should do some maven 2 setup before releasing these two projects.
 Before you deploy anything to the maven repository using Maven 2, you should configure your ~/.m2/settings.xml file so that the file permissions of the deployed artifacts are group writable. If you do not do this, other developers will not able to overwrite your SNAPSHOT releases with newer versions. The settings follow the <a href="http://maven.apache.org/developers/committer-settings.html">guidelines</a> used by the Maven project. Please pay particular attention to the <a href="http://maven.apache.org/guides/mini/guide-encryption.html">password encryption recommendations</a>.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;settings&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;settings&gt;
   ...
   &lt;servers&gt;
     &lt;!-- Per http://maven.apache.org/developers/committer-settings.html --&gt;
@@ -518,7 +518,7 @@ Before you deploy anything to the maven repository using Maven 2, you should con
 
 <ol>
   <li>Clone the service-center code.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-service-center.git
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-service-center.git
 cd servicecomb-service-center
 gvt restore
 </code></pre></div>    </div>
@@ -557,7 +557,7 @@ gvt restore
     <p>Sign the 4 releases(linux, windows, darwin, src) and checksum.</p>
   </li>
   <li>
-    <p>Create a new directory <a href="https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-service-center/">Apache dev Release SVN</a> with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the second attempt of the release then the folder structure will be <code class="highlighter-rouge">1.0.0-m2/rc02</code>)</p>
+    <p>Create a new directory <a href="https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-service-center/">Apache dev Release SVN</a> with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the second attempt of the release then the folder structure will be <code class="language-plaintext highlighter-rouge">1.0.0-m2/rc02</code>)</p>
   </li>
   <li>
     <p>Upload the release to the directory created in last step.</p>
@@ -604,18 +604,18 @@ gvt restore
 <h2 id="major-steps-for-doing-java-chassis-release">Major Steps for doing Java-Chassis Release</h2>
 
 <p>Before release, make sure all apache issues are closed. Log in
- <a href="https://issues.apache.org/jira/projects/SCB">apache issue website</a>, click <code class="highlighter-rouge">release</code> and generate release notes.</p>
+ <a href="https://issues.apache.org/jira/projects/SCB">apache issue website</a>, click <code class="language-plaintext highlighter-rouge">release</code> and generate release notes.</p>
 
 <p><strong><em>Prepare the release code</em></strong></p>
 
 <p>clone java-chassis code to your development environment, change version to release version and push to github.
-Assume code version is <code class="highlighter-rouge">2.0.0-SNAPSHOT</code> and release version is <code class="highlighter-rouge">2.0.0</code>.</p>
+Assume code version is <code class="language-plaintext highlighter-rouge">2.0.0-SNAPSHOT</code> and release version is <code class="language-plaintext highlighter-rouge">2.0.0</code>.</p>
 
 <p>Run:</p>
 
 <p>```shell script
 mvn versions:set -DgenerateBackupPoms=false -DnewVersion=2.0.0</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 Then:
 
 ```shell script
@@ -630,9 +630,9 @@ mvn clean install -Pit
 
 <ol>
   <li>
-    <p>Copy GPG keys to <code class="highlighter-rouge">~/.gnupg</code></p>
+    <p>Copy GPG keys to <code class="language-plaintext highlighter-rouge">~/.gnupg</code></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  gpg.conf
  pubring.gpg
  random_seed
@@ -642,15 +642,15 @@ mvn clean install -Pit
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>Update PGR password in <code class="highlighter-rouge">~/.m2/settings.xml</code></p>
+    <p>Update PGR password in <code class="language-plaintext highlighter-rouge">~/.m2/settings.xml</code></p>
   </li>
   <li>
-    <p>Update apache maven server user name and password in <code class="highlighter-rouge">~/.m2/settings.xml</code></p>
+    <p>Update apache maven server user name and password in <code class="language-plaintext highlighter-rouge">~/.m2/settings.xml</code></p>
   </li>
   <li>
     <p>clone java-chassis</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  git clone https://github.com/apache/servicecomb-java-chassis.git
  ```
 </code></pre></div>    </div>
@@ -658,21 +658,21 @@ mvn clean install -Pit
   <li>
     <p>Run</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  mvn clean deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
  ```
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>If failed in step 5, <code class="highlighter-rouge">drop</code> the temporary repository in apache Nexus and start from step 5 again.</p>
+    <p>If failed in step 5, <code class="language-plaintext highlighter-rouge">drop</code> the temporary repository in apache Nexus and start from step 5 again.</p>
   </li>
   <li>
     <p>If step 5 is successful, all artifacts are uploaded to a temporary repository. Using your apache account and 
-log in to  <a href="https://repository.apache.org/">Apache Nexus</a>. Click  <code class="highlighter-rouge">Staging Repositories</code>, search <code class="highlighter-rouge">servicecomb</code>,
-find the latest repository, click “close”, and get the staging repository link like <code class="highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385</code></p>
+log in to  <a href="https://repository.apache.org/">Apache Nexus</a>. Click  <code class="language-plaintext highlighter-rouge">Staging Repositories</code>, search <code class="language-plaintext highlighter-rouge">servicecomb</code>,
+find the latest repository, click “close”, and get the staging repository link like <code class="language-plaintext highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385</code></p>
   </li>
   <li>
-    <p>In servicecomb-java-chassis  release page，click release， do a <code class="highlighter-rouge">pre release</code></p>
+    <p>In servicecomb-java-chassis  release page，click release， do a <code class="language-plaintext highlighter-rouge">pre release</code></p>
   </li>
 </ol>
 
@@ -682,7 +682,7 @@ find the latest repository, click “close”, and get the staging repository li
   <li>
     <p>Download binary distributions from the temporary repository. e.g.</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```  
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```  
  https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip  
  https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip.asc
  ```
@@ -691,7 +691,7 @@ find the latest repository, click “close”, and get the staging repository li
   <li>
     <p>Download source distributions from the temporary repository. e.g.</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-src.zip  
  https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.asc
  ```
@@ -700,7 +700,7 @@ find the latest repository, click “close”, and get the staging repository li
   <li>
     <p>generate checksum. e.g.</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip &gt; apache-servicecomb-java-chassis-distribution-1.2.0-bin.zi.sha512  
  sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-src.zip &gt; apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.sha512  
  ```
@@ -709,7 +709,7 @@ find the latest repository, click “close”, and get the staging repository li
   <li>
     <p>upload all file to <a href="https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/">Apache development svn</a>.  Run</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  svn co https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis
  cd serviecomb-java-chassis
  mkdir -p 1.2.0/rc01
@@ -728,7 +728,7 @@ find the latest repository, click “close”, and get the staging repository li
 
 <ol>
   <li>
-    <p>Send mail to <code class="highlighter-rouge">dev@servicecomb.apache.org</code> and waiting for voting result.</p>
+    <p>Send mail to <code class="language-plaintext highlighter-rouge">dev@servicecomb.apache.org</code> and waiting for voting result.</p>
   </li>
   <li>
     <p>Waiting 72 hours and if got three + 1 and no -1, the voting is successful. If there are some problems,
@@ -736,7 +736,7 @@ find the latest repository, click “close”, and get the staging repository li
  temporary svn files, and temporary stating repositories. )</p>
   </li>
   <li>
-    <p>Send the voting result to <code class="highlighter-rouge">dev@servicecomb.apache.org</code></p>
+    <p>Send the voting result to <code class="language-plaintext highlighter-rouge">dev@servicecomb.apache.org</code></p>
   </li>
 </ol>
 
@@ -744,12 +744,12 @@ find the latest repository, click “close”, and get the staging repository li
 
 <ol>
   <li>
-    <p>In servicecomb-java-chassis  github release page，set <code class="highlighter-rouge">pre release</code> to <code class="highlighter-rouge">formal release</code> and write release notes.</p>
+    <p>In servicecomb-java-chassis  github release page，set <code class="language-plaintext highlighter-rouge">pre release</code> to <code class="language-plaintext highlighter-rouge">formal release</code> and write release notes.</p>
   </li>
   <li>
     <p>Move <a href="https://dist.apache.org/repos/dist/dev">dev</a> to <a href="https://dist.apache.org/repos/dist/release">release</a></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  cp dev/servicecomb/servicecomb-java-chassis/2.0.0/* release/servicecomb/servicecomb-java-chassis/2.0.0/
  cd release/servicecomb/servicecomb-java-chassis/
  svn add 2.0.0
@@ -759,16 +759,16 @@ find the latest repository, click “close”, and get the staging repository li
 
     <p>And delete <a href="https://dist.apache.org/repos/dist/dev">dev</a></p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  svn rm 1.2.0
  svn ci .
  ```
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>Log in to <a href="https://repository.apache.org/">Apache Nexus</a>, find <code class="highlighter-rouge">Staging Repositories</code> and search 
- <code class="highlighter-rouge">servicecomb</code>，find the last <code class="highlighter-rouge">closed</code> repository, and click <code class="highlighter-rouge">release</code>. If there are any temporary <code class="highlighter-rouge">Staging Repositories</code>,
- <code class="highlighter-rouge">drop</code> them.</p>
+    <p>Log in to <a href="https://repository.apache.org/">Apache Nexus</a>, find <code class="language-plaintext highlighter-rouge">Staging Repositories</code> and search 
+ <code class="language-plaintext highlighter-rouge">servicecomb</code>，find the last <code class="language-plaintext highlighter-rouge">closed</code> repository, and click <code class="language-plaintext highlighter-rouge">release</code>. If there are any temporary <code class="language-plaintext highlighter-rouge">Staging Repositories</code>,
+ <code class="language-plaintext highlighter-rouge">drop</code> them.</p>
   </li>
   <li>
     <p>Waiting for 24 hour for all mirror in sync.</p>
@@ -778,7 +778,7 @@ find the latest repository, click “close”, and get the staging repository li
 or <a href="https://github.com/apache/servicecomb-website/pull/240">2.0.0 RP</a></p>
   </li>
   <li>
-    <p>Send announcements to <code class="highlighter-rouge">dev@servicecomb.apache.org</code>， <code class="highlighter-rouge">announce@apache.org</code>。</p>
+    <p>Send announcements to <code class="language-plaintext highlighter-rouge">dev@servicecomb.apache.org</code>， <code class="language-plaintext highlighter-rouge">announce@apache.org</code>。</p>
   </li>
 </ol>
 
@@ -787,14 +787,14 @@ or <a href="https://github.com/apache/servicecomb-website/pull/240">2.0.0 RP</a>
 <p><strong><em>Make and Verify the Release</em></strong></p>
 <ol>
   <li>Clone the saga code.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-saga.git
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-saga.git
 </code></pre></div>    </div>
   </li>
   <li>
     <p>Cut the release using per command to replace all the versions in pom.xml files</p>
   </li>
   <li>Create a Tag from the master branch using the version number.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 </code></pre></div>    </div>
   </li>
   <li>
@@ -810,7 +810,7 @@ or <a href="https://github.com/apache/servicecomb-website/pull/240">2.0.0 RP</a>
     <p>Update the apache account username and password in the settings.xml file.</p>
   </li>
   <li>Run the maven deploy command.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Ppassphrase -Prelease
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Ppassphrase -Prelease
 </code></pre></div>    </div>
   </li>
   <li>
@@ -835,7 +835,7 @@ or <a href="https://github.com/apache/servicecomb-website/pull/240">2.0.0 RP</a>
     <p>Sign the 2 releases(distribution, src) and checksum.</p>
   </li>
   <li>
-    <p>Create a new directory <a href="https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-saga/">Apache dev Release SVN</a> with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the third attempt of the release then the folder structure will be <code class="highlighter-rouge">1.0.0-m2/rc03</code>)</p>
+    <p>Create a new directory <a href="https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-saga/">Apache dev Release SVN</a> with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the third attempt of the release then the folder structure will be <code class="language-plaintext highlighter-rouge">1.0.0-m2/rc03</code>)</p>
   </li>
   <li>
     <p>Upload the release to  directory created in last step.</p>

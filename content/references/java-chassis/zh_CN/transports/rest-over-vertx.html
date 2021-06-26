@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>REST over Vertx - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "REST over Vertx";
+    var mkdocs_page_input_path = "transports/rest-over-vertx.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="rest-over-vertx.html">REST over Vertx</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_1">配置说明</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#_2">补充说明</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">示例代码</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>多样化的通信协议功能参考 &raquo;</li>
+        
+      
+    
+    <li>REST over Vertx</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="rest-over-vertx">REST over Vertx</h1>
+<h2 id="_1">配置说明</h2>
+<p>REST over Vertx通信通道对应使用standalone部署运行模式，可直接通过main函数拉起。main函数中需要初始化日志和加载服务配置，代码如下：</p>
+<pre><code class="language-java">public class MainServer {
+    public static void main(String[] args) throws Exception {
+        Log4jUtils.init();//日志初始化
+        BeanUtils.init(); // Spring bean初始化
+    }
+}
+</code></pre>
+<p>使用REST over Vertx网络通道需要在maven pom文件中添加如下依赖：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+    &lt;artifactId&gt;transport-rest-vertx&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>REST over Vertx通道在microservice.yaml文件中有以下配置项：</p>
+<p>表1-1 REST over Vertx配置项说明</p>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">默认值</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">servicecomb.rest.address</td>
+<td align="left"></td>
+<td align="left">服务监听地址，不配置表示不监听</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.thread-count</td>
+<td align="left"><a href="verticle-count.html">verticle-count</a></td>
+<td align="left">rest server verticle实例数（Deprecated）</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.verticle-count</td>
+<td align="left"><a href="verticle-count.html">verticle-count</a></td>
+<td align="left">rest server verticle实例数</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.connection-limit</td>
+<td align="left">Integer.MAX_VALUE</td>
+<td align="left">允许客户端最大连接数</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.connection.idleTimeoutInSeconds</td>
+<td align="left">60</td>
+<td align="left">服务端连接闲置超时时间，超时连接会被释放</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.compression</td>
+<td align="left">false</td>
+<td align="left">服务端是否支持启用压缩</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.maxInitialLineLength</td>
+<td align="left">4096</td>
+<td align="left">服务端接收请求的最大 initial line 长度，单位字节</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.maxHeaderSize</td>
+<td align="left">32768</td>
+<td align="left">服务端接收请求的最大header长度，单位字节</td>
+</tr>
+<tr>
+<td align="left">servicecomb.Provider.requestWaitInPoolTimeout${op-priority}</td>
+<td align="left">30000</td>
+<td align="left">在同步线程中排队等待执行的超时时间，单位为毫秒</td>
+</tr>
+<tr>
+<td align="left">servicecomb.rest.server.requestWaitInPoolTimeout</td>
+<td align="left">30000</td>
+<td align="left">同servicecomb.Provider.requestWaitInPoolTimeout${op-priority}, 该配置项优先级更高。</td>
+</tr>
+<tr>
+<td align="left">servicecomb.uploads.maxSize</td>
+<td align="left">无限制</td>
+<td align="left">最大 body 大小，这个配置项对文件上传，REST请求都生效</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_2">补充说明</h3>
+<ul>
+<li>极限连接数计算 </li>
+</ul>
+<p>假设:<br />
+  * servicecomb.rest.client.verticle-count配置为8
+  * servicecomb.rest.client.connection.maxPoolSize配置为5
+  * 微服务A有10个实例  </p>
+<p>站在client的角度，在极限情况下：
+  * 一个client调用微服务A，最多会建立400条连接。（<code>8 * 5 * 10 = 400</code>）<br />
+  * 假设该client还需要调用微服务B，微服务B，也有10个实例，则最多再建立400条连接，共800条连接</p>
+<p>站在server的角度，在极限情况下：
+  * 一个client最多向一个server建立40条连接。(<code>8 * 5 = 40</code>)<br />
+  * <code>n</code>个client最多会向一个server建立<code>40 * n</code>条连接</p>
+<p>为了提高性能，需要尽量使用更大的连接池，但是更大的连接池又可能会导致连接数暴涨，当微服务实例规模达到百级别时，有的进程可能需要管理
+几万条连接，业务需要根据实际业务规模进行合理的规划。在实例规模比较小的情况下，HTTP仍然是所有应用程序的最佳选择，它具备更好的兼容性
+和可靠性。当单个实例的连接数管理规模超过1万的时候，可以考虑切换为<a href="http2.html">http2</a>。</p>
+<h2 id="_3">示例代码</h2>
+<p>microservice.yaml文件中的配置示例：</p>
+<pre><code class="language-yaml">servicecomb:
+  rest:
+    address: 0.0.0.0:8080
+    server:
+      verticle-count: 8
+  references:
+    hello:
+      transport: rest
+      version-rule: 0.0.1
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="http2.html" class="btn btn-neutral float-right" title="REST over HTTP2">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="rest-over-servlet.html" class="btn btn-neutral" title="REST over Servlet"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="rest-over-servlet.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="http2.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

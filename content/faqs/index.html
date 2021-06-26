@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -215,7 +215,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/developers/contributing">Community</a>
+                  <a href="/developers/contributing/">Community</a>
                 
               </li>
             
@@ -327,15 +327,15 @@
 
     <p>A: There are a few restrictions when using Java-Chassis:</p>
     <ul>
-      <li>Before version 0.3.0-SNAPSHOT, it does not support annotations like <code class="highlighter-rouge">@GetMapping</code>.</li>
+      <li>Before version 0.3.0-SNAPSHOT, it does not support annotations like <code class="language-plaintext highlighter-rouge">@GetMapping</code>.</li>
       <li>When using the same HTTP request method, e.g. GET, the method name need to be unique as it will become operation ID when swagger generates contracts.</li>
       <li>Class and method name need to be public.</li>
     </ul>
   </li>
   <li>
-    <p><strong>Q: When using the <em>spring-boot-starter-provider</em> dependency, property like <code class="highlighter-rouge">spring.main.web-environment</code> not working in <em>application.yml</em> file.</strong></p>
+    <p><strong>Q: When using the <em>spring-boot-starter-provider</em> dependency, property like <code class="language-plaintext highlighter-rouge">spring.main.web-environment</code> not working in <em>application.yml</em> file.</strong></p>
 
-    <p>A: When you need both the starter provider dependency and the servlet, you need to declare <code class="highlighter-rouge">spring.main.web-environment</code> in <em>application.properties</em> file or declare it in <em>application.yml</em> file and create an empty <em>application.properties</em> file.</p>
+    <p>A: When you need both the starter provider dependency and the servlet, you need to declare <code class="language-plaintext highlighter-rouge">spring.main.web-environment</code> in <em>application.properties</em> file or declare it in <em>application.yml</em> file and create an empty <em>application.properties</em> file.</p>
   </li>
   <li>
     <p><strong>Q: What’s the dependency differences between gateway and other microservices?</strong></p>
@@ -344,7 +344,7 @@
 <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-provider<span class="nt">&lt;/artifactId&gt;</span>
 </code></pre></div>    </div>
 
-    <p>A: Gateway depends on not only the <code class="highlighter-rouge">spring-boot-starter-provider</code>, but also the <code class="highlighter-rouge">spring-boot-starter-discovery</code>. This can refer to the <em>manger</em> implementation of <a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">LinuxCon-Beijing-Workshop</a>.</p>
+    <p>A: Gateway depends on not only the <code class="language-plaintext highlighter-rouge">spring-boot-starter-provider</code>, but also the <code class="language-plaintext highlighter-rouge">spring-boot-starter-discovery</code>. This can refer to the <em>manger</em> implementation of <a href="https://github.com/ServiceComb/LinuxCon-Beijing-WorkShop">LinuxCon-Beijing-Workshop</a>.</p>
   </li>
   <li>
     <p><strong>Q: Do gateway need to configure assembly like the other microservices? Is <em>/maven/gateway</em> the default path of the docker maven plugin?</strong></p>
@@ -369,7 +369,7 @@
 <span class="o">}</span>
 </code></pre></div>    </div>
 
-    <p>A: Without specifying the base path, ServiceComb will use the classname as the base path. Hence, the path should be <code class="highlighter-rouge">/WorkerController/count</code> in the previous code. If you want to access path like <code class="highlighter-rouge">/count</code>, you need to specify base path as <code class="highlighter-rouge">/</code> as follows:</p>
+    <p>A: Without specifying the base path, ServiceComb will use the classname as the base path. Hence, the path should be <code class="language-plaintext highlighter-rouge">/WorkerController/count</code> in the previous code. If you want to access path like <code class="language-plaintext highlighter-rouge">/count</code>, you need to specify base path as <code class="language-plaintext highlighter-rouge">/</code> as follows:</p>
     <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkerController</span> <span class="o">{}</span>
 </code></pre></div>    </div>

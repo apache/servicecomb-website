@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -417,8 +417,8 @@
 
 <ol>
   <li>到 https://github.com/NewCapec-Institute/oas-validator clone下代码</li>
-  <li>然后 <code class="highlighter-rouge">mvn clean install</code>打包</li>
-  <li>到<code class="highlighter-rouge">oas-validator-web/target</code>目录下执行<code class="highlighter-rouge">java -jar oas-validator-web-exec.jar</code>启动OAS Validator Web</li>
+  <li>然后 <code class="language-plaintext highlighter-rouge">mvn clean install</code>打包</li>
+  <li>到<code class="language-plaintext highlighter-rouge">oas-validator-web/target</code>目录下执行<code class="language-plaintext highlighter-rouge">java -jar oas-validator-web-exec.jar</code>启动OAS Validator Web</li>
   <li>访问 http://localhost:8080，进入合规性校验功能</li>
   <li>把 <a href="https://github.com/OAI/OpenAPI-Specification/blob/master/examples/v3.0/petstore.yaml">petstore.yaml</a> 内容贴到文本框中然后点击校验得到结果：</li>
 </ol>
@@ -445,13 +445,13 @@ $.paths./pets/{petId}.get.tags[0] : 不在$.tags所定义的范围内
 
 <p>下面举例解释检查报告的意思：</p>
 
-<p><code class="highlighter-rouge">$.components.schemas.'Pet'.title : 必须提供</code>，前面一段是<a href="https://github.com/json-path/JsonPath">JsonPath[3]</a>，用来描述出问题的元素/属性的位置，“必须提供”则的意思是没有填写该属性。如下图：</p>
+<p><code class="language-plaintext highlighter-rouge">$.components.schemas.'Pet'.title : 必须提供</code>，前面一段是<a href="https://github.com/json-path/JsonPath">JsonPath[3]</a>，用来描述出问题的元素/属性的位置，“必须提供”则的意思是没有填写该属性。如下图：</p>
 
 <p><img src="/assets/images/2019-10-23-use-oas-validator-help-standardize-oas-spec/oas-validator-2.png" alt="图2 合规性校验示例" class="align-center" /></p>
 
-<p><code class="highlighter-rouge">title</code>是一个文档性字段，没有它虽然不影响接口的语义，但是对于下游应用的开发者来说没有它会造成理解上的困难，因此在这里我们把它设定为必填。</p>
+<p><code class="language-plaintext highlighter-rouge">title</code>是一个文档性字段，没有它虽然不影响接口的语义，但是对于下游应用的开发者来说没有它会造成理解上的困难，因此在这里我们把它设定为必填。</p>
 
-<p>再来看这一条报告 <code class="highlighter-rouge">$.paths./pets.get.responses.200.headers.'x-next' : 必须为upper hyphen case</code>，同样前面是JsonPath，告诉你该属性应该为Upper Hyphen Case，正确的写法应该是<code class="highlighter-rouge">X-Next</code>。和<code class="highlighter-rouge">title</code>属性一样Header的大小写不是一个技术问题，但是统一的大小写风格能够让下游应用的开发人员更舒适，从而有更少的Bug。</p>
+<p>再来看这一条报告 <code class="language-plaintext highlighter-rouge">$.paths./pets.get.responses.200.headers.'x-next' : 必须为upper hyphen case</code>，同样前面是JsonPath，告诉你该属性应该为Upper Hyphen Case，正确的写法应该是<code class="language-plaintext highlighter-rouge">X-Next</code>。和<code class="language-plaintext highlighter-rouge">title</code>属性一样Header的大小写不是一个技术问题，但是统一的大小写风格能够让下游应用的开发人员更舒适，从而有更少的Bug。</p>
 
 <h3 id="兼容性校验">兼容性校验</h3>
 
@@ -499,7 +499,7 @@ $.paths./pets/{petId}.get.tags[0] : 不在$.tags所定义的范围内
           <span class="na">type</span><span class="pi">:</span> <span class="s">string</span>
 </code></pre></div></div>
 
-<p>再写一个v1.1的OAS Spec，添加了一个query参数<code class="highlighter-rouge">name</code>：</p>
+<p>再写一个v1.1的OAS Spec，添加了一个query参数<code class="language-plaintext highlighter-rouge">name</code>：</p>
 
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">openapi</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.0.0"</span>
 <span class="na">info</span><span class="pi">:</span>
@@ -549,7 +549,7 @@ $.paths./pets/{petId}.get.tags[0] : 不在$.tags所定义的范围内
 <pre><code class="language-txt">$.paths./pets/{petId}.get.parameters[1].required : [name=name,in=query]:仅允许新增required=false的parameter
 </code></pre>
 
-<p>这个报告的意思是新增的query参数<code class="highlighter-rouge">name</code>是必填的，这种做法不向下兼容。仔细想想是不是的确如此？</p>
+<p>这个报告的意思是新增的query参数<code class="language-plaintext highlighter-rouge">name</code>是必填的，这种做法不向下兼容。仔细想想是不是的确如此？</p>
 
 <h3 id="总结">总结</h3>
 

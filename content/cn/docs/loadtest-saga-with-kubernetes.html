@@ -122,8 +122,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -220,7 +220,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -421,7 +421,7 @@
 <span class="nv">$ </span>mvn clean <span class="nb">install</span> <span class="nt">-Pdocker</span>
 </code></pre></div></div>
 
-<p>然后进入demo项目路径<code class="highlighter-rouge">saga-demo/saga-spring-demo</code>，执行相同的maven构建命令，构建完成后，我们可以看到产生了4个相关镜像：</p>
+<p>然后进入demo项目路径<code class="language-plaintext highlighter-rouge">saga-demo/saga-spring-demo</code>，执行相同的maven构建命令，构建完成后，我们可以看到产生了4个相关镜像：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>docker images | <span class="nb">grep </span>SNAPHOST  <span class="c"># {version}-SNAPSHOT是构建过程中使用的镜像标签</span>
 alpha-server:0.3.0-SNAPSHOT
@@ -430,7 +430,7 @@ car:0.3.0-SNAPSHOT
 hotel:0.3.0-SNAPSHOT
 </code></pre></div></div>
 
-<p>至此，我们已经构建好所需镜像，下一步便是编写Kubernetes所需的资源文件，这一步我们不再赘述，项目中已经有写好的yaml文件，路径在<code class="highlighter-rouge">saga-demo/saga-k8s-resources</code>，目录结构如下：</p>
+<p>至此，我们已经构建好所需镜像，下一步便是编写Kubernetes所需的资源文件，这一步我们不再赘述，项目中已经有写好的yaml文件，路径在<code class="language-plaintext highlighter-rouge">saga-demo/saga-k8s-resources</code>，目录结构如下：</p>
 
 <pre><code class="language-base">.
 ├── base
@@ -447,16 +447,16 @@ hotel:0.3.0-SNAPSHOT
         └── jmeter.yaml
 </code></pre>
 
-<p>其中<code class="highlighter-rouge">base</code>目录包含了alpha-server，postgresql以及用于收集测试报告的jmeter-collector3个服务。<code class="highlighter-rouge">spring-demo</code>目录包含了demo项目的所有服务，<code class="highlighter-rouge">spring-demo/test</code>路径下包含了对demo测试所需的服务。</p>
+<p>其中<code class="language-plaintext highlighter-rouge">base</code>目录包含了alpha-server，postgresql以及用于收集测试报告的jmeter-collector3个服务。<code class="language-plaintext highlighter-rouge">spring-demo</code>目录包含了demo项目的所有服务，<code class="language-plaintext highlighter-rouge">spring-demo/test</code>路径下包含了对demo测试所需的服务。</p>
 
-<p>我们通过最基础的deployment和service对项目进行部署，程序之间通过域名互相访问，通过<code class="highlighter-rouge">kubectl</code>命令对Kubernetes资源进行部署：</p>
+<p>我们通过最基础的deployment和service对项目进行部署，程序之间通过域名互相访问，通过<code class="language-plaintext highlighter-rouge">kubectl</code>命令对Kubernetes资源进行部署：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl create ns servicecomb <span class="c"># 默认所有服务都在servicecomb namespace下</span>
 <span class="nv">$ </span>kubectl apply <span class="nt">-f</span> ./base
 <span class="nv">$ </span>kubectl apply <span class="nt">-f</span> ./spring-demo
 </code></pre></div></div>
 
-<p>我们通过<code class="highlighter-rouge">kubectl exec</code>命令进入一个pod，通过curl命令测试booking程序：</p>
+<p>我们通过<code class="language-plaintext highlighter-rouge">kubectl exec</code>命令进入一个pod，通过curl命令测试booking程序：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl <span class="nb">exec</span> <span class="nt">-it</span> <span class="nt">-n</span> servicecomb alpha-server-xxxxx
 <span class="nv">$ </span>curl http://booking.servicecomb:8083/booking/test/2/2
@@ -478,14 +478,14 @@ resp: OK
 
 <h3 id="jmeter-镜像改造">JMeter 镜像改造</h3>
 
-<p>由于原有的JMeter容器执行完测试之后就退出了，如果在单机环境、仅运行docker容器的环境下，我们可以在执行<code class="highlighter-rouge">docker run</code>命令时通过-v参数将宿主机目录挂载到容器中，以保存测试的结果。但是Kubernetes环境，每个pod部署时都是根据一定的算法分配到不同节点上的，节点即是容器的宿主机。但是，登录到节点并找到相应目录来查看结果似乎是非常“不体面”的姿势，因此需要构建一个服务，收集JMeter生成的报告，并能够方便的展示。为此，我们用go语言实现了一个简单的文件上传服务，并附带静态文件服务。该服务收到JMeter测试报告达成的tgz压缩包，将其解压到相应静态文件服务目录中，这样，我们就可以方便的在集群中查看测试结果。该服务就是上文提到的jmeter-collector服务。</p>
+<p>由于原有的JMeter容器执行完测试之后就退出了，如果在单机环境、仅运行docker容器的环境下，我们可以在执行<code class="language-plaintext highlighter-rouge">docker run</code>命令时通过-v参数将宿主机目录挂载到容器中，以保存测试的结果。但是Kubernetes环境，每个pod部署时都是根据一定的算法分配到不同节点上的，节点即是容器的宿主机。但是，登录到节点并找到相应目录来查看结果似乎是非常“不体面”的姿势，因此需要构建一个服务，收集JMeter生成的报告，并能够方便的展示。为此，我们用go语言实现了一个简单的文件上传服务，并附带静态文件服务。该服务收到JMeter测试报告达成的tgz压缩包，将其解压到相应静态文件服务目录中，这样，我们就可以方便的在集群中查看测试结果。该服务就是上文提到的jmeter-collector服务。</p>
 
 <p>这样一来，我们还需要对JMeter服务进行一些小改造，当执行完JMeter测试后，我们通过一个脚本将测试结果目录打包上传到jmeter-collector服务。这些改造都已经完成并做好了相应的镜像，直接使用项目中的资源即可：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl apply <span class="nt">-f</span> spring-demo/test/jmeter.yaml
 </code></pre></div></div>
 
-<p>现在，我们已经配置好JMeter相关资源，执行<code class="highlighter-rouge">kubectl logs</code>检查JMeter运行状况：</p>
+<p>现在，我们已经配置好JMeter相关资源，执行<code class="language-plaintext highlighter-rouge">kubectl logs</code>检查JMeter运行状况：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl get pod <span class="nt">-n</span> servicecomb | <span class="nb">grep </span>spring-demo-jmeter
 spring-demo-jmeter-xxxxx
@@ -508,7 +508,7 @@ summary +    420 <span class="k">in </span>00:00:22 <span class="o">=</span>   1
 
 <p>JMeter容器运行完成后，在容器内生成了测试结果文件，并调用upload脚本打包上传到jmeter-collector服务，可以通过该服务直接在页面上查看结果。在Kubernetes中，在集群外部访问服务有两种方式：LoadBalancer或NodePort，前者一般由提供Kubernetes集群服务的云服务厂商提供，后者则可以通过节点的IP和端口来访问某个服务。由于我们使用了本地部署的Kubernetes集群，因此我们使用NodePort来查看访问结果。</p>
 
-<p>首先，调用<code class="highlighter-rouge">kubectl edit</code>命令，编辑jmeter-collector服务：</p>
+<p>首先，调用<code class="language-plaintext highlighter-rouge">kubectl edit</code>命令，编辑jmeter-collector服务：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>kubectl edit svc <span class="nt">-n</span> servicecomb jmeter-collector
 <span class="c"># in the editor:</span>
@@ -521,7 +521,7 @@ spec:
   <span class="c">#....</span>
 </code></pre></div></div>
 
-<p>在笔者的环境中，制定了IP为192.168.43.70的节点作为NodePort的IP，对外暴露80端口，因此，在浏览器中直接访问<code class="highlighter-rouge">http://192.168.43.70</code>即可查看测试报告的结果了，结果如下图所示：</p>
+<p>在笔者的环境中，制定了IP为192.168.43.70的节点作为NodePort的IP，对外暴露80端口，因此，在浏览器中直接访问<code class="language-plaintext highlighter-rouge">http://192.168.43.70</code>即可查看测试报告的结果了，结果如下图所示：</p>
 
 <p><img src="https://github.com/crystaldust/incubator-servicecomb-website/raw/blogs/loadtest-saga-with-k8s/assets/images/jmeter-collector.png" alt="jmeter-collector-dashboard" /></p>
 

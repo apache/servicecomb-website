@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>HTTP Filter - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "HTTP Filter";
+    var mkdocs_page_input_path = "general-development/http-filter.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>HTTP Filter</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="http-filter">HTTP Filter</h1>
+<p>使用 Java Chassis 对请求进行拦截推荐的方式是<a href="../references-handlers/intruduction.html">处理链</a>。使用处理链不关注通信协议，
+无论使用 HIGHWAY 还是使用 REST， 请求均会经过处理链进行处理。 当用户使用 REST 的时候，支持两种通道：<code>REST over Servlet</code> 和
+<code>REST over Vertx</code>，这两种通道都支持通过 <code>HttpClientFilter</code> 和 <code>HttpServerFilter</code> 两个接口对请求进行拦截。 </p>
+<p>比如某些场景中，业务使用 http 而不是 https，为了防止被伪造或篡改请求，需要提供consumer、producer之间对http码流的签名功能。
+签名功能可以使用 <code>HttpClientFilter</code> 和 <code>HttpServerFilter</code> 实现， 详细参考<a href="https://github.com/apache/servicecomb-java-chassis/tree/master/demo/demo-signature">示例代码</a>。 本章节通过
+签名功能的实现介绍如何使用 <code>HttpClientFilter</code> 和 <code>HttpServerFilter</code> 。</p>
+<h2 id="httpclientfilter-httpserverfilter">HttpClientFilter 和 HttpServerFilter 介绍</h2>
+<p>HttpClientFilter 和 HttpServerFilter 使用 Java 标准的 SPI 机制加载。 允许加载多个， 各实例之间的执行顺序由getOrder的返回值决定。
+如果getOrder返回值相同，则相应的实例顺序随机决定。无论是request，还是response，读取body码流，都使用getBodyBytes()，返回值可能为
+null（比如get调用的场景），如果不为null，对应的码流长度，通过getBodyBytesLength()获取。</p>
+<blockquote>
+<p><strong><em>注意事项</em></strong>: 
+HttpClientFilter 的 beforeSendRequest 在接口调用的当前线程执行， afterReceiveResponse 在业务线程池中执行。
+HttpServerFilter 的 afterReceiveRequest 在业务线程池中执行，beforeSendResponse 和 beforeSendResponseAsync
+可能在业务线程池执行， 也可能在网络线程池执行， 务必保证不能够出现阻塞操作。</p>
+</blockquote>
+<h2 id="httpclientfilter">HttpClientFilter</h2>
+<p>系统内置2个HttpClientFilter，扩展功能时注意order值不要冲突：</p>
+<ul>
+<li>
+<p>org.apache.servicecomb.provider.springmvc.reference.RestTemplateCopyHeaderFilter, order值为Integer.MIN_VALUE</p>
+</li>
+<li>
+<p>org.apache.servicecomb.transport.rest.client.http.DefaultHttpClientFilter, order值为Integer.MAX_VALUE</p>
+</li>
+<li>
+<p>原型</p>
+</li>
+</ul>
+<pre><code>public interface HttpClientFilter {
+  int getOrder();
+
+  void beforeSendRequest(Invocation invocation, HttpServletRequestEx requestEx);
+
+  // if finished, then return a none null response
+  // if return a null response, then sdk will call next filter.afterReceive
+  Response afterReceiveResponse(Invocation invocation, HttpServletResponseEx responseEx);
+}
+</code></pre>
+<ul>
+<li>beforeSendRequest</li>
+</ul>
+<p>用于在已经生成码流之后，发送请求之前，根据url、header、query、码流计算签名，并设置到header中去(requestEx.setHeader)。
+从入参invocation中可以获取本次调用的各种元数据以及对象形式的参数（码流是根据这些参数生成的）。</p>
+<ul>
+<li>afterReceiveResponse</li>
+</ul>
+<p>用于在从网络收到应答后，根据header、码流计算签名，并与header中的签名对比。如果签名不对，直接构造一个Response
+作为返回值，只要不是返回NULL，则框架会中断对其他HttpClientFilter的调用。</p>
+<h2 id="httpserverfilter">HttpServerFilter</h2>
+<ul>
+<li>原型</li>
+</ul>
+<pre><code>public interface HttpServerFilter {
+  int getOrder();
+
+  default boolean needCacheRequest(OperationMeta operationMeta) {
+    return false;
+  }
+
+  // if finished, then return a none null response
+  // if return a null response, then sdk will call next filter.afterReceiveRequest
+  Response afterReceiveRequest(Invocation invocation, HttpServletRequestEx requestEx);
+
+  // invocation maybe null
+  void beforeSendResponse(Invocation invocation, HttpServletResponseEx responseEx);
+}
+</code></pre>
+<ul>
+<li>needCacheRequest</li>
+</ul>
+<p>与HttpClientFilter不同的是，增加了决定是否缓存请求的功能。这是因为ServiceComb不仅仅能使用standalone的方式运行，也
+能运行于web容器（比如tomcat），在servlet的实现上，请求码流只能读取一次，并且不一定支持reset（比如tomcat），REST 框架需要执行反序列化，需
+要读取body码流，签名逻辑也需要读取body码流，如果使用默认的处理，必然有一方功能无法实现。</p>
+<p>所以运行于web容器场景时，所有HttpServerFilter，只要有一个返回需要缓存请求，则body码流会被复制保存起来，以支持重复读取。</p>
+<p>入参是本次请求对应的元数据，业务可以针对该请求决定是否需要缓存请求。</p>
+<ul>
+<li>afterReceiveRequest</li>
+</ul>
+<p>在收到请求后，根据url、header、query、码流计算签名，并与header中的签名对比,如果签名不对，直接构造一个Response作为返回值，
+只要不是返回NULL，则框架会中断对其他HttpClientFilter的调用。</p>
+<ul>
+<li>beforeSendResponse 和 beforeSendResponseAsync</li>
+</ul>
+<p>在发送应答之前，根据header、码流计算签名，并设置到header中去。因为可能invocation还没来得及构造，调用流程
+已经出错，所以入参invocation可能是null。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

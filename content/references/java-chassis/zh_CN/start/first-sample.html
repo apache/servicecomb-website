@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>开发第一个微服务 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u5f00\u53d1\u7b2c\u4e00\u4e2a\u5fae\u670d\u52a1";
+    var mkdocs_page_input_path = "start/first-sample.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>开发第一个微服务</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">开发第一个微服务</h1>
+<h2 id="_2">准备工作</h2>
+<p>在开发第一个Java-Chassis微服务之前，请先确保你的本地开发环境已经准备就绪，参考<a href="development-environment.html">安装本地开发环境</a>。</p>
+<p>本文示例需要用到服务中心，请参考<a href="http://servicecomb.apache.org/cn/docs/products/service-center/install/">ServiceCenter 安装说明</a>。</p>
+<h2 id="helloworld">开发一个HelloWorld服务</h2>
+<h3 id="pom">配置pom文件</h3>
+<p>创建一个空的maven工程。建议先配置<code>dependencyManagement</code>来管理依赖项，依赖项只需要引入<code>solution-basic</code>即可：</p>
+<pre><code class="language-xml">&lt;dependencyManagement&gt;
+  &lt;dependencies&gt;
+    &lt;dependency&gt;
+      &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+      &lt;artifactId&gt;java-chassis-dependencies&lt;/artifactId&gt;
+      &lt;version&gt;${java-chassis-dependencies.version}&lt;/version&gt;
+      &lt;type&gt;pom&lt;/type&gt;
+      &lt;scope&gt;import&lt;/scope&gt;
+    &lt;/dependency&gt;
+  &lt;/dependencies&gt;
+&lt;/dependencyManagement&gt;
+&lt;dependencies&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+    &lt;artifactId&gt;solution-basic&lt;/artifactId&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+    &lt;artifactId&gt;registry-service-center&lt;/artifactId&gt;
+  &lt;/dependency&gt;
+  &lt;dependency&gt;
+    &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+    &lt;artifactId&gt;log4j-slf4j-impl&lt;/artifactId&gt;
+    &lt;version&gt;2.12.1&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+<p><code>solution-basic</code>中已经包含了常见场景下开发Java-Chassis微服务所需的全部依赖项。</p>
+<p>Java-Chassis 2.0版本还需要引入<code>maven-compiler-plugin</code>插件，使项目打包时保留方法参数名：</p>
+<pre><code class="language-xml">&lt;build&gt;
+  &lt;plugins&gt;
+    &lt;plugin&gt;
+      &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+      &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+      &lt;version&gt;3.1&lt;/version&gt;
+      &lt;configuration&gt;
+        &lt;compilerArgument&gt;-parameters&lt;/compilerArgument&gt;
+        &lt;encoding&gt;UTF-8&lt;/encoding&gt;
+        &lt;source&gt;1.8&lt;/source&gt;
+        &lt;target&gt;1.8&lt;/target&gt;
+      &lt;/configuration&gt;
+    &lt;/plugin&gt;
+  &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+<h3 id="_3">添加配置文件</h3>
+<p>Java-Chassis默认读取的配置文件名为<code>microservice.yaml</code>，存放在<code>resources</code>目录中。</p>
+<p>文件内容如下，这份文件表示当前开发的是<code>sample</code>应用下的名为<code>helloworld</code>的微服务，版本为0.0.1。该微服务连接的服务中心地址为<code>http://127.0.0.1:30100</code>，监听<code>8080</code>端口。</p>
+<pre><code class="language-yaml">APPLICATION_ID: sample
+service_description:
+  name: helloworld
+  version: 1.0.0
+servicecomb:
+  service:
+    registry:
+      address: http://127.0.0.1:30100
+  rest:
+    address: 0.0.0.0:8080
+</code></pre>
+<h3 id="main">编写Main类</h3>
+<p>在工程中添加一个Main类，用于启动微服务实例：</p>
+<pre><code class="language-java">package org.apache.servicecomb.samples;
+
+import org.apache.servicecomb.foundation.common.utils.BeanUtils;
+
+public class AppMain {
+  public static void main(String[] args) {
+    BeanUtils.init();
+  }
+}
+</code></pre>
+<p>调用<code>org.apache.servicecomb.foundation.common.utils.BeanUtils#init()</code>方法会完成配置加载、Spring应用上下文加载、微服务注册等一系列启动流程。</p>
+<h3 id="rest">编写REST接口类</h3>
+<p>最后在工程中添加一个REST接口类用于接收请求：</p>
+<pre><code class="language-java">package org.apache.servicecomb.samples.service;
+
+import org.apache.servicecomb.provider.rest.common.RestSchema;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@RestSchema(schemaId = &quot;hello&quot;)
+@RequestMapping(&quot;/&quot;)
+public class HelloWorldService {
+  @GetMapping(&quot;/hello&quot;)
+  public String hello() {
+    return &quot;Hello world!&quot;;
+  }
+}
+</code></pre>
+<h3 id="_4">添加日志配置文件</h3>
+<p><code>solution-basic</code>引入了log4j2组件。如果想要看到运行日志，还需要手动添加一份日志配置文件，文件存放位置为<code>resources\log4j2.xml</code>，内容如下：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Configuration status=&quot;WARN&quot;&gt;
+  &lt;Appenders&gt;
+    &lt;Console name=&quot;Console&quot; target=&quot;SYSTEM_OUT&quot;&gt;
+      &lt;PatternLayout pattern=&quot;%d{HH:mm:ss.SSS} [%t] %-5level %logger{36}[%L] - %msg%n&quot;/&gt;
+    &lt;/Console&gt;
+  &lt;/Appenders&gt;
+  &lt;Loggers&gt;
+    &lt;Root level=&quot;info&quot;&gt;
+      &lt;AppenderRef ref=&quot;Console&quot;/&gt;
+    &lt;/Root&gt;
+  &lt;/Loggers&gt;
+&lt;/Configuration&gt;
+</code></pre>
+<h3 id="_5">启动服务</h3>
+<p>以上工作完成后，运行<code>AppMain</code>类即可启动微服务。在浏览器中打开本地服务中心的页面<code>http://127.0.0.1:30103/</code>，如果能看到helloworld服务的实例记录，则表示启动成功。如下图所示：
+<img alt="" src="first-sample-registered-in-sc.png" /></p>
+<p>访问<code>http://127.0.0.1:8080/hello</code>，可以得到helloworld服务的响应<code>"Hello world!"</code>。至此，第一个Java-Chassis微服务开发完成。</p>
+<h2 id="_6">补充说明</h2>
+<p>上文以Spring MVC开发风格来编写helloworld服务的REST接口类，目前Java-Chassis提供了三种REST接口类开发风格：</p>
+<ul>
+<li>Spring MVC</li>
+<li>JaxRS</li>
+<li>POJO</li>
+</ul>
+<p>Spring MVC和JaxRS适合REST接口开发。 POJO是通常说的RPC，适合于进行内部接口开发。java-chassis允许在一个微服务里面混合使用上述开发方式，并且可以使用完全一致的方式，比如RestTemplate或者POJO的方式访问不同类型的服务，所以开始之前，可以根据熟悉程度，选择任意一种开发方式即可。java-chassis的开发方式和通信方式是完全解耦的，因此不同的开发方式并没有性能上的差异。</p>
+<p>开发者也可以通过如下方式快速构建一个项目：</p>
+<ul>
+<li>
+<p>下载samples项目。java-chassis提供了大量的示例代码，这些示例代码可以通过<a href="https://github.com/apache/servicecomb-samples">servicecomb-samples</a>获取。</p>
+</li>
+<li>
+<p><a href="https://github.com/apache/servicecomb-samples/tree/master/java-chassis-samples/springmvc-sample">Spring MVC例子</a></p>
+</li>
+<li><a href="https://github.com/apache/servicecomb-samples/tree/master/java-chassis-samples/jaxrs-sample">JaxRS例子</a></li>
+<li>
+<p><a href="https://github.com/apache/servicecomb-samples/tree/master/java-chassis-samples/pojo-sample">POJO例子</a></p>
+</li>
+<li>
+<p>使用archetypes生成项目</p>
+</li>
+</ul>
+<p>archetypes是maven提供的一种机制，对于使用maven的用户，可以在项目里面配置插件，生成项目。java-chassis提供了多个archetypes供开发者使用，详细参考<a href="https://github.com/apache/servicecomb-java-chassis/tree/master/archetypes">链接</a></p>
+<ul>
+<li>使用脚手架生成项目</li>
+</ul>
+<p>脚手架提供了一个图形化向导，通过向导可以快速构建项目，参考<a href="http://start.servicecomb.io/">链接</a>。</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

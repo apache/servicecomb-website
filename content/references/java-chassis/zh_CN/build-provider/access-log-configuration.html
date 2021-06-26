@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Access log configuration - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Access log configuration";
+    var mkdocs_page_input_path = "build-provider/access-log-configuration.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Access log configuration</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="_1">概念阐述</h2>
+<p>ServiceComb 提供了基于 Vert.x 的 access log 和 request log 功能。当用户使用 REST over Vertx 通信方式时，可以通过简单的配置启用 access log 打印功能。当用户 client 端进行远程调用时，可以通过简单的配置启用 request log 打印功能</p>
+<h2 id="_2">场景描述</h2>
+<ol>
+<li>
+<p>用户在调试服务时可能需要开启 access log。在使用 REST over servlet 通信方式的情况下，可以使用 web容器 的 access log 功能；而在使用 REST over Vertx 通信方式的情况下，可以使用 ServiceComb 提供的一套 access log 功能。</p>
+</li>
+<li>
+<p>用户想要跟踪，记录客户端远程调用信息， 可以开启 request log。request log 同时支持记录 rest 和 highway 远程调用方式。</p>
+</li>
+</ol>
+<h2 id="_3">配置说明</h2>
+<h3 id="access-log-request-log">启用 Access Log &amp; Request Log</h3>
+<p>用户需要在 microservice.yaml 文件中增加配置以启用 access log 和 request log，配置示例如下：</p>
+<pre><code class="language-yaml">servicecomb:
+  accesslog:
+    enabled: true  ## server 端 启用access log
+    pattern: &quot;%h - - %t %r %s %B %D&quot; ##  server 端 自定义 access log 日志格式
+    request:
+      enabled: true  ## client 端开启 request log
+      pattern: &quot;%h %SCB-transport - - %t %r %s %D&quot; ## client 端自定义 request log 日志格式
+</code></pre>
+<p><em><strong>Access log &amp; Request log 配置项说明</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">取值范围</th>
+<th align="left">默认值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">servicecomb.accesslog.enabled</td>
+<td align="left">true/false</td>
+<td align="left"><strong>false</strong></td>
+<td align="left">如果为true则启用access log，否则不启用</td>
+</tr>
+<tr>
+<td align="left">servicecomb.accesslog.pattern</td>
+<td align="left">表示打印格式的字符串</td>
+<td align="left"><strong>"%h - - %t %r %s %B %D"</strong></td>
+<td align="left">配置项见_<strong>日志元素说明表</strong>_</td>
+</tr>
+<tr>
+<td align="left">servicecomb.accesslog.request.enabled</td>
+<td align="left">true/false</td>
+<td align="left"><strong>false</strong></td>
+<td align="left">如果为true则启用request log，否则不启用</td>
+</tr>
+<tr>
+<td align="left">servicecomb.accesslog.request.pattern</td>
+<td align="left">表示打印格式的字符串</td>
+<td align="left"><strong>"%h %SCB-transport - - %t %r %s %D"</strong></td>
+<td align="left">配置项见_<strong>日志元素说明表</strong>_</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em><strong>说明：</strong></em></p>
+<ul>
+<li>以上四个配置项均可省略，若省略则使用默认值。</li>
+</ul>
+</blockquote>
+<h3 id="_4">日志格式配置</h3>
+<p>目前可用的日志元素配置项见 <strong><em>日志元素说明表(Apache &amp; W3C)</em></strong> 和 <strong><em>日志元素说明表(ServiceComb)</em></strong> 。</p>
+<p><em><strong>日志元素说明表 (Apache &amp; W3C)</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="left">元素名称</th>
+<th align="left">Apache日志格式</th>
+<th align="left">W3C日志格式</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">HTTP method</td>
+<td align="left">%m</td>
+<td align="left">cs-method</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">HTTP status</td>
+<td align="left">%s</td>
+<td align="left">sc-status</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Duration in second</td>
+<td align="left">%T</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Duration in millisecond</td>
+<td align="left">%D</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Remote hostname</td>
+<td align="left">%h</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Local hostname</td>
+<td align="left">%v</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Local port</td>
+<td align="left">%p</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Size of response</td>
+<td align="left">%B</td>
+<td align="left">-</td>
+<td align="left">如果消息体长度为零则打印"0"</td>
+</tr>
+<tr>
+<td align="left">Size of response</td>
+<td align="left">%b</td>
+<td align="left">-</td>
+<td align="left">如果消息体长度为零则打印"-"</td>
+</tr>
+<tr>
+<td align="left">First line of request</td>
+<td align="left">%r</td>
+<td align="left">-</td>
+<td align="left">包含HTTP Method、Uri、Http版本三部分内容</td>
+</tr>
+<tr>
+<td align="left">URI path</td>
+<td align="left">%U</td>
+<td align="left">cs-uri-stem</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Query string</td>
+<td align="left">%q</td>
+<td align="left">cs-uri-query</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">URI path and query string</td>
+<td align="left">-</td>
+<td align="left">cs-uri</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Request protocol</td>
+<td align="left">%H</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Datetime the request is received</td>
+<td align="left">%t</td>
+<td align="left">-</td>
+<td align="left">按照默认设置打印时间戳，格式为"EEE, dd MMM yyyy HH:mm:ss zzz"，语言为英文，时区为GMT</td>
+</tr>
+<tr>
+<td align="left">Configurable datetime the request is received</td>
+<td align="left">%{PATTERN}t</td>
+<td align="left">-</td>
+<td align="left">按照指定的格式打印时间戳，语言为英文，时区为GMT</td>
+</tr>
+<tr>
+<td align="left">Configurable datetime the request is received</td>
+<td align="left">%{PATTERN&#124;TIMEZONE&#124;LOCALE}t</td>
+<td align="left">-</td>
+<td align="left">按照指定的格式、语言、时区打印时间戳。允许省略其中的某部分配置（但两个分隔符号"&#124;"不可省略）。</td>
+</tr>
+<tr>
+<td align="left">Request header</td>
+<td align="left">%{VARNAME}i</td>
+<td align="left">-</td>
+<td align="left">如果没有找到指定的header，则打印"-"</td>
+</tr>
+<tr>
+<td align="left">Response header</td>
+<td align="left">%{VARNAME}o</td>
+<td align="left">-</td>
+<td align="left">如果没有找到指定的header，则打印"-"</td>
+</tr>
+<tr>
+<td align="left">Cookie</td>
+<td align="left">%{VARNAME}C</td>
+<td align="left">-</td>
+<td align="left">如果没有找到指定的cookie，则打印"-"</td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>日志元素说明表(ServiceComb)</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Element</th>
+<th align="left">Placeholder</th>
+<th align="left">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">TraceId</td>
+<td align="left">%SCB-traceId</td>
+<td align="left">打印ServiceComb生成的trace id，找不到则打印"-"</td>
+</tr>
+<tr>
+<td align="left">Invocation Context</td>
+<td align="left">%{VARNAME}SCB-ctx</td>
+<td align="left">打印key为<code>VARNAME</code>的invocation context值，找不到则打印"-"</td>
+</tr>
+<tr>
+<td align="left">Transport Method</td>
+<td align="left">%SCB-transport</td>
+<td align="left">打印当前调用的 <strong>transport method</strong> 。 <code>rest</code> 或者 <code>highway</code></td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>Access log 与 Request log 的日志元素对比</strong></em></p>
+<table>
+<thead>
+<tr>
+<th>元素名称</th>
+<th>Apache&amp;W3C日志格式</th>
+<th>access log</th>
+<th>access log 说明</th>
+<th>request log</th>
+<th>request log说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP method</td>
+<td>%m &amp; cs-method</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>HTTP status</td>
+<td>%s &amp; sc-status</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Duration in second</td>
+<td>%T</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Duration in millisecond</td>
+<td>%D</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Remote hostname</td>
+<td>%h</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Local hostname</td>
+<td>%v</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Local port</td>
+<td>%p</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Size of response</td>
+<td>%B</td>
+<td>support</td>
+<td>如果消息体长度为零则打印"0"</td>
+<td>unsupported</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Size of response</td>
+<td>%b</td>
+<td>support</td>
+<td>如果消息体长度为零则打印"-"</td>
+<td>unsupported</td>
+<td>-</td>
+</tr>
+<tr>
+<td>First line of request</td>
+<td>%r</td>
+<td>support</td>
+<td>包含HTTP Method、Uri、Http版本三部分内容</td>
+<td>support</td>
+<td>包含HTTP Method、Uri、Http版本三部分内容</td>
+</tr>
+<tr>
+<td>URI path</td>
+<td>%U &amp; cs-uri-stem</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Query string</td>
+<td>%q &amp; cs-uri-query</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>URI path and query string</td>
+<td>cs-uri</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Request protocol</td>
+<td>%H</td>
+<td>support</td>
+<td>-</td>
+<td>support</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Datetime of the request</td>
+<td>%t</td>
+<td>support</td>
+<td>收到请求的时间。默认格式为"EEE, dd MMM yyyy HH:mm:ss zzz"，语言为英文，时区为GMT</td>
+<td>support</td>
+<td>发送请求的时间。默认格式为"EEE, dd MMM yyyy HH:mm:ss zzz"，语言为英文，时区为GMT</td>
+</tr>
+<tr>
+<td>Configurable datetime the request of the request</td>
+<td>%{PATTERN}t</td>
+<td>support</td>
+<td>收到请求的时间。按照指定的格式打印时间戳，语言为英文，时区为GMT</td>
+<td>support</td>
+<td>发送请求的时间。按照指定的格式打印时间戳，语言为英文，时区为GMT</td>
+</tr>
+<tr>
+<td>Configurable datetime the request of the request</td>
+<td>%{PATTERN&#124;TIMEZONE&#124;LOCALE}t</td>
+<td>support</td>
+<td>收到请求的时间。按照指定的格式、语言、时区打印时间戳。允许省略其中的某部分配置（但两个分隔符号"&#124;"不可省略）。</td>
+<td>support</td>
+<td>发送请求的时间。按照指定的格式、语言、时区打印时间戳。允许省略其中的某部分配置（但两个分隔符号"&#124;"不可省略）。</td>
+</tr>
+<tr>
+<td>Request header</td>
+<td>%{VARNAME}i</td>
+<td>support</td>
+<td>如果没有找到指定的header，则打印"-"</td>
+<td>support</td>
+<td>如果没有找到指定的header，则打印"-"</td>
+</tr>
+<tr>
+<td>Response header</td>
+<td>%{VARNAME}o</td>
+<td>support</td>
+<td>如果没有找到指定的header，则打印"-"</td>
+<td>support</td>
+<td>如果没有找到指定的header，则打印"-"</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>%{VARNAME}C</td>
+<td>support</td>
+<td>如果没有找到指定的cookie，则打印"-"</td>
+<td>support</td>
+<td>如果没有找到指定的cookie，则打印"-"</td>
+</tr>
+<tr>
+<td>TraceId</td>
+<td>%SCB-traceId</td>
+<td>support</td>
+<td>打印ServiceComb生成的trace id，找不到则打印"-"</td>
+<td>support</td>
+<td>打印ServiceComb生成的trace id，找不到则打印"-"</td>
+</tr>
+<tr>
+<td>Invocation Context</td>
+<td>%{VARNAME}SCB-ctx</td>
+<td>support</td>
+<td>打印key为<code>VARNAME</code>的invocation context值，找不到则打印"-"</td>
+<td>support</td>
+<td>打印key为<code>VARNAME</code>的invocation context值，找不到则打印"-"</td>
+</tr>
+<tr>
+<td>transport method</td>
+<td>%SCB-transport</td>
+<td>unsupported</td>
+<td>只支持 rest 形式调用</td>
+<td>support</td>
+<td>调用使用的transport method</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">日志输出文件配置</h3>
+<p>Access log &amp; Request log 的日志打印实现框架默认采用 Log4j ，并提供了一套默认的日志文件配置。用户可以在自己定义的 log4j.properties 文件中覆写这些配置。用户可配置的日志文件配置项见下表。</p>
+<p><em><strong>日志文件配置项</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="left">配置项</th>
+<th align="left">默认值</th>
+<th align="left">含义</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">paas.logs.accesslog.dir</td>
+<td align="left">${paas.logs.dir}</td>
+<td align="left">日志文件输出目录</td>
+<td align="left">与普通日志输出到同一个目录中</td>
+</tr>
+<tr>
+<td align="left">paas.logs.accesslog.file</td>
+<td align="left">access.log</td>
+<td align="left">日志文件名</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">log4j.appender.access.MaxBackupIndex</td>
+<td align="left">10</td>
+<td align="left">最大保存的日志滚动文件个数</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">log4j.appender.access.MaxFileSize</td>
+<td align="left">20MB</td>
+<td align="left">日志文件最大体积</td>
+<td align="left">正在记录的文件达到此大小时触发日志滚动存储</td>
+</tr>
+<tr>
+<td align="left">log4j.appender.access.logPermission</td>
+<td align="left">rw-------</td>
+<td align="left">日志文件权限</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">paas.logs.requestlog.dir</td>
+<td align="left">${paas.logs.dir}</td>
+<td align="left">日志文件输出目录</td>
+<td align="left">与普通日志输出到同一个目录中</td>
+</tr>
+<tr>
+<td align="left">paas.logs.requestlog.file</td>
+<td align="left">request.log</td>
+<td align="left">日志文件名</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">log4j.appender.request.MaxBackupIndex</td>
+<td align="left">10</td>
+<td align="left">最大保存的日志滚动文件个数</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">log4j.appender.request.MaxFileSize</td>
+<td align="left">20MB</td>
+<td align="left">日志文件最大体积</td>
+<td align="left">正在记录的文件达到此大小时触发日志滚动存储</td>
+</tr>
+<tr>
+<td align="left">log4j.appender.request.logPermission</td>
+<td align="left">rw-------</td>
+<td align="left">日志文件权限</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em><strong>注意：</strong></em><br />
+由于 ServiceComb 的日志打印功能只依赖 slf4j 的接口，因此用户可以选择其他日志打印框架，选择其他日志打印框架时需要用户自行配置日志文件输出选项。</p>
+</blockquote>
+<h3 id="logback">日志实现框架切换为 logback</h3>
+<blockquote>
+<p>针对采用 logback 作为日志打印框架的项目，需要将日志打印框架依赖从 Log4j 改为 logback 并添加部分配置以使 log 功能正常生效。</p>
+</blockquote>
+<h4 id="1-log4j">1. 排除 Log4j 依赖</h4>
+<p>在将日志实现框架切换为 logback 之前，需要检查项目的依赖，从中排除掉 Log4j 相关的依赖项。在项目中运行 maven 命令 <code>dependency:tree</code> ，找出其中依赖了Log4j的ServiceComb组件，在其<code>&lt;dependency&gt;</code>依赖项中添加如下配置：</p>
+<pre><code class="language-xml">&lt;exclusion&gt;
+  &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+  &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+&lt;/exclusion&gt;
+</code></pre>
+<h4 id="2-logback">2. 添加 logback 依赖</h4>
+<p>在 pom 文件中添加 logback 的依赖项：</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+  &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;
+  &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;
+  &lt;artifactId&gt;logback-core&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h4 id="3-access-log-request-log-logger">3. 配置 access log &amp; request log 组件的 logger</h4>
+<p>ServiceComb 提供的日志打印组件是获取名为 <code>accesslog</code> &amp; <code>requestlog</code> 的 logger 来打印 access log  和 request log ，因此将日志实现框架从 Log4j 切换为 logback 的关键就是提供一个名为 <code>accesslog</code> &amp; <code>requestlog</code> 的 Logger，并为其配置好日志输出文件。以下是 <strong>access log</strong> &amp; <strong>request log</strong> 在 logback 配置文件中的配置示例（本示例仅展示 access log &amp; request log相关的配置，其他日志配置均省略）：</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;!-- 用户可根据需要自定义appender --&gt;
+  &lt;appender name=&quot;ACCESSLOG&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+    &lt;file&gt;./logs/access.log&lt;/file&gt;
+    &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+      &lt;fileNamePattern&gt;./logs/access-%d{yyyy-MM-dd}.log&lt;/fileNamePattern&gt;
+    &lt;/rollingPolicy&gt;
+    &lt;!-- 注意：由于access log的内容是在代码中完成格式化的，因此这里只需输出message即可，无需添加额外的格式 --&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;%msg%n&lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+  &lt;appender name=&quot;REQUESTLOG&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+    &lt;file&gt;./logs/request.log&lt;/file&gt;
+    &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+      &lt;fileNamePattern&gt;./logs/access-%d{yyyy-MM-dd}.log&lt;/fileNamePattern&gt;
+    &lt;/rollingPolicy&gt;
+    &lt;!-- 注意：由于request log的内容是在代码中完成格式化的，因此这里只需输出message即可，无需添加额外的格式 --&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;%msg%n&lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;!-- 提供一个名为&quot;accesslog&quot;的logger供access log打印组件使用 --&gt;
+  &lt;logger name=&quot;accesslog&quot; level=&quot;INFO&quot; additivity=&quot;false&quot;&gt;
+    &lt;appender-ref ref=&quot;ACCESSLOG&quot; /&gt;
+  &lt;/logger&gt;
+  &lt;!-- 提供一个名为&quot;requestlog&quot;的logger供request log打印组件使用 --&gt;
+  &lt;logger name=&quot;requestlog&quot; level=&quot;INFO&quot; additivity=&quot;false&quot;&gt;
+    &lt;appender-ref ref=&quot;REQUESTLOG&quot; /&gt;
+  &lt;/logger&gt;
+
+&lt;/configuration&gt;
+</code></pre>
+<h3 id="access-log-request-log_1">自定义扩展 Access Log &amp; Request Log</h3>
+<p>用户可以利用 ServiceComb 提供的 AccessLogItem 扩展机制，定制自己的 AccessLogItem， 我们把 Request Log 也当做一种 Access Log。</p>
+<h4 id="_6">相关类说明</h4>
+<ol>
+<li><strong>AccessLogItem</strong></li>
+</ol>
+<pre><code class="language-java">public interface AccessLogItem&lt;T&gt; {
+  // 从Server端获取信息，打印 Access Log 日志
+  default void appendServerFormattedItem(ServerAccessLogEvent accessLogEvent, StringBuilder builder) {
+  }
+
+  // 从Client 端获取信息， 打印 Request Log
+  default void appendClientFormattedItem(InvocationFinishEvent clientLogEvent, StringBuilder builder) {
+  }
+}
+</code></pre>
+<blockquote>
+<p><strong>AccessLogItem</strong> 的定义如上所示</p>
+<ul>
+<li>
+<p><strong>Server 端</strong> 每收到一个请求，会触发一次 Access Log 日志打印。<strong>Client 端</strong> 每次对外远程调用结束，会触发一次 Request Log 日志打印。  </p>
+</li>
+<li>
+<p>每次日志打印，SDK 都会遍历有效的 <code>AccessLogItem</code> ，调用对应的方法获取此 Item 生成的 Log片 段，并将全部片段拼接成一条 Log 打印到日志文件中。 </p>
+</li>
+</ul>
+</blockquote>
+<ol>
+<li><strong>VertxRestAccessLogItemMeta</strong></li>
+</ol>
+<pre><code class="language-java">  // pattern占位符前缀
+  protected String prefix;
+  // pattern占位符后缀
+  protected String suffix;
+  // 优先级序号
+  protected int order;
+  // AccessLogItem构造器
+  protected AccessLogItemCreator&lt;RoutingContext&gt; accessLogItemCreator;
+</code></pre>
+<p><code>VertxRestAccessLogItemMeta</code> 包含如上属性，它定义了 ServiceComb 如何解析 pattern 字符串以获得特定的 AccessLogItem。</p>
+<ul>
+<li>
+<p>如果用户想要定义一个占位符为 <code>%user-defined</code> 的 <code>AccessLogItem</code> ，则需要声明一个 <code>VertxRestAccessLogItemMeta</code> 的子类，设置 prefix="%user-defined"，suffix=null，当 <code>AccessLogPatternParser</code> 解析到 "%user-defined" 时，从此 meta 类中取得 <code>AccessLogItemCreator</code> 创建对应的 <code>AccessLogItem</code>。<strong>注意</strong>：由于 "%user-defined" 占位符中没有变量部分，因此调用 <code>AccessLogItemCreator</code> 传入的配置参数为null。</p>
+</li>
+<li>
+<p>如果用户想要定义一个占位符为 <code>%{VARNAME}user-defined</code> 的 <code>AccessLogItem</code>，则声明的 <code>VertxRestAccessLogItemMeta</code> 子类中，设置prefix="%{"，suffix="}user-defined"，当 <code>AccessLogPatternParser</code> 解析到 "%{VARNAME}user-defined"时，会截取出"VARNAME"作为配置参数传入<code>AccessLogItemCreator</code>，创建一个<code>AccessLogItem</code>。</p>
+</li>
+</ul>
+<p><code>VertxRestAccessLogItemMeta</code> 有一个子类 <code>CompositeVertxRestAccessLogItemMeta</code>，当用户需要定义多个 AccessLogItem 时，可以将多个 <code>VertxRestAccessLogItemMeta</code> 聚合到 <code>CompositeVertxRestAccessLogItemMeta</code> 中。Parser 加载到类型为 <code>CompositeVertxRestAccessLogItemMeta</code> 的AccessLogItemMeta时，会调用其 <code>getAccessLogItemMetas()</code> 方法获得一组 AccessLogItemMeta。<code>VertxRestAccessLogItemMeta</code> 使用SPI机制加载，而<code>CompositeVertxRestAccessLogItemMeta</code>可以让用户只在SPI配置文件中配置一条记录就加载多条meta信息，给了用户更灵活的选择。</p>
+<ol>
+<li><strong>AccessLogItemCreator</strong></li>
+</ol>
+<pre><code class="language-java">public interface AccessLogItemCreator&lt;T&gt; {
+    // 接收配置值，返回一个AccessLogItem。如果AccessLogItem的占位符没有可变的配置值部分，则此方法会接收到null。
+    AccessLogItem&lt;T&gt; createItem(String config);
+}
+</code></pre>
+<p>用户通过设置在自定义的 <code>VertxRestAccessLogItemMeta</code> 中的 <code>AccessLogItemCreator</code> 实例化自己的 <code>AccessLogItem</code>。由于这是一个函数式接口，当 <code>AccessLogItem</code> 的初始化方式较简单时，可以直接使用 Lambda表达式定义Creator，以简化开发。</p>
+<h4 id="accesslogitemmeta">AccessLogItemMeta 的匹配规则</h4>
+<p>AccessLogItemMeta 加载进 Parser 后，会进行一次排序。Parser 解析 pattern 串时会从前到后匹配 meta list，总的匹配规则如下：</p>
+<ol>
+<li>
+<p>优先匹配高优先级的meta。</p>
+</li>
+<li>
+<p>优先匹配有后缀的meta，当匹配上多个有后缀meta时，取前后缀相距最小的一个。</p>
+</li>
+<li>
+<p>优先匹配占位符长的meta，例如有两个 meta，"%abc"和"%a"，如果匹配中了"%abc"则直接返回，不再匹配"%a"。</p>
+</li>
+</ol>
+<h4 id="_7">示例说明</h4>
+<ol>
+<li>扩展自定义 AccessLogItem</li>
+</ol>
+<p>首先用户需要 <code>AccessLogItem</code> 接口实现自己的 item：</p>
+<pre><code class="language-java">public class UserDefinedAccessLogItem implements AccessLogItem&lt;RoutingContext&gt; {
+    private String config;
+
+    public UserDefinedAccessLogItem(String config) {
+      this.config = config;
+    }
+
+    @Override
+    public void appendServerFormattedItem(ServerAccessLogEvent accessLogEvent, StringBuilder builder) {
+    builder.append(&quot;user-defined--server-&quot;)
+        .append(accessLogEvent.getRoutingContext().response().getStatusCode())
+        .append(&quot;-&quot;)
+        .append(config);
+    }
+
+    @Override
+    public void appendClientFormattedItem(InvocationFinishEvent clientLogEvent, StringBuilder builder) {
+    builder.append(&quot;user-server-defined-&quot;)
+        .append(clientLogEvent.getResponse().getStatus())
+        .append(&quot;-&quot;)
+        .append(config);
+    }
+}
+</code></pre>
+<ol>
+<li>定义 <strong>AccessLogItem</strong> 的 meta 类</li>
+</ol>
+<p>继承 <code>VertxRestAccessLogItemMeta</code> 或 <code>CompositeVertxRestAccessLogItemMeta</code> 类，定义AccessLogItem的前后缀等信息：</p>
+<pre><code class="language-java">public class UserDefinedCompositeExtendedAccessLogItemMeta extends CompositeVertxRestAccessLogItemMeta {
+    private static final List&lt;VertxRestAccessLogItemMeta&gt; META_LIST = new ArrayList&lt;&gt;();
+
+    static {
+      META_LIST.add(new VertxRestAccessLogItemMeta(&quot;%{&quot;, &quot;}user-defined&quot;, UserDefinedAccessLogItem::new));
+    }
+
+    @Override
+    public List&lt;VertxRestAccessLogItemMeta&gt; getAccessLogItemMetas() {
+      return META_LIST;
+    }
+}
+</code></pre>
+<ol>
+<li>配置SPI加载文件</li>
+</ol>
+<p>在 <code>resources/META-INF/services/</code> 目录下定义一个名为 "org.apache.servicecomb.transport.rest.vertx.accesslog.parser.VertxRestAccessLogItemMeta" 的文件，将上一步中定义的meta类完整类名填写到该文件中，供Parser加载meta类。</p>
+<ol>
+<li>配置 Access Log 的 pattern</li>
+</ol>
+<pre><code class="language-yaml"># 服务端配置
+servicecomb:
+  accesslog:
+    enabled: true ## 应用作为服务端，开启 Access log
+    pattern: &quot;%{param}user-defined&quot; ## Access log 日志格式
+    request:   
+      enabled: true  ## 应用作为客户端，开启 Request log
+      pattern: &quot;%{param}user-defined&quot; ## Request log 日志格式
+</code></pre>
+<p>以服务端为例， 运行服务触发Access Log打印，假设请求返回状态码是 200，则可以看到Access Log打印内容为 "<code>user-defined--server-200-param</code>"。</p>
+<h2 id="_8">示例代码</h2>
+<h3 id="microserviceyaml">microservice.yaml文件中的配置</h3>
+<pre><code class="language-yaml">## other configurations omitted
+servicecomb:
+  accesslog:
+    enabled: true ## 应用作为服务端，开启 Access log
+    pattern: &quot;%h - - %t %r %s %B %D&quot; ## Access log 日志格式
+    request:   
+      enabled: true  ## 应用作为客户端，开启 Request log
+      pattern: &quot;%h %SCB-transport - - %t %r %s %D&quot; ## Request log 日志格式
+
+</code></pre>
+<h3 id="log4jproperties">log4j.properties文件中的配置</h3>
+<pre><code class="language-properties"># log configuration item
+paas.logs.dir=../logs/
+paas.logs.accesslog.file=access.log
+paas.logs.requestlog.file=request.log
+# access log File appender
+log4j.appender.access.MaxBackupIndex=10
+log4j.appender.access.MaxFileSize=20MB
+log4j.appender.access.logPermission=rw-------
+# request log File appender
+log4j.appender.request.MaxBackupIndex=10
+log4j.appender.request.MaxFileSize=20MB
+log4j.appender.request.logPermission=rw-------
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

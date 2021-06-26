@@ -119,8 +119,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -217,7 +217,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a class="active" href="/cn/developers/contributing">社区</a>
+                  <a class="active" href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -497,7 +497,7 @@
 
 <p>在使用Maven把发行包发布到仓库之前，参考了Maven项目的设定<a href="http://maven.apache.org/developers/committer-settings.html">指南</a>。请特别注意<a href="http://maven.apache.org/guides/mini/guide-encryption.html">加密密码</a>。</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;settings&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;settings&gt;
   ...
   &lt;servers&gt;
     &lt;!-- Per http://maven.apache.org/developers/committer-settings.html --&gt;
@@ -530,7 +530,7 @@
 
 <ol>
   <li>克隆service-center代码。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-service-center.git
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-service-center.git
 cd servicecomb-service-center
 gvt restore
 </code></pre></div>    </div>
@@ -542,7 +542,7 @@ gvt restore
     <p>运行RAT工具，检查所有源文件头都有合法的ASF声明, 请参考<a href="https://github.com/apache/servicecomb-service-center/tree/master/docs/release">该文档</a>。</p>
   </li>
   <li>
-    <p>运行<code class="highlighter-rouge">make_release.sh</code>脚本，请参考<a href="https://github.com/apache/servicecomb-service-center/tree/master/scripts/release">该文档</a>。</p>
+    <p>运行<code class="language-plaintext highlighter-rouge">make_release.sh</code>脚本，请参考<a href="https://github.com/apache/servicecomb-service-center/tree/master/scripts/release">该文档</a>。</p>
   </li>
   <li>
     <p>上一步将会在根目录下生成发行包。</p>
@@ -620,16 +620,16 @@ gvt restore
     <p><strong><em>准备待发布版本</em></strong></p>
 
     <p>clone 需要发布版本的分支到开发环境（比如 master）， 修改版本号， 并提交代码到仓库。
-假设当前版本为 <code class="highlighter-rouge">2.0.0-SNAPSHOT</code>，发布版本为 <code class="highlighter-rouge">2.0.0</code>。 执行：</p>
+假设当前版本为 <code class="language-plaintext highlighter-rouge">2.0.0-SNAPSHOT</code>，发布版本为 <code class="language-plaintext highlighter-rouge">2.0.0</code>。 执行：</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ```
   mvn versions:set -DgenerateBackupPoms=false -DnewVersion=2.0.0
   ```
 </code></pre></div>    </div>
 
     <p>然后执行：</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ```
   mvn clean install -Pit
   ```
 </code></pre></div>    </div>
@@ -645,9 +645,9 @@ gvt restore
 
 <ol>
   <li>
-    <p>如果 <code class="highlighter-rouge">~/.gnupg</code> 中没有GPG密钥文件，则将GPG密钥文件拷贝至 <code class="highlighter-rouge">~/.gnupg</code> 文件夹。 文件列表如下：</p>
+    <p>如果 <code class="language-plaintext highlighter-rouge">~/.gnupg</code> 中没有GPG密钥文件，则将GPG密钥文件拷贝至 <code class="language-plaintext highlighter-rouge">~/.gnupg</code> 文件夹。 文件列表如下：</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  gpg.conf
  pubring.gpg
  random_seed
@@ -657,15 +657,15 @@ gvt restore
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>更新 <code class="highlighter-rouge">~/.m2/settings.xml</code> 文件中的GPG密码。</p>
+    <p>更新 <code class="language-plaintext highlighter-rouge">~/.m2/settings.xml</code> 文件中的GPG密码。</p>
   </li>
   <li>
-    <p>更新 <code class="highlighter-rouge">~/.m2/settings.xml</code> 文件中的Apache帐户用户名和密码。</p>
+    <p>更新 <code class="language-plaintext highlighter-rouge">~/.m2/settings.xml</code> 文件中的Apache帐户用户名和密码。</p>
   </li>
   <li>
     <p>克隆java-chassis代码</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  git clone https://github.com/apache/servicecomb-java-chassis.git
  ```
 </code></pre></div>    </div>
@@ -673,26 +673,26 @@ gvt restore
   <li>
     <p>运行以下命令。运行过程中可能需要输入 gpg 密码，</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  mvn clean deploy -DskipTests -Prelease -Pdistribution
  ```
 </code></pre></div>    </div>
 
     <p>如果提示 gpg 失败， 尝试执行下面的命令后，重新执行上面的命令：</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  export GPG_TTY=$(tty)
  ```
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>如果执行失败，需要解决问题。 并参考第7步<code class="highlighter-rouge">drop</code>临时仓库，重新执行第5步。</p>
+    <p>如果执行失败，需要解决问题。 并参考第7步<code class="language-plaintext highlighter-rouge">drop</code>临时仓库，重新执行第5步。</p>
   </li>
   <li>
     <p>如果步骤5命令执行成功，则所有的jar包都已经成功上传至maven临时仓库。<br />
  使用apache帐号登录到 <a href="https://repository.apache.org/">Apache Nexus</a> ，点击 “Staging Repositories”， 搜索 “servicecomb”，
  根据时间找到最近的java-chassis相关的记录，close该条记录，得到maven临时仓库的链接，例
- 如：<code class="highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385</code>。</p>
+ 如：<code class="language-plaintext highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385</code>。</p>
   </li>
   <li>
     <p>在 servicecomb-java-chassis 的 github 的 release 页面，点击 release， 发布 pre release 版本， 打上 tag 。</p>
@@ -707,7 +707,7 @@ gvt restore
   <li>
     <p>从临时仓库下载二进制包及签名， 例如：</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip  
  https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip.asc
  ``` 
@@ -716,7 +716,7 @@ gvt restore
   <li>
     <p>从临时仓库下载源码包及签名，例如：</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-src.zip
  https://repository.apache.org/content/repositories/orgapacheservicecomb-1385/org/apache/servicecomb/apache-servicecomb-java-chassis-distribution/1.2.0/apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.asc
  ```  
@@ -725,7 +725,7 @@ gvt restore
   <li>
     <p>生成二进制包和源码包的校验和，例如：</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip &gt; apache-servicecomb-java-chassis-distribution-1.2.0-bin.zip.sha512  
  sha512sum -b apache-servicecomb-java-chassis-distribution-1.2.0-src.zip &gt; apache-servicecomb-java-chassis-distribution-1.2.0-src.zip.sha512  
  ```  
@@ -734,7 +734,7 @@ gvt restore
   <li>
     <p>将上述步骤相关的文件，上传到 <a href="https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis/">Apache开发仓库</a> 。 SVN命令：</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  svn co https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-java-chassis
  cd serviecomb-java-chassis
  mkdir -p 1.2.0/rc01
@@ -759,7 +759,7 @@ gvt restore
   </li>
   <li>
     <p>等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题，重新开始版本发布流程（视具体的失败情况，可能
- 需要重新生成 release notes，删除svn临时文件，删除临时<code class="highlighter-rouge">Staging repositories</code>等）。</p>
+ 需要重新生成 release notes，删除svn临时文件，删除临时<code class="language-plaintext highlighter-rouge">Staging repositories</code>等）。</p>
   </li>
   <li>
     <p>将投票结果发布到dev@servicecomb.apache.org。</p>
@@ -777,7 +777,7 @@ gvt restore
   <li>
     <p>将 <a href="https://dist.apache.org/repos/dist/dev">dev</a> 的文件移动到 <a href="https://dist.apache.org/repos/dist/release">release</a> 目录中。</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  cp dev/servicecomb/servicecomb-java-chassis/2.0.0/* release/servicecomb/servicecomb-java-chassis/2.0.0/
  cd release/servicecomb/servicecomb-java-chassis/
  svn add 2.0.0
@@ -787,7 +787,7 @@ gvt restore
 
     <p>同时删除 <a href="https://dist.apache.org/repos/dist/dev">dev</a> 的临时内容。</p>
 
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> ```
  svn rm 1.2.0
  svn ci .
  ```
@@ -805,7 +805,7 @@ gvt restore
  或者 <a href="https://github.com/apache/servicecomb-website/pull/240">2.0.0 RP</a></p>
   </li>
   <li>
-    <p>发送发行通告邮件到 <code class="highlighter-rouge">dev@servicecomb.apache.org</code>， <code class="highlighter-rouge">announce@apache.org</code>。</p>
+    <p>发送发行通告邮件到 <code class="language-plaintext highlighter-rouge">dev@servicecomb.apache.org</code>， <code class="language-plaintext highlighter-rouge">announce@apache.org</code>。</p>
   </li>
 </ol>
 
@@ -814,8 +814,8 @@ gvt restore
 <p><strong><em>准备和校验发行包</em></strong></p>
 
 <ol>
-  <li>如果<code class="highlighter-rouge">~/.gnupg</code>中没有GPG密钥文件，则将GPG密钥文件拷贝至<code class="highlighter-rouge">~/.gnupg</code>文件夹。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  gpg.conf
+  <li>如果<code class="language-plaintext highlighter-rouge">~/.gnupg</code>中没有GPG密钥文件，则将GPG密钥文件拷贝至<code class="language-plaintext highlighter-rouge">~/.gnupg</code>文件夹。
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  gpg.conf
   pubring.gpg
   random_seed
   secring.gpg
@@ -823,24 +823,24 @@ gvt restore
 </code></pre></div>    </div>
   </li>
   <li>
-    <p>更新<code class="highlighter-rouge">~/.m2/settings.xml</code>文件中的GPG密码。</p>
+    <p>更新<code class="language-plaintext highlighter-rouge">~/.m2/settings.xml</code>文件中的GPG密码。</p>
   </li>
   <li>
-    <p>更新<code class="highlighter-rouge">~/.m2/settings.xml</code>文件中的Apache帐户用户名和密码。</p>
+    <p>更新<code class="language-plaintext highlighter-rouge">~/.m2/settings.xml</code>文件中的Apache帐户用户名和密码。</p>
   </li>
   <li>克隆Pack代码。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-pack.git
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-pack.git
 </code></pre></div>    </div>
   </li>
   <li>使用以下perl命令，替换所有pom.xml文件中的版本号并提交改动至本地。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
 </code></pre></div>    </div>
   </li>
   <li>
     <p>在需要release的分支上打上准备发布版本的标签。</p>
   </li>
   <li>运行以下命令。
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Prelease -Pdistribution -Ppassphrase
 </code></pre></div>    </div>
   </li>
   <li>
@@ -848,7 +848,7 @@ gvt restore
   </li>
   <li>
     <p>如果步骤7命令执行成功，则所有的jar包都已经成功上传至maven临时仓库。<br />
-使用apache帐号登录到<a href="https://repository.apache.org/">Apache Nexus</a>，点击“Staging Repositories”，搜索“servicecomb-pack”，根据时间找到最近的pack相关的记录，close该条记录，得到maven临时仓库的链接，例如：<code class="highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385</code></p>
+使用apache帐号登录到<a href="https://repository.apache.org/">Apache Nexus</a>，点击“Staging Repositories”，搜索“servicecomb-pack”，根据时间找到最近的pack相关的记录，close该条记录，得到maven临时仓库的链接，例如：<code class="language-plaintext highlighter-rouge">https://repository.apache.org/content/repositories/orgapacheservicecomb-1385</code></p>
   </li>
   <li>将release分支以及标签分别push至主仓库。</li>
 </ol>

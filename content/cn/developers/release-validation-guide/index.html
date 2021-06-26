@@ -119,8 +119,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -217,7 +217,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a class="active" href="/cn/developers/contributing">社区</a>
+                  <a class="active" href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -510,7 +510,7 @@
 <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Release Candidate : https://dist.apache.org/repos/dist/dev/incubator/servicecomb/incubator-servicecomb-java-chassis/1.0.0-m2/rc-01/
 </code></pre></div></div>
 
-<p>在浏览器中打开，下载<code class="highlighter-rouge">src.zip</code>结尾的源代码压缩包，以及同名的<code class="highlighter-rouge">src.zip.asc</code>签名文件和<code class="highlighter-rouge">src.zip.sha512</code>哈希文件，保持三个文件在同一目录下。</p>
+<p>在浏览器中打开，下载<code class="language-plaintext highlighter-rouge">src.zip</code>结尾的源代码压缩包，以及同名的<code class="language-plaintext highlighter-rouge">src.zip.asc</code>签名文件和<code class="language-plaintext highlighter-rouge">src.zip.sha512</code>哈希文件，保持三个文件在同一目录下。</p>
 
 <p>请在Vote邮件中找到<strong>Key</strong>的URL：</p>
 
@@ -522,21 +522,21 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--import</span> KEYS
 </code></pre></div></div>
 
-<p>提示<code class="highlighter-rouge">Mohammad Asif Siddiqui (ServiceComb Code Signing Key) &lt;asifdxtreme@apache.org&gt;</code>成功导入或未变化（已导入过）</p>
+<p>提示<code class="language-plaintext highlighter-rouge">Mohammad Asif Siddiqui (ServiceComb Code Signing Key) &lt;asifdxtreme@apache.org&gt;</code>成功导入或未变化（已导入过）</p>
 
 <p>验证签名：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gpg <span class="nt">--verify</span> xxx-src.zip.asc xxx-src.zip
 </code></pre></div></div>
 
-<p>提示<code class="highlighter-rouge">Good signature from "Mohammad Asif Siddiqui (ServiceComb Code Signing Key) &lt;asifdxtreme@apache.org&gt;"</code>代表签名正确。</p>
+<p>提示<code class="language-plaintext highlighter-rouge">Good signature from "Mohammad Asif Siddiqui (ServiceComb Code Signing Key) &lt;asifdxtreme@apache.org&gt;"</code>代表签名正确。</p>
 
 <p>验证Hash：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sha512sum</span> <span class="nt">-c</span> xxx-src.zip.sha512
 </code></pre></div></div>
 
-<p>提示<code class="highlighter-rouge">OK</code>代表Hash正确。</p>
+<p>提示<code class="language-plaintext highlighter-rouge">OK</code>代表Hash正确。</p>
 
 <h3 id="验证源代码功能正确">验证源代码功能正确</h3>
 <p>解压源代码：</p>
@@ -544,7 +544,7 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>unzip xxx-src.zip
 </code></pre></div></div>
 
-<p>使用<code class="highlighter-rouge">cd</code>命令切换到解压出来的源代码根目录下，执行：</p>
+<p>使用<code class="language-plaintext highlighter-rouge">cd</code>命令切换到解压出来的源代码根目录下，执行：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean <span class="nb">install</span> <span class="nt">-Pdocker</span> <span class="nt">-Pit</span> <span class="nt">-Pdemo-run-release</span>
 </code></pre></div></div>
@@ -572,7 +572,7 @@
 <div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Staging Repository : https://repository.apache.org/content/repositories/orgapacheservicecomb-xxxx/
 </code></pre></div></div>
 
-<p>之后在maven的<code class="highlighter-rouge">settings.xml</code>中添加Staging Repository地址配置：</p>
+<p>之后在maven的<code class="language-plaintext highlighter-rouge">settings.xml</code>中添加Staging Repository地址配置：</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;settings&gt;</span>
 	<span class="nt">&lt;profiles&gt;</span>
@@ -603,7 +603,7 @@
 <span class="nt">&lt;/settings&gt;</span>
 </code></pre></div></div>
 
-<p>一切就绪后，使用<code class="highlighter-rouge">cd</code>命令切换到<strong>源代码demo目录(注意不是根目录)下</strong>，执行：</p>
+<p>一切就绪后，使用<code class="language-plaintext highlighter-rouge">cd</code>命令切换到<strong>源代码demo目录(注意不是根目录)下</strong>，执行：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn clean <span class="nb">install</span> <span class="nt">-Pdocker</span> <span class="nt">-Pstaging</span> <span class="nt">-Pit</span> <span class="nt">-Pdemo-run-release</span>
 </code></pre></div></div>
@@ -622,13 +622,13 @@
 <p>等待所有的测试通过，依据配置环境不同，约耗时5~15分钟。</p>
 
 <h3 id="验证spring-cloud集成功能正确">验证Spring Cloud集成功能正确</h3>
-<p>从https://github.com/ServiceComb/ServiceComb-Company-WorkShop Clone最新Company示例项目代码，切换到<code class="highlighter-rouge">1.x</code>分支：</p>
+<p>从https://github.com/ServiceComb/ServiceComb-Company-WorkShop Clone最新Company示例项目代码，切换到<code class="language-plaintext highlighter-rouge">1.x</code>分支：</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/ServiceComb/ServiceComb-Company-WorkShop.git
 git checkout 1.x
 </code></pre></div></div>
 
-<p>修改项目根目录中的<code class="highlighter-rouge">pom.xml</code>，更改其中的<code class="highlighter-rouge">&lt;java-chassis.version&gt;</code>配置为当前发版版本，例如1.0.0-m2：</p>
+<p>修改项目根目录中的<code class="language-plaintext highlighter-rouge">pom.xml</code>，更改其中的<code class="language-plaintext highlighter-rouge">&lt;java-chassis.version&gt;</code>配置为当前发版版本，例如1.0.0-m2：</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;properties&gt;</span>
   <span class="nt">&lt;java-chassis.version&gt;</span>1.0.0-m2<span class="nt">&lt;/java-chassis.version&gt;</span>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>多个返回值和错误码 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u591a\u4e2a\u8fd4\u56de\u503c\u548c\u9519\u8bef\u7801";
+    var mkdocs_page_input_path = "build-provider/multi-code.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>多个返回值和错误码</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="_1">多个返回值和错误码</h1>
+<p>使用透明RPC开发服务提供者，开发者很容易理解一个接口只有一个返回值类型。使用REST风格（Spring MVC 或者 JAXRS），很多场景会碰到
+多个返回值和错误码的情况。和很多其他开发框架（比如Servlet、Spring MVC等）不一样，Java Chassis要求接口定义的返回值和错误码都
+必须显示的声明，即通过代码生成的swagger，必须包含所有的错误码描述和返回值类型描述。 在Java Chassis，无法使用隐藏参数、未声明
+的错误码。这样设计的直接好处是接口定义更加明确，不需要额外的文档帮助使用者理解接口的使用方法。 </p>
+<p>在前面的开发指导里面，主要介绍了一个返回值和一个错误码的情况（200）。 下面介绍如何使用多个错误码和返回值，同时会介绍如何返回额外的
+header参数。 </p>
+<p>Java Chassis将错误码进行了分类：2xx错误码认为是一个正常的响应，一个接口只允许存在一个正常响应错误码；
+其他错误码认为是一个异常的响应，一个接口可以定义多个异常的响应，并且需要采用InvocationException的方式将异常抛出，每个错误码可以指定
+不同的响应类型。 </p>
+<ul>
+<li>采用<code>ApiResponse</code>定义多个返回值和错误码</li>
+</ul>
+<pre><code class="language-java">@Path(&quot;/errorCode&quot;)
+@POST
+@ApiResponses({
+  @ApiResponse(code = 200, response = MultiResponse200.class, message = &quot;&quot;),
+  @ApiResponse(code = 400, response = MultiResponse400.class, message = &quot;&quot;),
+  @ApiResponse(code = 500, response = MultiResponse500.class, message = &quot;&quot;)})
+public MultiResponse200 errorCode(MultiRequest request) {
+    if (request.getCode() == 400) {
+      MultiResponse400 r = new MultiResponse400();
+      r.setCode(400);
+      r.setMessage(&quot;bad request&quot;);
+      throw new InvocationException(javax.ws.rs.core.Response.Status.BAD_REQUEST, r);
+    } else if (request.getCode() == 500) {
+      MultiResponse500 r = new MultiResponse500();
+      r.setCode(500);
+      r.setMessage(&quot;internal error&quot;);
+      throw new InvocationException(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR, r);
+    } else {
+      MultiResponse200 r = new MultiResponse200();
+      r.setCode(200);
+      r.setMessage(&quot;success result&quot;);
+      return r;
+    }
+}
+</code></pre>
+<ul>
+<li>采用 <code>org.apache.servicecomb.swagger.invocation.Response</code> 响应类型</li>
+</ul>
+<p>采用 <code>org.apache.servicecomb.swagger.invocation.Response</code> 响应类型，除了可以定义多个错误码和响应类型，还可以通过
+<code>ResponseHeader</code> 定义额外的响应头。 </p>
+<pre><code class="language-java">@Path(&quot;/errorCode&quot;)
+@POST
+@ApiResponses({
+  @ApiResponse(code = 200, response = MultiResponse200.class, message = &quot;&quot;),
+  @ApiResponse(code = 400, response = MultiResponse400.class, message = &quot;&quot;),
+  @ApiResponse(code = 500, response = MultiResponse500.class, message = &quot;&quot;)})
+@ResponseHeaders({@ResponseHeader(name = &quot;x-code&quot;, response = String.class)})
+public Response errorCodeWithHeader(MultiRequest request) {
+    Response response = new Response();
+    if (request.getCode() == 400) {
+      MultiResponse400 r = new MultiResponse400();
+      r.setCode(400);
+      r.setMessage(&quot;bad request&quot;);
+      response.setStatus(Status.BAD_REQUEST);
+      response.setResult(new InvocationException(Status.BAD_REQUEST, r));
+      response.setHeader(&quot;x-code&quot;, &quot;400&quot;);
+    } else if (request.getCode() == 500) {
+      MultiResponse500 r = new MultiResponse500();
+      r.setCode(500);
+      r.setMessage(&quot;internal error&quot;);
+      response.setStatus(Status.INTERNAL_SERVER_ERROR);
+      response.setResult(new InvocationException(Status.INTERNAL_SERVER_ERROR, r));
+      response.setHeader(&quot;x-code&quot;, &quot;500&quot;);
+    } else {
+      MultiResponse200 r = new MultiResponse200();
+      r.setCode(200);
+      r.setMessage(&quot;success result&quot;);
+      response.setStatus(Status.OK);
+      response.setResult(r);
+      response.setHeader(&quot;x-code&quot;, &quot;200&quot;);
+    }
+    return response;
+}
+</code></pre>
+<ul>
+<li>采用 <code>javax.ws.rs.core.Response</code> 响应类型</li>
+</ul>
+<p>采用 <code>javax.ws.rs.core.Response</code> 响应类型，除了可以定义多个错误码和响应类型，还可以通过
+<code>ResponseHeader</code> 定义额外的响应头。 </p>
+<pre><code class="language-java">@Path(&quot;/errorCodeWithHeaderJAXRS&quot;)
+@POST
+@ApiResponses({
+  @ApiResponse(code = 200, response = MultiResponse200.class, message = &quot;&quot;),
+  @ApiResponse(code = 400, response = MultiResponse400.class, message = &quot;&quot;),
+  @ApiResponse(code = 500, response = MultiResponse500.class, message = &quot;&quot;)})
+public javax.ws.rs.core.Response errorCodeWithHeaderJAXRS(MultiRequest request) {
+    javax.ws.rs.core.Response response;
+    if (request.getCode() == 400) {
+      MultiResponse400 r = new MultiResponse400();
+      r.setCode(request.getCode());
+      r.setMessage(request.getMessage());
+      response = javax.ws.rs.core.Response.status(Status.BAD_REQUEST)
+          .entity(new InvocationException(Status.BAD_REQUEST, r))
+          .header(&quot;x-code&quot;, &quot;400&quot;)
+          .build();
+    } else if (request.getCode() == 500) {
+      MultiResponse500 r = new MultiResponse500();
+      r.setCode(request.getCode());
+      r.setMessage(request.getMessage());
+      response = javax.ws.rs.core.Response.status(Status.INTERNAL_SERVER_ERROR)
+          .entity(new InvocationException(Status.INTERNAL_SERVER_ERROR, r))
+          .header(&quot;x-code&quot;, &quot;500&quot;)
+          .build();
+    } else {
+      MultiResponse200 r = new MultiResponse200();
+      r.setCode(request.getCode());
+      r.setMessage(request.getMessage());
+      // If error code is OK family(like 200), we can use the target type.
+      response = javax.ws.rs.core.Response.status(Status.OK)
+          .entity(r)
+          .header(&quot;x-code&quot;, &quot;200&quot;)
+          .build();
+    }
+    return response;
+}
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

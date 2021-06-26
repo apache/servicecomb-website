@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Access Log Configuration - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Access Log Configuration";
+    var mkdocs_page_input_path = "build-provider/access-log-configuration.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/terminology.html">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/architecture.html">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/development-environment.html">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/first-sample.html">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="definition/service-definition.html">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="define-contract.html">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="code-first.html">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="swagger-annotation.html">Use Swagger annotations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="springmvc.html">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="jaxrs.html">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="transparent-rpc.html">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="interface-constraints.html">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="listen-address-and-publish-address.html">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="thread-pool.html">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="configuration/ratelimite-strategy.html">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="configuration/downgrade-strategy.html">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="configuration/parameter-validator.html">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="bootup.html">Boot-up Process</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="access-log-configuration.html">Access Log Configuration</a>
+    <ul class="current">
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/common-configuration.html">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-resttemplate.html">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/using-AsyncRestTemplate.html">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/develop-consumer-using-rpc.html">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/with-contract.html">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/circuit-breaker.html">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/flow-control.html">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../build-consumer/fault-injection.html">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/3rd-party-service-invoke.html">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/visit-sc.html">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/metrics.html">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/microservice-invocation-chain.html">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/customized-tracing.html">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/local-develop-test.html">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/http-filter.html">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-upload.html">File Uploading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/file-download.html">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/reactive.html">Reactive Programing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dnsconfig.html">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/dai-li-she-zhi.html">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/report-framework-version.html">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/cross-app-invocation.html">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/secret-field.html">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/context.html">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/produceprocess.html">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/CORS.html">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/AlarmEvent.html">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/shutdown.html">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/error-handling.html">Handling exceptions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/multienvironment.html">Multi-environment isolation between microservice instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../general-development/thread-model.html">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/inject-config.html">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/rsa.html">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/components-for-spring-boot.html">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/java-application.html">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/web-application.html">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-between-java-web.html">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/diff-spring-mvc.html">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Development Service Provider &raquo;</li>
+        
+      
+    
+    <li>Access Log Configuration</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="concepts">Concepts</h2>
+<p>ServiceComb provides Vert.x based access log. When developing with REST over Vert.x , access log printing can be enabled through a simple configuration.</p>
+<h2 id="scenario">Scenario</h2>
+<p>The user may need the access log when debugging the application. When using REST over servlet, the web container provides the access log function; for REST over Vert.x, ServiceComb provides a set of access log functionalities.</p>
+<h2 id="configuration">Configuration</h2>
+<h3 id="enable-access-log">Enable Access Log</h3>
+<p>Add the following configurations in the microservice.yaml file to enable access log:</p>
+<pre><code class="language-yaml">servicecomb:
+  accesslog:
+    enabled: true  ## Enable access log
+</code></pre>
+<p><em><strong>Access log Configuration Items</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Configuration Item</th>
+<th align="left">Values</th>
+<th align="left">Default Value</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">servicecomb.accesslog.enabled</td>
+<td align="left">true/false</td>
+<td align="left">false</td>
+<td align="left">true to enabled access log</td>
+</tr>
+<tr>
+<td align="left">servicecomb.accesslog.pattern</td>
+<td align="left">the format of the log</td>
+<td align="left">"%h - - %t %r %s %B"</td>
+<td align="left">See <em><strong>log configuration items</strong></em> for more details</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em><strong>Note</strong></em></p>
+<ul>
+<li>The 2 items are optional, if not configured, the default value will be applied.</li>
+</ul>
+</blockquote>
+<h3 id="log-format-configuration">Log format configuration</h3>
+<p>The currently available configuration items for log are describe in the following table <strong><em>Log configuration items(Apache &amp; W3C)</em></strong> and<strong><em>Log configuration items(ServiceComb)</em></strong> 。</p>
+<p><em><strong>Log configuration items (Apache &amp; W3C)</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Item</th>
+<th align="left">Apache log format</th>
+<th align="left">W3C log format</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">HTTP method</td>
+<td align="left">%m</td>
+<td align="left">cs-method</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">HTTP status</td>
+<td align="left">%s</td>
+<td align="left">sc-status</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Duration in second</td>
+<td align="left">%T</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Duration in millisecond</td>
+<td align="left">%D</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Remote hostname</td>
+<td align="left">%h</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Local hostname</td>
+<td align="left">%v</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Local port</td>
+<td align="left">%p</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Size of response</td>
+<td align="left">%B</td>
+<td align="left">-</td>
+<td align="left">Print "0" if body size is 0</td>
+</tr>
+<tr>
+<td align="left">Size of response</td>
+<td align="left">%b</td>
+<td align="left">-</td>
+<td align="left">Print "-" if body size is 0</td>
+</tr>
+<tr>
+<td align="left">First line of request</td>
+<td align="left">%r</td>
+<td align="left">-</td>
+<td align="left">Include HTTP Method, Uri and HTTP version</td>
+</tr>
+<tr>
+<td align="left">URI path</td>
+<td align="left">%U</td>
+<td align="left">cs-uri-stem</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Query string</td>
+<td align="left">%q</td>
+<td align="left">cs-uri-query</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">URI path and query string</td>
+<td align="left">-</td>
+<td align="left">cs-uri</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Request protocol</td>
+<td align="left">%H</td>
+<td align="left">-</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">Datetime the request is received</td>
+<td align="left">%t</td>
+<td align="left">-</td>
+<td align="left">Print time stamp by the default configuration, the format is "EEE, dd MMM yyyy HH:mm:ss zzz", in English and GMT time zone</td>
+</tr>
+<tr>
+<td align="left">Configurable datetime the request is received</td>
+<td align="left">%{PATTERN}t</td>
+<td align="left">-</td>
+<td align="left">Print time stamp by specified format, in English and GMT time zone</td>
+</tr>
+<tr>
+<td align="left">Configurable datetime the request is received</td>
+<td align="left">%{PATTERN&#124;TIMEZONE&#124;LOCALE}t</td>
+<td align="left">-</td>
+<td align="left">Print time stamp by the specified format, language and time zone. The items between vertical bar can be empty(while the | should not be omitted)</td>
+</tr>
+<tr>
+<td align="left">Request header</td>
+<td align="left">%{VARNAME}i</td>
+<td align="left">-</td>
+<td align="left">Print "-" if the specified request header is not found</td>
+</tr>
+<tr>
+<td align="left">Response header</td>
+<td align="left">%{VARNAME}o</td>
+<td align="left">-</td>
+<td align="left">Print "-" if the specified response header is not found</td>
+</tr>
+<tr>
+<td align="left">Cookie</td>
+<td align="left">%{VARNAME}C</td>
+<td align="left">-</td>
+<td align="left">Print "-" if the specified cookie is not found</td>
+</tr>
+</tbody>
+</table>
+<p><em><strong>Log configuration items(ServiceComb)</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Element</th>
+<th align="left">Placeholder</th>
+<th align="left">Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">TraceId</td>
+<td align="left">%SCB-traceId</td>
+<td align="left">Print the trace id generated by ServiceComb, if the id is not found, print "-"</td>
+</tr>
+<tr>
+<td align="left">Invocation Context</td>
+<td align="left">%{VARNAME}SCB-ctx</td>
+<td align="left">Print the invocation context value whose key is <code>VARNAME</code>, if the key is not found, print "-"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="output-file-configuration">Output file configuration</h3>
+<p>The default log framework for Access log is Log4j which provides a default set of configurations for output files. Users can override these configurations in their own log4j.properties file. The configuration items for output files are as follows.</p>
+<p><em><strong>Log file configuration items</strong></em></p>
+<table>
+<thead>
+<tr>
+<th align="left">Item</th>
+<th align="left">Default Value</th>
+<th align="left">Description</th>
+<th align="left">Remarks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">paas.logs.accesslog.dir</td>
+<td align="left">${paas.logs.dir}</td>
+<td align="left">The output path of the log file</td>
+<td align="left">The common logs will be outputted to the same path</td>
+</tr>
+<tr>
+<td align="left">paas.logs.accesslog.file</td>
+<td align="left">access.log</td>
+<td align="left">Name of the log file</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">log4j.appender.access.MaxBackupIndex</td>
+<td align="left">10</td>
+<td align="left">Max file numbers for log rotating</td>
+<td align="left">-</td>
+</tr>
+<tr>
+<td align="left">log4j.appender.access.MaxFileSize</td>
+<td align="left">20MB</td>
+<td align="left">Max size of log file</td>
+<td align="left">When log file reaches the max size, log rotating is triggered</td>
+</tr>
+<tr>
+<td align="left">.appender.access.logPermission</td>
+<td align="left">rw-------</td>
+<td align="left">Log file permissions</td>
+<td align="left">-</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em><strong>Note</strong></em> 
+Since ServiceComb's log function relies only on the slf4j interface, users can select other log frameworks. For other frameworks, users need to configure the log file output options.</p>
+</blockquote>
+<h3 id="switch-to-logback">Switch to logback</h3>
+<blockquote>
+<p>For the project that uses logback, the log framework dependency should be changed from Log4j to logback with some extra configurations to make access log work.</p>
+</blockquote>
+<h4 id="1-remove-log4j-dependencies">1. Remove Log4j dependencies</h4>
+<p>Before switching to logback, check the dependencies of the project and remove Log4j related dependencies. Run the maven command <code>dependency:tree</code> in the project, find the ServiceComb components that depend on Log4j, and add the following configuration to its <code>&lt;dependency&gt;</code>:</p>
+<pre><code class="language-xml">&lt;exclusion&gt;
+  &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+  &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+&lt;/exclusion&gt;
+</code></pre>
+<h4 id="2-add-a-logback-dependency">2. Add a logback dependency</h4>
+<p>Add a dependency for the logback in the pom file:</p>
+<pre><code class="language-xml">&lt;dependency&gt;
+  &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+  &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;
+  &lt;artifactId&gt;logback-classic&lt;/artifactId&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+  &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt;
+  &lt;artifactId&gt;logback-core&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code></pre>
+<h4 id="3-configure-the-logger-for-the-access-log-component">3. Configure the logger for the access log component</h4>
+<p>Since the log component provided by ServiceComb obtains the logger named <code>accesslog</code> for log printing, the key to log framework switching is to provide a file called <code>accesslog</code> and configure the output file for it. The following is a sample configuration of the access log for logback. It only shows the configurations related to the access log. Other log configurations are omitted:</p>
+<pre><code class="language-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;!-- Users can customize the appender by their requirement --&gt;
+  &lt;appender name=&quot;ACCESSLOG&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+    &lt;file&gt;./logs/access.log&lt;/file&gt;
+    &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.TimeBasedRollingPolicy&quot;&gt;
+      &lt;fileNamePattern&gt;./logs/access-%d{yyyy-MM-dd}.log&lt;/fileNamePattern&gt;
+    &lt;/rollingPolicy&gt;
+    &lt;!-- Note: the access log content is formatted in code, the pattern should only specify the message without extra format --&gt;
+    &lt;encoder&gt;
+      &lt;pattern&gt;%msg%n&lt;/pattern&gt;
+    &lt;/encoder&gt;
+  &lt;/appender&gt;
+
+  &lt;!-- Provide a logger named &quot;accesslog&quot; for log printing --&gt;
+  &lt;logger name=&quot;accesslog&quot; level=&quot;INFO&quot; additivity=&quot;false&quot;&gt;
+    &lt;appender-ref ref=&quot;ACCESSLOG&quot; /&gt;
+  &lt;/logger&gt;
+&lt;/configuration&gt;
+</code></pre>
+<h3 id="extending-access-log">Extending Access Log</h3>
+<p>Users can customize their AccessLogItem by ServiceComb's AccessLogItem extension mechanism.</p>
+<h4 id="related-classes">Related classes</h4>
+<ol>
+<li><code>AccessLogItem</code></li>
+</ol>
+<pre><code class="language-java">  public interface AccessLogItem&lt;T&gt; {
+    /**
+     * Get specified content from accessLogParam, generate the access log and return
+     */
+    String getFormattedItem(AccessLogParam&lt;T&gt; accessLogParam);
+  }
+</code></pre>
+<p>The definition of <code>AccessLogItem</code> is as shown above. When request triggers Access Log printing, ServiceComb's Access Log mechanism will traverse a valid <code>AccessLogItem</code>, call the <code>getFormattedItem</code> method to get the item's Access Log fragment, concatenate all the the fragments into an Access Log, and output it to the log file.</p>
+<p>The parameter <code>AccessLogParam&lt;T&gt;</code> contains the request start time, the end time, and the request context of type <code>T</code>. In the REST over Vert.x communication mode, the type <code>T</code> is the <code>RoutingContext</code> of Vert.x.</p>
+<ol>
+<li><code>VertxRestAccessLogItemMeta</code></li>
+</ol>
+<pre><code class="language-java">  // pattern placeholder prefix
+  protected String prefix;
+  // pattern placeholder suffix
+  protected String suffix;
+  // order number of priority
+  protected int order;
+  // AccessLogItem constructor
+  protected AccessLogItemCreator&lt;RoutingContext&gt; accessLogItemCreator;
+</code></pre>
+<p>The  <code>VertxRestAccessLogItemMeta</code> contains the properties listed above, it specifies how ServiceComb parse the pattern string to get specific AccessLogItem.</p>
+<ul>
+<li>
+<p>To define a <code>AccessLogItem</code> with placeholder <code>%user-defined</code>, declare a subclass of <code>VertxRestAccessLogItemMeta</code>，set prefix="%user-defined", suffix=null, when <code>AccessLogPatternParser</code> parses the "%user-defined", it will fetch the <code>AccessLogItemCreator</code> from the meta class and create the corresponding <code>AccessLogItem</code>. <strong>Note:</strong> since there is not variable in placeholder "%user-defined", the call to <code>AccessLogItemCreator</code> passes the configuration parameter null。</p>
+</li>
+<li>
+<p>To get a <code>AccessLogItem</code> with placeholder <code>%{VARNAME}user-defined</code>, declare a subclass of<code>VertxRestAccessLogItemMeta</code>, set prefix="%{", suffix="}user-defined". When <code>AccessLogPatternParser</code>parses "%{VARNAME}user-defined", it will extract the "VARNAME" as parameter to call <code>AccessLogItemCreator</code>, to create a <code>AccessLogItem</code>.</p>
+</li>
+</ul>
+<p><code>VertxRestAccessLogItemMeta</code> has a subclass<code>CompositeVertxRestAccessLogItemMeta</code>. When user needs to define multiple AccessLogItems, multiple <code>VertxRestAccessLogItemMeta</code> can be aggregated into <code>CompositeVertxRestAccessLogItemMeta</code>. When Parser loads AccessLogItemMeta of type <code>CompositeVertxRestAccessLogItemMeta</code>, it calls the meta class's <code>getAccessLogItemMetas()</code> method to get a set of AccessLogItemMeta. <code>VertxRestAccessLogItemMeta</code> is loaded by the SPI mechanism, and <code>CompositeVertxRestAccessLogItemMeta</code> allows user to load multiple meta infos with on one record in the SPI configuration file, which provides great flexibility.</p>
+<ol>
+<li><code>AccessLogItemCreator</code></li>
+</ol>
+<pre><code class="language-java">  public interface AccessLogItemCreator&lt;T&gt; {
+    // Receive configuration values and return an AccessLogItem. The method receives a null if there is no variables in AccessLogItem placeholder
+    AccessLogItem&lt;T&gt; createItem(String config);
+  }
+</code></pre>
+<p>The user instantiates his AccessLogItem by setting the AccessLogItemCreator in the custom VertxRestAccessLogItemMeta. Since this is a functional interface, when the AccessLogItem is initialized in a simple way, you can directly define the Creator using a Lambda expression to simplify development.</p>
+<h4 id="matching-rules-of-accesslogitemmeta">Matching rules of AccessLogItemMeta</h4>
+<p>Once AccessLogItemMeta is loaded into the Parser, it will be sorted once. Parser will match the meta list from front to back when parsing the pattern string. The general matching rules are as follows:
+1. Match metas with higher priority.
+2. Match the meta with suffix first. When metas with multiple suffixes are matched, ~~take the one with the smallest suffix.~~
+3. Match the meta with a longer placeholder, for example, there are two metas, "%abc" and "%a". If  "%abc" is matched, it will return directly.</p>
+<h4 id="sample">Sample</h4>
+<ol>
+<li>Extend AccessLogItem</li>
+</ol>
+<p>First, the user needs the AccessLogItem interface to implement their own item:</p>
+<pre><code class="language-java">  public class UserDefinedAccessLogItem implements AccessLogItem&lt;RoutingContext&gt; {
+    private String config;
+
+    public UserDefinedAccessLogItem(String config) {
+      this.config = config;
+    }
+
+    @Override
+    public String getFormattedItem(AccessLogParam&lt;RoutingContext&gt; accessLogParam) {
+      // Here is the user's custom logic, user needs to take relevant data from AccessLogParam or other places, generate and return access log fragments
+      return &quot;user-defined-[&quot; + config + &quot;]-[&quot; + accessLogParam.getStartMillisecond() + &quot;]&quot;;
+    }
+  }
+</code></pre>
+<ol>
+<li>Define AccessLogItem meta class</li>
+</ol>
+<p>Inherit the class <code>VertxRestAccessLogItemMeta</code> or <code>CompositeVertxRestAccessLogItemMeta</code>, define the prefix and suffix of the AccessLogItem:</p>
+<pre><code class="language-java">  public class UserDefinedCompositeExtendedAccessLogItemMeta extends CompositeVertxRestAccessLogItemMeta {
+    private static final List&lt;VertxRestAccessLogItemMeta&gt; META_LIST = new ArrayList&lt;&gt;();
+
+    static {
+      META_LIST.add(new VertxRestAccessLogItemMeta(&quot;%{&quot;, &quot;}user-defined&quot;, UserDefinedAccessLogItem::new));
+    }
+
+    @Override
+    public List&lt;VertxRestAccessLogItemMeta&gt; getAccessLogItemMetas() {
+      return META_LIST;
+    }
+  }
+</code></pre>
+<ol>
+<li>Configure the SPI load file</li>
+</ol>
+<p>In the <code>resources/META-INF/services/</code> directory, create a file named "org.apache.servicecomb.transport.rest.vertx.accesslog.parser.VertxRestAccessLogItemMeta" and fill in the full class path of the meta class defined in the previous step. Parser will use this file to load the meta class.</p>
+<ol>
+<li>Configure Access Log pattern</li>
+</ol>
+<p>The configuration pattern in the microservice.yaml file is assumed to be "%{test-config}user-defined". The running service triggers the Access Log to print. If the request start time is 1, Access Log will print "user- Defined-[test-config]-[1]".</p>
+<h2 id="sample-code">Sample code</h2>
+<h3 id="configurations-in-microserviceyaml">Configurations in microservice.yaml</h3>
+<pre><code class="language-yaml">## other configurations omitted
+servicecomb:
+  accesslog:
+    enabled: true  ## Enable access log
+    pattern: &quot;%h - - %t %r %s %B&quot;  ## Custom log format
+</code></pre>
+<h3 id="configurations-in-log4jproperties">Configurations in log4j.properties</h3>
+<pre><code class="language-properties"># access log configuration item
+paas.logs.accesslog.dir=../logs/
+paas.logs.accesslog.file=access.log
+# access log File appender
+log4j.appender.access.MaxBackupIndex=10
+log4j.appender.access.MaxFileSize=20MB
+log4j.appender.access.logPermission=rw-------
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../build-consumer/common-configuration.html" class="btn btn-neutral float-right" title="Consumer common configuration">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="bootup.html" class="btn btn-neutral" title="Boot-up Process"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="bootup.html" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../build-consumer/common-configuration.html" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -117,8 +117,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
 <!-- For all browsers -->
-<link rel="stylesheet" href="/assets/css/main.css?v=1">
-<link rel="stylesheet" href="/assets/vendor/prism/prism.css?v=1">
+<link rel="stylesheet" href="/assets/css/main.css">
+<link rel="stylesheet" href="/assets/vendor/prism/prism.css">
 
 <!--[if lte IE 9]>
   <style>
@@ -215,7 +215,7 @@
             
               <li class="masthead__menu-item" onmouseenter="$('#childrenShow').css('display', 'none')">
                 
-                  <a href="/cn/developers/contributing">社区</a>
+                  <a href="/cn/developers/contributing/">社区</a>
                 
               </li>
             
@@ -477,7 +477,7 @@
           </li>
         </ol>
 
-        <p class="notice--warning">注意：前端（frontend）在Linux环境下默认会绑定ipv6地址，导致浏览器报错，修复办法为：先修改conf/app.conf中的httpaddr为外部可达网卡ip，之后修改app/appList/apiList.js中<code class="highlighter-rouge">ip : 'http://127.0.0.1'</code>为对应ip，最后重启ServiceCenter即可。</p>
+        <p class="notice--warning">注意：前端（frontend）在Linux环境下默认会绑定ipv6地址，导致浏览器报错，修复办法为：先修改conf/app.conf中的httpaddr为外部可达网卡ip，之后修改app/appList/apiList.js中<code class="language-plaintext highlighter-rouge">ip : 'http://127.0.0.1'</code>为对应ip，最后重启ServiceCenter即可。</p>
 
       </div>
 </div>
@@ -494,7 +494,7 @@ docker run <span class="nt">-d</span> <span class="nt">-p</span> 30100:30100 ser
 </code></pre></div></div>
 
 <p class="notice--warning"><strong>注意事项：</strong> 服务注册中心运行后绑定的IP为：<em>http://127.0.0.1:30100</em>。<br />
-如使用Docker Toolbox，可通过 <code class="highlighter-rouge">docker-machine ip</code> 获取服务绑定IP地址。</p>
+如使用Docker Toolbox，可通过 <code class="language-plaintext highlighter-rouge">docker-machine ip</code> 获取服务绑定IP地址。</p>
 
 <h3 id="运行-service-center-集群">运行 Service Center 集群</h3>
 <p>Service Center是一个无状态的应用因此它很容易以集群的模式部署提供HA。</p>
@@ -562,8 +562,8 @@ manager_cluster = "10.12.0.4:2379"
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>./service-center
 </code></pre></div></div>
 
-<p>提示：在<code class="highlighter-rouge">manger_cluster</code>配置中你可以填写多个在etcd群集中的etcd实例地址：</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manager_cluster= "10.12.0.4:2379,10.12.0.X:2379,10.12.0.X:2379"
+<p>提示：在<code class="language-plaintext highlighter-rouge">manger_cluster</code>配置中你可以填写多个在etcd群集中的etcd实例地址：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>manager_cluster= "10.12.0.4:2379,10.12.0.X:2379,10.12.0.X:2379"
 </code></pre></div></div>
 
 <h5 id="第三步">第三步</h5>

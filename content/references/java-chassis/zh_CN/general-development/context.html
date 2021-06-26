@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>使用Context传递控制消息 - ServiceComb Java Chassis 开发指南</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "\u4f7f\u7528Context\u4f20\u9012\u63a7\u5236\u6d88\u606f";
+    var mkdocs_page_input_path = "general-development/context.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="icon icon-home"> ServiceComb Java Chassis 开发指南</a>
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../toc.html">目录</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../index.html">概述</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/catalog.html">快速入门</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../start/design.html">设计选型参考</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/definition/service-definition.html">微服务定义</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-provider/catalog.html">开发服务提供者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../build-consumer/catalog.html">开发服务消费者</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="catalog.html">通用功能开发</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的通信协议功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/introduction.html">多协议介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-servlet.html">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/rest-over-vertx.html">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/http2.html">REST over HTTP2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transports/highway-rpc.html">Highway</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">多样化的服务注册与发现功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/introduction.html">注册发现说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/service-center.html">使用服务中心</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/local-registry.html">本地注册发现</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../registry/distributed.html">去中心化注册发现</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">管理服务配置</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/general-config.html">通用配置说明</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config/read-config.html">在程序中读取配置信息</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务治理功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/intruduction.html">处理链介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/loadbalance.html">负载均衡</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/ratelimit.html">限流</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/router.html">灰度发布</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fault-injection.html">故障注入</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">网关功能参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/open-service.html">介绍</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/by-servicecomb-sdk.html">使用 Edge Service 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/zuul.html">使用 `zuul` 和 `spring cloud gateway` 做网关</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../edge/nginx.html">nginx 网关简单介绍</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">安全特性参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../references-handlers/publickey.html">公钥认证</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/tls.html">使用TLS通信</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../security/shi-yong-rsa-ren-zheng.html">使用RSA认证</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">服务打包和运行</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/standalone.html">以standalone模式打包</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../packaging/web-container.html">以WEB容器模式打包</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">专题文章</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/features.html">新功能介绍系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/upgrading.html">升级指导系列文章</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../featured-topics/performance.html">性能问题分析和调优</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常用配置项参考</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/rest-transport-client.html">REST Transport Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/config-center-client.html">Config Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/service-center-client.html">Service Center Client 配置项</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../config-reference/kie-client.html">ServiceComb Kie Client 配置项</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">常见问题</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/faq.html">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/question_answer.html">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../question-and-answer/interface-compatibility.html">微服务接口兼容常见问题</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">ServiceComb Java Chassis 开发指南</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>使用Context传递控制消息</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="context">使用Context传递控制消息</h1>
+<p>Context 用于在微服务之间和微服务内部传递上下文数据。 Context 是 key/value 对，只能够使用 String 类型。
+Context 会序列化为 json 格式并通过 HTTP Header 传递，因此也不支持 ASCII 之外的字符，其他字符需要开发者先自行编码再传递。
+Context 在一次请求中，会在请求链上传递，不需要重新设置。<a href="../build-provider/access-log-configuration.html">access log</a>的 trace id 等
+功能都基于这个特性实现的。</p>
+<p>Context 保存的内容分为 context 和 localContext。 localContext 在调用过程中，会在进程内部传递， 而 context 的内容会传递到调用过程中
+远端服务。 这种传递是单向的。比如在一个 Provider 内部， 调用接口， 那么 localContext 的内容会复制给调用接口运行过程中的 localContext，
+如果这个接口在调用过程中修改了 localContext， 接口返回后， Provider 后续的逻辑处理看不到对于 context 的修改。 </p>
+<p>在 Handler 或者 Filter 中调用其他微服务， context 信息默认不会复制，需要开发者显示的将 context 信息传递过去。 使用 RestTemplate 或者
+RPC 方式传递 context 的例子，请参考本文后面的案例。  </p>
+<h2 id="context_1">使用 Context 的场景</h2>
+<ul>
+<li>在认证场景，Edge Service 认证通过以后，需要将会话 ID、用户名称等信息传递给微服务，实现鉴权等逻辑。</li>
+<li>灰度发布场景，需要结合自定义的 tag 实现引流，tag 信息需要传递给微服务。</li>
+<li>开发 Handler 处理链的时候，一个 Handler 需要将计算结果传递给下一个 Handler。</li>
+</ul>
+<h2 id="_1">使用参考</h2>
+<ul>
+<li>
+<p>在 Hanlder 中获取和设置Context
+    Handler 包含了 Invocation 对象，可以直接调用 invocation.addContext 和 invocation.getContext 。</p>
+</li>
+<li>
+<p>在服务接口中获取Context</p>
+<p>通过接口注入</p>
+<pre><code>```
+public Response cseResponse(InvocationContext c1)
+```
+</code></pre>
+<p>或者</p>
+<pre><code>```
+ContextUtils.getInvocationContext()
+```
+</code></pre>
+</li>
+<li>
+<p>在Edge Service中设置Context</p>
+<p>通过重载EdgeInvocation</p>
+<pre><code>```
+EdgeInvocation edgeInvocation = new EdgeInvocation() {
+  protected void createInvocation() {
+    super.createInvocation();
+    this.invocation.addContext("hello", "world");
+  }
+};
+```
+</code></pre>
+</li>
+</ul>
+<h2 id="context-discoverytree">案例： 使用 Context 和 DiscoveryTree 实现轮询调用一个微服务的所有实例</h2>
+<p>通常微服务的调用，是将请求发送到一个实例，这个实例是根据负载均衡策略决定的，业务开发不可控制。为了实现轮询调用一个微服务的所有实例，
+首先需要获取一个微服务的所有实例列表，然后逐个调用。 LoadBalance 模块支持通过 Context 传递 Endpoint 信息， 如果 Endpoint 已经
+设置， 可以跳过负载均衡判断， 使用用户自己指定的 Endpoint。 </p>
+<ul>
+<li>
+<p>使用 DiscoveryTree 获取微服务实例列表</p>
+<pre><code>```java
+public class TestDateTimeSchema {
+  private DiscoveryTree discoveryTree = new DiscoveryTree();
+
+  public TestDateTimeSchema() {
+    discoveryTree.addFilter(new CustomEndpointDiscoveryFilter());
+    discoveryTree.sort();
+  }
+
+  private void testDateTimeSchemaMulticast() throws Exception {
+    DiscoveryContext context = new DiscoveryContext();
+    VersionedCache serversVersionedCache = discoveryTree.discovery(context, "springmvctest", "springmvc", "0+");
+    List&lt;String&gt; enpoints = serversVersionedCache.data(); // 获取到实例列表，可以给下面的处理流程使用
+  }
+}
+
+public class CustomEndpointDiscoveryFilter extends AbstractEndpointDiscoveryFilter {
+  @Override
+  protected String findTransportName(DiscoveryContext context, DiscoveryTreeNode parent) {
+    //only need rest endpoints
+    return "rest";
+  }
+
+  @Override
+  protected Object createEndpoint(String transportName, String endpoint, MicroserviceInstance instance) {
+    return endpoint;
+  }
+
+  @Override
+  public int getOrder() {
+    return 0;
+  }
+}
+```
+</code></pre>
+<p>上面的代码通过 DiscoveryTree 发现实例列表， 并且实现了 CustomEndpointDiscoveryFilter ， 将发现的实例信息转换为 cache 的返回
+类型， 即 String。</p>
+</li>
+<li>
+<p>通过 InvocationContext 传递 Endpoint 信息给 Load Balance, 每次调用访问用户指定的 Endpoint。
+    访问 InvocationContext 分几种场景， 参考文章上面提到的情况。 在 Consumer 调用的场景下， 可能不在一个 Provider 的处理上下文中，
+    这个时候系统中还没有 InvocationContext 实例， 这个时候可以新创建一个实例， 新创建的实例信息会复制到系统内部。 </p>
+<p>使用 RPC Consumer 传递 InvocationContext 的例子：</p>
+<pre><code>```java
+  interface DateTimeSchemaWithContextInf {
+    Date getDate(InvocationContext context, Date date);
+  }
+
+  @RpcReference(microserviceName = "springmvc", schemaId = "DateTimeSchema")
+  private DateTimeSchemaWithContextInf dateTimeSchemaWithContextInf;
+
+  // code slip
+  for (String endpoint : enpoints) {
+    InvocationContext invocationContext = new InvocationContext();
+    invocationContext.addLocalContext(LoadbalanceHandler.SERVICECOMB_SERVER_ENDPOINT, parseEndpoint(endpoint));
+    Date date = new Date();
+    TestMgr.check(date.getTime(), dateTimeSchemaWithContextInf.getDate(invocationContext, date).getTime());
+  }
+
+  // code slip
+  private Endpoint parseEndpoint(String endpointUri) throws Exception {
+    URI formatUri = new URI(endpointUri);
+    Transport transport = SCBEngine.getInstance().getTransportManager().findTransport(formatUri.getScheme());
+    return new Endpoint(transport, endpointUri);
+  }
+```
+</code></pre>
+<p>使用 RestTemplate 传递  InvocationContext 的例子：</p>
+<pre><code>```
+for (String endpoint : enpoints) {
+  CseHttpEntity&lt;?&gt; entity = new CseHttpEntity&lt;&gt;(null);
+  InvocationContext invocationContext = new InvocationContext();
+  invocationContext.addLocalContext(LoadbalanceHandler.SERVICECOMB_SERVER_ENDPOINT, parseEndpoint(endpoint));
+  entity.setContext(invocationContext);
+
+  Date date = new Date();
+  String dateValue = RestObjectMapperFactory.getRestObjectMapper().convertToString(date);
+  TestMgr.check(date.getTime(),
+      restTemplate
+          .exchange("cse://springmvc/dateTime/getDate?date={1}", HttpMethod.GET,
+              entity, Date.class, dateValue).getBody().getTime());
+ ｝
+ ```
+</code></pre>
+<p><strong><em>注意：</em></strong> 2.0.2 版本开始， LoadbalanceHandler.SERVICECOMB_SERVER_ENDPOINT 传递的类型是 Endpoint, 早期版本可以直接传递 String 类型， 
+LoadBalance 模块会将 String 类型转换为 Endpoint。 在有大量 Endpoint 的情况， 提前使用 Endpoint 类型能够减少类型转换，节省处理时间。</p>
+</li>
+</ul>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
