@@ -33,7 +33,7 @@ Please sent your PR to the master branch instead of asf-site.
 
 # How to push the change to apache website
 
-[Follow This Script](script/release.sh)
+[Follow This Script](script/release)
 
 **Note that tested versions of the tools covered in this section are as following,**    
 
