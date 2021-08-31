@@ -11,7 +11,8 @@ last_modified_at: 2019-04-12T00:50:43-55:00
 
 | Release           |         源码            |           发布包         |           Recommended Version of Service-Center         |
 | ---------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
-|**Apache ServiceComb Java-Chassis 2.3.0 (Latest)**|[[src]][src_2_3_0] [[asc]][src_asc_2_3_0] [[sha512]][src_sha512_2_3_0]|[[Binary]][bin_2_3_0] [[asc]][bin_asc_2_3_0] [[sha512]][bin_sha512_2_3_0]|Service-Center 1.3.0 or above|
+|**Apache ServiceComb Java-Chassis 2.5.0 (Latest)**|[[src]][src_2_5_0] [[asc]][src_asc_2_5_0] [[sha512]][src_sha512_2_5_0]|[[Binary]][bin_2_5_0] [[asc]][bin_asc_2_5_0] [[sha512]][bin_sha512_2_5_0]|Service-Center 1.3.0 or above|
+|Apache ServiceComb Java-Chassis 2.3.0|[[src]][src_2_3_0] [[asc]][src_asc_2_3_0] [[sha512]][src_sha512_2_3_0]|[[Binary]][bin_2_3_0] [[asc]][bin_asc_2_3_0] [[sha512]][bin_sha512_2_3_0]|Service-Center 1.3.0 or above|
 |Apache ServiceComb Java-Chassis 2.2.0|[[src]][src_2_2_0] [[asc]][src_asc_2_2_0] [[sha512]][src_sha512_2_2_0]|[[Binary]][bin_2_2_0] [[asc]][bin_asc_2_2_0] [[sha512]][bin_sha512_2_2_0]|Service-Center 1.3.0 or above|
 |Apache ServiceComb Java-Chassis 2.1.5|[[src]][src_2_1_5] [[asc]][src_asc_2_1_5] [[sha512]][src_sha512_2_1_5]|[[Binary]][bin_2_1_5] [[asc]][bin_asc_2_1_5] [[sha512]][bin_sha512_2_1_5]|Service-Center 1.3.0 or above|
 |Apache ServiceComb Java-Chassis 2.1.3|[[src]][src_2_1_3] [[asc]][src_asc_2_1_3] [[sha512]][src_sha512_2_1_3]|[[Binary]][bin_2_1_3] [[asc]][bin_asc_2_1_3] [[sha512]][bin_sha512_2_1_3]|Service-Center 1.3.0 or above|
