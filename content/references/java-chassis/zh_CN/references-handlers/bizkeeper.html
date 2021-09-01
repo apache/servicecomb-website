@@ -270,7 +270,7 @@ Chassis 对 Hystrix 进行了封装， 只需要进行简单的配置即可启�
 <ul>
 <li>配置项生效范围<ul>
 <li>按照类型(type)：配置项能够针对Provider, Consumer进行配置</li>
-<li>按照范围(scope)：配置项能够针对 MicroService 进行配置, 也可以针对 <code>schemaId</code> 和 <code>operationId</code> 进行配置</li>
+<li>按照范围(scope)：配置项能够针对服务进行配置, 也可以针对接口进行配置</li>
 </ul>
 </li>
 </ul>
@@ -280,12 +280,12 @@ Chassis 对 Hystrix 进行了封装， 只需要进行简单的配置即可启�
 <p>type 指 Provider 或者 Consumser。 scope 指配置项生效范围， 针对特定的微服务的配置，需要增加 MicroServiceName, 针对接口配置的，需要指定接口名称，接口名
 称由 <code>schemaId</code> 和 <code>operationId</code> 组成。</p>
 <p>下面是一些配置示例：</p>
-<pre><code>servicecomb.isolation.Consumer.timeout.enabled
-servicecomb.isolation.Consumer.DemoService.timeout.enabled
-servicecomb.isolation.Consumer.DemoService.hello.sayHello.timeout.enabled
-servicecomb.isolation.Provider.timeout.enabled
-servicecomb.isolation.Provider.DemoService.timeout.enabled
-servicecomb.isolation.Provider.DemoService.hello.sayHello.timeout.enabled
+<pre><code>servicecomb.isolation.Consumer.timeout.enabled # 全局配置
+servicecomb.isolation.Consumer.DemoService.timeout.enabled # 服务配置
+servicecomb.isolation.Consumer.DemoService.hello.sayHello.timeout.enabled # 接口配置
+servicecomb.isolation.Provider.timeout.enabled # 全局配置
+servicecomb.isolation.Provider.DemoService.timeout.enabled # 服务配置
+servicecomb.isolation.Provider.DemoService.hello.sayHello.timeout.enabled # 接口配置
 </code></pre>
 <ul>
 <li>配置项列表</li>
@@ -375,14 +375,6 @@ servicecomb.isolation.Provider.DemoService.hello.sayHello.timeout.enabled
 <td align="left">由于10秒还会被划分为10个1秒的统计周期，经过1s中后才会开始计算错误率，因此从调用开始至少经过1s，才会发生熔断。</td>
 </tr>
 <tr>
-<td align="left">servicecomb.fallback.[type].[scope].enabled</td>
-<td align="left">TRUE</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">是否启用出错后的故障处理措施</td>
-<td align="left"></td>
-</tr>
-<tr>
 <td align="left">servicecomb.fallback.[type].[scope].maxConcurrentRequests</td>
 <td align="left">10</td>
 <td align="left">-</td>
@@ -400,9 +392,9 @@ servicecomb.isolation.Provider.DemoService.hello.sayHello.timeout.enabled
 </tr>
 </tbody>
 </table>
-<p><strong>小心</strong>：谨慎使用 <code>servicecomb.isolation.timeout.enabled=true</code> 。因为系统处理链都是异步执行，中间处理链的返回，会导致
+<p><strong>注意</strong>：谨慎使用 <code>servicecomb.isolation.timeout.enabled=true</code> 。因为系统处理链都是异步执行，中间处理链的返回，会导致
 后面处理链的逻辑处理效果丢失。尽可能将 <code>servicecomb.isolation.timeout.enabled</code> 保持默认值false，并且正确设置网络层超时时
-间 <code>servicecomb.request.timeout=30000</code> 。</p>
+间 <code>servicecomb.request.timeout=30000</code> 。 配置范围不支持 Schema 级别的配置。</p>
 <ul>
 <li>示例代码</li>
 </ul>
