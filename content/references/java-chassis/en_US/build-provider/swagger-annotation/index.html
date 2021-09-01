@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Use Swagger annotations - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Use Swagger annotations";
+    var mkdocs_page_input_path = "build-provider/swagger-annotation.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/terminology/">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/architecture/">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/development-environment/">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/first-sample/">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../definition/service-definition/">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../define-contract/">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../code-first/">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Use Swagger annotations</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#concept-description">Concept Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#scene-description">Scene Description</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-instructions">Configuration instructions</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#api">@Api</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#swaggerdefinition">@SwaggerDefinition</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#apioperation">@ApiOperation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#apiimplicitparam">@ApiImplicitParam</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#apiimplicitparams">@ApiImplicitParams</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#apiresponse">@ApiResponse</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#apiresponses">@ApiResponses</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../springmvc/">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../jaxrs/">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../transparent-rpc/">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../interface-constraints/">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../listen-address-and-publish-address/">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../thread-pool/">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../configuration/ratelimite-strategy/">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../configuration/downgrade-strategy/">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../configuration/parameter-validator/">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../bootup/">Boot-up Process</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../access-log-configuration/">Access Log Configuration</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/common-configuration/">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/using-resttemplate/">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/using-AsyncRestTemplate/">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/develop-consumer-using-rpc/">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/with-contract/">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-consumer/circuit-breaker/">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-consumer/flow-control/">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-consumer/fault-injection/">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/3rd-party-service-invoke/">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-servlet/">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-vertx/">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/highway-rpc/">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/http2/">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/visit-sc/">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/metrics/">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/microservice-invocation-chain/">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/customized-tracing/">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/local-develop-test/">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/http-filter/">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/file-upload/">File Uploading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/file-download/">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/reactive/">Reactive Programing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/dnsconfig/">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/dai-li-she-zhi/">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/report-framework-version/">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/cross-app-invocation/">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/secret-field/">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/context/">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/produceprocess/">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/CORS/">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/AlarmEvent/">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/shutdown/">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/error-handling/">Handling exceptions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/multienvironment/">Multi-environment isolation between microservice instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../general-development/thread-model/">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/general-config/">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/inject-config/">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/open-service/">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/by-servicecomb-sdk/">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/nginx/">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/zuul/">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/standalone/">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/web-container/">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/tls/">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/rsa/">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot/">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/components-for-spring-boot/">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/java-application/">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/web-application/">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/diff-between-java-web/">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/diff-spring-mvc/">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/intruduction/">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/loadbalance/">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/publickey/">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/question_answer/">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/faq/">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/interface-compatibility/">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Development Service Provider &raquo;</li>
+        
+      
+    
+    <li>Use Swagger annotations</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="using-swagger-annotations">Using Swagger annotations</h1>
+<h2 id="concept-description">Concept Description</h2>
+<p>Swagger provides a set of annotations for describing interface contracts. Users can use annotations to add descriptions of contracts to their code. ServiceComb supports part of these annotations.</p>
+<h2 id="scene-description">Scene Description</h2>
+<p>By using annotations to describe interface contracts, users can use ServiceComb's Swagger contract generation function to automatically generate contract documents that meet the requirements without having to manually write and modify contracts, which can effectively improve development efficiency.</p>
+<h2 id="configuration-instructions">Configuration instructions</h2>
+<p>The official description can be found in the [Swagger Annotation Document] (https://github.com/swagger-api/swagger-core/wiki/Annotations-1.5.X). You can refer to the official documentation and this guide to learn how to use annotations to specify the properties of a Swagger contract under the ServiceComb framework.</p>
+<p>In ServiceComb, Swagger annotations are not required. When a user uses SpringMVC and JAX-RS annotations to annotate microservice methods, ServiceComb can infer the contract information for each microservice method based on the values ​​of these annotations.</p>
+<h3 id="api"><code>@Api</code></h3>
+<blockquote>
+<p><code>@Api</code> acts at the class level and is used to mark a Class as a Swagger resource in the official Swagger description. However, this annotation is not required in ServiceComb. ServiceComb can determine which classes need to parse the Swagger contract based on <code>@RestSchema</code> and <code>@RpcSchema</code>.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Tags</td>
+<td align="left">string</td>
+<td align="left">set the default tag value of the operation defined under the current Class</td>
+</tr>
+<tr>
+<td align="left">consumes</td>
+<td align="left">string</td>
+<td align="left">specify the MIME types of request in schema level, separated by commas</td>
+</tr>
+<tr>
+<td align="left">produces</td>
+<td align="left">string</td>
+<td align="left">specify the MIME types of response in schema level, separated by commas</td>
+</tr>
+</tbody>
+</table>
+<h3 id="swaggerdefinition"><code>@SwaggerDefinition</code></h3>
+<blockquote>
+<p>Acts at the class level to define information in a Swagger resource.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">info.title</td>
+<td align="left">string</td>
+<td align="left">Contract Document Title</td>
+</tr>
+<tr>
+<td align="left">info.description</td>
+<td align="left">string</td>
+<td align="left">Description</td>
+</tr>
+<tr>
+<td align="left">info.version</td>
+<td align="left">string</td>
+<td align="left">contract version number</td>
+</tr>
+<tr>
+<td align="left">info.termsOfService</td>
+<td align="left">string</td>
+<td align="left">Terms of Service</td>
+</tr>
+<tr>
+<td align="left">info.contact</td>
+<td align="left">string</td>
+<td align="left">Contact information, including name, email, url attributes</td>
+</tr>
+<tr>
+<td align="left">info.license</td>
+<td align="left">string</td>
+<td align="left">License information, including name, url attribute</td>
+</tr>
+<tr>
+<td align="left">info.extensions</td>
+<td align="left">string</td>
+<td align="left">Extended Information</td>
+</tr>
+<tr>
+<td align="left">consumes</td>
+<td align="left">string</td>
+<td align="left">Receive Request Format</td>
+</tr>
+<tr>
+<td align="left">produces</td>
+<td align="left">string</td>
+<td align="left">returned response format</td>
+</tr>
+<tr>
+<td align="left">schemes</td>
+<td align="left">SwaggerDefinition.Scheme</td>
+<td align="left">Optional values ​​are <code>HTTP/HTTPS/WS/WSS/DEFAULT</code></td>
+</tr>
+<tr>
+<td align="left">tags</td>
+<td align="left"><code>@Tag</code></td>
+<td align="left">Tag definition, @Tag contains three attributes: name, description, externalDocs</td>
+</tr>
+<tr>
+<td align="left">externalDocs</td>
+<td align="left"><code>@externalDocs</code></td>
+<td align="left">External documentation links, including values ​​and urls</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apioperation"><code>@ApiOperation</code></h3>
+<blockquote>
+<p>Acts at the method level to describe a Swagger operation.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">value</td>
+<td align="left">string</td>
+<td align="left">A brief description of the method, corresponding to the <code>summary</code> field of the Swagger contract operation</td>
+</tr>
+<tr>
+<td align="left">notes</td>
+<td align="left">string</td>
+<td align="left">Details, corresponding to the <code>description</code> field of the Swagger contract operation</td>
+</tr>
+<tr>
+<td align="left">Tags</td>
+<td align="left">string</td>
+<td align="left">label operation label</td>
+</tr>
+<tr>
+<td align="left">code</td>
+<td align="left">int</td>
+<td align="left">HTTP status code for response messages</td>
+</tr>
+<tr>
+<td align="left">response</td>
+<td align="left">Class&lt;?&gt;</td>
+<td align="left">Method return value type</td>
+</tr>
+<tr>
+<td align="left">responseContainer</td>
+<td align="left">string</td>
+<td align="left">The container type that wraps the return value. The optional values ​​are <code>List</code>, <code>Set</code>, <code>Map</code></td>
+</tr>
+<tr>
+<td align="left">ResponseHeaders</td>
+<td align="left"><code>@ResponseHeader</code></td>
+<td align="left">HTTP response message header, ServiceComb support attribute value of<code>name</code>, <code>response</code>,<code>responseContainer</code></td>
+</tr>
+<tr>
+<td align="left">Consumes</td>
+<td align="left">string</td>
+<td align="left">specified data format request body</td>
+</tr>
+<tr>
+<td align="left">Produces</td>
+<td align="left">string</td>
+<td align="left">body in response to the data format specified</td>
+</tr>
+<tr>
+<td align="left">Protocols</td>
+<td align="left">string</td>
+<td align="left">the available protocol (schemes), possible values ​​are <code>http</code>,<code>https</code>, <code>ws</code>,<code>wss</code>, separated by commas</td>
+</tr>
+<tr>
+<td align="left">httpMethod</td>
+<td align="left">string</td>
+<td align="left">Set HTTP method</td>
+</tr>
+<tr>
+<td align="left">hidden</td>
+<td align="left">boolean</td>
+<td align="left">Weather to hide this method</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiimplicitparam"><code>@ApiImplicitParam</code></h3>
+<blockquote>
+<p>Acts at the method level, which is used to describe the properties of the parameters of the operation in the Swagger document.</p>
+<p><strong>Note</strong>: ServiceComb can automatically infer parameter names based on code and SpringMVC, JAX-RS annotations. If the parameter name of the <code>@ApiImplicitParam</code> configuration is different from the automatically inferred parameter name, then the parameter of the annotation configuration will be added as a new parameter to the operation in which the annotation is located; otherwise, the property of the parameter with the same name will be overwritten.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">name</td>
+<td align="left">string</td>
+<td align="left">parameter name</td>
+</tr>
+<tr>
+<td align="left">value</td>
+<td align="left">string</td>
+<td align="left">Parameter Description</td>
+</tr>
+<tr>
+<td align="left">required</td>
+<td align="left">boolean</td>
+<td align="left">Is this a required parameter</td>
+</tr>
+<tr>
+<td align="left">dataType</td>
+<td align="left">string</td>
+<td align="left">Parameter Data Type</td>
+</tr>
+<tr>
+<td align="left">paramType</td>
+<td align="left">string</td>
+<td align="left">parameter location, valid optional value is path/query/body/header/form</td>
+</tr>
+<tr>
+<td align="left">allowableValues ​​</td>
+<td align="left">string</td>
+<td align="left">Range of valid values ​​for</td>
+</tr>
+<tr>
+<td align="left">allowEmptyValue</td>
+<td align="left">boolean</td>
+<td align="left">Whether to allow null values ​​</td>
+</tr>
+<tr>
+<td align="left">allowMultiple</td>
+<td align="left">boolean</td>
+<td align="left">Whether to allow multiple values ​​(if true, parameters can be used as an array)</td>
+</tr>
+<tr>
+<td align="left">collectionFormat</td>
+<td align="left">string</td>
+<td align="left">In which format the parameter array is specified, the current ServiceComb support value is <code>csv/multi</code></td>
+</tr>
+<tr>
+<td align="left">defaultValue</td>
+<td align="left">string</td>
+<td align="left">parameter default</td>
+</tr>
+<tr>
+<td align="left">example</td>
+<td align="left">string</td>
+<td align="left">Example value for a non-body parameter</td>
+</tr>
+<tr>
+<td align="left">format</td>
+<td align="left">string</td>
+<td align="left">Allows users to customize the data format. See the Swagger official documentation for details.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiimplicitparams"><code>@ApiImplicitParams</code></h3>
+<blockquote>
+<p><code>@ApiImplicitParams</code> acts on methods, class levels, and is used to batch specify multiple <code>@ApiImplicitParam</code>.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">value</td>
+<td align="left"><code>@ApiImplicitParam</code></td>
+<td align="left">Parameter definition</td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiresponse"><code>@ApiResponse</code></h3>
+<blockquote>
+<p>Used to describe the meaning of the HTTP status code of the returned message. Usually <code>@ApiOperation</code> can represent the HTTP status code of a normal return message. In other cases, the HTTP status code is described by this note. According to the Swagger official documentation, this annotation should not be used directly at the method level, but should be included in <code>@ApiResponses</code>.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">code</td>
+<td align="left">int</td>
+<td align="left">Return the HTTP status code of the message</td>
+</tr>
+<tr>
+<td align="left">message</td>
+<td align="left">string</td>
+<td align="left">Description of the return value</td>
+</tr>
+<tr>
+<td align="left">response</td>
+<td align="left">Class&lt;?&gt;</td>
+<td align="left">Type of return value</td>
+</tr>
+<tr>
+<td align="left">responseContainer</td>
+<td align="left">string</td>
+<td align="left">The wrapper for the return value, with an optional value of <code>List/Set/Map</code></td>
+</tr>
+<tr>
+<td align="left">responseHeaders</td>
+<td align="left">@ResponseHeader</td>
+<td align="left">Describes a set of HTTP headers that return messages. The properties of <code>@ResponseHeader</code> supported by ServiceComb are <code>name</code>, <code>description</code>, <code>response</code>, <code>responseContainer</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="apiresponses"><code>@ApiResponses</code></h3>
+<blockquote>
+<p>Acts on methods, class levels, to specify and specify a set of return values.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">Attribute</th>
+<th align="left">Type</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">value</td>
+<td align="left"><code>@ApiResponse</code></td>
+<td align="left">Return to message description</td>
+</tr>
+</tbody>
+</table>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../springmvc/" class="btn btn-neutral float-right" title="Develop with SpringMVC">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../code-first/" class="btn btn-neutral" title="Implicit API definition"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../code-first/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../springmvc/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

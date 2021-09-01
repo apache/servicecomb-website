@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Handling exceptions - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Handling exceptions";
+    var mkdocs_page_input_path = "general-development/error-handling.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/terminology/">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/architecture/">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/development-environment/">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/first-sample/">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/definition/service-definition/">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/define-contract/">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/code-first/">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/swagger-annotation/">Use Swagger annotations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/springmvc/">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/jaxrs/">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/transparent-rpc/">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/interface-constraints/">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/listen-address-and-publish-address/">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/thread-pool/">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-provider/configuration/ratelimite-strategy/">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-provider/configuration/downgrade-strategy/">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-provider/configuration/parameter-validator/">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/bootup/">Boot-up Process</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/access-log-configuration/">Access Log Configuration</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/common-configuration/">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/using-resttemplate/">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/using-AsyncRestTemplate/">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/develop-consumer-using-rpc/">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/with-contract/">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-consumer/circuit-breaker/">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-consumer/flow-control/">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-consumer/fault-injection/">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/3rd-party-service-invoke/">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-servlet/">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-vertx/">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/highway-rpc/">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/http2/">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../visit-sc/">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../microservice-invocation-chain/">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../customized-tracing/">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../local-develop-test/">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../http-filter/">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../file-upload/">File Uploading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../file-download/">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../reactive/">Reactive Programing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dnsconfig/">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dai-li-she-zhi/">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../report-framework-version/">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cross-app-invocation/">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../secret-field/">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../context/">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../produceprocess/">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CORS/">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../AlarmEvent/">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../shutdown/">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Handling exceptions</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#user-defined-exceptions">User Defined Exceptions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#control-messages-exceptions">Control Messages Exceptions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#unknown-exceptions">Unknown Exceptions</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#customize-exceptions-type">Customize exceptions type</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../multienvironment/">Multi-environment isolation between microservice instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../thread-model/">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/general-config/">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/inject-config/">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/open-service/">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/by-servicecomb-sdk/">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/nginx/">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/zuul/">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/standalone/">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/web-container/">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/tls/">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/rsa/">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot/">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/components-for-spring-boot/">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/java-application/">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/web-application/">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/diff-between-java-web/">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/diff-spring-mvc/">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/intruduction/">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/loadbalance/">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/publickey/">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/question_answer/">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/faq/">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/interface-compatibility/">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>General Development &raquo;</li>
+        
+      
+    
+    <li>Handling exceptions</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="handle-exceptions">Handle exceptions</h1>
+<p>ServiceComb has three categories of exceptions：
+* User Defined Exceptions：Exceptions defined in API. These exceptions are generated to swagger.</p>
+<ul>
+<li>Control Messages Exceptions：Most of them are thrown by handlers. e.g. Flow control throws TOO_MANY_REQUESTS_STATUS.</li>
+</ul>
+<p><code>java
+  CommonExceptionData errorData = new CommonExceptionData("rejected by qps flowcontrol");
+  asyncResp.producerFail(new InvocationException(QpsConst.TOO_MANY_REQUESTS_STATUS, errorData));</code></p>
+<ul>
+<li>Unknown Exceptions：Unkown exceptions may throw by service implementation like NullPointerException or network SocketException. These exceptions will be caught by ServiceComb and return 490, 590 like error code. e.g.</li>
+</ul>
+<p><code>java
+  CommonExceptionData errorData = new CommonExceptionData(cause.getMessage());
+  asyncResp.producerFail(new InvocationException(590, errorData)</code>
+  or
+  <code>java
+  asyncResp.consumerFail(new InvocationException(490, errorData)</code></p>
+<h2 id="user-defined-exceptions">User Defined Exceptions</h2>
+<p>Users can use @ApiResonse to define different types of exceptions. e.g.</p>
+<pre><code class="language-java">  @Path(&quot;/errorCode&quot;)
+  @POST
+  @ApiResponses({
+      @ApiResponse(code = 200, response = MultiResponse200.class, message = &quot;&quot;),
+      @ApiResponse(code = 400, response = MultiResponse400.class, message = &quot;&quot;),
+      @ApiResponse(code = 500, response = MultiResponse500.class, message = &quot;&quot;)})
+  public MultiResponse200 errorCode(MultiRequest request) {
+    if (request.getCode() == 400) {
+      MultiResponse400 r = new MultiResponse400();
+      r.setCode(400);
+      r.setMessage(&quot;bad request&quot;);
+      throw new InvocationException(javax.ws.rs.core.Response.Status.BAD_REQUEST, r);
+    } else if (request.getCode() == 500) {
+      MultiResponse500 r = new MultiResponse500();
+      r.setCode(500);
+      r.setMessage(&quot;internal error&quot;);
+      throw new InvocationException(javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR, r);
+    } else {
+      MultiResponse200 r = new MultiResponse200();
+      r.setCode(200);
+      r.setMessage(&quot;success result&quot;);
+      return r;
+    }
+  }
+</code></pre>
+<p>and client code know exception type.</p>
+<pre><code class="language-java">    MultiRequest request = new MultiRequest();
+
+    request.setCode(200);
+    ResponseEntity&lt;MultiResponse200&gt; result = template
+        .postForEntity(SERVER + &quot;/MultiErrorCodeService/errorCode&quot;, request, MultiResponse200.class);
+    TestMgr.check(result.getStatusCode(), 200);
+    TestMgr.check(result.getBody().getMessage(), &quot;success result&quot;);
+
+    request.setCode(400);
+    MultiResponse400 t400 = null;
+    try {
+      template.postForEntity(SERVER + &quot;/MultiErrorCodeService/errorCode&quot;, request, MultiResponse400.class);
+    } catch (InvocationException e) {
+      t400 = (MultiResponse400) e.getErrorData();
+    }
+    TestMgr.check(t400.getCode(), 400);
+    TestMgr.check(t400.getMessage(), &quot;bad request&quot;);
+
+    request.setCode(500);
+    MultiResponse500 t500 = null;
+    try {
+      template.postForEntity(SERVER + &quot;/MultiErrorCodeService/errorCode&quot;, request, MultiResponse400.class);
+    } catch (InvocationException e) {
+      t500 = (MultiResponse500) e.getErrorData();
+    }
+    TestMgr.check(t500.getCode(), 500);
+    TestMgr.check(t500.getMessage(), &quot;internal error&quot;);
+</code></pre>
+<h2 id="control-messages-exceptions">Control Messages Exceptions</h2>
+<p>Control message exceptions not defined in swagger and the type is unknown for serializers. Client code use raw type to process it.</p>
+<pre><code class="language-java">    JsonObject requestJson = new JsonObject();
+    requestJson.put(&quot;code&quot;, 400);
+    requestJson.put(&quot;message&quot;, &quot;test message&quot;);
+
+    try {
+      template
+          .postForEntity(SERVER + &quot;/MultiErrorCodeService/noClientErrorCode&quot;, requestJson, Object.class);
+    } catch (InvocationException e) {
+      TestMgr.check(e.getStatusCode(), 400);
+      mapResult = RestObjectMapperFactory.getRestObjectMapper().convertValue(e.getErrorData(), Map.class);
+      TestMgr.check(mapResult.get(&quot;message&quot;), &quot;test message&quot;);
+      TestMgr.check(mapResult.get(&quot;code&quot;), 400);
+      TestMgr.check(mapResult.get(&quot;t400&quot;), 400);
+    }
+</code></pre>
+<p>The above code assume the type of exception data is unknown and convert it to map. Usually, ServiceComb throws its control messages exception with CommonExceptionData.</p>
+<h2 id="unknown-exceptions">Unknown Exceptions</h2>
+<p>Unknown exceptions are wrapped to 490 and 590 error code, and type is CommonExceptionData.</p>
+<h2 id="customize-exceptions-type">Customize exceptions type</h2>
+<p>We can define actual types for error code and convert one type of exception to another.</p>
+<ul>
+<li>define actual types for error code</li>
+</ul>
+<p>Define actual types for error code can make consumer code easier, and do not to use raw types. Users can implement a SPI interface org.apache.servicecomb.swagger.invocation.response.ResponseMetaMapper to specify the target exception type for specific error code.
+  ```java
+    private final static Map<Integer, ResponseMeta> CODES = new HashMap&lt;&gt;(1);</p>
+<pre><code>static {
+  ResponseMeta meta = new ResponseMeta();
+  meta.setJavaType(SimpleType.constructUnsafe(IllegalStateErrorData.class));
+  CODES.put(500, meta);
+}
+
+@Override
+public Map&lt;Integer, ResponseMeta&gt; getMapper() {
+  return CODES;
+}
+</code></pre>
+<p>```</p>
+<ul>
+<li>convert one type of exception to another</li>
+</ul>
+<p>ServiceComb will serialize <code>InvocationException</code> data to response, and when the exception type is not <code>InvocationException</code>, a wrapped InvocationException with error code 490, 590 is created. Implement SPI interface <code>org.apache.servicecomb.swagger.invocation.exception.ExceptionToProducerResponseConverter</code> can convert one type of exception to another. Here is the description about <code>ExceptionToProducerResponseConverter</code>:
+  - the method <code>getExceptionClass()</code> indicates which type of exception this converter handles. The converter whose <code>getExceptionClass()</code> method returns <code>null</code> will be taken as default converter.
+  - in the method <code>Response convert(SwaggerInvocation swaggerInvocation, T e)</code>, the exception is processed and <code>Response</code> is returned. The returned <code>Response</code> determines the status code, resposne body of the HTTP response.
+  - the method <code>getOrder()</code> determines the priority of a converter. The less the returned value is, the higher the priority is. If the converter does not implement this method, the default return value is <code>0</code>. For a certain type of exception, only the converter with the highest priority will take effect.
+  - When an exception comes, the converters will be selected according to its type. If no converter is selected, then the type of its parent class is used to select the converter. Such process will continue until the <code>Throwable</code> type is used to select converter. If there is still no converter for this exception, the default converter will be selected to process this type of exception.</p>
+<p>```java
+  public class CustomExceptionToProducerResponseConverter implements ExceptionToProducerResponseConverter<IllegalStateException> {
+    @Override
+    public Class<IllegalStateException> getExceptionClass() {
+      // The return value indicates that this converter handles IllegalStateException
+      return IllegalStateException.class;
+    }</p>
+<pre><code>@Override
+public int getOrder() {
+  // The less the returned value is, the higher the priority is
+  return 100;
+}
+
+@Override
+public Response convert(SwaggerInvocation swaggerInvocation, IllegalStateException e) {
+  // Here the exception is processed
+  IllegalStateErrorData data = new IllegalStateErrorData();
+  data.setId(500);
+  data.setMessage(e.getMessage());
+  data.setState(e.getMessage());
+  InvocationException state = new InvocationException(Status.INTERNAL_SERVER_ERROR, data);
+  return Response.failResp(state);
+}
+</code></pre>
+<p>}
+  ```</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../multienvironment/" class="btn btn-neutral float-right" title="Multi-environment isolation between microservice instances">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../shutdown/" class="btn btn-neutral" title="Shutdown gracefully"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../shutdown/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../multienvironment/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

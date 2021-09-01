@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>File Uploading - ServiceComb Java Chassis Developers Guide</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "File Uploading";
+    var mkdocs_page_input_path = "general-development/file-upload.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> ServiceComb Java Chassis Developers Guide</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Introduction</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/terminology/">Glossary</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/architecture/">Architecture</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/development-environment/">Development environment</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../start/first-sample/">Develop the first microservice</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Development Service Provider</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/definition/service-definition/">Service definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/define-contract/">Service contract definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/code-first/">Implicit API definition</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/swagger-annotation/">Use Swagger annotations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/springmvc/">Develop with SpringMVC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/jaxrs/">Develop with JAX-RS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/transparent-rpc/">Develop with Transparent RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/interface-constraints/">Interface definition and data type</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/listen-address-and-publish-address/">Service listening address and publishing address</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/thread-pool/">Thread pool</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Service Configuration</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-provider/configuration/ratelimite-strategy/">Rate Limiting Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-provider/configuration/downgrade-strategy/">Fallback Policy</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-provider/configuration/parameter-validator/">Parameter Validator</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/bootup/">Boot-up Process</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/access-log-configuration/">Access Log Configuration</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Writing Service Consumer</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/common-configuration/">Consumer common configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/using-resttemplate/">Using Rest Template</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/using-AsyncRestTemplate/">Using AsyncRestTemplate</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/develop-consumer-using-rpc/">Using with RPC</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/with-contract/">Contract</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="#">Invoke control</a>
+    <ul>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-consumer/circuit-breaker/">Circuit Breaker</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-consumer/flow-control/">Flow Control</a>
+                </li>
+                <li class="toctree-l2"><a class="reference internal" href="../../build-consumer/fault-injection/">Fault Injection</a>
+                </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-consumer/3rd-party-service-invoke/">Invoke 3rd-party REST services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Transports</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-servlet/">REST over Servlet</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/rest-over-vertx/">REST over Vertx</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/highway-rpc/">Highway</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../transports/http2/">HTTP2</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">General Development</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../visit-sc/">Access Service Center</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../metrics/">Metrics</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../microservice-invocation-chain/">Microservice invocation chain</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../customized-tracing/">Customized-Tracing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../local-develop-test/">Local development and testing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../http-filter/">Http Filter</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">File Uploading</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-instructions">Configuration instructions:</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../file-download/">File Downloading</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../reactive/">Reactive Programing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dnsconfig/">DNS Custom Configuration</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../dai-li-she-zhi/">Proxy Settings</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../report-framework-version/">Report framework version</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../cross-app-invocation/">Cross-application invocation</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../secret-field/">Customized serialization and deserialization</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../context/">Using Context to pass control messages</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../produceprocess/">Return value serialization extension</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../CORS/">CORS mechanism</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../AlarmEvent/">Get fuse and instance isolation alarm event information</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../shutdown/">Shutdown gracefully</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../error-handling/">Handling exceptions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../multienvironment/">Multi-environment isolation between microservice instances</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../thread-model/">Thread Model</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Configuration</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/general-config/">General config</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../config/inject-config/">Configuration injection</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Capability Open</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/open-service/">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/by-servicecomb-sdk/">Using Edge Service</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/nginx/">Using confd and Nginx as edge services</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edge/zuul/">Use zuul as edge services</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Service Packing and Running</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/standalone/">Standalone mode</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../packaging/web-container/">WEB container mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Micro Service Security</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/tls/">Using TLS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../security/rsa/">Using RSA certification</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Using java chassis in Spring Boot</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot/">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/components-for-spring-boot/">spring boot starter for java-chassis</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/java-application/">JAVA application development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/web-application/">Web development method development</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/diff-between-java-web/">The difference between JAVA application method and Web development method</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/diff-spring-mvc/">The difference in Spring MVC mode</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Handlers reference</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/intruduction/">Intruductions</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/loadbalance/">Load Balancing</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../references-handlers/publickey/">Public key authentication</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">FAQ</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/question_answer/">Q & A</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/faq/">FAQ</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../question-and-answer/interface-compatibility/">Micro Service Interface Compatibility FAQ</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">ServiceComb Java Chassis Developers Guide</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>General Development &raquo;</li>
+        
+      
+    
+    <li>File Uploading</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <p>File upload, currently supported in vertx rest channel and servlet rest.</p>
+<p>File uploads use the standard http form format, which can directly upload the file from the browser.</p>
+<h2 id="producer">Producer:</h2>
+<p>Support jaxrs and springmvc development mode</p>
+<p>Jaxrs development model:
+* javax.servlet.http.Part type that supports servlet definitions</p>
+<ul>
+<li>You can directly use @FormParam to pass file types and common parameters</li>
+</ul>
+<p>Springmvc development mode:</p>
+<ul>
+<li>
+<p>Supports servlet-defined javax.servlet.http.Part type, also supports org.springframework.web.multipart.MultipartFile type</p>
+</li>
+<li>
+<p>The two datatype functions are consistent, and MultipartFile is also base on Part type</p>
+</li>
+<li>
+<p>Two data types can be mixed, for example, the first parameter is Part and the second parameter is MultipartFile</p>
+</li>
+<li>
+<p>You can directly use @RequestPart to pass file types and common parameters</p>
+</li>
+</ul>
+<p>note:</p>
+<ul>
+<li>
+<p>First file upload temporary directory, the default is null does not support file upload, file upload request Content-Type must be multipart/form-data</p>
+</li>
+<li>
+<p>The same name parameter only supports one file</p>
+</li>
+<li>
+<p>Supports transferring files with multiple different parameter names at one time</p>
+</li>
+<li>
+<p>After opening the stream through MultipartFile or Part, remember to close it. Otherwise the uploaded temporary file will not be deleted, and eventually, the upload temporary directory will be exploded.</p>
+</li>
+</ul>
+<p>Sample code in Springmvc mode:</p>
+<pre><code class="language-java">@PostMapping(path = &quot;/upload&quot;, consumes = MediaType.MULTIPART_FORM_DATA)
+public String fileUpload(@RequestPart(name = &quot;file1&quot;) MultipartFile file1, @RequestPart(name = &quot;file2&quot;) Part file2, @RequestPart String param1) {
+  ......
+}
+</code></pre>
+<h3 id="configuration-instructions">Configuration instructions:</h3>
+<p>| Configuration Item | Default Value | Range of Value |
+| :--- | :--- | :--- | :--- |
+| servicecomb.uploads.directory | null | | In which directory the uploaded temporary file is saved, <strong>default value null means file upload is not supported</strong> |
+| servicecomb.uploads.maxSize | -1 | | The maximum allowable size of http body in bytes. the default value of -1 means unlimited |</p>
+<h2 id="consumer">Consumer:</h2>
+<p>The following data types are supported:</p>
+<ul>
+<li>
+<p>java.io.File</p>
+</li>
+<li>
+<p>javax.servlet.http.Part</p>
+</li>
+<li>
+<p>java.io.InputStream</p>
+</li>
+<li>
+<p>org.springframework.core.io.Resource</p>
+</li>
+</ul>
+<p>When using InputStream, because it is a stream, there is no concept of client file name at this time, so the producer will get the client file name will get null.</p>
+<p>If you want to use both memory data and the producer to get the client file name, you can use the resource type, inherit org.springframework.core.io.ByteArrayResource, and override getFilename.</p>
+<h3 id="transparent-rpc-code-sample">Transparent RPC Code Sample:</h3>
+<pre><code class="language-java">interface UploadIntf {
+  String upload(File file);
+}
+</code></pre>
+<p>After getting the interface reference, you can call it directly:</p>
+<pre><code class="language-java">String result = uploadIntf.upload(file);
+</code></pre>
+<h3 id="resttemplate-code-example">RestTemplate code example:</h3>
+<pre><code class="language-java">Map&lt;String, Object&gt; map = new HashMap&lt;&gt;();
+map.put(&quot;file&quot;, new FileSystemResource(&quot;a file path!&quot;));
+map.put(&quot;param1&quot;, &quot;test&quot;);
+HttpHeaders headers = new HttpHeaders();
+headers.setContentType(org.springframework.http.MediaType.MULTIPART_FORM_DATA);
+HttpEntity&lt;Map&lt;String, Object&gt;&gt; entry = new HttpEntity&lt;&gt;(map, headers);
+
+String reseult = template.postForObject(
+    url,
+    entry,
+    String.class);
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../file-download/" class="btn btn-neutral float-right" title="File Downloading">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../http-filter/" class="btn btn-neutral" title="Http Filter"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../http-filter/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../file-download/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
