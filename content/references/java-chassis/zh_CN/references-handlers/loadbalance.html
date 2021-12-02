@@ -367,8 +367,9 @@
       retryOnSame: 0
 </code></pre>
 <p>retryOnNext表示失败以后，根据负载均衡策略，重新选择一个实例重试（可能选择到同一个实例）。 retryOnSame表示仍然使用上次失败的实例进行重试。</p>
-<p><strong><em>注意:</em></strong> 并不是所有的异常都会触发重试。缺省的情况，只有网络异常，或者 503 错误码才会触发重试。 详细可以
-参考 <code>DefaultRetryExtensionsFactory</code> 的定义。</p>
+<p><strong>注意事项:</strong></p>
+<p>​     1.并不是所有的异常都会触发重试。缺省的情况，只有网络异常，或者 503 错误码才会触发重试。 详细可以参考 <code>DefaultRetryExtensionsFactory</code> 的定义。</p>
+<p>​     2.retry的场景下，对于同步调用, 同步调用的主线程已经被挂起，无法再主线程中进行重试，重试也不能在网络线程（event-loop）中进行，未被保护的阻塞操作会导致网络线程挂起，因此当前的重试机制会另起一个retry-pool-thread进行重试，因此如果业务在扩展<code>HttpClientFilter</code>的时候，如果涉及到通过ThreadLocal获取线程上下文的时候，会存在获取不到的情况，针对这种场景，建议在获取的时候做个判断处理，或者针对涉及ThreadLocal获取线程上下文的业务场景，建议采取通过扩展Handler的机制，进行处理，并保证扩展的Handler在loadbalance之前执行。</p>
 <h2 id="_8">自定义</h2>
 <p>负载均衡模块提供的功能已经非常强大，能够通过配置支持大部分应用场景。同时它也提供了强大的扩展能力，包括DiscoveryFilter、ServerListFilterExt、ExtensionsFactory（扩展IRule，RetryHandler等）。loadbalance模块本身包含了每一个扩展的实现，这里不再详细描述如何扩展，只简单描述步骤。开发者可以自行下载ServiceComb源码进行参考。</p>
 <ul>

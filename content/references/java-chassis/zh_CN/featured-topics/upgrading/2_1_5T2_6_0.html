@@ -9,7 +9,7 @@
   
   
   <link rel="shortcut icon" href="../../img/favicon.ico">
-  <title>微服务定义 - ServiceComb Java Chassis 开发指南</title>
+  <title>2.1.5 升级 2.6.0 指导 - ServiceComb Java Chassis 开发指南</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
 
   <link rel="stylesheet" href="../../css/theme.css" />
@@ -18,8 +18,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "\u5fae\u670d\u52a1\u5b9a\u4e49";
-    var mkdocs_page_input_path = "build-provider/definition/service-definition.md";
+    var mkdocs_page_name = "2.1.5 \u5347\u7ea7 2.6.0 \u6307\u5bfc";
+    var mkdocs_page_input_path = "featured-topics/upgrading/2_1_5T2_6_0.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -58,14 +58,12 @@
                     <li class="toctree-l1"><a class="reference internal" href="../../start/design.html">设计选型参考</a>
                     </li>
                 </ul>
-                <ul class="current">
-                    <li class="toctree-l1 current"><a class="reference internal current" href="service-definition.html">微服务定义</a>
-    <ul class="current">
-    </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/definition/service-definition.html">微服务定义</a>
                     </li>
                 </ul>
                 <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../catalog.html">开发服务提供者</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../../build-provider/catalog.html">开发服务提供者</a>
                     </li>
                 </ul>
                 <ul>
@@ -157,13 +155,13 @@
                 <ul>
                     <li class="toctree-l1"><a class="reference internal" href="../../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html">在Spring Boot中使用java chassis</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../featured-topics/features.html">新功能介绍系列文章</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../features.html">新功能介绍系列文章</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../featured-topics/compatibility.html">兼容问题和兼容性策略</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../compatibility.html">兼容问题和兼容性策略</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../featured-topics/upgrading.html">升级指导系列文章</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../upgrading.html">升级指导系列文章</a>
                     </li>
-                    <li class="toctree-l1"><a class="reference internal" href="../../featured-topics/performance.html">性能问题分析和调优</a>
+                    <li class="toctree-l1"><a class="reference internal" href="../performance.html">性能问题分析和调优</a>
                     </li>
                 </ul>
                 <p class="caption"><span class="caption-text">常用配置项参考</span></p>
@@ -207,7 +205,7 @@
     
       
     
-    <li>微服务定义</li>
+    <li>2.1.5 升级 2.6.0 指导</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -219,270 +217,44 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="_1">微服务定义</h1>
-<p>servicecomb 微服务定义包括两个基础模型 <code>Microservice</code> 和 <code>MicroserviceInstance</code>。 这些信息定义了
-微服务标识，从属于哪个应用，以及名字和版本。</p>
-<ul>
-<li>微服务信息</li>
-</ul>
-<p>servicecomb 的微服务信息在类 <code>Microservice</code> 中定义。 它主要包含应用 ID (appId)， 微服务名称 (serviceName),
-  微服务版本(version)，环境(environment) 等信息。 </p>
-<ul>
-<li>实例信息</li>
-</ul>
-<p>servicecomb 的实例信息在类 <code>MicroserviceInstance</code> 中定义。 它主要包含网络地址(endpoints) 信息。</p>
-<p>微服务的定义会用于微服务管理、微服务的发现、治理等多种场景。专题文章<a href="../../general-development/multienvironment.html">微服务实例间多环境隔离</a>介绍
-了微服务定义的一些常见应用场景。</p>
-<h1 id="_2">场景描述</h1>
-<p>开发一个微服务，需要在 <code>microservice.yaml</code> 文件中配置微服务的基本信息。 如果使用 spring boot，也可以在
-<code>application.yml</code> 文件中配置微服务的基本信息。 <code>microservice.yaml</code> 文件在项目中的存放路径为 <code>src\main\resources\microservice.yaml</code>。
-微服务信息和实例信息属于基础元数据信息， 只能够在配置文件指定，无法通过配置中心指定。</p>
-<p><strong><em>表1-1 微服务信息配置项说明</em></strong></p>
-<table>
-<thead>
-<tr>
-<th align="left">配置项</th>
-<th align="left">版本</th>
-<th align="left">默认值</th>
-<th align="left">是否必选</th>
-<th align="left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">servicecomb.service.application</td>
-<td align="left">2.1.2</td>
-<td align="left">default</td>
-<td align="left">是</td>
-<td align="left">应用名</td>
-</tr>
-<tr>
-<td align="left">servicecomb.service.name</td>
-<td align="left">2.1.2</td>
-<td align="left">defaultMicroservice</td>
-<td align="left">是</td>
-<td align="left">微服务名, 应确保应用内部唯一。微服务名支持数字、大小写字母和"-"、"_"、"."三个特殊字符，但是不能以特殊字符作为首尾字符，命名规范为：^[a-zA-Z0-9]+$&#124;^[a-zA-Z0-9][a-zA-Z0-9_-.]*[a-zA-Z0-9]$。</td>
-</tr>
-<tr>
-<td align="left">servicecomb.service.version</td>
-<td align="left">2.1.2</td>
-<td align="left">1.0.0.0</td>
-<td align="left">是</td>
-<td align="left">微服务版本号</td>
-</tr>
-<tr>
-<td align="left">servicecomb.service.role</td>
-<td align="left">2.1.2</td>
-<td align="left">FRONT</td>
-<td align="left">否</td>
-<td align="left">服务类型</td>
-</tr>
-<tr>
-<td align="left">servicecomb.service.description</td>
-<td align="left">2.1.2</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">微服务描述</td>
-</tr>
-<tr>
-<td align="left">servicecomb.service.environment</td>
-<td align="left">2.1.2</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">运行环境，比如 development, production 等</td>
-</tr>
-<tr>
-<td align="left">servicecomb.service.propertyExtendedClass</td>
-<td align="left">2.1.2</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">微服务元数据配置扩展信息， 接口返回的配置会覆盖配置文件中key相同的配置。</td>
-</tr>
-<tr>
-<td align="left">servicecomb.service.properties</td>
-<td align="left">2.1.2</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">服务实例元数据配置（通过microservice.yaml文件进行配置）</td>
-</tr>
-<tr>
-<td align="left">servicecomb.service.paths</td>
-<td align="left">2.1.2</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">URL 前缀列表</td>
-</tr>
-<tr>
-<td align="left">APPLICATION_ID</td>
-<td align="left">2.1.2之前</td>
-<td align="left">default</td>
-<td align="left">是</td>
-<td align="left">应用名</td>
-</tr>
-<tr>
-<td align="left">service_description.name</td>
-<td align="left">2.1.2之前</td>
-<td align="left">defaultMicroservice</td>
-<td align="left">是</td>
-<td align="left">微服务名, 应确保应用内部唯一。微服务名支持数字、大小写字母和"-"、"_"、"."三个特殊字符，但是不能以特殊字符作为首尾字符，命名规范为：^[a-zA-Z0-9]+$&#124;^[a-zA-Z0-9][a-zA-Z0-9_-.]*[a-zA-Z0-9]$。</td>
-</tr>
-<tr>
-<td align="left">service_description.version</td>
-<td align="left">2.1.2之前</td>
-<td align="left">1.0.0.0</td>
-<td align="left">是</td>
-<td align="left">微服务版本号</td>
-</tr>
-<tr>
-<td align="left">service_description.role</td>
-<td align="left">2.1.2之前</td>
-<td align="left">FRONT</td>
-<td align="left">否</td>
-<td align="left">服务类型</td>
-</tr>
-<tr>
-<td align="left">service_description.description</td>
-<td align="left">2.1.2之前</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">微服务描述</td>
-</tr>
-<tr>
-<td align="left">service_description.environment</td>
-<td align="left">2.1.2之前</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">运行环境，比如 development, production 等</td>
-</tr>
-<tr>
-<td align="left">service_description.propertyExtendedClass</td>
-<td align="left">2.1.2之前</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">微服务元数据配置扩展信息， 接口返回的配置会覆盖配置文件中key相同的配置。</td>
-</tr>
-<tr>
-<td align="left">service_description.properties</td>
-<td align="left">2.1.2之前</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">服务元数据配置</td>
-</tr>
-<tr>
-<td align="left">service_description.paths</td>
-<td align="left">2.1.2之前</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">URL 前缀列表</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>说明：</p>
-<ul>
-<li>服务的元数据会随服务一同注册到服务中心，如需修改，则要连同服务version一起变更。若想保持服务version不变，则需要通过服务管理中心统一变更元数据。</li>
-<li>虽然微服务名、契约名中可以使用"."字符，但是不推荐在命名中使用"."。这是由于ServiceComb使用的配置文件是yaml格式的，"."符号用于分割配置项名称，
-     如果微服务名、契约名中也包含了"."可能会导致一些支持微服务、契约级别的配置无法正确被识别。</li>
-</ul>
-</blockquote>
-<p><strong><em>表1-2 微服务实例信息配置项说明</em></strong></p>
-<table>
-<thead>
-<tr>
-<th align="left">配置项</th>
-<th align="left">版本</th>
-<th align="left">默认值</th>
-<th align="left">是否必选</th>
-<th align="left">含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="left">servicecomb.instance.properties</td>
-<td align="left">2.1.2</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">服务实例元数据配置</td>
-</tr>
-<tr>
-<td align="left">servicecomb.instance.propertyExtendedClass</td>
-<td align="left">2.1.2</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">微服务实例元数据配置扩展信息， 接口返回的配置会覆盖配置文件中key相同的配置。</td>
-</tr>
-<tr>
-<td align="left">servicecomb.instance.initialStatus</td>
-<td align="left">2.1.2</td>
-<td align="left">UP</td>
-<td align="left">否</td>
-<td align="left">实例初始状态</td>
-</tr>
-<tr>
-<td align="left">servicecomb.instance.properties.tags</td>
-<td align="left">2.1.2</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">标签</td>
-</tr>
-<tr>
-<td align="left">instance_description.properties</td>
-<td align="left">2.1.2之前</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">服务实例云数据配置</td>
-</tr>
-<tr>
-<td align="left">instance_description.propertyExtendedClass</td>
-<td align="left">2.1.2之前</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">微服务实例元数据配置扩展信息， 接口返回的配置会覆盖配置文件中key相同的配置。</td>
-</tr>
-<tr>
-<td align="left">instance_description.initialStatus</td>
-<td align="left">2.1.2之前</td>
-<td align="left">UP</td>
-<td align="left">否</td>
-<td align="left">实例初始状态</td>
-</tr>
-<tr>
-<td align="left">instance_description.properties.tags</td>
-<td align="left">2.1.2之前</td>
-<td align="left">-</td>
-<td align="left">否</td>
-<td align="left">标签</td>
-</tr>
-</tbody>
-</table>
-<p>下面是一个配置示例：</p>
-<pre><code class="language-yaml">servicecomb:
-  service:
-    application: helloTest # 应用名
-    name: helloServer # 微服务名称
-    version: 0.0.1 # 服务版本号
-    properties: # 元数据
-      key1: value1
-      key2: value2
-    description: This is a description about the microservice # 微服务描述
-  instance:
-    properties: #元数据
-      key3: value3
-    propertyExtentedClass: org.apache.servicecomb.serviceregistry.MicroServicePropertyExtendedStub
+                <h1 id="215-260">2.1.5 升级 2.6.0 指导</h1>
+<h2 id="notblanknotempty">支持<code>@NotBlank</code>和<code>@NotEmpty</code></h2>
+<p>参考下面的例子。这个新的特性在一些特殊的情况下可能导致业务故障，比如业务错误的加上了这些标签，但是实际上不会做参数校验，现在变更为校验。 </p>
+<pre><code class="language-java">public class Teacher {
+
+  @NotBlank
+  private String name;
+
+  private String age;
+
+  // getters, setters
+}
 </code></pre>
+<h2 id="servicecombrestclientconnectionidletimeoutinseconds-30s"><code>servicecomb.rest.client.connection.idleTimeoutInSeconds</code> 缺省值修改为 30s</h2>
+<p>因为服务端HTTP连接的Idle Timeout时间设置通常是60s（包括Vert.x、Tomcat等），为了尽可能降低客户端使用已经关闭了连接
+的概率，调整了这个参数的默认值。如果业务系统中没有设置这个参数，并且有些场景将 <code>servicecomb.request.timeout</code> 设置
+为大于30s， 那么可能导致这些请求提前超时。 </p>
+<p>更多详细信息可以<a href="https://github.com/apache/servicecomb-java-chassis/issues/2603">参考案例</a>。</p>
+<h2 id="nettyvertx"><code>netty</code>和<code>vert.x</code> 升级</h2>
+<p>2.6.0目前使用了最新的 <code>netty</code> 和 <code>vert.x</code> 版本， 这两个软件最新版本做了较多的重构，需要保证版本匹配才能够正常工作。
+业务尽可能不要自行单独调整单个软件的版本，保持和java-chassis使用一致，否则容易导致一些兼容性问题。 未来的版本，两个软件
+的兼容情况应该会有所改善，建议业务升级后，及时调整这两个软件的废弃用法。 </p>
+<p>这两个软件升级目前已知的可能影响业务功能的点包括：</p>
+<ul>
+<li><code>servicecomb.rest.server.maxFormAttributeSize</code> 的缺省值为 8192。 java-chassis的缺省值使用了 <code>vert.x</code>
+  的缺省值。这个值在最近的几个版本中，发生过几次变更，从无限制变更为1024， 变更为2048，到现在的8192。 如果业务需要
+  依赖比较大的值，建议在配置文件设置适合应用场景的限制，不跟随这个缺省值。</li>
+</ul>
+<h2 id="spring-spring-boot"><code>Spring</code> 和 <code>Spring Boot</code> 升级</h2>
+<p>2.6.0目前使用了最新的 <code>Spring</code> 和 <code>Spring Boot</code> 版本，这个版本存在少量的变更，可能在某些特殊场景下影响业务功能。已知的情况包括：</p>
+<ul>
+<li>对URL进行了更加严格的校验，以符合HTTP协议标准。早期一些不符合标准的URL可能会报告错误。</li>
+<li><code>StringUtils</code>的<code>isEmpty</code>方法废弃了，这个方法容易造成误用，建议切换使用其他接口或者使用Commons Lang组件的接口。</li>
+</ul>
               
             </div>
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="../catalog.html" class="btn btn-neutral float-right" title="开发服务提供者">Next <span class="icon icon-circle-arrow-right"></span></a>
-      
-      
-        <a href="../../start/design.html" class="btn btn-neutral" title="设计选型参考"><span class="icon icon-circle-arrow-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>
@@ -506,10 +278,6 @@
   <span class="rst-current-version" data-toggle="rst-current-version">
     
     
-      <span><a href="../../start/design.html" style="color: #fcfcfc">&laquo; Previous</a></span>
-    
-    
-      <span><a href="../catalog.html" style="color: #fcfcfc">Next &raquo;</a></span>
     
   </span>
 </div>
