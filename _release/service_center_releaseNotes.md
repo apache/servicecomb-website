@@ -4,12 +4,42 @@ lang: en
 ref: release
 permalink: /release/service-center-release-notes/
 excerpt: "Release Notes"
-last_modified_at: 2021-06-04T00:50:43-55:00
+last_modified_at: 2022-03-25T00:50:43-55:00
 ---
 
+        Release Notes - Apache ServiceComb - Version service-center-2.1.0
+
+## Bug
+- [SCB-2400](https://issues.apache.org/jira/browse/SCB-2400) - Govern api return empty schemaIds
+- [SCB-2403](https://issues.apache.org/jira/browse/SCB-2403) - Start up failed when upgrade sc version
+- [SCB-2404](https://issues.apache.org/jira/browse/SCB-2404) - Return internal properties when list all microservices
+- [SCB-2411](https://issues.apache.org/jira/browse/SCB-2411) - Try dlock before start retirement job
+- [SCB-2418](https://issues.apache.org/jira/browse/SCB-2418) - Fix etcd metrics not correct
+- [SCB-2420](https://issues.apache.org/jira/browse/SCB-2420) - Can not delete unused role
+## New Feature
+- [SCB-2402](https://issues.apache.org/jira/browse/SCB-2402) - Support synchronization of multiple registries
+- [SCB-2401](https://issues.apache.org/jira/browse/SCB-2401) - Append inner properties when heartbeat success
+- [SCB-2408](https://issues.apache.org/jira/browse/SCB-2408) - Add put instance service
+- [SCB-2409](https://issues.apache.org/jira/browse/SCB-2409) - Add resource usage service
+- [SCB-2412](https://issues.apache.org/jira/browse/SCB-2412) - Add dlock service
+- [SCB-2414](https://issues.apache.org/jira/browse/SCB-2414) - Add schema retire cron job
+- [SCB-2415](https://issues.apache.org/jira/browse/SCB-2415) - Add schema ref
+- [SCB-2419](https://issues.apache.org/jira/browse/SCB-2419) - Add govern service
+## Improvement
+- [SCB-2405](https://issues.apache.org/jira/browse/SCB-2405) - Use dlock instead
+- [SCB-2406](https://issues.apache.org/jira/browse/SCB-2406) - Using cari's mongo db client
+- [SCB-2407](https://issues.apache.org/jira/browse/SCB-2407) - Using cari db client
+- [SCB-2410](https://issues.apache.org/jira/browse/SCB-2410) - Refactoring disco service
+- [SCB-2413](https://issues.apache.org/jira/browse/SCB-2413) - Refactoring RBAC datasource interface
+- [SCB-2416](https://issues.apache.org/jira/browse/SCB-2416) - Refactoring quota mgr
+- [SCB-2417](https://issues.apache.org/jira/browse/SCB-2417) - Refactoring schema service
+
+
+
         Release Notes - Apache ServiceComb - Version service-center-2.0.0
-        
-         
+
+
+​         
 <h2>        Bug
 </h2>
 <ul>
@@ -22,8 +52,8 @@ last_modified_at: 2021-06-04T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1069'>SCB-1069</a>] -         Wrong response of batch delete microservices API
 </li>
 </ul>
-      
-         
+
+​         
 <h2>        New Feature
 </h2>
 <ul>
@@ -59,14 +89,14 @@ last_modified_at: 2021-06-04T00:50:43-55:00
 
 
         Release Notes - Apache ServiceComb - Version service-center-1.3.0
-    
+
 <h2>        Sub-task
 </h2>
 <ul>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1296'>SCB-1296</a>] -         [Syncer] Store Syncer data to etcd
 </li>
 </ul>
-                    
+
 <h2>        New Feature
 </h2>
 <ul>
@@ -81,7 +111,7 @@ last_modified_at: 2021-06-04T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1453'>SCB-1453</a>] -         [Syncer] New servicecenter plugin supported eureka
 </li>
 </ul>
-    
+
 <h2>        Improvement
 </h2>
 <ul>
@@ -106,7 +136,7 @@ last_modified_at: 2021-06-04T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1540'>SCB-1540</a>] -         Add syncer&#39;s packaging command to the script of release
 </li>
 </ul>
-                                                                                                                                                        
+​                                                                                                                                                        
 
         Release Notes - Apache ServiceComb - Version service-center-1.2.0
 
