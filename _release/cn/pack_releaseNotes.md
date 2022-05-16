@@ -4,11 +4,155 @@ lang: cn
 ref: release
 permalink: /cn/release/pack-release-notes/
 excerpt: "ServiceComb Pack Release Notes"
-last_modified_at: 2020-04-06T00:50:43-55:00
+last_modified_at: 2020-05-16T00:50:43-55:00
 ---
 
+        Release Notes - Apache ServiceComb - Version pack-0.7.0
+
+<h2>        Sub-task
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1370'>SCB-1370</a>] -         Support for in-process nested global transactions
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2219'>SCB-2219</a>] -         Use Github secrets to configure snapshot deploy to Nexus authentication
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2220'>SCB-2220</a>] -         Adding Github actions workflow status badge to README.md
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2223'>SCB-2223</a>] -         NEXUS&#39;s secret name is wrong
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2248'>SCB-2248</a>] -         Update jacoco version 0.8.6 for Java 11
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2397'>SCB-2397</a>] -         Add pack-dependencies module management dependencies
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2421'>SCB-2421</a>] -         Migrate Spring-Boot from 2.1.X.RELEASE to 2.3.X.RELEASE
+</li>
+</ul>
+
+<h2>        Bug
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2192'>SCB-2192</a>] -         servicecomb-pack fails to build on ARM64
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2227'>SCB-2227</a>] -         [UI] Property or field &#39;upTime&#39; cannot be found on null
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2231'>SCB-2231</a>] -         Github Actions only work on apache/servicecomb-pack
+</li>
+</ul>
+
+<h2>        New Feature
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-275'>SCB-275</a>] -         [pack] retry compensation on failure/timeout/crash
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-908'>SCB-908</a>] -         TCC Events restful API
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1467'>SCB-1467</a>] -         Provide API to let user integration transaction with their business
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1510'>SCB-1510</a>] -         Add cluster metrics to the dashboard
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2238'>SCB-2238</a>] -         FSM event channel supports Rabbit
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2239'>SCB-2239</a>] -         [JDK11] Support JDK11 LTS
+</li>
+</ul>
+
+<h2>        Improvement
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-268'>SCB-268</a>] -         [pack] compact events to remove unnecessary fields
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-277'>SCB-277</a>] -         [pack] concurrent event processing issue
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-751'>SCB-751</a>] -         The load balancer of Saga may be faced with peak problem.
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-798'>SCB-798</a>] -         GrpcMessageSender uses aync send API
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-835'>SCB-835</a>] -         Alpha should call the compensation method once it gets the abort event
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-990'>SCB-990</a>] -         Support to lookup the Omega instance if the original instance is not exit
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1003'>SCB-1003</a>] -         Support the transaction suspend and resume
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1004'>SCB-1004</a>] -         Alpha has limit request rate protection
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1006'>SCB-1006</a>] -         Support SagaEnd Callback invocation
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1057'>SCB-1057</a>] -         check the TxEndedEvent is received before doing the compensate
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1107'>SCB-1107</a>] -         Omega should send the compensation failure to alpha
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1300'>SCB-1300</a>] -         Added the accept test of retry then recovery
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1536'>SCB-1536</a>] -         Adapter fegin by spring-cloud-starter-openfeign 2.0.0
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1583'>SCB-1583</a>] -         Polish ServiceComb Pack User document about kyro Usage
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1596'>SCB-1596</a>] -         Support for defining OmegaContext parameters in @SagaStart and @Compensable methods
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1618'>SCB-1618</a>] -         Add a JMS related Saga demo
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1884'>SCB-1884</a>] -         Using Asciidoc to process the ServiceComb Pack docs
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2203'>SCB-2203</a>] -         The version of Java (1.8.0_252) you have used to run this analysis is deprecated and Sonarcloud.io stopped accepting it
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2204'>SCB-2204</a>] -         Acceptance Tests Akka fails
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2390'>SCB-2390</a>] -         ServiceComb Pack Support Mac M1
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2392'>SCB-2392</a>] -         Upgrade the netty version to 4.1.74
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2394'>SCB-2394</a>] -         The random error of AlphaIntegrationWithRandomPortTest
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2395'>SCB-2395</a>] -         Upgrade Log4j version
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2399'>SCB-2399</a>] -         Upgrade the fabric8 docker plugin to fix mac m1 issue
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2438'>SCB-2438</a>] -         Upgrade spring-framework version to 5.2.20
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2453'>SCB-2453</a>] -         Bump junit from 4.12 to 4.13.1
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2458'>SCB-2458</a>] -         Bump commons-io from 2.4 to 2.7
+</li>
+</ul>
+
+<h2>        Test
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-306'>SCB-306</a>] -         [pack] acceptance tests with all the transaction scenarios
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2222'>SCB-2222</a>] -         Unstable test cases on poor performance CI
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2391'>SCB-2391</a>] -         Add more accept tests of TCC
+</li>
+</ul>
+
+<h2>        Task
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-1203'>SCB-1203</a>] -         Occasional failure TccLoadBalanceSenderTest.participateFailedThenRetry
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2199'>SCB-2199</a>] -         Migrate travis-ci to github workflow
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2205'>SCB-2205</a>] -         Polishing Github actions workflow
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2275'>SCB-2275</a>] -         coveralls-maven-plugin fails on Java 11 - required class missing: DatatypeConverter
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2368'>SCB-2368</a>] -         Introduce dependency check plugin to list the CVE related issues
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2425'>SCB-2425</a>] -         Refactoring the Alpha module using Spring SPI
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2459'>SCB-2459</a>] -         Upgrade the version of zstd-jni and lz4-java
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2470'>SCB-2470</a>] -         Bump spring-cloud-function-core from 3.0.14.RELEASE to 3.1.7
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2477'>SCB-2477</a>] -         Faster release with Maven CI Friendly Versions
+</li>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2486'>SCB-2486</a>] -         Pack 0.7.0-SNAPSHOT Release Failed
+</li>
+</ul>
+
         Release Notes - Apache ServiceComb - Version pack-0.6.0
-    
+
 <h2>        Sub-task
 </h2>
 <ul>
@@ -25,7 +169,7 @@ last_modified_at: 2020-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1696'>SCB-1696</a>] -         Optimize state machine compensation retry strategy using reverseRetries and retryDelayInMilliseconds for FSM
 </li>
 </ul>
-            
+
 <h2>        Bug
 </h2>
 <ul>
@@ -46,14 +190,14 @@ last_modified_at: 2020-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1842'>SCB-1842</a>] -         Akka Actor not found error in pack-0.5.0  under fsm patten
 </li>
 </ul>
-            
+
 <h2>        New Feature
 </h2>
 <ul>
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1530'>SCB-1530</a>] -         Add omega-transport-hystrix module to support thread context switching
 </li>
 </ul>
-    
+
 <h2>        Improvement
 </h2>
 <ul>
@@ -98,7 +242,7 @@ last_modified_at: 2020-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1880'>SCB-1880</a>] -         Remove the EnableOmega annotation
 </li>
 </ul>
-    
+
 <h2>        Test
 </h2>
 <ul>
@@ -107,7 +251,7 @@ last_modified_at: 2020-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1685'>SCB-1685</a>] -         Improve test case doNotCompensateDuplicateTxOnFailure of AlphaIntegrationTest
 </li>
 </ul>
-        
+
 <h2>        Task
 </h2>
 <ul>
@@ -132,7 +276,7 @@ last_modified_at: 2020-04-06T00:50:43-55:00
 <li>[<a href='https://issues.apache.org/jira/browse/SCB-1735'>SCB-1735</a>] -         Support Alpha call compensation timeout strategy
 </li>
 </ul>
-                                                                                                                                                
+
 
         Release Notes - Apache ServiceComb - Version pack-0.5.0
 
@@ -142,7 +286,7 @@ last_modified_at: 2020-04-06T00:50:43-55:00
     <li> Provided a new GUI to check the Saga Transactions</li>
     <li> User can use TransactionContext to pass the transaction id information </li>
   </ul>
-        
+
 <h2>        Sub-task
 </h2>
 <ul>

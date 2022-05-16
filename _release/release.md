@@ -4,7 +4,7 @@ lang: en
 ref: release
 permalink: /release/
 excerpt: "ServiceComb Releases"
-last_modified_at: 2022-03-25T00:50:43-55:00
+last_modified_at: 2022-05-16T00:50:43-55:00
 ---
 
 Use the links below to download the ServiceComb toolkits releases from one of our mirrors. You must verify the integrity of the downloaded files using signatures downloaded from our main distribution directory.
@@ -13,6 +13,8 @@ Only current recommended releases are available on the main distribution site an
 
 
 **Stable Release - Latest Version:**
+
+* [ServiceComb Pack 0.7.0](/release/pack-downloads/) (released on 2022-05-16)
 
 * [ServiceComb Pack 0.6.0](/release/pack-downloads/) (released on 2020-05-26)
 
