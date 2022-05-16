@@ -28,7 +28,7 @@ intro:
     <a href='/cn/summer2020'>Apache ServiceComb Summer Code 2020</a>
   </li>
   <li>
-    <a href='/release/pack-downloads'>Apache ServiceComb Pack 0.6.0 is released</a>
+    <a href='/release/pack-downloads'>Apache ServiceComb Pack 0.7.0 is released</a>
   </li>
   <li>
     <a href='/release/service-center-downloads/'>Apache ServiceComb Service-Center Release Version 2.1.0</a>
