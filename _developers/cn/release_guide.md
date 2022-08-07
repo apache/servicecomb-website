@@ -258,4 +258,4 @@ gvt restore
 
 ## 发行Pack
 
-请参考 [ServiceComb Pack 发行指南](http://servicecomb.apache.org/cn/release/pack-release-guide)
+请参考 [ServiceComb Pack 发行指南](/cn/release/pack-release-guide)
