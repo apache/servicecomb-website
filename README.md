@@ -31,6 +31,8 @@ Please sent your PR to the master branch instead of asf-site.
 
 *  Start web browser to access `http://localhost:4000` 
 
+*  Build the website `sudo bundle exec jekyll build`
+
 # How to push the change to apache website
 
 [Follow This Script](script/release)

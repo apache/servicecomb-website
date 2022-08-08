@@ -1,6 +1,6 @@
 ---
 title: "ServiceComb Pack Release Guide"
-lang: cn
+lang: en
 ref: release
 permalink: /release/pack-release-guide/
 excerpt: "ServiceComb Pack Release Guide"
