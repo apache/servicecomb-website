@@ -277,74 +277,9 @@ or [2.0.0 RP](https://github.com/apache/servicecomb-website/pull/240)
 6. Send announcements to `dev@servicecomb.apache.org`， `announce@apache.org`。
 
 
-## Major Steps for doing Saga Release
+## Major Steps for doing Pack Release
 
-***Make and Verify the Release***
-1. Clone the saga code.
-```
-git clone https://github.com/apache/servicecomb-saga.git
-```
-
-2. Cut the release using per command to replace all the versions in pom.xml files
-
-3. Create a Tag from the master branch using the version number.
-```
-find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
-```
-
-4. Clear all the redundant servicecomb releases in repository.apache.org
-
-5. Add the keys in a reference folder.
-
-6. Update the key path and passphrase in your ~/.m2/settings.xml file.
-
-7. Update the apache account username and password in the settings.xml file.
-
-8. Run the maven deploy command.
-```
-mvn deploy -DskipTests -Ppassphrase -Prelease
-```
-
-9. Once every thing is uploaded then use the staging repo to verify the build using the acceptance test.
-
-10. Share the staging repo with peers to verify on different OS and machines using the demo.
-
-11. If everything is fine then push the tag to master.
-
-12. Close the staging repo is apache repositories.
-
-***Sign the Releases***
-
-1. Download the source code and distribution from the staging repo.
-
-2. Sign the 2 releases(distribution, src) and checksum.
-
-3. Create a new directory [Apache dev Release SVN](https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-saga/) with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the third attempt of the release then the folder structure will be `1.0.0-m2/rc03`)
-
-4. Upload the release to  directory created in last step.
-
-5. Download all the releases from SVN and verify the signature and checksum.
-
-***PMC approval***
-
-1. Send the voting mail in dev@servicecomb.apache.org.
-
-2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.
-
-3. Publish the result of the vote in dev@servicecomb.apache.org.
-
-***Announcements***
-
-1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-saga/).
-
-2. Wait for 24 hours to replicate the release in all the mirrors.
-
-3. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
-
-4. Upload the release page of ServiceComb Website.
-
-5. Send the announcement mails to dev@servicecomb.apache.org, announce@apache.orgg
-
+Please refer to [ServiceComb Pack Release Guide](/release/pack-release-guide)
 
 **NOTE**
  - The whole process generally takes 1 weeks to complete assuming you don't get any -1 from PMC, so please plan the release activity before hand.
