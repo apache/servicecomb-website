@@ -431,7 +431,7 @@
   <li><a href="#maven-2-setup" id="markdown-toc-maven-2-setup">Maven 2 Setup</a></li>
   <li><a href="#major-steps-for-doing-service-center-release" id="markdown-toc-major-steps-for-doing-service-center-release">Major Steps for doing Service-Center Release</a></li>
   <li><a href="#major-steps-for-doing-java-chassis-release" id="markdown-toc-major-steps-for-doing-java-chassis-release">Major Steps for doing Java-Chassis Release</a></li>
-  <li><a href="#major-steps-for-doing-saga-release" id="markdown-toc-major-steps-for-doing-saga-release">Major Steps for doing Saga Release</a></li>
+  <li><a href="#major-steps-for-doing-pack-release" id="markdown-toc-major-steps-for-doing-pack-release">Major Steps for doing Pack Release</a></li>
 </ul>
 
   </nav>
@@ -772,102 +772,9 @@ or <a href="https://github.com/apache/servicecomb-website/pull/240">2.0.0 RP</a>
   </li>
 </ol>
 
-<h2 id="major-steps-for-doing-saga-release">Major Steps for doing Saga Release</h2>
+<h2 id="major-steps-for-doing-pack-release">Major Steps for doing Pack Release</h2>
 
-<p><strong><em>Make and Verify the Release</em></strong></p>
-<ol>
-  <li>Clone the saga code.
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/apache/servicecomb-saga.git
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>Cut the release using per command to replace all the versions in pom.xml files</p>
-  </li>
-  <li>Create a Tag from the master branch using the version number.
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>find . -name 'pom.xml'|xargs perl -pi -e 's/1.0.0-m2-SNAPSHOT/1.0.0-m2/g'
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>Clear all the redundant servicecomb releases in repository.apache.org</p>
-  </li>
-  <li>
-    <p>Add the keys in a reference folder.</p>
-  </li>
-  <li>
-    <p>Update the key path and passphrase in your ~/.m2/settings.xml file.</p>
-  </li>
-  <li>
-    <p>Update the apache account username and password in the settings.xml file.</p>
-  </li>
-  <li>Run the maven deploy command.
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mvn deploy -DskipTests -Ppassphrase -Prelease
-</code></pre></div>    </div>
-  </li>
-  <li>
-    <p>Once every thing is uploaded then use the staging repo to verify the build using the acceptance test.</p>
-  </li>
-  <li>
-    <p>Share the staging repo with peers to verify on different OS and machines using the demo.</p>
-  </li>
-  <li>
-    <p>If everything is fine then push the tag to master.</p>
-  </li>
-  <li>Close the staging repo is apache repositories.</li>
-</ol>
-
-<p><strong><em>Sign the Releases</em></strong></p>
-
-<ol>
-  <li>
-    <p>Download the source code and distribution from the staging repo.</p>
-  </li>
-  <li>
-    <p>Sign the 2 releases(distribution, src) and checksum.</p>
-  </li>
-  <li>
-    <p>Create a new directory <a href="https://dist.apache.org/repos/dist/dev/servicecomb/servicecomb-saga/">Apache dev Release SVN</a> with release package name and release candidate number. (for example : if you want to release 1.0.0-m2 and this is the third attempt of the release then the folder structure will be <code class="language-plaintext highlighter-rouge">1.0.0-m2/rc03</code>)</p>
-  </li>
-  <li>
-    <p>Upload the release to  directory created in last step.</p>
-  </li>
-  <li>
-    <p>Download all the releases from SVN and verify the signature and checksum.</p>
-  </li>
-</ol>
-
-<p><strong><em>PMC approval</em></strong></p>
-
-<ol>
-  <li>
-    <p>Send the voting mail in dev@servicecomb.apache.org.</p>
-  </li>
-  <li>
-    <p>Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from Step 1.</p>
-  </li>
-  <li>
-    <p>Publish the result of the vote in dev@servicecomb.apache.org.</p>
-  </li>
-</ol>
-
-<p><strong><em>Announcements</em></strong></p>
-
-<ol>
-  <li>
-    <p>Upload the releases to <a href="https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-saga/">Apache release repository</a>.</p>
-  </li>
-  <li>
-    <p>Wait for 24 hours to replicate the release in all the mirrors.</p>
-  </li>
-  <li>
-    <p>Delete old releases from <a href="https://dist.apache.org/repos/dist/dev">dev</a> and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.</p>
-  </li>
-  <li>
-    <p>Upload the release page of ServiceComb Website.</p>
-  </li>
-  <li>
-    <p>Send the announcement mails to dev@servicecomb.apache.org, announce@apache.orgg</p>
-  </li>
-</ol>
+<p>Please refer to <a href="/release/pack-release-guide">ServiceComb Pack Release Guide</a></p>
 
 <p><strong>NOTE</strong></p>
 <ul>
