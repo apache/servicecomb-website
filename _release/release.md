@@ -14,9 +14,7 @@ Only current recommended releases are available on the main distribution site an
 
 **Stable Release - Latest Version:**
 
-* [ServiceComb Pack 0.7.0](/release/pack-downloads/) (released on 2022-05-16)
-
-* [ServiceComb Pack 0.6.0](/release/pack-downloads/) (released on 2020-05-26)
+* [ServiceComb Pack 0.7.1](/release/pack-downloads/) (released on 2022-08-09)
 
 * [ServiceComb Service-Center 2.1.0](/release/service-center-downloads/) (released on 2022-03-15)
 

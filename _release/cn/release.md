@@ -14,9 +14,7 @@ last_modified_at: 2021-06-04T00:50:43-55:00
 
 **稳定发布版 - 最新版本:**
 
-* [ServiceComb Pack 0.7.0](/cn/release/pack-downloads/) (released on 2022-05-16)
-
-* [ServiceComb Pack 0.6.0](/cn/release/pack-downloads/) (released on 2020-05-26)
+* [ServiceComb Pack 0.7.1](/cn/release/pack-downloads/) (released on 2022-08-09)
 
 * [ServiceComb Service-Center 2.1.0](/cn/release/service-center-downloads/) (released on 2022-03-15)
 

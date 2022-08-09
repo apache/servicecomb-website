@@ -7,6 +7,15 @@ excerpt: "ServiceComb Pack Release Notes"
 last_modified_at: 2020-05-16T00:50:43-55:00
 ---
 
+        Release Notes - Apache ServiceComb - Version pack-0.7.1
+
+<h2>        Sub-task
+</h2>
+<ul>
+<li>[<a href='https://issues.apache.org/jira/browse/SCB-2657'>SCB-2657</a>] -         Fix wrong version placeholder for branch 0.7.x 
+</li>
+</ul>
+
         Release Notes - Apache ServiceComb - Version pack-0.7.0
 
 <h2>        Sub-task
