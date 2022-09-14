@@ -113,7 +113,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../references-handlers/bizkeeper.html">隔离熔断容错</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">基于动态配置的流量特征治理</a>
+                  <li class="toctree-l1"><a class="reference internal" href="../references-handlers/governance.html">流量特征治理</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="../references-handlers/fail-retry.html">快速失败和重试</a>
                   </li>
@@ -191,13 +191,13 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html" class="icon icon-home" alt="Docs"></a> &raquo;</li><li>HTTP Filter</li>
+    <li><a href="../index.html" class="icon icon-home" alt="Docs"></a> &raquo;</li>
+      <li>HTTP Filter</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
@@ -217,6 +217,7 @@ null（比如get调用的场景），如果不为null，对应的码流长度，
 HttpClientFilter 的 beforeSendRequest 在接口调用的当前线程执行， afterReceiveResponse 在业务线程池中执行。
 HttpServerFilter 的 afterReceiveRequest 在业务线程池中执行，beforeSendResponse 和 beforeSendResponseAsync
 可能在业务线程池执行， 也可能在网络线程池执行， 务必保证不能够出现阻塞操作。</p>
+<p>Java Chassis底层是异步框架，线程切换频繁。当业务扩展Filter时，若涉及通过ThreadLocal获取线程上下文时，可能会出现获取为空的情况。针对这种场景，建议使用InHeritableThreadLocal来代替ThreadLocal存储数据，或者使用扩展Handler的方式来代替Filter。</p>
 </blockquote>
 <h2 id="httpclientfilter">HttpClientFilter</h2>
 <p>系统内置2个HttpClientFilter，扩展功能时注意order值不要冲突：</p>
