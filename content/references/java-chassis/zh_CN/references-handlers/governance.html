@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>基于动态配置的流量特征治理 - ServiceComb Java Chassis 开发指南</title>
+    <title>流量特征治理 - ServiceComb Java Chassis 开发指南</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
     
       <script>
         // Current page data
-        var mkdocs_page_name = "\u57fa\u4e8e\u52a8\u6001\u914d\u7f6e\u7684\u6d41\u91cf\u7279\u5f81\u6cbb\u7406";
+        var mkdocs_page_name = "\u6d41\u91cf\u7279\u5f81\u6cbb\u7406";
         var mkdocs_page_input_path = "references-handlers/governance.md";
         var mkdocs_page_url = null;
       </script>
@@ -113,8 +113,16 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="bizkeeper.html">隔离熔断容错</a>
                   </li>
-                  <li class="toctree-l1 current"><a class="reference internal current" href="governance.html">基于动态配置的流量特征治理</a>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="governance.html">流量特征治理</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#_2">使用客户端熔断</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_3">使用客户端隔离仓</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_4">使用重试</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">组合使用</a>
+    </li>
     </ul>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="fail-retry.html">快速失败和重试</a>
@@ -194,24 +202,104 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html" class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>服务治理功能参考 &raquo;</li><li>基于动态配置的流量特征治理</li>
+          <li>服务治理功能参考 &raquo;</li>
+      <li>流量特征治理</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="_1">基于动态配置的流量特征治理</h1>
-<p>基于动态配置的流量特征治理旨在提供一种通用的，适合不同语言、不同微服务开发框架的治理规则。治理规则规定了微服务治理的过程、治理的策略，
+                <h1 id="_1">流量特征治理</h1>
+<p>流量特征治理旨在提供一种通用的，适合不同语言、不同微服务开发框架的治理规则。治理规则规定了微服务治理的过程、治理的策略，
 可以使用不同的开发框架、技术实现治理规则约定的治理能力。</p>
 <p>开发者可以在 <a href="https://github.com/apache/servicecomb-java-chassis">ServiceComb Java Chassis</a>, <a href="https://github.com/go-chassis/go-chassis">Go Chassis</a>,<a href="https://github.com/huaweicloud/spring-cloud-huawei">Spring Cloud</a>,
 <a href="https://github.com/huaweicloud/dubbo-servicecomb">Dubbo</a> 中使用该功能。</p>
 <p><a href="https://github.com/apache/servicecomb-java-chassis">ServiceComb Java Chassis</a> 提供了实现 SDK，可以将其用于其他开发框架。SDK 默认采用 <a href="https://github.com/resilience4j">Resilience4j</a>
 实现治理过程。规范没有约束治理过程的实现框架，可以很方便的使用其他的治理框架实现治理过程。 </p>
-<p>基于动态配置的流量特征治理详细概念和开发指南请参考<a href="https://support.huaweicloud.com/devg-cse/cse_devg_0026.html">微服务引擎开发指南</a></p>
+<p>流量特征治理<a href="https://github.com/huaweicloud/spring-cloud-huawei/wiki/using-governance">概念和规范参考</a></p>
+<h2 id="_2">使用客户端熔断</h2>
+<p>在 <code>Handler</code> 中包含客户端熔断处理链：</p>
+<pre><code class="language-yaml">servicecomb:
+  handler:
+    chain:
+      Consumer:
+        default: loadbalance,instance-isolation-consumer
+</code></pre>
+<p>配置参数：</p>
+<pre><code>servicecomb:
+  instanceIsolation:
+    allOperation: |
+      minimumNumberOfCalls: 10
+      slidingWindowSize: 20
+      slidingWindowType: COUNT_BASED
+      failureRateThreshold: 50
+      slowCallRateThreshold: 100
+      slowCallDurationThreshold: 3000
+      waitDurationInOpenState: 10000 
+      permittedNumberOfCallsInHalfOpenState: 10
+</code></pre>
+<p>上诉参数使用计算滑动窗口，如果错误率超过50%，就会进行熔断。</p>
+<h2 id="_3">使用客户端隔离仓</h2>
+<p>在 <code>Handler</code> 中包含客户端熔断处理链：</p>
+<pre><code class="language-yaml">servicecomb:
+  handler:
+    chain:
+      Consumer:
+        default: loadbalance,instance-bulkhead-consumer
+</code></pre>
+<p>配置参数：</p>
+<pre><code>servicecomb:
+  instanceBulkhead:
+    allOperation: |
+      maxConcurrentCalls: 20
+      maxWaitDuration: 1000
+</code></pre>
+<p>上诉参数控制最大并发数为20，超过的请求会等待1000毫秒以获取许可，如果得到许可，可以继续处理，否则会拒绝请求。</p>
+<h2 id="_4">使用重试</h2>
+<p>配置参数：</p>
+<pre><code class="language-yaml">servicecomb:
+  retry:
+    allOperation: |
+      maxAttempts: 2
+      retryOnSame: 0
+</code></pre>
+<p>maxAttempts表示最大重试次数（不包括第1次调用），retryOnSame表示使用第1次调用的实例进行重试次数。后续的重试会根据负载均衡策略，重新选择一个新的实例重试（也可能选择到同一个实例）。 </p>
+<p><strong>注意事项:</strong></p>
+<ul>
+<li>并不是所有的异常都会触发重试。缺省的情况，只有网络异常，或者 502，503 错误码才会触发重试。 详细可以参考 <code>ServiceCombRetryExtension</code> 的定义。</li>
+</ul>
+<h2 id="_5">组合使用</h2>
+<p>一个比较好的实践是组合使用 <code>重试</code> 、 <code>客户端熔断</code> 和 <code>客户端隔离仓</code>。</p>
+<pre><code class="language-yaml">servicecomb:
+  handler:
+    chain:
+      Consumer:
+        default: loadbalance,instance-isolation-consumer,instance-bulkhead-consumer
+</code></pre>
+<p>这种组合可以防止偶然的实例错误导致的失败，也可以防止单个实例处理能力下降（比如刚刚启动的实例、故障的实例等场景）导致的整体故障。</p>
+<pre><code>servicecomb:
+  retry:
+    allOperation: |
+      maxAttempts: 2
+      retryOnSame: 0
+  instanceIsolation:
+    allOperation: |
+      minimumNumberOfCalls: 10
+      slidingWindowSize: 20
+      slidingWindowType: COUNT_BASED
+      failureRateThreshold: 50
+      slowCallRateThreshold: 100
+      slowCallDurationThreshold: 3000
+      waitDurationInOpenState: 10000 
+      permittedNumberOfCallsInHalfOpenState: 10
+  instanceBulkhead:
+    allOperation: |
+      maxConcurrentCalls: 20
+      maxWaitDuration: 1000
+</code></pre>
               
             </div>
           </div><footer>

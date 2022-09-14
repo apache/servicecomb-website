@@ -111,11 +111,11 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_4">根据实例属性进行路由转发</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_5">实例隔离功能</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_5">根据实例属性值的层级进行路由转发</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_6">配置路由规则</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_6">实例隔离功能</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#_7">设置重试策略</a>
+    <li class="toctree-l2"><a class="reference internal" href="#_7">配置路由规则</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#_8">自定义</a>
     </li>
@@ -129,7 +129,7 @@
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="bizkeeper.html">隔离熔断容错</a>
                   </li>
-                  <li class="toctree-l1"><a class="reference internal" href="governance.html">基于动态配置的流量特征治理</a>
+                  <li class="toctree-l1"><a class="reference internal" href="governance.html">流量特征治理</a>
                   </li>
                   <li class="toctree-l1"><a class="reference internal" href="fail-retry.html">快速失败和重试</a>
                   </li>
@@ -208,13 +208,13 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html" class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>服务治理功能参考 &raquo;</li><li>负载均衡</li>
+          <li>服务治理功能参考 &raquo;</li>
+      <li>负载均衡</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
@@ -266,7 +266,52 @@
 <p>上面的配置表示只访问myservice所有实例中<code>tag_key</code>属性为<code>expected_tag_value</code>的实例。</p>
 <p>该规则需要给每个服务单独配置，未配置表示不启用该规则，不支持对于所有服务的全局配置。</p>
 <p>该规则默认启用，如果不需要使用，可以通过<code>servicecomb.loadbalance.filter.instanceProperty.enabled</code>进行关闭。根据实例属性进行路由转发功能在<code>InstancePropertyDiscoveryFilter</code>实现。</p>
-<h2 id="_5">实例隔离功能</h2>
+<h2 id="_5">根据实例属性值的层级进行路由转发</h2>
+<p>实例属性优先级匹配可以看做是针对实例属性匹配的一种逻辑扩展。</p>
+<p>微服务的实例属性可以定义为具备优先级的格式，通过<code>.</code>符号进行分割。</p>
+<pre><code class="language-yaml">instance_description:
+  properties:
+    KEY: a.b.c
+</code></pre>
+<p>消费者需要指定用于优先级匹配的实例属性key，默认的key为<code>environment</code>。</p>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    filter:
+      priorityInstanceProperty:
+        key: KEY
+</code></pre>
+<p>假设某个consumer的属性值为<code>a.b.c</code>，那么将会按照<code>a.b.c</code>&gt;<code>a.b</code>&gt;<code>a</code>&gt;<code>[空]</code> 这样的优先级顺序匹配provider的实例，一旦匹配到即终止，下面的表格给出了不同情况的具体示例</p>
+<table>
+<thead>
+<tr>
+<th align="left">consumer</th>
+<th align="left">match priority of provider</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">a.b.c</td>
+<td align="left">a.b.c&gt;a.b&gt;a&gt;[空]</td>
+</tr>
+<tr>
+<td align="left">a.b</td>
+<td align="left">a.b&gt;a&gt;[空]</td>
+</tr>
+<tr>
+<td align="left">a</td>
+<td align="left">a&gt;[空]</td>
+</tr>
+<tr>
+<td align="left">[空]</td>
+<td align="left">[空]</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>注意[空]是一种特殊情况，即未设置该属性的实例</p>
+</blockquote>
+<p>该规则默认关闭，如果需要开启，可以通过<code>servicecomb.loadbalance.filter.priorityInstanceProperty.enabled</code>配置打开。该功能在<code>PriorityInstancePropertyDiscoveryFilter</code>中实现。</p>
+<h2 id="_6">实例隔离功能</h2>
 <p>开发者可以配置实例隔离的参数，以暂时屏蔽对于错误实例的访问，提升系统可靠性和性能。下面是其配置项和缺省值</p>
 <pre><code class="language-yaml">servicecomb:
   loadbalance:
@@ -307,7 +352,7 @@
 </code></pre>
 <p><strong><em>注意：</em></strong> 多数异常都会触发隔离计数。但一般的 <code>InvocationException</code> 不会触发隔离计数。详细可以参考
 <code>LoadbalanceHandler</code> 的 <code>isFailedResponse</code> 方法实现。</p>
-<h2 id="_6">配置路由规则</h2>
+<h2 id="_7">配置路由规则</h2>
 <p>开发者可以通过配置项指定负载均衡策略。</p>
 <pre><code class="language-yaml">servicecomb:
   loadbalance:
@@ -331,26 +376,6 @@
       sessionTimeoutInSeconds: 30 # 客户端闲置时间，超过限制后选择后面的服务器
       successiveFailedTimes: 5 # 客户端失败次数，超过后会切换服务器
 </code></pre>
-<h2 id="_7">设置重试策略</h2>
-<p>负载均衡模块还支持配置失败重试的策略。</p>
-<pre><code class="language-yaml">servicecomb:
-  loadbalance:
-    retryEnabled: false
-    retryOnNext: 0
-    retryOnSame: 0
-</code></pre>
-<p>缺省情况未启用重试。同时也支持对不同的服务设置特殊的策略：</p>
-<pre><code class="language-yaml">servicecomb:
-  loadbalance:
-    myservice：
-      retryEnabled: true
-      retryOnNext: 1
-      retryOnSame: 0
-</code></pre>
-<p>retryOnNext表示失败以后，根据负载均衡策略，重新选择一个实例重试（可能选择到同一个实例）。 retryOnSame表示仍然使用上次失败的实例进行重试。</p>
-<p><strong>注意事项:</strong></p>
-<p>​     1.并不是所有的异常都会触发重试。缺省的情况，只有网络异常，或者 503 错误码才会触发重试。 详细可以参考 <code>DefaultRetryExtensionsFactory</code> 的定义。</p>
-<p>​     2.retry的场景下，对于同步调用, 同步调用的主线程已经被挂起，无法再主线程中进行重试，重试也不能在网络线程（event-loop）中进行，未被保护的阻塞操作会导致网络线程挂起，因此当前的重试机制会另起一个retry-pool-thread进行重试，因此如果业务在扩展<code>HttpClientFilter</code>的时候，如果涉及到通过ThreadLocal获取线程上下文的时候，会存在获取不到的情况，针对这种场景，建议在获取的时候做个判断处理，或者针对涉及ThreadLocal获取线程上下文的业务场景，建议采取通过扩展Handler的机制，进行处理，并保证扩展的Handler在loadbalance之前执行。</p>
 <h2 id="_8">自定义</h2>
 <p>负载均衡模块提供的功能已经非常强大，能够通过配置支持大部分应用场景。同时它也提供了强大的扩展能力，包括DiscoveryFilter、ServerListFilterExt、ExtensionsFactory（扩展IRule，RetryHandler等）。loadbalance模块本身包含了每一个扩展的实现，这里不再详细描述如何扩展，只简单描述步骤。开发者可以自行下载ServiceComb源码进行参考。</p>
 <ul>

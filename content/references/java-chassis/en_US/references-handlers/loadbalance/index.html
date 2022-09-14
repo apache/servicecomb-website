@@ -234,6 +234,8 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#routing-and-forwarding-by-instance-attributes">Routing and forwarding by instance attributes</a>
     </li>
+    <li class="toctree-l2"><a class="reference internal" href="#routing-and-forwarding-by-instance-attributes-with-hierarchy-value">Routing and forwarding by instance attributes with hierarchy value</a>
+    </li>
     <li class="toctree-l2"><a class="reference internal" href="#instance-isolation">Instance isolation</a>
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#configuring-route-rules">Configuring route rules</a>
@@ -270,13 +272,13 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>Handlers reference &raquo;</li><li>Load Balancing</li>
+          <li>Handlers reference &raquo;</li>
+      <li>Load Balancing</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
@@ -330,6 +332,31 @@
 <p>The above configuration shows that only the instances of "provider" with the tag attribute <code>tag_key:expected_tag_value</code> are called.</p>
 <p>This rule needs to be configured separately for each service. Global rule for all services is not supported.</p>
 <p>This rule is enabled by default, it can be disabled by setting <code>servicecomb.loadbalance.filter.instanceProperty.enabled</code> to false. The instance attributes based routing policy is implemented in <code>InstancePropertyDiscoveryFilter</code>.</p>
+<h2 id="routing-and-forwarding-by-instance-attributes-with-hierarchy-value">Routing and forwarding by instance attributes with hierarchy value</h2>
+<p>This is a extension of the feature above.</p>
+<p>You can specify the properties of microservice instances in microservice.yaml with hierarchy value, which is separated by <code>.</code> symbol.</p>
+<pre><code class="language-yaml">instance_description:
+  properties:
+    KEY: a.b.c
+</code></pre>
+<p>Consumer need to specify the key of instance which is used to match provider, the default key is <code>environment</code></p>
+<pre><code class="language-yaml">servicecomb:
+  loadbalance:
+    filter:
+      priorityInstanceProperty:
+        key: KEY
+</code></pre>
+<p>Assuming there is a consumer instance with property value <code>a.b.c</code>, the match priority of provider will be <code>a.b.c</code>&gt;<code>a.b</code>&gt;<code>a</code>&gt;<code>[empty]</code> and the table shown below gives detail match priority.
+| consumer | match priority of provider|
+| :--- | :--- | 
+|a.b.c|a.b.c&gt;a.b&gt;a&gt;[empty]|
+|a.b|a.b&gt;a&gt;[empty]|
+|a|a&gt;[empty]|
+|[empty]|[empty]|</p>
+<blockquote>
+<p>Note that [empty] is represent for the instances which is not set value of this property key</p>
+</blockquote>
+<p>This rule is <strong>NOT</strong> enabled by default, which can be enabled by setting <code>servicecomb.loadbalance.filter.priorityInstanceProperty.enabled</code> to true. The policy is implemented in <code>PriorityInstancePropertyDiscoveryFilter</code>.</p>
 <h2 id="instance-isolation">Instance isolation</h2>
 <p>Developers can configure instance-isolated parameters to temporarily drop access to the wrong instance, improving system reliability and performance. Below are the configuration items and default values:</p>
 <pre><code class="language-yaml">servicecomb:

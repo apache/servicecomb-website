@@ -256,13 +256,13 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
-          <li>General Development &raquo;</li><li>Http Filter</li>
+          <li>General Development &raquo;</li>
+      <li>Http Filter</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
   <hr/>
 </div>
-
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
@@ -281,6 +281,12 @@
 </li>
 </ul>
 <p>Whether it is request or response, read the body stream, use getBodyBytes\ (), the return value may be null (such as scenario of getting an invocation), if not null, the corresponding stream length, Obtain through getBodyBytesLength\ (\ ).</p>
+<blockquote>
+<p><strong><em>Tips</em></strong>: 
+The beforeSendRequest of HttpClientFilter is executed in the current thread of the interface call, and the afterReceiveResponse is executed in the business thread pool.</p>
+<p>The afterReceiveRequest of HttpServerFilter is executed in the business thread pool, beforeSendResponse and beforeSendResponseAsync may be executed in the business thread pool or the network thread pool. Make sure that blocking operations can not occur.</p>
+<p>The bottom layer of Java Chassis is an asynchronous framework, with frequent thread switching. When the business extends Filter, if it involves obtaining the thread context through ThreadLocal, the acquisition may be empty. For this scenario, it is recommended to use InhritableThreadLocal instead of ThreadLocal to store data, or to use extended Handler instead of Filter.</p>
+</blockquote>
 <h1 id="2httpclientfilter">2.HttpClientFilter</h1>
 <p>The system has two built-in HttpClientFilter. Note that the order value does not conflict when extending the function:</p>
 <ul>
