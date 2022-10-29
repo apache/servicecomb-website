@@ -10,10 +10,6 @@ redirect_from:
 ---
 
 {% include toc %}
-## 负载均衡策略
-本章节的内容已过时，新的负载均衡策略说明见[负载均衡](https://docs.servicecomb.io/java-chassis/zh_CN/references-handlers/loadbalance.html)
-
-
 
 ## 限流策略
 ### 场景描述

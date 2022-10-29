@@ -51,5 +51,3 @@ last_modified_at: 2019-08-08T14:01:43.000Z
 # 下一步
 
 - 阅读[流量控制快速入门](/cn/docs/products/mesher/flow-control/)
-
-- 了解更多[负载均衡](/cn/docs/users/service-configurations/#负载均衡策略)的使用方式

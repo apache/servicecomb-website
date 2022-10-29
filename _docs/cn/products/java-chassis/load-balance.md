@@ -42,4 +42,4 @@ mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Dcse.rest.address=0.0.0.0:7
 
 * 阅读[流量控制快速入门](/cn/docs/products/java-chassis/flow-control/)
 
-* 了解更多[负载均衡](/cn/docs/users/service-configurations/#负载均衡策略)的使用方式
+* 了解更多 [负载均衡](https://servicecomb.apache.org/references/java-chassis/zh_CN/references-handlers/loadbalance.html) 的使用方式
