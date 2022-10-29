@@ -18,7 +18,7 @@ In the scenario where some instances fail to be called, the instance-level fault
 
 ### Configuration
 
-This instance-level fault isolation function is integrated into the load balancing function. For configuration of the load balancing policy, see  [Service Configurations](/users/service-configurations/#负载均衡策略). For parameters associated with instance-level fault isolation in the load balancing policy, see table below:
+This instance-level fault isolation function is integrated into the load balancing function.  For parameters associated with instance-level fault isolation in the load balancing policy, see table below:
 
 | Configuration Item                       | Default Value | Value Range        | Mandatory | Description                              | Remark |
 | :--------------------------------------- | :------------ | :----------------- | :-------- | :--------------------------------------- | :----- |
