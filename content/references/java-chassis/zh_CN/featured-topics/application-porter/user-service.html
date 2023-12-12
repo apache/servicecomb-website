@@ -12,15 +12,15 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.4.4">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
     
     
       
-        <title>User service - ServiceComb Java Chassis 开发指南</title>
+        <title>使用MyBatis访问数据库 - ServiceComb Java Chassis 开发指南</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.bd3936ea.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.50c56a3b.min.css">
       
       
 
@@ -52,16 +52,13 @@
     <body dir="ltr">
   
     
-    
-      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
-    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#mybatis" class="md-skip">
           Skip to content
         </a>
       
@@ -97,12 +94,15 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              User service
+              使用MyBatis访问数据库
             
           </span>
         </div>
       </div>
     </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
     
     
     
@@ -185,24 +185,6 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../toc.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    目录
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
   
     <li class="md-nav__item">
       <a href="../../index.html" class="md-nav__link">
@@ -223,31 +205,13 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../start/catalog.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    快速入门
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-    
-      
-      
-  
-  
   
     <li class="md-nav__item">
       <a href="../../start/design.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    设计选型参考
+    Java Chassis设计参考
   </span>
   
 
@@ -258,6 +222,197 @@
     
       
       
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../introduce3.x.x.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.x.x 版本介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    快速入门
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            快速入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/terminology.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    术语表
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/architecture.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    微服务系统架构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/development-environment.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    安装本地开发环境
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/first-sample.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开发第一个微服务应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../application-bmi.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BMI应用-使用服务治理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../application-porter.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PORTER应用-典型开发场景
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
   
   
   
@@ -280,6 +435,93 @@
   
   
   
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Spring Boot集成Java Chassis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Spring Boot集成Java Chassis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring-boot/introduction.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring Boot集成Java Chassis介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../spring-boot/diff-spring-mvc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    与Spring Web MVC开发习惯的差异
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../build-provider/catalog.html" class="md-nav__link">
         
@@ -296,6 +538,7 @@
     
       
       
+  
   
   
   
@@ -318,6 +561,72 @@
   
   
   
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    定制请求处理流程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            定制请求处理流程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references-handlers/intruduction.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    处理链介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
     <li class="md-nav__item">
       <a href="../../general-development/catalog.html" class="md-nav__link">
         
@@ -337,6 +646,7 @@
   
   
   
+  
     
     
     
@@ -347,29 +657,30 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
         
           
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
             
   
   <span class="md-ellipsis">
-    多样化的通信协议功能参考
+    多样化的通信协议功能
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
             <span class="md-nav__icon md-icon"></span>
-            多样化的通信协议功能参考
+            多样化的通信协议功能
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
               
                 
+  
   
   
   
@@ -393,32 +704,13 @@
   
   
   
-    <li class="md-nav__item">
-      <a href="../../transports/rest-over-servlet.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    REST over Servlet
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
     <li class="md-nav__item">
       <a href="../../transports/rest-over-vertx.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    REST over Vertx
+    REST over HTTP(Vert.x)
   </span>
   
 
@@ -430,6 +722,7 @@
             
               
                 
+  
   
   
   
@@ -438,7 +731,7 @@
         
   
   <span class="md-ellipsis">
-    REST over HTTP2
+    REST over HTTP2(Vert.x)
   </span>
   
 
@@ -450,6 +743,49 @@
             
               
                 
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transports/rest-over-servlet-embedded.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    REST over Servlet(Spring Boot Embedded)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transports/rest-over-servlet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    REST over Servlet(WAR)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
   
   
   
@@ -480,6 +816,7 @@
   
   
   
+  
     
     
     
@@ -490,24 +827,24 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
         
           
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
             
   
   <span class="md-ellipsis">
-    多样化的服务注册与发现功能参考
+    多样化的服务注册与发现功能
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
             <span class="md-nav__icon md-icon"></span>
-            多样化的服务注册与发现功能参考
+            多样化的服务注册与发现功能
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -516,12 +853,13 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../registry/introduction.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    注册发现说明
+    注册发现介绍
   </span>
   
 
@@ -533,6 +871,7 @@
             
               
                 
+  
   
   
   
@@ -541,7 +880,7 @@
         
   
   <span class="md-ellipsis">
-    使用服务中心
+    使用service-center
   </span>
   
 
@@ -553,6 +892,28 @@
             
               
                 
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../registry/nacos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用nacos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
   
   
   
@@ -573,6 +934,7 @@
             
               
                 
+  
   
   
   
@@ -603,6 +965,7 @@
   
   
   
+  
     
     
     
@@ -613,24 +976,24 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
             
   
   <span class="md-ellipsis">
-    管理服务配置
+    多样化的配置管理功能
   </span>
   
 
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
             <span class="md-nav__icon md-icon"></span>
-            管理服务配置
+            多样化的配置管理功能
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -639,12 +1002,13 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../config/general-config.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    通用配置说明
+    服务配置介绍
   </span>
   
 
@@ -659,12 +1023,34 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../config/read-config.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
     在程序中读取配置信息
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../config/config-service.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    配置中心参考
   </span>
   
 
@@ -686,6 +1072,7 @@
   
   
   
+  
     
     
     
@@ -696,10 +1083,10 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
         
           
-          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -710,8 +1097,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_12">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
             <span class="md-nav__icon md-icon"></span>
             服务治理功能参考
           </label>
@@ -720,25 +1107,6 @@
               
                 
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../../references-handlers/intruduction.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    处理链介绍
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
   
   
   
@@ -762,6 +1130,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../references-handlers/ratelimit.html" class="md-nav__link">
         
@@ -779,6 +1148,7 @@
             
               
                 
+  
   
   
   
@@ -802,6 +1172,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../references-handlers/fault-injection.html" class="md-nav__link">
         
@@ -822,6 +1193,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../references-handlers/governance.html" class="md-nav__link">
         
@@ -839,6 +1211,7 @@
             
               
                 
+  
   
   
   
@@ -869,6 +1242,7 @@
   
   
   
+  
     
     
     
@@ -879,10 +1253,10 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
         
           
-          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -893,8 +1267,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_13">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
             <span class="md-nav__icon md-icon"></span>
             网关功能参考
           </label>
@@ -902,6 +1276,7 @@
             
               
                 
+  
   
   
   
@@ -925,6 +1300,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../edge/by-servicecomb-sdk.html" class="md-nav__link">
         
@@ -945,6 +1321,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../edge/zuul.html" class="md-nav__link">
         
@@ -962,6 +1339,7 @@
             
               
                 
+  
   
   
   
@@ -992,6 +1370,7 @@
   
   
   
+  
     
     
     
@@ -1002,10 +1381,10 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
         
           
-          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1016,8 +1395,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_14">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
             <span class="md-nav__icon md-icon"></span>
             安全特性参考
           </label>
@@ -1025,6 +1404,7 @@
             
               
                 
+  
   
   
   
@@ -1048,6 +1428,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../security/tls.html" class="md-nav__link">
         
@@ -1065,6 +1446,7 @@
             
               
                 
+  
   
   
   
@@ -1095,88 +1477,6 @@
   
   
   
-    
-    
-    
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
-        
-          
-          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    服务打包和运行
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_15">
-            <span class="md-nav__icon md-icon"></span>
-            服务打包和运行
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../packaging/standalone.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    以standalone模式打包
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../packaging/web-container.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    以WEB容器模式打包
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
   
     
     
@@ -1188,10 +1488,10 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
         
           
-          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1202,8 +1502,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_16">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
             <span class="md-nav__icon md-icon"></span>
             专题文章
           </label>
@@ -1212,25 +1512,6 @@
               
                 
   
-  
-  
-    <li class="md-nav__item">
-      <a href="../../using-java-chassis-in-spring-boot/using-java-chassis-in-spring-boot.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    在Spring Boot中使用java chassis
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
   
   
   
@@ -1254,6 +1535,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../compatibility.html" class="md-nav__link">
         
@@ -1274,6 +1556,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../upgrading.html" class="md-nav__link">
         
@@ -1291,6 +1574,7 @@
             
               
                 
+  
   
   
   
@@ -1321,6 +1605,7 @@
   
   
   
+  
     
     
     
@@ -1331,10 +1616,10 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
         
           
-          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1345,8 +1630,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_17">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
             <span class="md-nav__icon md-icon"></span>
             常用配置项参考
           </label>
@@ -1354,6 +1639,7 @@
             
               
                 
+  
   
   
   
@@ -1377,6 +1663,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../config-reference/config-center-client.html" class="md-nav__link">
         
@@ -1397,6 +1684,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../config-reference/service-center-client.html" class="md-nav__link">
         
@@ -1414,6 +1702,7 @@
             
               
                 
+  
   
   
   
@@ -1444,6 +1733,7 @@
   
   
   
+  
     
     
     
@@ -1454,10 +1744,10 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
         
           
-          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -1468,8 +1758,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_18">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
             <span class="md-nav__icon md-icon"></span>
             常见问题
           </label>
@@ -1477,6 +1767,7 @@
             
               
                 
+  
   
   
   
@@ -1500,6 +1791,7 @@
   
   
   
+  
     <li class="md-nav__item">
       <a href="../../question-and-answer/question_answer.html" class="md-nav__link">
         
@@ -1517,6 +1809,7 @@
             
               
                 
+  
   
   
   
@@ -1575,6 +1868,7 @@
                   
 
 
+<h1 id="mybatis">使用MyBatis访问数据库</h1>
 <p>访问数据库可以使用第三方提供的组件。这里选择了MyBatis说明如何访问数据库。开发者也可以直接参考：</p>
 <p><a href="http://www.mybatis.org/spring/zh/index.html">http://www.mybatis.org/spring/zh/index.html</a></p>
 <p>这里给出一个快速集成参考。在本章中涉及到建表等数据库操作的时候，数据库选用MySQL。</p>
@@ -1597,15 +1891,20 @@ CREATE TABLE `T_USER` (
 insert into T_USER(ID, USER_NAME, PASSWORD, ROLE_NAME) values(1, "admin", "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=", "admin");
 insert into T_USER(ID, USER_NAME, PASSWORD, ROLE_NAME) values(2, "guest", "n4bQgYhMfWWaL+qgxVrQFaO/TxsrC4Is0V1sFbDwCgg=", "guest");
 </code></pre>
-<h1 id="mybatis">使用MyBatis</h1>
+<h1 id="mybatis_1">使用MyBatis</h1>
 <ul>
 <li>引用MyBatis的相关依赖</li>
 </ul>
 <p>依赖包含了MyBatis和Spring、DBCP2数据库连接池管理相关组件。这些组件都是使用Spring和MyBatis必须的。</p>
 <pre><code>&lt;dependency&gt;
-  &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
-  &lt;artifactId&gt;mybatis&lt;/artifactId&gt;
-  &lt;version&gt;3.4.5&lt;/version&gt;
+  &lt;groupId&gt;org.mybatis.spring.boot&lt;/groupId&gt;
+  &lt;artifactId&gt;mybatis-spring-boot-starter&lt;/artifactId&gt;
+  &lt;exclusions&gt;
+    &lt;exclusion&gt;
+      &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+      &lt;artifactId&gt;spring-boot-starter-logging&lt;/artifactId&gt;
+    &lt;/exclusion&gt;
+  &lt;/exclusions&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;mysql&lt;/groupId&gt;
@@ -1614,11 +1913,6 @@ insert into T_USER(ID, USER_NAME, PASSWORD, ROLE_NAME) values(2, "guest", "n4bQg
 &lt;dependency&gt;
   &lt;groupId&gt;org.apache.commons&lt;/groupId&gt;
   &lt;artifactId&gt;commons-dbcp2&lt;/artifactId&gt;
-&lt;/dependency&gt;
-&lt;dependency&gt;
-  &lt;groupId&gt;org.mybatis&lt;/groupId&gt;
-  &lt;artifactId&gt;mybatis-spring&lt;/artifactId&gt;
-  &lt;version&gt;1.3.0&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
   &lt;groupId&gt;org.springframework&lt;/groupId&gt;
@@ -1641,36 +1935,38 @@ insert into T_USER(ID, USER_NAME, PASSWORD, ROLE_NAME) values(2, "guest", "n4bQg
 <ul>
 <li>配置数据源和SqlSessionFactory</li>
 </ul>
-<p>数据源使用DBCP2。SqlSessionFactory里面指定了dataSource和configLocation两个属性，并新增加了mybatis-config.xml文件，用于配置mapper文件的路径。 在本微服务场景中，只需要使用简单的数据库连接和简单事务管理，如果需要使用复杂的事务管理，还需要配置XA数据源和相关的事务管理器。 有关MyBatis的Configuration更加详细的信息可以参考：<a href="http://www.mybatis.org/mybatis-3/configuration.html">http://www.mybatis.org/mybatis-3/configuration.html</a> 。</p>
-<pre><code>&lt;bean id=&quot;dataSource&quot; class=&quot;org.apache.commons.dbcp2.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
-  &lt;property name=&quot;driverClassName&quot; value=&quot;${db.url:com.mysql.jdbc.Driver}&quot; /&gt;
-  &lt;property name=&quot;url&quot; value=&quot;${db.url:jdbc:mysql://localhost/porter_user_db}&quot; /&gt;
-  &lt;property name=&quot;username&quot; value=&quot;${db.username:root}&quot; /&gt;
-  &lt;property name=&quot;password&quot; value=&quot;${db.password:}&quot; /&gt;
-&lt;/bean&gt;
-
-&lt;bean id=&quot;sqlSessionFactory&quot; class=&quot;org.mybatis.spring.SqlSessionFactoryBean&quot;&gt;
-  &lt;property name=&quot;dataSource&quot; ref=&quot;dataSource&quot; /&gt;
-  &lt;property name=&quot;configLocation&quot; value=&quot;classpath:/config/mybatis-config.xml&quot;&gt;&lt;/property&gt;
-&lt;/bean&gt;
+<p>本例子使用Spring Data Source， 只需要在配置文件中加上配置信息：</p>
+<pre><code>spring:
+  datasource:
+    url: jdbc:mysql://localhost/porter_user_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
 </code></pre>
 <ul>
 <li>书写Mapper文件</li>
 </ul>
-<p>涉及到JAVA的Mapper定义UserMapper，XML中定义SQL与JAVA的映射关系UserMapper.xml。定义完成后，需要将内容配置到Mybatis的扫描路径和Spring的扫描路径中，涉及文件mybatis-config.xml和user.bean.xml。</p>
-<pre><code>### mybatis-config.xml
-&lt;configuration&gt;
-    &lt;mappers&gt;
-        &lt;mapper resource=&quot;config/UserMapper.xml&quot;/&gt;
-    &lt;/mappers&gt;
-&lt;/configuration&gt;
+<p>涉及到JAVA的Mapper定义UserMapper。</p>
+<pre><code>@Mapper
+public interface UserMapper {
+  @Insert(&quot;&quot;&quot;
+      insert into T_USER (ID, USER_NAME, PASSWORD, ROLE_NAME)
+        values(#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR},
+               #{password,jdbcType=VARCHAR}, #{roleName,jdbcType=VARCHAR})&quot;&quot;&quot;)
+  void createUser(UserInfo userInfo);
 
-### user.bean.xml
-&lt;bean id=&quot;userMapper&quot; class=&quot;org.mybatis.spring.mapper.MapperFactoryBean&quot;&gt;
-    &lt;property name=&quot;mapperInterface&quot;
-        value=&quot;org.apache.servicecomb.samples.porter.user.dao.UserMapper&quot; /&gt;
-    &lt;property name=&quot;sqlSessionFactory&quot; ref=&quot;sqlSessionFactory&quot; /&gt;
-&lt;/bean&gt;
+  @Select(&quot;&quot;&quot;
+      select ID, USER_NAME, PASSWORD, ROLE_NAME
+        from T_USER where USER_NAME = #{userName,jdbcType=VARCHAR}&quot;&quot;&quot;)
+  @Results({
+      @Result(property = &quot;id&quot;, column = &quot;ID&quot;),
+      @Result(property = &quot;userName&quot;, column = &quot;USER_NAME&quot;),
+      @Result(property = &quot;password&quot;, column = &quot;PASSWORD&quot;),
+      @Result(property = &quot;roleName&quot;, column = &quot;ROLE_NAME&quot;)
+  })
+  UserInfo getUserInfo(String userName);
+}
+
 </code></pre>
 <h2 id="_2">设计用户服务</h2>
 <p>经过上面的配置，数据库访问相关开发已经完成了。 结合User Story，可以先设计一个login的服务接口。 这个服务在UserServiceEndpoint里面进行定义。</p>
@@ -1704,11 +2000,19 @@ userName=admin&amp;password=test
 
 
 
+
+
+
+
+
+
+
                 
               </article>
             </div>
           
           
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
       </main>
@@ -1740,7 +2044,7 @@ userName=admin&amp;password=test
     <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.94c44541.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
     
   </body>
