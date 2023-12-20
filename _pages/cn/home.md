@@ -9,10 +9,7 @@ header:
 excerpt: '开箱即用、高性能、兼容流行生态、支持多语言的一站式开源微服务解决方案
 
 <div class="button-group def-inline-block">
-    <a href="/cn/release" class="home-button btn--info">下载</a>
-</div>
-<div class="button-group def-inline-block">
-    <a href="/cn/docs/getting-started/" class="home-button btn--info">开始</a>
+    <a href="/references/java-chassis/zh_CN/start/first-sample.html" class="home-button btn--info">开始</a>
 </div>'
 
 intro:
@@ -22,7 +19,7 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
-    <a href='/cn/release/java-chassis-downloads/'>Apache ServiceComb Java-Chassis 发布 2.7.0</a>
+    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis 发布 3.0.0</a>
   </li>
   <li>
       <a href='/cn/summer2020'>Apache ServiceComb 社区 暑假coding 2020 活动</a>
