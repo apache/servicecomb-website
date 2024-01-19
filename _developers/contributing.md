@@ -37,7 +37,8 @@ Then we can add your issue to git and then we'll know when its really fixed and 
 
 ## Working on the code
 
-We recommend to work on the code from  [Github](https://github.com/search?q=org%3Aapache+servicecomb), it has the following sub-projects:
+We recommend to work on the code from  [Github](https://github.com/search?q=org%3Aapache+servicecomb) , it has the following sub-projects:
+
 | Project Name | Project Introduction | Programming Language |
 |-------------------------------------------------------------------------------|----------------------------|----------|
 | [servicecomb-java-chassis](https://github.com/apache/servicecomb-java-chassis) | Java Microservice Framework（SDK） | Java |
