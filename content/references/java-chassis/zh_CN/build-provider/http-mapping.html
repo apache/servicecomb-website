@@ -9,22 +9,22 @@
       
       
       
-        <link rel="prev" href="../build-provider/access-log-configuration.html">
+        <link rel="prev" href="basics.html">
       
       
-        <link rel="next" href="using-resttemplate.html">
+        <link rel="next" href="jaxrs.html">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
     
     
       
-        <title>消费者通用配置项 - Java Chassis 3 开发指南</title>
+        <title>HTTP参数映射参考 - Java Chassis 3 开发指南</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
       
       
 
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#consumer" class="md-skip">
+        <a href="#http" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              消费者通用配置项
+              HTTP参数映射参考
             
           </span>
         </div>
@@ -254,10 +254,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
@@ -379,7 +377,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/definition/service-definition.html" class="md-nav__link">
+      <a href="definition/service-definition.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -402,10 +400,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
@@ -482,19 +478,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
           <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
@@ -508,7 +504,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             开发服务提供者
@@ -522,7 +518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/basics.html" class="md-nav__link">
+      <a href="basics.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -540,10 +536,218 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    HTTP参数映射参考
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="http-mapping.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    HTTP参数映射参考
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#http_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP请求参数映射
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HTTP请求参数映射">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header" class="md-nav__link">
+    <span class="md-ellipsis">
+      Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationx-www-form-urlencoded" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/x-www-form-urlencoded
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationprotobuf" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/protobuf
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationtext" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multipartform-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      文件上传：multipart/form-data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP响应参数映射
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HTTP响应参数映射">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态码 和 Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationjson_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationprotobuf_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/protobuf
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationtext_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      文件下载
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/jaxrs.html" class="md-nav__link">
+      <a href="jaxrs.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -564,7 +768,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/springmvc.html" class="md-nav__link">
+      <a href="springmvc.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -585,7 +789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/transparent-rpc.html" class="md-nav__link">
+      <a href="transparent-rpc.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -606,7 +810,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/use-interface.html" class="md-nav__link">
+      <a href="use-interface.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -627,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/reactive.html" class="md-nav__link">
+      <a href="reactive.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -648,7 +852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/context-param.html" class="md-nav__link">
+      <a href="context-param.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -669,7 +873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/multi-code.html" class="md-nav__link">
+      <a href="multi-code.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -690,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/swagger-annotation.html" class="md-nav__link">
+      <a href="swagger-annotation.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -711,7 +915,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/interface-constraints.html" class="md-nav__link">
+      <a href="interface-constraints.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -732,7 +936,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/listen-address-and-publish-address.html" class="md-nav__link">
+      <a href="listen-address-and-publish-address.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -753,7 +957,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/thread-pool.html" class="md-nav__link">
+      <a href="thread-pool.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -774,7 +978,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/event-listener.html" class="md-nav__link">
+      <a href="event-listener.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -795,7 +999,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/parameter-validator.html" class="md-nav__link">
+      <a href="parameter-validator.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -816,7 +1020,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/bootup.html" class="md-nav__link">
+      <a href="bootup.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -837,7 +1041,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/ipv6-configuration.html" class="md-nav__link">
+      <a href="ipv6-configuration.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -858,7 +1062,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../build-provider/access-log-configuration.html" class="md-nav__link">
+      <a href="access-log-configuration.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -883,21 +1087,17 @@
       
   
   
-    
   
   
-  
     
     
     
     
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
         
           
           <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
@@ -911,7 +1111,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             开发服务消费者
@@ -922,45 +1122,14 @@
                 
   
   
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-      <a href="common-configuration.html" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    消费者通用配置项
-  </span>
-  
-
-      </a>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
   
   
     <li class="md-nav__item">
-      <a href="using-resttemplate.html" class="md-nav__link">
+      <a href="../build-consumer/basics.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    使用RestTemplate开发服务消费者
+    基础概念
   </span>
   
 
@@ -977,11 +1146,11 @@
   
   
     <li class="md-nav__item">
-      <a href="develop-consumer-using-rpc.html" class="md-nav__link">
+      <a href="../build-consumer/using-resttemplate.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    使用RPC方式开发服务消费者
+    Restful风格 - 使用 RestOperations
   </span>
   
 
@@ -998,7 +1167,28 @@
   
   
     <li class="md-nav__item">
-      <a href="../featured-topics/features/invoker.html" class="md-nav__link">
+      <a href="../build-consumer/develop-consumer-using-rpc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RPC风格
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-consumer/invoker.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1019,28 +1209,7 @@
   
   
     <li class="md-nav__item">
-      <a href="with-contract.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    使用服务契约
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="3rd-party-service-invoke.html" class="md-nav__link">
+      <a href="../build-consumer/3rd-party-service-invoke.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1071,10 +1240,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
@@ -1136,10 +1303,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
@@ -1447,7 +1612,7 @@
         
   
   <span class="md-ellipsis">
-    跨域资源共享(CORS配置
+    跨域资源共享(CORS)
   </span>
   
 
@@ -1600,10 +1765,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
@@ -1659,7 +1822,7 @@
         
   
   <span class="md-ellipsis">
-    REST over HTTP(Vert.x
+    REST over HTTP(Vert.x)
   </span>
   
 
@@ -1680,7 +1843,7 @@
         
   
   <span class="md-ellipsis">
-    REST over HTTP2(Vert.x
+    REST over HTTP2(Vert.x)
   </span>
   
 
@@ -1701,7 +1864,7 @@
         
   
   <span class="md-ellipsis">
-    REST over Servlet(Spring Boot Embedded
+    REST over Servlet(Spring Boot Embedded)
   </span>
   
 
@@ -1722,7 +1885,7 @@
         
   
   <span class="md-ellipsis">
-    REST over Servlet(WAR
+    REST over Servlet(WAR)
   </span>
   
 
@@ -1770,10 +1933,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
@@ -1919,10 +2080,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
@@ -2026,10 +2185,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
@@ -2196,10 +2353,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
@@ -2324,10 +2479,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
@@ -2431,10 +2584,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
@@ -2580,10 +2731,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
@@ -2708,10 +2857,8 @@
     
     
     
-    
     <li class="md-nav__item md-nav__item--nested">
       
-        
         
         
         <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
@@ -2825,6 +2972,161 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#http_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP请求参数映射
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HTTP请求参数映射">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query" class="md-nav__link">
+    <span class="md-ellipsis">
+      Query
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#path" class="md-nav__link">
+    <span class="md-ellipsis">
+      Path
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#header" class="md-nav__link">
+    <span class="md-ellipsis">
+      Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationx-www-form-urlencoded" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/x-www-form-urlencoded
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationjson" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationprotobuf" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/protobuf
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationtext" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multipartform-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      文件上传：multipart/form-data
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#http_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP响应参数映射
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="HTTP响应参数映射">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#header_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      状态码 和 Header
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationjson_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/json
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationprotobuf_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/protobuf
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#applicationtext_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      application/text
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      文件下载
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -2838,41 +3140,418 @@
                   
 
 
-<h1 id="consumer">Consumer的通用配置项</h1>
+<h1 id="http">HTTP参数映射参考</h1>
+<p>HTTP协议是一个文本传输协议，RESTFul框架核心部分，就是将语言对象与HTTP协议的组成部件映射起来，提供远程过程调用(RPC)能力。 HTTP的请求响应可以简化描述为：</p>
 <ul>
-<li>请求超时  </li>
-<li>配置项<br />
-    servicecomb.request.timeout  </li>
-<li>默认值<br />
-    30000，单位为毫秒    </li>
-<li>含义<br />
-    Consumer传输层开始发送时，开始计时，指定时间内未收到应答，则处理为请求超时    </li>
-<li>指定传输通道  </li>
-<li>配置项<br />
-    servicecomb.references.${目标微服务名}.transport<br />
-    servicecomb.references.transport<br />
-    同时支持全局和微服务级的两级控制</li>
-<li>默认值<br />
-    无</li>
-<li>含义<br />
-    如果目标微服务同时开放多种transport的访问能力时，而Consumer也同时部署了相应的多个transport，但是作为Consumer调用该微服务时，只想使用其中一种transport，则可以通过本配置项指定transport
-    如果不配置，则轮流使用多个transport  </li>
-<li>指定目标实例的版本规则</li>
-<li>配置项<br />
-    servicecomb.references.${目标服务名}.version-rule<br />
-    servicecomb.references.version-rule
-    同时支持全局和微服务级的两级控制  </li>
-<li>默认值<br />
-    latest</li>
-<li>含义<br />
-    目标实例的版本规则，支持以下规则：  <ul>
-<li>最新版本： latest  </li>
-<li>大于指定版本，比如：1.0.0+</li>
-<li>指定版本范围，比如：1.0.0-2.0.0，表示大于等于版本1.0.0，并且小于版本2.0.0</li>
-<li>精确版本，比如：1.0.0</li>
+<li>请求</li>
 </ul>
-</li>
+<pre><code class="language-text">GET /apps HTTP/1.1
+
+Host: 127.0.0.1:8080
+Accept-Language: zh
+Content-Type: application/x-www-form-urlencoded
+
+queryParamExample1=example1&amp;queryParamExample2=example2
+</code></pre>
+<ul>
+<li>响应</li>
 </ul>
+<pre><code class="language-text">Host: 127.0.0.1:8080
+Content-Type: application/x-www-form-urlencoded
+
+queryParamExample1=example1&amp;queryParamExample2=example2
+</code></pre>
+<h2 id="http_1">HTTP请求参数映射</h2>
+<h3 id="query">Query</h3>
+<p>Query参数属于HTTP协议URL的一部分，比如:</p>
+<pre><code class="language-text">GET /apps?queryParamExample1=example1&amp;queryParamExample2=example2 HTTP/1.1
+Host: 127.0.0.1:8080
+Accept-Language: zh
+</code></pre>
+<p>定义了Query参数 <code>queryParamExample1</code> 和 <code>queryParamExample2</code>。</p>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@GetMapping(&quot;&quot;)
+public String queryExample(@RequestParam(&quot;queryParamExample1&quot;) String example1,
+    @RequestParam(&quot;queryParamExample2&quot;) String example2)
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@GET
+@Path(&quot;&quot;)
+public String queryJAXRSExample(@QueryParam(&quot;queryParamExample1&quot;) String example1,
+    @QueryParam(&quot;queryParamExample2&quot;) String example2)
+</code></pre>
+<h3 id="path">Path</h3>
+<p>Path参数属于HTTP协议URL的一部分，比如:</p>
+<pre><code class="language-text">GET /apps/pathParamExample1/pathParamExample2 HTTP/1.1
+Host: 127.0.0.1:8080
+Accept-Language: zh
+</code></pre>
+<p>定义了Path参数 <code>pathParamExample1</code> 和 <code>pathParamExample2</code>。</p>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@GetMapping(&quot;/{pathParamExample1}/{pathParamExample2}&quot;)
+public String pathSpringMVCExample(@PathVariable(&quot;pathParamExample1&quot;) String example1,
+    @PathVariable(&quot;pathParamExample2&quot;) String example2)
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@GET
+@Path(&quot;/{pathParamExample1}/{pathParamExample2}&quot;)
+public String pathJAXRSExample(@PathParam(&quot;pathParamExample1&quot;) String example1,
+    @PathParam(&quot;pathParamExample2&quot;) String example2) 
+</code></pre>
+<h3 id="header">Header</h3>
+<p>Header对应于HTTP协议请求头，比如:</p>
+<pre><code class="language-text">GET /apps HTTP/1.1
+Host: 127.0.0.1:8080
+Accept-Language: zh
+headerParamExample1: example1
+headerParamExample2: example2
+</code></pre>
+<p>定义了Header参数 <code>headerParamExample1</code> 和 <code>headerParamExample2</code>。</p>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@GetMapping(&quot;&quot;)
+public String headerSpringMVCExample(@RequestHeader(&quot;headerParamExample1&quot;) String example1,
+    @RequestHeader(&quot;headerParamExample2&quot;) String example2)
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@GET
+@Path(&quot;&quot;)
+public String headerJAXRSExample(@HeaderParam(&quot;headerParamExample1&quot;) String example1,
+    @HeaderParam(&quot;headerParamExample2&quot;) String example2)
+</code></pre>
+<h3 id="applicationx-www-form-urlencoded">application/x-www-form-urlencoded</h3>
+<p>当 HTTP 消息体是 <code>application/x-www-form-urlencoded</code>， 可以使用 Form 参数。 </p>
+<pre><code class="language-text">GET /apps HTTP/1.1
+Host: 127.0.0.1:8080
+Accept-Language: zh
+Content-Type: application/x-www-form-urlencoded
+
+queryParamExample1=example1&amp;queryParamExample2=example2
+</code></pre>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@GetMapping(path = &quot;formSpringMVCExample&quot;, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+public String formSpringMVCExample(@RequestAttribute(&quot;formParamExample1&quot;) String example1,
+    @RequestAttribute(&quot;formParamExample2&quot;) String example2)
+</code></pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>原生 Spring MVC 的 RequestAttribute 表示 HTTP 的 Attribute， 使用 RequestParam 表示 form 参数，这会导致代码生成契约的时候产生歧义。 Java Chassis 3 推荐使用 RequestAttribute 表示Form参数。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@GET
+@Path(&quot;formJAXRSExample&quot;)
+@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+public String formJAXRSExample(@FormParam(&quot;formParamExample1&quot;) String example1,
+    @FormParam(&quot;formParamExample2&quot;) String example2)
+</code></pre>
+<h3 id="applicationjson">application/json</h3>
+<p>当 HTTP 消息体是 <code>application/json</code>， 使用json进行对象序列化。</p>
+<pre><code class="language-text">GET /apps HTTP/1.1
+Host: 127.0.0.1:8080
+Accept-Language: zh
+Content-Type: application/json
+
+{&quot;name&quot;: &quot;wang&quot;, &quot;age&quot;: 20}
+</code></pre>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;jsonSpringMVCExample&quot;, consumes = MediaType.APPLICATION_JSON_VALUE)
+public String jsonSpringMVCExample(@RequestBody Person person) 
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@POST
+@Path(&quot;jsonJAXRSExample&quot;)
+@Consumes(jakarta.ws.rs.core.MediaType.APPLICATION_JSON)
+public String jsonJAXRSExample(Person person)
+</code></pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>JAX-RS没有声明标签的时候表示Body参数。 </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="applicationprotobuf">application/protobuf</h3>
+<p>当 HTTP 消息体是 <code>application/protobuf</code>， 使用protobuf进行对象序列化。</p>
+<pre><code class="language-text">GET /apps HTTP/1.1
+Host: 127.0.0.1:8080
+Accept-Language: zh
+Content-Type: application/protobuf
+
+proto-buffer-binary-data
+</code></pre>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;protobufSpringMVCExample&quot;, consumes = SwaggerConst.PROTOBUF_TYPE)
+public String protobufSpringMVCExample(@RequestBody Person person)
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@POST
+@Path(&quot;protobufJAXRSExample&quot;)
+@Consumes(SwaggerConst.PROTOBUF_TYPE)
+public String protobufJAXRSExample(Person person)
+</code></pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>JAX-RS没有声明标签的时候表示Body参数。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="applicationtext">application/text</h3>
+<p>当 HTTP 消息体是 <code>application/text</code>， 使用json进行对象序列化。</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>application/text 和 application/json 在对象序列化上都采用 json，对于大多数场景两者是等价的。只有当对象类型为 String 的时候， 存在差异：application/text 的 String 序列化后的文本没有双引号；application/json 的 String 序列化后的文本有双引号；</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<pre><code class="language-text">GET /apps HTTP/1.1
+Host: 127.0.0.1:8080
+Accept-Language: zh
+Content-Type: application/text
+
+{&quot;name&quot;: &quot;wang&quot;, &quot;age&quot;: 20}
+</code></pre>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;textSpringMVCExample&quot;, consumes = MediaType.TEXT_PLAIN_VALUE)
+public String textSpringMVCExample(@RequestBody Person person)
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@POST
+@Path(&quot;textJAXRSExample&quot;)
+@Consumes(MediaType.TEXT_PLAIN)
+public String textJAXRSExample(Person person) 
+</code></pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>JAX-RS没有声明标签的时候表示Body参数。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<h3 id="multipartform-data">文件上传：multipart/form-data</h3>
+<p>当 HTTP 消息体是 <code>multipart/form-data</code>， 表示文件上传。</p>
+<pre><code class="language-text">GET /apps HTTP/1.1
+Host: 127.0.0.1:8080
+Accept-Language: zh
+Content-Type: multipart/form-data; boundary=----boundary-example----
+
+----boundary-example----
+Content-Disposition: form-data; name=&quot;multiPartParamExample1&quot;
+
+contents of multiPartParamExample1
+----boundary-example----
+Content-Disposition: form-data; name=&quot;multiPartParamExample2&quot;
+
+contents of multiPartParamExample2
+----boundary-example----
+</code></pre>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>multipart/form-data 也可以表示 Form 参数， 和 application/x-www-form-urlencoded 用法一样。为了避免混淆和简洁，建议multipart/form-data专用于文件上传场景。</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;multiPartSpringMVCExample&quot;, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+public String multiPartSpringMVCExample(@RequestPart(&quot;multiPartParamExample1&quot;) MultipartFile example1,
+    @RequestPart(&quot;multiPartParamExample2&quot;) MultipartFile example2)
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@POST
+@Path(&quot;multiPartJAXRSExample&quot;)
+@Consumes(MediaType.MULTIPART_FORM_DATA)
+public String multiPartJAXRSExample(@FormParam(&quot;multiPartParamExample1&quot;) Part example1,
+    @FormParam(&quot;multiPartParamExample2&quot;) Part example2)
+</code></pre>
+<h2 id="http_2">HTTP响应参数映射</h2>
+<h3 id="header_1">状态码 和 Header</h3>
+<p>在没有特殊声明的情况下，正常响应的状态码是 <code>200</code>，也可以声明其他状态码。</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Java Chassis 2xx 状态码表示正常响应，会进行对象序列化。 可以使用 <code>@ApiResponse</code> 自定义状态码，所有 2xx 状态码声明的对象类型必须一样。 其他状态码表示异常，会对 <code>InvocationException</code> 进行序列化，不要求对象类型一样。 </p>
+</blockquote>
+</blockquote>
+</blockquote>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;statusHeaderSpringMVCExample&quot;)
+@ApiResponses(value = {
+    @ApiResponse(
+        responseCode = &quot;200&quot;,
+        content = @Content(schema = @Schema(implementation = Person.class)),
+        headers = {
+            @Header(name = &quot;h1&quot;, schema = @Schema(implementation = String.class)),
+            @Header(name = &quot;h2&quot;, schema = @Schema(implementation = String.class))}),
+    @ApiResponse(
+        responseCode = &quot;202&quot;,
+        content = @Content(schema = @Schema(implementation = Person.class)),
+        headers = {
+            @Header(name = &quot;h1&quot;, schema = @Schema(implementation = String.class)),
+            @Header(name = &quot;h2&quot;, schema = @Schema(implementation = String.class))}),
+    @ApiResponse(
+        responseCode = &quot;400&quot;,
+        content = @Content(schema = @Schema(implementation = MultiResponse400.class)),
+        headers = {
+            @Header(name = &quot;h1&quot;, schema = @Schema(implementation = String.class)),
+            @Header(name = &quot;h2&quot;, schema = @Schema(implementation = String.class))})})
+public ResponseEntity&lt;Person&gt; statusHeaderSpringMVCExample(@RequestBody Person person) {
+    return ResponseEntity.status(200).header(&quot;h1&quot;, &quot;h1&quot;)
+    .header(&quot;h2&quot;, &quot;h2&quot;).body(person);
+}
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;statusHeaderJAXRSExample&quot;)
+@ApiResponses(value = {
+    @ApiResponse(
+        responseCode = &quot;200&quot;,
+        content = @Content(schema = @Schema(implementation = Person.class)),
+        headers = {
+            @Header(name = &quot;h1&quot;, schema = @Schema(implementation = String.class)),
+            @Header(name = &quot;h2&quot;, schema = @Schema(implementation = String.class))}),
+    @ApiResponse(
+        responseCode = &quot;202&quot;,
+        content = @Content(schema = @Schema(implementation = Person.class)),
+        headers = {
+            @Header(name = &quot;h1&quot;, schema = @Schema(implementation = String.class)),
+            @Header(name = &quot;h2&quot;, schema = @Schema(implementation = String.class))}),
+    @ApiResponse(
+        responseCode = &quot;400&quot;,
+        content = @Content(schema = @Schema(implementation = MultiResponse400.class)),
+        headers = {
+            @Header(name = &quot;h1&quot;, schema = @Schema(implementation = String.class)),
+            @Header(name = &quot;h2&quot;, schema = @Schema(implementation = String.class))})})
+public Response statusHeaderJAXRSExample(@RequestBody Person person) {
+    return Response.status(200).entity(new Person()).header(&quot;h1&quot;, &quot;h1&quot;)
+    .header(&quot;h2&quot;, &quot;h2&quot;).build();
+}
+</code></pre>
+<h3 id="applicationjson_1">application/json</h3>
+<p>响应类型根据 <code>Accept</code> 来确定，默认是 application/json。 也可以声明接口只支持 application/json 响应。 </p>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;produceJsonSpringMVCExample&quot;, produces = MediaType.APPLICATION_JSON_VALUE)
+public Person produceJsonSpringMVCExample()
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@POST
+@Path(&quot;produceJsonJAXRSExample&quot;)
+@Produces(MediaType.APPLICATION_JSON)
+public Person produceJsonJAXRSExample() 
+</code></pre>
+<h3 id="applicationprotobuf_1">application/protobuf</h3>
+<p>响应类型根据 <code>Accept</code> 来确定，默认是 application/json。 也可以声明接口只支持 application/protobuf 响应。</p>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;produceProtobufSpringMVCExample&quot;, produces = SwaggerConst.PROTOBUF_TYPE)
+public Person produceProtobufSpringMVCExample()
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@POST
+@Path(&quot;produceProtobufJAXRSExample&quot;)
+@Produces(SwaggerConst.PROTOBUF_TYPE)
+public Person produceProtobufJAXRSExample() 
+</code></pre>
+<h3 id="applicationtext_1">application/text</h3>
+<p>响应类型根据 <code>Accept</code> 来确定，默认是 application/json。 也可以声明接口只支持 application/text 响应。</p>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@PostMapping(path = &quot;produceTextSpringMVCExample&quot;, produces = MediaType.TEXT_PLAIN_VALUE)
+public Person produceTextSpringMVCExample()
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@POST
+@Path(&quot;produceTextJAXRSExample&quot;)
+@Produces(MediaType.TEXT_PLAIN)
+public Person produceTextJAXRSExample() 
+</code></pre>
+<h3 id="_1">文件下载</h3>
+<p>Java Chassis提供了通用的 <code>文件下载</code> 支持。 如果返回值类型为 <code>File</code>、<code>Resource</code>、<code>InputStream</code>、<code>Part</code> 等，则被认为是 <code>文件下载</code>。 文件MIME类型和文件名可以使用 <code>Part</code> 的 API 指定。</p>
+<ul>
+<li>Spring MVC</li>
+</ul>
+<pre><code class="language-java">@GetMapping(path = &quot;/downloadSpringMVCExample&quot;)
+public Part downloadSpringMVCExample(String content) throws IOException {
+    File file = createTempFile(content);
+    return new FilePart(null, file)
+        .setDeleteAfterFinished(true)
+        .setSubmittedFileName(&quot;test.bin&quot;)
+        .contentType(&quot;application/octet-stream&quot;);
+}
+</code></pre>
+<p>上述接口会返回如下响应头:</p>
+<pre><code class="language-text">Content-Disposition: attachment;filename=test.bin;filename*=utf-8’’test.bin
+Content-Encoding: gzip
+Content-Type: application/octet-stream
+Transfer-Encoding: chunked
+</code></pre>
+<ul>
+<li>JAX-RS</li>
+</ul>
+<pre><code class="language-java">@GET
+@Path(&quot;/downloadSpringMVCExample&quot;)
+public Part downloadSpringMVCExample(String content) throws IOException {
+    File file = createTempFile(content);
+    return new FilePart(null, file)
+        .setDeleteAfterFinished(true)
+        .setSubmittedFileName(&quot;test.bin&quot;)
+        .contentType(&quot;application/octet-stream&quot;);
+}
+</code></pre>
+<p>上述接口会返回如下响应头:</p>
+<pre><code class="language-text">Content-Disposition: attachment;filename=test.bin;filename*=utf-8’’test.bin
+Content-Encoding: gzip
+Content-Type: application/octet-stream
+Transfer-Encoding: chunked
+</code></pre>
 
 
 
@@ -2919,10 +3598,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.c011b7c0.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.7389ff0e.min.js"></script>
+      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
       
     
   </body>
