@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.10">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.19">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.66ac8b77.min.css">
       
       
 
@@ -1957,7 +1957,7 @@
         
   
   <span class="md-ellipsis">
-    使用service-center
+    使用Service Center
   </span>
   
 
@@ -1978,7 +1978,28 @@
         
   
   <span class="md-ellipsis">
-    使用nacos
+    使用Nacos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/zookeeper.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用ZooKeeper
   </span>
   
 
@@ -2121,11 +2142,95 @@
   
   
     <li class="md-nav__item">
-      <a href="../config/config-service.html" class="md-nav__link">
+      <a href="../config/kie.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    配置中心参考
+    使用Kie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/nacos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Nacos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/zookeeper.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Zookeeper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/apollo.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Apollo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/cse1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用CSE1.0配置中心
   </span>
   
 
@@ -2176,6 +2281,48 @@
             服务治理功能参考
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/rule-governance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    流量特征治理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/governance-best-practise.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    流量特征治理最佳实践
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -2252,27 +2399,6 @@
   
   <span class="md-ellipsis">
     故障注入
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../references-handlers/governance.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    流量特征治理
   </span>
   
 
@@ -2744,69 +2870,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../config-reference/config-center-client.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Config Center Client 配置项
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../config-reference/service-center-client.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Service Center Client 配置项
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../config-reference/kie-client.html" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ServiceComb Kie Client 配置项
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -3189,11 +3252,20 @@ public class ProviderApplication {
 }
 </code></pre>
 <h3 id="_6">编写服务</h3>
+<p>本例子采用契约优先的开发方法。</p>
+<p>首先定义服务接口：</p>
+<pre><code class="language-java">@RequestMapping(path = &quot;/provider&quot;)
+public interface ProviderService {
+  @GetMapping(&quot;/sayHello&quot;)
+  String sayHello(@RequestParam(&quot;name&quot;) String name);
+
+  @GetMapping(&quot;/exampleConfig&quot;)
+  String exampleConfig();
+}
+</code></pre>
 <p>在工程中添加一个REST接口类用于接收请求：</p>
-<pre><code class="language-java">
-@RestSchema(schemaId = &quot;ProviderController&quot;)
-@RequestMapping(path = &quot;/&quot;)
-public class ProviderController {
+<pre><code class="language-java">@RestSchema(schemaId = &quot;ProviderController&quot;, schemaInterface = ProviderService.class)
+public class ProviderController implements ProviderService {
   private DynamicProperties dynamicProperties;
 
   private String example;
@@ -3205,13 +3277,12 @@ public class ProviderController {
         value -&gt; this.example = value, &quot;not set&quot;);
   }
 
-  // a very simple service to echo the request parameter
-  @GetMapping(&quot;/sayHello&quot;)
-  public String sayHello(@RequestParam(&quot;name&quot;) String name) {
+  @Override
+  public String sayHello(String name) {
     return &quot;Hello &quot; + name;
   }
 
-  @GetMapping(&quot;/exampleConfig&quot;)
+  @Override
   public String exampleConfig() {
     return example;
   }
@@ -3235,28 +3306,31 @@ public class ProviderController {
 &lt;/Configuration&gt;
 </code></pre>
 <h3 id="_8">调用服务</h3>
-<p>在 Consumer 里面，演示了如何调用 Provider 的服务。 首先声明一个 PRC 接口， 该接口的方法名称、参数名称需要和服务端保持一致。</p>
-<pre><code class="language-java">public interface ProviderService {
-  String sayHello(String name);
-
-  String exampleConfig();
+<p>在 Consumer 里面，演示了如何调用 Provider 的服务。 首先声明一个 PRC 接口的 Bean。</p>
+<pre><code class="language-java">@Configuration
+public class ProviderServiceConfiguration {
+  @Bean
+  public ProviderService providerService() {
+    return Invoker.createProxy(&quot;provider&quot;, &quot;ProviderController&quot;, ProviderService.class);
+  }
 }
 </code></pre>
-<p>使用 @RpcReference 声明 RPC 接口的远程引用， 然后可以像调用本地方法一样，访问 Provider 的服务。</p>
-<pre><code class="language-java">
-@RestSchema(schemaId = &quot;ConsumerController&quot;)
-@RequestMapping(path = &quot;/&quot;)
-public class ConsumerController {
-  @RpcReference(schemaId = &quot;ProviderController&quot;, microserviceName = &quot;provider&quot;)
+<p>使用 @Autowired 声明 RPC 接口的远程引用， 然后可以像调用本地方法一样，访问 Provider 的服务。</p>
+<pre><code class="language-java">@RestSchema(schemaId = &quot;ConsumerController&quot;, schemaInterface = ConsumerService.class)
+public class ConsumerController implements ConsumerService {
   private ProviderService providerService;
 
-  // consumer service which delegate the implementation to provider service.
-  @GetMapping(&quot;/sayHello&quot;)
-  public String sayHello(@RequestParam(&quot;name&quot;) String name) {
+  @Autowired
+  public void setProviderService(ProviderService providerService) {
+    this.providerService = providerService;
+  }
+
+  @Override
+  public String sayHello(String name) {
     return providerService.sayHello(name);
   }
 
-  @GetMapping(&quot;/exampleConfig&quot;)
+  @Override
   public String exampleConfig() {
     return providerService.exampleConfig();
   }
@@ -3333,7 +3407,7 @@ public class ConsumerController {
     <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.8fd75fb4.min.js"></script>
+      <script src="../assets/javascripts/bundle.dd8806f2.min.js"></script>
       
     
   </body>
