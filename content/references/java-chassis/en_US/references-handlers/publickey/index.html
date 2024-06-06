@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.19">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
       
       
 
@@ -929,27 +929,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../build-consumer/3rd-party-service-invoke/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Invoke 3rd-party REST services
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -2511,7 +2490,12 @@
           propertyName: serviceName
           rule: cust*
 </code></pre>
-<p>The above rules are configured with blacklists, which do not allow microservice names to be accessed by hackers; whitelists allow access to services with microservice names named cust.</p>
+<p>The above rules are configured with black and white rule. includePathPatterns is set the request path that needs auth, and excludePathPatterns is set the request path that not need auth. black/white is microservice black and white rules.</p>
+<p>IncludePathPatterns, excludePathPatterns Supports three types of matching rules: prefix (xxx/), suffix (/xxx) and exact match.</p>
+<p>Logic for determining whether the current request requires authentication:</p>
+<p>1.Check whether the path of current request matches the excludePathPatterns setting rule. If yes, authentication is not required.</p>
+<p>2.If excludePathPatterns does not match, check whether a rule is configured for includePathPatterns. If no, all requests need to be authenticated; If set, check whether the path of current request matches the rule. If yes, authentication is required. If no, authentication is not required.</p>
+<p>Microservice black/white determination rules: which do not allow microservice names to be accessed by hackers; whitelists allow access to services with microservice names named cust.</p>
 <p>ServiceComb provides [trust-sample] (https://github.com/apache/servicecomb-samples/tree/master/java-chassis-samples/trust-sample) to demonstrate the black and white list feature.</p>
 
 
@@ -2562,7 +2546,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.dd8806f2.min.js"></script>
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
       
     
   </body>
