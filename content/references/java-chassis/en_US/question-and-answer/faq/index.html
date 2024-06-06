@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.19">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.66ac8b77.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
       
       
 
@@ -924,27 +924,6 @@
           </ul>
         </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../build-consumer/3rd-party-service-invoke/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Invoke 3rd-party REST services
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -2430,11 +2409,9 @@
 <ol>
 <li>**Q: After the microservice is started, the interface cannot be called correctly, or is there no error returned? **</li>
 </ol>
-<p>A: Please check that the calling path is exactly the same as the path published in the Producer implementation code. The boot log on the Producer side can see the output of the map path, for example:
-   
-    <code>[INFO] Swagger mapped "{[/hello/], method=[GET], produces=[application/json]}"</code>
-   
-    For different programming styles (models) to implement Producer documentation and notes, please see: <a href="/cn/users/develop-with-jax-rs/">Jaxrs</a> <a href="/cn/users/develop-with-springmvc/">SpringMVC</a> <a href="/cn/users/develop-with-transparent-rpc/">Pojo</a> <a href="/cn/users/develop-with-spring-boot-starter/">Spring Boot</a> .
+<p>A: Please check that the calling path is exactly the same as the path published in the Producer implementation code. The boot log on the Producer side can see the output of the map path, for example:</p>
+<p><code>[INFO] Swagger mapped "{[/hello/], method=[GET], produces=[application/json]}"</code></p>
+<p>For different programming styles (models) to implement Producer documentation and notes, please see: <a href="/cn/users/develop-with-jax-rs/">Jaxrs</a> <a href="/cn/users/develop-with-springmvc/">SpringMVC</a> <a href="/cn/users/develop-with-transparent-rpc/">Pojo</a> <a href="/cn/users/develop-with-spring-boot-starter/">Spring Boot</a> .
     
 10. **Q: The port number under the microservice.yaml configuration file has been modified via eclipse. After starting the program, the port number does not work? **</p>
 <p>A: You need to import the sample project alone. If you import the entire ServiceComb-Java-Chassis project, the IDE will not compile the sample because the sample directory is not in the ServiceComb-Java-Chassis module. There is no error message under eclipse. Prompt message. Therefore, eclipse starts the demo of the sample and will find that the modified port does not work.
@@ -2465,14 +2442,14 @@
 <pre><code> return "not expected";
 </code></pre>
 <p>}
-   ```</p>
+  ```</p>
 <ol>
 <li><strong>Q: How to customize the log configuration of your own microservice?</strong></li>
 </ol>
 <p>A: ServiceComb does not bind the logger, just uses slf4j, users can freely choose log4j/log4j2/logback and so on. ServiceComb provides a log4j extension that supports incremental configuration of log4j's properties files on a standard log4j basis.
     * By default, the configuration file is loaded by the rule: "classpath*:config/log4j.properties"
     * Actually search all the <code>config/log4j.properties and config/log4j.*.properties</code> in the classpath, and cut out the <code>\*</code> from the searched file to perform alpha. Sort, then load in order, and the final synthesized file is used as the log4j configuration file.
-    * If you want to use ServiceComb's log4j extension, you need to call Log4jUtils.init, otherwise it will be used according to the rules of the standard logger.</p>
+        * If you want to use ServiceComb's log4j extension, you need to call Log4jUtils.init, otherwise it will be used according to the rules of the standard logger.</p>
 <ol>
 <li>**Q: When the service is configured with multiple transports, how do you choose which transport to use at runtime? **</li>
 </ol>
@@ -2484,8 +2461,8 @@
 <p>Decomposed, there are the following scenarios:</p>
 <p>* When a microservice producer opens both the highway and the RESTful endpoint
       * Only the highway transport jar is deployed in the consumer process, only the producer's highway endpoint is accessed.
-      * Only the RESTful transport jar is deployed in the consumer process, only the RESTful endpoint of the producer is accessed.
-      * In the consumer process, both the highway and RESTful transport jars are deployed, and the producer's highway and RESTful endpoints are accessed in turn.</p>
+           * Only the RESTful transport jar is deployed in the consumer process, only the RESTful endpoint of the producer is accessed.
+              * In the consumer process, both the highway and RESTful transport jars are deployed, and the producer's highway and RESTful endpoints are accessed in turn.</p>
 <p>If, at this time, the consumer wants to use a transport to access the producer, it can be configured in the microservice.yaml of the consumer process, specifying the name of the transport:</p>
 <p><code>yaml
       Servicecomb:
@@ -2494,12 +2471,12 @@
             Transport: highway</code></p>
 <p>* When a microservice producer only opens the endpoint of the highway
       * The consumer process only deploys the highway transport jar, then the highway access is normally used.
-      *The consumer process only deploys RESTful transport jars and cannot be accessed
-      * The consumer process deploys both the highway and the RESTful transport jar, and the highway access is normally used.</p>
+           *The consumer process only deploys RESTful transport jars and cannot be accessed
+              * The consumer process deploys both the highway and the RESTful transport jar, and the highway access is normally used.</p>
 <p>* When a microservice producer only opens RESTful endpoints
       *The consumer process only deploys the highway transport jar and cannot access it.
-      * The consumer process only deploys RESTful transport jars, which normally uses RESTful access.
-      * The consumer process deploys both the highway and the RESTful transport jar, and the RESTful access is normally used.</p>
+           * The consumer process only deploys RESTful transport jars, which normally uses RESTful access.
+           * The consumer process deploys both the highway and the RESTful transport jar, and the RESTful access is normally used.</p>
 <ol>
 <li><strong>Q: The swagger body parameter type is incorrectly defined, causing the content registered in the service center to have no type information</strong></li>
 </ol>
@@ -2589,8 +2566,7 @@
       / / Transparent data acquisition
       context.getContext();
       Return "Hello person " + person.getName();
-    }</code>
-   </p>
+    }</code></p>
 <ol>
 <li><strong>Q: How does the ServiceComb microservices framework service customize the return status code?</strong></li>
 </ol>
@@ -2633,16 +2609,16 @@
    2. Remove the log4j configuration file (it doesn't matter if you don't delete it, because it won't be used);
    3. Exclude the log4j introduced by the CSE framework, for example:
       <code>xml
-      &lt;dependency&gt;
-          &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
-          &lt;artifactId&gt;provider-springmvc&lt;/artifactId&gt;
-          &lt;exclusions&gt;
-              &lt;exclusion&gt;
-                  &lt;groupId&gt;log4j&lt;/groupId&gt;
-                  &lt;artifactId&gt;log4j&lt;/artifactId&gt;
-              &lt;/exclusion&gt;
-          &lt;/exclusions&gt;
-      &lt;/dependency&gt;</code>
+           &lt;dependency&gt;
+               &lt;groupId&gt;org.apache.servicecomb&lt;/groupId&gt;
+               &lt;artifactId&gt;provider-springmvc&lt;/artifactId&gt;
+               &lt;exclusions&gt;
+                   &lt;exclusion&gt;
+                       &lt;groupId&gt;log4j&lt;/groupId&gt;
+                       &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+                   &lt;/exclusion&gt;
+               &lt;/exclusions&gt;
+           &lt;/dependency&gt;</code>
    4. Introducing the dependency of log4j2</p>
 <p><code>xml
       &lt;dependency&gt;
@@ -2737,8 +2713,8 @@
 <p>A:
     1. The schema is used to match the service contract. It is used to ensure that the server and the consumer contract are compatible. Each contract needs a unique ID and is stored in the service center.
     2. Schema maps to the interface concept of java. When the consumer uses the transparent rpc mode to develop, it can find which operation in the micro service. The method names between schemas are not unique.
-    3. operation qualified name is the key of the governance, and the URL cannot be directly searched because of the existence of the path parameter, and the qualified name will not change. Governance does not distinguish between transmissions. If governance goes by URL, then when highway is called in, it has to construct the url according to the parameters, and then the regular expression matches, which is too tossing.
-    4. http is just a transport channel, and there are other transport channels that do not need to be mapped to URLs.</p>
+        3. operation qualified name is the key of the governance, and the URL cannot be directly searched because of the existence of the path parameter, and the qualified name will not change. Governance does not distinguish between transmissions. If governance goes by URL, then when highway is called in, it has to construct the url according to the parameters, and then the regular expression matches, which is too tossing.
+        4. http is just a transport channel, and there are other transport channels that do not need to be mapped to URLs.</p>
 <ol>
 <li>**Q: When the Rest client is invocating, it only takes the service name and URL, and does not need to specify the schema id. In fact, according to this URL, the specific contract can also be found. So what is the role of the specified schema id? **</li>
 </ol>
@@ -2814,7 +2790,7 @@
   }</code></p>
 <ul>
 <li><strong>Q: How to get the value of a field in the header in a user-defined handler</strong>
-    A: Use the @ApiImplicitParams annotation declaration in the user-defined handler and the invocation.getArgs() to get the value of the header. E.g:
+      A: Use the @ApiImplicitParams annotation declaration in the user-defined handler and the invocation.getArgs() to get the value of the header. E.g:
   <code>java
   public class MyHandler implements Handler {
     @ApiImplicitParams({@ApiImplicitParam(name = "tester", dataType = "string", paramType = "header")})
@@ -2827,7 +2803,9 @@
 <li>**Q: The exception is thrown when the microservices runtime: <code>java.lang.Error:not support def type:calss io.swagger.models.properties BaseIntegerProperty</code>? **</li>
 </ul>
 <p>A: Service Center can be upgraded to version 4.0.0+ to solve [Service Center latest version portal] (http://apache.org/dyn/closer.cgi/incubator/servicecomb/incubator-servicecomb-service-center /1.0.0-m1/).</p>
-<p><em>. </em><em>Q: Our API can not be accessed after microservices are up. It just returns </em>404 Not Found<em>. The codes we use is as follows:</em>*</p>
+<ul>
+<li><strong>Q: Our API can not be accessed after microservices are up. It just returns <em>404 Not Found</em>. The codes we use is as follows:</strong></li>
+</ul>
 <p><code>java
    @RestController
    @RestSchema(schemaId = "worker")
@@ -2841,8 +2819,31 @@
    <code>java
    @RequestMapping(value = "/")
    public class WorkerController {}</code></p>
-<p><em>. </em><em>Q: What\'s the default base path if I have not declared the value of RequestMapping annotation?</em>*</p>
+<ul>
+<li><strong>Q: What\'s the default base path if I have not declared the value of RequestMapping annotation?</strong></li>
+</ul>
 <p>A: Supposed the class name of your controller is <em>HelloController</em>, the base path is /HelloController.</p>
+<ul>
+<li>
+<p><strong>Q: How to use the function of compressed data transmission？</strong></p>
+</li>
+<li>
+<p>A: To enable the response data compression transmission capability on the server, the following configuration is required:</p>
+</li>
+</ul>
+<p><code>yaml
+  servicecomb:
+    rest:
+      server:
+        compression: true</code></p>
+<p>At the same time, the consumer side needs to synchronize the activation of configuration items:</p>
+<p><code>yaml
+  servicecomb:
+    rest:
+     client:
+       connection:
+         compression: true</code>
+  When the consumer sets the Accept Encoding: gzip, deflate field in the request header, the server will compress the response data based on the algorithm provided in this field and return it.</p>
 
 
 
@@ -2895,7 +2896,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.dd8806f2.min.js"></script>
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
       
     
   </body>
