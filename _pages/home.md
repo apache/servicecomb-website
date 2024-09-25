@@ -19,13 +19,13 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
-    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis Release Version 3.0.0</a>
+    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis Release Version 3.2.2</a>
   </li>
   <li>
     <a href='/cn/summer2020'>Apache ServiceComb Summer Code 2020</a>
   </li>
   <li>
-    <a href='/release/service-center-downloads/'>Apache ServiceComb Service-Center Release Version 2.1.0</a>
+    <a href='/release/service-center-downloads/'>Apache ServiceComb Service-Center Release Version 2.2.0</a>
   </li>
   <li>
     <a href='/release/toolkit-downloads'>Apache ServiceComb Toolkit 0.2.0 is released</a>

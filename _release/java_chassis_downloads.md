@@ -9,13 +9,21 @@ last_modified_at: 2019-04-12T00:50:43-55:00
 
 ## Releases
 
-| Release           |         Source            |           Distribution         |           Recommended Version of Service-Center         |
-| ---------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
-|**Apache ServiceComb Java-Chassis 2.7.0 (Latest)**|[[src]][src_2_7_0] [[asc]][src_asc_2_7_0] [[sha512]][src_sha512_2_7_0]|[[Binary]][bin_2_7_0] [[asc]][bin_asc_2_7_0] [[sha512]][bin_sha512_2_7_0]|Service-Center 1.3.0 or above|
-|Apache ServiceComb Java-Chassis 2.6.0|[[src]][src_2_6_0] [[asc]][src_asc_2_6_0] [[sha512]][src_sha512_2_6_0]|[[Binary]][bin_2_6_0] [[asc]][bin_asc_2_6_0] [[sha512]][bin_sha512_2_6_0]|Service-Center 1.3.0 or above||
-|Apache ServiceComb Java-Chassis 2.5.0|[[src]][src_2_5_0] [[asc]][src_asc_2_5_0] [[sha512]][src_sha512_2_5_0]|[[Binary]][bin_2_5_0] [[asc]][bin_asc_2_5_0] [[sha512]][bin_sha512_2_5_0]|Service-Center 1.3.0 or above|
-|Apache ServiceComb Java-Chassis 2.3.0|[[src]][src_2_3_0] [[asc]][src_asc_2_3_0] [[sha512]][src_sha512_2_3_0]|[[Binary]][bin_2_3_0] [[asc]][bin_asc_2_3_0] [[sha512]][bin_sha512_2_3_0]|Service-Center 1.3.0 or above|
-|Apache ServiceComb Java-Chassis 2.2.0|[[src]][src_2_2_0] [[asc]][src_asc_2_2_0] [[sha512]][src_sha512_2_2_0]|[[Binary]][bin_2_2_0] [[asc]][bin_asc_2_2_0] [[sha512]][bin_sha512_2_2_0]|Service-Center 1.3.0 or above|
+| Release                                            |         Source            |           Distribution         |           Recommended Version of Service-Center         |
+|----------------------------------------------------| --------------------------------- | --------------------------------- | --------------------------------- |
+| **Apache ServiceComb Java-Chassis 3.2.2 (Latest)** |[[src]][src_3_2_2] [[asc]][src_asc_3_2_2] [[sha512]][src_sha512_3_2_2]|[[Binary]][bin_3_2_2] [[asc]][bin_asc_3_2_2] [[sha512]][bin_sha512_3_2_2]|Service-Center 1.3.0 or above|
+| Apache ServiceComb Java-Chassis 2.7.0              |[[src]][src_2_7_0] [[asc]][src_asc_2_7_0] [[sha512]][src_sha512_2_7_0]|[[Binary]][bin_2_7_0] [[asc]][bin_asc_2_7_0] [[sha512]][bin_sha512_2_7_0]|Service-Center 1.3.0 or above|
+| Apache ServiceComb Java-Chassis 2.6.0              |[[src]][src_2_6_0] [[asc]][src_asc_2_6_0] [[sha512]][src_sha512_2_6_0]|[[Binary]][bin_2_6_0] [[asc]][bin_asc_2_6_0] [[sha512]][bin_sha512_2_6_0]|Service-Center 1.3.0 or above||
+| Apache ServiceComb Java-Chassis 2.5.0              |[[src]][src_2_5_0] [[asc]][src_asc_2_5_0] [[sha512]][src_sha512_2_5_0]|[[Binary]][bin_2_5_0] [[asc]][bin_asc_2_5_0] [[sha512]][bin_sha512_2_5_0]|Service-Center 1.3.0 or above|
+| Apache ServiceComb Java-Chassis 2.3.0              |[[src]][src_2_3_0] [[asc]][src_asc_2_3_0] [[sha512]][src_sha512_2_3_0]|[[Binary]][bin_2_3_0] [[asc]][bin_asc_2_3_0] [[sha512]][bin_sha512_2_3_0]|Service-Center 1.3.0 or above|
+| Apache ServiceComb Java-Chassis 2.2.0              |[[src]][src_2_2_0] [[asc]][src_asc_2_2_0] [[sha512]][src_sha512_2_2_0]|[[Binary]][bin_2_2_0] [[asc]][bin_asc_2_2_0] [[sha512]][bin_sha512_2_2_0]|Service-Center 1.3.0 or above|
+
+[src_3_2_2]: https://dlcdn.apache.org/servicecomb/servicecomb-java-chassis/3.2.2/apache-servicecomb-java-chassis-distribution-3.2.2-src.zip
+[src_asc_3_2_2]: https://www.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.2/apache-servicecomb-java-chassis-distribution-3.2.2-src.zip.asc
+[src_sha512_3_2_2]: https://www.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.2/apache-servicecomb-java-chassis-distribution-3.2.2-src.zip.sha512
+[bin_3_2_2]: https://dlcdn.apache.org/servicecomb/servicecomb-java-chassis/3.2.2/apache-servicecomb-java-chassis-distribution-3.2.2-bin.zip
+[bin_asc_3_2_2]: https://www.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.2/apache-servicecomb-java-chassis-distribution-3.2.2-bin.zip.asc
+[bin_sha512_3_2_2]: https://www.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.2/apache-servicecomb-java-chassis-distribution-3.2.2-bin.zip.sha512
 
 [src_2_7_0]: https://dlcdn.apache.org/servicecomb/servicecomb-java-chassis/2.7.0/apache-servicecomb-java-chassis-distribution-2.7.0-src.zip
 [src_asc_2_7_0]: https://www.apache.org/dist/servicecomb/servicecomb-java-chassis/2.7.0/apache-servicecomb-java-chassis-distribution-2.7.0-src.zip.asc

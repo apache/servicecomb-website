@@ -13,11 +13,11 @@ last_modified_at: 2021-06-04T00:50:43-55:00
 
 
 **稳定发布版 - 最新版本:**
-* [ServiceComb Service-Center 2.1.0](/cn/release/service-center-downloads/) (released on 2022-03-15)
+* [ServiceComb Service-Center 2.2.0](/cn/release/service-center-downloads/) (released on 2024-01-23)
 
 * [ServiceComb toolkit 0.2.0](/cn/release/toolkit-downloads/) (released on 2020-01-05)
 
-* [ServiceComb Java-Chassis 2.7.0](/cn/release/java-chassis-downloads/) (released on 2022-04-07)
+* [ServiceComb Java-Chassis 3.2.2](/cn/release/java-chassis-downloads/) (released on 2024-09-20)
 
 * [ServiceComb Mesher 1.6.3](/cn/release/mesher-downloads/) (released on 2019-9-9)
 
@@ -25,6 +25,7 @@ last_modified_at: 2021-06-04T00:50:43-55:00
 
 **先前发行版本 :**
 
+* [ServiceComb Service-Center 2.1.0](/cn/release/service-center-downloads/) (released on 2022-03-15)
 * [ServiceComb Service-Center 2.0.0](/cn/release/service-center-downloads/) (released on 2021-06-04)
 * [ServiceComb Service-Center 1.3.0](/cn/release/service-center-downloads/) (released on 2019-11-07)
 * [ServiceComb Service-Center 1.2.0](/cn/release/service-center-downloads/) (released on 2019-04-06)
@@ -33,6 +34,7 @@ last_modified_at: 2021-06-04T00:50:43-55:00
 * [ServiceComb Service-Center 1.0.0-m2](/cn/release/service-center-downloads/) (released on 2018-06-21)
 * [ServiceComb Service-Center 1.0.0-m1](/cn/release/service-center-downloads/) (released on 2018-03-27)
 
+* [ServiceComb Java-Chassis 2.7.0](/cn/release/java-chassis-downloads/) (released on 2022-04-07)
 * [ServiceComb Java-Chassis 2.6.0](/cn/release/java-chassis-downloads/) (released on 2021-12-17)
 * [ServiceComb Java-Chassis 2.5.0](/cn/release/java-chassis-downloads/) (released on 2021-08-17)
 * [ServiceComb Java-Chassis 2.3.0](/cn/release/java-chassis-downloads/) (released on 2021-06-22)
