@@ -25,9 +25,6 @@ intro:
       <a href='/cn/summer2020'>Apache ServiceComb 社区 暑假coding 2020 活动</a>
   </li>
   <li>
-      <a href='/cn/release/pack-downloads'>Apache ServiceComb Pack 发布 0.7.1</a>
-  </li>
-  <li>
     <a href='/cn/release/service-center-downloads/'>Apache ServiceComb Service-Center 发布 2.1.0</a>
   </li>
   <li>

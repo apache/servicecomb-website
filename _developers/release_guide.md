@@ -275,11 +275,3 @@ Prepare Linux environment, and make sure can upload artifacts to maven central.
 or [2.0.0 RP](https://github.com/apache/servicecomb-website/pull/240)
 
 6. Send announcements to `dev@servicecomb.apache.org`， `announce@apache.org`。
-
-
-## Major Steps for doing Pack Release
-
-Please refer to [ServiceComb Pack Release Guide](/release/pack-release-guide)
-
-**NOTE**
- - The whole process generally takes 1 weeks to complete assuming you don't get any -1 from PMC, so please plan the release activity before hand.

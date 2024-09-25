@@ -14,17 +14,11 @@ Only current recommended releases are available on the main distribution site an
 
 **Stable Release - Latest Version:**
 
-* [ServiceComb Pack 0.7.1](/release/pack-downloads/) (released on 2022-08-09)
-
 * [ServiceComb Service-Center 2.1.0](/release/service-center-downloads/) (released on 2022-03-15)
 
 * [ServiceComb toolkit 0.2.0](/release/toolkit-downloads/) (released on 2020-01-05)
 
 * [ServiceComb Java-Chassis 2.7.0](/release/java-chassis-downloads/) (released on 2022-04-07)
-
-* [ServiceComb Saga Actuator 0.3.0](/release/saga-actuator-downloads/) (released on 2018-12-18)
-
-* [ServiceComb Saga 0.2.1](/release/saga-downloads/) (released on 2018-11-23)
 
 * [ServiceComb Mesher 1.6.3](/release/mesher-downloads/) (released on 2019-9-9)
 
@@ -44,12 +38,6 @@ Only current recommended releases are available on the main distribution site an
 * [ServiceComb Java-Chassis 2.5.0](/release/java-chassis-downloads/) (released on 2021-08-17)
 * [ServiceComb Java-Chassis 2.3.0](/release/java-chassis-downloads/) (released on 2021-06-22)
 * [ServiceComb Java-Chassis 2.2.0](/release/java-chassis-downloads/) (released on 2020-02-28)
-
-* [ServiceComb Pack 0.5.0](/release/pack-downloads/) (released on 2019-08-26)
-* [ServiceComb Pack 0.4.0](/release/pack-downloads/) (released on 2019-04-06)
-* [ServiceComb Pack 0.3.0](/release/pack-downloads/) (released on 2019-01-02)
-* [ServiceComb Saga 0.2.0](/release/saga-downloads/) (released on 2018-06-21)
-* [ServiceComb Saga 0.1.0](/release/saga-downloads/) (released on 2018-03-27)
 
 * [ServiceComb toolkit 0.1.0](/release/toolkit-downloads/) (released on 2019-09-04)
 
