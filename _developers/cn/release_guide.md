@@ -254,8 +254,3 @@ gvt restore
     或者 [2.0.0 RP](https://github.com/apache/servicecomb-website/pull/240)
 
 6. 发送发行通告邮件到 `dev@servicecomb.apache.org`， `announce@apache.org`。
-
-
-## 发行Pack
-
-请参考 [ServiceComb Pack 发行指南](/cn/release/pack-release-guide)

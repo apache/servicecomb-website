@@ -39,18 +39,18 @@ Then we can add your issue to git and then we'll know when its really fixed and 
 
 We recommend to work on the code from  [Github](https://github.com/search?q=org%3Aapache+servicecomb) , it has the following sub-projects:
 
-| Project Name | Project Introduction | Programming Language |
-|-------------------------------------------------------------------------------|----------------------------|----------|
-| [servicecomb-java-chassis](https://github.com/apache/servicecomb-java-chassis) | Java Microservice Framework（SDK） | Java |
-| [servicecomb-service-center](https://github.com/apache/servicecomb-service-center) | Service registration and discovery | Golang |
-| [servicecomb-pack](https://github.com/apache/servicecomb-pack) | Distributed transaction schemes,support Saga and TCC | Java |
-| [servicecomb-mesher](https://github.com/apache/servicecomb-Mesher)       | Service Mesh implementation of ServiceComb     | Golang    |
-| [servicecomb-kie](https://github.com/apache/servicecomb-kie)                                   |  Microsevice configure center  | Golang    |
-| [servicecomb-toolkit](https://github.com/apache/servicecomb-toolkit)               | A contract-based Microservice development toolkit | Java       |
-| [servicecomb-samples](https://github.com/apache/servicecomb-samples)                                   | Microservice examples of ServiceComb  | Java     |
-| [servicecomb-fence](https://github.com/apache/servicecomb-fence)               | Apache ServiceComb security module for java-chassis | Java       |
-| [servicecomb-docs](https://github.com/apache/servicecomb-docs) | User manual | CSS |
-| [servicecomb-website](https://github.com/apache/servicecomb-website) | Website | HTML |
-| [servicecomb-saga-actuator](https://github.com/apache/servicecomb-saga-actuator) | Centralized Saga Transaction Coordinator *Archived* | Java |
+| Project Name                                                                       | Project Introduction                                 | Programming Language | Notes               |
+|------------------------------------------------------------------------------------|------------------------------------------------------|----------------------|---------------------|
+| [servicecomb-java-chassis](https://github.com/apache/servicecomb-java-chassis)     | Java Microservice Framework（SDK）                     | Java                 ||
+| [servicecomb-service-center](https://github.com/apache/servicecomb-service-center) | Service registration and discovery                   | Golang               ||
+| [servicecomb-pack](https://github.com/apache/servicecomb-pack)                     | Distributed transaction schemes,support Saga and TCC | Java                 | Project is archived |
+| [servicecomb-mesher](https://github.com/apache/servicecomb-Mesher)                 | Service Mesh implementation of ServiceComb           | Golang               ||
+| [servicecomb-kie](https://github.com/apache/servicecomb-kie)                       | Microsevice configure center                         | Golang               ||
+| [servicecomb-toolkit](https://github.com/apache/servicecomb-toolkit)               | A contract-based Microservice development toolkit    | Java                 ||
+| [servicecomb-samples](https://github.com/apache/servicecomb-samples)               | Microservice examples of ServiceComb                 | Java                 ||
+| [servicecomb-fence](https://github.com/apache/servicecomb-fence)                   | Apache ServiceComb security module for java-chassis  | Java                 ||
+| [servicecomb-docs](https://github.com/apache/servicecomb-docs)                     | User manual                                          | CSS                  ||
+| [servicecomb-website](https://github.com/apache/servicecomb-website)               | Website                                              | HTML                 ||
+| [servicecomb-saga-actuator](https://github.com/apache/servicecomb-saga-actuator)   | Centralized Saga Transaction Coordinator *Archived*  | Java                 | Project is archived |
 
 If you intend to work on the code and provide patches and other work you want to submit to the Apache ServiceComb projects, then you can fork the project on github and work on your own fork. The custom work you do should be done on branches you create, which can then be committed and pushed upstream, and then submitted to Apache ServiceComb as PRs (pull requests). You can find many resources online how to work on github projects and how to submit work to these projects.
