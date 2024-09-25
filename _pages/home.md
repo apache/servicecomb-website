@@ -45,9 +45,6 @@ intro:
   <li>
     <a href='/docs/chuanzhiboke-servicecomb-tutoria-release/'>Apache ServiceComb community joint Itcast.cn sub-brand Itheima, Boxuegu and Wisdom Gathering release micro-service tutorial</a>
   </li>
-  <li>
-    <a href='https://gitter.im/ServiceCombUsers/Lobby'>Welcome to join Apache ServiceComb community at Gitter</a>
-  </li>
 </ul>
 "
 
@@ -55,17 +52,11 @@ feature_row:
   - image_path: /assets/images/servicecomb-feature-openapi.png
     alt: "Standard"
     title: "Service Contract"
-    url: https://docs.servicecomb.io/java-chassis/en_US/build-provider/define-contract.html
     excerpt: "Service contract guarantee based on [OpenAPI](https://www.openapis.org)"
   - image_path: /assets/images/servicecomb-feature-quickstart.png
     alt: "Efficient"
     title: "Rapid Development"
-    url: /docs/quick-start/
     excerpt: "One-click scaffolding, out of the box, speed up building of microservice applications"
-  - image_path: /assets/images/servicecomb-feature-multiLanguage.png
-    alt: "MultiLanguage"
-    title: "Multiple Languages"
-    excerpt: "Ecological extension supports multiple development languages such as Java/Golang/PHP/NodeJS"
 ---
 
 {% include feature_row id="intro" type="center" %}
