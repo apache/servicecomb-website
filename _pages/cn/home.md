@@ -19,13 +19,13 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
-    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis 发布 3.0.0</a>
+    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis 发布 3.2.2</a>
   </li>
   <li>
       <a href='/cn/summer2020'>Apache ServiceComb 社区 暑假coding 2020 活动</a>
   </li>
   <li>
-    <a href='/cn/release/service-center-downloads/'>Apache ServiceComb Service-Center 发布 2.1.0</a>
+    <a href='/cn/release/service-center-downloads/'>Apache ServiceComb Service-Center 发布 2.2.0</a>
   </li>
   <li>
     <a href='/cn/release/toolkit-downloads'>Apache ServiceComb Toolkit 发布0.2.0</a>
