@@ -12,7 +12,7 @@ last_modified_at: 2019-04-12T00:50:43-55:00
 | Release           |         源码            |           发布包         |
 | ---------------------- | --------------------------------- | --------------------------------- |
 | **Apache ServiceComb Java-Chassis 3.2.3 (Latest)** | [[src]][src_3_2_3] [[asc]][src_asc_3_2_3] [[sha512]][src_sha512_3_2_3] | [[Binary]][bin_3_2_3] [[asc]][bin_asc_3_2_3] [[sha512]][bin_sha512_3_2_3] |
-| Apache ServiceComb Java-Chassis 3.2.2 (Latest)** |[[src]][src_3_2_2] [[asc]][src_asc_3_2_2] [[sha512]][src_sha512_3_2_2]|[[Binary]][bin_3_2_2] [[asc]][bin_asc_3_2_2] [[sha512]][bin_sha512_3_2_2]|
+| Apache ServiceComb Java-Chassis 3.2.2 |[[src]][src_3_2_2] [[asc]][src_asc_3_2_2] [[sha512]][src_sha512_3_2_2]|[[Binary]][bin_3_2_2] [[asc]][bin_asc_3_2_2] [[sha512]][bin_sha512_3_2_2]|
 |Apache ServiceComb Java-Chassis 2.7.0|[[src]][src_2_7_0] [[asc]][src_asc_2_7_0] [[sha512]][src_sha512_2_7_0]|[[Binary]][bin_2_7_0] [[asc]][bin_asc_2_7_0] [[sha512]][bin_sha512_2_7_0]|
 |Apache ServiceComb Java-Chassis 2.6.0|[[src]][src_2_6_0] [[asc]][src_asc_2_6_0] [[sha512]][src_sha512_2_6_0]|[[Binary]][bin_2_6_0] [[asc]][bin_asc_2_6_0] [[sha512]][bin_sha512_2_6_0]|
 |Apache ServiceComb Java-Chassis 2.5.0|[[src]][src_2_5_0] [[asc]][src_asc_2_5_0] [[sha512]][src_sha512_2_5_0]|[[Binary]][bin_2_5_0] [[asc]][bin_asc_2_5_0] [[sha512]][bin_sha512_2_5_0]|
