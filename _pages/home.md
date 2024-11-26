@@ -6,7 +6,7 @@ permalink: /
 header:
   overlay_image: /assets/images/servicecomb-banner-s.png
   caption:
-excerpt: 'Apache ServiceComb Java Chassis is an RPC framework that implements Open API specification, providing configuration management, service discovery, dynamic routing, observability, and service governance features.'
+excerpt: 'Apache ServiceComb Java Chassis is an RPC framework that implements Open API specification, providing configuration management, service discovery, dynamic routing, observability, and service governance features.
 
 <div class="button-group def-inline-block">
     <a href="/references/java-chassis/zh_CN/start/first-sample.html" class="home-button btn--info">Get started</a>

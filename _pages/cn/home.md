@@ -6,7 +6,7 @@ permalink: /cn/
 header:
   overlay_image: /assets/images/servicecomb-banner-s.png
   caption:
-excerpt: 'Apache ServiceComb Java Chassis是一个实现Open API规范的RPC框架，提供了配置管理、服务发现、动态路由、可观察性和服务治理功能。'
+excerpt: 'Apache ServiceComb Java Chassis是一个实现Open API规范的RPC框架，提供了配置管理、服务发现、动态路由、可观察性和服务治理功能。
 
 <div class="button-group def-inline-block">
     <a href="/references/java-chassis/zh_CN/start/first-sample.html" class="home-button btn--info">开始</a>
