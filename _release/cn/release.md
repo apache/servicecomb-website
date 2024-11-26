@@ -17,7 +17,7 @@ last_modified_at: 2021-06-04T00:50:43-55:00
 
 * [ServiceComb toolkit 0.2.0](/cn/release/toolkit-downloads/) (released on 2020-01-05)
 
-* [ServiceComb Java-Chassis 3.2.2](/cn/release/java-chassis-downloads/) (released on 2024-09-20)
+* [ServiceComb Java-Chassis 3.2.3](/cn/release/java-chassis-downloads/) (released on 2024-11-26)
 
 * [ServiceComb Mesher 1.6.3](/cn/release/mesher-downloads/) (released on 2019-9-9)
 

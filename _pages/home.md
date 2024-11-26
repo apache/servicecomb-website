@@ -6,7 +6,7 @@ permalink: /
 header:
   overlay_image: /assets/images/servicecomb-banner-s.png
   caption:
-excerpt: 'Open-Source, Full-Stack Microservice Solution.With out of the box, high performance, compatible with popular ecology, multi-language support
+excerpt: 'Apache ServiceComb Java Chassis is an RPC framework that implements Open API specification, providing configuration management, service discovery, dynamic routing, observability, and service governance features.'
 
 <div class="button-group def-inline-block">
     <a href="/references/java-chassis/zh_CN/start/first-sample.html" class="home-button btn--info">Get started</a>
@@ -19,10 +19,10 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
-    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis Release Version 3.2.2</a>
+    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis Release Version 3.2.3</a>
   </li>
   <li>
-    <a href='/cn/summer2020'>Apache ServiceComb Summer Code 2020</a>
+    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis Release Version 3.2.2</a>
   </li>
   <li>
     <a href='/release/service-center-downloads/'>Apache ServiceComb Service-Center Release Version 2.2.0</a>
