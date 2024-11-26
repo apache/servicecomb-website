@@ -1,0 +1,3709 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="design-security.html">
+      
+      
+        <link rel="next" href="scaffolding.html">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.46">
+    
+    
+      
+        <title>可观测性设计 - Java Chassis 3 开发指南</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Java Chassis 3 开发指南" class="md-header__button md-logo" aria-label="Java Chassis 3 开发指南" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Java Chassis 3 开发指南
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              可观测性设计
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Java Chassis 3 开发指南" class="md-nav__button md-logo" aria-label="Java Chassis 3 开发指南" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Java Chassis 3 开发指南
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    概述
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/design.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java Chassis设计参考
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduce3.x.x.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java Chassis 3版本介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    快速入门
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            快速入门
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/development-environment.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    安装本地开发环境
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/first-sample.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    开发第一个微服务应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../featured-topics/application-bmi.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BMI应用-使用服务治理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../featured-topics/application-porter.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PORTER应用-典型开发场景
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/definition/service-definition.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    微服务定义
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Spring Boot集成Java Chassis
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Spring Boot集成Java Chassis
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spring-boot/introduction.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Spring Boot集成Java Chassis介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spring-boot/diff-spring-mvc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    与Spring Web MVC开发习惯的差异
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    开发服务提供者
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            开发服务提供者
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/basics.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基础概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/http-mapping.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP参数映射参考
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/jaxrs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    用JAX-RS开发微服务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/springmvc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    用SpringMVC开发微服务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/transparent-rpc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    用透明RPC开发微服务
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/swagger-annotation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Swagger注解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/use-interface.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    只发布interface的方法为服务接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/reactive.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异步处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/context-param.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 Context 参数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/multi-code.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多个返回值和错误码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/interface-constraints.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    接口定义和数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/listen-address-and-publish-address.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    服务监听地址和发布地址
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/thread-pool.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线程池
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/event-listener.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    服务启动事件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/parameter-validator.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    参数效验
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/ipv6-configuration.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPV6配置和使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    开发服务消费者
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            开发服务消费者
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-consumer/basics.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基础概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-consumer/using-resttemplate.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Restful风格 - 使用 RestOperations
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-consumer/develop-consumer-using-rpc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RPC风格
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-consumer/invoker.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    泛化调用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    定制请求处理流程
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            定制请求处理流程
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/intruduction.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    处理链介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    通用功能开发
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            通用功能开发
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/upload-download.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件上传下载
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/reactive.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reactive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/dnsconfig.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DNS自定义配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/proxy.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    代理设置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/report-framework-version.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    框架上报版本号
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/cross-app-invocation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨应用调用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/secret-field.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    定制序列化和反序列化方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/context.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Context传递控制消息
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/produceprocess.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    返回值序列化扩展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/CORS.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    跨域资源共享(CORS)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/AlarmEvent.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    获取熔断与实例隔离告警事件信息
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/shutdown.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    优雅停机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/error-handling.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/multienvironment.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    微服务实例间多环境隔离
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/thread-model.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    线程模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/config-logs.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    配置日志
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    多样化的通信协议功能
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            多样化的通信协议功能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transports/introduction.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多协议介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transports/rest-over-vertx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    REST over HTTP(Vert.x)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transports/http2.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    REST over HTTP2(Vert.x)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transports/rest-over-servlet-embedded.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    REST over Servlet(Spring Boot Embedded)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transports/rest-over-servlet.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    REST over Servlet(WAR)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transports/highway-rpc.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Highway
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../transports/websocket.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Websocket
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    多样化的服务注册与发现功能
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            多样化的服务注册与发现功能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/introduction.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    注册发现介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/service-center.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Service Center
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/nacos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Nacos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/zookeeper.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用ZooKeeper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/etcd.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Etcd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/local-registry.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    本地注册发现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../registry/distributed.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    去中心化注册发现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_13" id="__nav_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    多样化的配置管理功能
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_13">
+            <span class="md-nav__icon md-icon"></span>
+            多样化的配置管理功能
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/general-config.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    服务配置介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/read-config.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    在程序中读取配置信息
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/kie.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Kie
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/nacos.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Nacos
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/zookeeper.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Zookeeper
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/etcd.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Etcd
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/apollo.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用Apollo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config/cse1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用CSE1.0配置中心
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    服务治理功能参考
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            服务治理功能参考
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/rule-governance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    流量特征治理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/governance-best-practise.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    流量特征治理最佳实践
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/loadbalance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    负载均衡
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/ratelimit.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    限流
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/router.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    灰度发布
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/fault-injection.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    故障注入
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../references-handlers/fail-retry.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    快速失败和重试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_15" id="__nav_15_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    网关功能参考
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_15">
+            <span class="md-nav__icon md-icon"></span>
+            网关功能参考
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../edge/open-service.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../edge/by-servicecomb-sdk.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 Edge Service 做网关
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../edge/zuul.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 `zuul` 和 `spring cloud gateway` 做网关
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../edge/nginx.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    nginx 网关简单介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_16" >
+        
+          
+          <label class="md-nav__link" for="__nav_16" id="__nav_16_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    安全特性参考
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_16_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_16">
+            <span class="md-nav__icon md-icon"></span>
+            安全特性参考
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/publickey.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    微服务间认证
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../security/tls.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用TLS通信
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_17" >
+        
+          
+          <label class="md-nav__link" for="__nav_17" id="__nav_17_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    可观测功能参考
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_17_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_17">
+            <span class="md-nav__icon md-icon"></span>
+            可观测功能参考
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/metrics.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    应用性能监控
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../general-development/microservice-invocation-chain.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    微服务调用链
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../build-provider/access-log-configuration.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access Log配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_18" >
+        
+          
+          <label class="md-nav__link" for="__nav_18" id="__nav_18_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    专题文章
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_18_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_18">
+            <span class="md-nav__icon md-icon"></span>
+            专题文章
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../featured-topics/http-dispatcher.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    特性介绍： Edge Service 通用的 HTTP 转发器 CommonHttpEdgeDispatcher
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../featured-topics/date-time.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    特性介绍： date和date-time
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../featured-topics/compatibility.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    兼容问题和兼容性策略
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../featured-topics/performance.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    性能问题分析和调优
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_19" >
+        
+          
+          <label class="md-nav__link" for="__nav_19" id="__nav_19_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    技术解密
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_19_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_19">
+            <span class="md-nav__icon md-icon"></span>
+            技术解密
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/load-balancer.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    负载均衡选择器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/zone-isolation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    注册中心分区隔离
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/serialization.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多种序列化方式支持
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/circuit-breaker.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    熔断机制的改进路程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/fail-fast.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    过载状态下的快速失败
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/applied-config.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    应用视角的配置管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/registries.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    易扩展的多种注册中心支持
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/interoperability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    与Spring Cloud的互操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/zookeeper.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ZooKeeper注册和配置中心
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/api-first.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    契约优先（API First）开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/load-balancer-operation.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    接口维度负载均衡
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/observability.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    实用的可观测性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/sse.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    流式响应和人工智能应用开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../secrets/websocket.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WebSocket和人工智能应用开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_20" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_20" id="__nav_20_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    最佳实践
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_20_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_20">
+            <span class="md-nav__icon md-icon"></span>
+            最佳实践
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="about-fence.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Fence项目介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="design-resilience.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    韧性架构设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="design-security.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    安全认证设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    可观测性设计
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="design-observability.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    可观测性设计
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题定位流程
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      和传统方案的对比分析
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="scaffolding.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    项目脚手架
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_21" >
+        
+          
+          <label class="md-nav__link" for="__nav_21" id="__nav_21_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    升级指导
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_21_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_21">
+            <span class="md-nav__icon md-icon"></span>
+            升级指导
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading/1_3_0T2_0_0.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3.0 升级 2.0.0指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading/2_0_0T2_0_1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.0.0 升级 2.0.1指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading/2_0_1T2_1_0.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.0.1 升级 2.1.0指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading/2_1_0T2_1_1.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1.0 升级 2.1.1指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading/2_1_1T2_1_5.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1.1 升级 2.1.5指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading/2_1_5T2_6_0.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1.5 升级 2.6.0指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../upgrading/2_8_0T3_0_0.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.8.0 升级 3.0.0指导
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_22" >
+        
+          
+          <label class="md-nav__link" for="__nav_22" id="__nav_22_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    常用配置项参考
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_22_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_22">
+            <span class="md-nav__icon md-icon"></span>
+            常用配置项参考
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../config-reference/rest-transport-client.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    REST Transport Client 配置项
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../question-and-answer/faq.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常见问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      问题定位流程
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      和传统方案的对比分析
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">可观测性设计</h1>
+<p>狭义的可观测性，指日志、调用链和指标，广义的可观测性则包含更多的内容，一般的，应用程序暴露出来的便于理解其运行状态、运行轨迹、内部结构和功能集合的信息，都是可观测性的范围，本文只讨论狭义的可观测性。日志揭露了应用程序内部运行的轨迹，通过异常日志，可以理解错误产生的原因；调用链反映的是一次业务操作经过的关键处理节点，可以帮助快速确定问题发生的边界；指标反映错误发生时应用程序的当前或者历史状态，帮助分析需要一定的时间或者流量积累才会发生的问题，比如过载问题、性能问题等。可以看出，为了分析故障，具备可观测性能力非常重要。</p>
+<p>微服务系统具备复杂的调用关系和分布式部署特征，为了更好的分析和处理日志、调用链和指标，通常会部署ELK、SkyWalking和Prometheus等外部系统。 这些系统完全搭建起来，会花费数十万每年的计算成本，而且很可能并没有显著提升日常问题定位的效率，不恰当的使用还可能会引入性能问题。针对问题定位难的情况，ServiceComb Fence提供了非常简单高效，而且低成本的解决方案。由于采集的数据，都是和Java Chassis运行过程和系统架构强相关的，也避免了采集海量无关数据，使得数据对于问题分析更具有针对性，能够更加快速识别问题根因。</p>
+<h2 id="_2">问题定位流程</h2>
+<p>在很多组织里面，问题定位都是由不太熟悉系统结构和技术细节的运维人员开始的，或者是由工作交接后刚刚接触系统的新人开始的，这给快速定界问题，收集和问题相关的信息带来了巨大的挑战。一个问题从发现到传递给责任模块，数个小时的时间就过去了。 设计一个简单的问题定位流程，快速定界问题和收集关联信息，是可观测系统搭建的起点。</p>
+<p>当用户识别到一个故障，比如交易失败，在系统层面，会对应到一次系统请求的失败。在系统设计之初，会采用一个请求标识将用户故障和系统请求关联起来，即 <code>TraceId</code>， 这个是所有调用链系统设计的基础。 通常建议前端在发送请求的时候，都携带 <code>TraceId</code>， 便于将前后端请求进行关联。在前端未按照要求携带 <code>TraceId</code> 的情况下，Java Chassis会在应用网关 Edge Service生成 <code>TraceId</code>， 并在给前端响应的HTTP头中携带 <code>TraceId</code>。 当用户识别到一个故障，可以通过浏览器等前端工具获取到 <code>TraceId</code>。 问题定位的起点是获取<code>TraceId</code>。</p>
+<p><img alt="" src="observability.png" /></p>
+<p>在管理控制台，输入<code>TraceId</code> 和问题发生大概时间，可以检索出关键的调用链信息和关键日志信息。 通过调用链信息，可以知道请求的执行轨迹和发生问题的节点，通过关键日志信息，能够快速确定问题根因。 对于一些简单常见的问题，经过这个简单的步骤，就能够确定问题根因。</p>
+<p>对于一些复杂的问题，需要获取上下文日志或者指标来进行深入的分析，运维人员可以在检索结果里面将完整的日志文件和指标信息下载下来，提供给故障服务的技术人员。</p>
+<p>从上面的过程可以看出，运维人员在不理解系统实现细节的情况下，也能快速定界和定位一些简单问题，并能够快速收集详细的和问题强相关的信息提供给技术人员做进一步处理。</p>
+<h2 id="_3">实现原理</h2>
+<p>Java Chassis在设计之初，就内置了大量的可观测能力。使用上述流程，无需部署ELK、SkyWalking和Prometheus去采集数据，也不需要集成这些工具的SDK或者Agent。 通过一些开发规范约束和<code>可观测API</code>就能够实现一个简单高效和易用的定位系统。</p>
+<p>Java Chassis通过集成<a href="../general-development/metrics.html">应用性能监控</a>、<a href="../general-development/microservice-invocation-chain.html">微服务调用链</a>来生成调用链和指标，日志则使用 <code>slf4j</code> 来记录。 这些数据构成了可观测的基础， 接下来就是如何存储和采集这些数据。</p>
+<p>通过配置 <code>log4j2</code> , 可以将日志、调用链和指标都输出到日志文件。 特别的，该日志配置约束了数据存储的规则、路径，为<code>可观测API</code>提供了简单的实现方案。</p>
+<pre><code class="language-xml">&lt;Configuration&gt;
+    &lt;Properties&gt;
+        &lt;property name=&quot;FILE_PATH&quot; value=&quot;./logs/admin-website&quot;/&gt;
+    &lt;/Properties&gt;
+
+    &lt;Appenders&gt;
+        &lt;Console name=&quot;Console&quot; target=&quot;SYSTEM_OUT&quot;&gt;
+            &lt;PatternLayout pattern=&quot;%-d{yyyy-MM-dd HH:mm:ss} [%X{SERVICECOMB_TRACE_ID}][%p][%t][%c:%L] %m%n&quot;/&gt;
+        &lt;/Console&gt;
+
+        &lt;RollingFile name=&quot;RootLog&quot; fileName=&quot;${FILE_PATH}/root.log&quot;
+          filePattern=&quot;${FILE_PATH}/root-%d{yyyy-MM-dd-HH}.log&quot;&gt;
+            &lt;PatternLayout pattern=&quot;%-d{yyyy-MM-dd-HH:mm:ss} [%X{SERVICECOMB_TRACE_ID}][%p][%t][%c:%L] %m%n&quot;/&gt;
+            &lt;Policies&gt;
+                &lt;TimeBasedTriggeringPolicy interval=&quot;3&quot;/&gt;
+            &lt;/Policies&gt;
+            &lt;DefaultRolloverStrategy max=&quot;100&quot;/&gt;
+        &lt;/RollingFile&gt;
+
+        &lt;RollingFile name=&quot;TraceLog&quot; fileName=&quot;${FILE_PATH}/trace.log&quot;
+          filePattern=&quot;${FILE_PATH}/trace-%d{yyyy-MM-dd-HH}.log&quot;&gt;
+            &lt;PatternLayout pattern=&quot;%-d{yyyy-MM-dd HH:mm:ss} %m%n&quot;/&gt;
+            &lt;Policies&gt;
+                &lt;TimeBasedTriggeringPolicy interval=&quot;3&quot;/&gt;
+            &lt;/Policies&gt;
+            &lt;DefaultRolloverStrategy max=&quot;100&quot;/&gt;
+        &lt;/RollingFile&gt;
+
+        &lt;RollingFile name=&quot;MetricsLog&quot; fileName=&quot;${FILE_PATH}/metrics.log&quot;
+          filePattern=&quot;${FILE_PATH}/metrics-%d{yyyy-MM-dd-HH}.log&quot;&gt;
+            &lt;PatternLayout pattern=&quot;%-d{yyyy-MM-dd HH:mm:ss} %m%n&quot;/&gt;
+            &lt;Policies&gt;
+                &lt;TimeBasedTriggeringPolicy interval=&quot;3&quot;/&gt;
+            &lt;/Policies&gt;
+            &lt;DefaultRolloverStrategy max=&quot;100&quot;/&gt;
+        &lt;/RollingFile&gt;
+    &lt;/Appenders&gt;
+
+    &lt;Loggers&gt;
+        &lt;Logger name=&quot;scb-trace&quot; level=&quot;INFO&quot; additivity=&quot;false&quot;&gt;
+            &lt;AppenderRef ref=&quot;TraceLog&quot;/&gt;
+        &lt;/Logger&gt;
+        &lt;Logger name=&quot;scb-metrics&quot; level=&quot;INFO&quot; additivity=&quot;false&quot;&gt;
+            &lt;AppenderRef ref=&quot;MetricsLog&quot;/&gt;
+        &lt;/Logger&gt;
+
+        &lt;Root level=&quot;INFO&quot;&gt;
+            &lt;AppenderRef ref=&quot;Console&quot;/&gt;
+            &lt;AppenderRef ref=&quot;RootLog&quot;/&gt;
+        &lt;/Root&gt;
+    &lt;/Loggers&gt;
+&lt;/Configuration&gt;
+</code></pre>
+<p>每个微服务都集成和实现<code>可观测API</code>。</p>
+<pre><code class="language-java">@Path(&quot;/v1/scb/observability&quot;)
+public interface ObservabilityService {
+  String NAME = &quot;scb-observability&quot;;
+
+  @Path(&quot;/searchTrace&quot;)
+  @GET
+  SearchTraceResponse searchTrace(@NotNull @QueryParam(&quot;timestamp&quot;) String timestamp,
+      @NotNull @QueryParam(&quot;traceId&quot;) String traceId);
+
+  @Path(&quot;/searchLog&quot;)
+  @GET
+  SearchLogResponse searchLog(@NotNull @QueryParam(&quot;timestamp&quot;) String timestamp,
+      @NotNull @QueryParam(&quot;traceId&quot;) String traceId);
+
+  @Path(&quot;/downloadLog&quot;)
+  @GET
+  Part downloadLog(@NotNull @QueryParam(&quot;timestamp&quot;) String timestamp);
+
+  @Path(&quot;/downloadMetrics&quot;)
+  @GET
+  Part downloadMetrics(@NotNull @QueryParam(&quot;timestamp&quot;) String timestamp);
+}
+</code></pre>
+<p>最后，我们可以开发一个管理控制服务，实现<code>管理面可观测API</code>， 就完成了可观测能力的构建：</p>
+<pre><code class="language-java">@Path(&quot;/v1/scb/admin/observability&quot;)
+public interface AdminObservabilityService {
+  String NAME = &quot;scb-admin-observability&quot;;
+
+  @Path(&quot;/searchTrace&quot;)
+  @GET
+  List&lt;SearchTraceResponse&gt; searchTrace(@NotNull @QueryParam(&quot;timestamp&quot;) String timestamp,
+      @NotNull @QueryParam(&quot;traceId&quot;) String traceId);
+
+  @Path(&quot;/searchLog&quot;)
+  @GET
+  List&lt;SearchLogResponse&gt; searchLog(@NotNull @QueryParam(&quot;timestamp&quot;) String timestamp,
+      @NotNull @QueryParam(&quot;traceId&quot;) String traceId);
+
+  @Path(&quot;/downloadLog&quot;)
+  @GET
+  Part downloadLog(@NotNull @QueryParam(&quot;timestamp&quot;) String timestamp,
+      @NotNull @QueryParam(&quot;serviceName&quot;) String serviceName,
+      @NotNull @QueryParam(&quot;instanceId&quot;) String instanceId);
+
+  @Path(&quot;/downloadMetrics&quot;)
+  @GET
+  Part downloadMetrics(@NotNull @QueryParam(&quot;timestamp&quot;) String timestamp,
+      @NotNull @QueryParam(&quot;serviceName&quot;) String serviceName,
+      @NotNull @QueryParam(&quot;instanceId&quot;) String instanceId);
+}
+</code></pre>
+<h2 id="_4">和传统方案的对比分析</h2>
+<p>与部署ELK、SkyWalking和Prometheus去采集数据的传统方案对比，上述方案非常简单和实用，能够帮助实时在线分析问题，该方案也无需将日志、调用链和指标等数据集中存储下来，可以节省大量的存储设备空间。 当然它的缺点也是显而易见的，对于已经下线的服务，或者对于历史问题需要追溯的情况，则采集不到相关的信息。 站在问题定位的角度，存储海量的日志、调用链和指标数据，大量数据都是和问题无关的，并且多数情况是要在第一时间完成问题定界和信息收集，因此上述方案相比于传统方案就有了非常大的竞争力优势。</p>
+<blockquote>
+<p>客户故事：很多客户花了大量成本构建可观测能力，依然无法指导运维人员快速定界和定位问题。通过建立一个简单实用的问题定界流程和采集数据的手段，可以帮助提升问题定位效率。 </p>
+</blockquote>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>
