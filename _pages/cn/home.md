@@ -6,7 +6,7 @@ permalink: /cn/
 header:
   overlay_image: /assets/images/servicecomb-banner-s.png
   caption:
-excerpt: '开箱即用、高性能、兼容流行生态、支持多语言的一站式开源微服务解决方案
+excerpt: 'Apache ServiceComb Java Chassis是一个实现Open API规范的RPC框架，提供了配置管理、服务发现、动态路由、可观察性和服务治理功能。'
 
 <div class="button-group def-inline-block">
     <a href="/references/java-chassis/zh_CN/start/first-sample.html" class="home-button btn--info">开始</a>
@@ -19,10 +19,10 @@ intro:
 <style>left_ul li{width:100%} </style>
 <ul class='left_ul'>
   <li>
-    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis 发布 3.2.2</a>
+    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis 发布 3.2.3</a>
   </li>
   <li>
-      <a href='/cn/summer2020'>Apache ServiceComb 社区 暑假coding 2020 活动</a>
+    <a href='/references/java-chassis/zh_CN/introduce3.x.x.html'>Apache ServiceComb Java-Chassis 发布 3.2.2</a>
   </li>
   <li>
     <a href='/cn/release/service-center-downloads/'>Apache ServiceComb Service-Center 发布 2.2.0</a>
