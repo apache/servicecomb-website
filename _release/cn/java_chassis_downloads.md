@@ -19,10 +19,10 @@ last_modified_at: 2019-04-12T00:50:43-55:00
 |Apache ServiceComb Java-Chassis 2.3.0|[[src]][src_2_3_0] [[asc]][src_asc_2_3_0] [[sha512]][src_sha512_2_3_0]|[[Binary]][bin_2_3_0] [[asc]][bin_asc_2_3_0] [[sha512]][bin_sha512_2_3_0]|
 |Apache ServiceComb Java-Chassis 2.2.0|[[src]][src_2_2_0] [[asc]][src_asc_2_2_0] [[sha512]][src_sha512_2_2_0]|[[Binary]][bin_2_2_0] [[asc]][bin_asc_2_2_0] [[sha512]][bin_sha512_2_2_0]|
 
-[src_3_2_3]: https://dlcdn.apache.org/servicecomb/servicecomb-java-chassis/3.2.3/apache-servicecomb-java-chassis-distribution-3.2.3-src.zip
+[src_3_2_3]: https://archive.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.3/apache-servicecomb-java-chassis-distribution-3.2.3-src.zip
 [src_asc_3_2_3]: https://www.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.3/apache-servicecomb-java-chassis-distribution-3.2.3-src.zip.asc
 [src_sha512_3_2_3]: https://www.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.3/apache-servicecomb-java-chassis-distribution-3.2.3-src.zip.sha512
-[bin_3_2_3]: https://dlcdn.apache.org/servicecomb/servicecomb-java-chassis/3.2.3/apache-servicecomb-java-chassis-distribution-3.2.3-bin.zip
+[bin_3_2_3]: https://archive.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.3/apache-servicecomb-java-chassis-distribution-3.2.3-bin.zip
 [bin_asc_3_2_3]: https://www.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.3/apache-servicecomb-java-chassis-distribution-3.2.3-bin.zip.asc
 [bin_sha512_3_2_3]: https://www.apache.org/dist/servicecomb/servicecomb-java-chassis/3.2.3/apache-servicecomb-java-chassis-distribution-3.2.3-bin.zip.sha512
 
