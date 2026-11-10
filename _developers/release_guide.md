@@ -4,7 +4,7 @@ lang: en
 ref: release_guide
 permalink: /developers/release-guide/
 excerpt: "Release guide for doing the releases in Apache"
-last_modified_at: 2018-04-03T18:33:43+08:00
+last_modified_at: 2026-11-10T00:00:00+00:00
 author: Asif Siddiqui
 tags: [release]
 redirect_from:
@@ -21,6 +21,28 @@ To prepare or perform a released you MUST BE at least an Apache ServiceComb comm
 2. Should have the version number for the project.
 3. Should have [Sign Key](https://www.apache.org/dev/openpgp.html#generate-key) for [signing the release](https://www.apache.org/dev/release-signing), the keys should be published to public key server.
 4. Get familiar with the release settings in the parent Apache POM
+
+## Release approval and completion
+
+A Git tag, GitHub release or successful vote alone does not complete an Apache release. Follow the [ASF release policy](https://www.apache.org/legal/release-policy.html) and [download page requirements](https://infra.apache.org/release-download-pages.html).
+
+### PMC approval
+
+- Before calling the vote, verify the exact signed source package, its checksum, build and tests, and licensing (including `LICENSE`, `NOTICE`, ASF source headers and bundled third-party material). Review RAT findings; a count alone is not a licensing decision. Publish the signing public key in the project's `KEYS` file and verify the candidate with it.
+- Start a `[VOTE]` on `dev@servicecomb.apache.org` identifying the candidate URL and SVN revision, Git tag/commit, checksums, `KEYS` and any staging repository.
+- Release votes SHOULD remain open for at least 72 hours. Do not close early merely because three positive votes have arrived. A shorter vote call MUST explain the exceptional reason for expediting it, and policy deviations MUST be reported to the Board, normally in the next scheduled report.
+- Approval requires at least three binding +1 votes from PMC members and more binding positive than negative votes. Release votes cannot be vetoed; investigate negative votes and resolve policy violations before publication.
+- Post a `[RESULT]` to `dev@servicecomb.apache.org` with the actual opening and closing times, binding tally, vote thread and exact approved candidate. Do not rebuild, replace or silently change the voted packages after approval.
+
+### Publication checklist
+
+The release manager records the evidence for each item before calling the release complete:
+
+- [ ] Promote the exact approved packages, signatures (`.asc`) and checksums (`.sha512`) from the selected RC under `dist/dev/servicecomb` to the component/version directory under `dist/release/servicecomb`. Record the SVN revision and artifact hashes. If the release manager cannot write to `dist/release`, ask an authorized PMC member to publish it.
+- [ ] Wait for distribution synchronization, then download every published package, signature, checksum and the project `KEYS` from `https://downloads.apache.org/servicecomb/`. Verify signatures with the published key, verify checksums, and compare the packages with the approved RC. An SVN commit or elapsed waiting period alone is not proof of availability. Keep the existing 24-hour project waiting period before announcing; ASF guidance requires at least one hour before updating the download page or announcing.
+- [ ] Deploy the English and Chinese download pages and release notes. Follow `closer.lua` links through to the actual current-release files; link signatures, checksums and `KEYS` directly over HTTPS to `downloads.apache.org`. Check every changed link on the deployed pages, including exact filenames and version directories. Do not publish links to missing optional binaries. Before removing an old release, verify its files in `archive.apache.org/dist/servicecomb/` and update or remove affected links.
+- [ ] Only after the ASF distribution and download pages are verified, publish any GitHub release metadata with links to the official project download page. Direct end users only to ASF-distributed releases, not GitHub-generated source archives, `dist/dev` candidates or staging repositories. Keep unfinished GitHub release notes as an unpublished draft.
+- [ ] Send the announcement with the official project download-page link. Retain the vote/result links, SVN revision, verification results, deployed-page checks and announcement link in the release record. If a check fails, fix it before announcing or marking the release complete.
 
 ## Maven 2 Setup
 As ServiceComb Java Chassis and Saga are using maven for the release, you should do some maven 2 setup before releasing these two projects.
@@ -89,7 +111,7 @@ gvt restore
 
 2. Create a Tag from the master branch based on the version number which needs to be released.
 
-3. Run RAT tool to ensure no license issues are there, follow the guide over [here](https://github.com/apache/servicecomb-service-center/tree/master/docs/release)
+3. Run RAT and review its findings against the licensing checks above, including the distinction between ASF source and bundled third-party material. Follow the guide [here](https://github.com/apache/servicecomb-service-center/tree/master/docs/release).
 
 4. Run the make_release.sh to make the release for windows and linux following the guide over [here](https://github.com/apache/servicecomb-service-center/tree/master/scripts/release).
 
@@ -117,23 +139,11 @@ gvt restore
 
 ***PMC Approval***
 
-1. Send the voting mail in ***dev@servicecomb.apache.org*** for 1PMC approval.
-
-2. Wait for 72 hours or unless you get 3 +1 binding vote with no -1 vote. If you get even one -1 binding vote then fix the issue and start again from ***Step 1***.
-
-3. Publish the result of the vote in dev@servicecomb.apache.org.
+Follow [PMC approval](#pmc-approval), including candidate verification, vote duration and the result email.
 
 ***Announcements***
 
-1. Upload the releases to [Apache release repository](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-service-center/).
-
-2. Wait for 24 hours to replicate the release in all the mirrors.
-
-3. Delete old releases from [dev](https://dist.apache.org/repos/dist/dev) and [release] (https://dist.apache.org/repos/dist/release) and check for the old release in archive, update the same links in the website for old releases.
-
-4. Upload the release page of ServiceComb Website.
-
-5. Send the announcement mails to dev@servicecomb.apache.org, announce@apache.org
+Complete the [publication checklist](#publication-checklist) in order: publish the approved candidate to the [Apache release repository](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-service-center/), verify ASF downloads, deploy and check the website, then publish GitHub release metadata and send announcements to `dev@servicecomb.apache.org` and `announce@apache.org`.
 
 
 ## Major Steps for doing Java-Chassis Release
@@ -196,7 +206,7 @@ Prepare Linux environment, and make sure can upload artifacts to maven central.
    log in to  [Apache Nexus](https://repository.apache.org/). Click  `Staging Repositories`, search `servicecomb`,
    find the latest repository, click "close", and get the staging repository link like `https://repository.apache.org/content/repositories/orgapacheservicecomb-1385`
 
-8. In servicecomb-java-chassis  release page，click release， do a `pre release`
+8. Prepare the release notes as an unpublished GitHub draft. Do not publish a GitHub pre-release or direct end users to the candidate.
 
 ***Sign the distributions***
 
@@ -234,44 +244,20 @@ Prepare Linux environment, and make sure can upload artifacts to maven central.
 
 5. download the files and verify the sign.
 
-***Sending mail for permission***
+***PMC Approval***
 
-1. Send mail to `dev@servicecomb.apache.org` and waiting for voting result.
-
-2. Waiting 72 hours and if got three + 1 and no -1, the voting is successful. If there are some problems,
-    start a new round of release. (According to the problem, please notice to clean up release notes,
-    temporary svn files, and temporary stating repositories. )
-
-3. Send the voting result to `dev@servicecomb.apache.org`
-
+Follow [PMC approval](#pmc-approval), including candidate verification, vote duration and the result email.
 
 ***Update documents and announcements***
 
-1. In servicecomb-java-chassis  github release page，set `pre release` to `formal release` and write release notes.
+1. Promote only the selected approved RC's packages, signatures and checksums to the version directory in the [Apache release repository](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-java-chassis/). Do not copy all RC directories or rebuild from a Git tag.
 
-2. Move [dev](https://dist.apache.org/repos/dist/dev) to [release](https://dist.apache.org/repos/dist/release)
- 
-        ```
-        cp dev/servicecomb/servicecomb-java-chassis/2.0.0/* release/servicecomb/servicecomb-java-chassis/2.0.0/
-        cd release/servicecomb/servicecomb-java-chassis/
-        svn add 2.0.0
-        svn ci 2.0.0
-        ```
-        
-    And delete [dev](https://dist.apache.org/repos/dist/dev)
-    
-        ```
-        svn rm 1.2.0
-        svn ci .
-        ```
+2. Complete the distribution checks in the [publication checklist](#publication-checklist). Keep the staged candidate until the published files have been verified.
 
-3. Log in to [Apache Nexus](https://repository.apache.org/), find `Staging Repositories` and search 
-    `servicecomb`，find the last `closed` repository, and click `release`. If there are any temporary `Staging Repositories`,
-    `drop` them. 
+3. Log in to [Apache Nexus](https://repository.apache.org/) and release the exact closed staging repository identified in the vote. Do not select a repository merely because it is the latest one. Maven publication does not replace ASF source distribution.
 
-4. Waiting for 24 hour for all mirror in sync.
+4. Deploy and verify the English and Chinese website download pages and release notes. See [1.3.0 PR](https://github.com/apache/servicecomb-website/pull/210) or [2.0.0 PR](https://github.com/apache/servicecomb-website/pull/240) for the website structure; use verified URLs for the version being released. Verify archival and update affected links before cleaning up old releases.
 
-5. Update the servicecomb-website, see [1.3.0 RP](https://github.com/apache/servicecomb-website/pull/210)
-or [2.0.0 RP](https://github.com/apache/servicecomb-website/pull/240)
+5. After the ASF download checks and website deployment pass, publish the GitHub release notes with the official project download-page link.
 
-6. Send announcements to `dev@servicecomb.apache.org`， `announce@apache.org`。
+6. Complete the announcement and evidence items in the publication checklist, sending announcements to `dev@servicecomb.apache.org` and `announce@apache.org` only after the checks pass.

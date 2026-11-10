@@ -4,7 +4,7 @@ lang: cn
 ref: release_guide
 permalink: /cn/developers/release-guide/
 excerpt: "ServiceComb发版指南 介绍如何在Apache发版"
-last_modified_at:  2018-05-08T09:55:44+08:00
+last_modified_at: 2026-11-10T00:00:00+00:00
 author: Asif Siddiqui
 tags: [发版]
 redirect_from:
@@ -21,6 +21,28 @@ redirect_from:
 2. 确定发布版本号。
 3. 因为发版的过程中需要使用[密钥](https://www.apache.org/dev/openpgp.html#generate-key)对[发布版本进行签名](https://www.apache.org/dev/release-signing)，请确保密钥中的公钥已经[发布](https://www.apache.org/dev/openpgp.html#publish-in-web-space)到公钥服务器。
 4. 熟悉maven版本发行相关的设置。
+
+## 发布批准与完成检查
+
+仅创建 Git 标签、GitHub Release 或通过投票，并不代表 Apache 正式发布已经完成。请遵循 [ASF 发布政策](https://www.apache.org/legal/release-policy.html)和[下载页面要求](https://infra.apache.org/release-download-pages.html)。
+
+### PMC 批准要求 {#pmc-approval}
+
+- 发起投票前，检查实际待投票的签名源码包、校验和、构建与测试，以及许可证合规性（包括 `LICENSE`、`NOTICE`、ASF 源码声明和捆绑的第三方内容）。逐项审核 RAT 结果，不能仅凭数量判断合规性。将签名公钥加入项目的 `KEYS` 文件，并使用它验证候选包。
+- 向 `dev@servicecomb.apache.org` 发送 `[VOTE]`，注明候选包地址及 SVN 修订号、Git 标签和提交、校验和、`KEYS` 以及使用的临时仓库。
+- 发布投票 SHOULD 保持开放至少 72 小时，不能仅因已经收到三票赞成就提前结束。缩短投票时间时，投票邮件 MUST 说明需要加急的特殊原因；偏离政策的情况 MUST 向董事会报告，通常可在下次定期报告中说明。
+- 通过投票需要至少三票来自 PMC 成员的有效 +1，且有效赞成票多于反对票。发布投票没有否决权，但需要调查反对意见，并在发布前解决违反政策的问题。
+- 向 `dev@servicecomb.apache.org` 发送 `[RESULT]`，记录实际起止时间、有效票数、投票讨论链接和获批的具体候选包。投票通过后，不得重新构建、替换或悄悄修改已投票的制品。
+
+### 发布完成清单 {#publication-checklist}
+
+发布经理为每项保存核验依据，完成后才能将版本标记为已发布：
+
+- [ ] 将 `dist/dev/servicecomb` 中选定 RC 的获批制品、签名（`.asc`）和校验和（`.sha512`）原样移至 `dist/release/servicecomb` 下对应组件和版本的目录。记录 SVN 修订号和制品哈希。发布经理如没有 `dist/release` 写权限，应请有权限的 PMC 成员执行。
+- [ ] 等待分发同步，然后从 `https://downloads.apache.org/servicecomb/` 下载每个已发布的制品、签名、校验和及项目 `KEYS`。使用已发布的公钥验证签名，检查校验和，并与获批 RC 比较。SVN 提交成功或等待时间届满都不能代替可用性验证。通告前继续采用项目现有的 24 小时等待时间；ASF 指南要求更新下载页或发送通告前至少等待一小时。
+- [ ] 部署英文和中文下载页及发布说明。跟随 `closer.lua` 链接检查实际的当前版本文件；签名、校验和及 `KEYS` 使用指向 `downloads.apache.org` 的 HTTPS 直链。检查已部署页面上每个变更链接，包括准确的文件名和版本目录。不要发布不存在的可选二进制包链接。移除旧版本前，先确认其文件已在 `archive.apache.org/dist/servicecomb/` 存档，并更新或移除受影响的链接。
+- [ ] ASF 分发与下载页面核验完成后，才发布 GitHub Release 信息，并链接到项目官方下载页。仅引导最终用户使用 ASF 分发的正式制品，不引导至 GitHub 自动生成的源码压缩包、`dist/dev` 候选包或临时仓库。未完成的 GitHub 发布说明保持为未公开草稿。
+- [ ] 发送包含项目官方下载页链接的通告。在发布记录中保留投票及结果链接、SVN 修订号、核验结果、已部署页面检查结果和通告链接。检查失败时先修复，不能发送通告或将发布标记为完成。
 
 ## 配置Maven
 ServiceComb Java-Chassis和Saga使用Maven进行版本发布，我们需要在发布前对Maven进行一些配置。
@@ -68,7 +90,7 @@ gvt restore
 
 2. 在master分支上打上准备发布版本的标签。
 
-3. 运行RAT工具，检查所有源文件头都有合法的ASF声明, 请参考[该文档](https://github.com/apache/servicecomb-service-center/tree/master/docs/release)。
+3. 运行 RAT，并根据前述许可证检查要求逐项审核结果，区分 ASF 源码和捆绑的第三方内容。请参考[该文档](https://github.com/apache/servicecomb-service-center/tree/master/docs/release)。
 
 4. 运行`make_release.sh`脚本，请参考[该文档](https://github.com/apache/servicecomb-service-center/tree/master/scripts/release)。
 
@@ -94,23 +116,11 @@ gvt restore
 
 ***PMC批准***
 
-14. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
-
-15. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题并从***第1步***重新开始。
-
-16. 将投票结果发布到dev@servicecomb.apache.org。
+遵循 [PMC 批准要求](#pmc-approval)，完成候选包核验、投票及结果邮件。
 
 ***通告***
 
-20. 上传发行包至[Apache发行仓库](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-service-center/)。
-
-21. 等待24小时，让所有镜像同步。
-
-22. 将[dev](https://dist.apache.org/repos/dist/dev)的文件移动到[release](https://dist.apache.org/repos/dist/release)目录中，同时确认已经被存档,同时更新网站上相关链接。
-
-23. 上传发行页面至ServiceComb网站。
-
-24. 发送发行通告邮件到dev@servicecomb.apache.org， announce@apache.org。
+依次完成[发布完成清单](#publication-checklist)：将获批候选包发布到 [Apache 发行仓库](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-service-center/)，核验 ASF 下载，部署并检查官网，再发布 GitHub Release 信息，向 `dev@servicecomb.apache.org` 和 `announce@apache.org` 发送通告。
 
 
 ## 发行Java-Chassis
@@ -178,7 +188,7 @@ gvt restore
     根据时间找到最近的java-chassis相关的记录，close该条记录，得到maven临时仓库的链接，例
     如：`https://repository.apache.org/content/repositories/orgapacheservicecomb-1385`。
 
-8. 在 servicecomb-java-chassis 的 github 的 release 页面，点击 release， 发布 pre release 版本， 打上 tag 。
+8. 将发布说明保存为未公开的 GitHub 草稿。不要发布 GitHub pre-release，也不要引导最终用户使用候选包。
 
 * ***给发行包签名***
 
@@ -218,39 +228,18 @@ gvt restore
 
 * ***PMC批准***
 
-1. 发送投票邮件至 ***dev@servicecomb.apache.org***， 发起PMC批准.
-
-2. 等待72小时，或者获得3票+1并且没有-1。如果有-1票，修正问题，重新开始版本发布流程（视具体的失败情况，可能
-    需要重新生成 release notes，删除svn临时文件，删除临时`Staging repositories`等）。
-
-3. 将投票结果发布到dev@servicecomb.apache.org。
+遵循 [PMC 批准要求](#pmc-approval)，完成候选包核验、投票及结果邮件。
 
 * ***更新文档和通告***
 
-1. 在 servicecomb-java-chassis 的 github 的 release 页面，将 pre release 修改为正式 release。完成 release notes书写。
+1. 仅将选定且获批 RC 的制品、签名和校验和原样移至 [Apache 发行仓库](https://dist.apache.org/repos/dist/release/servicecomb/servicecomb-java-chassis/)对应版本目录。不要复制所有 RC 目录，也不要从 Git 标签重新构建。
 
-2. 将 [dev](https://dist.apache.org/repos/dist/dev) 的文件移动到 [release](https://dist.apache.org/repos/dist/release) 目录中。
+2. 完成[发布完成清单](#publication-checklist)中的分发核验。在已发布文件验证成功前，保留临时候选包。
 
-        ```
-        cp dev/servicecomb/servicecomb-java-chassis/2.0.0/* release/servicecomb/servicecomb-java-chassis/2.0.0/
-        cd release/servicecomb/servicecomb-java-chassis/
-        svn add 2.0.0
-        svn ci 2.0.0
-        ```
+3. 使用 Apache 帐号登录 [Apache Nexus](https://repository.apache.org/)，发布投票邮件中明确指定的、已关闭的临时仓库，不能仅按时间选择最新仓库。Maven 发布不能代替 ASF 源码分发。
 
-    同时删除 [dev](https://dist.apache.org/repos/dist/dev) 的临时内容。
+4. 部署并核验中英文官网的下载页和发布说明。页面结构可参考 [1.3.0 PR](https://github.com/apache/servicecomb-website/pull/210) 或 [2.0.0 PR](https://github.com/apache/servicecomb-website/pull/240)，但应使用当前待发布版本已验证的链接。清理旧版本前，确认存档并更新受影响的链接。
 
-        ```
-        svn rm 1.2.0
-        svn ci .
-        ```
+5. ASF 下载核验和网站部署完成后，再发布 GitHub Release 信息，并链接到项目官方下载页。
 
-3. 使用apache帐号登录到 [Apache Nexus](https://repository.apache.org/)，点击 “Staging Repositories” ，搜索 “servicecomb” ，
-    找到需要发布的 java-chassis 记录，点击 “Release” 。 如果由其他临时 “Staging Repositories” ，可以点击 “Drop” 一并删除。
-
-4. 等待24小时，让所有镜像同步。
-
-5. 更新官网发布信息。 修改内容可以参考 [1.3.0 RP](https://github.com/apache/servicecomb-website/pull/210)
-    或者 [2.0.0 RP](https://github.com/apache/servicecomb-website/pull/240)
-
-6. 发送发行通告邮件到 `dev@servicecomb.apache.org`， `announce@apache.org`。
+6. 完成清单中的通告和记录事项，所有检查通过后才向 `dev@servicecomb.apache.org` 和 `announce@apache.org` 发送通告。
